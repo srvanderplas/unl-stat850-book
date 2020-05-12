@@ -1,0 +1,29 @@
+# SAS {#sas}
+
+```{r load-libraries, echo = F, message = F, warning = F}
+
+saspath <- "/usr/local/SASHome/SASFoundation/9.4/bin/sas_en"
+sasopts <- "-ls 75"
+knitr::opts_chunk$set(engine.path=list(sas=saspath, saslog=saspath, sashtml=saspath),
+                      engine.opts=list(sas=sasopts, saslog=sasopts, sashtml=sasopts), 
+                      comment=NA)
+library(SASmarkdown)
+
+```
+
+```{sashtml sas-ex}
+proc printto log="saslog.log" new;
+proc means data=sashelp.class;
+run;
+
+```
+
+```{r readlog}
+cat(readLines("saslog.log"), sep="\n")
+```
+
+
+```{r cleanuplog}
+# Do not forget to remove the log file when you are done!
+unlink("saslog.log")
+```

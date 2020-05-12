@@ -1,0 +1,11 @@
+--- 
+title: "Stat 850: Computing Tools for Statisticians"
+author: "Susan Vanderplas"
+date: "`r Sys.Date()`"
+site: bookdown::bookdown_site
+documentclass: book
+bibliography: [book.bib, packages.bib]
+biblio-style: apalike
+link-citations: yes
+description: "Introductions to statistical computing packages and document preparation software. Topics include: graphical techniques, data management, Monte Carlo simulation, dynamic document preparation, presentation software."
+---

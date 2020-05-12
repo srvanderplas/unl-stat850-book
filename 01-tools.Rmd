@@ -1,0 +1,58 @@
+# Tools for Statistical Computing {#tools}
+
+This course requires that you have the following software installed on your machine:
+
+- [git](https://help.github.com/en/github/getting-started-with-github/set-up-git)
+- [SAS 9.4](https://statistics.unl.edu/how-obtain-sas-or-jmp-license) (or later)
+- [R](https://www.r-project.org/) (3.5 or higher)
+- [RStudio](https://rstudio.com/products/rstudio/download/#download)
+- [LaTeX](https://www.latex-project.org/get/)
+
+You will also need to sign up for a [GitHub account](https://help.github.com/en/github/getting-started-with-github/signing-up-for-a-new-github-account)
+
+This chapter will provide instructions for how to install and configure these programs (or how to obtain them), but first, it may be useful to get a "big picture" overview of how the course is structured
+
+## Course Outline
+
+The goal of this class is to expose you to basic computing skills in R and SAS, which are two of the more common languages for statistical computing (python is the 3rd most common, and is particularly popular in data science and machine learning, but will not be explicitly taught in this class.)
+
+
+SAS is another extensively used statistical programming language. ... 
+
+
+## R and RStudio
+
+<!-- Differences between R and RStudio -->
+
+R is a statistical computing language which originated as an open-source clone of Bell labs S computing language. S was inspired by Scheme, but also has features which are similar to Lisp. It is a scripting language (you don't have to compile the code before it runs) and is natively accessed using a command-line prompt. One feature of R that is relatively unique is that it uses vector-based math, which means that mathematical operations on vectors occur for the entire vector without having to use loops to iterate through the vector line-by-line. R is optimized for working on data: unlike more general-purpose programming languages such as Python, R was built with the idea of facilitating data analysis. As a result, data structures in R tend to be more natural for statistical work. From a computer science perspective, though, R seems like an extremely odd language because the design choices that make data analysis easier are unconventional for more general-purpose languages.
+
+RStudio is an integrated development environment for R. Basically, it adds a pretty graphical layer on top of R, providing an easy way to develop R code, evaluate that code, and keep track of all of the variables which are available in the computing environment. RStudio contains integrations which provide syntax highlighting, code folding, basic checks (missing parentheses, etc.), and many other features. RStudio was designed around the idea of making R easier to use and making it easy to develop statistical software reproducibly. RStudio (the company) is responsible for adding many features to the R ecosystem which facilitate running statistical analyses and presenting the results in user-friendly ways.
+
+### Getting Set up: R
+
+### Getting Set up: RStudio
+
+### Exploring RStudio
+
+## SAS
+
+## LaTeX
+
+LaTeX purpose
+
+Overleaf vs. TexMaker and other GUIs
+
+For now, LaTeX is going to sit there under the hood and be used by other programs
+
+
+## Version Control with Git
+
+Explanation of why version control matters (phD comic)
+
+### Getting set up: git
+
+### Getting set up: github
+
+### Git and Github
+
+Explain the difference between the two
