@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Module 12 Dynamic Presentations | Stat 850: Computing Tools for Statisticians</title>
+  <meta name="description" content="Introductions to statistical computing packages and document preparation software. Topics include: graphical techniques, data management, Monte Carlo simulation, dynamic document preparation, presentation software." />
+  <meta name="generator" content="bookdown 0.17 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Module 12 Dynamic Presentations | Stat 850: Computing Tools for Statisticians" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="Introductions to statistical computing packages and document preparation software. Topics include: graphical techniques, data management, Monte Carlo simulation, dynamic document preparation, presentation software." />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Module 12 Dynamic Presentations | Stat 850: Computing Tools for Statisticians" />
+  
+  <meta name="twitter:description" content="Introductions to statistical computing packages and document preparation software. Topics include: graphical techniques, data management, Monte Carlo simulation, dynamic document preparation, presentation software." />
+  
+
+<meta name="author" content="Susan Vanderplas" />
+
+
+<meta name="date" content="2020-05-12" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="debugging.html"/>
+<link rel="next" href="references.html"/>
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+
+
+<style type="text/css">
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+  { content: attr(data-line-number);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Introduction to Statistical Computing</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Introduction</a></li>
+<li class="chapter" data-level="1" data-path="tools.html"><a href="tools.html"><i class="fa fa-check"></i><b>1</b> Tools for Statistical Computing</a><ul>
+<li class="chapter" data-level="1.1" data-path="tools.html"><a href="tools.html#course-outline"><i class="fa fa-check"></i><b>1.1</b> Course Outline</a></li>
+<li class="chapter" data-level="1.2" data-path="tools.html"><a href="tools.html#r-and-rstudio"><i class="fa fa-check"></i><b>1.2</b> R and RStudio</a><ul>
+<li class="chapter" data-level="1.2.1" data-path="tools.html"><a href="tools.html#getting-set-up-r"><i class="fa fa-check"></i><b>1.2.1</b> Getting Set up: R</a></li>
+<li class="chapter" data-level="1.2.2" data-path="tools.html"><a href="tools.html#getting-set-up-rstudio"><i class="fa fa-check"></i><b>1.2.2</b> Getting Set up: RStudio</a></li>
+<li class="chapter" data-level="1.2.3" data-path="tools.html"><a href="tools.html#exploring-rstudio"><i class="fa fa-check"></i><b>1.2.3</b> Exploring RStudio</a></li>
+</ul></li>
+<li class="chapter" data-level="1.3" data-path="tools.html"><a href="tools.html#sas"><i class="fa fa-check"></i><b>1.3</b> SAS</a></li>
+<li class="chapter" data-level="1.4" data-path="tools.html"><a href="tools.html#latex"><i class="fa fa-check"></i><b>1.4</b> LaTeX</a></li>
+<li class="chapter" data-level="1.5" data-path="tools.html"><a href="tools.html#version-control-with-git"><i class="fa fa-check"></i><b>1.5</b> Version Control with Git</a><ul>
+<li class="chapter" data-level="1.5.1" data-path="tools.html"><a href="tools.html#getting-set-up-git"><i class="fa fa-check"></i><b>1.5.1</b> Getting set up: git</a></li>
+<li class="chapter" data-level="1.5.2" data-path="tools.html"><a href="tools.html#getting-set-up-github"><i class="fa fa-check"></i><b>1.5.2</b> Getting set up: github</a></li>
+<li class="chapter" data-level="1.5.3" data-path="tools.html"><a href="tools.html#git-and-github"><i class="fa fa-check"></i><b>1.5.3</b> Git and Github</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="intro-prog.html"><a href="intro-prog.html"><i class="fa fa-check"></i><b>2</b> Introduction to Statistical Programming</a><ul>
+<li class="chapter" data-level="2.1" data-path="intro-prog.html"><a href="intro-prog.html#programming-concepts-variables-structures-and-more"><i class="fa fa-check"></i><b>2.1</b> Programming Concepts: Variables, Structures, and more</a><ul>
+<li class="chapter" data-level="2.1.1" data-path="intro-prog.html"><a href="intro-prog.html#variable-types"><i class="fa fa-check"></i><b>2.1.1</b> Variable types</a></li>
+<li class="chapter" data-level="2.1.2" data-path="intro-prog.html"><a href="intro-prog.html#data-structures"><i class="fa fa-check"></i><b>2.1.2</b> Data structures</a></li>
+<li class="chapter" data-level="2.1.3" data-path="intro-prog.html"><a href="intro-prog.html#control-structures"><i class="fa fa-check"></i><b>2.1.3</b> Control structures</a></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="intro-prog.html"><a href="intro-prog.html#overgrown-calculators"><i class="fa fa-check"></i><b>2.2</b> Overgrown Calculators</a></li>
+<li class="chapter" data-level="2.3" data-path="intro-prog.html"><a href="intro-prog.html#basic-programming-in-r"><i class="fa fa-check"></i><b>2.3</b> Basic Programming in R</a></li>
+<li class="chapter" data-level="2.4" data-path="intro-prog.html"><a href="intro-prog.html#basic-programming-in-sas"><i class="fa fa-check"></i><b>2.4</b> Basic Programming in SAS</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="organization.html"><a href="organization.html"><i class="fa fa-check"></i><b>3</b> Organization: Packages, Functions, Scripts, and Documents</a><ul>
+<li class="chapter" data-level="3.1" data-path="organization.html"><a href="organization.html#reproducibility"><i class="fa fa-check"></i><b>3.1</b> Reproducibility</a></li>
+<li class="chapter" data-level="3.2" data-path="organization.html"><a href="organization.html#markdown"><i class="fa fa-check"></i><b>3.2</b> Markdown</a></li>
+<li class="chapter" data-level="3.3" data-path="organization.html"><a href="organization.html#functions-and-procs"><i class="fa fa-check"></i><b>3.3</b> Functions and Procs</a></li>
+<li class="chapter" data-level="3.4" data-path="organization.html"><a href="organization.html#scripts"><i class="fa fa-check"></i><b>3.4</b> Scripts</a></li>
+<li class="chapter" data-level="3.5" data-path="organization.html"><a href="organization.html#packages"><i class="fa fa-check"></i><b>3.5</b> Packages</a></li>
+<li class="chapter" data-level="3.6" data-path="organization.html"><a href="organization.html#comparisons---sas-and-r"><i class="fa fa-check"></i><b>3.6</b> Comparisons - SAS and R</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="reading-data.html"><a href="reading-data.html"><i class="fa fa-check"></i><b>4</b> External Data</a><ul>
+<li class="chapter" data-level="4.1" data-path="reading-data.html"><a href="reading-data.html#external-data-formats"><i class="fa fa-check"></i><b>4.1</b> External Data Formats</a></li>
+<li class="chapter" data-level="4.2" data-path="reading-data.html"><a href="reading-data.html#importing-tabular-data-into-r"><i class="fa fa-check"></i><b>4.2</b> Importing Tabular Data into R</a></li>
+<li class="chapter" data-level="4.3" data-path="reading-data.html"><a href="reading-data.html#importing-tabular-data-into-sas"><i class="fa fa-check"></i><b>4.3</b> Importing Tabular Data into SAS</a></li>
+<li class="chapter" data-level="4.4" data-path="reading-data.html"><a href="reading-data.html#exploratory-data-analysis"><i class="fa fa-check"></i><b>4.4</b> Exploratory Data Analysis</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="manipulating-data.html"><a href="manipulating-data.html"><i class="fa fa-check"></i><b>5</b> Manipulating Data</a><ul>
+<li class="chapter" data-level="5.1" data-path="manipulating-data.html"><a href="manipulating-data.html#filter"><i class="fa fa-check"></i><b>5.1</b> Filter</a></li>
+<li class="chapter" data-level="5.2" data-path="manipulating-data.html"><a href="manipulating-data.html#select"><i class="fa fa-check"></i><b>5.2</b> Select</a></li>
+<li class="chapter" data-level="5.3" data-path="manipulating-data.html"><a href="manipulating-data.html#group-by"><i class="fa fa-check"></i><b>5.3</b> Group By</a></li>
+<li class="chapter" data-level="5.4" data-path="manipulating-data.html"><a href="manipulating-data.html#summarize"><i class="fa fa-check"></i><b>5.4</b> Summarize</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="transforming-data.html"><a href="transforming-data.html"><i class="fa fa-check"></i><b>6</b> Transforming Data</a><ul>
+<li class="chapter" data-level="6.1" data-path="transforming-data.html"><a href="transforming-data.html#pivot-operations"><i class="fa fa-check"></i><b>6.1</b> Pivot operations</a><ul>
+<li class="chapter" data-level="6.1.1" data-path="transforming-data.html"><a href="transforming-data.html#wider"><i class="fa fa-check"></i><b>6.1.1</b> Wider</a></li>
+<li class="chapter" data-level="6.1.2" data-path="transforming-data.html"><a href="transforming-data.html#longer"><i class="fa fa-check"></i><b>6.1.2</b> Longer</a></li>
+</ul></li>
+<li class="chapter" data-level="6.2" data-path="transforming-data.html"><a href="transforming-data.html#separating-one-variable-into-many"><i class="fa fa-check"></i><b>6.2</b> Separating one variable into many</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="data-analysis.html"><a href="data-analysis.html"><i class="fa fa-check"></i><b>7</b> Introduction to Data Analysis</a><ul>
+<li class="chapter" data-level="7.1" data-path="data-analysis.html"><a href="data-analysis.html#models-in-sas"><i class="fa fa-check"></i><b>7.1</b> Models in SAS</a></li>
+<li class="chapter" data-level="7.2" data-path="data-analysis.html"><a href="data-analysis.html#models-in-r"><i class="fa fa-check"></i><b>7.2</b> Models in R</a><ul>
+<li class="chapter" data-level="7.2.1" data-path="data-analysis.html"><a href="data-analysis.html#standard-models"><i class="fa fa-check"></i><b>7.2.1</b> Standard Models</a></li>
+<li class="chapter" data-level="7.2.2" data-path="data-analysis.html"><a href="data-analysis.html#tidymodels"><i class="fa fa-check"></i><b>7.2.2</b> Tidymodels</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="data-vis-intro.html"><a href="data-vis-intro.html"><i class="fa fa-check"></i><b>8</b> Introduction to Data Visualization</a><ul>
+<li class="chapter" data-level="8.1" data-path="data-vis-intro.html"><a href="data-vis-intro.html#creating-charts-in-sas"><i class="fa fa-check"></i><b>8.1</b> Creating Charts in SAS</a></li>
+<li class="chapter" data-level="8.2" data-path="data-vis-intro.html"><a href="data-vis-intro.html#creating-charts-in-r-base"><i class="fa fa-check"></i><b>8.2</b> Creating Charts in R (base)</a></li>
+<li class="chapter" data-level="8.3" data-path="data-vis-intro.html"><a href="data-vis-intro.html#the-grammar-of-graphics"><i class="fa fa-check"></i><b>8.3</b> The Grammar of Graphics</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="graphical-communication.html"><a href="graphical-communication.html"><i class="fa fa-check"></i><b>9</b> Graphical Communication</a><ul>
+<li class="chapter" data-level="9.1" data-path="graphical-communication.html"><a href="graphical-communication.html#something"><i class="fa fa-check"></i><b>9.1</b> something</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="simulation.html"><a href="simulation.html"><i class="fa fa-check"></i><b>10</b> Simulation and Reproducibility</a><ul>
+<li class="chapter" data-level="10.1" data-path="simulation.html"><a href="simulation.html#pseudorandom-number-generation"><i class="fa fa-check"></i><b>10.1</b> Pseudorandom Number Generation</a></li>
+<li class="chapter" data-level="10.2" data-path="simulation.html"><a href="simulation.html#random-number-generation-and-reproducibility"><i class="fa fa-check"></i><b>10.2</b> Random Number Generation and Reproducibility</a><ul>
+<li class="chapter" data-level="10.2.1" data-path="simulation.html"><a href="simulation.html#seeds"><i class="fa fa-check"></i><b>10.2.1</b> Seeds</a></li>
+<li class="chapter" data-level="10.2.2" data-path="simulation.html"><a href="simulation.html#rmarkdown-reproducibility"><i class="fa fa-check"></i><b>10.2.2</b> Rmarkdown Reproducibility</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="debugging.html"><a href="debugging.html"><i class="fa fa-check"></i><b>11</b> Principles of Debugging</a><ul>
+<li class="chapter" data-level="11.1" data-path="debugging.html"><a href="debugging.html#ideal-function-design"><i class="fa fa-check"></i><b>11.1</b> Ideal Function Design</a></li>
+<li class="chapter" data-level="11.2" data-path="debugging.html"><a href="debugging.html#debugging-tools-in-r"><i class="fa fa-check"></i><b>11.2</b> Debugging Tools in R</a></li>
+<li class="chapter" data-level="11.3" data-path="debugging.html"><a href="debugging.html#debugging-tools-in-sas"><i class="fa fa-check"></i><b>11.3</b> Debugging Tools in SAS</a></li>
+<li class="chapter" data-level="11.4" data-path="debugging.html"><a href="debugging.html#minimal-working-examples"><i class="fa fa-check"></i><b>11.4</b> Minimal Working Examples</a></li>
+<li class="chapter" data-level="11.5" data-path="debugging.html"><a href="debugging.html#researching-error-messages"><i class="fa fa-check"></i><b>11.5</b> Researching Error Messages</a></li>
+</ul></li>
+<li class="chapter" data-level="12" data-path="presentations.html"><a href="presentations.html"><i class="fa fa-check"></i><b>12</b> Dynamic Presentations</a><ul>
+<li class="chapter" data-level="12.1" data-path="presentations.html"><a href="presentations.html#slides"><i class="fa fa-check"></i><b>12.1</b> Slides</a><ul>
+<li class="chapter" data-level="12.1.1" data-path="presentations.html"><a href="presentations.html#beamer-latex-and-knitr"><i class="fa fa-check"></i><b>12.1.1</b> Beamer (LaTeX) and knitr</a></li>
+<li class="chapter" data-level="12.1.2" data-path="presentations.html"><a href="presentations.html#xaringan"><i class="fa fa-check"></i><b>12.1.2</b> xaringan</a></li>
+</ul></li>
+<li class="chapter" data-level="12.2" data-path="presentations.html"><a href="presentations.html#posters"><i class="fa fa-check"></i><b>12.2</b> Posters</a><ul>
+<li class="chapter" data-level="12.2.1" data-path="presentations.html"><a href="presentations.html#beamer-latex-and-knitr-1"><i class="fa fa-check"></i><b>12.2.1</b> Beamer (LaTeX) and knitr</a></li>
+<li class="chapter" data-level="12.2.2" data-path="presentations.html"><a href="presentations.html#pagedown"><i class="fa fa-check"></i><b>12.2.2</b> Pagedown</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+<li class="chapter" data-level="13" data-path="sas-in-bookdown.html"><a href="sas-in-bookdown.html"><i class="fa fa-check"></i><b>13</b> SAS in bookdown</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Stat 850: Computing Tools for Statisticians</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="presentations" class="section level1">
+<h1><span class="header-section-number">Module 12</span> Dynamic Presentations</h1>
+<div id="slides" class="section level2">
+<h2><span class="header-section-number">12.1</span> Slides</h2>
+<div id="beamer-latex-and-knitr" class="section level3">
+<h3><span class="header-section-number">12.1.1</span> Beamer (LaTeX) and knitr</h3>
+</div>
+<div id="xaringan" class="section level3">
+<h3><span class="header-section-number">12.1.2</span> xaringan</h3>
+</div>
+</div>
+<div id="posters" class="section level2">
+<h2><span class="header-section-number">12.2</span> Posters</h2>
+<div id="beamer-latex-and-knitr-1" class="section level3">
+<h3><span class="header-section-number">12.2.1</span> Beamer (LaTeX) and knitr</h3>
+</div>
+<div id="pagedown" class="section level3">
+<h3><span class="header-section-number">12.2.2</span> Pagedown</h3>
+
+</div>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="debugging.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="references.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["unl-stat850.pdf", "unl-stat850.epub"],
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+</body>
+
+</html>

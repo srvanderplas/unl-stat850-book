@@ -1,0 +1,563 @@
+\PassOptionsToPackage{unicode=true}{hyperref} % options for packages loaded elsewhere
+\PassOptionsToPackage{hyphens}{url}
+%
+\documentclass[]{book}
+\usepackage{lmodern}
+\usepackage{amssymb,amsmath}
+\usepackage{ifxetex,ifluatex}
+\usepackage{fixltx2e} % provides \textsubscript
+\ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provides euro and other symbols
+\else % if luatex or xelatex
+  \usepackage{unicode-math}
+  \defaultfontfeatures{Ligatures=TeX,Scale=MatchLowercase}
+\fi
+% use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+% use microtype if available
+\IfFileExists{microtype.sty}{%
+\usepackage[]{microtype}
+\UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\IfFileExists{parskip.sty}{%
+\usepackage{parskip}
+}{% else
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{6pt plus 2pt minus 1pt}
+}
+\usepackage{hyperref}
+\hypersetup{
+            pdftitle={Stat 850: Computing Tools for Statisticians},
+            pdfauthor={Susan Vanderplas},
+            pdfborder={0 0 0},
+            breaklinks=true}
+\urlstyle{same}  % don't use monospace font for urls
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{248,248,248}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.94,0.16,0.16}{#1}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.77,0.63,0.00}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\BuiltInTok}[1]{#1}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.64,0.00,0.00}{\textbf{#1}}}
+\newcommand{\ExtensionTok}[1]{#1}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ImportTok}[1]{#1}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\NormalTok}[1]{#1}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\RegionMarkerTok}[1]{#1}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\usepackage{longtable,booktabs}
+% Fix footnotes in tables (requires footnote package)
+\IfFileExists{footnote.sty}{\usepackage{footnote}\makesavenoteenv{longtable}}{}
+\usepackage{graphicx,grffile}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+\setlength{\emergencystretch}{3em}  % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{5}
+% Redefines (sub)paragraphs to behave more like sections
+\ifx\paragraph\undefined\else
+\let\oldparagraph\paragraph
+\renewcommand{\paragraph}[1]{\oldparagraph{#1}\mbox{}}
+\fi
+\ifx\subparagraph\undefined\else
+\let\oldsubparagraph\subparagraph
+\renewcommand{\subparagraph}[1]{\oldsubparagraph{#1}\mbox{}}
+\fi
+
+% set default figure placement to htbp
+\makeatletter
+\def\fps@figure{htbp}
+\makeatother
+
+\usepackage{booktabs}
+\usepackage[]{natbib}
+\bibliographystyle{apalike}
+
+\title{Stat 850: Computing Tools for Statisticians}
+\author{Susan Vanderplas}
+\date{2020-05-12}
+
+\begin{document}
+\maketitle
+
+{
+\setcounter{tocdepth}{1}
+\tableofcontents
+}
+\hypertarget{introduction}{%
+\chapter*{Introduction}\label{introduction}}
+\addcontentsline{toc}{chapter}{Introduction}
+
+\hypertarget{tools}{%
+\chapter{Tools for Statistical Computing}\label{tools}}
+
+This course requires that you have the following software installed on your machine:
+
+\begin{itemize}
+\tightlist
+\item
+  \href{https://help.github.com/en/github/getting-started-with-github/set-up-git}{git}
+\item
+  \href{https://statistics.unl.edu/how-obtain-sas-or-jmp-license}{SAS 9.4} (or later)
+\item
+  \href{https://www.r-project.org/}{R} (3.5 or higher)
+\item
+  \href{https://rstudio.com/products/rstudio/download/\#download}{RStudio}
+\item
+  \href{https://www.latex-project.org/get/}{LaTeX}
+\end{itemize}
+
+You will also need to sign up for a \href{https://help.github.com/en/github/getting-started-with-github/signing-up-for-a-new-github-account}{GitHub account}
+
+This chapter will provide instructions for how to install and configure these programs (or how to obtain them), but first, it may be useful to get a ``big picture'' overview of how the course is structured
+
+\hypertarget{course-outline}{%
+\section{Course Outline}\label{course-outline}}
+
+The goal of this class is to expose you to basic computing skills in R and SAS, which are two of the more common languages for statistical computing (python is the 3rd most common, and is particularly popular in data science and machine learning, but will not be explicitly taught in this class.)
+
+SAS is another extensively used statistical programming language. \ldots{}
+
+\hypertarget{r-and-rstudio}{%
+\section{R and RStudio}\label{r-and-rstudio}}
+
+R is a statistical computing language which originated as an open-source clone of Bell labs S computing language. S was inspired by Scheme, but also has features which are similar to Lisp. It is a scripting language (you don't have to compile the code before it runs) and is natively accessed using a command-line prompt. One feature of R that is relatively unique is that it uses vector-based math, which means that mathematical operations on vectors occur for the entire vector without having to use loops to iterate through the vector line-by-line. R is optimized for working on data: unlike more general-purpose programming languages such as Python, R was built with the idea of facilitating data analysis. As a result, data structures in R tend to be more natural for statistical work. From a computer science perspective, though, R seems like an extremely odd language because the design choices that make data analysis easier are unconventional for more general-purpose languages.
+
+RStudio is an integrated development environment for R. Basically, it adds a pretty graphical layer on top of R, providing an easy way to develop R code, evaluate that code, and keep track of all of the variables which are available in the computing environment. RStudio contains integrations which provide syntax highlighting, code folding, basic checks (missing parentheses, etc.), and many other features. RStudio was designed around the idea of making R easier to use and making it easy to develop statistical software reproducibly. RStudio (the company) is responsible for adding many features to the R ecosystem which facilitate running statistical analyses and presenting the results in user-friendly ways.
+
+\hypertarget{getting-set-up-r}{%
+\subsection{Getting Set up: R}\label{getting-set-up-r}}
+
+\hypertarget{getting-set-up-rstudio}{%
+\subsection{Getting Set up: RStudio}\label{getting-set-up-rstudio}}
+
+\hypertarget{exploring-rstudio}{%
+\subsection{Exploring RStudio}\label{exploring-rstudio}}
+
+\hypertarget{sas}{%
+\section{SAS}\label{sas}}
+
+\hypertarget{latex}{%
+\section{LaTeX}\label{latex}}
+
+LaTeX purpose
+
+Overleaf vs.~TexMaker and other GUIs
+
+For now, LaTeX is going to sit there under the hood and be used by other programs
+
+\hypertarget{version-control-with-git}{%
+\section{Version Control with Git}\label{version-control-with-git}}
+
+Explanation of why version control matters (phD comic)
+
+\hypertarget{getting-set-up-git}{%
+\subsection{Getting set up: git}\label{getting-set-up-git}}
+
+\hypertarget{getting-set-up-github}{%
+\subsection{Getting set up: github}\label{getting-set-up-github}}
+
+\hypertarget{git-and-github}{%
+\subsection{Git and Github}\label{git-and-github}}
+
+Explain the difference between the two
+
+\hypertarget{intro-prog}{%
+\chapter{Introduction to Statistical Programming}\label{intro-prog}}
+
+\hypertarget{programming-concepts-variables-structures-and-more}{%
+\section{Programming Concepts: Variables, Structures, and more}\label{programming-concepts-variables-structures-and-more}}
+
+\hypertarget{variable-types}{%
+\subsection{Variable types}\label{variable-types}}
+
+\hypertarget{data-structures}{%
+\subsection{Data structures}\label{data-structures}}
+
+\hypertarget{control-structures}{%
+\subsection{Control structures}\label{control-structures}}
+
+\hypertarget{overgrown-calculators}{%
+\section{Overgrown Calculators}\label{overgrown-calculators}}
+
+R and SAS for basic numerical operations
+
+Matrix algebra
+
+\hypertarget{basic-programming-in-r}{%
+\section{Basic Programming in R}\label{basic-programming-in-r}}
+
+\hypertarget{basic-programming-in-sas}{%
+\section{Basic Programming in SAS}\label{basic-programming-in-sas}}
+
+\hypertarget{organization}{%
+\chapter{Organization: Packages, Functions, Scripts, and Documents}\label{organization}}
+
+\hypertarget{reproducibility}{%
+\section{Reproducibility}\label{reproducibility}}
+
+Why reproducibility is important in science and statistics
+
+Why reproducibility is convenient
+
+\hypertarget{markdown}{%
+\section{Markdown}\label{markdown}}
+
+\hypertarget{functions-and-procs}{%
+\section{Functions and Procs}\label{functions-and-procs}}
+
+\hypertarget{scripts}{%
+\section{Scripts}\label{scripts}}
+
+\hypertarget{packages}{%
+\section{Packages}\label{packages}}
+
+\hypertarget{comparisons---sas-and-r}{%
+\section{Comparisons - SAS and R}\label{comparisons---sas-and-r}}
+
+\hypertarget{reading-data}{%
+\chapter{External Data}\label{reading-data}}
+
+\hypertarget{external-data-formats}{%
+\section{External Data Formats}\label{external-data-formats}}
+
+\begin{itemize}
+\tightlist
+\item
+  txt
+\item
+  tsv
+\item
+  csv
+\item
+  fixed width
+\item
+  excel/spreadsheet
+\item
+  databases
+\item
+  structured data (xml, json)
+\end{itemize}
+
+\hypertarget{importing-tabular-data-into-r}{%
+\section{Importing Tabular Data into R}\label{importing-tabular-data-into-r}}
+
+\hypertarget{importing-tabular-data-into-sas}{%
+\section{Importing Tabular Data into SAS}\label{importing-tabular-data-into-sas}}
+
+\hypertarget{exploratory-data-analysis}{%
+\section{Exploratory Data Analysis}\label{exploratory-data-analysis}}
+
+\begin{itemize}
+\tightlist
+\item
+  tables
+\item
+  summary statistics
+\item
+  basic plots?
+\item
+  unique values
+\end{itemize}
+
+\hypertarget{manipulating-data}{%
+\chapter{Manipulating Data}\label{manipulating-data}}
+
+\hypertarget{filter}{%
+\section{Filter}\label{filter}}
+
+\hypertarget{select}{%
+\section{Select}\label{select}}
+
+\hypertarget{group-by}{%
+\section{Group By}\label{group-by}}
+
+\hypertarget{summarize}{%
+\section{Summarize}\label{summarize}}
+
+\hypertarget{transforming-data}{%
+\chapter{Transforming Data}\label{transforming-data}}
+
+\hypertarget{pivot-operations}{%
+\section{Pivot operations}\label{pivot-operations}}
+
+\hypertarget{wider}{%
+\subsection{Wider}\label{wider}}
+
+\hypertarget{longer}{%
+\subsection{Longer}\label{longer}}
+
+\hypertarget{separating-one-variable-into-many}{%
+\section{Separating one variable into many}\label{separating-one-variable-into-many}}
+
+\hypertarget{data-analysis}{%
+\chapter{Introduction to Data Analysis}\label{data-analysis}}
+
+\hypertarget{models-in-sas}{%
+\section{Models in SAS}\label{models-in-sas}}
+
+\hypertarget{models-in-r}{%
+\section{Models in R}\label{models-in-r}}
+
+\hypertarget{standard-models}{%
+\subsection{Standard Models}\label{standard-models}}
+
+\hypertarget{tidymodels}{%
+\subsection{Tidymodels}\label{tidymodels}}
+
+\hypertarget{data-vis-intro}{%
+\chapter{Introduction to Data Visualization}\label{data-vis-intro}}
+
+\hypertarget{creating-charts-in-sas}{%
+\section{Creating Charts in SAS}\label{creating-charts-in-sas}}
+
+\hypertarget{creating-charts-in-r-base}{%
+\section{Creating Charts in R (base)}\label{creating-charts-in-r-base}}
+
+\hypertarget{the-grammar-of-graphics}{%
+\section{The Grammar of Graphics}\label{the-grammar-of-graphics}}
+
+Introduce grammar of graphics as implemented in ggplot2
+
+\hypertarget{graphical-communication}{%
+\chapter{Graphical Communication}\label{graphical-communication}}
+
+\hypertarget{something}{%
+\section{something}\label{something}}
+
+\hypertarget{simulation}{%
+\chapter{Simulation and Reproducibility}\label{simulation}}
+
+\hypertarget{pseudorandom-number-generation}{%
+\section{Pseudorandom Number Generation}\label{pseudorandom-number-generation}}
+
+\hypertarget{random-number-generation-and-reproducibility}{%
+\section{Random Number Generation and Reproducibility}\label{random-number-generation-and-reproducibility}}
+
+\hypertarget{seeds}{%
+\subsection{Seeds}\label{seeds}}
+
+\hypertarget{rmarkdown-reproducibility}{%
+\subsection{Rmarkdown Reproducibility}\label{rmarkdown-reproducibility}}
+
+\hypertarget{debugging}{%
+\chapter{Principles of Debugging}\label{debugging}}
+
+\hypertarget{ideal-function-design}{%
+\section{Ideal Function Design}\label{ideal-function-design}}
+
+\hypertarget{debugging-tools-in-r}{%
+\section{Debugging Tools in R}\label{debugging-tools-in-r}}
+
+\hypertarget{debugging-tools-in-sas}{%
+\section{Debugging Tools in SAS}\label{debugging-tools-in-sas}}
+
+\hypertarget{minimal-working-examples}{%
+\section{Minimal Working Examples}\label{minimal-working-examples}}
+
+\hypertarget{researching-error-messages}{%
+\section{Researching Error Messages}\label{researching-error-messages}}
+
+\hypertarget{presentations}{%
+\chapter{Dynamic Presentations}\label{presentations}}
+
+\hypertarget{slides}{%
+\section{Slides}\label{slides}}
+
+\hypertarget{beamer-latex-and-knitr}{%
+\subsection{Beamer (LaTeX) and knitr}\label{beamer-latex-and-knitr}}
+
+\hypertarget{xaringan}{%
+\subsection{xaringan}\label{xaringan}}
+
+\hypertarget{posters}{%
+\section{Posters}\label{posters}}
+
+\hypertarget{beamer-latex-and-knitr-1}{%
+\subsection{Beamer (LaTeX) and knitr}\label{beamer-latex-and-knitr-1}}
+
+\hypertarget{pagedown}{%
+\subsection{Pagedown}\label{pagedown}}
+
+\hypertarget{sas-in-bookdown}{%
+\chapter{SAS in bookdown}\label{sas-in-bookdown}}
+
+\begin{verbatim}
+proc printto log="saslog.log" new;
+proc means data=sashelp.class;
+run;
+\end{verbatim}
+
+\begin{verbatim}
+<div class="branch">
+<a name="IDX"></a>
+<div>
+<div align="center">
+<!--BEGINTABLE--><table class="table" cellspacing="0" cellpadding="7" rules="groups" frame="hsides" summary="Procedure Means: Summary statistics">
+<colgroup>
+<col>
+</colgroup>
+<colgroup>
+<col>
+<col>
+<col>
+<col>
+<col>
+</colgroup>
+<thead>
+<tr>
+<th class="l b header" scope="col">Variable</th>
+<th class="r b header" scope="col">N</th>
+<th class="r b header" scope="col">Mean</th>
+<th class="r b header" scope="col">Std Dev</th>
+<th class="r b header" scope="col">Minimum</th>
+<th class="r b header" scope="col">Maximum</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th class="l stacked_cell data"><table width="100%" border="0" cellpadding="7" cellspacing="0">
+<tr>
+<th class="l data top_stacked_value">Age</th>
+</tr>
+<tr>
+<th class="l data middle_stacked_value">Height</th>
+</tr>
+<tr>
+<th class="l data bottom_stacked_value">Weight</th>
+</tr>
+</table></th>
+<td class="r stacked_cell data"><table width="100%" border="0" cellpadding="7" cellspacing="0">
+<tr>
+<td class="r data top_stacked_value">19</td>
+</tr>
+<tr>
+<td class="r data middle_stacked_value">19</td>
+</tr>
+<tr>
+<td class="r data bottom_stacked_value">19</td>
+</tr>
+</table></td>
+<td class="r stacked_cell data"><table width="100%" border="0" cellpadding="7" cellspacing="0">
+<tr>
+<td class="r data top_stacked_value">13.3157895</td>
+</tr>
+<tr>
+<td class="r data middle_stacked_value">62.3368421</td>
+</tr>
+<tr>
+<td class="r data bottom_stacked_value">100.0263158</td>
+</tr>
+</table></td>
+<td class="r stacked_cell data"><table width="100%" border="0" cellpadding="7" cellspacing="0">
+<tr>
+<td class="r data top_stacked_value">1.4926722</td>
+</tr>
+<tr>
+<td class="r data middle_stacked_value">5.1270752</td>
+</tr>
+<tr>
+<td class="r data bottom_stacked_value">22.7739335</td>
+</tr>
+</table></td>
+<td class="r stacked_cell data"><table width="100%" border="0" cellpadding="7" cellspacing="0">
+<tr>
+<td class="r data top_stacked_value">11.0000000</td>
+</tr>
+<tr>
+<td class="r data middle_stacked_value">51.3000000</td>
+</tr>
+<tr>
+<td class="r data bottom_stacked_value">50.5000000</td>
+</tr>
+</table></td>
+<td class="r stacked_cell data"><table width="100%" border="0" cellpadding="7" cellspacing="0">
+<tr>
+<td class="r data top_stacked_value">16.0000000</td>
+</tr>
+<tr>
+<td class="r data middle_stacked_value">72.0000000</td>
+</tr>
+<tr>
+<td class="r data bottom_stacked_value">150.0000000</td>
+</tr>
+</table></td>
+</tr>
+</tbody>
+</table>
+<!--ENDTABLE--></div>
+</div>
+<br>
+</div>
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{cat}\NormalTok{(}\KeywordTok{readLines}\NormalTok{(}\StringTok{"saslog.log"}\NormalTok{), }\DataTypeTok{sep=}\StringTok{"}\CharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+NOTE: PROCEDURE PRINTTO used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+7          proc means data=sashelp.class;
+8          run;
+
+NOTE: There were 19 observations read from the data set SASHELP.CLASS.
+NOTE: PROCEDURE MEANS used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.01 seconds
+      
+
+9          
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# Do not forget to remove the log file when you are done!}
+\KeywordTok{unlink}\NormalTok{(}\StringTok{"saslog.log"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\bibliography{book.bib,packages.bib}
+
+\end{document}
