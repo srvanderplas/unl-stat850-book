@@ -1,0 +1,135 @@
+---
+title: "Homework: Introduction to Statistical Programming"
+author: "Firstname Lastname"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+options(digits = 3)
+```
+
+```{r load-sas-libraries, echo = F, message = F, warning = F}
+
+saspath <- "/usr/local/SASHome/SASFoundation/9.4/bin/sas_en" # Your SAS path goes here
+sasopts <- "-ls 75"
+knitr::opts_chunk$set(engine.path=list(sas=saspath, saslog=saspath, sashtml=saspath),
+                      engine.opts=list(sas=sasopts, saslog=sasopts, sashtml=sasopts), 
+                      comment=NA)
+library(SASmarkdown)
+
+```
+## Instructions
+This homework has two main problems. You should edit only the code chunks (and not the structure of the rest of the document) and the author: statement at the top of the file. 
+
+When you are finished with the assignment: 
+
+1. Save the file as 02_Introduction_to_Statistical_Programming/02_Lastname_Firstname.Rmd and compile it
+2. Commit the Rmd file and corresponding html file to your homework git repo
+3. Push the commit to github
+4. Locate the Rmd file on github and click on the SHA link for the file
+5. Paste the url of the resulting page into Canvas to submit your assignment.
+
+Your assignment must compile on a different computer as long as the saspath is set correctly for that machine.
+
+## FizzBuzz
+
+The "FizzBuzz Test" is a famous programming interview question. 
+> Write a program that prints the numbers from 1 to 30. But for multiples of three print “Fizz” instead of the number and for the multiples of five print “Buzz”. For numbers which are multiples of both three and five print “FizzBuzz
+
+In the R chunk below, write code which will solve this problem. 
+
+```{r fizzbuzz-solution, echo = T}
+
+for (i in 1:30) {
+  # FizzBuzz code goes here
+  
+}
+
+
+```
+
+In the sas chunk, write similar code which will solve this problem.
+
+```{sashtml fizzbuzz-sas, error = T}
+proc printto log="saslog.log" new;
+proc iml;
+
+/* FizzBuzz code goes here */
+
+quit;
+```
+
+```{r readlog}
+cat(readLines("saslog.log"), sep="\n")
+```
+
+
+```{r cleanuplog}
+# Do not forget to remove the log file when you are done!
+unlink("saslog.log")
+```
+
+
+## Linear Regression
+
+In linear regression, we have variables $\mathbf{Y}$ and $\mathbf{X}$ and want to find $\beta$ such that $\mathbf{Y} = \mathbf{X}\beta + \epsilon$. $\hat{\mathbf{b}}$, the best estimate of $\beta$, is typically obtained using the method of least squares, that is $\hat b = (\mathbf{X}^{T}\mathbf{X})^{-1}\mathbf{X}^T\mathbf{Y}$. Using this formula, fill in the chunks below to implement least squares regression from scratch. Store your results in the variable `res`.
+
+The dataset you will use is a list of books scraped from Amazon, with the amazon price, list price, cover type (hardback or paperback) and number of pages. Your goal is to predict the amazon price based off of the list price, cover type, and number of pages.
+
+You can see more information about the data [here](https://dasl.datadescription.com/datafile/amazon-books/?_sfm_methods=Multiple+Regression&_sfm_cases=4+59943)
+
+```{r linear-reg-setup, message = F}
+# Do not edit this portion of the file
+if ("readr" %in% installed.packages()) {
+  library(readr)
+} else {
+  install.packages("readr")
+  library(readr)
+}
+
+
+url <- "https://dasl.datadescription.com/download/data/3052"
+df <- read_tsv(url)                                  # Read in the data
+df <- na.omit(df[,c(1, 3, 4, 5, 6)])                 # Remove missing observations
+df <- df[df$`List Price` < 60,]                      # Remove extreme observations
+
+X <- df[,c("List Price", "Hard/ Paper", "NumPages")] # Get variables of interest
+names(X) <- c("List", "Hardcover", "Pages")          # Rename for simplicity
+X$Hardcover <- X$Hardcover == "H"                    # Convert character variable 
+                                                     # to binary quantity 
+                                                     # (0 = paperback, 1 = hardcover)
+X1 <- as.matrix(X)       # Convert to numerical matrix (not data frame)
+
+X <- cbind(Intercept = 1, X1) # Add an extra column of 1s for the intercept
+Y <- df$`Amazon Price`
+
+# X and Y are now defined properly.
+
+# Compare your results to lm's results
+lm(Y ~ X1)$coefficients
+
+res <- rep(NA, 4)
+```
+
+```{r my-linear-regression}
+# Edit this chunk
+# ------------------------------------------------------------------------------
+# Find the estimated coefficients for each of the explanatory variables using 
+# simple matrix operations
+# Store your answer in res: 
+# res <- .....
+
+
+# ------------------------------------------------------------------------------
+# Do not edit this
+print(res) 
+```
+
+The regression equation is $\text{Amazon Price} = `r res[1]` + `r res[2]`(\text{List Price}) `r res[3]`(\text{is Hardcover})  `r res[4]`(\text{# Pages})$
+
+
+```{sas}
+
+
+```
