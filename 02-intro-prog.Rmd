@@ -1,8 +1,110 @@
 # Introduction to Statistical Programming {#intro-prog}
 
-## Programming Concepts: Variables, Structures, and more
+Many programming resources talk about 3, or 5, or 10 core concepts in any programming language. In this module, we're going to discuss the generic concepts, and then how these concepts are implemented in R and SAS.
+
+Interestingly, the "core concepts" aren't necessarily the same across lists. So, here is a consensus list of concepts which are generic across languages and usually important:
+
+1. **Variables** - a symbolic name or reference to some kind of information. In the expression `a + b > a`, both `a` and `b` are variables. Variables may have a specific type (what data can be stored in the variable), scope (where the variable can be accessed), location (in memory). [Here](https://dev.to/lucpattyn/basic-programming-concepts-for-beginners-2o73) is a nice explanation of the difference between variables in programming and variables in math.
+
+2. **Conditional statements** (if statements) - These statements allow the program to handle information adaptively - if a statement is true, one set of instructions will be used, and if the statement is false, a different set of instructions will be used.
+
+3. **Looping and iteration** - An iteration is any time a sequence of steps is executed. Most languages have several different types of loops or iteration: `for` loops, which allow for the sequence of steps to be executed a specific number of times, `while` loops, which allow for the sequence of steps to be executed while a conditional statement is true, `recursion`, where a block of code calls itself.
+
+4. **Data types and data structures** - these concepts determine what information a variable can hold. Data types are lower-level, simple objects (floating-point numbers, integers, boolean T/F, characters, strings). Data structures may include lists (sequences of many objects) and vectors (sequences of many objects of the same type), dictionaries (a list of key-value pairs), objects (data structures which may hold multiple related pieces of information). 
+
+5. **Functions**, or self-contained modules of code that accomplish a particular task. 
+
+6. **Syntax**, the set of rules that define which combinations of symbols consist of correctly structured and interpretable commands in the language.
+
+7. **Tools**, the set of external programs which may help with development and writing code. Some common tools are IDEs (Integrated Development Environments), which may correct syntax and typos, organize files for you, allow you to keep track of which variables you have defined, and assist you with code organization and navigation. Other tools include compilers (which take human-written code and translate it into efficient machine code), version control systems (which help you track changes to code over time), debuggers, and documentation generators. Not all of these tools are necessary for all languages - scripting languages such as python and R do not require compilers by default, for instance.  
+
+8. **Sequence of commands**: It's important to have the right commands in the right order. Some recipes, like bread dough, are flexible, and you can add the ingredients in almost any order, but in other recipes, the order matters as much as the correct quantity of ingredients (try putting the cheese powder in before the noodles are boiled when making macaroni and cheese. Yuck.). Programming tends to be like these less flexible recipes. 
+
+Non-Exhaustive List of Sources: 
+- https://blog.upperlinecode.com/computer-language-fundamentals-five-core-concepts-1aa43e929f40
+- https://howtoprogramwithjava.com/programming-101-the-5-basic-concepts-of-any-programming-language/
+- https://dev.to/lucpattyn/basic-programming-concepts-for-beginners-2o73
+- http://livecode.byu.edu/programmingconcepts/ControlStruct.php
+- http://holowczak.com/programming-concepts-tutorial-programmers/
+
+## Statistical Programming Concepts
+
+Having established the generic definitions of the concepts which apply to almost any programming language, we now must examine how R and SAS implement these concepts. R and SAS are both statistical programming languages - they are specifically designed to work with data, which means that they make compromises that other languages do not in order to make it easier to write code where the data (rather than the functions, classes, methods, or objects) are the primary concern.
+
+Both [R](https://bookdown.org/rdpeng/rprogdatascience/history-and-overview-of-r.html) and [SAS](https://en.wikipedia.org/wiki/SAS_(software)#History) have long histories. SAS in particular dates back to the 1960s, and has syntax which is unique compared to more modern languages such as C, python, Java, and R. R's predecessor, S, dates back to 1976 and was designed for internal use at Bell Labs. The histories of both languages are useful in understanding why they are useful for their respective tasks, but are not essential for this course (so read them at your leisure).
+
 
 ### Variable types
+
+#### R
+
+In R, there are 4 commonly-used types: 
+
+Type | Description 
+---- | -----------
+character | holds text-based information: "abcd" or "3.24a" are examples of values which would be stored as characters in R
+logical | holds binary information: 0/1, or FALSE/TRUE. Logical variables are stored as single bit information (e.g. either a 0 or 1), but display as TRUE and FALSE (which are reserved words and constants). It is possible to use the shorthand `F` and `T`, but be careful with this, because `F` and `T` are not reserved, and other information can be stored within them.
+integer | holds (as you might expect) integers. Note that integers are handled differently than doubles (floating point numbers), but in general, R will implicitly convert integers to doubles to avoid common pitfalls with integer divison (which does not allow for decimals). 
+double | holds floating point numbers. By default, most numeric variables in R are doubles.
+
+
+You can test to see whether a variable holds a value of a specific type using the `is.xxx()` functions, which are demonstrated below. Note that `<-` is used for assigningn a value to a variable. So the first line in the code below is read "x gets 'R is awesome'". 
+
+```{r is-fcns-char}
+x <- "R is awesome"
+is.character(x)
+is.logical(x)
+is.integer(x)
+is.double(x)
+```
+
+```{r is-fcns-lgl}
+x <- FALSE
+is.character(x)
+is.logical(x)
+is.integer(x)
+is.double(x)
+```
+
+```{r is-fcns-int}
+x <- 2
+is.character(x)
+is.logical(x)
+is.integer(x)
+is.double(x)
+```
+
+Wait, 2 is an integer, right? 
+
+It is, but in R, values are assumed to be doubles unless specified. So if we want R to treat 2 as an integer, we need to specify that it is an integer specifically.
+
+```{r is-fcns-int2}
+x <- 2L # The L immediately after the 2 indicates that it is an integer.
+is.character(x)
+is.logical(x)
+is.integer(x)
+is.double(x)
+is.numeric(x)
+```
+
+```{r is-fcns-dbl}
+x <- 2.45
+is.character(x)
+is.logical(x)
+is.integer(x)
+is.double(x)
+is.numeric(x)
+```
+
+A fifth common type, `numeric` is really the union of two types: integer and double. This mostly exists because when doing math, we can add an integer and a double, but adding an integer and a string is ... trickier. Testing for numeric variables guarantees that we'll be able to do math with those variables. The general case of this property of a language is called **implicit type conversion** - that is, R will implicitly (behind the scenes) convert your integer to a double and then add the other double, so that the result is unambiguously a double. 
+
+R will generally work hard to seamlessly convert variables to different types. So, for instance, 
+`TRUE + 2` = `r TRUE + 2`. 
+
+##### Try it out: Variable types
+
+
+#### SAS
 
 ### Data structures
 
