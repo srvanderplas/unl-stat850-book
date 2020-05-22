@@ -21,6 +21,7 @@ Interestingly, the "core concepts" aren't necessarily the same across lists. So,
 8. **Sequence of commands**: It's important to have the right commands in the right order. Some recipes, like bread dough, are flexible, and you can add the ingredients in almost any order, but in other recipes, the order matters as much as the correct quantity of ingredients (try putting the cheese powder in before the noodles are boiled when making macaroni and cheese. Yuck.). Programming tends to be like these less flexible recipes. 
 
 Non-Exhaustive List of Sources: 
+
 - https://blog.upperlinecode.com/computer-language-fundamentals-five-core-concepts-1aa43e929f40
 - https://howtoprogramwithjava.com/programming-101-the-5-basic-concepts-of-any-programming-language/
 - https://dev.to/lucpattyn/basic-programming-concepts-for-beginners-2o73
@@ -48,8 +49,12 @@ integer | holds (as you might expect) integers. Note that integers are handled d
 double | holds floating point numbers. By default, most numeric variables in R are doubles.
 
 
-You can test to see whether a variable holds a value of a specific type using the `is.xxx()` functions, which are demonstrated below. Note that `<-` is used for assigningn a value to a variable. So the first line in the code below is read "x gets 'R is awesome'". 
+You can test to see whether a variable holds a value of a specific type using the `is.xxx()` functions, which are demonstrated below. 
 
+##### {- .note}
+Note that `<-` is used for assigning a value to a variable. So the first line in the code below is read "x gets 'R is awesome'" or "x is assigned the value 'R is awesome'". 
+
+##### {-}
 
 ##### Character Variables {-}
 ```{r is-fcns-char}
@@ -144,33 +149,343 @@ class(z)
 
 Notice that the generic type name for double is "numeric". R's typing scheme is pretty flexible, which can sometimes lead to apparent inconsistencies. 
 
-##### Try it out: Variable types {- .tryitout}
 
-Create variables `string`, `integer`, `decimal`, and `logical`, with types that match the relevant variable names.
+#### SAS
+
+In SAS, there are two basic variable types: numeric and character variables. Thus, SAS does not differentiate between integers and floats or doubles. Functionally, though, the same basic operations can be performed in SAS. As with R, SAS does attempt to implicitly convert variable types, and will notify you that the conversion has taken place in the log file.
+
+SAS will attempt to implicitly convert variables when:
+
+- a character value is assigned to a previously defined numeric variable
+- a character value is used in arithmetic operations
+- a character value is compared to a numeric value using a comparison operator (<, >, <=, >=)
+- a character value is specified in a function that takes numeric arguments
+
+Note that implicit conversion does not occur in WHERE statements. (This will make more sense later, but is here for reference)
+
+If you want to manually convert a value, the INPUT statement can be used. Unlike in R, the INPUT statement has the ability to read numbers which are formatted differently. For instance
+
+```{sashtml sas-ex}
+proc printto log="saslog.log" new;
+data set1; /* This tells SAS we're defining some variables */
+  x = 3;
+  y = '3.1415';
+  z = x * y; 
+  /* this is arithmetic, so y will be converted */
+  x = '3.14159'; 
+  /* x previously had a number in it, */
+  /* so it will be converted to a number here */
+  zz = y<=2; 
+  /* comparison operator: y will be converted */
+  
+  put z; /* This prints the result to the log */
+  put x=;
+  put zz=;
+run;
+```
+
+Notice that in SAS, `zz`, which is the result of the logical statement `y<=2`, is a numeric variable. The value 0 signifies that the comparison was false. SAS does not have a logical data type, it uses the numeric variable with 0:=FALSE, 1:=TRUE.
+
+```{r readlog-sas-ex, echo = F}
+cat(readLines("saslog.log"), sep="\n")
+
+# Do not forget to remove the log file when you are done!
+unlink("saslog.log")
+```
+
+
+#### Try it out: Variable types {- .tryitout}
+
+##### In R {-}
+
+1. Create variables `string`, `integer`, `decimal`, and `logical`, with types that match the relevant variable names.
 
 ```{r, eval = F}
 string <- 
 integer <- 
 decimal <- 
 logical <- 
-
 ```
 
-Can you get rid of the error that occurs when this chunk is run?
+2. Can you get rid of the error that occurs when this chunk is run?
 ```{r try-it-out-arithmetic, eval = F}
 logical + decimal
 integer + decimal
 string + integer
 ```
 
-What happens when you add string to string? logical to logical?
+3. What happens when you add string to string? logical to logical?
+
+##### In SAS {-}
+
+1. Create variables `string1` and `string2` that each have text/character values. "Bob" and "Jane" might be good options. How does logical operation work with actual character values?
+
+2. What happens if you use `string1` and add 3 to it? 
 
 
-#### SAS
+##### Answers {-}
+
+<details>
+
+```{r try-it-out-data-type-answers, error = T}
+string <- "hi, I'm a string"
+integer <- 4L
+decimal <- 5.412
+logical <- TRUE
+
+logical + decimal
+integer + decimal
+as.numeric(string) + integer
+
+"abcd" + "defg"
+TRUE + TRUE
+```
+
+In R, adding a string to a string creates an error ("non-numeric argument to binary operator"). Adding a logical to a logical, e.g. TRUE + TRUE, results in `r TRUE + TRUE`, which is a numeric value.
+
+```{sashtml try-it-out-data-type-answers-sas}
+
+proc printto log="saslog.log" new;
+data set1; 
+  string1 = 'Bob';
+  string2 = 'Jane';
+  x = string1 < string2;
+  put x=; /* This prints the result to the log */
+run;
+
+```
+
+```{r readlog-sas-ex-answers, echo = F}
+cat(readLines("saslog.log"), sep="\n")
+
+# Do not forget to remove the log file when you are done!
+unlink("saslog.log")
+```
+
+SAS will actually compare strings based on the first letter: Bob comes before Jane, so Bob < Jane. 
+
+
+```{sashtml try-it-out-data-type-answers-sas2}
+proc printto log="saslog.log" new;
+
+data set2;
+  string1 = 'Bob';
+  y = string1 + 3;
+  put y=;
+run;
+```
+
+```{r readlog-sas-ex-answers2, echo = F}
+cat(readLines("saslog.log"), sep="\n")
+
+# Do not forget to remove the log file when you are done!
+unlink("saslog.log")
+```
+
+</details>
 
 ### Data structures
 
+Data **structures** are more complex arrangements of information than single variables. Of primary interest in statistical programming are the following types of structures:
+
+&nbsp;  | Homogeneous | Heterogeneous
+-- | :---------- | :------------
+1d | vector | list
+2d | matrix | data frame (R) or data set (SAS)
+nd | array (R) |
+
+In the table above, homogeneous means that all entries in the structure must be of the same type. Heterogeneous means that the entries are allowed to be of different types. 
+
+#### {- .note}
+Figuring out what to call these types with two languages is hard - in SAS, an array is a group of columns of a data set, but in R, it's a multi-dimensional matrix. In this section, we'll discuss the generic concepts relevant to both languages. The differences between the two languages will be discussed as appropriate. 
+
+#### {-}
+
+#### Homogeneous data structures (R and SAS)
+
+R does not have scalar types - even single-value variables are technically vectors of length 1. SAS does have scalar types.
+
+If we try to create a heterogeneous vector in R, using the `concatenate` function, `c()`, which combines scalar entries into a vector, what happens?
+
+```{r data-structures-homogeneous}
+c(1, 2, "a", "b", "c")
+```
+Because there were 3 character entries, the entire vector is now a character vector.
+
+#### Watch Out {- .watchout}
+This behavior can cause some errors - for instance, R does not read in numeric data formatted with commas as numeric data. You may thus get the result
+
+```{r data-structures-homogeneous2, error = T}
+x <- c(356, 452, "1,325")
+mean(x)
+```
+
+If you are reading in data from a file, this will cause some issues - the whole column of data will be formatted as characters. Keep an eye out for errors of this type. 
+
+#### {-}
+
+The 1, 2, and multi-dimensional homogeneous data types should be familiar from e.g. linear algebra and calculus. Single elements of a vector can be extracted using single square brackets, e.g. `x[1]` will get the first element of the vector `x`. In a matrix, elements are indexed as row, column, so to get the (2, 2) entry of a matrix x, you would use `x[2,2]`. This is extended for multi-dimensional arrays in R, with each dimension added, e.g. `x[3,1,2]` or `x[4, 3, 2, 1]`. 
+
+To get a full row or column from a matrix (in both SAS and R) you would use `x[1,]` (get the first row) or `x[,3]` (get the 3rd column). 
+
+To select multiple rows or columns from a matrix, you would use `x[, c(1, 3)]` in R or `x[,{1 3}]` in SAS - both options get the first and third column of the matrix, with all rows of data included.
+
+In both R and SAS, `a:b` where a and b are numbers will form a sequence from `a` to `b` by 1s. So `1:4` is `r 1:4`. This is often used to get a set of rows or columns: `x[3:4, 1:2]`.
+
+```{r matrix-example}
+x <- matrix(1:20, nrow = 5, byrow = T) 
+# Create a matrix with values 1 to 20, 5 rows, and fill by row
+
+x
+
+x[3:4, 1:2]
+# Gets a submatrix 
+```
+
+In SAS, the same basic code works (though matrix definition is a bit more manual). 
+
+```{sas matrix-example-sas}
+proc iml; /* Interactive Matrix Language */
+  x = {1 2 3 4 5, 6 7 8 9 10, 11 12 13 14 15, 16 17 18 19 20};
+  y = x[3:4, 1:2];
+  print x; /* Here, print is used instead of put */
+  print y;
+quit; /* exit proc IML */
+```
+
+
+Both R and SAS are 1-indexed languages, so the elements of a list or vector are indexed as 1, 2, 3, 4, ...  ^[Most languages are 0-indexed languages: C, C++, python, Java, javascript. Vectors in these languages are indexed as 0, 1, 2, 3.  Other 1-indexed languages include FORTRAN, Matlab, Julia, Mathematica, and Lua, many of which were intended for mathematical processing or data analysis.]
+
+
+The heterogeneous data types are not much harder to grasp. 
+
+#### Heterogeneous data structures
+
+##### Lists (R only) {-}
+
+A **list** is, well, a list - a sequence of potentially different-typed values. Unlike when concatenating values, the `list()` command in R allows each value to keep its natural type. You can access elements of a list using `[]` (this will extract a subset of the list items) or `[[]]`, which will extract a single item from the list.
+
+```{r list-index-demo, error = T}
+x <- list("a", "b", "c", 1, 2, 3)
+
+x
+x[[3]]
+
+x[[4]] + x[[5]]
+
+x[1:2] # This will work
+
+x[[1:2]] # This won't work
+```
+
+Some lists consist of named variables. These list components can be accessed either by index (as above) or by name, using the `$` operator. Names which have spaces or special characters must be enclosed in backticks (next to the 1 on the keyboard). Named components can also be accessed using the `[[ ]]` operator.
+```{r list-name-demo, error = T}
+dog <- list(name = "Edison Vanderplas", age = 8, 
+            breed = "Jack Russell Terrorist", 
+            `favorite toy` = "a blue and orange stuffed duck. Or rawhide.",
+            `link(video)` = "https://youtu.be/zVeoQTOTIuQ")
+
+dog
+
+dog$name
+dog$breed
+dog$`favorite toy`
+dog[["link(video)"]]
+```
+
+Most complicated structures in R are lists. You should be able to access any of the pieces of a list using a combination of named references and indexing. 
+
+You can get a sense of the structure of a list (or any other object) in R using the `str()` command. 
+
+```{r list-name-str}
+
+str(dog)
+
+```
+
+Lists can also contain other lists. When accessing a list-within-a-list, just add another index or name reference (see below). 
+
+```{r}
+grocery_list <- list(
+  dairy = list("asiago", "fontina", "mozzarella", "blue cheese"),
+  baking = list("flour", "yeast", "salt"),
+  canned_goods = list("pepperoni", "pizza sauce", "olives"),
+  meat = list("bacon", "sausage", "anchovies"),
+  veggies = list("bell pepper", "onion", "scallions", "tomatoes", "basil")
+)
+
+ick <- c(grocery_list[[4]][2:3], grocery_list$canned_goods[[3]])
+ick
+
+crust_ingredients <- c(grocery_list$baking, "water")
+crust_ingredients
+
+essential_toppings <- c(grocery_list$dairy[3], grocery_list$canned_goods[2])
+essential_toppings
+
+yummy_toppings <- c(grocery_list$dairy[c(1, 2, 4)], grocery_list$meat[1], grocery_list[[5]][c(3, 5)])
+yummy_toppings
+```
+
+###### Try it out {- .tryitout}
+
+Using the list of pizza toppings above as a starting point, make your own list of pizza toppings organized by grocery store section (approximately). Create your own vectors of yummy, essential, and ick toppings.
+
+
+##### Data frames (R only) {-}
+
+A data frame is a special type of list - one in which each element in the list is a vector of the same length. If you put these vectors side-by-side, you get a table of data that looks like a spreadsheet. When you examine the structure of a data frame, as shown below, you get each column shown in a row, with its type and  the first few values in the column. The `head()` command shows the first 6 rows of a data frame (enough to see what's there, not enough to overflow your screen).
+
+```{r dataframes}
+head(mtcars) ## A data frame included in base R
+
+str(mtcars)
+
+```
+
+You can change column values or add new columns easily using assignment. It's also easy to access specific columns to perform summary operations.
+
+
+Often, it is useful to know the dimensions of a data frame. The number of rows can be obtained by using `nrow(df)` and similarly, the columns can be obtained using `ncol(df)`. There is also an easy way to get a summary of each column in the data frame, using `summary()`.
+
+
+```{r}
+mtcars$gpm <- 1/mtcars$mpg # gpm is sometimes used to assess efficiency
+
+summary(mtcars$gpm)
+summary(mtcars$mpg)
+
+summary(mtcars)
+```
+
+Missing variables in an R data frame are indicated with NA. 
+
+###### Try it out {- .tryitout}
+
+Using the list of pizza toppings above as a starting point, make your own list of pizza toppings organized by grocery store section (approximately). Create your own vectors of yummy, essential, and ick toppings.
+
+
+##### Data Sets (SAS) {-}
+
+The SAS data set structure is similar to a R data frame.
+
+![This is a schematic of a data set as taken from the SAS documentation](https://documentation.sas.com/api/docsets/basess/9.4/content/images/data-fit.png)
+
+The biggest difference is that in SAS, missing values are indicated with .
+
+SAS datasets also come with a description which is attached to the table. The descriptor portion of the data set records names of variables (and attributes), numbers of observations, and date/time stamps of creation and updates.
+
 ### Control structures
+
+
+### {-}
+Non-exhaustive list of references:
+
+- SAS Matrix reference: http://www.math.wpi.edu/saspdf/iml/chap4.pdf
+- Data structures in Advanced R: http://adv-r.had.co.nz/Data-structures.html
+- [SAS Data set documentation](https://documentation.sas.com/?docsetId=basess&docsetTarget=p1f5xhmkdfhyjcn1n6k9wdcacba0.htm&docsetVersion=9.4&locale=en)
+
+
 
 
 ## Overgrown Calculators
