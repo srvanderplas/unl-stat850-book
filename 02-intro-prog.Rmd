@@ -50,6 +50,8 @@ double | holds floating point numbers. By default, most numeric variables in R a
 
 You can test to see whether a variable holds a value of a specific type using the `is.xxx()` functions, which are demonstrated below. Note that `<-` is used for assigningn a value to a variable. So the first line in the code below is read "x gets 'R is awesome'". 
 
+
+##### Character Variables {-}
 ```{r is-fcns-char}
 x <- "R is awesome"
 is.character(x)
@@ -58,6 +60,7 @@ is.integer(x)
 is.double(x)
 ```
 
+##### Logical Variables  {-}
 ```{r is-fcns-lgl}
 x <- FALSE
 is.character(x)
@@ -66,6 +69,7 @@ is.integer(x)
 is.double(x)
 ```
 
+##### Integer Variables  {-}
 ```{r is-fcns-int}
 x <- 2
 is.character(x)
@@ -87,6 +91,7 @@ is.double(x)
 is.numeric(x)
 ```
 
+##### Double Variables  {-}
 ```{r is-fcns-dbl}
 x <- 2.45
 is.character(x)
@@ -96,12 +101,69 @@ is.double(x)
 is.numeric(x)
 ```
 
+
 A fifth common type, `numeric` is really the union of two types: integer and double. This mostly exists because when doing math, we can add an integer and a double, but adding an integer and a string is ... trickier. Testing for numeric variables guarantees that we'll be able to do math with those variables. The general case of this property of a language is called **implicit type conversion** - that is, R will implicitly (behind the scenes) convert your integer to a double and then add the other double, so that the result is unambiguously a double. 
 
 R will generally work hard to seamlessly convert variables to different types. So, for instance, 
-`TRUE + 2` = `r TRUE + 2`. 
+```{r, error = T}
+TRUE + 2
 
-##### Try it out: Variable types
+2L + 3.1415
+
+"abcd" + 3
+```
+
+This conversion doesn't always work - there's no clear way to make "abcd" into a number we could use in addition. So instead, R will issue an error. This error pops up frequently when something went wrong with data import and all of a sudden you just tried to take the mean of a set of string/character variables. Whoops.
+
+When you want to, you can also use `as.xxx()` to make the type conversion **explicit**. So, the analogue of the code above, with explicit conversions would be: 
+
+```{r, error = T}
+as.double(TRUE) + 2
+
+as.double(2L) + 3.1415
+
+as.numeric("abcd") + 3
+```
+
+When we make our intent explicit (convert "abcd" to a numeric variable) we get an NA - a missing value. There's still no easy way to figure out where "abcd" is on a number line, but our math will still have a result - NA + 3 is NA.
+
+If you are unsure what the type of a variable is, use the `class()` function to find out. 
+
+```{r}
+w <- "a string"
+x <- 3L
+y <- 3.1415
+z <- FALSE
+
+class(w)
+class(x)
+class(y)
+class(z)
+
+```
+
+Notice that the generic type name for double is "numeric". R's typing scheme is pretty flexible, which can sometimes lead to apparent inconsistencies. 
+
+##### Try it out: Variable types {- .tryitout}
+
+Create variables `string`, `integer`, `decimal`, and `logical`, with types that match the relevant variable names.
+
+```{r, eval = F}
+string <- 
+integer <- 
+decimal <- 
+logical <- 
+
+```
+
+Can you get rid of the error that occurs when this chunk is run?
+```{r try-it-out-arithmetic, eval = F}
+logical + decimal
+integer + decimal
+string + integer
+```
+
+What happens when you add string to string? logical to logical?
 
 
 #### SAS
