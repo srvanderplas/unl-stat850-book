@@ -24,7 +24,7 @@
 <meta name="author" content="Susan Vanderplas" />
 
 
-<meta name="date" content="2020-05-12" />
+<meta name="date" content="2020-05-22" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -50,6 +50,25 @@
 
 
 
+<script>
+
+(function() {
+  var codes = document.querySelectorAll('pre:not([class])');
+  var code, i, d, s, p;
+  for (i = 0; i < codes.length; i++) {
+    code = codes[i];
+    p = code.parentNode;
+    d = document.createElement('details');
+    s = document.createElement('summary');
+    s.innerText = 'Answers';
+    // <details><summary>Answers</summary></details>
+      d.appendChild(s);
+    // move the code into <details>
+      p.replaceChild(d, code);
+    d.appendChild(code);
+  }
+})();
+</script>
 
 
 <style type="text/css">
@@ -148,10 +167,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="2" data-path="intro-prog.html"><a href="intro-prog.html"><i class="fa fa-check"></i><b>2</b> Introduction to Statistical Programming</a><ul>
-<li class="chapter" data-level="2.1" data-path="intro-prog.html"><a href="intro-prog.html#programming-concepts-variables-structures-and-more"><i class="fa fa-check"></i><b>2.1</b> Programming Concepts: Variables, Structures, and more</a><ul>
+<li class="chapter" data-level="2.1" data-path="intro-prog.html"><a href="intro-prog.html#statistical-programming-concepts"><i class="fa fa-check"></i><b>2.1</b> Statistical Programming Concepts</a><ul>
 <li class="chapter" data-level="2.1.1" data-path="intro-prog.html"><a href="intro-prog.html#variable-types"><i class="fa fa-check"></i><b>2.1.1</b> Variable types</a></li>
 <li class="chapter" data-level="2.1.2" data-path="intro-prog.html"><a href="intro-prog.html#data-structures"><i class="fa fa-check"></i><b>2.1.2</b> Data structures</a></li>
 <li class="chapter" data-level="2.1.3" data-path="intro-prog.html"><a href="intro-prog.html#control-structures"><i class="fa fa-check"></i><b>2.1.3</b> Control structures</a></li>
+<li><a href="intro-prog.html#section-5"></a></li>
 </ul></li>
 <li class="chapter" data-level="2.2" data-path="intro-prog.html"><a href="intro-prog.html#overgrown-calculators"><i class="fa fa-check"></i><b>2.2</b> Overgrown Calculators</a></li>
 <li class="chapter" data-level="2.3" data-path="intro-prog.html"><a href="intro-prog.html#basic-programming-in-r"><i class="fa fa-check"></i><b>2.3</b> Basic Programming in R</a></li>
@@ -224,7 +244,6 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
-<li class="chapter" data-level="13" data-path="sas-in-bookdown.html"><a href="sas-in-bookdown.html"><i class="fa fa-check"></i><b>13</b> SAS in bookdown</a></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
 
@@ -247,16 +266,682 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
             <section class="normal" id="section-">
 <div id="intro-prog" class="section level1">
 <h1><span class="header-section-number">Module 2</span> Introduction to Statistical Programming</h1>
-<div id="programming-concepts-variables-structures-and-more" class="section level2">
-<h2><span class="header-section-number">2.1</span> Programming Concepts: Variables, Structures, and more</h2>
+<p>Many programming resources talk about 3, or 5, or 10 core concepts in any programming language. In this module, we’re going to discuss the generic concepts, and then how these concepts are implemented in R and SAS.</p>
+<p>Interestingly, the “core concepts” aren’t necessarily the same across lists. So, here is a consensus list of concepts which are generic across languages and usually important:</p>
+<ol style="list-style-type: decimal">
+<li><p><strong>Variables</strong> - a symbolic name or reference to some kind of information. In the expression <code>a + b &gt; a</code>, both <code>a</code> and <code>b</code> are variables. Variables may have a specific type (what data can be stored in the variable), scope (where the variable can be accessed), location (in memory). <a href="https://dev.to/lucpattyn/basic-programming-concepts-for-beginners-2o73">Here</a> is a nice explanation of the difference between variables in programming and variables in math.</p></li>
+<li><p><strong>Conditional statements</strong> (if statements) - These statements allow the program to handle information adaptively - if a statement is true, one set of instructions will be used, and if the statement is false, a different set of instructions will be used.</p></li>
+<li><p><strong>Looping and iteration</strong> - An iteration is any time a sequence of steps is executed. Most languages have several different types of loops or iteration: <code>for</code> loops, which allow for the sequence of steps to be executed a specific number of times, <code>while</code> loops, which allow for the sequence of steps to be executed while a conditional statement is true, <code>recursion</code>, where a block of code calls itself.</p></li>
+<li><p><strong>Data types and data structures</strong> - these concepts determine what information a variable can hold. Data types are lower-level, simple objects (floating-point numbers, integers, boolean T/F, characters, strings). Data structures may include lists (sequences of many objects) and vectors (sequences of many objects of the same type), dictionaries (a list of key-value pairs), objects (data structures which may hold multiple related pieces of information).</p></li>
+<li><p><strong>Functions</strong>, or self-contained modules of code that accomplish a particular task.</p></li>
+<li><p><strong>Syntax</strong>, the set of rules that define which combinations of symbols consist of correctly structured and interpretable commands in the language.</p></li>
+<li><p><strong>Tools</strong>, the set of external programs which may help with development and writing code. Some common tools are IDEs (Integrated Development Environments), which may correct syntax and typos, organize files for you, allow you to keep track of which variables you have defined, and assist you with code organization and navigation. Other tools include compilers (which take human-written code and translate it into efficient machine code), version control systems (which help you track changes to code over time), debuggers, and documentation generators. Not all of these tools are necessary for all languages - scripting languages such as python and R do not require compilers by default, for instance.</p></li>
+<li><p><strong>Sequence of commands</strong>: It’s important to have the right commands in the right order. Some recipes, like bread dough, are flexible, and you can add the ingredients in almost any order, but in other recipes, the order matters as much as the correct quantity of ingredients (try putting the cheese powder in before the noodles are boiled when making macaroni and cheese. Yuck.). Programming tends to be like these less flexible recipes.</p></li>
+</ol>
+<p>Non-Exhaustive List of Sources:</p>
+<ul>
+<li><a href="https://blog.upperlinecode.com/computer-language-fundamentals-five-core-concepts-1aa43e929f40" class="uri">https://blog.upperlinecode.com/computer-language-fundamentals-five-core-concepts-1aa43e929f40</a></li>
+<li><a href="https://howtoprogramwithjava.com/programming-101-the-5-basic-concepts-of-any-programming-language/" class="uri">https://howtoprogramwithjava.com/programming-101-the-5-basic-concepts-of-any-programming-language/</a></li>
+<li><a href="https://dev.to/lucpattyn/basic-programming-concepts-for-beginners-2o73" class="uri">https://dev.to/lucpattyn/basic-programming-concepts-for-beginners-2o73</a></li>
+<li><a href="http://livecode.byu.edu/programmingconcepts/ControlStruct.php" class="uri">http://livecode.byu.edu/programmingconcepts/ControlStruct.php</a></li>
+<li><a href="http://holowczak.com/programming-concepts-tutorial-programmers/" class="uri">http://holowczak.com/programming-concepts-tutorial-programmers/</a></li>
+</ul>
+<div id="statistical-programming-concepts" class="section level2">
+<h2><span class="header-section-number">2.1</span> Statistical Programming Concepts</h2>
+<p>Having established the generic definitions of the concepts which apply to almost any programming language, we now must examine how R and SAS implement these concepts. R and SAS are both statistical programming languages - they are specifically designed to work with data, which means that they make compromises that other languages do not in order to make it easier to write code where the data (rather than the functions, classes, methods, or objects) are the primary concern.</p>
+<p>Both <a href="https://bookdown.org/rdpeng/rprogdatascience/history-and-overview-of-r.html">R</a> and <a href="https://en.wikipedia.org/wiki/SAS_(software)#History">SAS</a> have long histories. SAS in particular dates back to the 1960s, and has syntax which is unique compared to more modern languages such as C, python, Java, and R. R’s predecessor, S, dates back to 1976 and was designed for internal use at Bell Labs. The histories of both languages are useful in understanding why they are useful for their respective tasks, but are not essential for this course (so read them at your leisure).</p>
 <div id="variable-types" class="section level3">
 <h3><span class="header-section-number">2.1.1</span> Variable types</h3>
+<div id="r" class="section level4">
+<h4><span class="header-section-number">2.1.1.1</span> R</h4>
+<p>In R, there are 4 commonly-used types:</p>
+<table>
+<colgroup>
+<col width="26%" />
+<col width="73%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>character</td>
+<td>holds text-based information: “abcd” or “3.24a” are examples of values which would be stored as characters in R</td>
+</tr>
+<tr class="even">
+<td>logical</td>
+<td>holds binary information: 0/1, or FALSE/TRUE. Logical variables are stored as single bit information (e.g. either a 0 or 1), but display as TRUE and FALSE (which are reserved words and constants). It is possible to use the shorthand <code>F</code> and <code>T</code>, but be careful with this, because <code>F</code> and <code>T</code> are not reserved, and other information can be stored within them.</td>
+</tr>
+<tr class="odd">
+<td>integer</td>
+<td>holds (as you might expect) integers. Note that integers are handled differently than doubles (floating point numbers), but in general, R will implicitly convert integers to doubles to avoid common pitfalls with integer divison (which does not allow for decimals).</td>
+</tr>
+<tr class="even">
+<td>double</td>
+<td>holds floating point numbers. By default, most numeric variables in R are doubles.</td>
+</tr>
+</tbody>
+</table>
+<p>You can test to see whether a variable holds a value of a specific type using the <code>is.xxx()</code> functions, which are demonstrated below.</p>
+<div id="section" class="section level5 unnumbered note">
+<h5></h5>
+<p>Note that <code>&lt;-</code> is used for assigning a value to a variable. So the first line in the code below is read “x gets ‘R is awesome’” or “x is assigned the value ‘R is awesome’”.</p>
+</div>
+<div id="section-1" class="section level5 unnumbered">
+<h5></h5>
+</div>
+<div id="character-variables" class="section level5 unnumbered">
+<h5>Character Variables</h5>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1">x &lt;-<span class="st"> &quot;R is awesome&quot;</span></a>
+<a class="sourceLine" id="cb1-2" data-line-number="2"><span class="kw">is.character</span>(x)</a>
+<a class="sourceLine" id="cb1-3" data-line-number="3">[<span class="dv">1</span>] <span class="ot">TRUE</span></a>
+<a class="sourceLine" id="cb1-4" data-line-number="4"><span class="kw">is.logical</span>(x)</a>
+<a class="sourceLine" id="cb1-5" data-line-number="5">[<span class="dv">1</span>] <span class="ot">FALSE</span></a>
+<a class="sourceLine" id="cb1-6" data-line-number="6"><span class="kw">is.integer</span>(x)</a>
+<a class="sourceLine" id="cb1-7" data-line-number="7">[<span class="dv">1</span>] <span class="ot">FALSE</span></a>
+<a class="sourceLine" id="cb1-8" data-line-number="8"><span class="kw">is.double</span>(x)</a>
+<a class="sourceLine" id="cb1-9" data-line-number="9">[<span class="dv">1</span>] <span class="ot">FALSE</span></a></code></pre></div>
+</div>
+<div id="logical-variables" class="section level5 unnumbered">
+<h5>Logical Variables</h5>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1">x &lt;-<span class="st"> </span><span class="ot">FALSE</span></a>
+<a class="sourceLine" id="cb2-2" data-line-number="2"><span class="kw">is.character</span>(x)</a>
+<a class="sourceLine" id="cb2-3" data-line-number="3">[<span class="dv">1</span>] <span class="ot">FALSE</span></a>
+<a class="sourceLine" id="cb2-4" data-line-number="4"><span class="kw">is.logical</span>(x)</a>
+<a class="sourceLine" id="cb2-5" data-line-number="5">[<span class="dv">1</span>] <span class="ot">TRUE</span></a>
+<a class="sourceLine" id="cb2-6" data-line-number="6"><span class="kw">is.integer</span>(x)</a>
+<a class="sourceLine" id="cb2-7" data-line-number="7">[<span class="dv">1</span>] <span class="ot">FALSE</span></a>
+<a class="sourceLine" id="cb2-8" data-line-number="8"><span class="kw">is.double</span>(x)</a>
+<a class="sourceLine" id="cb2-9" data-line-number="9">[<span class="dv">1</span>] <span class="ot">FALSE</span></a></code></pre></div>
+</div>
+<div id="integer-variables" class="section level5 unnumbered">
+<h5>Integer Variables</h5>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1">x &lt;-<span class="st"> </span><span class="dv">2</span></a>
+<a class="sourceLine" id="cb3-2" data-line-number="2"><span class="kw">is.character</span>(x)</a>
+<a class="sourceLine" id="cb3-3" data-line-number="3">[<span class="dv">1</span>] <span class="ot">FALSE</span></a>
+<a class="sourceLine" id="cb3-4" data-line-number="4"><span class="kw">is.logical</span>(x)</a>
+<a class="sourceLine" id="cb3-5" data-line-number="5">[<span class="dv">1</span>] <span class="ot">FALSE</span></a>
+<a class="sourceLine" id="cb3-6" data-line-number="6"><span class="kw">is.integer</span>(x)</a>
+<a class="sourceLine" id="cb3-7" data-line-number="7">[<span class="dv">1</span>] <span class="ot">FALSE</span></a>
+<a class="sourceLine" id="cb3-8" data-line-number="8"><span class="kw">is.double</span>(x)</a>
+<a class="sourceLine" id="cb3-9" data-line-number="9">[<span class="dv">1</span>] <span class="ot">TRUE</span></a></code></pre></div>
+<p>Wait, 2 is an integer, right?</p>
+<p>It is, but in R, values are assumed to be doubles unless specified. So if we want R to treat 2 as an integer, we need to specify that it is an integer specifically.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1">x &lt;-<span class="st"> </span>2L <span class="co"># The L immediately after the 2 indicates that it is an integer.</span></a>
+<a class="sourceLine" id="cb4-2" data-line-number="2"><span class="kw">is.character</span>(x)</a>
+<a class="sourceLine" id="cb4-3" data-line-number="3">[<span class="dv">1</span>] <span class="ot">FALSE</span></a>
+<a class="sourceLine" id="cb4-4" data-line-number="4"><span class="kw">is.logical</span>(x)</a>
+<a class="sourceLine" id="cb4-5" data-line-number="5">[<span class="dv">1</span>] <span class="ot">FALSE</span></a>
+<a class="sourceLine" id="cb4-6" data-line-number="6"><span class="kw">is.integer</span>(x)</a>
+<a class="sourceLine" id="cb4-7" data-line-number="7">[<span class="dv">1</span>] <span class="ot">TRUE</span></a>
+<a class="sourceLine" id="cb4-8" data-line-number="8"><span class="kw">is.double</span>(x)</a>
+<a class="sourceLine" id="cb4-9" data-line-number="9">[<span class="dv">1</span>] <span class="ot">FALSE</span></a>
+<a class="sourceLine" id="cb4-10" data-line-number="10"><span class="kw">is.numeric</span>(x)</a>
+<a class="sourceLine" id="cb4-11" data-line-number="11">[<span class="dv">1</span>] <span class="ot">TRUE</span></a></code></pre></div>
+</div>
+<div id="double-variables" class="section level5 unnumbered">
+<h5>Double Variables</h5>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1">x &lt;-<span class="st"> </span><span class="fl">2.45</span></a>
+<a class="sourceLine" id="cb5-2" data-line-number="2"><span class="kw">is.character</span>(x)</a>
+<a class="sourceLine" id="cb5-3" data-line-number="3">[<span class="dv">1</span>] <span class="ot">FALSE</span></a>
+<a class="sourceLine" id="cb5-4" data-line-number="4"><span class="kw">is.logical</span>(x)</a>
+<a class="sourceLine" id="cb5-5" data-line-number="5">[<span class="dv">1</span>] <span class="ot">FALSE</span></a>
+<a class="sourceLine" id="cb5-6" data-line-number="6"><span class="kw">is.integer</span>(x)</a>
+<a class="sourceLine" id="cb5-7" data-line-number="7">[<span class="dv">1</span>] <span class="ot">FALSE</span></a>
+<a class="sourceLine" id="cb5-8" data-line-number="8"><span class="kw">is.double</span>(x)</a>
+<a class="sourceLine" id="cb5-9" data-line-number="9">[<span class="dv">1</span>] <span class="ot">TRUE</span></a>
+<a class="sourceLine" id="cb5-10" data-line-number="10"><span class="kw">is.numeric</span>(x)</a>
+<a class="sourceLine" id="cb5-11" data-line-number="11">[<span class="dv">1</span>] <span class="ot">TRUE</span></a></code></pre></div>
+<p>A fifth common type, <code>numeric</code> is really the union of two types: integer and double. This mostly exists because when doing math, we can add an integer and a double, but adding an integer and a string is … trickier. Testing for numeric variables guarantees that we’ll be able to do math with those variables. The general case of this property of a language is called <strong>implicit type conversion</strong> - that is, R will implicitly (behind the scenes) convert your integer to a double and then add the other double, so that the result is unambiguously a double.</p>
+<p>R will generally work hard to seamlessly convert variables to different types. So, for instance,</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1"><span class="ot">TRUE</span> <span class="op">+</span><span class="st"> </span><span class="dv">2</span></a>
+<a class="sourceLine" id="cb6-2" data-line-number="2">[<span class="dv">1</span>] <span class="dv">3</span></a>
+<a class="sourceLine" id="cb6-3" data-line-number="3"></a>
+<a class="sourceLine" id="cb6-4" data-line-number="4">2L <span class="op">+</span><span class="st"> </span><span class="fl">3.1415</span></a>
+<a class="sourceLine" id="cb6-5" data-line-number="5">[<span class="dv">1</span>] <span class="fl">5.1415</span></a>
+<a class="sourceLine" id="cb6-6" data-line-number="6"></a>
+<a class="sourceLine" id="cb6-7" data-line-number="7"><span class="st">&quot;abcd&quot;</span> <span class="op">+</span><span class="st"> </span><span class="dv">3</span></a>
+<a class="sourceLine" id="cb6-8" data-line-number="8">Error <span class="cf">in</span> <span class="st">&quot;abcd&quot;</span> <span class="op">+</span><span class="st"> </span><span class="dv">3</span><span class="op">:</span><span class="st"> </span>non<span class="op">-</span>numeric argument to binary operator</a></code></pre></div>
+<p>This conversion doesn’t always work - there’s no clear way to make “abcd” into a number we could use in addition. So instead, R will issue an error. This error pops up frequently when something went wrong with data import and all of a sudden you just tried to take the mean of a set of string/character variables. Whoops.</p>
+<p>When you want to, you can also use <code>as.xxx()</code> to make the type conversion <strong>explicit</strong>. So, the analogue of the code above, with explicit conversions would be:</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" data-line-number="1"><span class="kw">as.double</span>(<span class="ot">TRUE</span>) <span class="op">+</span><span class="st"> </span><span class="dv">2</span></a>
+<a class="sourceLine" id="cb7-2" data-line-number="2">[<span class="dv">1</span>] <span class="dv">3</span></a>
+<a class="sourceLine" id="cb7-3" data-line-number="3"></a>
+<a class="sourceLine" id="cb7-4" data-line-number="4"><span class="kw">as.double</span>(2L) <span class="op">+</span><span class="st"> </span><span class="fl">3.1415</span></a>
+<a class="sourceLine" id="cb7-5" data-line-number="5">[<span class="dv">1</span>] <span class="fl">5.1415</span></a>
+<a class="sourceLine" id="cb7-6" data-line-number="6"></a>
+<a class="sourceLine" id="cb7-7" data-line-number="7"><span class="kw">as.numeric</span>(<span class="st">&quot;abcd&quot;</span>) <span class="op">+</span><span class="st"> </span><span class="dv">3</span></a>
+<a class="sourceLine" id="cb7-8" data-line-number="8">Warning<span class="op">:</span><span class="st"> </span>NAs introduced by coercion</a>
+<a class="sourceLine" id="cb7-9" data-line-number="9">[<span class="dv">1</span>] <span class="ot">NA</span></a></code></pre></div>
+<p>When we make our intent explicit (convert “abcd” to a numeric variable) we get an NA - a missing value. There’s still no easy way to figure out where “abcd” is on a number line, but our math will still have a result - NA + 3 is NA.</p>
+<p>If you are unsure what the type of a variable is, use the <code>class()</code> function to find out.</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" data-line-number="1">w &lt;-<span class="st"> &quot;a string&quot;</span></a>
+<a class="sourceLine" id="cb8-2" data-line-number="2">x &lt;-<span class="st"> </span>3L</a>
+<a class="sourceLine" id="cb8-3" data-line-number="3">y &lt;-<span class="st"> </span><span class="fl">3.1415</span></a>
+<a class="sourceLine" id="cb8-4" data-line-number="4">z &lt;-<span class="st"> </span><span class="ot">FALSE</span></a>
+<a class="sourceLine" id="cb8-5" data-line-number="5"></a>
+<a class="sourceLine" id="cb8-6" data-line-number="6"><span class="kw">class</span>(w)</a>
+<a class="sourceLine" id="cb8-7" data-line-number="7">[<span class="dv">1</span>] <span class="st">&quot;character&quot;</span></a>
+<a class="sourceLine" id="cb8-8" data-line-number="8"><span class="kw">class</span>(x)</a>
+<a class="sourceLine" id="cb8-9" data-line-number="9">[<span class="dv">1</span>] <span class="st">&quot;integer&quot;</span></a>
+<a class="sourceLine" id="cb8-10" data-line-number="10"><span class="kw">class</span>(y)</a>
+<a class="sourceLine" id="cb8-11" data-line-number="11">[<span class="dv">1</span>] <span class="st">&quot;numeric&quot;</span></a>
+<a class="sourceLine" id="cb8-12" data-line-number="12"><span class="kw">class</span>(z)</a>
+<a class="sourceLine" id="cb8-13" data-line-number="13">[<span class="dv">1</span>] <span class="st">&quot;logical&quot;</span></a></code></pre></div>
+<p>Notice that the generic type name for double is “numeric”. R’s typing scheme is pretty flexible, which can sometimes lead to apparent inconsistencies.</p>
+</div>
+</div>
+<div id="sas-1" class="section level4">
+<h4><span class="header-section-number">2.1.1.2</span> SAS</h4>
+<p>In SAS, there are two basic variable types: numeric and character variables. Thus, SAS does not differentiate between integers and floats or doubles. Functionally, though, the same basic operations can be performed in SAS. As with R, SAS does attempt to implicitly convert variable types, and will notify you that the conversion has taken place in the log file.</p>
+<p>SAS will attempt to implicitly convert variables when:</p>
+<ul>
+<li>a character value is assigned to a previously defined numeric variable</li>
+<li>a character value is used in arithmetic operations</li>
+<li>a character value is compared to a numeric value using a comparison operator (&lt;, &gt;, &lt;=, &gt;=)</li>
+<li>a character value is specified in a function that takes numeric arguments</li>
+</ul>
+<p>Note that implicit conversion does not occur in WHERE statements. (This will make more sense later, but is here for reference)</p>
+<p>If you want to manually convert a value, the INPUT statement can be used. Unlike in R, the INPUT statement has the ability to read numbers which are formatted differently. For instance</p>
+<pre class="sashtml"><code>proc printto log=&quot;saslog.log&quot; new;
+data set1; /* This tells SAS we&#39;re defining some variables */
+  x = 3;
+  y = &#39;3.1415&#39;;
+  z = x * y; 
+  /* this is arithmetic, so y will be converted */
+  x = &#39;3.14159&#39;; 
+  /* x previously had a number in it, */
+  /* so it will be converted to a number here */
+  zz = y&lt;=2; 
+  /* comparison operator: y will be converted */
+  
+  put z; /* This prints the result to the log */
+  put x=;
+  put zz=;
+run;</code></pre>
+<p>Notice that in SAS, <code>zz</code>, which is the result of the logical statement <code>y&lt;=2</code>, is a numeric variable. The value 0 signifies that the comparison was false. SAS does not have a logical data type, it uses the numeric variable with 0:=FALSE, 1:=TRUE.</p>
+<pre><code>NOTE: PROCEDURE PRINTTO used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+7          data set1; /* This tells SAS we&#39;re defining some variables */
+8            x = 3;
+9            y = &#39;3.1415&#39;;
+10           z = x * y;
+11           /* this is arithmetic, so y will be converted */
+12           x = &#39;3.14159&#39;;
+13           /* x previously had a number in it, */
+14           /* so it will be converted to a number here */
+15           zz = y&lt;=2;
+16           /* comparison operator: y will be converted */
+17         
+18           put z; /* This prints the result to the log */
+19           put x=;
+20           put zz=;
+21         run;
+
+NOTE: Character values have been converted to numeric 
+      values at the places given by: (Line):(Column).
+      10:11   12:7    15:8    
+9.4245
+x=3.14159
+zz=0
+NOTE: The data set WORK.SET1 has 1 observations and 4 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.01 seconds
+      </code></pre>
+</div>
+<div id="try-it-out-variable-types" class="section level4 unnumbered tryitout">
+<h4>Try it out: Variable types</h4>
+<div id="in-r" class="section level5 unnumbered">
+<h5>In R</h5>
+<ol style="list-style-type: decimal">
+<li>Create variables <code>string</code>, <code>integer</code>, <code>decimal</code>, and <code>logical</code>, with types that match the relevant variable names.</li>
+</ol>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb11-1" data-line-number="1">string &lt;-<span class="st"> </span></a>
+<a class="sourceLine" id="cb11-2" data-line-number="2">integer &lt;-<span class="st"> </span></a>
+<a class="sourceLine" id="cb11-3" data-line-number="3">decimal &lt;-<span class="st"> </span></a>
+<a class="sourceLine" id="cb11-4" data-line-number="4">logical &lt;-<span class="st"> </span></a></code></pre></div>
+<ol start="2" style="list-style-type: decimal">
+<li>Can you get rid of the error that occurs when this chunk is run?</li>
+</ol>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb12-1" data-line-number="1">logical <span class="op">+</span><span class="st"> </span>decimal</a>
+<a class="sourceLine" id="cb12-2" data-line-number="2">integer <span class="op">+</span><span class="st"> </span>decimal</a>
+<a class="sourceLine" id="cb12-3" data-line-number="3">string <span class="op">+</span><span class="st"> </span>integer</a></code></pre></div>
+<ol start="3" style="list-style-type: decimal">
+<li>What happens when you add string to string? logical to logical?</li>
+</ol>
+</div>
+<div id="in-sas" class="section level5 unnumbered">
+<h5>In SAS</h5>
+<ol style="list-style-type: decimal">
+<li><p>Create variables <code>string1</code> and <code>string2</code> that each have text/character values. “Bob” and “Jane” might be good options. How does logical operation work with actual character values?</p></li>
+<li><p>What happens if you use <code>string1</code> and add 3 to it?</p></li>
+</ol>
+</div>
+<div id="answers" class="section level5 unnumbered">
+<h5>Answers</h5>
+<details>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb13-1" data-line-number="1">string &lt;-<span class="st"> &quot;hi, I&#39;m a string&quot;</span></a>
+<a class="sourceLine" id="cb13-2" data-line-number="2">integer &lt;-<span class="st"> </span>4L</a>
+<a class="sourceLine" id="cb13-3" data-line-number="3">decimal &lt;-<span class="st"> </span><span class="fl">5.412</span></a>
+<a class="sourceLine" id="cb13-4" data-line-number="4">logical &lt;-<span class="st"> </span><span class="ot">TRUE</span></a>
+<a class="sourceLine" id="cb13-5" data-line-number="5"></a>
+<a class="sourceLine" id="cb13-6" data-line-number="6">logical <span class="op">+</span><span class="st"> </span>decimal</a>
+<a class="sourceLine" id="cb13-7" data-line-number="7">[<span class="dv">1</span>] <span class="fl">6.412</span></a>
+<a class="sourceLine" id="cb13-8" data-line-number="8">integer <span class="op">+</span><span class="st"> </span>decimal</a>
+<a class="sourceLine" id="cb13-9" data-line-number="9">[<span class="dv">1</span>] <span class="fl">9.412</span></a>
+<a class="sourceLine" id="cb13-10" data-line-number="10"><span class="kw">as.numeric</span>(string) <span class="op">+</span><span class="st"> </span>integer</a>
+<a class="sourceLine" id="cb13-11" data-line-number="11">Warning<span class="op">:</span><span class="st"> </span>NAs introduced by coercion</a>
+<a class="sourceLine" id="cb13-12" data-line-number="12">[<span class="dv">1</span>] <span class="ot">NA</span></a>
+<a class="sourceLine" id="cb13-13" data-line-number="13"></a>
+<a class="sourceLine" id="cb13-14" data-line-number="14"><span class="st">&quot;abcd&quot;</span> <span class="op">+</span><span class="st"> &quot;defg&quot;</span></a>
+<a class="sourceLine" id="cb13-15" data-line-number="15">Error <span class="cf">in</span> <span class="st">&quot;abcd&quot;</span> <span class="op">+</span><span class="st"> &quot;defg&quot;</span><span class="op">:</span><span class="st"> </span>non<span class="op">-</span>numeric argument to binary operator</a>
+<a class="sourceLine" id="cb13-16" data-line-number="16"><span class="ot">TRUE</span> <span class="op">+</span><span class="st"> </span><span class="ot">TRUE</span></a>
+<a class="sourceLine" id="cb13-17" data-line-number="17">[<span class="dv">1</span>] <span class="dv">2</span></a></code></pre></div>
+<p>In R, adding a string to a string creates an error (“non-numeric argument to binary operator”). Adding a logical to a logical, e.g. TRUE + TRUE, results in 2, which is a numeric value.</p>
+<pre class="sashtml"><code>
+proc printto log=&quot;saslog.log&quot; new;
+data set1; 
+  string1 = &#39;Bob&#39;;
+  string2 = &#39;Jane&#39;;
+  x = string1 &lt; string2;
+  put x=; /* This prints the result to the log */
+run;
+</code></pre>
+<pre><code>NOTE: PROCEDURE PRINTTO used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+8          data set1;
+9            string1 = &#39;Bob&#39;;
+10           string2 = &#39;Jane&#39;;
+11           x = string1 &lt; string2;
+12           put x=; /* This prints the result to the log */
+13         run;
+
+x=1
+NOTE: The data set WORK.SET1 has 1 observations and 3 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+14         </code></pre>
+<p>SAS will actually compare strings based on the first letter: Bob comes before Jane, so Bob &lt; Jane.</p>
+<pre class="sashtml"><code>proc printto log=&quot;saslog.log&quot; new;
+
+data set2;
+  string1 = &#39;Bob&#39;;
+  y = string1 + 3;
+  put y=;
+run;</code></pre>
+<pre><code>NOTE: PROCEDURE PRINTTO used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+8          data set2;
+9            string1 = &#39;Bob&#39;;
+10           y = string1 + 3;
+11           put y=;
+12         run;
+
+NOTE: Character values have been converted to numeric 
+      values at the places given by: (Line):(Column).
+      10:7   
+NOTE: Invalid numeric data, string1=&#39;Bob&#39; , at line 10 column 7.
+y=.
+string1=Bob y=. _ERROR_=1 _N_=1
+NOTE: Missing values were generated as a result of performing an operation 
+      on missing values.
+      Each place is given by: (Number of times) at (Line):(Column).
+      1 at 10:15   
+NOTE: The data set WORK.SET2 has 1 observations and 2 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      </code></pre>
+</details>
+</div>
+</div>
 </div>
 <div id="data-structures" class="section level3">
 <h3><span class="header-section-number">2.1.2</span> Data structures</h3>
+<p>Data <strong>structures</strong> are more complex arrangements of information than single variables. Of primary interest in statistical programming are the following types of structures:</p>
+<table>
+<thead>
+<tr class="header">
+<th> </th>
+<th align="left">Homogeneous</th>
+<th align="left">Heterogeneous</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>1d</td>
+<td align="left">vector</td>
+<td align="left">list</td>
+</tr>
+<tr class="even">
+<td>2d</td>
+<td align="left">matrix</td>
+<td align="left">data frame (R) or data set (SAS)</td>
+</tr>
+<tr class="odd">
+<td>nd</td>
+<td align="left">array (R)</td>
+<td align="left"></td>
+</tr>
+</tbody>
+</table>
+<p>In the table above, homogeneous means that all entries in the structure must be of the same type. Heterogeneous means that the entries are allowed to be of different types.</p>
+<div id="section-2" class="section level4 unnumbered note">
+<h4></h4>
+<p>Figuring out what to call these types with two languages is hard - in SAS, an array is a group of columns of a data set, but in R, it’s a multi-dimensional matrix. In this section, we’ll discuss the generic concepts relevant to both languages. The differences between the two languages will be discussed as appropriate.</p>
+</div>
+<div id="section-3" class="section level4 unnumbered">
+<h4></h4>
+</div>
+<div id="homogeneous-data-structures-r-and-sas" class="section level4">
+<h4><span class="header-section-number">2.1.2.1</span> Homogeneous data structures (R and SAS)</h4>
+<p>R does not have scalar types - even single-value variables are technically vectors of length 1. SAS does have scalar types.</p>
+<p>If we try to create a heterogeneous vector in R, using the <code>concatenate</code> function, <code>c()</code>, which combines scalar entries into a vector, what happens?</p>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb18-1" data-line-number="1"><span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="st">&quot;a&quot;</span>, <span class="st">&quot;b&quot;</span>, <span class="st">&quot;c&quot;</span>)</a>
+<a class="sourceLine" id="cb18-2" data-line-number="2">[<span class="dv">1</span>] <span class="st">&quot;1&quot;</span> <span class="st">&quot;2&quot;</span> <span class="st">&quot;a&quot;</span> <span class="st">&quot;b&quot;</span> <span class="st">&quot;c&quot;</span></a></code></pre></div>
+<p>Because there were 3 character entries, the entire vector is now a character vector.</p>
+</div>
+<div id="watch-out" class="section level4 unnumbered watchout">
+<h4>Watch Out</h4>
+<p>This behavior can cause some errors - for instance, R does not read in numeric data formatted with commas as numeric data. You may thus get the result</p>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb19-1" data-line-number="1">x &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">356</span>, <span class="dv">452</span>, <span class="st">&quot;1,325&quot;</span>)</a>
+<a class="sourceLine" id="cb19-2" data-line-number="2"><span class="kw">mean</span>(x)</a>
+<a class="sourceLine" id="cb19-3" data-line-number="3">Warning <span class="cf">in</span> <span class="kw">mean.default</span>(x)<span class="op">:</span><span class="st"> </span>argument is not numeric or logical<span class="op">:</span><span class="st"> </span>returning <span class="ot">NA</span></a>
+<a class="sourceLine" id="cb19-4" data-line-number="4">[<span class="dv">1</span>] <span class="ot">NA</span></a></code></pre></div>
+<p>If you are reading in data from a file, this will cause some issues - the whole column of data will be formatted as characters. Keep an eye out for errors of this type.</p>
+</div>
+<div id="section-4" class="section level4 unnumbered">
+<h4></h4>
+<p>The 1, 2, and multi-dimensional homogeneous data types should be familiar from e.g. linear algebra and calculus. Single elements of a vector can be extracted using single square brackets, e.g. <code>x[1]</code> will get the first element of the vector <code>x</code>. In a matrix, elements are indexed as row, column, so to get the (2, 2) entry of a matrix x, you would use <code>x[2,2]</code>. This is extended for multi-dimensional arrays in R, with each dimension added, e.g. <code>x[3,1,2]</code> or <code>x[4, 3, 2, 1]</code>.</p>
+<p>To get a full row or column from a matrix (in both SAS and R) you would use <code>x[1,]</code> (get the first row) or <code>x[,3]</code> (get the 3rd column).</p>
+<p>To select multiple rows or columns from a matrix, you would use <code>x[, c(1, 3)]</code> in R or <code>x[,{1 3}]</code> in SAS - both options get the first and third column of the matrix, with all rows of data included.</p>
+<p>In both R and SAS, <code>a:b</code> where a and b are numbers will form a sequence from <code>a</code> to <code>b</code> by 1s. So <code>1:4</code> is 1, 2, 3, 4. This is often used to get a set of rows or columns: <code>x[3:4, 1:2]</code>.</p>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb20-1" data-line-number="1">x &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">20</span>, <span class="dt">nrow =</span> <span class="dv">5</span>, <span class="dt">byrow =</span> T) </a>
+<a class="sourceLine" id="cb20-2" data-line-number="2"><span class="co"># Create a matrix with values 1 to 20, 5 rows, and fill by row</span></a>
+<a class="sourceLine" id="cb20-3" data-line-number="3"></a>
+<a class="sourceLine" id="cb20-4" data-line-number="4">x</a>
+<a class="sourceLine" id="cb20-5" data-line-number="5">     [,<span class="dv">1</span>] [,<span class="dv">2</span>] [,<span class="dv">3</span>] [,<span class="dv">4</span>]</a>
+<a class="sourceLine" id="cb20-6" data-line-number="6">[<span class="dv">1</span>,]    <span class="dv">1</span>    <span class="dv">2</span>    <span class="dv">3</span>    <span class="dv">4</span></a>
+<a class="sourceLine" id="cb20-7" data-line-number="7">[<span class="dv">2</span>,]    <span class="dv">5</span>    <span class="dv">6</span>    <span class="dv">7</span>    <span class="dv">8</span></a>
+<a class="sourceLine" id="cb20-8" data-line-number="8">[<span class="dv">3</span>,]    <span class="dv">9</span>   <span class="dv">10</span>   <span class="dv">11</span>   <span class="dv">12</span></a>
+<a class="sourceLine" id="cb20-9" data-line-number="9">[<span class="dv">4</span>,]   <span class="dv">13</span>   <span class="dv">14</span>   <span class="dv">15</span>   <span class="dv">16</span></a>
+<a class="sourceLine" id="cb20-10" data-line-number="10">[<span class="dv">5</span>,]   <span class="dv">17</span>   <span class="dv">18</span>   <span class="dv">19</span>   <span class="dv">20</span></a>
+<a class="sourceLine" id="cb20-11" data-line-number="11"></a>
+<a class="sourceLine" id="cb20-12" data-line-number="12">x[<span class="dv">3</span><span class="op">:</span><span class="dv">4</span>, <span class="dv">1</span><span class="op">:</span><span class="dv">2</span>]</a>
+<a class="sourceLine" id="cb20-13" data-line-number="13">     [,<span class="dv">1</span>] [,<span class="dv">2</span>]</a>
+<a class="sourceLine" id="cb20-14" data-line-number="14">[<span class="dv">1</span>,]    <span class="dv">9</span>   <span class="dv">10</span></a>
+<a class="sourceLine" id="cb20-15" data-line-number="15">[<span class="dv">2</span>,]   <span class="dv">13</span>   <span class="dv">14</span></a>
+<a class="sourceLine" id="cb20-16" data-line-number="16"><span class="co"># Gets a submatrix </span></a></code></pre></div>
+<p>In SAS, the same basic code works (though matrix definition is a bit more manual).</p>
+<pre class="sas"><code>proc iml; /* Interactive Matrix Language */
+  x = {1 2 3 4 5, 6 7 8 9 10, 11 12 13 14 15, 16 17 18 19 20};
+  y = x[3:4, 1:2];
+  print x; /* Here, print is used instead of put */
+  print y;
+quit; /* exit proc IML */
+                                     x
+
+                     1         2         3         4         5
+                     6         7         8         9        10
+                    11        12        13        14        15
+                    16        17        18        19        20
+
+                                     y
+
+                                   11        12
+                                   16        17</code></pre>
+<p>Both R and SAS are 1-indexed languages, so the elements of a list or vector are indexed as 1, 2, 3, 4, …<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a></p>
+<p>The heterogeneous data types are not much harder to grasp.</p>
+</div>
+<div id="heterogeneous-data-structures" class="section level4">
+<h4><span class="header-section-number">2.1.2.2</span> Heterogeneous data structures</h4>
+<div id="lists-r-only" class="section level5 unnumbered">
+<h5>Lists (R only)</h5>
+<p>A <strong>list</strong> is, well, a list - a sequence of potentially different-typed values. Unlike when concatenating values, the <code>list()</code> command in R allows each value to keep its natural type. You can access elements of a list using <code>[]</code> (this will extract a subset of the list items) or <code>[[]]</code>, which will extract a single item from the list.</p>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb22-1" data-line-number="1">x &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="st">&quot;a&quot;</span>, <span class="st">&quot;b&quot;</span>, <span class="st">&quot;c&quot;</span>, <span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>)</a>
+<a class="sourceLine" id="cb22-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb22-3" data-line-number="3">x</a>
+<a class="sourceLine" id="cb22-4" data-line-number="4">[[<span class="dv">1</span>]]</a>
+<a class="sourceLine" id="cb22-5" data-line-number="5">[<span class="dv">1</span>] <span class="st">&quot;a&quot;</span></a>
+<a class="sourceLine" id="cb22-6" data-line-number="6"></a>
+<a class="sourceLine" id="cb22-7" data-line-number="7">[[<span class="dv">2</span>]]</a>
+<a class="sourceLine" id="cb22-8" data-line-number="8">[<span class="dv">1</span>] <span class="st">&quot;b&quot;</span></a>
+<a class="sourceLine" id="cb22-9" data-line-number="9"></a>
+<a class="sourceLine" id="cb22-10" data-line-number="10">[[<span class="dv">3</span>]]</a>
+<a class="sourceLine" id="cb22-11" data-line-number="11">[<span class="dv">1</span>] <span class="st">&quot;c&quot;</span></a>
+<a class="sourceLine" id="cb22-12" data-line-number="12"></a>
+<a class="sourceLine" id="cb22-13" data-line-number="13">[[<span class="dv">4</span>]]</a>
+<a class="sourceLine" id="cb22-14" data-line-number="14">[<span class="dv">1</span>] <span class="dv">1</span></a>
+<a class="sourceLine" id="cb22-15" data-line-number="15"></a>
+<a class="sourceLine" id="cb22-16" data-line-number="16">[[<span class="dv">5</span>]]</a>
+<a class="sourceLine" id="cb22-17" data-line-number="17">[<span class="dv">1</span>] <span class="dv">2</span></a>
+<a class="sourceLine" id="cb22-18" data-line-number="18"></a>
+<a class="sourceLine" id="cb22-19" data-line-number="19">[[<span class="dv">6</span>]]</a>
+<a class="sourceLine" id="cb22-20" data-line-number="20">[<span class="dv">1</span>] <span class="dv">3</span></a>
+<a class="sourceLine" id="cb22-21" data-line-number="21">x[[<span class="dv">3</span>]]</a>
+<a class="sourceLine" id="cb22-22" data-line-number="22">[<span class="dv">1</span>] <span class="st">&quot;c&quot;</span></a>
+<a class="sourceLine" id="cb22-23" data-line-number="23"></a>
+<a class="sourceLine" id="cb22-24" data-line-number="24">x[[<span class="dv">4</span>]] <span class="op">+</span><span class="st"> </span>x[[<span class="dv">5</span>]]</a>
+<a class="sourceLine" id="cb22-25" data-line-number="25">[<span class="dv">1</span>] <span class="dv">3</span></a>
+<a class="sourceLine" id="cb22-26" data-line-number="26"></a>
+<a class="sourceLine" id="cb22-27" data-line-number="27">x[<span class="dv">1</span><span class="op">:</span><span class="dv">2</span>] <span class="co"># This will work</span></a>
+<a class="sourceLine" id="cb22-28" data-line-number="28">[[<span class="dv">1</span>]]</a>
+<a class="sourceLine" id="cb22-29" data-line-number="29">[<span class="dv">1</span>] <span class="st">&quot;a&quot;</span></a>
+<a class="sourceLine" id="cb22-30" data-line-number="30"></a>
+<a class="sourceLine" id="cb22-31" data-line-number="31">[[<span class="dv">2</span>]]</a>
+<a class="sourceLine" id="cb22-32" data-line-number="32">[<span class="dv">1</span>] <span class="st">&quot;b&quot;</span></a>
+<a class="sourceLine" id="cb22-33" data-line-number="33"></a>
+<a class="sourceLine" id="cb22-34" data-line-number="34">x[[<span class="dv">1</span><span class="op">:</span><span class="dv">2</span>]] <span class="co"># This won&#39;t work</span></a>
+<a class="sourceLine" id="cb22-35" data-line-number="35">Error <span class="cf">in</span> x[[<span class="dv">1</span><span class="op">:</span><span class="dv">2</span>]]<span class="op">:</span><span class="st"> </span>subscript out of bounds</a></code></pre></div>
+<p>Some lists consist of named variables. These list components can be accessed either by index (as above) or by name, using the <code>$</code> operator. Names which have spaces or special characters must be enclosed in backticks (next to the 1 on the keyboard). Named components can also be accessed using the <code>[[ ]]</code> operator.</p>
+<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb23-1" data-line-number="1">dog &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="dt">name =</span> <span class="st">&quot;Edison Vanderplas&quot;</span>, <span class="dt">age =</span> <span class="dv">8</span>, </a>
+<a class="sourceLine" id="cb23-2" data-line-number="2">            <span class="dt">breed =</span> <span class="st">&quot;Jack Russell Terrorist&quot;</span>, </a>
+<a class="sourceLine" id="cb23-3" data-line-number="3">            <span class="st">`</span><span class="dt">favorite toy</span><span class="st">`</span> =<span class="st"> &quot;a blue and orange stuffed duck. Or rawhide.&quot;</span>,</a>
+<a class="sourceLine" id="cb23-4" data-line-number="4">            <span class="st">`</span><span class="dt">link(video)</span><span class="st">`</span> =<span class="st"> &quot;https://youtu.be/zVeoQTOTIuQ&quot;</span>)</a>
+<a class="sourceLine" id="cb23-5" data-line-number="5"></a>
+<a class="sourceLine" id="cb23-6" data-line-number="6">dog</a>
+<a class="sourceLine" id="cb23-7" data-line-number="7"><span class="op">$</span>name</a>
+<a class="sourceLine" id="cb23-8" data-line-number="8">[<span class="dv">1</span>] <span class="st">&quot;Edison Vanderplas&quot;</span></a>
+<a class="sourceLine" id="cb23-9" data-line-number="9"></a>
+<a class="sourceLine" id="cb23-10" data-line-number="10"><span class="op">$</span>age</a>
+<a class="sourceLine" id="cb23-11" data-line-number="11">[<span class="dv">1</span>] <span class="dv">8</span></a>
+<a class="sourceLine" id="cb23-12" data-line-number="12"></a>
+<a class="sourceLine" id="cb23-13" data-line-number="13"><span class="op">$</span>breed</a>
+<a class="sourceLine" id="cb23-14" data-line-number="14">[<span class="dv">1</span>] <span class="st">&quot;Jack Russell Terrorist&quot;</span></a>
+<a class="sourceLine" id="cb23-15" data-line-number="15"></a>
+<a class="sourceLine" id="cb23-16" data-line-number="16"><span class="op">$</span><span class="st">`</span><span class="dt">favorite toy</span><span class="st">`</span></a>
+<a class="sourceLine" id="cb23-17" data-line-number="17">[<span class="dv">1</span>] <span class="st">&quot;a blue and orange stuffed duck. Or rawhide.&quot;</span></a>
+<a class="sourceLine" id="cb23-18" data-line-number="18"></a>
+<a class="sourceLine" id="cb23-19" data-line-number="19"><span class="op">$</span><span class="st">`</span><span class="dt">link(video)</span><span class="st">`</span></a>
+<a class="sourceLine" id="cb23-20" data-line-number="20">[<span class="dv">1</span>] <span class="st">&quot;https://youtu.be/zVeoQTOTIuQ&quot;</span></a>
+<a class="sourceLine" id="cb23-21" data-line-number="21"></a>
+<a class="sourceLine" id="cb23-22" data-line-number="22">dog<span class="op">$</span>name</a>
+<a class="sourceLine" id="cb23-23" data-line-number="23">[<span class="dv">1</span>] <span class="st">&quot;Edison Vanderplas&quot;</span></a>
+<a class="sourceLine" id="cb23-24" data-line-number="24">dog<span class="op">$</span>breed</a>
+<a class="sourceLine" id="cb23-25" data-line-number="25">[<span class="dv">1</span>] <span class="st">&quot;Jack Russell Terrorist&quot;</span></a>
+<a class="sourceLine" id="cb23-26" data-line-number="26">dog<span class="op">$</span><span class="st">`</span><span class="dt">favorite toy</span><span class="st">`</span></a>
+<a class="sourceLine" id="cb23-27" data-line-number="27">[<span class="dv">1</span>] <span class="st">&quot;a blue and orange stuffed duck. Or rawhide.&quot;</span></a>
+<a class="sourceLine" id="cb23-28" data-line-number="28">dog[[<span class="st">&quot;link(video)&quot;</span>]]</a>
+<a class="sourceLine" id="cb23-29" data-line-number="29">[<span class="dv">1</span>] <span class="st">&quot;https://youtu.be/zVeoQTOTIuQ&quot;</span></a></code></pre></div>
+<p>Most complicated structures in R are lists. You should be able to access any of the pieces of a list using a combination of named references and indexing.</p>
+<p>You can get a sense of the structure of a list (or any other object) in R using the <code>str()</code> command.</p>
+<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb24-1" data-line-number="1"></a>
+<a class="sourceLine" id="cb24-2" data-line-number="2"><span class="kw">str</span>(dog)</a>
+<a class="sourceLine" id="cb24-3" data-line-number="3">List of <span class="dv">5</span></a>
+<a class="sourceLine" id="cb24-4" data-line-number="4"> <span class="op">$</span><span class="st"> </span>name        <span class="op">:</span><span class="st"> </span>chr <span class="st">&quot;Edison Vanderplas&quot;</span></a>
+<a class="sourceLine" id="cb24-5" data-line-number="5"> <span class="op">$</span><span class="st"> </span>age         <span class="op">:</span><span class="st"> </span>num <span class="dv">8</span></a>
+<a class="sourceLine" id="cb24-6" data-line-number="6"> <span class="op">$</span><span class="st"> </span>breed       <span class="op">:</span><span class="st"> </span>chr <span class="st">&quot;Jack Russell Terrorist&quot;</span></a>
+<a class="sourceLine" id="cb24-7" data-line-number="7"> <span class="op">$</span><span class="st"> </span>favorite toy<span class="op">:</span><span class="st"> </span>chr <span class="st">&quot;a blue and orange stuffed duck. Or rawhide.&quot;</span></a>
+<a class="sourceLine" id="cb24-8" data-line-number="8"> <span class="op">$</span><span class="st"> </span><span class="kw">link</span>(video) <span class="op">:</span><span class="st"> </span>chr <span class="st">&quot;https://youtu.be/zVeoQTOTIuQ&quot;</span></a></code></pre></div>
+<p>Lists can also contain other lists. When accessing a list-within-a-list, just add another index or name reference (see below).</p>
+<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb25-1" data-line-number="1">grocery_list &lt;-<span class="st"> </span><span class="kw">list</span>(</a>
+<a class="sourceLine" id="cb25-2" data-line-number="2">  <span class="dt">dairy =</span> <span class="kw">list</span>(<span class="st">&quot;asiago&quot;</span>, <span class="st">&quot;fontina&quot;</span>, <span class="st">&quot;mozzarella&quot;</span>, <span class="st">&quot;blue cheese&quot;</span>),</a>
+<a class="sourceLine" id="cb25-3" data-line-number="3">  <span class="dt">baking =</span> <span class="kw">list</span>(<span class="st">&quot;flour&quot;</span>, <span class="st">&quot;yeast&quot;</span>, <span class="st">&quot;salt&quot;</span>),</a>
+<a class="sourceLine" id="cb25-4" data-line-number="4">  <span class="dt">canned_goods =</span> <span class="kw">list</span>(<span class="st">&quot;pepperoni&quot;</span>, <span class="st">&quot;pizza sauce&quot;</span>, <span class="st">&quot;olives&quot;</span>),</a>
+<a class="sourceLine" id="cb25-5" data-line-number="5">  <span class="dt">meat =</span> <span class="kw">list</span>(<span class="st">&quot;bacon&quot;</span>, <span class="st">&quot;sausage&quot;</span>, <span class="st">&quot;anchovies&quot;</span>),</a>
+<a class="sourceLine" id="cb25-6" data-line-number="6">  <span class="dt">veggies =</span> <span class="kw">list</span>(<span class="st">&quot;bell pepper&quot;</span>, <span class="st">&quot;onion&quot;</span>, <span class="st">&quot;scallions&quot;</span>, <span class="st">&quot;tomatoes&quot;</span>, <span class="st">&quot;basil&quot;</span>)</a>
+<a class="sourceLine" id="cb25-7" data-line-number="7">)</a>
+<a class="sourceLine" id="cb25-8" data-line-number="8"></a>
+<a class="sourceLine" id="cb25-9" data-line-number="9">ick &lt;-<span class="st"> </span><span class="kw">c</span>(grocery_list[[<span class="dv">4</span>]][<span class="dv">2</span><span class="op">:</span><span class="dv">3</span>], grocery_list<span class="op">$</span>canned_goods[[<span class="dv">3</span>]])</a>
+<a class="sourceLine" id="cb25-10" data-line-number="10">ick</a>
+<a class="sourceLine" id="cb25-11" data-line-number="11">[[<span class="dv">1</span>]]</a>
+<a class="sourceLine" id="cb25-12" data-line-number="12">[<span class="dv">1</span>] <span class="st">&quot;sausage&quot;</span></a>
+<a class="sourceLine" id="cb25-13" data-line-number="13"></a>
+<a class="sourceLine" id="cb25-14" data-line-number="14">[[<span class="dv">2</span>]]</a>
+<a class="sourceLine" id="cb25-15" data-line-number="15">[<span class="dv">1</span>] <span class="st">&quot;anchovies&quot;</span></a>
+<a class="sourceLine" id="cb25-16" data-line-number="16"></a>
+<a class="sourceLine" id="cb25-17" data-line-number="17">[[<span class="dv">3</span>]]</a>
+<a class="sourceLine" id="cb25-18" data-line-number="18">[<span class="dv">1</span>] <span class="st">&quot;olives&quot;</span></a>
+<a class="sourceLine" id="cb25-19" data-line-number="19"></a>
+<a class="sourceLine" id="cb25-20" data-line-number="20">crust_ingredients &lt;-<span class="st"> </span><span class="kw">c</span>(grocery_list<span class="op">$</span>baking, <span class="st">&quot;water&quot;</span>)</a>
+<a class="sourceLine" id="cb25-21" data-line-number="21">crust_ingredients</a>
+<a class="sourceLine" id="cb25-22" data-line-number="22">[[<span class="dv">1</span>]]</a>
+<a class="sourceLine" id="cb25-23" data-line-number="23">[<span class="dv">1</span>] <span class="st">&quot;flour&quot;</span></a>
+<a class="sourceLine" id="cb25-24" data-line-number="24"></a>
+<a class="sourceLine" id="cb25-25" data-line-number="25">[[<span class="dv">2</span>]]</a>
+<a class="sourceLine" id="cb25-26" data-line-number="26">[<span class="dv">1</span>] <span class="st">&quot;yeast&quot;</span></a>
+<a class="sourceLine" id="cb25-27" data-line-number="27"></a>
+<a class="sourceLine" id="cb25-28" data-line-number="28">[[<span class="dv">3</span>]]</a>
+<a class="sourceLine" id="cb25-29" data-line-number="29">[<span class="dv">1</span>] <span class="st">&quot;salt&quot;</span></a>
+<a class="sourceLine" id="cb25-30" data-line-number="30"></a>
+<a class="sourceLine" id="cb25-31" data-line-number="31">[[<span class="dv">4</span>]]</a>
+<a class="sourceLine" id="cb25-32" data-line-number="32">[<span class="dv">1</span>] <span class="st">&quot;water&quot;</span></a>
+<a class="sourceLine" id="cb25-33" data-line-number="33"></a>
+<a class="sourceLine" id="cb25-34" data-line-number="34">essential_toppings &lt;-<span class="st"> </span><span class="kw">c</span>(grocery_list<span class="op">$</span>dairy[<span class="dv">3</span>], grocery_list<span class="op">$</span>canned_goods[<span class="dv">2</span>])</a>
+<a class="sourceLine" id="cb25-35" data-line-number="35">essential_toppings</a>
+<a class="sourceLine" id="cb25-36" data-line-number="36">[[<span class="dv">1</span>]]</a>
+<a class="sourceLine" id="cb25-37" data-line-number="37">[<span class="dv">1</span>] <span class="st">&quot;mozzarella&quot;</span></a>
+<a class="sourceLine" id="cb25-38" data-line-number="38"></a>
+<a class="sourceLine" id="cb25-39" data-line-number="39">[[<span class="dv">2</span>]]</a>
+<a class="sourceLine" id="cb25-40" data-line-number="40">[<span class="dv">1</span>] <span class="st">&quot;pizza sauce&quot;</span></a>
+<a class="sourceLine" id="cb25-41" data-line-number="41"></a>
+<a class="sourceLine" id="cb25-42" data-line-number="42">yummy_toppings &lt;-<span class="st"> </span><span class="kw">c</span>(grocery_list<span class="op">$</span>dairy[<span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">4</span>)], grocery_list<span class="op">$</span>meat[<span class="dv">1</span>], grocery_list[[<span class="dv">5</span>]][<span class="kw">c</span>(<span class="dv">3</span>, <span class="dv">5</span>)])</a>
+<a class="sourceLine" id="cb25-43" data-line-number="43">yummy_toppings</a>
+<a class="sourceLine" id="cb25-44" data-line-number="44">[[<span class="dv">1</span>]]</a>
+<a class="sourceLine" id="cb25-45" data-line-number="45">[<span class="dv">1</span>] <span class="st">&quot;asiago&quot;</span></a>
+<a class="sourceLine" id="cb25-46" data-line-number="46"></a>
+<a class="sourceLine" id="cb25-47" data-line-number="47">[[<span class="dv">2</span>]]</a>
+<a class="sourceLine" id="cb25-48" data-line-number="48">[<span class="dv">1</span>] <span class="st">&quot;fontina&quot;</span></a>
+<a class="sourceLine" id="cb25-49" data-line-number="49"></a>
+<a class="sourceLine" id="cb25-50" data-line-number="50">[[<span class="dv">3</span>]]</a>
+<a class="sourceLine" id="cb25-51" data-line-number="51">[<span class="dv">1</span>] <span class="st">&quot;blue cheese&quot;</span></a>
+<a class="sourceLine" id="cb25-52" data-line-number="52"></a>
+<a class="sourceLine" id="cb25-53" data-line-number="53">[[<span class="dv">4</span>]]</a>
+<a class="sourceLine" id="cb25-54" data-line-number="54">[<span class="dv">1</span>] <span class="st">&quot;bacon&quot;</span></a>
+<a class="sourceLine" id="cb25-55" data-line-number="55"></a>
+<a class="sourceLine" id="cb25-56" data-line-number="56">[[<span class="dv">5</span>]]</a>
+<a class="sourceLine" id="cb25-57" data-line-number="57">[<span class="dv">1</span>] <span class="st">&quot;scallions&quot;</span></a>
+<a class="sourceLine" id="cb25-58" data-line-number="58"></a>
+<a class="sourceLine" id="cb25-59" data-line-number="59">[[<span class="dv">6</span>]]</a>
+<a class="sourceLine" id="cb25-60" data-line-number="60">[<span class="dv">1</span>] <span class="st">&quot;basil&quot;</span></a></code></pre></div>
+<div id="try-it-out" class="section level6 unnumbered tryitout">
+<h6>Try it out</h6>
+<p>Using the list of pizza toppings above as a starting point, make your own list of pizza toppings organized by grocery store section (approximately). Create your own vectors of yummy, essential, and ick toppings.</p>
+</div>
+</div>
+<div id="data-frames-r-only" class="section level5 unnumbered">
+<h5>Data frames (R only)</h5>
+<p>A data frame is a special type of list - one in which each element in the list is a vector of the same length. If you put these vectors side-by-side, you get a table of data that looks like a spreadsheet. When you examine the structure of a data frame, as shown below, you get each column shown in a row, with its type and the first few values in the column. The <code>head()</code> command shows the first 6 rows of a data frame (enough to see what’s there, not enough to overflow your screen).</p>
+<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb26-1" data-line-number="1"><span class="kw">head</span>(mtcars) <span class="co">## A data frame included in base R</span></a>
+<a class="sourceLine" id="cb26-2" data-line-number="2">                   mpg cyl disp  hp drat    wt  qsec vs am gear carb</a>
+<a class="sourceLine" id="cb26-3" data-line-number="3">Mazda RX4         <span class="fl">21.0</span>   <span class="dv">6</span>  <span class="dv">160</span> <span class="dv">110</span> <span class="fl">3.90</span> <span class="fl">2.620</span> <span class="fl">16.46</span>  <span class="dv">0</span>  <span class="dv">1</span>    <span class="dv">4</span>    <span class="dv">4</span></a>
+<a class="sourceLine" id="cb26-4" data-line-number="4">Mazda RX4 Wag     <span class="fl">21.0</span>   <span class="dv">6</span>  <span class="dv">160</span> <span class="dv">110</span> <span class="fl">3.90</span> <span class="fl">2.875</span> <span class="fl">17.02</span>  <span class="dv">0</span>  <span class="dv">1</span>    <span class="dv">4</span>    <span class="dv">4</span></a>
+<a class="sourceLine" id="cb26-5" data-line-number="5">Datsun <span class="dv">710</span>        <span class="fl">22.8</span>   <span class="dv">4</span>  <span class="dv">108</span>  <span class="dv">93</span> <span class="fl">3.85</span> <span class="fl">2.320</span> <span class="fl">18.61</span>  <span class="dv">1</span>  <span class="dv">1</span>    <span class="dv">4</span>    <span class="dv">1</span></a>
+<a class="sourceLine" id="cb26-6" data-line-number="6">Hornet <span class="dv">4</span> Drive    <span class="fl">21.4</span>   <span class="dv">6</span>  <span class="dv">258</span> <span class="dv">110</span> <span class="fl">3.08</span> <span class="fl">3.215</span> <span class="fl">19.44</span>  <span class="dv">1</span>  <span class="dv">0</span>    <span class="dv">3</span>    <span class="dv">1</span></a>
+<a class="sourceLine" id="cb26-7" data-line-number="7">Hornet Sportabout <span class="fl">18.7</span>   <span class="dv">8</span>  <span class="dv">360</span> <span class="dv">175</span> <span class="fl">3.15</span> <span class="fl">3.440</span> <span class="fl">17.02</span>  <span class="dv">0</span>  <span class="dv">0</span>    <span class="dv">3</span>    <span class="dv">2</span></a>
+<a class="sourceLine" id="cb26-8" data-line-number="8">Valiant           <span class="fl">18.1</span>   <span class="dv">6</span>  <span class="dv">225</span> <span class="dv">105</span> <span class="fl">2.76</span> <span class="fl">3.460</span> <span class="fl">20.22</span>  <span class="dv">1</span>  <span class="dv">0</span>    <span class="dv">3</span>    <span class="dv">1</span></a>
+<a class="sourceLine" id="cb26-9" data-line-number="9"></a>
+<a class="sourceLine" id="cb26-10" data-line-number="10"><span class="kw">str</span>(mtcars)</a>
+<a class="sourceLine" id="cb26-11" data-line-number="11"><span class="st">&#39;data.frame&#39;</span><span class="op">:</span><span class="st">   </span><span class="dv">32</span> obs. of  <span class="dv">11</span> variables<span class="op">:</span></a>
+<a class="sourceLine" id="cb26-12" data-line-number="12"><span class="st"> </span><span class="er">$</span><span class="st"> </span>mpg <span class="op">:</span><span class="st"> </span>num  <span class="dv">21</span> <span class="dv">21</span> <span class="fl">22.8</span> <span class="fl">21.4</span> <span class="fl">18.7</span> <span class="fl">18.1</span> <span class="fl">14.3</span> <span class="fl">24.4</span> <span class="fl">22.8</span> <span class="fl">19.2</span> ...</a>
+<a class="sourceLine" id="cb26-13" data-line-number="13"> <span class="op">$</span><span class="st"> </span>cyl <span class="op">:</span><span class="st"> </span>num  <span class="dv">6</span> <span class="dv">6</span> <span class="dv">4</span> <span class="dv">6</span> <span class="dv">8</span> <span class="dv">6</span> <span class="dv">8</span> <span class="dv">4</span> <span class="dv">4</span> <span class="dv">6</span> ...</a>
+<a class="sourceLine" id="cb26-14" data-line-number="14"> <span class="op">$</span><span class="st"> </span>disp<span class="op">:</span><span class="st"> </span>num  <span class="dv">160</span> <span class="dv">160</span> <span class="dv">108</span> <span class="dv">258</span> <span class="dv">360</span> ...</a>
+<a class="sourceLine" id="cb26-15" data-line-number="15"> <span class="op">$</span><span class="st"> </span>hp  <span class="op">:</span><span class="st"> </span>num  <span class="dv">110</span> <span class="dv">110</span> <span class="dv">93</span> <span class="dv">110</span> <span class="dv">175</span> <span class="dv">105</span> <span class="dv">245</span> <span class="dv">62</span> <span class="dv">95</span> <span class="dv">123</span> ...</a>
+<a class="sourceLine" id="cb26-16" data-line-number="16"> <span class="op">$</span><span class="st"> </span>drat<span class="op">:</span><span class="st"> </span>num  <span class="fl">3.9</span> <span class="fl">3.9</span> <span class="fl">3.85</span> <span class="fl">3.08</span> <span class="fl">3.15</span> <span class="fl">2.76</span> <span class="fl">3.21</span> <span class="fl">3.69</span> <span class="fl">3.92</span> <span class="fl">3.92</span> ...</a>
+<a class="sourceLine" id="cb26-17" data-line-number="17"> <span class="op">$</span><span class="st"> </span>wt  <span class="op">:</span><span class="st"> </span>num  <span class="fl">2.62</span> <span class="fl">2.88</span> <span class="fl">2.32</span> <span class="fl">3.21</span> <span class="fl">3.44</span> ...</a>
+<a class="sourceLine" id="cb26-18" data-line-number="18"> <span class="op">$</span><span class="st"> </span>qsec<span class="op">:</span><span class="st"> </span>num  <span class="fl">16.5</span> <span class="dv">17</span> <span class="fl">18.6</span> <span class="fl">19.4</span> <span class="dv">17</span> ...</a>
+<a class="sourceLine" id="cb26-19" data-line-number="19"> <span class="op">$</span><span class="st"> </span>vs  <span class="op">:</span><span class="st"> </span>num  <span class="dv">0</span> <span class="dv">0</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">0</span> <span class="dv">1</span> <span class="dv">0</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">1</span> ...</a>
+<a class="sourceLine" id="cb26-20" data-line-number="20"> <span class="op">$</span><span class="st"> </span>am  <span class="op">:</span><span class="st"> </span>num  <span class="dv">1</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> ...</a>
+<a class="sourceLine" id="cb26-21" data-line-number="21"> <span class="op">$</span><span class="st"> </span>gear<span class="op">:</span><span class="st"> </span>num  <span class="dv">4</span> <span class="dv">4</span> <span class="dv">4</span> <span class="dv">3</span> <span class="dv">3</span> <span class="dv">3</span> <span class="dv">3</span> <span class="dv">4</span> <span class="dv">4</span> <span class="dv">4</span> ...</a>
+<a class="sourceLine" id="cb26-22" data-line-number="22"> <span class="op">$</span><span class="st"> </span>carb<span class="op">:</span><span class="st"> </span>num  <span class="dv">4</span> <span class="dv">4</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">2</span> <span class="dv">1</span> <span class="dv">4</span> <span class="dv">2</span> <span class="dv">2</span> <span class="dv">4</span> ...</a></code></pre></div>
+<p>You can change column values or add new columns easily using assignment. It’s also easy to access specific columns to perform summary operations.</p>
+<p>Often, it is useful to know the dimensions of a data frame. The number of rows can be obtained by using <code>nrow(df)</code> and similarly, the columns can be obtained using <code>ncol(df)</code>. There is also an easy way to get a summary of each column in the data frame, using <code>summary()</code>.</p>
+<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb27-1" data-line-number="1">mtcars<span class="op">$</span>gpm &lt;-<span class="st"> </span><span class="dv">1</span><span class="op">/</span>mtcars<span class="op">$</span>mpg <span class="co"># gpm is sometimes used to assess efficiency</span></a>
+<a class="sourceLine" id="cb27-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb27-3" data-line-number="3"><span class="kw">summary</span>(mtcars<span class="op">$</span>gpm)</a>
+<a class="sourceLine" id="cb27-4" data-line-number="4">   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. </a>
+<a class="sourceLine" id="cb27-5" data-line-number="5"><span class="fl">0.02950</span> <span class="fl">0.04386</span> <span class="fl">0.05208</span> <span class="fl">0.05423</span> <span class="fl">0.06483</span> <span class="fl">0.09615</span> </a>
+<a class="sourceLine" id="cb27-6" data-line-number="6"><span class="kw">summary</span>(mtcars<span class="op">$</span>mpg)</a>
+<a class="sourceLine" id="cb27-7" data-line-number="7">   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. </a>
+<a class="sourceLine" id="cb27-8" data-line-number="8">  <span class="fl">10.40</span>   <span class="fl">15.43</span>   <span class="fl">19.20</span>   <span class="fl">20.09</span>   <span class="fl">22.80</span>   <span class="fl">33.90</span> </a>
+<a class="sourceLine" id="cb27-9" data-line-number="9"></a>
+<a class="sourceLine" id="cb27-10" data-line-number="10"><span class="kw">summary</span>(mtcars)</a>
+<a class="sourceLine" id="cb27-11" data-line-number="11">      mpg             cyl             disp             hp       </a>
+<a class="sourceLine" id="cb27-12" data-line-number="12"> Min.   <span class="op">:</span><span class="fl">10.40</span>   Min.   <span class="op">:</span><span class="fl">4.000</span>   Min.   <span class="op">:</span><span class="st"> </span><span class="fl">71.1</span>   Min.   <span class="op">:</span><span class="st"> </span><span class="fl">52.0</span>  </a>
+<a class="sourceLine" id="cb27-13" data-line-number="13"> 1st Qu.<span class="op">:</span><span class="fl">15.43</span>   1st Qu.<span class="op">:</span><span class="fl">4.000</span>   1st Qu.<span class="op">:</span><span class="fl">120.8</span>   1st Qu.<span class="op">:</span><span class="st"> </span><span class="fl">96.5</span>  </a>
+<a class="sourceLine" id="cb27-14" data-line-number="14"> Median <span class="op">:</span><span class="fl">19.20</span>   Median <span class="op">:</span><span class="fl">6.000</span>   Median <span class="op">:</span><span class="fl">196.3</span>   Median <span class="op">:</span><span class="fl">123.0</span>  </a>
+<a class="sourceLine" id="cb27-15" data-line-number="15"> Mean   <span class="op">:</span><span class="fl">20.09</span>   Mean   <span class="op">:</span><span class="fl">6.188</span>   Mean   <span class="op">:</span><span class="fl">230.7</span>   Mean   <span class="op">:</span><span class="fl">146.7</span>  </a>
+<a class="sourceLine" id="cb27-16" data-line-number="16"> 3rd Qu.<span class="op">:</span><span class="fl">22.80</span>   3rd Qu.<span class="op">:</span><span class="fl">8.000</span>   3rd Qu.<span class="op">:</span><span class="fl">326.0</span>   3rd Qu.<span class="op">:</span><span class="fl">180.0</span>  </a>
+<a class="sourceLine" id="cb27-17" data-line-number="17"> Max.   <span class="op">:</span><span class="fl">33.90</span>   Max.   <span class="op">:</span><span class="fl">8.000</span>   Max.   <span class="op">:</span><span class="fl">472.0</span>   Max.   <span class="op">:</span><span class="fl">335.0</span>  </a>
+<a class="sourceLine" id="cb27-18" data-line-number="18">      drat             wt             qsec             vs        </a>
+<a class="sourceLine" id="cb27-19" data-line-number="19"> Min.   <span class="op">:</span><span class="fl">2.760</span>   Min.   <span class="op">:</span><span class="fl">1.513</span>   Min.   <span class="op">:</span><span class="fl">14.50</span>   Min.   <span class="op">:</span><span class="fl">0.0000</span>  </a>
+<a class="sourceLine" id="cb27-20" data-line-number="20"> 1st Qu.<span class="op">:</span><span class="fl">3.080</span>   1st Qu.<span class="op">:</span><span class="fl">2.581</span>   1st Qu.<span class="op">:</span><span class="fl">16.89</span>   1st Qu.<span class="op">:</span><span class="fl">0.0000</span>  </a>
+<a class="sourceLine" id="cb27-21" data-line-number="21"> Median <span class="op">:</span><span class="fl">3.695</span>   Median <span class="op">:</span><span class="fl">3.325</span>   Median <span class="op">:</span><span class="fl">17.71</span>   Median <span class="op">:</span><span class="fl">0.0000</span>  </a>
+<a class="sourceLine" id="cb27-22" data-line-number="22"> Mean   <span class="op">:</span><span class="fl">3.597</span>   Mean   <span class="op">:</span><span class="fl">3.217</span>   Mean   <span class="op">:</span><span class="fl">17.85</span>   Mean   <span class="op">:</span><span class="fl">0.4375</span>  </a>
+<a class="sourceLine" id="cb27-23" data-line-number="23"> 3rd Qu.<span class="op">:</span><span class="fl">3.920</span>   3rd Qu.<span class="op">:</span><span class="fl">3.610</span>   3rd Qu.<span class="op">:</span><span class="fl">18.90</span>   3rd Qu.<span class="op">:</span><span class="fl">1.0000</span>  </a>
+<a class="sourceLine" id="cb27-24" data-line-number="24"> Max.   <span class="op">:</span><span class="fl">4.930</span>   Max.   <span class="op">:</span><span class="fl">5.424</span>   Max.   <span class="op">:</span><span class="fl">22.90</span>   Max.   <span class="op">:</span><span class="fl">1.0000</span>  </a>
+<a class="sourceLine" id="cb27-25" data-line-number="25">       am              gear            carb            gpm         </a>
+<a class="sourceLine" id="cb27-26" data-line-number="26"> Min.   <span class="op">:</span><span class="fl">0.0000</span>   Min.   <span class="op">:</span><span class="fl">3.000</span>   Min.   <span class="op">:</span><span class="fl">1.000</span>   Min.   <span class="op">:</span><span class="fl">0.02950</span>  </a>
+<a class="sourceLine" id="cb27-27" data-line-number="27"> 1st Qu.<span class="op">:</span><span class="fl">0.0000</span>   1st Qu.<span class="op">:</span><span class="fl">3.000</span>   1st Qu.<span class="op">:</span><span class="fl">2.000</span>   1st Qu.<span class="op">:</span><span class="fl">0.04386</span>  </a>
+<a class="sourceLine" id="cb27-28" data-line-number="28"> Median <span class="op">:</span><span class="fl">0.0000</span>   Median <span class="op">:</span><span class="fl">4.000</span>   Median <span class="op">:</span><span class="fl">2.000</span>   Median <span class="op">:</span><span class="fl">0.05208</span>  </a>
+<a class="sourceLine" id="cb27-29" data-line-number="29"> Mean   <span class="op">:</span><span class="fl">0.4062</span>   Mean   <span class="op">:</span><span class="fl">3.688</span>   Mean   <span class="op">:</span><span class="fl">2.812</span>   Mean   <span class="op">:</span><span class="fl">0.05423</span>  </a>
+<a class="sourceLine" id="cb27-30" data-line-number="30"> 3rd Qu.<span class="op">:</span><span class="fl">1.0000</span>   3rd Qu.<span class="op">:</span><span class="fl">4.000</span>   3rd Qu.<span class="op">:</span><span class="fl">4.000</span>   3rd Qu.<span class="op">:</span><span class="fl">0.06483</span>  </a>
+<a class="sourceLine" id="cb27-31" data-line-number="31"> Max.   <span class="op">:</span><span class="fl">1.0000</span>   Max.   <span class="op">:</span><span class="fl">5.000</span>   Max.   <span class="op">:</span><span class="fl">8.000</span>   Max.   <span class="op">:</span><span class="fl">0.09615</span>  </a></code></pre></div>
+<p>Missing variables in an R data frame are indicated with NA.</p>
+<div id="try-it-out-1" class="section level6 unnumbered tryitout">
+<h6>Try it out</h6>
+<p>Using the list of pizza toppings above as a starting point, make your own list of pizza toppings organized by grocery store section (approximately). Create your own vectors of yummy, essential, and ick toppings.</p>
+</div>
+</div>
+<div id="data-sets-sas" class="section level5 unnumbered">
+<h5>Data Sets (SAS)</h5>
+<p>The SAS data set structure is similar to a R data frame.</p>
+<div class="figure">
+<img src="https://documentation.sas.com/api/docsets/basess/9.4/content/images/data-fit.png" alt="This is a schematic of a data set as taken from the SAS documentation" />
+<p class="caption">This is a schematic of a data set as taken from the SAS documentation</p>
+</div>
+<p>The biggest difference is that in SAS, missing values are indicated with .</p>
+<p>SAS datasets also come with a description which is attached to the table. The descriptor portion of the data set records names of variables (and attributes), numbers of observations, and date/time stamps of creation and updates.</p>
+</div>
+</div>
 </div>
 <div id="control-structures" class="section level3">
 <h3><span class="header-section-number">2.1.3</span> Control structures</h3>
+</div>
+<div id="section-5" class="section level3 unnumbered">
+<h3></h3>
+<p>Non-exhaustive list of references:</p>
+<ul>
+<li>SAS Matrix reference: <a href="http://www.math.wpi.edu/saspdf/iml/chap4.pdf" class="uri">http://www.math.wpi.edu/saspdf/iml/chap4.pdf</a></li>
+<li>Data structures in Advanced R: <a href="http://adv-r.had.co.nz/Data-structures.html" class="uri">http://adv-r.had.co.nz/Data-structures.html</a></li>
+<li><a href="https://documentation.sas.com/?docsetId=basess&amp;docsetTarget=p1f5xhmkdfhyjcn1n6k9wdcacba0.htm&amp;docsetVersion=9.4&amp;locale=en">SAS Data set documentation</a></li>
+</ul>
 </div>
 </div>
 <div id="overgrown-calculators" class="section level2">
@@ -271,6 +956,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h2><span class="header-section-number">2.4</span> Basic Programming in SAS</h2>
 
 </div>
+</div>
+<div class="footnotes">
+<hr />
+<ol start="1">
+<li id="fn1"><p>Most languages are 0-indexed languages: C, C++, python, Java, javascript. Vectors in these languages are indexed as 0, 1, 2, 3. Other 1-indexed languages include FORTRAN, Matlab, Julia, Mathematica, and Lua, many of which were intended for mathematical processing or data analysis.<a href="intro-prog.html#fnref1" class="footnote-back">↩</a></p></li>
+</ol>
 </div>
             </section>
 
