@@ -12,3 +12,27 @@ pre {
 pre code {
   white-space: inherit;
 }
+
+
+.note {
+  font-style:italic;
+  color:purple;
+  border:2px solid purple;
+  padding:2px;
+}
+
+.tryitout {
+  border:2px solid green;
+  padding:10px;
+}
+.tryitout > h3, .tryitout > h4, .tryitout > h5, .tryitout > h6 {
+  color: green;
+}
+
+.watchout {
+  border:2px solid blue;
+  padding:10px;
+}
+.watchout > h3, .watchout > h4, .watchout > h5, .watchout > h6 {
+  color: blue;
+}
