@@ -1,5 +1,23 @@
 # Introduction to Statistical Programming {#intro-prog}
 
+
+```{r out.width = "50%", fig.cap = "This is basically the class summarized, in meme format. ", echo = F}
+knitr::include_graphics('image/learning_to_code_Orly.jpeg')
+```
+
+The only way to learn how to program effectively is to take something that works, break it, and then fix it again. There's plenty of theory and you should definitely learn that, but fundamentally, if you are not regularly breaking code, you're probably not programming. 
+
+## Module Objectives {-}
+
+- Identify variable types, data structures, and common reserved words in R and SAS
+- Use control structures (loops and conditionals) effectively
+- Use matrix algebra functionality in R and SAS to perform basic calculations
+
+More informally, the goal is to get familiar with the basics of each programming language.
+
+
+## Definitions {-}
+
 Many programming resources talk about 3, or 5, or 10 core concepts in any programming language. In this module, we're going to discuss the generic concepts, and then how these concepts are implemented in R and SAS.
 
 Interestingly, the "core concepts" aren't necessarily the same across lists. So, here is a consensus list of concepts which are generic across languages and usually important:
@@ -20,7 +38,7 @@ Interestingly, the "core concepts" aren't necessarily the same across lists. So,
 
 8. **Sequence of commands**: It's important to have the right commands in the right order. Some recipes, like bread dough, are flexible, and you can add the ingredients in almost any order, but in other recipes, the order matters as much as the correct quantity of ingredients (try putting the cheese powder in before the noodles are boiled when making macaroni and cheese. Yuck.). Programming tends to be like these less flexible recipes. 
 
-Non-Exhaustive List of Sources: 
+Non-Exhaustive List of Sources used to aggregate "core programming concepts": 
 
 - https://blog.upperlinecode.com/computer-language-fundamentals-five-core-concepts-1aa43e929f40
 - https://howtoprogramwithjava.com/programming-101-the-5-basic-concepts-of-any-programming-language/
@@ -28,87 +46,122 @@ Non-Exhaustive List of Sources:
 - http://livecode.byu.edu/programmingconcepts/ControlStruct.php
 - http://holowczak.com/programming-concepts-tutorial-programmers/
 
-## Statistical Programming Concepts
+
+## Statistical Programming Languages {-}
 
 Having established the generic definitions of the concepts which apply to almost any programming language, we now must examine how R and SAS implement these concepts. R and SAS are both statistical programming languages - they are specifically designed to work with data, which means that they make compromises that other languages do not in order to make it easier to write code where the data (rather than the functions, classes, methods, or objects) are the primary concern.
 
 Both [R](https://bookdown.org/rdpeng/rprogdatascience/history-and-overview-of-r.html) and [SAS](https://en.wikipedia.org/wiki/SAS_(software)#History) have long histories. SAS in particular dates back to the 1960s, and has syntax which is unique compared to more modern languages such as C, python, Java, and R. R's predecessor, S, dates back to 1976 and was designed for internal use at Bell Labs. The histories of both languages are useful in understanding why they are useful for their respective tasks, but are not essential for this course (so read them at your leisure).
 
+The biggest difference between R and SAS (at a fundamental level) is that R is a [**functional** language](http://adv-r.had.co.nz/Functional-programming.html) - it consists mainly of functions, which can (and do) manipulate objects, including other functions. SAS, on the other hand, is a procedural language - most SAS programs follow a specific series of steps, known as "proc"s. Procs are essentially functions (or compositions of multiple functions), but in SAS, it is simpler to think of an analysis as a series of procedural steps; in R, there are steps, but they may be implemented in a more flexible way (depending on the analysis). Another interesting feature of SAS is that it's really several languages - some commands work in PROC IML (interactive matrix language) but not in a DATA step. When looking for help in SAS, make sure you're referencing the correct part of the language documentation.
 
-### Variable types
+**Basic Syntax and Cheatsheets**
 
-#### R
+- [SAS Cheatsheet (from another class like this)](https://sites.ualberta.ca/~ahamann/teaching/renr480/SAS-Cheat.pdf)
+- [SAS Cheatsheet (by SAS)](https://support.sas.com/content/dam/SAS/support/en/books/data/base-syntax-ref.pdf)
+- [R Cheatsheet](https://rstudio.com/wp-content/uploads/2016/10/r-cheat-sheet-3.pdf) - this is a simplified cheat sheet offered by RStudio. 
+- [R Cheatsheet (classic)](https://cran.r-project.org/doc/contrib/Short-refcard.pdf)
+
+#### {- .note}
+
+I kept the classic R reference card by my computer for about 5 years, and referenced it at least once or twice a day for that entire period. There will be other cheat sheets and reference cards scattered through this book because if you can't remember something's name, you might be able to remember where it is on the reference card (or at least, that's how I learned R).
+
+#### {-}
+
+## Variable types
+
+Variable types are sufficiently different in R and SAS that we will cover R first, then SAS. 
+
+### R
 
 In R, there are 4 commonly-used types: 
 
-Type | Description 
----- | -----------
-character | holds text-based information: "abcd" or "3.24a" are examples of values which would be stored as characters in R
-logical | holds binary information: 0/1, or FALSE/TRUE. Logical variables are stored as single bit information (e.g. either a 0 or 1), but display as TRUE and FALSE (which are reserved words and constants). It is possible to use the shorthand `F` and `T`, but be careful with this, because `F` and `T` are not reserved, and other information can be stored within them.
-integer | holds (as you might expect) integers. Note that integers are handled differently than doubles (floating point numbers), but in general, R will implicitly convert integers to doubles to avoid common pitfalls with integer divison (which does not allow for decimals). 
-double | holds floating point numbers. By default, most numeric variables in R are doubles.
+| Type | Description | 
+| ---- | ----------- | 
+| character | holds text-based information: "abcd" or "3.24a" are examples of values which would be stored as characters in R| 
+| logical | holds binary information: 0/1, or FALSE/TRUE. Logical variables are stored as single bit information (e.g. either a 0 or 1), but display as TRUE and FALSE (which are reserved words and constants). It is possible to use the shorthand `F` and `T`, but be careful with this, because `F` and `T` are not reserved, and other information can be stored within them.| 
+| integer | holds (as you might expect) integers. Note that integers are handled differently than doubles (floating point numbers), but in general, R will implicitly convert integers to doubles to avoid common pitfalls with integer divison (which does not allow for decimals). | 
+| double | holds floating point numbers. By default, most numeric variables in R are doubles.| 
 
 
-You can test to see whether a variable holds a value of a specific type using the `is.xxx()` functions, which are demonstrated below. 
+You can test to see whether a variable holds a value of a specific type using the `is.xxx()` functions, which are demonstrated below. You can convert a variable of one type to another with `as.xxx()` functions. You can test what type a variable is using `typeof()`.
 
-##### {- .note}
+#### {- .note}
 Note that `<-` is used for assigning a value to a variable. So the first line in the code below is read "x gets 'R is awesome'" or "x is assigned the value 'R is awesome'". 
 
-##### {-}
+#### {-}
+
+#### Demonstration of variable types: {-}
 
 ##### Character Variables {-}
+<details>
 ```{r is-fcns-char}
 x <- "R is awesome"
+typeof(x)
 is.character(x)
 is.logical(x)
 is.integer(x)
 is.double(x)
 ```
+</details>
 
 ##### Logical Variables  {-}
+<details>
 ```{r is-fcns-lgl}
 x <- FALSE
+typeof(x)
 is.character(x)
 is.logical(x)
 is.integer(x)
 is.double(x)
 ```
+</details>
 
 ##### Integer Variables  {-}
+<details>
 ```{r is-fcns-int}
 x <- 2
+typeof(x)
 is.character(x)
 is.logical(x)
 is.integer(x)
 is.double(x)
 ```
 
-Wait, 2 is an integer, right? 
+Wait, 2 is an integer, right?
 
-It is, but in R, values are assumed to be doubles unless specified. So if we want R to treat 2 as an integer, we need to specify that it is an integer specifically.
+2 is an integer, but in R, values are assumed to be doubles unless specified. So if we want R to treat 2 as an integer, we need to specify that it is an integer specifically. 
 
 ```{r is-fcns-int2}
 x <- 2L # The L immediately after the 2 indicates that it is an integer.
+typeof(x)
 is.character(x)
 is.logical(x)
 is.integer(x)
 is.double(x)
 is.numeric(x)
 ```
+</details>
 
 ##### Double Variables  {-}
+<details>
 ```{r is-fcns-dbl}
 x <- 2.45
+typeof(x)
 is.character(x)
 is.logical(x)
 is.integer(x)
 is.double(x)
 is.numeric(x)
 ```
+</details>
 
+##### Numeric Variables {-}
+A fifth common "type"^[`numeric` is not really a type, it's a mode. Run `?mode` for more information.], `numeric` is really the union of two types: integer and double, and you may come across it when using `str()` or `mode()`, which are similar to `typeof()` but do not quite do the same thing. The `numeric` category exists because when doing math, we can add an integer and a double, but adding an integer and a string is ... trickier. Testing for numeric variables guarantees that we'll be able to do math with those variables. `is.numeric()` and `as.numeric()` work as you would expect them to work.
 
-A fifth common type, `numeric` is really the union of two types: integer and double. This mostly exists because when doing math, we can add an integer and a double, but adding an integer and a string is ... trickier. Testing for numeric variables guarantees that we'll be able to do math with those variables. The general case of this property of a language is called **implicit type conversion** - that is, R will implicitly (behind the scenes) convert your integer to a double and then add the other double, so that the result is unambiguously a double. 
+The general case of this property of a language is called **implicit type conversion** - that is, R will implicitly (behind the scenes) convert your integer to a double and then add the other double, so that the result is unambiguously a double. 
 
+#### Type Conversions
 R will generally work hard to seamlessly convert variables to different types. So, for instance, 
 ```{r, error = T}
 TRUE + 2
@@ -132,7 +185,7 @@ as.numeric("abcd") + 3
 
 When we make our intent explicit (convert "abcd" to a numeric variable) we get an NA - a missing value. There's still no easy way to figure out where "abcd" is on a number line, but our math will still have a result - NA + 3 is NA.
 
-If you are unsure what the type of a variable is, use the `class()` function to find out. 
+If you are unsure what the type of a variable is, use the `typeof()` function to find out. 
 
 ```{r}
 w <- "a string"
@@ -140,17 +193,16 @@ x <- 3L
 y <- 3.1415
 z <- FALSE
 
-class(w)
-class(x)
-class(y)
-class(z)
+typeof(w)
+typeof(x)
+typeof(y)
+typeof(z)
 
 ```
 
-Notice that the generic type name for double is "numeric". R's typing scheme is pretty flexible, which can sometimes lead to apparent inconsistencies. 
 
 
-#### SAS
+### SAS
 
 In SAS, there are two basic variable types: numeric and character variables. Thus, SAS does not differentiate between integers and floats or doubles. Functionally, though, the same basic operations can be performed in SAS. As with R, SAS does attempt to implicitly convert variable types, and will notify you that the conversion has taken place in the log file.
 
@@ -194,9 +246,9 @@ unlink("saslog.log")
 ```
 
 
-#### Try it out: Variable types {- .tryitout}
+### Try it out: Variable types {- .tryitout}
 
-##### In R {-}
+#### In R {-}
 
 1. Create variables `string`, `integer`, `decimal`, and `logical`, with types that match the relevant variable names.
 
@@ -216,14 +268,14 @@ string + integer
 
 3. What happens when you add string to string? logical to logical?
 
-##### In SAS {-}
+#### In SAS {-}
 
 1. Create variables `string1` and `string2` that each have text/character values. "Bob" and "Jane" might be good options. How does logical operation work with actual character values?
 
 2. What happens if you use `string1` and add 3 to it? 
 
 
-##### Answers {-}
+#### Answers {-}
 
 <details>
 
@@ -284,7 +336,7 @@ unlink("saslog.log")
 
 </details>
 
-### Data structures
+## Data structures
 
 Data **structures** are more complex arrangements of information than single variables. Of primary interest in statistical programming are the following types of structures:
 
@@ -297,11 +349,11 @@ nd | array (R) |
 In the table above, homogeneous means that all entries in the structure must be of the same type. Heterogeneous means that the entries are allowed to be of different types. 
 
 #### {- .note}
-Figuring out what to call these types with two languages is hard - in SAS, an array is a group of columns of a data set, but in R, it's a multi-dimensional matrix. In this section, we'll discuss the generic concepts relevant to both languages. The differences between the two languages will be discussed as appropriate. 
+Figuring out what to call these types with two languages is hard - in SAS, an array is a group of columns of a data set, but in R, it's a multi-dimensional matrix. In this section, we'll discuss the generic concepts relevant to both languages. The differences between the two languages will be discussed as appropriate. As there are more similarities than differences, it's easier to do this in a single section rather than duplicating half of the content.
 
 #### {-}
 
-#### Homogeneous data structures (R and SAS)
+### Homogeneous data structures (R and SAS)
 
 R does not have scalar types - even single-value variables are technically vectors of length 1. SAS does have scalar types.
 
@@ -323,6 +375,8 @@ mean(x)
 If you are reading in data from a file, this will cause some issues - the whole column of data will be formatted as characters. Keep an eye out for errors of this type. 
 
 #### {-}
+
+#### Indexing
 
 The 1, 2, and multi-dimensional homogeneous data types should be familiar from e.g. linear algebra and calculus. Single elements of a vector can be extracted using single square brackets, e.g. `x[1]` will get the first element of the vector `x`. In a matrix, elements are indexed as row, column, so to get the (2, 2) entry of a matrix x, you would use `x[2,2]`. This is extended for multi-dimensional arrays in R, with each dimension added, e.g. `x[3,1,2]` or `x[4, 3, 2, 1]`. 
 
@@ -356,12 +410,71 @@ quit; /* exit proc IML */
 
 Both R and SAS are 1-indexed languages, so the elements of a list or vector are indexed as 1, 2, 3, 4, ...  ^[Most languages are 0-indexed languages: C, C++, python, Java, javascript. Vectors in these languages are indexed as 0, 1, 2, 3.  Other 1-indexed languages include FORTRAN, Matlab, Julia, Mathematica, and Lua, many of which were intended for mathematical processing or data analysis.]
 
+As R has logical vectors, it is possible to index a vector using a logical vector of the same length.
 
-The heterogeneous data types are not much harder to grasp. 
+#### Try it out {- .tryitout}
 
-#### Heterogeneous data structures
+```{r vectorindexing, exercise = TRUE}
+# From project Euler
 
-##### Lists (R only) {-}
+# If we list all the natural numbers below 10 that are multiples of 3 or 5, 
+#    we get 3, 5, 6 and 9. The sum of these multiples is 23.
+# Find the sum of all the multiples of 3 or 5 below 1000.
+
+
+# Hint: The modulo operator, `%%`, gives the integer remainder of one number 
+#       divided by another. So `a %% b` gives the integer remainder when 
+#       dividing `a` by `b`. Modular division is often used to find multiples 
+#       of a number. 
+```
+
+##### Answers {-}
+<details>
+
+In R: 
+```{r vectorindexing-solution}
+
+x <- 1:999 # all nums below 1000
+
+m3 <- (x %% 3) == 0 # multiple of 3
+m5 <- (x %% 5) == 0 # multiple of 5
+m3or5 <- m3 | m5
+
+sum(x[m3or5])
+
+```
+
+In SAS: 
+```{sashtml vectorindexing-solution-sas}
+data tmp;
+  do x = 1 to 999;
+  output;
+  end;
+run;
+
+proc summary data=tmp; /* Summarize data */
+  where (mod(x, 3) = 0) | (mod(x, 5) = 0); 
+  /* Keep only obs where x is divisible by 3 or 5 */
+  
+  var x; /* what variable we want the summary for */
+  
+  output out=sum_x sum=; /* output sum_x to a new dataset */
+run;
+
+proc print data = sum_x; /* print our sum_x dataset */
+run;
+```
+
+</details>
+
+#### {-}
+
+
+### Heterogeneous data structures
+
+The heterogeneous data types are not much harder to grasp, as they're mostly different ways to combine various homogeneous data types.
+
+#### Lists (R only) {-}
 
 A **list** is, well, a list - a sequence of potentially different-typed values. Unlike when concatenating values, the `list()` command in R allows each value to keep its natural type. You can access elements of a list using `[]` (this will extract a subset of the list items) or `[[]]`, which will extract a single item from the list.
 
@@ -427,12 +540,12 @@ yummy_toppings <- c(grocery_list$dairy[c(1, 2, 4)], grocery_list$meat[1], grocer
 yummy_toppings
 ```
 
-###### Try it out {- .tryitout}
+##### Try it out {- .tryitout}
 
 Using the list of pizza toppings above as a starting point, make your own list of pizza toppings organized by grocery store section (approximately). Create your own vectors of yummy, essential, and ick toppings.
 
 
-##### Data frames (R only) {-}
+#### Data frames (R only) {-}
 
 A data frame is a special type of list - one in which each element in the list is a vector of the same length. If you put these vectors side-by-side, you get a table of data that looks like a spreadsheet. When you examine the structure of a data frame, as shown below, you get each column shown in a row, with its type and  the first few values in the column. The `head()` command shows the first 6 rows of a data frame (enough to see what's there, not enough to overflow your screen).
 
@@ -446,7 +559,7 @@ str(mtcars)
 You can change column values or add new columns easily using assignment. It's also easy to access specific columns to perform summary operations.
 
 
-Often, it is useful to know the dimensions of a data frame. The number of rows can be obtained by using `nrow(df)` and similarly, the columns can be obtained using `ncol(df)`. There is also an easy way to get a summary of each column in the data frame, using `summary()`.
+Often, it is useful to know the dimensions of a data frame. The number of rows can be obtained by using `nrow(df)` and similarly, the columns can be obtained using `ncol(df)` (or, get both with `dim()`). There is also an easy way to get a summary of each column in the data frame, using `summary()`.
 
 
 ```{r}
@@ -460,33 +573,297 @@ summary(mtcars)
 
 Missing variables in an R data frame are indicated with NA. 
 
-###### Try it out {- .tryitout}
+##### Try it out {- .tryitout}
 
-Using the list of pizza toppings above as a starting point, make your own list of pizza toppings organized by grocery store section (approximately). Create your own vectors of yummy, essential, and ick toppings.
+The dataset `state.x77` contains information on US state statistics in the 1970s. By default, it is a matrix, but we can easily convert it to a data frame, as shown below. 
+
+```{r}
+data(state)
+state_facts <- data.frame(state.x77)
+state_facts <- cbind(state = row.names(state_facts), state_facts, stringsAsFactors = F) 
+# State names were stored as row labels
+# Store them in a variable instead, and add it to the data frame
+
+row.names(state_facts) <- NULL # get rid of row names
+
+head(state_facts)
+```
+
+1. How many rows and columns does it have? Can you find at least 3 ways to get that information?
+
+2. The `Illiteracy` column contains the percent of the population of each state that is illiterate. Calculate the number of people in each state who are illiterate, and store that in a new column called `TotalNumIlliterate`. Note: `Population` contains the population in thousands.
+
+3. Calculate the average population density of each state (population per square mile) and store it in a new column `PopDensity`. Using the R reference card, can you find functions that you can combine to get the state with the minimum population density?
+
+<details>
+```{r}
+# 3 ways to get rows and columns
+str(state_facts)
+dim(state_facts)
+nrow(state_facts)
+ncol(state_facts)
+
+# Illiteracy
+state_facts$TotalNumIlliterate <- state_facts$Population * 1e3 * (state_facts$Illiteracy/100) 
+
+# Population Density
+state_facts$PopDensity <- state_facts$Population * 1e3/state_facts$Area 
+# in people per square mile
+
+# minimum population
+state_facts$state[which.min(state_facts$PopDensity)]
+```
+</details>
 
 
-##### Data Sets (SAS) {-}
+
+#### Data Sets (SAS) {-}
 
 The SAS data set structure is similar to a R data frame.
 
 ![This is a schematic of a data set as taken from the SAS documentation](https://documentation.sas.com/api/docsets/basess/9.4/content/images/data-fit.png)
 
-The biggest difference is that in SAS, missing values are indicated with .
+The biggest difference is that in SAS, missing values are indicated with `.`.
 
 SAS datasets also come with a description which is attached to the table. The descriptor portion of the data set records names of variables (and attributes), numbers of observations, and date/time stamps of creation and updates.
 
-### Control structures
+```{sashtml mj-data-step}
+/* Data source: http://blog.yhat.com/posts/7-funny-datasets.html */
+data mathMJ;
+title 'Average math test scores under the influence of LSD';
+input Drugs	Score;
+datalines;
+1.17 78.93
+2.97 58.20
+3.26 67.47
+4.69 37.47
+5.83 45.65
+6.00 32.92
+6.41 29.97
+;
+
+/* Describe the dataset */
+proc datasets;
+  contents data = mathMJ;
+run;
+
+proc print data = mathMJ;
+run;
+```
 
 
-### {-}
-Non-exhaustive list of references:
-
-- SAS Matrix reference: http://www.math.wpi.edu/saspdf/iml/chap4.pdf
-- Data structures in Advanced R: http://adv-r.had.co.nz/Data-structures.html
-- [SAS Data set documentation](https://documentation.sas.com/?docsetId=basess&docsetTarget=p1f5xhmkdfhyjcn1n6k9wdcacba0.htm&docsetVersion=9.4&locale=en)
 
 
+## Control structures
 
+### If statements
+
+If statements are just about as simple in programming as they are in real life. 
+
+
+```{r, fig.cap = "[Source](https://xkcd.com/1652/)", echo = F}
+knitr::include_graphics("https://imgs.xkcd.com/comics/conditionals.png")
+```
+
+In general, the structure of an if statement is 
+
+````
+if (condition) {
+  # do something here
+} 
+````
+
+If the condition is true, the inner code will be executed. Otherwise, nothing happens.
+
+You can add an else statement that will execute if the condition is not true
+
+````
+if (condition) {
+  # do something
+} else {
+  # do a different thing
+}
+````
+
+And in some languages, you can even have many sets of if statements: 
+
+```{r, eval = F}
+if (condition) {
+  # do something
+} else if (condition 2) {
+  # do something else
+} else {
+  # do a third thing
+}
+```
+
+Note that this could also be written (perhaps more clearly) as: 
+
+````
+if (condition) {
+  # do something
+} else {
+  if (condition 2) {
+    # do something else
+  } else {
+    # do a third thing
+  }
+}
+````
+That is, `condition 2` is only checked once it is known that `condition` is false.
+
+
+#### R example if statement
+
+```{r}
+tmp <- data.frame(name = c("Alex", "Edison", "Susan", "Ryan"),
+                  status = c("naughty", "nice", NA, "neutral"),
+                  stringsAsFactors = F)
+# Santa's decision process
+
+if (tmp$status == "naughty") {
+ tmp$present <- "coal"
+} else {
+ tmp$present <- "toy"
+}
+
+tmp
+```
+
+What happened? 
+
+When evaluating if statements, R does not evaluate each entry in the vector `tmp$status` separately. Instead, it takes the first value and issues a warning message. One option would be to use a loop, and examine each row in the data set separately. We'll talk about loops in the next subsection. Another option is to use the `ifelse()` function, which is `ifelse(condition, thing to do if condition is true, thing to do if condition is false)`
+
+```{r}
+tmp$present <- ifelse(tmp$status == "naughty", "coal", "toy")
+
+tmp
+```
+
+When R evaluates a missing value, (so ? NA == "naughty"), the result is `NA`. This is fine for us - if we don't have data on whether someone is naughty or nice, maybe we don't need to give them a present at all. But "neutral" is evaluated as getting a toy. Do we want that to happen? Maybe not. We might have to nest ifelse statements to solve this issue...
+
+```{r}
+tmp$present <- ifelse(tmp$status == "naughty", 
+                      "coal", 
+                      ifelse(tmp$status == "nice", "toy", NA))
+
+tmp
+```
+
+#### SAS example if statement
+
+In a data step:
+```{sashtml}
+data santa;
+  input name $ status $;
+  datalines;
+  Edison nice
+  Alex naughty
+  Susan .
+  Ryan neutral
+;
+
+/* Modify santa_list and make a new dataset, present_list */
+data presents;
+  set santa;
+  if status = "naughty" then present = "coal";
+  else present = "toy";
+run; /* must end with run if no datalines option */
+
+proc print data=presents;
+run;
+```
+
+Note that `.`, or missing data is handled the same as 'nice'. That might not be what we wanted... this is the natural thing to do, right?
+
+````
+data santa;
+  input name $ status $;
+  datalines;
+  Edison nice
+  Alex naughty
+  Susan .
+  Ryan neutral
+;
+
+/* Modify santa_list and make a new dataset, present_list */
+data presents;
+  set santa;
+  if status = "naughty" then present = "coal";
+  else (if status = "nice" then present = "toy" else present = .);
+run; /* must end with run if no datalines option */
+
+proc print data=presents;
+run;
+````
+
+SAS doesn't handle nested if statements very well - they can be ambiguous. Instead, [SAS documentation suggests using `do;` and `end;` to denote the start and end points of each if statement](https://documentation.sas.com/?docsetId=basess&docsetTarget=p0pcj5ajwyngron1wlsq0tet0hce.htm&docsetVersion=9.4&locale=en) (like the `{}` in R). 
+
+```{sashtml}
+data santa;
+  input name $ status $;
+  datalines;
+  Edison nice
+  Alex naughty
+  Susan .
+  Ryan neutral
+;
+data presents;
+  set santa;
+  if status = "naughty" then 
+    do;
+      present = "coal";
+    end;
+  else if status = "nice" then
+    do;
+      present = "toy";
+    end;
+  else 
+    do;
+      present = .;
+    end;
+run;
+          
+proc print data=presents;
+run;
+```
+
+Interestingly, if you set a character variable to be missing, SAS converts it to '.'. So, if we actually want to have the value be missing, we can set it to an empty string.
+
+```{sashtml}
+data santa;
+  input name $ status $;
+  datalines;
+  Edison nice
+  Alex naughty
+  Susan .
+  Ryan neutral
+;
+data presents;
+  set santa;
+  if status = "naughty" then 
+    do;
+      present = "coal";
+    end;
+  else if status = "nice" then
+    do;
+      present = "toy";
+    end;
+  else 
+    do;
+      present = '';
+    end;
+run;
+          
+proc print data=presents;
+run;
+```
+
+Now things work the way we expected them to work.
+
+There are more complicated if-statement like control structures, such as cases, which can save time and typing, but almost anything can be done with sequences of if statements in the proper order.
+
+### Loops
 
 ## Overgrown Calculators
 
@@ -498,4 +875,12 @@ Matrix algebra
 
 
 ## Basic Programming in SAS
+
+
+## References (ish) {-}
+Non-exhaustive list of references:
+
+- SAS Matrix reference: http://www.math.wpi.edu/saspdf/iml/chap4.pdf
+- Data structures in Advanced R: http://adv-r.had.co.nz/Data-structures.html
+- [SAS Data set documentation](https://documentation.sas.com/?docsetId=basess&docsetTarget=p1f5xhmkdfhyjcn1n6k9wdcacba0.htm&docsetVersion=9.4&locale=en)
 

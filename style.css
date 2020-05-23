@@ -25,7 +25,7 @@ pre code {
   border:2px solid green;
   padding:10px;
 }
-.tryitout > h3, .tryitout > h4, .tryitout > h5, .tryitout > h6 {
+.tryitout h3, .tryitout h4, .tryitout h5, .tryitout h6 {
   color: green;
 }
 
