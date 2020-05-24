@@ -30,9 +30,14 @@ pre code {
 }
 
 .watchout {
-  border:2px solid blue;
+  border:2px solid orange;
   padding:10px;
 }
-.watchout > h3, .watchout > h4, .watchout > h5, .watchout > h6 {
-  color: blue;
+.watchout h3, .watchout h4, .watchout h5, .watchout h6 {
+  color: orange;
+}
+
+.example{
+  border:2px solid blue;
+  padding:10px;
 }

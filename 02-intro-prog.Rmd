@@ -1,11 +1,22 @@
 # Introduction to Statistical Programming {#intro-prog}
 
 
+The only way to learn how to program effectively is to take something that works, break it, and then fix it again. There's plenty of theory and you should definitely learn that, but fundamentally, if you are not regularly breaking code, you're probably not programming. 
+
 ```{r out.width = "50%", fig.cap = "This is basically the class summarized, in meme format. ", echo = F}
 knitr::include_graphics('image/learning_to_code_Orly.jpeg')
 ```
 
-The only way to learn how to program effectively is to take something that works, break it, and then fix it again. There's plenty of theory and you should definitely learn that, but fundamentally, if you are not regularly breaking code, you're probably not programming. 
+The goal for this chapter (and several chapters to come) is that you can modify example code and adapt it to the problem at hand. This is the best way to learn how to program, but it means you may break the code and not know how to fix it. If that happens, please try the following steps:
+
+1. Google the error and see if you can understand why it happened.
+2. Consult with a classmate to see if they can understand where things broke.
+3. Post to the discussion board and see if anyone in the class can understand where things broke.    
+(When you do this, post all of the code relevant to the problem, and the error you're getting, so that your classmates can replicate the problem)
+
+If you do not hopelessly break code during this chapter, then please do your best to help others who may not have previously programmed (or previously programmed in these languages). While writing this chapter, I came across about 10 errors in SAS that I'd never encountered before. 
+
+If all else fails, while you're waiting for someone to help you figure out what an error message means... [try this approach](https://xkcd.com/1024/).
 
 ## Module Objectives {-}
 
@@ -38,14 +49,6 @@ Interestingly, the "core concepts" aren't necessarily the same across lists. So,
 
 8. **Sequence of commands**: It's important to have the right commands in the right order. Some recipes, like bread dough, are flexible, and you can add the ingredients in almost any order, but in other recipes, the order matters as much as the correct quantity of ingredients (try putting the cheese powder in before the noodles are boiled when making macaroni and cheese. Yuck.). Programming tends to be like these less flexible recipes. 
 
-Non-Exhaustive List of Sources used to aggregate "core programming concepts": 
-
-- https://blog.upperlinecode.com/computer-language-fundamentals-five-core-concepts-1aa43e929f40
-- https://howtoprogramwithjava.com/programming-101-the-5-basic-concepts-of-any-programming-language/
-- https://dev.to/lucpattyn/basic-programming-concepts-for-beginners-2o73
-- http://livecode.byu.edu/programmingconcepts/ControlStruct.php
-- http://holowczak.com/programming-concepts-tutorial-programmers/
-
 
 ## Statistical Programming Languages {-}
 
@@ -61,6 +64,7 @@ The biggest difference between R and SAS (at a fundamental level) is that R is a
 - [SAS Cheatsheet (by SAS)](https://support.sas.com/content/dam/SAS/support/en/books/data/base-syntax-ref.pdf)
 - [R Cheatsheet](https://rstudio.com/wp-content/uploads/2016/10/r-cheat-sheet-3.pdf) - this is a simplified cheat sheet offered by RStudio. 
 - [R Cheatsheet (classic)](https://cran.r-project.org/doc/contrib/Short-refcard.pdf)
+- [SAS Programming for R Users (free book)]()
 
 #### {- .note}
 
@@ -474,7 +478,7 @@ run;
 
 The heterogeneous data types are not much harder to grasp, as they're mostly different ways to combine various homogeneous data types.
 
-#### Lists (R only) {-}
+#### Lists {-}
 
 A **list** is, well, a list - a sequence of potentially different-typed values. Unlike when concatenating values, the `list()` command in R allows each value to keep its natural type. You can access elements of a list using `[]` (this will extract a subset of the list items) or `[[]]`, which will extract a single item from the list.
 
@@ -540,9 +544,46 @@ yummy_toppings <- c(grocery_list$dairy[c(1, 2, 4)], grocery_list$meat[1], grocer
 yummy_toppings
 ```
 
+There are also [lists in SAS IML which function similarly to lists in R](https://documentation.sas.com/?docsetId=imlug&docsetTarget=imlug_langref_sect040.htm&docsetVersion=15.1&locale=en). To create a named object in a list, precede the name with `#`. In SAS, the `$` operator can be used to get items from a list, using either 
+
+```{sashtml}
+proc iml;
+  grocery_list = [
+    #dairy  = ["asiago", "fontina", "mozzarella", "blue cheese"], 
+    #baking = ["flour", "yeast", "salt"], 
+    #canned = ["pepperoni", "pizza sauce", "olives"], 
+    #meat   = ["bacon", "sausage", "anchovies"], 
+    #veggies= ["bell pepper", "onion", "scallions", "tomatoes", "basil"]
+  ];
+
+  /* print only works on matrices and vectors */
+  /* so we'll cheat and load another library to print lists */
+  
+  package load ListUtil;
+  
+  /* run ListPrint(grocery_list); */ 
+  /* This would print the thing, but it's long */
+  
+  ick = [grocery_list$"canned"$3, grocery_list$4$2, grocery_list$4$3];
+  crust = grocery_list$"baking";
+  call ListAddItem(crust, "water"); /* add an item to a list */
+  essential_toppings = [grocery_list$"dairy"$3, grocery_list$"canned"$2];
+  yummy_toppings = [grocery_list$"dairy"$1, grocery_list$"dairy"$2, 
+    grocery_list$"dairy"$4, grocery_list$"meat"$1, grocery_list$5$3] ;
+  /* The || is a concatenation operator, like c(). */
+  /* It is inefficient for large data sets */
+  
+  run ListPrint(ick);
+  run ListPrint(crust);
+  run ListPrint(yummy_toppings);
+quit;
+
+```
+
+
 ##### Try it out {- .tryitout}
 
-Using the list of pizza toppings above as a starting point, make your own list of pizza toppings organized by grocery store section (approximately). Create your own vectors of yummy, essential, and ick toppings.
+Using the list of pizza toppings above as a starting point, make your own list of pizza toppings organized by grocery store section (approximately). Create your own vectors of yummy, essential, and ick toppings, using R and SAS.
 
 
 #### Data frames (R only) {-}
@@ -668,7 +709,7 @@ knitr::include_graphics("https://imgs.xkcd.com/comics/conditionals.png")
 In general, the structure of an if statement is 
 
 ````
-if (condition) {
+if (condition) then {
   # do something here
 } 
 ````
@@ -678,7 +719,7 @@ If the condition is true, the inner code will be executed. Otherwise, nothing ha
 You can add an else statement that will execute if the condition is not true
 
 ````
-if (condition) {
+if (condition) then {
   # do something
 } else {
   # do a different thing
@@ -710,11 +751,17 @@ if (condition) {
   }
 }
 ````
-That is, `condition 2` is only checked once it is known that `condition` is false.
+That is, `condition 2` is only checked once it is known that `condition` is false. Often, programmers use logic flow maps, like the one shown below, to map out a logical sequence and ensure that every possible value is handled appropriately.
+
+![If statement flow diagram, from wikimedia commons](https://upload.wikimedia.org/wikipedia/commons/c/c5/If-Then-Else-diagram.svg)
 
 
-#### R example if statement
+The syntax for conditional statements using if/then logic is shown below using an example where Santa must determine which members of a household will receive a toy for Christmas and which members will receive coal. ^[Traditionally, naughty children got coal, while nice children got toys or candy.]
 
+#### Example {- .example}
+
+In R:
+<details>
 ```{r}
 tmp <- data.frame(name = c("Alex", "Edison", "Susan", "Ryan"),
                   status = c("naughty", "nice", NA, "neutral"),
@@ -749,8 +796,10 @@ tmp$present <- ifelse(tmp$status == "naughty",
 
 tmp
 ```
+</details>
 
-#### SAS example if statement
+In SAS:
+<details>
 
 In a data step:
 ```{sashtml}
@@ -860,27 +909,676 @@ run;
 ```
 
 Now things work the way we expected them to work.
+</details>
 
-There are more complicated if-statement like control structures, such as cases, which can save time and typing, but almost anything can be done with sequences of if statements in the proper order.
+#### {-}
+
+There are more complicated if-statement like control structures, such as switch statements, which can save time and typing. In the interests of simplicity, we will skip these for now, as any conditional can be implemented with sequences of if statements in the proper order. If you would like to read about switch statements, here are links to [SAS case statement documentation](https://documentation.sas.com/?docsetId=sqlproc&docsetTarget=n0a85s0ijz65irn1h3jtariooea5.htm&docsetVersion=9.4&locale=en) and [base R switch statement explanation](https://www.tutorialgateway.org/r-switch-statement/) and [documentation](https://www.rdocumentation.org/packages/base/versions/3.6.2/topics/switch).
+
+#### Try it out {- .tryitout}
+
+The `sample()` function selects a random sample of entries from a vector. Suppose we sample a random vector $x$ with 10 entries. Write one or more if statements to fulfill the following conditions
+
+- if $x$ is divisible by 2, $y$ should be positive; otherwise, it should be negative.
+- if $x$ is divisible by 3, $y$ should have a magnitude of 2; otherwise, it should have a magnitude of 1.
+
+It may be helpful to define separate variables `y_mag` and `y_sign` and then multiply them afterwards. Once you have found the value of $y$ compute $\text{sum}(x * y)$.
+
+You may use the following R and SAS code skeletons to set the problem up.
+```{r}
+set.seed(342502837)
+x <- sample(1:50, size = 20, replace = F)
+
+# Conditional statements go here
+
+sum(x * y)
+```
+
+````
+proc iml;
+  call randseed(342502837);
+  x = sample(1:50, 20)`;
+  create sampledata from x [colname = "x"];
+  append from x;
+  close;
+quit;
+
+data xy;
+  set sampledata;
+
+
+  /* Conditional statements go here */
+  
+  
+  /* Leave this so that the code below works */
+  res = x * y;
+run;
+
+proc summary data=xy; /* Summarize data */
+  var res; /* what variable we want the summary for */
+  
+  output out=tmpsum sum=; /* output tmpsum to a new dataset */
+run;
+
+proc print data = xy; /* print our original dataset to check result */
+  var x y res;
+  sum res;
+run;
+
+proc print data = tmpsum; /* print our tmpsum dataset */
+run;
+````
+
+Solutions
+<details>
+
+R Solution
+```{r}
+set.seed(342502837)
+x <- sample(1:50, size = 20, replace = F)
+
+y_sign <- ifelse(x %% 2 == 0, 1, -1)
+y_mag <- ifelse(x %% 3 == 0, 2, 1)
+y <- y_sign * y_mag
+
+sum(x * y)
+```
+
+SAS Solution
+
+```{sashtml}
+proc iml;
+  call randseed(342502837);
+  x = sample(1:50, 20)`;
+  create sampledata from x [colname = "x"];
+  append from x;
+  close;
+quit;
+
+data xy;
+  set sampledata;
+
+  y_sign = 0 * x;
+  y_mag = 0 * x;
+
+  /* Conditional statements go here */
+  if MOD(x, 2) = 0 then y_sign = 1; 
+    else y_sign = -1;
+  if MOD(x, 3) = 0 then y_mag = 2; 
+    else y_mag = 1;
+
+  y = y_sign * y_mag;
+  res = x * y;
+run;
+
+proc summary data=xy; /* Summarize data */
+  var res; /* what variable we want the summary for */
+  
+  output out=tmpsum sum=; /* output tmpsum to a new dataset */
+run;
+
+
+proc print data = xy; /* print our original dataset to check result */
+  var x y res;
+  sum res;
+run;
+
+proc print data = tmpsum; /* print our tmpsum dataset */
+run;
+```
+
+See [this](https://www.oreilly.com/library/view/sas-certification-prep/9781607649243/p12osnn9d1s4hgn12yf8ffocxhw7.htm) to understand how the print statement works and how to add column summary values. 
+</details>
+
+#### {-}
 
 ### Loops
+Often, we need to do a single task many times - for instance, we may need to calculate the average data value for each week, using daily data. Rather than typing out 52 different iterations of the same code, it is likely easier to type out one single block of code which contains the steps necessary to complete one instance of the task, and then leverage variables to ensure that each task is completed the correct number of times, using the correct inputs.
+
+Let us start with the most generic loop written in pseudocode (code that won't work, but provides the general idea of the steps which are taken)
+
+````
+loop_invocation(iteration variable, exit condition) {
+  # Steps to repeat
+}
+````
+
+We use the `loop_invocation` function to indicate what type of loop we use. We have at least one `iteration variable` that indicates where in the looping process we currently are. This may be an index (if we want to do something 500 times, it would take values from 1 to 500), or it may take a more complicated sequence of values (for instance, if we are testing convergence, we might put some sort of delta variable as the iteration variable). Most loops also have an explicit exit condition that is part of the loop invocation; more rarely, a loop may depend on `break` statements that cause the control flow of the code to exit. Without some sort of exit condition, our program would run forever, which is... not optimal.
+
+
+#### Count controlled loops (FOR loops)
+
+In a for loop, the steps in the loop body repeat a specified number of times. That is, *for* each value in a sequence, the steps within the loop are repeated. 
+
+##### {- .example}
+Example: Santa and if/else + loops in R (plus some debugging strategies)
+<details>
+For instance, suppose we want to revisit our R Santa example from the previous section. The original if/else code we wrote in R didn't work, because R evaluates if statements using a single (scalar or vector of length 1) condition. If we add a loop around that code, we can evaluate only one row at a time. We need to check every row, so we'll iterate over `1:nrow(tmp)` - it's better to get the upper bound from the data frame, rather than just using 4 - if we add another entry, the code will still work if we're using `nrow(tmp)` to define how many iterations we need.
+
+We start by defining our data frame:
+```{r}
+tmp <- data.frame(name = c("Alex", "Edison", "Susan", "Ryan"),
+                  status = c("naughty", "nice", NA, "neutral"),
+                  stringsAsFactors = F)
+```
+
+And then we add the basic loop syntax:
+```{r}
+for (i in 1:nrow(tmp)) {
+  
+}
+```
+
+For some reason, `i` is often used as the iteration variable (with `j` and `k` for nested loops). 
+
+What this loop says is that `i` will first take on the value 1, then 2, then 3, then 4. On each iteration, `i` will advance to the next value in the vector of options we have provided. 
+
+Now we need to add the middle part by adapting the conditional statement we used before so that it looks at only the `i`th row. I've also added the catch-all else condition that assigns NA for any value that isn't "naughty" or "nice". 
+
+It's good practice to initialize your variable (create a column for it) ahead of time and set the variable to a default value.
+
+```{r, error = T}
+
+tmp$present <- NA # Initialize column and set to NA by default
+
+for (i in 1:nrow(tmp)) {
+  # Santa's decision process
+  if (tmp$status[i] == "naughty") {
+   tmp$present[i] <- "coal"
+  } else if (tmp$status[i] == "nice") {
+   tmp$present[i] <- "toy"
+  } else {
+    tmp$present[i] <- NA_character_ 
+    # use a special NA value that has 
+    # character type to avoid any issues
+  }
+}
+```
+
+Well, that didn't work! We can see that the loop stopped at `i = 3` by printing out the value of `i` - because the loop failed, `i` will still contain the value which caused the loop to stop. 
+
+```{r}
+i
+tmp[i,] # print tmp at that point
+```
+
+
+Combining this information with the error above, we can guess that R stopped evaluating the loop because the if statement returned NA (missing) instead of TRUE or FALSE. 
+
+if/else statements in R can't evaluate to `NA`, so we need to restructure our conditional statement - first, we'll test for `NA` values, then, we can test for naughty and nice, and we'll keep the catch-all statement at the bottom. We'll test for an `NA` value using the function `is.na()`.
+
+```{r}
+
+tmp$present <- NA # Initialize column and set to NA by default
+
+for (i in 1:nrow(tmp)) {
+  # Santa's decision process
+  if (is.na(tmp$status[i])) {
+    tmp$present[i] <- NA_character_
+  } else if (tmp$status[i] == "naughty") {
+   tmp$present[i] <- "coal"
+  } else if (tmp$status[i] == "nice") {
+   tmp$present[i] <- "toy"
+  } else {
+    tmp$present[i] <- NA_character_ 
+  }
+}
+
+tmp
+```
+
+Now the if/else logic works exactly as intended. This is longer than the version using `ifelse()`, but it is perhaps more readable. 
+
+</details>
+##### {-}
+
+In most cases in R and SAS, it is possible to write code without needing loops at all, because both languages are vector-based - they will often use **vectorized** functions which implicitly loop over each row without having to write a loop to do so. `ifelse()` is a vectorized version of `if() {} else {}`. 
+
+Here is an example of the most basic for loop logic - printing the numbers 1 through 10 - in both R and SAS. SAS code is provided for both PROC IML and DATA steps.
+
+In R:
+<details>
+```{r forloop}
+# R Example loop
+for (i in 1:10) {
+  print(i)
+}
+```
+</details>
+
+In SAS IML:
+<details>
+```{sas doloop1}
+/* SAS IML example loop */
+proc iml;
+  do i = 1 to 10;
+    print i;
+  end; /* This ends the loop definition */
+quit;
+```
+</details>
+
+In SAS DATA:
+<details>
+```{sas doloop2}
+/* SAS DATA step example loop */
+proc printto log="saslog.log" new; /* to shows output log in bookdown */
+data A;
+  do i = 1 to 10;
+    put i=;
+  end; /* This ends the loop definition */
+run;
+```
+
+```{r readlog-sas-doloop-answers2, echo = F}
+cat(readLines("saslog.log"), sep="\n")
+
+# Do not forget to remove the log file when you are done!
+unlink("saslog.log")
+```
+</details>
+
+
+Another explanation of for loops is available at 
+[Khan Academy](https://www.khanacademy.org/computing/ap-computer-science-principles/programming-101/repetition-with-loops/a/repetition-with-for-loops?modal=1).
+
+While the most straighforward (and common) case of for-loop use in practice is to count from 1 to N, both R and SAS allow for loops to use other sequence structures.
+
+In R:
+<details>
+
+R allows loops to occur over any vector... even randomly generated numbers, or nonnumeric vectors (say, a character vector of URLs).
+```{r}
+x <- rnorm(5) # Generate 5 normal (0,1) samples
+
+for (i in x) {
+  print(i^2)
+}
+
+```
+
+We can also iterate by non-integer values using `seq(from = , to = , by = )`
+```{r}
+# This loop counts down in 1/2 units from 5 to 0
+for (i in seq(5, 0, -.5)) {
+  # do nothing
+}
+```
+</details>
+
+In SAS:
+<details>
+We can iterate by non-integer values:
+```{sas}
+proc printto log="saslog.log" new; /* to shows output log in bookdown */
+data A;
+y = 0;
+do i = 5 to 0 by -0.5;
+    put i=;
+  end;
+run;
+```
+
+```{r, echo = F}
+cat(readLines("saslog.log"), sep="\n")
+
+# Do not forget to remove the log file when you are done!
+unlink("saslog.log")
+```
+
+We can even add additional conditions:
+
+```{sas}
+proc printto log="saslog.log" new; /* to shows output log in bookdown */
+data A;
+y = 0;
+do i = 5 to 0 by -0.5 while (i**2 > 1);
+    put i=;
+  end;
+run;
+```
+```{r, echo = F}
+cat(readLines("saslog.log"), sep="\n")
+
+# Do not forget to remove the log file when you are done!
+unlink("saslog.log")
+```
+
+</details>
+
+
+
+##### Try it out {- .tryitout}
+
+###### In R: {-}
+The `beepr` package plays sounds in R to alert you when your code has finished running (or just to annoy your friends and classmates). ([Documentation](https://www.r-project.org/nosvn/pandoc/beepr.html))
+You can install the package using the following command:
+```{r, eval = F}
+install.packages("beepr")
+```
+(if you are using Linux you will also need to make sure one of `paplay`, `aplay`, or `vlc` is installed)
+
+Load the library and write a `for` loop which plays the 10 different sounds corresponding to integers 1 through 10. 
+```{r, eval = F}
+library(beepr) # load the beepr library
+
+beep(sound = 1) # sound is any integer between 1 and 10.
+```
+
+It may be helpful to add the command `Sys.sleep(5)` into your loop to space out the noises so that they can be heard individually.
+
+
+###### In SAS: {-}
+
+Write a for loop which will output the first 30 [fibbonacci numbers](https://en.wikipedia.org/wiki/Fibonacci_number). You can use the following code as a starting point:
+
+````
+/* SAS IML example loop */
+proc iml;
+  current = 1;
+  prev = 0;
+
+quit;
+
+````
+
+R Solution:
+<details>
+```{r, eval = F}
+library(beepr)
+
+for (i in 1:10) {
+  beep(sound = i)
+  Sys.sleep(5)
+}
+
+```
+</details>
+
+SAS Solution:
+<details>
+
+```{sas}
+/* SAS IML example loop */
+proc iml;
+  current = 1;
+  prev = 0;
+
+  do i = 1 to 30;
+    new = current + prev;
+    prev = current;
+    current = new;
+    print current;
+  end; /* This ends the loop definition */
+quit;
+
+```
+</details>
+
+
+##### {-}
+
+
+
+#### Condition-controlled loops (WHILE, DO WHILE)
+
+Frequently, we do not know how many times a loop will need to execute a priori. We might be converging on a value, and want to repeat the calculation until the new value is within an acceptably epsilon of the previous iteration. In these cases, it can be helpful to use a [WHILE loop](https://en.wikipedia.org/wiki/While_loop), which loops while the condition is true (another variant, the do-while loop, is similar, except that a do-while loop will always execute once, and checks the condition at the end of the iteration). 
+
+If a WHILE loop condition is never falsified, the loop will continue forever. Thus, it is usually wise to include a loop counter as well, and a condition to terminate the loop if the counter value is greater than a certain threshold.
+
+Example: Let's solve the [Basel problem](https://en.wikipedia.org/wiki/Basel_problem) in R and SAS using WHILE loops - we'll repeat the calculation until the value changes by less than 0.000001. The Basel problem is the problem of calculating the precise infinite summation $$\sum_{n=1}^\infty \frac{1}{n^2}$$
+
+We'll stick to calculating it computationally.
+
+
+In R:
+<details>
+
+```{r basel-problem}
+# Start out by defining your starting values outside of the loop
+i <- 1
+basel_value <- 0 # initial guess
+prev_basel_value <- -Inf # previous value 
+while (abs(basel_value - prev_basel_value) > 0.000001) {
+  prev_basel_value <- basel_value # update condition
+  basel_value <- basel_value + 1/i^2
+  i <- i + 1
+  
+  # Prevent infinite loops
+  if (i > 1e6) {
+    break
+  }
+  
+  # Monitor the loop to know that it's behaving
+  if (i %% 200 == 0) {
+    print(c('i = ' = i, 'prev' = prev_basel_value, 'current' = basel_value, diff = basel_value - prev_basel_value))
+  }
+}
+
+i
+basel_value
+prev_basel_value
+```
+</details>
+
+in SAS:
+<details>
+```{sas}
+proc iml;
+  i = 1;
+  basel = 0;
+  prev = -1;
+  do while((basel - prev) > 1e-6);
+    prev = basel;
+    basel = basel + 1/i**2; /* ** is the exponent operator */
+    i = i + 1;
+    
+    if i > 1e6 then
+      do;
+        leave;
+    end;
+      
+    if MOD(i, 200) = 0 then
+      do;
+        print i, prev, basel;
+    end;
+  end;
+  
+  print i, basel;
+quit;
+  
+```
+
+</details>
+
+
+Another explanation of while loops is available at [Khan Academy](https://www.khanacademy.org/computing/ap-computer-science-principles/programming-101/repetition-with-loops/a/conditional-repetition-of-instructions?modal=1).
+
+##### Try it out {- .tryitout}
+
+Write a while loop in R and in SAS to calculate $\displaystyle \lim_{x \rightarrow 4} \frac{2 - \sqrt{x}}{4-x}$ by starting at 3 and halving the distance to 4 with each iteration. Exit the loop when you are within 1e-6 of the value computed on the previous iteration, or when you are within 1e-6 from 4. Which exit condition did you hit first? How do you know?
+
+Solutions:
+<details>
+```{r}
+x <- 3
+dist <- 4 - x
+current_value <- 0
+prev_value <- -Inf
+while (abs(current_value - prev_value) > 1e-6 & dist > 1e-6) {
+  prev_value <- current_value
+  dist <- dist/2
+  x <- 4 - dist
+  current_value <- (2 - sqrt(x))/(4-x)
+}
+
+c(x = x, dist = dist, current_value = current_value, d_value = abs(current_value - prev_value))
+```
+Before $x$ got to 4 - 1e-6, the change in f(x) became less than 1e-6. 
+
+```{sas}
+proc iml;
+  x = 3;
+  dist = 4 - x;
+  fx = 0;
+  prev_fx = 1;
+  dfx = abs(fx - prev_fx);
+  do while(dfx > 1e-6 & dist > 1e-6);
+    prev_fx = fx;
+    dist = dist/2; 
+    x = 4 - dist;
+    fx = (2 - sqrt(x))/(4 - x);
+    dfx = abs(fx - prev_fx);
+  end;
+  
+  print x, dist, fx, dfx;
+quit;
+
+```
+</details>
+
+#### Other Loops and Interative Structures
+
+There are many different ways to implement iteration in any language, including very low-level controls like `repeat` (in R). Higher level iteration may include a FOREACH loop, where a series of commands is applied to a list or vector (the `*apply` commands in R are examples of this). An additional method of iteration that requires functions is the recursion (where a function calls itself). In every case, these alternative loop structures can be translated to for or while loops. 
+
 
 ## Overgrown Calculators
 
-R and SAS for basic numerical operations
+While R and SAS are both extremely powerful statistical programming languages, the core of both languages is the ability to do basic calculations and matrix arithmetic. As almost every dataset is stored as a matrix-like structure (data sets and data frames both allow for multiple types, which isn't quite compatible with more canonical matrices), it is useful to know how to do matrix-level calculations in R and SAS. 
 
-Matrix algebra
+In this section, we will essentially be using both R and SAS as overgrown calculators.
 
-## Basic Programming in R
+### Basic numerical operations
 
+| Operation | R | SAS | 
+| :--------- | :- | :--- |
+| Addition | + | + |
+| Subtraction | - | - |
+| Elementwise Multiplication | \* | \# |
+| Matrix/Vector Multiplication | %\*% | \* |
+| Division | \ | \ |
+| Elementwise Exponentiation | ^ | \#\# | 
+| Matrix Exponentiation | ^ | \*\* |
+| Matrix Transpose | `t(A)` | `A\\`` |
 
-## Basic Programming in SAS
+R demo:
+<details>
+```{r}
+# transpose these to make row vectors to match SAS
+x <- t(1:10)
+y <- t(seq(3, 30, by = 3))
 
+x + y
+x - y
+x * y
+x / y
+x^2
+t(x) %*% y
+```
+</details>
 
-## References (ish) {-}
-Non-exhaustive list of references:
+SAS demo:
+<details>
+By default, SAS creates row vectors with `do(a, b, by = c)` syntax. The transpose operator (a single backtick) can be used to transform `A` into `A`\`. 
+```{sashtml}
+proc iml;
+  x = do(1, 10, 1);
+  y = do(3, 30, 3);
+
+  z = x + y;
+  z2 = x - y;
+  z3 = x # y;
+  z4 = x/y;
+  z5 = x##2;
+  z6 = x` * y;
+  print z, z2, z3, z4, z5, z6;
+quit;
+```
+
+</details>
+
+Other matrix operations, such as determinants and extraction of the matrix diagonal, are similarly easy:
+
+R: <details>
+```{r}
+mat <- matrix(c(1, 2, 3, 6, 4, 5, 7, 8, 9), nrow = 3, byrow = T)
+t(mat) # transpose
+det(mat) # get the determinant
+diag(mat) # get the diagonal
+diag(diag(mat)) # get a square matrix with off-diag 0s
+diag(1:3) # diag() also will create a diagonal matrix if given a vector
+```
+</details>
+SAS: <details>
+```{sashtml}
+proc iml;
+  mat = {1 2 3, 6 4 5, 7 8 9};
+  tmat = mat`; /* transpose */
+  determinant = det(mat); /* get the determinant */
+  diagonal_vector = vecdiag(mat); /* get the diagonal as a vector */
+  diagonal_mat = diag(mat); /* get the diagonal as a square matrix */
+                            /* with 0 on off-diagonal entries */
+  
+  dm = diag({1 2 3}); /* make a square matrix with vector as the diagonal */
+  
+  print tmat, determinant, diagonal_vector, diagonal_mat, dm;
+quit;
+```
+</details>
+
+The other important matrix-related function is the inverse. In R, `A^-1` will get you the elementwise reciprocal of the matrix. Not exactly what we'd like to see... Instead, in both languages, we use the `solve()` function. The inverse is defined as the matrix B such that `AB = I` where `I` is the identity matrix (1's on diagonal, 0's off-diagonal). So if we `solve(A)` (in R) or `solve(A, diag(n))` in SAS (where n is a vector of 1s the size of A), we will get the inverse matrix.
+
+R: 
+<details>
+```{r}
+mat <- matrix(c(1, 2, 3, 6, 4, 5, 7, 8, 9), nrow = 3, byrow = T)
+
+minv <- solve(mat) # get the inverse
+
+minv
+mat %*% minv
+```
+</details>
+
+SAS: 
+<details>
+[Documentation](https://documentation.sas.com/?docsetId=imlug&docsetTarget=imlug_langref_sect208.htm&docsetVersion=14.2&locale=en)
+```{sashtml}
+proc iml;
+  mat = {1 2 3, 6 4 5, 7 8 9};
+
+  mat_inv = solve(mat, diag({1 1 1})); /* get the inverse */
+  mat_inv2 = inv(mat); /* less efficient and less accurate */
+  print mat_inv, mat_inv2;
+
+  id = mat * mat_inv;
+  id2 = mat * mat_inv2;
+  print id, id2;
+quit;
+```
+</details>
+
+## References and Links {-}
+Non-exhaustive list of general R and SAS references used in this chapter:
 
 - SAS Matrix reference: http://www.math.wpi.edu/saspdf/iml/chap4.pdf
 - Data structures in Advanced R: http://adv-r.had.co.nz/Data-structures.html
 - [SAS Data set documentation](https://documentation.sas.com/?docsetId=basess&docsetTarget=p1f5xhmkdfhyjcn1n6k9wdcacba0.htm&docsetVersion=9.4&locale=en)
+- [Loops in SAS](https://blogs.sas.com/content/iml/2011/09/07/loops-in-sas.html) and [SAS documentation for DO WHILE](https://support.sas.com/documentation/cdl/en/lestmtsref/63323/HTML/default/viewer.htm#p1awxgleif5wlen1pja0nrn6yi6i.htm) loops
+- [Random number generation in SAS](https://www.sas.com/content/dam/SAS/support/en/sas-global-forum-proceedings/2018/1810-2018.pdf)
+- [Repeatable random number generation in R](http://www.cookbook-r.com/Numbers/Generating_repeatable_sequences_of_random_numbers/)
+- [Creating SAS Data Sets from IML](https://support.sas.com/content/dam/SAS/support/en/books/simulating-data-with-sas/65378_Appendix_A_A_SAS_IML_Primer.pdf) (also [this](https://education.illinois.edu/docs/default-source/carolyn-anderson/edpsy584/SAS_iml.pdf) friendly guide and [this](https://blogs.sas.com/content/iml/2019/07/17/write-numeric-character-matrices-data-set.html) blog post)
+- [SAS Data Step options](https://libguides.library.kent.edu/SAS/DataStep)
+- [SAS Mathematical Operators](https://www.tutorialspoint.com/sas/sas_operators.htm)
+- [SAS and R compared (by SAS)](https://blogs.sas.com/content/sgf/2020/03/19/free-e-book-sas-programming-for-r-users/)
+- [Lists and Data Structures in SAS](https://documentation.sas.com/?docsetId=imlug&docsetTarget=imlug_lists_gettingstarted03.htm&docsetVersion=14.3&locale=en)
 
+
+
+Non-Exhaustive List of Sources used to aggregate "core programming concepts": 
+
+- https://blog.upperlinecode.com/computer-language-fundamentals-five-core-concepts-1aa43e929f40
+- https://howtoprogramwithjava.com/programming-101-the-5-basic-concepts-of-any-programming-language/
+- https://dev.to/lucpattyn/basic-programming-concepts-for-beginners-2o73
+- http://livecode.byu.edu/programmingconcepts/ControlStruct.php
+- http://holowczak.com/programming-concepts-tutorial-programmers/
