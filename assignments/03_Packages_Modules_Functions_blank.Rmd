@@ -1,0 +1,112 @@
+---
+title: "Homework: Packages, Modules, and Functions"
+author: "Firstname Lastname"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+options(digits = 3)
+```
+
+```{r load-sas-libraries, echo = F, message = F, warning = F}
+
+saspath <- "/usr/local/SASHome/SASFoundation/9.4/bin/sas_en" # Your SAS path goes here
+sasopts <- "-ls 75"
+knitr::opts_chunk$set(engine.path=list(sas=saspath, saslog=saspath, sashtml=saspath),
+                      engine.opts=list(sas=sasopts, saslog=sasopts, sashtml=sasopts), 
+                      comment=NA)
+library(SASmarkdown)
+```
+
+## Instructions
+This homework has two main problems. You should edit only the code chunks (and not the structure of the rest of the document) and the author: statement at the top of the file. 
+
+When you are finished with the assignment: 
+
+1. Save the file as 03_Packages, Modules, and Functions/03_Lastname_Firstname.Rmd and compile it
+2. Commit the Rmd file and corresponding html file to your homework git repo
+3. Push the commit to github
+4. Locate the Rmd file on github and click on the SHA link for the file
+5. Paste the url of the resulting page into Canvas to submit your assignment.
+
+Your assignment must compile on a different computer as long as the saspath is set correctly for that machine.
+
+
+## Exploring Packages and Modules
+Find an R package and a SAS module which are interesting to you. Below, describe or demonstrate some feature of each package (see the vignette for the R package or the SAS documentation for ideas of how to demonstrate the package's features). 
+
+### R Package: XXX
+
+### SAS Module: XXX
+
+
+## FizzBuzz Functions
+
+The "FizzBuzz Test" is a famous programming interview question. 
+> Write a program that prints the numbers from 1 to 30. But for multiples of three print “Fizz” instead of the number and for the multiples of five print “Buzz”. For numbers which are multiples of both three and five print “FizzBuzz
+
+In the R chunk below, write a function which will solve this problem. Do not change the function name or parameter name. 
+
+Show the results from running your function on the integers 1-20, as well as a sequence of 10 random integers between 0 and 100. (This code is already written for you).
+
+```{r fizzbuzz-solution, echo = T}
+
+fizzbuzz <- function(x) {
+  # FizzBuzz code goes here
+}
+
+```
+
+```{r test-fizzbuzz}
+fizzbuzz(1:20)
+fizzbuzz(sample(1:100, 10)) # sample 10 values from 1 to 100
+
+```
+
+In the sas chunk, write similar code which will solve this problem.
+
+```{sashtml fizzbuzz-sas, error = T}
+proc printto log="saslog.log" new;
+proc iml;
+
+start fizzbuzz(x);
+
+/* FizzBuzz code goes here */
+
+  
+finish;
+
+rndint = rand("Integer", 0, 100);
+call fizzbuzz(rand);
+
+x1 = repeat(20, 0, 1); /* initialize x1 */
+fb1 = repeat(20, 0, 1); /* initialize fb1 */
+  
+do i = 1 to 20;
+  x1[i] = i;
+  fb1[i] = call fizzbuzz(i);
+end;
+
+x2 = repeat(10, 0, 1); /* initialize x2 */
+fb2 = repeat(10, 0, 1); /* initialize fb2 */
+do i = 1 to 10;
+  x2[i] = rand("Integer", 1, 100);
+  fb2[i] = fizzbuzz(x2[i]);
+end;
+
+print x1, fb1;
+print x2, fb2;
+
+quit;
+```
+
+```{r readlog}
+cat(readLines("saslog.log"), sep="\n")
+```
+
+
+```{r cleanuplog}
+# Do not forget to remove the log file when you are done!
+unlink("saslog.log")
+```
