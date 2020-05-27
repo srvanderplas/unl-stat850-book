@@ -1,5 +1,5 @@
 ---
-title: "Homework: Packages, Modules, and Functions"
+title: "Homework: Packages, Scripts, Documents, and Functions"
 author: "Firstname Lastname"
 output: html_document
 ---
@@ -24,7 +24,7 @@ This homework has two main problems. You should edit only the code chunks (and n
 
 When you are finished with the assignment: 
 
-1. Save the file as 03_Packages, Modules, and Functions/03_Lastname_Firstname.Rmd and compile it
+1. Save the file as 03_Packages, Scripts, Documents, and Functions/03_Lastname_Firstname.Rmd and compile it
 2. Commit the Rmd file and corresponding html file to your homework git repo
 3. Push the commit to github
 4. Locate the Rmd file on github and click on the SHA link for the file
