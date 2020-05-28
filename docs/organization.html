@@ -24,7 +24,7 @@
 <meta name="author" content="Susan Vanderplas" />
 
 
-<meta name="date" content="2020-05-24" />
+<meta name="date" content="2020-05-28" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -189,9 +189,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="intro-prog.html"><a href="intro-prog.html#references-and-links"><i class="fa fa-check"></i>References and Links</a></li>
 </ul></li>
 <li class="chapter" data-level="3" data-path="organization.html"><a href="organization.html"><i class="fa fa-check"></i><b>3</b> Organization: Packages, Functions, Scripts, and Documents</a><ul>
-<li class="chapter" data-level="3.1" data-path="organization.html"><a href="organization.html#reproducibility"><i class="fa fa-check"></i><b>3.1</b> Reproducibility</a></li>
+<li class="chapter" data-level="3.1" data-path="organization.html"><a href="organization.html#reproducibility"><i class="fa fa-check"></i><b>3.1</b> Reproducibility</a><ul>
+<li class="chapter" data-level="3.1.1" data-path="organization.html"><a href="organization.html#reproducibility-references-and-reading"><i class="fa fa-check"></i><b>3.1.1</b> Reproducibility References and Reading</a></li>
+</ul></li>
 <li class="chapter" data-level="3.2" data-path="organization.html"><a href="organization.html#markdown"><i class="fa fa-check"></i><b>3.2</b> Markdown</a></li>
-<li class="chapter" data-level="3.3" data-path="organization.html"><a href="organization.html#functions-and-procs"><i class="fa fa-check"></i><b>3.3</b> Functions and Procs</a></li>
+<li class="chapter" data-level="3.3" data-path="organization.html"><a href="organization.html#functions-and-modules"><i class="fa fa-check"></i><b>3.3</b> Functions and Modules</a><ul>
+<li class="chapter" data-level="" data-path="organization.html"><a href="organization.html#try-it-out-6"><i class="fa fa-check"></i>Try it out</a></li>
+</ul></li>
 <li class="chapter" data-level="3.4" data-path="organization.html"><a href="organization.html#scripts"><i class="fa fa-check"></i><b>3.4</b> Scripts</a></li>
 <li class="chapter" data-level="3.5" data-path="organization.html"><a href="organization.html#packages"><i class="fa fa-check"></i><b>3.5</b> Packages</a></li>
 <li class="chapter" data-level="3.6" data-path="organization.html"><a href="organization.html#comparisons---sas-and-r"><i class="fa fa-check"></i><b>3.6</b> Comparisons - SAS and R</a></li>
@@ -279,14 +283,199 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h1><span class="header-section-number">Module 3</span> Organization: Packages, Functions, Scripts, and Documents</h1>
 <div id="reproducibility" class="section level2">
 <h2><span class="header-section-number">3.1</span> Reproducibility</h2>
-<p>Why reproducibility is important in science and statistics</p>
-<p>Why reproducibility is convenient</p>
+<!-- Why reproducibility is important in science and statistics -->
+<p>The concepts of <strong>replication</strong> and <strong>reproducibility</strong> is central to science - we do not trust studies whose results cannot be replicated by additional repetitions of the experiment, and we do not trust statistical analyses whose results are not backed up by valid methods that can be re-run to verify the reported results. While replication covers the lab methods, experimental design, and data collection procedures, reproducibility is concerned with the code and the data from an experiment which has already been run. Specifically, the idea is that the research paper is basically an advertisement - by exposing the code and data used in the analysis, readers can engage with the core of the analysis methods, leading to better peer feedback as well as easier adoption of the research for future work.</p>
+<p>Reproducibility has several advantages:</p>
+<ol style="list-style-type: decimal">
+<li><p>It allows you to show the correctness of your results<br />
+Trying to reproduce an analysis from the data and the description in the journal article is… challenging, if not impossible, in many cases. By providing the raw data and code to take the data from raw form to analysis results, readers can verify the legitimacy of each step in the analysis. This allows researchers to review each others methods, finding mistakes due to <a href="https://www.sciencemag.org/news/2016/08/one-five-genetics-papers-contains-errors-thanks-microsoft-excel">bugs in the software used</a> or due to implementation errors. In one particularly prominent failure of reproducibility, a study used to support macroeconomic theories that shaped the response to the 2008-2009 recession <a href="https://theconversation.com/the-reinhart-rogoff-error-or-how-not-to-excel-at-economics-13646">negatively correlating national debt with gdp growth</a> was found to be flawed due to an excel indexing mistake. Use of GUI-based (graphical user interface) statistical analysis software may make it harder to identify these mistakes, because the formulas and code are not visually displayed.</p></li>
+<li><p>It allows others to use your results more easily<br />
+By sharing your code and raw data, you provide the wider scientific community with the ability to use your results to build new scientific studies. This increases the relevance of your work, the number of citations your papers get, and you also benefit from the community adopting a culture of openness and reproducibility.</p></li>
+<li><p>In 2 years, when you need to find the code you used for that analysis in XXX paper, you’ll be able to find the code (and the data) to see how it worked and what you did. The code may or may not run as-is (depending on software versioning, package updates, etc.), but you will have the methods clearly documented along with the data (so it’s easy to replicate the data format needed, etc.)</p></li>
+</ol>
+<p>There are other advantages (personal and public) described in an issue of <a href="https://academic.oup.com/biostatistics/issue/11/3">Biostatistics</a> dedicated to reproducibility. <a href="https://doi.org/10.1093/biostatistics/kxq028">David Donoho’s response is particularly useful.</a></p>
+<p>As you might expect, there are <a href="https://academic.oup.com/biostatistics/article/10/3/405/293660">many different</a> <a href="https://ropensci.github.io/reproducibility-guide/sections/introduction/">types of reproducibility</a>.</p>
+<ul>
+<li>Code reproducibility - allows replication of the computing aspects of the study. Includes code, software, hardware, and implementation details.</li>
+<li>Data reproducibility - allows replication of the non-computational parts of the study (e.g. experiment and data collection). This may include making protocols and data available.</li>
+<li>Statistical reproducibility - allows replication of the statistical methods. Includes details about model parameters, thresholds, etc. and may also include study pre-registration to prevent p-hacking.</li>
+</ul>
+<p>There are also many levels of reproducibility. Much of the computer code written in the 1960s is no longer runnable today, because the computer architecture it was written for is not available anymore. Code which depends on URLs is vulnerable to website rearrangements or the content no longer being hosted. Archiving projects on GitHub is nice, but what happens if GitHub goes down? It’s important to decide what type of reproducibility is important for a particular project, and then design the project’s workflow around that process.</p>
+<p>For most of my projects, I don’t worry about software versioning (I may archive my sessionInfo() so that package versions are docummented) and storing the software packages alongside the code and data. As much as possible, I keep the code and the data (if it’s small) on GitHub in a public repository for people to access, along with any manuscripts or presentations related to the project. Manuscripts are written in knitr or rmarkdown, so that the code is documented by the context of the project, and every image in the article generated by R has corresponding code available. This ensures that</p>
+<ol style="list-style-type: decimal">
+<li>my code (and data) is stored somewhere off-site (backed up in the cloud)</li>
+<li>my code is available if others want to use it</li>
+<li>I can track my contributions to a project relative to any collaborators</li>
+<li>I can reuse blocks of code easily</li>
+</ol>
+<p>In situations where I run experiments, I also make sure that any experimental stimuli or other code that would contribute to the execution and data collection part of the experiment is also included in the repository. Stimuli are archived as well.</p>
+<!-- Why reproducibility is convenient -->
+<p>The github reproducibility work flow is convenient - it allows for me to easily collaborate with others, without emailing versions of code and documents back and forth. I can revert changes that are made that had unintentional effects fairly easily. I can sync my files across multiple machines effortlessly. And if necessary, I can look back at the changes I’ve made and see why I made them, or what I’ve already tried.</p>
+<div id="reproducibility-references-and-reading" class="section level3">
+<h3><span class="header-section-number">3.1.1</span> Reproducibility References and Reading</h3>
+<ul>
+<li><a href="http://adv-r.had.co.nz/Reproducibility.html">Advanced R’s reproducibility guide</a></li>
+<li><a href="https://timogrossenbacher.ch/2017/07/a-truly-reproducible-r-workflow/">A reproducible R workflow</a></li>
+<li><a href="https://ropensci.github.io/reproducibility-guide/sections/introduction/">ROpenSci’s guide to reproducibility</a></li>
+<li><a href="https://doi.org/10.1093/biostatistics/kxp014">Roger Peng’s Biostatistics editorial on reproducibility</a></li>
+<li><a href="https://academic.oup.com/biostatistics/issue/11/3">The Biostatistics reproducibility issue w/ responses to the editorial and associated commentary</a></li>
+</ul>
+</div>
 </div>
 <div id="markdown" class="section level2">
 <h2><span class="header-section-number">3.2</span> Markdown</h2>
+<p>In this class, we’re primarily going to use rmarkdown to create dynamic documents. Markdown itself is a special style of text that is intended to allow you to do basic formatting without having to pause to actually click the buttons (if you were writing in word). It integrates equation functionality (so you can type mathematical equations using LaTeX syntax) and also allows for the use of templates (so you can write whole journal articles in a text editor). Markdown is also program agnostic - it will allow you to compile your work into HTML, word, or PDF form.</p>
+<p>Markdown documents must be <em>compiled</em> - a computer program runs and transforms the text file into a full document. RStudio has markdown functionality built-in, and also supports <code>rmarkdown</code>, which is a markdown variant designed to make it easy to integrate R code with document creation (so-called literate programming). There are other markdown programs which extend markdown’s functionality so that you can write a book (like this one), create presentations or posters, or maintain a blog in markdown.</p>
+<p>Rmarkdown, despite the name, also allows you to integrate the results from code in other languages. As you saw in <a href="intro-prog.html#intro-prog">the last chapter</a>, SAS code can be integrated into markdown as well. Other languages commonly used include python, julia, SQL, Bash, C++, and Stan.</p>
+<p>There is a full set of <a href="https://rmarkdown.rstudio.com/lesson-1.html">Rmarkdown tutorials</a> from RStudio. There is also a handy <a href="https://rmarkdown.rstudio.com/lesson-15.html">cheatsheet</a>.</p>
+<p>Rmarkdown documents may contain code used to support an analysis, but they are usually not the best way to develop an analysis method - they are better for documentation, writing tutorials, and other scenarios where you need both text explanations and code/analysis/results. There are other “containers” for code, though, including functions, scripts, and packages. Each has their own advantages and disadvantages, and can be used together.</p>
 </div>
-<div id="functions-and-procs" class="section level2">
-<h2><span class="header-section-number">3.3</span> Functions and Procs</h2>
+<div id="functions-and-modules" class="section level2">
+<h2><span class="header-section-number">3.3</span> Functions and Modules</h2>
+<p>A function is a block of code which is only run when it is called. It takes arguments (known as parameters) and returns data or some other value.</p>
+<p>There is some extensive material on this subject in <a href="https://r4ds.had.co.nz/functions.html">R for Data Science on functions</a>. If you aren’t familiar with functions, you should read that material before proceeding.</p>
+<p>Let’s look at the structure of a generic function in pseudocode (code that isn’t really part of any language, but describes the steps of a program):</p>
+<pre><code>my_function_name = function(param1, param2 = 3) {
+  step1 // do something
+  
+  step2 // do something else 
+  
+  return step_1/step2
+}
+</code></pre>
+<p>The first part of a function declaration (storing information in a named object) is the function’s intended name, <code>my_function_name</code>. Then, we indicate that we are defining a function, and what <strong>parameters</strong> our function requires. For <code>param1</code>, we do not provide a default value, but for <code>param2</code>, we indicate that the <strong>default value</strong> is 3. Thus, if we call the function (tell the program to run this function with certain arguments and provide the result), we could either say <code>my_function_name(param1 = value1, param2 = value2)</code> or <code>my_function_name(param1 = value1)</code> (which is equivalent to <code>my_function_name(param1 = value1, param2 = 3)</code>). Inside the function block (indicated by <code>{}</code> here, but some languages may use <code>do ... end;</code>), we perform whatever steps we’ve decided to include in the function, and then at the end of the function, we <strong>return</strong> a value - the function exits, and leaves behind some information.</p>
+<p>In R, functions look like this:</p>
+<blockquote>
+<p><code>function( arglist ) {</code><br />
+<code>expr</code><br />
+<code>return(value)</code><br />
+<code>}</code></p>
+</blockquote>
+<p>In SAS, functions are called modules and look like this:</p>
+<blockquote>
+<p>Statements That Define and Execute Modules<br />
+Modules are used to create a user-defined subroutine or function. A module definition begins with a START statement, which has the following general form:<br />
+<code>START &lt;name&gt; &lt;( arguments )&gt; &lt;GLOBAL( arguments )&gt;;</code><br />
+A module definition ends with a FINISH statement, which has the following general form:<br />
+<code>FINISH &lt;name&gt;;</code><br />
+To execute a module, you can use either a RUN statement or a CALL statement. The general forms of these statements are as follows:<br />
+<code>RUN &lt;name&gt; &lt;( arguments)&gt;;</code><br />
+<code>CALL &lt;name&gt; &lt;( arguments)&gt;;</code><br />
+The only difference between the RUN and CALL statements is the order of resolution.</p>
+</blockquote>
+<p><a href="https://support.sas.com/rnd/app/iml/programming.html">Source: SAS function reference</a></p>
+<p>Let’s try functions out by writing a simple function that takes two numbers as arguments and adds them together.</p>
+<div class="sourceCode" id="cb82"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb82-1" data-line-number="1">adder &lt;-<span class="st"> </span><span class="cf">function</span>(a, b) {</a>
+<a class="sourceLine" id="cb82-2" data-line-number="2">  <span class="kw">return</span>(a <span class="op">+</span><span class="st"> </span>b)</a>
+<a class="sourceLine" id="cb82-3" data-line-number="3">}</a>
+<a class="sourceLine" id="cb82-4" data-line-number="4"></a>
+<a class="sourceLine" id="cb82-5" data-line-number="5"><span class="kw">adder</span>(<span class="dv">3</span>, <span class="dv">4</span>)</a>
+<a class="sourceLine" id="cb82-6" data-line-number="6">[<span class="dv">1</span>] <span class="dv">7</span></a></code></pre></div>
+<pre class="sas"><code>proc IML;
+
+  start adder(a, b);
+    return(a + b);
+  finish;
+
+  c = adder(3, 4);
+  print c;
+
+quit;
+
+                                     c
+
+                                         7</code></pre>
+<p>Of course, it’s not just important to be able to write your own functions. It’s also helpful to be able to see how functions are written, both to explore how a method is implemented and for debugging purposes. In SAS, this is generally not an option, because SAS is closed source, but in R, you can see the code behind any function which is implemented in R (it is harder to see functions implemented in C or C++, but not impossible) by typing the function name (no parentheses) into the command prompt.</p>
+Let’s examine how the colSums() function is implemented:
+<details>
+<div class="sourceCode" id="cb84"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb84-1" data-line-number="1">colSums</a>
+<a class="sourceLine" id="cb84-2" data-line-number="2"><span class="cf">function</span> (x, <span class="dt">na.rm =</span> <span class="ot">FALSE</span>, <span class="dt">dims =</span> 1L) </a>
+<a class="sourceLine" id="cb84-3" data-line-number="3">{</a>
+<a class="sourceLine" id="cb84-4" data-line-number="4">    <span class="cf">if</span> (<span class="kw">is.data.frame</span>(x)) </a>
+<a class="sourceLine" id="cb84-5" data-line-number="5">        x &lt;-<span class="st"> </span><span class="kw">as.matrix</span>(x)</a>
+<a class="sourceLine" id="cb84-6" data-line-number="6">    <span class="cf">if</span> (<span class="op">!</span><span class="kw">is.array</span>(x) <span class="op">||</span><span class="st"> </span><span class="kw">length</span>(dn &lt;-<span class="st"> </span><span class="kw">dim</span>(x)) <span class="op">&lt;</span><span class="st"> </span>2L) </a>
+<a class="sourceLine" id="cb84-7" data-line-number="7">        <span class="kw">stop</span>(<span class="st">&quot;&#39;x&#39; must be an array of at least two dimensions&quot;</span>)</a>
+<a class="sourceLine" id="cb84-8" data-line-number="8">    <span class="cf">if</span> (dims <span class="op">&lt;</span><span class="st"> </span>1L <span class="op">||</span><span class="st"> </span>dims <span class="op">&gt;</span><span class="st"> </span><span class="kw">length</span>(dn) <span class="op">-</span><span class="st"> </span>1L) </a>
+<a class="sourceLine" id="cb84-9" data-line-number="9">        <span class="kw">stop</span>(<span class="st">&quot;invalid &#39;dims&#39;&quot;</span>)</a>
+<a class="sourceLine" id="cb84-10" data-line-number="10">    n &lt;-<span class="st"> </span><span class="kw">prod</span>(dn[id &lt;-<span class="st"> </span><span class="kw">seq_len</span>(dims)])</a>
+<a class="sourceLine" id="cb84-11" data-line-number="11">    dn &lt;-<span class="st"> </span>dn[<span class="op">-</span>id]</a>
+<a class="sourceLine" id="cb84-12" data-line-number="12">    z &lt;-<span class="st"> </span><span class="cf">if</span> (<span class="kw">is.complex</span>(x)) </a>
+<a class="sourceLine" id="cb84-13" data-line-number="13">        <span class="kw">.Internal</span>(<span class="kw">colSums</span>(<span class="kw">Re</span>(x), n, <span class="kw">prod</span>(dn), na.rm)) <span class="op">+</span><span class="st"> </span>(<span class="dv">0</span><span class="op">+</span>1i) <span class="op">*</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb84-14" data-line-number="14"><span class="st">            </span><span class="kw">.Internal</span>(<span class="kw">colSums</span>(<span class="kw">Im</span>(x), n, <span class="kw">prod</span>(dn), na.rm))</a>
+<a class="sourceLine" id="cb84-15" data-line-number="15">    <span class="cf">else</span> <span class="kw">.Internal</span>(<span class="kw">colSums</span>(x, n, <span class="kw">prod</span>(dn), na.rm))</a>
+<a class="sourceLine" id="cb84-16" data-line-number="16">    <span class="cf">if</span> (<span class="kw">length</span>(dn) <span class="op">&gt;</span><span class="st"> </span>1L) {</a>
+<a class="sourceLine" id="cb84-17" data-line-number="17">        <span class="kw">dim</span>(z) &lt;-<span class="st"> </span>dn</a>
+<a class="sourceLine" id="cb84-18" data-line-number="18">        <span class="kw">dimnames</span>(z) &lt;-<span class="st"> </span><span class="kw">dimnames</span>(x)[<span class="op">-</span>id]</a>
+<a class="sourceLine" id="cb84-19" data-line-number="19">    }</a>
+<a class="sourceLine" id="cb84-20" data-line-number="20">    <span class="cf">else</span> <span class="kw">names</span>(z) &lt;-<span class="st"> </span><span class="kw">dimnames</span>(x)[[dims <span class="op">+</span><span class="st"> </span>1L]]</a>
+<a class="sourceLine" id="cb84-21" data-line-number="21">    z</a>
+<a class="sourceLine" id="cb84-22" data-line-number="22">}</a>
+<a class="sourceLine" id="cb84-23" data-line-number="23"><span class="op">&lt;</span>bytecode<span class="op">:</span><span class="st"> </span><span class="dv">0x56332086b6a0</span><span class="op">&gt;</span></a>
+<a class="sourceLine" id="cb84-24" data-line-number="24"><span class="er">&lt;</span>environment<span class="op">:</span><span class="st"> </span>namespace<span class="op">:</span>base<span class="op">&gt;</span></a></code></pre></div>
+You can see that the first 3 steps in the function are if statements to test whether the inputs are acceptable - x must be a data frame, a matrix, or an array (with 2+ dimensions). The next couple of lines test to see whether there are additional “column” dimensions (don’t worry if you don’t understand what’s going on in this code - it’s highly optimized and a bit arcane). Then, the function checks to see if x is real-valued or complex, and if it’s complex, computes the real and imaginary sums separately. The <code>.Internal(colSums(x...))</code> part is calling a C function - basically, functions written in C are faster than R because they’re compiled, so this speeds basic operations up in R. Then there are statements that transfer dimension names over to the summed object. At the end of the function, the last value computed is returned automatically (in this case, z).
+</details>
+<div id="try-it-out-6" class="section level3 unnumbered tryitout">
+<h3>Try it out</h3>
+<p>Write a function named <code>circle_area</code> which computes the area of a circle given the radius. Make sure to use reasonable parameter names! (Note: in R, pi is conveniently stored in the variable of the same name - it can be overwritten if you want to do so, but why would you want to do that? In SAS, you can get the value of pi using <code>constant(&quot;pi&quot;)</code>)</p>
+<details>
+<div class="sourceCode" id="cb85"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb85-1" data-line-number="1">circle_area &lt;-<span class="st"> </span><span class="cf">function</span>(r) {</a>
+<a class="sourceLine" id="cb85-2" data-line-number="2">  r<span class="op">^</span><span class="dv">2</span><span class="op">*</span>pi <span class="co"># automatically returned as the last computed value</span></a>
+<a class="sourceLine" id="cb85-3" data-line-number="3">}</a>
+<a class="sourceLine" id="cb85-4" data-line-number="4"></a>
+<a class="sourceLine" id="cb85-5" data-line-number="5"><span class="kw">circle_area</span>(<span class="dv">5</span>)</a>
+<a class="sourceLine" id="cb85-6" data-line-number="6">[<span class="dv">1</span>] <span class="fl">78.53982</span></a></code></pre></div>
+<p>A more complete and robust answer might include a test for numeric <code>r</code>:</p>
+<div class="sourceCode" id="cb86"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb86-1" data-line-number="1">circle_area &lt;-<span class="st"> </span><span class="cf">function</span>(r) {</a>
+<a class="sourceLine" id="cb86-2" data-line-number="2">  <span class="cf">if</span> (<span class="op">!</span><span class="kw">is.numeric</span>(r)) {</a>
+<a class="sourceLine" id="cb86-3" data-line-number="3">    <span class="kw">stop</span>(<span class="st">&quot;Supplied radius must be numeric&quot;</span>) <span class="co"># This issues an error</span></a>
+<a class="sourceLine" id="cb86-4" data-line-number="4">  }</a>
+<a class="sourceLine" id="cb86-5" data-line-number="5">  r<span class="op">^</span><span class="dv">2</span><span class="op">*</span>pi <span class="co"># automatically returned as the last computed value</span></a>
+<a class="sourceLine" id="cb86-6" data-line-number="6">}</a>
+<a class="sourceLine" id="cb86-7" data-line-number="7"><span class="kw">circle_area</span>(<span class="dv">5</span>)</a>
+<a class="sourceLine" id="cb86-8" data-line-number="8">[<span class="dv">1</span>] <span class="fl">78.53982</span></a></code></pre></div>
+<pre class="sashtml"><code>proc IML;
+
+  start circle_area(r);
+    pi = constant(&quot;pi&quot;);
+    return(r*r*pi);
+  finish;
+
+  c = circle_area(5);
+  print c;
+
+quit;
+</code></pre>
+<div class="branch">
+<a name="IDX"></a>
+<div>
+<div align="center">
+<!--BEGINTABLE-->
+<table class="table" cellspacing="0" cellpadding="7" rules="groups" frame="hsides" summary="Procedure IML: c">
+<colgroup>
+<col>
+</colgroup>
+<thead>
+<tr>
+<th class="c b header" scope="col">
+c
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="r data">
+78.539816
+</td>
+</tr>
+</tbody>
+</table>
+<!--ENDTABLE-->
+</div>
+</div>
+<br>
+</div>
+</details>
+</div>
 </div>
 <div id="scripts" class="section level2">
 <h2><span class="header-section-number">3.4</span> Scripts</h2>

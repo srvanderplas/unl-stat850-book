@@ -2,14 +2,215 @@
 
 ## Reproducibility
 
-Why reproducibility is important in science and statistics
+<!-- Why reproducibility is important in science and statistics -->
+The concepts of **replication** and **reproducibility** is central to science - we do not trust studies whose results cannot be replicated by additional repetitions of the experiment, and we do not trust statistical analyses whose results are not backed up by valid methods that can be re-run to verify the reported results. While replication covers the lab methods, experimental design, and data collection procedures, reproducibility is concerned with the code and the data from an experiment which has already been run. Specifically, the idea is that the research paper is basically an advertisement - by exposing the code and data used in the analysis, readers can engage with the core of the analysis methods, leading to better peer feedback as well as easier adoption of the research for future work.
 
-Why reproducibility is convenient
+Reproducibility has several advantages:
+
+1. It allows you to show the correctness of your results    
+Trying to reproduce an analysis from the data and the description in the journal article is... challenging, if not impossible, in many cases. By providing the raw data and code to take the data from raw form to analysis results, readers can verify the legitimacy of each step in the analysis. This allows researchers to review each others methods, finding mistakes due to [bugs in the software used](https://www.sciencemag.org/news/2016/08/one-five-genetics-papers-contains-errors-thanks-microsoft-excel) or due to implementation errors. In one particularly prominent failure of reproducibility, a study used to support macroeconomic theories that shaped the response to the 2008-2009 recession [negatively correlating national debt with gdp growth](https://theconversation.com/the-reinhart-rogoff-error-or-how-not-to-excel-at-economics-13646) was found to be flawed due to an excel indexing mistake. Use of GUI-based (graphical user interface) statistical analysis software may make it harder to identify these mistakes, because the formulas and code are not visually displayed. 
+
+2. It allows others to use your results more easily    
+By sharing your code and raw data, you provide the wider scientific community with the ability to use your results to build new scientific studies. This increases the relevance of your work, the number of citations your papers get, and you also benefit from the community adopting a culture of openness and reproducibility.
+
+3. In 2 years, when you need to find the code you used for that analysis in XXX paper, you'll be able to find the code (and the data) to see how it worked and what you did. The code may or may not run as-is (depending on software versioning, package updates, etc.), but you will have the methods clearly documented along with the data (so it's easy to replicate the data format needed, etc.)
+
+There are other advantages (personal and public) described in an issue of [Biostatistics](https://academic.oup.com/biostatistics/issue/11/3) dedicated to reproducibility. [David Donoho's response is particularly useful.](https://doi.org/10.1093/biostatistics/kxq028) 
+
+As you might expect, there are [many different](https://academic.oup.com/biostatistics/article/10/3/405/293660) [types of reproducibility](https://ropensci.github.io/reproducibility-guide/sections/introduction/). 
+
+- Code reproducibility - allows replication of the computing aspects of the study. Includes code, software, hardware, and implementation details.
+- Data reproducibility - allows replication of the non-computational parts of the study (e.g. experiment and data collection). This may include making protocols and data available.
+- Statistical reproducibility - allows replication of the statistical methods. Includes details about model parameters, thresholds, etc. and may also include study pre-registration to prevent p-hacking.
+
+There are also many levels of reproducibility. Much of the computer code written in the 1960s is no longer runnable today, because the computer architecture it was written for is not available anymore. Code which depends on URLs is vulnerable to website rearrangements or the content no longer being hosted. Archiving projects on GitHub is nice, but what happens if GitHub goes down? It's important to decide what type of reproducibility is important for a particular project, and then design the project's workflow around that process.
+
+For most of my projects, I don't worry about software versioning (I may archive my sessionInfo() so that package versions are docummented) and storing the software packages alongside the code and data. As much as possible, I keep the code and the data (if it's small) on GitHub in a public repository for people to access, along with any manuscripts or presentations related to the project. Manuscripts are written in knitr or rmarkdown, so that the code is documented by the context of the project, and every image in the article generated by R has corresponding code available. This ensures that 
+
+1. my code (and data) is stored somewhere off-site (backed up in the cloud)
+2. my code is available if others want to use it 
+3. I can track my contributions to a project relative to any collaborators
+4. I can reuse blocks of code easily
+
+In situations where I run experiments, I also make sure that any experimental stimuli or other code that would contribute to the execution and data collection part of the experiment is also included in the repository. Stimuli are archived as well. 
+
+<!-- Why reproducibility is convenient -->
+
+The github reproducibility work flow is convenient - it allows for me to easily collaborate with others, without emailing versions of code and documents back and forth. I can revert changes that are made that had unintentional effects fairly easily. I can sync my files across multiple machines effortlessly. And if necessary, I can look back at the changes I've made and see why I made them, or what I've already tried.
+
+### Reproducibility References and Reading
+
+- [Advanced R's reproducibility guide](http://adv-r.had.co.nz/Reproducibility.html)
+- [A reproducible R workflow](https://timogrossenbacher.ch/2017/07/a-truly-reproducible-r-workflow/)
+- [ROpenSci's guide to reproducibility](https://ropensci.github.io/reproducibility-guide/sections/introduction/)
+- [Roger Peng's Biostatistics editorial on reproducibility](https://doi.org/10.1093/biostatistics/kxp014)
+- [The Biostatistics reproducibility issue w/ responses to the editorial and associated commentary](https://academic.oup.com/biostatistics/issue/11/3)
+
 
 
 ## Markdown
 
-## Functions and Procs
+In this class, we're primarily going to use rmarkdown to create dynamic documents. Markdown itself is a special style of text that is intended to allow you to do basic formatting without having to pause to actually click the buttons (if you were writing in word). It integrates equation functionality (so you can type mathematical equations using LaTeX syntax) and also allows for the use of templates (so you can write whole journal articles in a text editor). Markdown is also program agnostic - it will allow you to compile your work into HTML, word, or PDF form. 
+
+Markdown documents must be *compiled* - a computer program runs and transforms the text file into a full document. RStudio has markdown functionality built-in, and also supports `rmarkdown`, which is a markdown variant designed to make it easy to integrate R code with document creation (so-called literate programming). There are other markdown programs which extend markdown's functionality so that you can write a book (like this one), create presentations or posters, or maintain a blog in markdown.
+
+Rmarkdown, despite the name, also allows you to integrate the results from code in other languages. As you saw in [the last chapter](#intro-prog), SAS code can be integrated into markdown as well. Other languages commonly used include python, julia, SQL, Bash, C++, and Stan.
+
+There is a full set of [Rmarkdown tutorials](https://rmarkdown.rstudio.com/lesson-1.html) from RStudio. There is also a handy [cheatsheet](https://rmarkdown.rstudio.com/lesson-15.html). 
+
+Rmarkdown documents may contain code used to support an analysis, but they are usually not the best way to develop an analysis method - they are better for documentation, writing tutorials, and other scenarios where you need both text explanations and code/analysis/results. There are other "containers" for code, though, including functions, scripts, and packages. Each has their own advantages and disadvantages, and can be used together. 
+
+## Functions and Modules
+
+A function is a block of code which is only run when it is called. It takes arguments (known as parameters) and returns data or some other value. 
+
+There is some extensive material on this subject in [R for Data Science on functions](https://r4ds.had.co.nz/functions.html). If you aren't familiar with functions, you should read that material before proceeding.
+
+Let's look at the structure of a generic function in pseudocode (code that isn't really part of any language, but describes the steps of a program):
+
+````
+my_function_name = function(param1, param2 = 3) {
+  step1 // do something
+  
+  step2 // do something else 
+  
+  return step_1/step2
+}
+
+````
+
+The first part of a function declaration (storing information in a named object) is the function's intended name, `my_function_name`. Then, we indicate that we are defining a function, and what **parameters** our function requires. For `param1`, we do not provide a default value, but for `param2`, we indicate that the **default value** is 3. Thus, if we call the function (tell the program to run this function with certain arguments and provide the result), we could either say `my_function_name(param1 = value1, param2 = value2)` or `my_function_name(param1 = value1)` (which is equivalent to `my_function_name(param1 = value1, param2 = 3)`). Inside the function block (indicated by `{}` here, but some languages may use `do ... end;`), we perform whatever steps we've decided to include in the function, and then at the end of the function, we **return** a value - the function exits, and leaves behind some information.
+
+In R, functions look like this: 
+
+> `function( arglist ) {`    
+> `   expr`    
+> `return(value)`    
+> `}`
+
+In SAS, functions are called modules and  look like this:
+
+> Statements That Define and Execute Modules    
+> Modules are used to create a user-defined subroutine or function. A module definition begins with a START statement, which has the following general form:    
+> `START <name> <( arguments )> <GLOBAL( arguments )>;`    
+> A module definition ends with a FINISH statement, which has the following general form:    
+> `FINISH <name>;`    
+> To execute a module, you can use either a RUN statement or a CALL statement. The general forms of these statements are as follows:    
+> `RUN <name> <( arguments)>;`    
+> `CALL <name> <( arguments)>;`    
+> The only difference between the RUN and CALL statements is the order of resolution.
+
+[Source: SAS function reference](https://support.sas.com/rnd/app/iml/programming.html)
+
+Let's try functions out by writing a simple function that takes two numbers as arguments and adds them together.
+
+```{r}
+adder <- function(a, b) {
+  return(a + b)
+}
+
+adder(3, 4)
+```
+
+```{sas}
+proc IML;
+
+  start adder(a, b);
+    return(a + b);
+  finish;
+
+  c = adder(3, 4);
+  print c;
+
+quit;
+
+```
+
+Of course, it's not just important to be able to write your own functions. It's also helpful to be able to see how functions are written, both to explore how a method is implemented and for debugging purposes. In SAS, this is generally not an option, because SAS is closed source, but in R, you can see the code behind any function which is implemented in R (it is harder to see functions implemented in C or C++, but not impossible) by typing the function name (no parentheses) into the command prompt.
+
+Let's examine how the colSums() function is implemented:
+<details>
+```{r}
+colSums
+```
+
+You can see that the first 3 steps in the function are if statements to test whether the inputs are acceptable - x must be a data frame, a matrix, or an array (with 2+ dimensions). The next couple of lines test to see whether there are additional "column" dimensions (don't worry if you don't understand what's going on in this code - it's highly optimized and a bit arcane). Then, the function checks to see if x is real-valued or complex, and if it's complex, computes the real and imaginary sums separately. The `.Internal(colSums(x...))` part is calling a C function - basically, functions written in C are faster than R because they're compiled, so this speeds basic operations up in R. Then there are statements that transfer dimension names over to the summed object. At the end of the function, the last value computed is returned automatically (in this case, z). 
+</details>
+
+### Try it out {- .tryitout}
+
+Write a function named `circle_area` which computes the area of a circle given the radius. Make sure to use reasonable parameter names! (Note: in R, pi is conveniently stored in the variable of the same name - it can be overwritten if you want to do so, but why would you want to do that? In SAS, you can get the value of pi using `constant("pi")`)
+
+<details>
+```{r}
+circle_area <- function(r) {
+  r^2*pi # automatically returned as the last computed value
+}
+
+circle_area(5)
+```
+
+A more complete and robust answer might include a test for numeric `r`:
+```{r}
+circle_area <- function(r) {
+  if (!is.numeric(r)) {
+    stop("Supplied radius must be numeric") # This issues an error
+  }
+  r^2*pi # automatically returned as the last computed value
+}
+circle_area(5)
+```
+
+
+```{sashtml}
+proc IML;
+
+  start circle_area(r);
+    pi = constant("pi");
+    return(pi*r**2);
+  finish;
+
+  c = circle_area(5);
+  print c;
+
+quit;
+
+```
+</details>
+
+### Function scope
+
+Every function is defined in a certain environment, and once it is defined,executed in a specific environment. Think of an environment as a space full of available variables, functions, and objects. Any defined object or variable that a function has access to is **in scope**. When you are inside of a function block, you have access to values defined within the function, plus any other values outside the function. When there are two variables with the same name, the environment which is "closest" controls:
+
+```{r}
+
+a <- 3
+
+myfun <- function(a, b) {
+  a + b + 2
+}
+
+myfun(5, 6) # a is 5 inside the function, so that overrides the a defined outside the function
+
+myfun(a, 3) # this references the a outside the function
+
+myfun2 <- function(d) {
+  myfun(a, d)
+}
+
+myfun2(3) # the only a in scope inside fun2 is the a defined at the top of the chunk
+
+myfun3 <- function(a, d) {
+  myfun(a, d)
+}
+
+myfun3(5, 3) # now, a is defined inside fun3 as a = 5, so there is an a in fun3's scope that isn't in the global environment.
+
+```
+
+
+
+
 
 ## Scripts
 
