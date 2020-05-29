@@ -190,29 +190,49 @@ myfun <- function(a, b) {
   a + b + 2
 }
 
-myfun(5, 6) # a is 5 inside the function, so that overrides the a defined outside the function
+myfun(5, 6) # a is 5 inside the function, so that overrides the 
+            # a defined outside the function
 
 myfun(a, 3) # this references the a outside the function
+```
 
+![Scope diagram. When myfun() is called, the calling environment contains the two parameters a and b.](image/03_myfun_scope.png)
+
+```{r}
 myfun2 <- function(d) {
   myfun(a, d)
 }
 
 myfun2(3) # the only a in scope inside fun2 is the a defined at the top of the chunk
+```
 
+![Scope diagram. When myfun2() is called, the calling environment contains only a parameter $d$. $a$ is pulled from the global environment, as there is no parameter $a$ in the myfun2 calling environment.](image/03_myfun2_scope.png)
+
+```{r}
 myfun3 <- function(a, d) {
   myfun(a, d)
 }
 
-myfun3(5, 3) # now, a is defined inside fun3 as a = 5, so there is an a in fun3's scope that isn't in the global environment.
+myfun3(5, 3) # now, a is defined inside fun3 as a = 5, so there is an a in 
+             # fun3's scope that isn't in the global environment.
 
 ```
 
+![Scope diagram. When myfun3() is called, the calling environment contains parameters a and d, which are then copied into the calling environment of myfun as $a$ and $b$. The variable $a$ in the global environment is ignored.](image/03_myfun3_scope.png)
 
-
-
+If you want to avoid too many issues with scoping (because scoping rules are complicated), the simple way is to not reuse variable names. 
 
 ## Scripts
+
+Up until this point, you may have been writing code in an RStudio or SAS text editor window, or, you may have been typing commands into the command line without preserving them in a separate file. You might even have been working in Rmarkdown documents, where you had code and non-code chunks of the file.
+
+A **script** is a file which contains only code and comments. It is intended to run from start to finish, and usually completes one or more tasks - for instance, cleaning your data, or loading a series of custom functions into your R environment. Scripts are useful because they preserve code so that it can be re-run... and in some cases, they can even be re-run autonomously - I have several scripts which automatically run at specific times every day to complete various tasks (scraping data off the internet, mostly). 
+
+I find that when doing data analysis, it is often easier to write a script as opposed to working in Rmarkdown or typing commands into the console. Scripts are a record of what I've done, and ensure that commands are executed in the right order. As with any tool, it is important to know where to use the tool and where the tool is usually not the best option. 
+
+You can source (run) an R script using the `source()` command with the file path of the script as the argument. 
+
+Scripts in R end in `.r` or `.R`, while scripts in SAS end in `.sas`. 
 
 ## Packages
 

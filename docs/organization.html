@@ -24,7 +24,7 @@
 <meta name="author" content="Susan Vanderplas" />
 
 
-<meta name="date" content="2020-05-28" />
+<meta name="date" content="2020-05-29" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -195,6 +195,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="3.2" data-path="organization.html"><a href="organization.html#markdown"><i class="fa fa-check"></i><b>3.2</b> Markdown</a></li>
 <li class="chapter" data-level="3.3" data-path="organization.html"><a href="organization.html#functions-and-modules"><i class="fa fa-check"></i><b>3.3</b> Functions and Modules</a><ul>
 <li class="chapter" data-level="" data-path="organization.html"><a href="organization.html#try-it-out-6"><i class="fa fa-check"></i>Try it out</a></li>
+<li class="chapter" data-level="3.3.1" data-path="organization.html"><a href="organization.html#function-scope"><i class="fa fa-check"></i><b>3.3.1</b> Function scope</a></li>
 </ul></li>
 <li class="chapter" data-level="3.4" data-path="organization.html"><a href="organization.html#scripts"><i class="fa fa-check"></i><b>3.4</b> Scripts</a></li>
 <li class="chapter" data-level="3.5" data-path="organization.html"><a href="organization.html#packages"><i class="fa fa-check"></i><b>3.5</b> Packages</a></li>
@@ -410,7 +411,7 @@ Let’s examine how the colSums() function is implemented:
 <a class="sourceLine" id="cb84-20" data-line-number="20">    <span class="cf">else</span> <span class="kw">names</span>(z) &lt;-<span class="st"> </span><span class="kw">dimnames</span>(x)[[dims <span class="op">+</span><span class="st"> </span>1L]]</a>
 <a class="sourceLine" id="cb84-21" data-line-number="21">    z</a>
 <a class="sourceLine" id="cb84-22" data-line-number="22">}</a>
-<a class="sourceLine" id="cb84-23" data-line-number="23"><span class="op">&lt;</span>bytecode<span class="op">:</span><span class="st"> </span><span class="dv">0x56332086b6a0</span><span class="op">&gt;</span></a>
+<a class="sourceLine" id="cb84-23" data-line-number="23"><span class="op">&lt;</span>bytecode<span class="op">:</span><span class="st"> </span><span class="dv">0x562410cd25b8</span><span class="op">&gt;</span></a>
 <a class="sourceLine" id="cb84-24" data-line-number="24"><span class="er">&lt;</span>environment<span class="op">:</span><span class="st"> </span>namespace<span class="op">:</span>base<span class="op">&gt;</span></a></code></pre></div>
 You can see that the first 3 steps in the function are if statements to test whether the inputs are acceptable - x must be a data frame, a matrix, or an array (with 2+ dimensions). The next couple of lines test to see whether there are additional “column” dimensions (don’t worry if you don’t understand what’s going on in this code - it’s highly optimized and a bit arcane). Then, the function checks to see if x is real-valued or complex, and if it’s complex, computes the real and imaginary sums separately. The <code>.Internal(colSums(x...))</code> part is calling a C function - basically, functions written in C are faster than R because they’re compiled, so this speeds basic operations up in R. Then there are statements that transfer dimension names over to the summed object. At the end of the function, the last value computed is returned automatically (in this case, z).
 </details>
@@ -437,7 +438,7 @@ You can see that the first 3 steps in the function are if statements to test whe
 
   start circle_area(r);
     pi = constant(&quot;pi&quot;);
-    return(r*r*pi);
+    return(pi*r**2);
   finish;
 
   c = circle_area(5);
@@ -475,6 +476,46 @@ c
 <br>
 </div>
 </details>
+</div>
+<div id="function-scope" class="section level3">
+<h3><span class="header-section-number">3.3.1</span> Function scope</h3>
+<p>Every function is defined in a certain environment, and once it is defined,executed in a specific environment. Think of an environment as a space full of available variables, functions, and objects. Any defined object or variable that a function has access to is <strong>in scope</strong>. When you are inside of a function block, you have access to values defined within the function, plus any other values outside the function. When there are two variables with the same name, the environment which is “closest” controls:</p>
+<div class="sourceCode" id="cb88"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb88-1" data-line-number="1"></a>
+<a class="sourceLine" id="cb88-2" data-line-number="2">a &lt;-<span class="st"> </span><span class="dv">3</span></a>
+<a class="sourceLine" id="cb88-3" data-line-number="3"></a>
+<a class="sourceLine" id="cb88-4" data-line-number="4">myfun &lt;-<span class="st"> </span><span class="cf">function</span>(a, b) {</a>
+<a class="sourceLine" id="cb88-5" data-line-number="5">  a <span class="op">+</span><span class="st"> </span>b <span class="op">+</span><span class="st"> </span><span class="dv">2</span></a>
+<a class="sourceLine" id="cb88-6" data-line-number="6">}</a>
+<a class="sourceLine" id="cb88-7" data-line-number="7"></a>
+<a class="sourceLine" id="cb88-8" data-line-number="8"><span class="kw">myfun</span>(<span class="dv">5</span>, <span class="dv">6</span>) <span class="co"># a is 5 inside the function, so that overrides the a defined outside the function</span></a>
+<a class="sourceLine" id="cb88-9" data-line-number="9">[<span class="dv">1</span>] <span class="dv">13</span></a>
+<a class="sourceLine" id="cb88-10" data-line-number="10"></a>
+<a class="sourceLine" id="cb88-11" data-line-number="11"><span class="kw">myfun</span>(a, <span class="dv">3</span>) <span class="co"># this references the a outside the function</span></a>
+<a class="sourceLine" id="cb88-12" data-line-number="12">[<span class="dv">1</span>] <span class="dv">8</span></a></code></pre></div>
+<div class="figure">
+<img src="image/03_myfun_scope.png" alt="Scope diagram. When myfun() is called, the calling environment contains the two parameters a and b." />
+<p class="caption">Scope diagram. When myfun() is called, the calling environment contains the two parameters a and b.</p>
+</div>
+<div class="sourceCode" id="cb89"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb89-1" data-line-number="1">myfun2 &lt;-<span class="st"> </span><span class="cf">function</span>(d) {</a>
+<a class="sourceLine" id="cb89-2" data-line-number="2">  <span class="kw">myfun</span>(a, d)</a>
+<a class="sourceLine" id="cb89-3" data-line-number="3">}</a>
+<a class="sourceLine" id="cb89-4" data-line-number="4"></a>
+<a class="sourceLine" id="cb89-5" data-line-number="5"><span class="kw">myfun2</span>(<span class="dv">3</span>) <span class="co"># the only a in scope inside fun2 is the a defined at the top of the chunk</span></a>
+<a class="sourceLine" id="cb89-6" data-line-number="6">[<span class="dv">1</span>] <span class="dv">8</span></a></code></pre></div>
+<div class="figure">
+<img src="image/03_myfun2_scope.png" alt="Scope diagram. When myfun2() is called, the calling environment contains only a parameter d. a is pulled from the global environment, as there is no parameter a in the myfun2 calling environment." />
+<p class="caption">Scope diagram. When myfun2() is called, the calling environment contains only a parameter <span class="math inline">\(d\)</span>. <span class="math inline">\(a\)</span> is pulled from the global environment, as there is no parameter <span class="math inline">\(a\)</span> in the myfun2 calling environment.</p>
+</div>
+<div class="sourceCode" id="cb90"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb90-1" data-line-number="1">myfun3 &lt;-<span class="st"> </span><span class="cf">function</span>(a, d) {</a>
+<a class="sourceLine" id="cb90-2" data-line-number="2">  <span class="kw">myfun</span>(a, d)</a>
+<a class="sourceLine" id="cb90-3" data-line-number="3">}</a>
+<a class="sourceLine" id="cb90-4" data-line-number="4"></a>
+<a class="sourceLine" id="cb90-5" data-line-number="5"><span class="kw">myfun3</span>(<span class="dv">5</span>, <span class="dv">3</span>) <span class="co"># now, a is defined inside fun3 as a = 5, so there is an a in fun3&#39;s scope that isn&#39;t in the global environment.</span></a>
+<a class="sourceLine" id="cb90-6" data-line-number="6">[<span class="dv">1</span>] <span class="dv">10</span></a></code></pre></div>
+<div class="figure">
+<img src="image/03_myfun3_scope.png" alt="Scope diagram. When myfun3() is called, the calling environment contains parameters a and d, which are then copied into the calling environment of myfun as a and b. The variable a in the global environment is ignored." />
+<p class="caption">Scope diagram. When myfun3() is called, the calling environment contains parameters a and d, which are then copied into the calling environment of myfun as <span class="math inline">\(a\)</span> and <span class="math inline">\(b\)</span>. The variable <span class="math inline">\(a\)</span> in the global environment is ignored.</p>
+</div>
 </div>
 </div>
 <div id="scripts" class="section level2">
