@@ -195,11 +195,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="3.2" data-path="organization.html"><a href="organization.html#markdown"><i class="fa fa-check"></i><b>3.2</b> Markdown</a></li>
 <li class="chapter" data-level="3.3" data-path="organization.html"><a href="organization.html#functions-and-modules"><i class="fa fa-check"></i><b>3.3</b> Functions and Modules</a><ul>
 <li class="chapter" data-level="" data-path="organization.html"><a href="organization.html#try-it-out-6"><i class="fa fa-check"></i>Try it out</a></li>
-<li class="chapter" data-level="3.3.1" data-path="organization.html"><a href="organization.html#function-scope"><i class="fa fa-check"></i><b>3.3.1</b> Function scope</a></li>
+<li class="chapter" data-level="3.3.1" data-path="organization.html"><a href="organization.html#scope"><i class="fa fa-check"></i><b>3.3.1</b> Scope</a></li>
+<li class="chapter" data-level="3.3.2" data-path="organization.html"><a href="organization.html#infix-operators-and-the-pipe-in-r"><i class="fa fa-check"></i><b>3.3.2</b> Infix operators and the pipe in R</a></li>
 </ul></li>
 <li class="chapter" data-level="3.4" data-path="organization.html"><a href="organization.html#scripts"><i class="fa fa-check"></i><b>3.4</b> Scripts</a></li>
-<li class="chapter" data-level="3.5" data-path="organization.html"><a href="organization.html#packages"><i class="fa fa-check"></i><b>3.5</b> Packages</a></li>
+<li class="chapter" data-level="3.5" data-path="organization.html"><a href="organization.html#packages-and-modules"><i class="fa fa-check"></i><b>3.5</b> Packages and Modules</a><ul>
+<li class="chapter" data-level="3.5.1" data-path="organization.html"><a href="organization.html#r-1"><i class="fa fa-check"></i><b>3.5.1</b> R</a></li>
+</ul></li>
 <li class="chapter" data-level="3.6" data-path="organization.html"><a href="organization.html#comparisons---sas-and-r"><i class="fa fa-check"></i><b>3.6</b> Comparisons - SAS and R</a></li>
+<li class="chapter" data-level="3.7" data-path="organization.html"><a href="organization.html#references"><i class="fa fa-check"></i><b>3.7</b> References</a></li>
 </ul></li>
 <li class="chapter" data-level="4" data-path="reading-data.html"><a href="reading-data.html"><i class="fa fa-check"></i><b>4</b> External Data</a><ul>
 <li class="chapter" data-level="4.1" data-path="reading-data.html"><a href="reading-data.html#external-data-formats"><i class="fa fa-check"></i><b>4.1</b> External Data Formats</a></li>
@@ -259,7 +263,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="12.2.2" data-path="presentations.html"><a href="presentations.html#pagedown"><i class="fa fa-check"></i><b>12.2.2</b> Pagedown</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+<li class="chapter" data-level="" data-path="references-1.html"><a href="references-1.html"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
 
@@ -333,7 +337,7 @@ By sharing your code and raw data, you provide the wider scientific community wi
 </div>
 <div id="functions-and-modules" class="section level2">
 <h2><span class="header-section-number">3.3</span> Functions and Modules</h2>
-<p>A function is a block of code which is only run when it is called. It takes arguments (known as parameters) and returns data or some other value.</p>
+<p>A function (or a module, in SAS) is a block of code which is only run when it is called. It takes arguments (known as parameters) and returns data or some other value.</p>
 <p>There is some extensive material on this subject in <a href="https://r4ds.had.co.nz/functions.html">R for Data Science on functions</a>. If you aren’t familiar with functions, you should read that material before proceeding.</p>
 <p>Let’s look at the structure of a generic function in pseudocode (code that isn’t really part of any language, but describes the steps of a program):</p>
 <pre><code>my_function_name = function(param1, param2 = 3) {
@@ -353,26 +357,29 @@ By sharing your code and raw data, you provide the wider scientific community wi
 <code>}</code></p>
 </blockquote>
 <p>In SAS, functions are called modules and look like this:</p>
-<blockquote>
-<p>Statements That Define and Execute Modules<br />
-Modules are used to create a user-defined subroutine or function. A module definition begins with a START statement, which has the following general form:<br />
-<code>START &lt;name&gt; &lt;( arguments )&gt; &lt;GLOBAL( arguments )&gt;;</code><br />
-A module definition ends with a FINISH statement, which has the following general form:<br />
-<code>FINISH &lt;name&gt;;</code><br />
-To execute a module, you can use either a RUN statement or a CALL statement. The general forms of these statements are as follows:<br />
-<code>RUN &lt;name&gt; &lt;( arguments)&gt;;</code><br />
-<code>CALL &lt;name&gt; &lt;( arguments)&gt;;</code><br />
-The only difference between the RUN and CALL statements is the order of resolution.</p>
-</blockquote>
+<pre><code>Statements That Define and Execute Modules
+Modules are used to create a user-defined subroutine or function. 
+
+A module definition begins with a START statement, which has the following general form:
+START &lt;name&gt; &lt;( arguments )&gt; &lt;GLOBAL( arguments )&gt;;
+
+A module definition ends with a FINISH statement, which has the following general form:
+FINISH &lt;name&gt;;
+
+To execute a module, you can use either a RUN statement or a CALL statement. 
+The general forms of these statements are as follows:
+`RUN &lt;name&gt; &lt;( arguments)&gt;;
+`CALL &lt;name&gt; &lt;( arguments)&gt;;`
+The only difference between the RUN and CALL statements is the order of resolution.</code></pre>
 <p><a href="https://support.sas.com/rnd/app/iml/programming.html">Source: SAS function reference</a></p>
 <p>Let’s try functions out by writing a simple function that takes two numbers as arguments and adds them together.</p>
-<div class="sourceCode" id="cb82"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb82-1" data-line-number="1">adder &lt;-<span class="st"> </span><span class="cf">function</span>(a, b) {</a>
-<a class="sourceLine" id="cb82-2" data-line-number="2">  <span class="kw">return</span>(a <span class="op">+</span><span class="st"> </span>b)</a>
-<a class="sourceLine" id="cb82-3" data-line-number="3">}</a>
-<a class="sourceLine" id="cb82-4" data-line-number="4"></a>
-<a class="sourceLine" id="cb82-5" data-line-number="5"><span class="kw">adder</span>(<span class="dv">3</span>, <span class="dv">4</span>)</a>
-<a class="sourceLine" id="cb82-6" data-line-number="6">[<span class="dv">1</span>] <span class="dv">7</span></a></code></pre></div>
-<pre class="sas"><code>proc IML;
+<div class="sourceCode" id="cb83"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb83-1" data-line-number="1">adder &lt;-<span class="st"> </span><span class="cf">function</span>(a, b) {</a>
+<a class="sourceLine" id="cb83-2" data-line-number="2">  <span class="kw">return</span>(a <span class="op">+</span><span class="st"> </span>b)</a>
+<a class="sourceLine" id="cb83-3" data-line-number="3">}</a>
+<a class="sourceLine" id="cb83-4" data-line-number="4"></a>
+<a class="sourceLine" id="cb83-5" data-line-number="5"><span class="kw">adder</span>(<span class="dv">3</span>, <span class="dv">4</span>)</a>
+<a class="sourceLine" id="cb83-6" data-line-number="6">[<span class="dv">1</span>] <span class="dv">7</span></a></code></pre></div>
+<pre class="sashtml"><code>proc IML;
 
   start adder(a, b);
     return(a + b);
@@ -382,58 +389,84 @@ The only difference between the RUN and CALL statements is the order of resoluti
   print c;
 
 quit;
-
-                                     c
-
-                                         7</code></pre>
+</code></pre>
+<div class="branch">
+<a name="IDX"></a>
+<div>
+<div align="center">
+<!--BEGINTABLE-->
+<table class="table" cellspacing="0" cellpadding="7" rules="groups" frame="hsides" summary="Procedure IML: c">
+<colgroup>
+<col>
+</colgroup>
+<thead>
+<tr>
+<th class="c b header" scope="col">
+c
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="r data">
+7
+</td>
+</tr>
+</tbody>
+</table>
+<!--ENDTABLE-->
+</div>
+</div>
+<br>
+</div>
 <p>Of course, it’s not just important to be able to write your own functions. It’s also helpful to be able to see how functions are written, both to explore how a method is implemented and for debugging purposes. In SAS, this is generally not an option, because SAS is closed source, but in R, you can see the code behind any function which is implemented in R (it is harder to see functions implemented in C or C++, but not impossible) by typing the function name (no parentheses) into the command prompt.</p>
 Let’s examine how the colSums() function is implemented:
 <details>
-<div class="sourceCode" id="cb84"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb84-1" data-line-number="1">colSums</a>
-<a class="sourceLine" id="cb84-2" data-line-number="2"><span class="cf">function</span> (x, <span class="dt">na.rm =</span> <span class="ot">FALSE</span>, <span class="dt">dims =</span> 1L) </a>
-<a class="sourceLine" id="cb84-3" data-line-number="3">{</a>
-<a class="sourceLine" id="cb84-4" data-line-number="4">    <span class="cf">if</span> (<span class="kw">is.data.frame</span>(x)) </a>
-<a class="sourceLine" id="cb84-5" data-line-number="5">        x &lt;-<span class="st"> </span><span class="kw">as.matrix</span>(x)</a>
-<a class="sourceLine" id="cb84-6" data-line-number="6">    <span class="cf">if</span> (<span class="op">!</span><span class="kw">is.array</span>(x) <span class="op">||</span><span class="st"> </span><span class="kw">length</span>(dn &lt;-<span class="st"> </span><span class="kw">dim</span>(x)) <span class="op">&lt;</span><span class="st"> </span>2L) </a>
-<a class="sourceLine" id="cb84-7" data-line-number="7">        <span class="kw">stop</span>(<span class="st">&quot;&#39;x&#39; must be an array of at least two dimensions&quot;</span>)</a>
-<a class="sourceLine" id="cb84-8" data-line-number="8">    <span class="cf">if</span> (dims <span class="op">&lt;</span><span class="st"> </span>1L <span class="op">||</span><span class="st"> </span>dims <span class="op">&gt;</span><span class="st"> </span><span class="kw">length</span>(dn) <span class="op">-</span><span class="st"> </span>1L) </a>
-<a class="sourceLine" id="cb84-9" data-line-number="9">        <span class="kw">stop</span>(<span class="st">&quot;invalid &#39;dims&#39;&quot;</span>)</a>
-<a class="sourceLine" id="cb84-10" data-line-number="10">    n &lt;-<span class="st"> </span><span class="kw">prod</span>(dn[id &lt;-<span class="st"> </span><span class="kw">seq_len</span>(dims)])</a>
-<a class="sourceLine" id="cb84-11" data-line-number="11">    dn &lt;-<span class="st"> </span>dn[<span class="op">-</span>id]</a>
-<a class="sourceLine" id="cb84-12" data-line-number="12">    z &lt;-<span class="st"> </span><span class="cf">if</span> (<span class="kw">is.complex</span>(x)) </a>
-<a class="sourceLine" id="cb84-13" data-line-number="13">        <span class="kw">.Internal</span>(<span class="kw">colSums</span>(<span class="kw">Re</span>(x), n, <span class="kw">prod</span>(dn), na.rm)) <span class="op">+</span><span class="st"> </span>(<span class="dv">0</span><span class="op">+</span>1i) <span class="op">*</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb84-14" data-line-number="14"><span class="st">            </span><span class="kw">.Internal</span>(<span class="kw">colSums</span>(<span class="kw">Im</span>(x), n, <span class="kw">prod</span>(dn), na.rm))</a>
-<a class="sourceLine" id="cb84-15" data-line-number="15">    <span class="cf">else</span> <span class="kw">.Internal</span>(<span class="kw">colSums</span>(x, n, <span class="kw">prod</span>(dn), na.rm))</a>
-<a class="sourceLine" id="cb84-16" data-line-number="16">    <span class="cf">if</span> (<span class="kw">length</span>(dn) <span class="op">&gt;</span><span class="st"> </span>1L) {</a>
-<a class="sourceLine" id="cb84-17" data-line-number="17">        <span class="kw">dim</span>(z) &lt;-<span class="st"> </span>dn</a>
-<a class="sourceLine" id="cb84-18" data-line-number="18">        <span class="kw">dimnames</span>(z) &lt;-<span class="st"> </span><span class="kw">dimnames</span>(x)[<span class="op">-</span>id]</a>
-<a class="sourceLine" id="cb84-19" data-line-number="19">    }</a>
-<a class="sourceLine" id="cb84-20" data-line-number="20">    <span class="cf">else</span> <span class="kw">names</span>(z) &lt;-<span class="st"> </span><span class="kw">dimnames</span>(x)[[dims <span class="op">+</span><span class="st"> </span>1L]]</a>
-<a class="sourceLine" id="cb84-21" data-line-number="21">    z</a>
-<a class="sourceLine" id="cb84-22" data-line-number="22">}</a>
-<a class="sourceLine" id="cb84-23" data-line-number="23"><span class="op">&lt;</span>bytecode<span class="op">:</span><span class="st"> </span><span class="dv">0x562410cd25b8</span><span class="op">&gt;</span></a>
-<a class="sourceLine" id="cb84-24" data-line-number="24"><span class="er">&lt;</span>environment<span class="op">:</span><span class="st"> </span>namespace<span class="op">:</span>base<span class="op">&gt;</span></a></code></pre></div>
+<div class="sourceCode" id="cb85"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb85-1" data-line-number="1">colSums</a>
+<a class="sourceLine" id="cb85-2" data-line-number="2"><span class="cf">function</span> (x, <span class="dt">na.rm =</span> <span class="ot">FALSE</span>, <span class="dt">dims =</span> 1L) </a>
+<a class="sourceLine" id="cb85-3" data-line-number="3">{</a>
+<a class="sourceLine" id="cb85-4" data-line-number="4">    <span class="cf">if</span> (<span class="kw">is.data.frame</span>(x)) </a>
+<a class="sourceLine" id="cb85-5" data-line-number="5">        x &lt;-<span class="st"> </span><span class="kw">as.matrix</span>(x)</a>
+<a class="sourceLine" id="cb85-6" data-line-number="6">    <span class="cf">if</span> (<span class="op">!</span><span class="kw">is.array</span>(x) <span class="op">||</span><span class="st"> </span><span class="kw">length</span>(dn &lt;-<span class="st"> </span><span class="kw">dim</span>(x)) <span class="op">&lt;</span><span class="st"> </span>2L) </a>
+<a class="sourceLine" id="cb85-7" data-line-number="7">        <span class="kw">stop</span>(<span class="st">&quot;&#39;x&#39; must be an array of at least two dimensions&quot;</span>)</a>
+<a class="sourceLine" id="cb85-8" data-line-number="8">    <span class="cf">if</span> (dims <span class="op">&lt;</span><span class="st"> </span>1L <span class="op">||</span><span class="st"> </span>dims <span class="op">&gt;</span><span class="st"> </span><span class="kw">length</span>(dn) <span class="op">-</span><span class="st"> </span>1L) </a>
+<a class="sourceLine" id="cb85-9" data-line-number="9">        <span class="kw">stop</span>(<span class="st">&quot;invalid &#39;dims&#39;&quot;</span>)</a>
+<a class="sourceLine" id="cb85-10" data-line-number="10">    n &lt;-<span class="st"> </span><span class="kw">prod</span>(dn[id &lt;-<span class="st"> </span><span class="kw">seq_len</span>(dims)])</a>
+<a class="sourceLine" id="cb85-11" data-line-number="11">    dn &lt;-<span class="st"> </span>dn[<span class="op">-</span>id]</a>
+<a class="sourceLine" id="cb85-12" data-line-number="12">    z &lt;-<span class="st"> </span><span class="cf">if</span> (<span class="kw">is.complex</span>(x)) </a>
+<a class="sourceLine" id="cb85-13" data-line-number="13">        <span class="kw">.Internal</span>(<span class="kw">colSums</span>(<span class="kw">Re</span>(x), n, <span class="kw">prod</span>(dn), na.rm)) <span class="op">+</span><span class="st"> </span>(<span class="dv">0</span><span class="op">+</span>1i) <span class="op">*</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb85-14" data-line-number="14"><span class="st">            </span><span class="kw">.Internal</span>(<span class="kw">colSums</span>(<span class="kw">Im</span>(x), n, <span class="kw">prod</span>(dn), na.rm))</a>
+<a class="sourceLine" id="cb85-15" data-line-number="15">    <span class="cf">else</span> <span class="kw">.Internal</span>(<span class="kw">colSums</span>(x, n, <span class="kw">prod</span>(dn), na.rm))</a>
+<a class="sourceLine" id="cb85-16" data-line-number="16">    <span class="cf">if</span> (<span class="kw">length</span>(dn) <span class="op">&gt;</span><span class="st"> </span>1L) {</a>
+<a class="sourceLine" id="cb85-17" data-line-number="17">        <span class="kw">dim</span>(z) &lt;-<span class="st"> </span>dn</a>
+<a class="sourceLine" id="cb85-18" data-line-number="18">        <span class="kw">dimnames</span>(z) &lt;-<span class="st"> </span><span class="kw">dimnames</span>(x)[<span class="op">-</span>id]</a>
+<a class="sourceLine" id="cb85-19" data-line-number="19">    }</a>
+<a class="sourceLine" id="cb85-20" data-line-number="20">    <span class="cf">else</span> <span class="kw">names</span>(z) &lt;-<span class="st"> </span><span class="kw">dimnames</span>(x)[[dims <span class="op">+</span><span class="st"> </span>1L]]</a>
+<a class="sourceLine" id="cb85-21" data-line-number="21">    z</a>
+<a class="sourceLine" id="cb85-22" data-line-number="22">}</a>
+<a class="sourceLine" id="cb85-23" data-line-number="23"><span class="op">&lt;</span>bytecode<span class="op">:</span><span class="st"> </span><span class="dv">0x557a079d9298</span><span class="op">&gt;</span></a>
+<a class="sourceLine" id="cb85-24" data-line-number="24"><span class="er">&lt;</span>environment<span class="op">:</span><span class="st"> </span>namespace<span class="op">:</span>base<span class="op">&gt;</span></a></code></pre></div>
 You can see that the first 3 steps in the function are if statements to test whether the inputs are acceptable - x must be a data frame, a matrix, or an array (with 2+ dimensions). The next couple of lines test to see whether there are additional “column” dimensions (don’t worry if you don’t understand what’s going on in this code - it’s highly optimized and a bit arcane). Then, the function checks to see if x is real-valued or complex, and if it’s complex, computes the real and imaginary sums separately. The <code>.Internal(colSums(x...))</code> part is calling a C function - basically, functions written in C are faster than R because they’re compiled, so this speeds basic operations up in R. Then there are statements that transfer dimension names over to the summed object. At the end of the function, the last value computed is returned automatically (in this case, z).
 </details>
 <div id="try-it-out-6" class="section level3 unnumbered tryitout">
 <h3>Try it out</h3>
 <p>Write a function named <code>circle_area</code> which computes the area of a circle given the radius. Make sure to use reasonable parameter names! (Note: in R, pi is conveniently stored in the variable of the same name - it can be overwritten if you want to do so, but why would you want to do that? In SAS, you can get the value of pi using <code>constant(&quot;pi&quot;)</code>)</p>
 <details>
-<div class="sourceCode" id="cb85"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb85-1" data-line-number="1">circle_area &lt;-<span class="st"> </span><span class="cf">function</span>(r) {</a>
-<a class="sourceLine" id="cb85-2" data-line-number="2">  r<span class="op">^</span><span class="dv">2</span><span class="op">*</span>pi <span class="co"># automatically returned as the last computed value</span></a>
-<a class="sourceLine" id="cb85-3" data-line-number="3">}</a>
-<a class="sourceLine" id="cb85-4" data-line-number="4"></a>
-<a class="sourceLine" id="cb85-5" data-line-number="5"><span class="kw">circle_area</span>(<span class="dv">5</span>)</a>
-<a class="sourceLine" id="cb85-6" data-line-number="6">[<span class="dv">1</span>] <span class="fl">78.53982</span></a></code></pre></div>
-<p>A more complete and robust answer might include a test for numeric <code>r</code>:</p>
 <div class="sourceCode" id="cb86"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb86-1" data-line-number="1">circle_area &lt;-<span class="st"> </span><span class="cf">function</span>(r) {</a>
-<a class="sourceLine" id="cb86-2" data-line-number="2">  <span class="cf">if</span> (<span class="op">!</span><span class="kw">is.numeric</span>(r)) {</a>
-<a class="sourceLine" id="cb86-3" data-line-number="3">    <span class="kw">stop</span>(<span class="st">&quot;Supplied radius must be numeric&quot;</span>) <span class="co"># This issues an error</span></a>
-<a class="sourceLine" id="cb86-4" data-line-number="4">  }</a>
-<a class="sourceLine" id="cb86-5" data-line-number="5">  r<span class="op">^</span><span class="dv">2</span><span class="op">*</span>pi <span class="co"># automatically returned as the last computed value</span></a>
-<a class="sourceLine" id="cb86-6" data-line-number="6">}</a>
-<a class="sourceLine" id="cb86-7" data-line-number="7"><span class="kw">circle_area</span>(<span class="dv">5</span>)</a>
-<a class="sourceLine" id="cb86-8" data-line-number="8">[<span class="dv">1</span>] <span class="fl">78.53982</span></a></code></pre></div>
+<a class="sourceLine" id="cb86-2" data-line-number="2">  r<span class="op">^</span><span class="dv">2</span><span class="op">*</span>pi <span class="co"># automatically returned as the last computed value</span></a>
+<a class="sourceLine" id="cb86-3" data-line-number="3">}</a>
+<a class="sourceLine" id="cb86-4" data-line-number="4"></a>
+<a class="sourceLine" id="cb86-5" data-line-number="5"><span class="kw">circle_area</span>(<span class="dv">5</span>)</a>
+<a class="sourceLine" id="cb86-6" data-line-number="6">[<span class="dv">1</span>] <span class="fl">78.53982</span></a></code></pre></div>
+<p>A more complete and robust answer might include a test for numeric <code>r</code>:</p>
+<div class="sourceCode" id="cb87"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb87-1" data-line-number="1">circle_area &lt;-<span class="st"> </span><span class="cf">function</span>(r) {</a>
+<a class="sourceLine" id="cb87-2" data-line-number="2">  <span class="cf">if</span> (<span class="op">!</span><span class="kw">is.numeric</span>(r)) {</a>
+<a class="sourceLine" id="cb87-3" data-line-number="3">    <span class="kw">stop</span>(<span class="st">&quot;Supplied radius must be numeric&quot;</span>) <span class="co"># This issues an error</span></a>
+<a class="sourceLine" id="cb87-4" data-line-number="4">  }</a>
+<a class="sourceLine" id="cb87-5" data-line-number="5">  r<span class="op">^</span><span class="dv">2</span><span class="op">*</span>pi <span class="co"># automatically returned as the last computed value</span></a>
+<a class="sourceLine" id="cb87-6" data-line-number="6">}</a>
+<a class="sourceLine" id="cb87-7" data-line-number="7"><span class="kw">circle_area</span>(<span class="dv">5</span>)</a>
+<a class="sourceLine" id="cb87-8" data-line-number="8">[<span class="dv">1</span>] <span class="fl">78.53982</span></a></code></pre></div>
 <pre class="sashtml"><code>proc IML;
 
   start circle_area(r);
@@ -476,58 +509,826 @@ c
 <br>
 </div>
 </details>
+<p>One last trick to note: functions generally can only return one object. If you need to return more than one thing, put the objects into a list or another data structure, and return that - then you can take the list/structure apart outside the function to use the returned values separately.</p>
 </div>
-<div id="function-scope" class="section level3">
-<h3><span class="header-section-number">3.3.1</span> Function scope</h3>
-<p>Every function is defined in a certain environment, and once it is defined,executed in a specific environment. Think of an environment as a space full of available variables, functions, and objects. Any defined object or variable that a function has access to is <strong>in scope</strong>. When you are inside of a function block, you have access to values defined within the function, plus any other values outside the function. When there are two variables with the same name, the environment which is “closest” controls:</p>
-<div class="sourceCode" id="cb88"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb88-1" data-line-number="1"></a>
-<a class="sourceLine" id="cb88-2" data-line-number="2">a &lt;-<span class="st"> </span><span class="dv">3</span></a>
-<a class="sourceLine" id="cb88-3" data-line-number="3"></a>
-<a class="sourceLine" id="cb88-4" data-line-number="4">myfun &lt;-<span class="st"> </span><span class="cf">function</span>(a, b) {</a>
-<a class="sourceLine" id="cb88-5" data-line-number="5">  a <span class="op">+</span><span class="st"> </span>b <span class="op">+</span><span class="st"> </span><span class="dv">2</span></a>
-<a class="sourceLine" id="cb88-6" data-line-number="6">}</a>
-<a class="sourceLine" id="cb88-7" data-line-number="7"></a>
-<a class="sourceLine" id="cb88-8" data-line-number="8"><span class="kw">myfun</span>(<span class="dv">5</span>, <span class="dv">6</span>) <span class="co"># a is 5 inside the function, so that overrides the a defined outside the function</span></a>
-<a class="sourceLine" id="cb88-9" data-line-number="9">[<span class="dv">1</span>] <span class="dv">13</span></a>
-<a class="sourceLine" id="cb88-10" data-line-number="10"></a>
-<a class="sourceLine" id="cb88-11" data-line-number="11"><span class="kw">myfun</span>(a, <span class="dv">3</span>) <span class="co"># this references the a outside the function</span></a>
-<a class="sourceLine" id="cb88-12" data-line-number="12">[<span class="dv">1</span>] <span class="dv">8</span></a></code></pre></div>
+<div id="scope" class="section level3">
+<h3><span class="header-section-number">3.3.1</span> Scope</h3>
+<p>The scope of a variable is the space in the program where a variable is defined and can be accessed. A <strong>local</strong> variable is one which can only be accessed within a function or block of code - it does not exist outside of that code. A <strong>global</strong> variable is one which is available to the entire program.</p>
+<div id="scoping-in-r" class="section level4">
+<h4><span class="header-section-number">3.3.1.1</span> Scoping in R</h4>
+<p>Every function is defined in a certain environment, and once it is defined, executed in a specific environment. Think of an environment as a space full of available variables, functions, and objects. Any defined object or variable that a function has access to is <strong>in scope</strong>. When you are inside of a function block, you have access to values defined within the function, plus any other values outside the function. When there are two variables with the same name, the object in the environment which is “closest” is used.</p>
+Demonstration of scoping in R:
+<details>
+<div class="sourceCode" id="cb89"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb89-1" data-line-number="1"></a>
+<a class="sourceLine" id="cb89-2" data-line-number="2">a &lt;-<span class="st"> </span><span class="dv">3</span></a>
+<a class="sourceLine" id="cb89-3" data-line-number="3"></a>
+<a class="sourceLine" id="cb89-4" data-line-number="4">myfun &lt;-<span class="st"> </span><span class="cf">function</span>(a, b) {</a>
+<a class="sourceLine" id="cb89-5" data-line-number="5">  a <span class="op">+</span><span class="st"> </span>b <span class="op">+</span><span class="st"> </span><span class="dv">2</span></a>
+<a class="sourceLine" id="cb89-6" data-line-number="6">}</a>
+<a class="sourceLine" id="cb89-7" data-line-number="7"></a>
+<a class="sourceLine" id="cb89-8" data-line-number="8"><span class="kw">myfun</span>(<span class="dv">5</span>, <span class="dv">6</span>) <span class="co"># a is 5 inside the function, so that overrides the </span></a>
+<a class="sourceLine" id="cb89-9" data-line-number="9">[<span class="dv">1</span>] <span class="dv">13</span></a>
+<a class="sourceLine" id="cb89-10" data-line-number="10">            <span class="co"># a defined outside the function</span></a>
+<a class="sourceLine" id="cb89-11" data-line-number="11"></a>
+<a class="sourceLine" id="cb89-12" data-line-number="12"><span class="kw">myfun</span>(a, <span class="dv">3</span>) <span class="co"># this references the a outside the function</span></a>
+<a class="sourceLine" id="cb89-13" data-line-number="13">[<span class="dv">1</span>] <span class="dv">8</span></a></code></pre></div>
 <div class="figure">
 <img src="image/03_myfun_scope.png" alt="Scope diagram. When myfun() is called, the calling environment contains the two parameters a and b." />
 <p class="caption">Scope diagram. When myfun() is called, the calling environment contains the two parameters a and b.</p>
 </div>
-<div class="sourceCode" id="cb89"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb89-1" data-line-number="1">myfun2 &lt;-<span class="st"> </span><span class="cf">function</span>(d) {</a>
-<a class="sourceLine" id="cb89-2" data-line-number="2">  <span class="kw">myfun</span>(a, d)</a>
-<a class="sourceLine" id="cb89-3" data-line-number="3">}</a>
-<a class="sourceLine" id="cb89-4" data-line-number="4"></a>
-<a class="sourceLine" id="cb89-5" data-line-number="5"><span class="kw">myfun2</span>(<span class="dv">3</span>) <span class="co"># the only a in scope inside fun2 is the a defined at the top of the chunk</span></a>
-<a class="sourceLine" id="cb89-6" data-line-number="6">[<span class="dv">1</span>] <span class="dv">8</span></a></code></pre></div>
+<div class="sourceCode" id="cb90"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb90-1" data-line-number="1">a &lt;-<span class="st"> </span><span class="dv">3</span></a>
+<a class="sourceLine" id="cb90-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb90-3" data-line-number="3">myfun2 &lt;-<span class="st"> </span><span class="cf">function</span>(d) {</a>
+<a class="sourceLine" id="cb90-4" data-line-number="4">  <span class="kw">myfun</span>(a, d)</a>
+<a class="sourceLine" id="cb90-5" data-line-number="5">}</a>
+<a class="sourceLine" id="cb90-6" data-line-number="6"></a>
+<a class="sourceLine" id="cb90-7" data-line-number="7"><span class="kw">myfun2</span>(<span class="dv">3</span>) <span class="co"># the only a in scope inside fun2 is the a defined at the top of the chunk</span></a>
+<a class="sourceLine" id="cb90-8" data-line-number="8">[<span class="dv">1</span>] <span class="dv">8</span></a></code></pre></div>
 <div class="figure">
 <img src="image/03_myfun2_scope.png" alt="Scope diagram. When myfun2() is called, the calling environment contains only a parameter d. a is pulled from the global environment, as there is no parameter a in the myfun2 calling environment." />
 <p class="caption">Scope diagram. When myfun2() is called, the calling environment contains only a parameter <span class="math inline">\(d\)</span>. <span class="math inline">\(a\)</span> is pulled from the global environment, as there is no parameter <span class="math inline">\(a\)</span> in the myfun2 calling environment.</p>
 </div>
-<div class="sourceCode" id="cb90"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb90-1" data-line-number="1">myfun3 &lt;-<span class="st"> </span><span class="cf">function</span>(a, d) {</a>
-<a class="sourceLine" id="cb90-2" data-line-number="2">  <span class="kw">myfun</span>(a, d)</a>
-<a class="sourceLine" id="cb90-3" data-line-number="3">}</a>
-<a class="sourceLine" id="cb90-4" data-line-number="4"></a>
-<a class="sourceLine" id="cb90-5" data-line-number="5"><span class="kw">myfun3</span>(<span class="dv">5</span>, <span class="dv">3</span>) <span class="co"># now, a is defined inside fun3 as a = 5, so there is an a in fun3&#39;s scope that isn&#39;t in the global environment.</span></a>
-<a class="sourceLine" id="cb90-6" data-line-number="6">[<span class="dv">1</span>] <span class="dv">10</span></a></code></pre></div>
+<div class="sourceCode" id="cb91"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb91-1" data-line-number="1">a &lt;-<span class="st"> </span><span class="dv">3</span></a>
+<a class="sourceLine" id="cb91-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb91-3" data-line-number="3">myfun3 &lt;-<span class="st"> </span><span class="cf">function</span>(a, d) {</a>
+<a class="sourceLine" id="cb91-4" data-line-number="4">  b &lt;-<span class="st"> </span>a; <span class="co"># make a copy of the value</span></a>
+<a class="sourceLine" id="cb91-5" data-line-number="5">  a &lt;-<span class="st"> </span><span class="dv">250</span>;</a>
+<a class="sourceLine" id="cb91-6" data-line-number="6">  <span class="kw">myfun</span>(b, d)</a>
+<a class="sourceLine" id="cb91-7" data-line-number="7">}</a>
+<a class="sourceLine" id="cb91-8" data-line-number="8"></a>
+<a class="sourceLine" id="cb91-9" data-line-number="9">a</a>
+<a class="sourceLine" id="cb91-10" data-line-number="10">[<span class="dv">1</span>] <span class="dv">3</span></a>
+<a class="sourceLine" id="cb91-11" data-line-number="11"></a>
+<a class="sourceLine" id="cb91-12" data-line-number="12"><span class="kw">myfun3</span>(<span class="dv">5</span>, <span class="dv">3</span>) <span class="co"># now, a is defined inside fun3 as a = 5, so there is an a in </span></a>
+<a class="sourceLine" id="cb91-13" data-line-number="13">[<span class="dv">1</span>] <span class="dv">10</span></a>
+<a class="sourceLine" id="cb91-14" data-line-number="14">             <span class="co"># fun3&#39;s scope that isn&#39;t in the global environment.</span></a>
+<a class="sourceLine" id="cb91-15" data-line-number="15"></a>
+<a class="sourceLine" id="cb91-16" data-line-number="16">a <span class="co"># value of a hasn&#39;t changed</span></a>
+<a class="sourceLine" id="cb91-17" data-line-number="17">[<span class="dv">1</span>] <span class="dv">3</span></a></code></pre></div>
 <div class="figure">
 <img src="image/03_myfun3_scope.png" alt="Scope diagram. When myfun3() is called, the calling environment contains parameters a and d, which are then copied into the calling environment of myfun as a and b. The variable a in the global environment is ignored." />
 <p class="caption">Scope diagram. When myfun3() is called, the calling environment contains parameters a and d, which are then copied into the calling environment of myfun as <span class="math inline">\(a\)</span> and <span class="math inline">\(b\)</span>. The variable <span class="math inline">\(a\)</span> in the global environment is ignored.</p>
+</div>
+</details>
+<p>If you want to avoid too many issues with scoping (because scoping rules are complicated), the simplest way is to not reuse variable names inside of a function if you’ve already used those names outside the function.</p>
+<p>R does have global variables and a global assignment operator, <code>&lt;&lt;-</code>, but the use of global variables is strongly discouraged, and global variables are not permitted in e.g. CRAN packages.</p>
+</div>
+<div id="scoping-in-sas" class="section level4">
+<h4><span class="header-section-number">3.3.1.2</span> Scoping in SAS</h4>
+<p>In SAS, scoping rules are more like those in other programming languages - you have to keep track of how arguments are made available to the function.</p>
+Demonstration of scoping in SAS. Environments do not inherit variables from the calling environment.
+<details>
+<pre class="sashtml"><code>PROC IML;
+a = 3;
+
+start myfun(a, b);
+  return a + b + 2;
+finish;
+
+r1 = myfun(5, 6); 
+/* a is 5 inside the function, so that overrides the 
+   a defined outside the function */
+
+r2 = myfun(a, 3); 
+/* this references the a outside the function */
+
+print r1 r2;
+quit;
+</code></pre>
+<div class="branch">
+<a name="IDX"></a>
+<div>
+<div align="center">
+<!--BEGINTABLE-->
+<table class="table" cellspacing="0" cellpadding="7" rules="groups" frame="hsides" summary="Procedure IML: r1_r2">
+<colgroup>
+<col>
+<col>
+</colgroup>
+<thead>
+<tr>
+<th class="r b header" scope="col">
+r1
+</th>
+<th class="r b header" scope="col">
+r2
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="r data">
+13
+</td>
+<td class="r data">
+8
+</td>
+</tr>
+</tbody>
+</table>
+<!--ENDTABLE-->
+</div>
+</div>
+<br>
+</div>
+<p>In SAS, the equivalent version of the program used to demonstrate lexical scoping in R produces an error. In SAS, you cannot assume the function has access to values defined outside of that function that are not passed into the function as arguments.</p>
+<pre><code>PROC IML;
+a = 3;
+
+start myfun(a, b);
+  return a + b + 2;
+finish;
+
+start myfun2(d);
+  return myfun(a, d); /* SAS complains because a is not defined */
+finish;
+
+r1 = myfun2(3); 
+
+print r1;
+quit;
+</code></pre>
+</details>
+<p>First, let’s consider the similarities: like R, functions have a local scope, and changing a similarly named value inside the function doesn’t change the value outside the function.</p>
+<pre class="sashtml"><code>PROC IML;
+start myfun(x); 
+  y = 2 * x;
+  print y[label=&quot;y inside function (local)&quot;];
+  return 1;
+finish;
+
+y = 0;
+x = 1:5;
+res = myfun(x);
+print y[label=&quot;y outside function&quot;];
+
+quit;
+</code></pre>
+<div class="branch">
+<a name="IDX"></a>
+<div>
+<div align="center">
+<!--BEGINTABLE-->
+<table class="table" cellspacing="0" cellpadding="7" rules="groups" frame="hsides" summary="Procedure IML: y inside function (local)">
+<colgroup>
+<col>
+<col>
+<col>
+<col>
+<col>
+</colgroup>
+<thead>
+<tr>
+<th class="c b header" colspan="5" scope="colgroup">
+y inside function (local)
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="r data">
+2
+</td>
+<td class="r data">
+4
+</td>
+<td class="r data">
+6
+</td>
+<td class="r data">
+8
+</td>
+<td class="r data">
+10
+</td>
+</tr>
+</tbody>
+</table>
+<!--ENDTABLE-->
+</div>
+</div>
+<br>
+<a name="IDX1"></a>
+<div>
+<div align="center">
+<!--BEGINTABLE-->
+<table class="table" cellspacing="0" cellpadding="7" rules="groups" frame="hsides" summary="Procedure IML: y outside function">
+<colgroup>
+<col>
+</colgroup>
+<thead>
+<tr>
+<th class="c b header" scope="col">
+y outside function
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="r data">
+0
+</td>
+</tr>
+</tbody>
+</table>
+<!--ENDTABLE-->
+</div>
+</div>
+<br>
+</div>
+<p>However, R’s environment feature and lexical scoping is not common to many other programming languages.
+When values are passed into the function as arguments, the behavior in SAS deviates from the equivalent behavior in R. In SAS, arguments to functions are passed by <strong>reference</strong>.</p>
+<p>An argument that is passed <strong>by value</strong> makes a copy of the value (to a new memory location) for the local function scope (this is what R does).</p>
+<p>When an argument is passed <strong>by reference</strong>, the <em>address</em> of the argument is passed in instead<a href="#fn4" class="footnote-ref" id="fnref4"><sup>4</sup></a>.
+This is faster and more efficient (because you aren’t making a new copy of the data), but it does mean that changes inside the function persist outside that function.</p>
+Example: Argument passing in R and SAS<br />
+In SAS:
+<details>
+<p>If we make a slight modification to <code>myfun(a, b)</code>, though, we see some interesting behavior in SAS that we wouldn’t see in the equivalent R program.</p>
+<pre class="sashtml"><code>PROC IML;
+a = 3;
+
+start myfun(a, b);
+  a = a + 2;
+  return a + b;
+finish;
+
+b = a;
+
+r1 = myfun(5, 6); 
+     
+c = a;
+
+r2 = myfun(a, 3); 
+
+d = a;
+
+print b[label=&quot;a before r1&quot;] r1 c[label=&quot;a after r1&quot;] r2 d[label=&quot;a after r2&quot;];
+quit;</code></pre>
+<div class="branch">
+<a name="IDX"></a>
+<div>
+<div align="center">
+<!--BEGINTABLE-->
+<table class="table" cellspacing="0" cellpadding="7" rules="groups" frame="hsides" summary="Procedure IML: b_r1_c_r2_d">
+<colgroup>
+<col>
+<col>
+<col>
+<col>
+<col>
+</colgroup>
+<thead>
+<tr>
+<th class="r b header" scope="col">
+a before r1
+</th>
+<th class="r b header" scope="col">
+r1
+</th>
+<th class="r b header" scope="col">
+a after r1
+</th>
+<th class="r b header" scope="col">
+r2
+</th>
+<th class="r b header" scope="col">
+a after r2
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="r data">
+3
+</td>
+<td class="r data">
+13
+</td>
+<td class="r data">
+3
+</td>
+<td class="r data">
+8
+</td>
+<td class="r data">
+5
+</td>
+</tr>
+</tbody>
+</table>
+<!--ENDTABLE-->
+</div>
+</div>
+<br>
+</div>
+</details>
+In R:
+<details>
+<p>In R, variables inside a function don’t modify variables which are outside a function (generally speaking). In SAS, this is not necessarily the case. In the first call to myfun(), we pass in two numerical arguments, and we see that even though the value of a changes inside the function, that change doesn’t affect the variable defined outside of the function. In the second call to myfun(), we pass a variable in as an argument, and we see that the variable changes after the function’s execution! In the R chunk (below), you can see that the behavior of what is essentially the same code is different.</p>
+<div class="sourceCode" id="cb96"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb96-1" data-line-number="1"></a>
+<a class="sourceLine" id="cb96-2" data-line-number="2">a &lt;-<span class="st"> </span><span class="dv">3</span></a>
+<a class="sourceLine" id="cb96-3" data-line-number="3"></a>
+<a class="sourceLine" id="cb96-4" data-line-number="4">myfun &lt;-<span class="st"> </span><span class="cf">function</span>(a, b) {</a>
+<a class="sourceLine" id="cb96-5" data-line-number="5">  a &lt;-<span class="st"> </span>a <span class="op">+</span><span class="st"> </span><span class="dv">2</span></a>
+<a class="sourceLine" id="cb96-6" data-line-number="6">  a <span class="op">+</span><span class="st"> </span>b</a>
+<a class="sourceLine" id="cb96-7" data-line-number="7">}</a>
+<a class="sourceLine" id="cb96-8" data-line-number="8"></a>
+<a class="sourceLine" id="cb96-9" data-line-number="9">a</a>
+<a class="sourceLine" id="cb96-10" data-line-number="10">[<span class="dv">1</span>] <span class="dv">3</span></a>
+<a class="sourceLine" id="cb96-11" data-line-number="11"></a>
+<a class="sourceLine" id="cb96-12" data-line-number="12"><span class="kw">myfun</span>(<span class="dv">5</span>, <span class="dv">6</span>)</a>
+<a class="sourceLine" id="cb96-13" data-line-number="13">[<span class="dv">1</span>] <span class="dv">13</span></a>
+<a class="sourceLine" id="cb96-14" data-line-number="14"></a>
+<a class="sourceLine" id="cb96-15" data-line-number="15">a</a>
+<a class="sourceLine" id="cb96-16" data-line-number="16">[<span class="dv">1</span>] <span class="dv">3</span></a>
+<a class="sourceLine" id="cb96-17" data-line-number="17"></a>
+<a class="sourceLine" id="cb96-18" data-line-number="18"><span class="kw">myfun</span>(a, <span class="dv">3</span>) </a>
+<a class="sourceLine" id="cb96-19" data-line-number="19">[<span class="dv">1</span>] <span class="dv">8</span></a>
+<a class="sourceLine" id="cb96-20" data-line-number="20"></a>
+<a class="sourceLine" id="cb96-21" data-line-number="21">a</a>
+<a class="sourceLine" id="cb96-22" data-line-number="22">[<span class="dv">1</span>] <span class="dv">3</span></a></code></pre></div>
+</details>
+Here’s another example of SAS passing arguments by reference (and the unexpected effects that can have on a program’s state):
+<details>
+<pre class="sashtml"><code>PROC IML;
+start myfun(x); 
+  call sort(x, 1); /* sort the values */
+  return (cusum(x)); /* cusum() = cumulative sum */
+finish;
+
+y = {3, 1, 4, 1, 5, 9, 2, 6, 5, 4};
+z = y;
+
+print y[label=&quot;y before function is called&quot;];
+
+cs = myfun(y);
+
+print z[label=&quot;original y&quot;]
+      y[label=&quot;y after function is called&quot;] 
+      cs[label=&quot;cumulative sum of sorted y&quot;];
+
+quit;
+</code></pre>
+<div class="branch">
+<a name="IDX"></a>
+<div>
+<div align="center">
+<!--BEGINTABLE-->
+<table class="table" cellspacing="0" cellpadding="7" rules="groups" frame="hsides" summary="Procedure IML: y before function is called">
+<colgroup>
+<col>
+</colgroup>
+<thead>
+<tr>
+<th class="c b header" scope="col">
+y before function<br/>is called
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="r data">
+3
+</td>
+</tr>
+<tr>
+<td class="r data">
+1
+</td>
+</tr>
+<tr>
+<td class="r data">
+4
+</td>
+</tr>
+<tr>
+<td class="r data">
+1
+</td>
+</tr>
+<tr>
+<td class="r data">
+5
+</td>
+</tr>
+<tr>
+<td class="r data">
+9
+</td>
+</tr>
+<tr>
+<td class="r data">
+2
+</td>
+</tr>
+<tr>
+<td class="r data">
+6
+</td>
+</tr>
+<tr>
+<td class="r data">
+5
+</td>
+</tr>
+<tr>
+<td class="r data">
+4
+</td>
+</tr>
+</tbody>
+</table>
+<!--ENDTABLE-->
+</div>
+</div>
+<br>
+<a name="IDX1"></a>
+<div>
+<div align="center">
+<!--BEGINTABLE-->
+<table class="table" cellspacing="0" cellpadding="7" rules="groups" frame="hsides" summary="Procedure IML: z_y_cs">
+<colgroup>
+<col>
+<col>
+<col>
+</colgroup>
+<thead>
+<tr>
+<th class="r b header" scope="col">
+original y
+</th>
+<th class="r b header" scope="col">
+y after function<br/>is called
+</th>
+<th class="r b header" scope="col">
+cumulative sum<br/>of sorted y
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="r data">
+3
+</td>
+<td class="r data">
+1
+</td>
+<td class="r data">
+1
+</td>
+</tr>
+<tr>
+<td class="r data">
+1
+</td>
+<td class="r data">
+1
+</td>
+<td class="r data">
+2
+</td>
+</tr>
+<tr>
+<td class="r data">
+4
+</td>
+<td class="r data">
+2
+</td>
+<td class="r data">
+4
+</td>
+</tr>
+<tr>
+<td class="r data">
+1
+</td>
+<td class="r data">
+3
+</td>
+<td class="r data">
+7
+</td>
+</tr>
+<tr>
+<td class="r data">
+5
+</td>
+<td class="r data">
+4
+</td>
+<td class="r data">
+11
+</td>
+</tr>
+<tr>
+<td class="r data">
+9
+</td>
+<td class="r data">
+4
+</td>
+<td class="r data">
+15
+</td>
+</tr>
+<tr>
+<td class="r data">
+2
+</td>
+<td class="r data">
+5
+</td>
+<td class="r data">
+20
+</td>
+</tr>
+<tr>
+<td class="r data">
+6
+</td>
+<td class="r data">
+5
+</td>
+<td class="r data">
+25
+</td>
+</tr>
+<tr>
+<td class="r data">
+5
+</td>
+<td class="r data">
+6
+</td>
+<td class="r data">
+31
+</td>
+</tr>
+<tr>
+<td class="r data">
+4
+</td>
+<td class="r data">
+9
+</td>
+<td class="r data">
+40
+</td>
+</tr>
+</tbody>
+</table>
+<!--ENDTABLE-->
+</div>
+</div>
+<br>
+</div>
+<p>Because arguments in SAS are passed by reference, you can “trick” a function into returning multiple values by passing the variables in as arguments to the function, changing their values in the function, and returning. This is not necessarily a good practice - it can make code very difficult to debug, and may lead to non-obvious dependencies - but for short, simple programs, you can probably get away with it.</p>
+<pre class="sashtml"><code>PROC IML;
+  start getDescriptive(Mean, SD, /* output args */
+                         x /* input arg */);
+    Mean = x[:]; /* this is shorthand for compute the mean of the column */
+    SD = sqrt( ssq(x - Mean)/(nrow(x) - 1));
+  finish;
+
+m = 0;
+s = 0;
+y = {3, 1, 4, 1, 5, 9, 2, 6, 5, 4};
+
+run GetDescriptive(m, s, y);
+print m s;
+
+
+quit;
+</code></pre>
+<div class="branch">
+<a name="IDX"></a>
+<div>
+<div align="center">
+<!--BEGINTABLE-->
+<table class="table" cellspacing="0" cellpadding="7" rules="groups" frame="hsides" summary="Procedure IML: m_s">
+<colgroup>
+<col>
+<col>
+</colgroup>
+<thead>
+<tr>
+<th class="r b header" scope="col">
+m
+</th>
+<th class="r b header" scope="col">
+s
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="r data">
+4
+</td>
+<td class="r data">
+2.4494897
+</td>
+</tr>
+</tbody>
+</table>
+<!--ENDTABLE-->
+</div>
+</div>
+<br>
+</div>
+If you want to avoid any of these side-effects of SAS’s pass-by-reference behavior, you can very easily do so: just don’t write any modules that modify input arguments. Always modify a copy of the variable instead.
+</details>
+</div>
+<div id="try-it-out-7" class="section level4 unnumbered tryitout">
+<h4>Try it out</h4>
+<p>Can you predict what the output of this chunk will be?</p>
+<div class="sourceCode" id="cb99"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb99-1" data-line-number="1">f &lt;-<span class="st"> </span><span class="cf">function</span>(x) {</a>
+<a class="sourceLine" id="cb99-2" data-line-number="2">  f &lt;-<span class="st"> </span><span class="cf">function</span>(x) {</a>
+<a class="sourceLine" id="cb99-3" data-line-number="3">    f &lt;-<span class="st"> </span><span class="cf">function</span>(x) {</a>
+<a class="sourceLine" id="cb99-4" data-line-number="4">      x <span class="op">^</span><span class="st"> </span><span class="dv">2</span></a>
+<a class="sourceLine" id="cb99-5" data-line-number="5">    }</a>
+<a class="sourceLine" id="cb99-6" data-line-number="6">    <span class="kw">f</span>(x) <span class="op">+</span><span class="st"> </span><span class="dv">1</span></a>
+<a class="sourceLine" id="cb99-7" data-line-number="7">  }</a>
+<a class="sourceLine" id="cb99-8" data-line-number="8">  <span class="kw">f</span>(x) <span class="op">*</span><span class="st"> </span><span class="dv">2</span></a>
+<a class="sourceLine" id="cb99-9" data-line-number="9">}</a>
+<a class="sourceLine" id="cb99-10" data-line-number="10"><span class="kw">f</span>(<span class="dv">10</span>)</a></code></pre></div>
+<p>Run it - were you right?</p>
+<p>What happens when you run a similar program in SAS? (I only nested two functions this time, but you get the idea)</p>
+<pre><code>proc IML;
+  start f(x);
+    start f(x);
+      return x**x;
+    finish;
+    return f(x)+1;
+  finish;
+quit;
+</code></pre>
+<details>
+<p>Working through the R program: This gets much less confusing if you rename the functions following R’s scoping rules.</p>
+<pre><code>f &lt;- function(x) {
+  f1 &lt;- function(x) { # because inside of f(), the new definition will dominate 
+    f2 &lt;- function(x) { # because inside of f1(), the new definition will dominate
+      x ^ 2
+    }
+    f2(x) + 1
+  }
+  f1(x) * 2
+}
+f(10)</code></pre>
+<p>Once this has been renamed, it is relatively easy to write out as a series of mathematical substitutions:</p>
+<p><span class="math display">\[f(10) = f1(10) * 2 = (f2(10) + 1) * 2 = (10^2 + 1)*2 = 202\]</span></p>
+<p>Running the similar program in SAS results in SAS complaining about a recursive function definition.</p>
+</details>
+<p>What will this SAS program output?</p>
+<pre class="sashtml"><code>proc IML;
+
+start funwithSAS(x, y);
+  a = x;
+  x = x + 3;
+  return x*y;
+finish;
+
+a = 0;
+res1 = funwithSAS(a, 5);
+a1 = a;
+
+x = 3;
+res2 = funwithSAS(x, 5);
+a2 = a;
+x2 = x;
+
+y = 3;
+res3 = funwithSAS(x, y);
+
+/* print res1 a1 res2 a2 x2 res3 a x y; */ /* uncomment this when you&#39;re ready */
+
+quit;
+</code></pre>
+<details>
+<p>This is easiest if we step through the program and list what is passed around inside and outside of the function evaluation.</p>
+<pre><code>a = 0
+res1 = ...? 
+(inside funwithsas res1) x = (location of a), y = 5
+(inside funwithsas res1) a = x = (location of a), x = (location of a) + 3 = 3, so (location of a) = 3 and x = 3.
+res1 returns x = 3 * y = 5 = 15
+
+a1 = 3
+res2 = ...?
+(inside funwithsas res2) x = (location of x), y = 5
+(inside funwithsas res2) a = (location of x), x = (location of x) + 3 = 6 (a outside the function is unaffected because a is not a parameter)
+res2 returns x = 6 * y = 5 = 30
+
+a2 = 3
+x2 = 6
+
+y = 3
+res3 = ...?
+(inside funwithsas res3) x = (location of x), y = (location of y)
+(inside funwithsas res3) a = (location of x), x = (location of x) + 3 = 9 (a outside the function is unaffected; y is unchanged)
+res3 returns x = 9 * y = 3 = 27
+
+at this point, x = 9 and y = 3.
+
+So the output is res1 = 15 a1 = 3 res2 = 30 a2 = 3 x2 = 6 res3 = 27 a = 3 x = 9 y = 3</code></pre>
+The trick to this problem is to realize that inside of the function, when a variable is passed in (by reference) the thing that is assigned is the pointer to the value in memory where the original variable lives. So when a is passed in as x, x is assigned (location of a), which is then assigned to the local copy of a. So both variables now point at the outside (a), and any changes to x also affect both a and the local copy of a.
+</details>
+</div>
+</div>
+<div id="infix-operators-and-the-pipe-in-r" class="section level3">
+<h3><span class="header-section-number">3.3.2</span> Infix operators and the pipe in R</h3>
+<div id="note" class="section level4 unnumbered note">
+<h4>Note</h4>
+<p>You do not need to understand this section yet. If you’re feeling comfortable with the material, go ahead and read it now. Otherwise, make a note of where this is, and come back to it when we start using <code>dplyr</code> and <code>readr</code>. It makes more sense to talk about this in the functions section, but you don’t need it yet.</p>
+</div>
+<div id="section-13" class="section level4 unnumbered">
+<h4></h4>
+<details>
+<p>Most functions take arguments written after the function name. Can you think of any functions which work differently?</p>
+<p><strong>Infix</strong> functions are functions that take arguments on both sides of the function name. Say, a + b: technically, a and b are arguments to the function +, so we could think of this as +(a, b).</p>
+<p>R has a number of infix functions, but you can also create your own. User-defined infix functions start and end with %. So %&gt;%, %in%, %dosomething% would all be valid infix operators. To define one, you need to enclose the name in back-ticks (`).</p>
+<div class="sourceCode" id="cb104"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb104-1" data-line-number="1"><span class="st">`</span><span class="dt">%dosomething%</span><span class="st">`</span> &lt;-<span class="st"> </span><span class="cf">function</span>(a, b) {</a>
+<a class="sourceLine" id="cb104-2" data-line-number="2">  a<span class="op">^</span>b <span class="op">-</span><span class="st"> </span>a <span class="op">+</span><span class="st"> </span>b</a>
+<a class="sourceLine" id="cb104-3" data-line-number="3">}</a>
+<a class="sourceLine" id="cb104-4" data-line-number="4"></a>
+<a class="sourceLine" id="cb104-5" data-line-number="5"><span class="dv">3</span> <span class="op">%dosomething%</span><span class="st"> </span><span class="dv">4</span></a>
+<a class="sourceLine" id="cb104-6" data-line-number="6">[<span class="dv">1</span>] <span class="dv">82</span></a></code></pre></div>
+<p>You can also call default infix operators using this syntax: `+`(3, 4) = 7</p>
+<p>One of the most useful infix operators is the pipe, <code>%&gt;%</code>, which is a part of the <code>magrittr</code> library and is commonly included in other packages, such as <code>dplyr</code>, and <code>tidyr</code> (we will talk about packages later in this chapter, but pipes are useful to discuss now, so roll with it for a few minutes).</p>
+<div class="sourceCode" id="cb105"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb105-1" data-line-number="1"><span class="kw">library</span>(magrittr)</a>
+<a class="sourceLine" id="cb105-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb105-3" data-line-number="3"><span class="dv">3</span> <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">exp</span>()</a>
+<a class="sourceLine" id="cb105-4" data-line-number="4">[<span class="dv">1</span>] <span class="fl">20.08554</span></a>
+<a class="sourceLine" id="cb105-5" data-line-number="5"><span class="kw">exp</span>(<span class="dv">3</span>)</a>
+<a class="sourceLine" id="cb105-6" data-line-number="6">[<span class="dv">1</span>] <span class="fl">20.08554</span></a></code></pre></div>
+<p>The pipe takes the left hand side and a function, and puts the left hand side as an argument to the function on the right hand side. It doesn’t sound very impressive, but it allows you to do some very cool things: you can “chain” operations.</p>
+<p>Consider 3 functions:</p>
+<div class="sourceCode" id="cb106"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb106-1" data-line-number="1">f1 &lt;-<span class="st"> </span><span class="cf">function</span>(x, <span class="dt">y =</span> <span class="dv">3</span>) {</a>
+<a class="sourceLine" id="cb106-2" data-line-number="2">  x <span class="op">*</span><span class="st"> </span>y</a>
+<a class="sourceLine" id="cb106-3" data-line-number="3">}</a>
+<a class="sourceLine" id="cb106-4" data-line-number="4"></a>
+<a class="sourceLine" id="cb106-5" data-line-number="5">f2 &lt;-<span class="st"> </span><span class="cf">function</span>(z) {</a>
+<a class="sourceLine" id="cb106-6" data-line-number="6">  z<span class="op">^</span><span class="dv">2</span></a>
+<a class="sourceLine" id="cb106-7" data-line-number="7">}</a>
+<a class="sourceLine" id="cb106-8" data-line-number="8"></a>
+<a class="sourceLine" id="cb106-9" data-line-number="9">f3 &lt;-<span class="st"> </span><span class="cf">function</span>(z2) {</a>
+<a class="sourceLine" id="cb106-10" data-line-number="10">  <span class="kw">log10</span>(z2)</a>
+<a class="sourceLine" id="cb106-11" data-line-number="11">}</a></code></pre></div>
+<p>Normally, you’d write <code>f3(f2(f1(4)))</code>, which you have to read from the inside to the outside. With pipes, you can write the same operation as:</p>
+<div class="sourceCode" id="cb107"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb107-1" data-line-number="1"><span class="dv">4</span> <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">f1</span>() <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">f2</span>() <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">f3</span>()</a>
+<a class="sourceLine" id="cb107-2" data-line-number="2">[<span class="dv">1</span>] <span class="fl">2.158362</span></a></code></pre></div>
+<p>This is much simpler to read - it’s like a recipe. “Take 4, do f1, then f2, then f3”.</p>
+<p>You don’t need to know how to define your own infix operators, but you will want to become familiar with the pipe eventually.</p>
+</details>
 </div>
 </div>
 </div>
 <div id="scripts" class="section level2">
 <h2><span class="header-section-number">3.4</span> Scripts</h2>
+<p>Up until this point, you may have been writing code in an RStudio or SAS text editor window, or, you may have been typing commands into the command line without preserving them in a separate file. You might even have been working in Rmarkdown documents, where you had code and non-code chunks of the file.</p>
+<p>A <strong>script</strong> is a file which contains only code and comments. It is intended to run from start to finish, and usually completes one or more tasks - for instance, cleaning your data, or loading a series of custom functions into your R environment. Scripts are useful because they preserve code so that it can be re-run… and in some cases, they can even be re-run autonomously - I have several scripts which automatically run at specific times every day to complete various tasks (scraping data off the internet, mostly).</p>
+<p>I find that when doing data analysis, it is often easier to write a script as opposed to working in Rmarkdown or typing commands into the console. Scripts are a record of what I’ve done, and ensure that commands are executed in the right order. As with any tool, it is important to know where to use the tool and where the tool is usually not the best option.</p>
+<p>You can source (run) an R script using the <code>source()</code> command with the file path of the script as the argument.</p>
+<p>Scripts in R end in <code>.r</code> or <code>.R</code>, while scripts in SAS end in <code>.sas</code>.</p>
 </div>
-<div id="packages" class="section level2">
-<h2><span class="header-section-number">3.5</span> Packages</h2>
+<div id="packages-and-modules" class="section level2">
+<h2><span class="header-section-number">3.5</span> Packages and Modules</h2>
+<p>Both SAS and R have systems for extending the base system/language with additional functionality. In R, these extensions are called packages, and in SAS they are called modules.<a href="#fn5" class="footnote-ref" id="fnref5"><sup>5</sup></a></p>
+<div id="r-1" class="section level3">
+<h3><span class="header-section-number">3.5.1</span> R</h3>
+<p>In R, there are two main sources for packages: CRAN (the Comprehensive R Archive Network) (and related archives, such as MRAN, which is Microsoft’s version of CRAN) and github. R packages published on CRAN go through a basic verification process that makes sure that the package meets certain <a href="https://cran.r-project.org/">standards</a> (for instance, packages must have proper dependencies specified, cannot conflict with previous package names, must have a software license, and cannot contain malicious code). Note that CRAN does not check the packages for statistical correctness!</p>
+<p>On github, packages go through less verification. Many packages use a system where the version in development is on github and available for installation, but the version on CRAN is considered “stable”. Sometimes, packages are never put on CRAN: I contribute to several packages which are too large for CRAN, and it’s not worth the hassle to get an exception or figure out a workaround.</p>
+<div class="sourceCode" id="cb108"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb108-1" data-line-number="1"><span class="kw">library</span>(rvest)</a>
+<a class="sourceLine" id="cb108-2" data-line-number="2">Loading required package<span class="op">:</span><span class="st"> </span>xml2</a>
+<a class="sourceLine" id="cb108-3" data-line-number="3">txt &lt;-<span class="st"> </span><span class="kw">read_xml</span>(<span class="st">&quot;https://cran.r-project.org/web/packages/&quot;</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb108-4" data-line-number="4"><span class="st">  </span><span class="kw">html_node</span>(<span class="dt">css =</span> <span class="st">&quot;#pkgs&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb108-5" data-line-number="5"><span class="st">  </span><span class="kw">xml_parent</span>() <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb108-6" data-line-number="6"><span class="st">  </span><span class="kw">html_text</span>()</a>
+<a class="sourceLine" id="cb108-7" data-line-number="7">npkgs &lt;-<span class="st"> </span>stringr<span class="op">::</span><span class="kw">str_extract</span>(txt, <span class="st">&quot;features </span><span class="ch">\\</span><span class="st">d{1,}&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span>stringr<span class="op">::</span><span class="kw">str_remove</span>(<span class="st">&quot;features &quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">as.numeric</span>()</a></code></pre></div>
+<p>Currently, the CRAN package repository features 1.570710^{4} available packages. How do you navigate them to find the one you need? Sometimes, the <a href="https://cran.r-project.org/web/views/">CRAN Task Views</a> may be helpful - for instance, if you want to see all of the packages which are useful for Meta-Analysis, Finance, Bayesian statistics, etc. Other times, it’s useful to let google help you navigate: searching for “R CRAN” + “what you want the package to do” can often narrow things down (I recommend adding CRAN in because Google results for “R” are not particularly useful.)</p>
+</div>
 </div>
 <div id="comparisons---sas-and-r" class="section level2">
 <h2><span class="header-section-number">3.6</span> Comparisons - SAS and R</h2>
+</div>
+<div id="references" class="section level2">
+<h2><span class="header-section-number">3.7</span> References</h2>
+<ul>
+<li>A more advanced take on functions in R can be found <a href="http://adv-r.had.co.nz/Functions.html">here</a> (Advanced R chapter)</li>
+<li>There is also a handy cheat sheet style summary of PROC IML in SAS <a href="https://www.iuj.ac.jp/faculty/kucc625/sas/sas_iml.html">here</a> and some useful demonstrations of simple tasks in IML <a href="https://faculty.tarleton.edu/crawford/documents/Math5364/ProcIMLandMacros.txt">here</a>.</li>
+<li>A helpful blog post for scoping in SAS is <a href="https://blogs.sas.com/content/iml/2013/04/29/understanding-local-and-global-variables-in-the-sasiml-language.html">here</a></li>
+<li><a href="https://www.educative.io/edpresso/pass-by-value-vs-pass-by-reference">Here is another explanation of pass-by-value vs. pass-by-reference</a> (intended for C programming)</li>
+</ul>
 
 </div>
+</div>
+<div class="footnotes">
+<hr />
+<ol start="4">
+<li id="fn4"><p>if you’re familiar with C, the argument passed in is just a pointer to the original memory<a href="organization.html#fnref4" class="footnote-back">↩</a></p></li>
+<li id="fn5"><p>Note that the various components of SAS can be <em>extremely</em> confusing to separate. I found <a href="https://www.lexjansen.com/mwsug/2017/RF/MWSUG-2017-RF01.pdf">this</a> guide to be somewhat helpful.<a href="organization.html#fnref5" class="footnote-back">↩</a></p></li>
+</ol>
 </div>
             </section>
 

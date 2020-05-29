@@ -62,7 +62,7 @@ Rmarkdown documents may contain code used to support an analysis, but they are u
 
 ## Functions and Modules
 
-A function is a block of code which is only run when it is called. It takes arguments (known as parameters) and returns data or some other value. 
+A function (or a module, in SAS) is a block of code which is only run when it is called. It takes arguments (known as parameters) and returns data or some other value. 
 
 There is some extensive material on this subject in [R for Data Science on functions](https://r4ds.had.co.nz/functions.html). If you aren't familiar with functions, you should read that material before proceeding.
 
@@ -90,15 +90,23 @@ In R, functions look like this:
 
 In SAS, functions are called modules and  look like this:
 
-> Statements That Define and Execute Modules    
-> Modules are used to create a user-defined subroutine or function. A module definition begins with a START statement, which has the following general form:    
-> `START <name> <( arguments )> <GLOBAL( arguments )>;`    
-> A module definition ends with a FINISH statement, which has the following general form:    
-> `FINISH <name>;`    
-> To execute a module, you can use either a RUN statement or a CALL statement. The general forms of these statements are as follows:    
-> `RUN <name> <( arguments)>;`    
-> `CALL <name> <( arguments)>;`    
-> The only difference between the RUN and CALL statements is the order of resolution.
+
+````
+Statements That Define and Execute Modules
+Modules are used to create a user-defined subroutine or function. 
+
+A module definition begins with a START statement, which has the following general form:
+START <name> <( arguments )> <GLOBAL( arguments )>;
+
+A module definition ends with a FINISH statement, which has the following general form:
+FINISH <name>;
+
+To execute a module, you can use either a RUN statement or a CALL statement. 
+The general forms of these statements are as follows:
+`RUN <name> <( arguments)>;
+`CALL <name> <( arguments)>;`
+The only difference between the RUN and CALL statements is the order of resolution.
+````
 
 [Source: SAS function reference](https://support.sas.com/rnd/app/iml/programming.html)
 
@@ -112,7 +120,7 @@ adder <- function(a, b) {
 adder(3, 4)
 ```
 
-```{sas}
+```{sashtml}
 proc IML;
 
   start adder(a, b);
@@ -178,9 +186,18 @@ quit;
 ```
 </details>
 
-### Function scope
+One last trick to note: functions generally can only return one object. If you need to return more than one thing, put the objects into a list or another data structure, and return that - then you can take the list/structure apart outside the function to use the returned values separately. 
 
-Every function is defined in a certain environment, and once it is defined,executed in a specific environment. Think of an environment as a space full of available variables, functions, and objects. Any defined object or variable that a function has access to is **in scope**. When you are inside of a function block, you have access to values defined within the function, plus any other values outside the function. When there are two variables with the same name, the environment which is "closest" controls:
+### Scope
+
+The scope of a variable is the space in the program where a variable is defined and can be accessed. A **local** variable is one which can only be accessed within a function or block of code - it does not exist outside of that code. A **global** variable is one which is available to the entire program. 
+
+#### Scoping in R
+
+Every function is defined in a certain environment, and once it is defined, executed in a specific environment. Think of an environment as a space full of available variables, functions, and objects. Any defined object or variable that a function has access to is **in scope**. When you are inside of a function block, you have access to values defined within the function, plus any other values outside the function. When there are two variables with the same name, the object in the environment which is "closest" is used.
+
+Demonstration of scoping in R:
+<details>
 
 ```{r}
 
@@ -199,6 +216,8 @@ myfun(a, 3) # this references the a outside the function
 ![Scope diagram. When myfun() is called, the calling environment contains the two parameters a and b.](image/03_myfun_scope.png)
 
 ```{r}
+a <- 3
+
 myfun2 <- function(d) {
   myfun(a, d)
 }
@@ -206,21 +225,390 @@ myfun2 <- function(d) {
 myfun2(3) # the only a in scope inside fun2 is the a defined at the top of the chunk
 ```
 
+
 ![Scope diagram. When myfun2() is called, the calling environment contains only a parameter $d$. $a$ is pulled from the global environment, as there is no parameter $a$ in the myfun2 calling environment.](image/03_myfun2_scope.png)
 
 ```{r}
+a <- 3
+
 myfun3 <- function(a, d) {
-  myfun(a, d)
+  b <- a; # make a copy of the value
+  a <- 250;
+  myfun(b, d)
 }
+
+a
 
 myfun3(5, 3) # now, a is defined inside fun3 as a = 5, so there is an a in 
              # fun3's scope that isn't in the global environment.
+
+a # value of a hasn't changed
 
 ```
 
 ![Scope diagram. When myfun3() is called, the calling environment contains parameters a and d, which are then copied into the calling environment of myfun as $a$ and $b$. The variable $a$ in the global environment is ignored.](image/03_myfun3_scope.png)
 
-If you want to avoid too many issues with scoping (because scoping rules are complicated), the simple way is to not reuse variable names. 
+</details>
+
+If you want to avoid too many issues with scoping (because scoping rules are complicated), the simplest way is to not reuse variable names inside of a function if you've already used those names outside the function.
+
+R does have global variables and a global assignment operator, `<<-`, but the use of global variables is strongly discouraged, and global variables are not permitted in e.g. CRAN packages. 
+
+#### Scoping in SAS
+
+In SAS, scoping rules are more like those in other programming languages - you have to keep track of how arguments are made available to the function. 
+
+Demonstration of scoping in SAS. Environments do not inherit variables from the calling environment.
+<details>
+
+```{sashtml}
+PROC IML;
+a = 3;
+
+start myfun(a, b);
+  return a + b + 2;
+finish;
+
+r1 = myfun(5, 6); 
+/* a is 5 inside the function, so that overrides the 
+   a defined outside the function */
+
+r2 = myfun(a, 3); 
+/* this references the a outside the function */
+
+print r1 r2;
+quit;
+
+```
+
+In SAS, the equivalent version of the program used to demonstrate lexical scoping in R produces an error. In SAS, you cannot assume the function has access to values defined outside of that function that are not passed into the function as arguments.
+
+````
+PROC IML;
+a = 3;
+
+start myfun(a, b);
+  return a + b + 2;
+finish;
+
+start myfun2(d);
+  return myfun(a, d); /* SAS complains because a is not defined */
+finish;
+
+r1 = myfun2(3); 
+
+print r1;
+quit;
+
+````
+</details>
+
+
+First, let's consider the similarities: like R, functions have a local scope, and changing a similarly named value inside the function doesn't change the value outside the function. 
+```{sashtml}
+PROC IML;
+start myfun(x); 
+  y = 2 * x;
+  print y[label="y inside function (local)"];
+  return 1;
+finish;
+
+y = 0;
+x = 1:5;
+res = myfun(x);
+print y[label="y outside function"];
+
+quit;
+
+```
+
+However, R's environment feature and lexical scoping is not common to many other programming languages. 
+When values are passed into the function as arguments, the behavior in SAS deviates from the equivalent behavior in R. In SAS, arguments to functions are passed by **reference**. 
+
+An argument that is passed **by value** makes a copy of the value (to a new memory location) for the local function scope (this is what R does). 
+
+When an argument is passed **by reference**, the *address* of the argument is passed in instead^[if you're familiar with C, the argument passed in is just a pointer to the original memory]. 
+This is faster and more efficient (because you aren't making a new copy of the data), but it does mean that changes inside the function persist outside that function. 
+
+Example: Argument passing in R and SAS    
+In SAS:
+<details>
+If we make a slight modification to `myfun(a, b)`, though, we see some interesting behavior in SAS that we wouldn't see in the equivalent R program.
+```{sashtml}
+PROC IML;
+a = 3;
+
+start myfun(a, b);
+  a = a + 2;
+  return a + b;
+finish;
+
+b = a;
+
+r1 = myfun(5, 6); 
+     
+c = a;
+
+r2 = myfun(a, 3); 
+
+d = a;
+
+print b[label="a before r1"] r1 c[label="a after r1"] r2 d[label="a after r2"];
+quit;
+```
+</details>
+In R: 
+<details>
+In R, variables inside a function don't modify variables which are outside a function (generally speaking). In SAS, this is not necessarily the case. In the first call to myfun(), we pass in two numerical arguments, and we see that even though the value of a changes inside the function, that change doesn't affect the variable defined outside of the function. In the second call to myfun(), we pass a variable in as an argument, and we see that the variable changes after the function's execution! In the R chunk (below), you can see that the behavior of what is essentially the same code is different.
+```{r}
+
+a <- 3
+
+myfun <- function(a, b) {
+  a <- a + 2
+  a + b
+}
+
+a
+
+myfun(5, 6)
+
+a
+
+myfun(a, 3) 
+
+a
+```
+</details>
+
+Here's another example of SAS passing arguments by reference (and the unexpected effects that can have on a program's state): 
+<details>
+
+```{sashtml}
+PROC IML;
+start myfun(x); 
+  call sort(x, 1); /* sort the values */
+  return (cusum(x)); /* cusum() = cumulative sum */
+finish;
+
+y = {3, 1, 4, 1, 5, 9, 2, 6, 5, 4};
+z = y;
+
+print y[label="y before function is called"];
+
+cs = myfun(y);
+
+print z[label="original y"]
+      y[label="y after function is called"] 
+      cs[label="cumulative sum of sorted y"];
+
+quit;
+
+```
+
+Because arguments in SAS are passed by reference, you can "trick" a function into returning multiple values by passing the variables in as arguments to the function, changing their values in the function, and returning. This is not necessarily a good practice - it can make code very difficult to debug, and may lead to non-obvious dependencies - but for short, simple programs, you can probably get away with it.
+
+```{sashtml}
+PROC IML;
+  start getDescriptive(Mean, SD, /* output args */
+                         x /* input arg */);
+    Mean = x[:]; /* this is shorthand for compute the mean of the column */
+    SD = sqrt( ssq(x - Mean)/(nrow(x) - 1));
+  finish;
+
+m = 0;
+s = 0;
+y = {3, 1, 4, 1, 5, 9, 2, 6, 5, 4};
+
+run GetDescriptive(m, s, y);
+print m s;
+
+
+quit;
+
+```
+
+If you want to avoid any of these side-effects of SAS's pass-by-reference behavior, you can very easily do so: just don't write any modules that modify input arguments. Always modify a copy of the variable instead. 
+</details>
+
+#### Try it out {- .tryitout}
+
+Can you predict what the output of this chunk will be?
+
+```{r, eval = F}
+f <- function(x) {
+  f <- function(x) {
+    f <- function(x) {
+      x ^ 2
+    }
+    f(x) + 1
+  }
+  f(x) * 2
+}
+f(10)
+```
+
+Run it - were you right?
+
+What happens when you run a similar program in SAS? (I only nested two functions this time, but you get the idea)
+
+````
+proc IML;
+  start f(x);
+    start f(x);
+      return x**x;
+    finish;
+    return f(x)+1;
+  finish;
+quit;
+
+````
+
+<details>
+
+Working through the R program: This gets much less confusing if you rename the functions following R's scoping rules.
+
+```
+f <- function(x) {
+  f1 <- function(x) { # because inside of f(), the new definition will dominate 
+    f2 <- function(x) { # because inside of f1(), the new definition will dominate
+      x ^ 2
+    }
+    f2(x) + 1
+  }
+  f1(x) * 2
+}
+f(10)
+```
+Once this has been renamed, it is relatively easy to write out as a series of mathematical substitutions:
+
+$$f(10) = f1(10) * 2 = (f2(10) + 1) * 2 = (10^2 + 1)*2 = 202$$
+
+Running the similar program in SAS results in SAS complaining about a recursive function definition. 
+
+</details>
+
+
+What will this SAS program output?
+
+```{sashtml}
+proc IML;
+
+start funwithSAS(x, y);
+  a = x;
+  x = x + 3;
+  return x*y;
+finish;
+
+a = 0;
+res1 = funwithSAS(a, 5);
+a1 = a;
+
+x = 3;
+res2 = funwithSAS(x, 5);
+a2 = a;
+x2 = x;
+
+y = 3;
+res3 = funwithSAS(x, y);
+
+/* print res1 a1 res2 a2 x2 res3 a x y; */ /* uncomment this when you're ready */
+
+quit;
+
+```
+
+<details>
+This is easiest if we step through the program and list what is passed around inside and outside of the function evaluation.
+
+    a = 0
+    res1 = ...? 
+    (inside funwithsas res1) x = (location of a), y = 5
+    (inside funwithsas res1) a = x = (location of a), x = (location of a) + 3 = 3, so (location of a) = 3 and x = 3.
+    res1 returns x = 3 * y = 5 = 15
+    
+    a1 = 3
+    res2 = ...?
+    (inside funwithsas res2) x = (location of x), y = 5
+    (inside funwithsas res2) a = (location of x), x = (location of x) + 3 = 6 (a outside the function is unaffected because a is not a parameter)
+    res2 returns x = 6 * y = 5 = 30
+    
+    a2 = 3
+    x2 = 6
+    
+    y = 3
+    res3 = ...?
+    (inside funwithsas res3) x = (location of x), y = (location of y)
+    (inside funwithsas res3) a = (location of x), x = (location of x) + 3 = 9 (a outside the function is unaffected; y is unchanged)
+    res3 returns x = 9 * y = 3 = 27
+    
+    at this point, x = 9 and y = 3.
+    
+    So the output is res1 = 15 a1 = 3 res2 = 30 a2 = 3 x2 = 6 res3 = 27 a = 3 x = 9 y = 3
+    
+The trick to this problem is to realize that inside of the function, when a variable is passed in (by reference) the thing that is assigned is the pointer to the value in memory where the original variable lives. So when a is passed in as x, x is assigned (location of a), which is then assigned to the local copy of a. So both variables now point at the outside (a), and any changes to x also affect both a and the local copy of a. 
+</details>
+
+### Infix operators and the pipe in R
+
+#### Note {- .note}
+You do not need to understand this section yet. If you're feeling comfortable with the material, go ahead and read it now. Otherwise, make a note of where this is, and come back to it when we start using `dplyr` and `readr`. It makes more sense to talk about this in the functions section, but you don't need it yet.
+
+#### {-}
+
+<details>
+Most functions take arguments written after the function name. Can you think of any functions which work differently?
+
+**Infix** functions are functions that take arguments on both sides of the function name. Say, a + b: technically, a and b are arguments to the function +, so we could think of this as +(a, b). 
+
+R has a number of infix functions, but you can also create your own. User-defined infix functions start and end with %. So %>%, %in%, %dosomething% would all be valid infix operators. To define one, you need to enclose the name in back-ticks (\`). 
+
+```{r}
+`%dosomething%` <- function(a, b) {
+  a^b - a + b
+}
+
+3 %dosomething% 4
+```
+
+You can also call default infix operators using this syntax: \`+\`(3, 4) = `r 3+4`
+
+One of the most useful infix operators is the pipe, `%>%`, which is a part of the `magrittr` library and is commonly included in other packages, such as `dplyr`, and `tidyr` (we will talk about packages later in this chapter, but pipes are useful to discuss now, so roll with it for a few minutes). 
+
+```{r}
+library(magrittr)
+
+3 %>% exp()
+exp(3)
+
+```
+The pipe takes the left hand side and a function, and puts the left hand side as an argument to the function on the right hand side. It doesn't sound very impressive, but it allows you to do some very cool things: you can "chain" operations.
+
+Consider 3 functions:
+```{r}
+f1 <- function(x, y = 3) {
+  x * y
+}
+
+f2 <- function(z) {
+  z^2
+}
+
+f3 <- function(z2) {
+  log10(z2)
+}
+```
+
+Normally, you'd write `f3(f2(f1(4)))`, which you have to read from the inside to the outside. With pipes, you can write the same operation as:
+```{r}
+4 %>% f1() %>% f2() %>% f3()
+```
+
+This is much simpler to read - it's like a recipe. "Take 4, do f1, then f2, then f3". 
+
+You don't need to know how to define your own infix operators, but you will want to become familiar with the pipe eventually. 
+
+</details>
 
 ## Scripts
 
@@ -234,7 +622,38 @@ You can source (run) an R script using the `source()` command with the file path
 
 Scripts in R end in `.r` or `.R`, while scripts in SAS end in `.sas`. 
 
-## Packages
+## Packages and Modules
+
+Both SAS and R have systems for extending the base system/language with additional functionality. In R, these extensions are called packages, and in SAS they are called modules.^[Note that the various components of SAS can be *extremely* confusing to separate. I found [this](https://www.lexjansen.com/mwsug/2017/RF/MWSUG-2017-RF01.pdf) guide to be somewhat helpful.]
+
+### R
+
+In R, there are two main sources for packages: CRAN (the Comprehensive R Archive Network) (and related archives, such as MRAN, which is Microsoft's version of CRAN) and github. R packages published on CRAN go through a basic verification process that makes sure that the package meets certain [standards](https://cran.r-project.org/) (for instance, packages must have proper dependencies specified, cannot conflict with previous package names, must have a software license, and cannot contain malicious code). Note that CRAN does not check the packages for statistical correctness!
+
+On github, packages go through less verification. Many packages use a system where the version in development is on github and available for installation, but the version on CRAN is considered "stable". Sometimes, packages are never put on CRAN: I contribute to several packages which are too large for CRAN, and it's not worth the hassle to get an exception or figure out a workaround.
+
+```{r}
+library(rvest)
+txt <- read_xml("https://cran.r-project.org/web/packages/") %>%
+  html_node(css = "#pkgs") %>% 
+  xml_parent() %>%
+  html_text()
+npkgs <- stringr::str_extract(txt, "features \\d{1,}") %>% stringr::str_remove("features ") %>% as.numeric()
+```
+
+Currently, the CRAN package repository features `r npkgs` available packages. How do you navigate them to find the one you need? Sometimes, the [CRAN Task Views](https://cran.r-project.org/web/views/) may be helpful - for instance, if you want to see all of the packages which are useful for Meta-Analysis, Finance, Bayesian statistics, etc. Other times, it's useful to let google help you navigate: searching for "R CRAN" + "what you want the package to do" can often narrow things down (I recommend adding CRAN in because Google results for "R" are not particularly useful.)
+
+
+
+
+
 
 ## Comparisons - SAS and R
 
+
+## References
+
+- A more advanced take on functions in R can be found [here](http://adv-r.had.co.nz/Functions.html) (Advanced R chapter)
+- There is also a handy cheat sheet style summary of PROC IML in SAS [here](https://www.iuj.ac.jp/faculty/kucc625/sas/sas_iml.html) and some useful demonstrations of simple tasks in IML [here](https://faculty.tarleton.edu/crawford/documents/Math5364/ProcIMLandMacros.txt). 
+- A helpful blog post for scoping in SAS is [here](https://blogs.sas.com/content/iml/2013/04/29/understanding-local-and-global-variables-in-the-sasiml-language.html)
+- [Here is another explanation of pass-by-value vs. pass-by-reference](https://www.educative.io/edpresso/pass-by-value-vs-pass-by-reference) (intended for C programming)
