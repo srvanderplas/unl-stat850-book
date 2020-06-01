@@ -13,8 +13,6 @@ description: "Introductions to statistical computing packages and document prepa
 
 # Introduction {-}
 
-![](https://imgs.xkcd.com/comics/tasks.png)
-
 ```{r setup, echo = F}
 knitr::opts_chunk$set(collapse = T)
 
