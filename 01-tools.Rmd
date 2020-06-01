@@ -24,35 +24,143 @@ SAS is another extensively used statistical programming language. ...
 
 <!-- Differences between R and RStudio -->
 
-R is a statistical computing language which originated as an open-source clone of Bell labs S computing language. S was inspired by Scheme, but also has features which are similar to Lisp. It is a scripting language (you don't have to compile the code before it runs) and is natively accessed using a command-line prompt. One feature of R that is relatively unique is that it uses vector-based math, which means that mathematical operations on vectors occur for the entire vector without having to use loops to iterate through the vector line-by-line. R is optimized for working on data: unlike more general-purpose programming languages such as Python, R was built with the idea of facilitating data analysis. As a result, data structures in R tend to be more natural for statistical work. From a computer science perspective, though, R seems like an extremely odd language because the design choices that make data analysis easier are unconventional for more general-purpose languages.
+R is a statistical computing language which originated as an open-source clone of Bell labs S computing language. S was inspired by Scheme, but also has features which are similar to Lisp. It is a scripting language (you don't have to compile the code before it runs) and is natively accessed using a command-line prompt. One feature of R that is relatively unique is that it uses vector-based math, which means that mathematical operations on vectors occur for the entire vector without having to use loops to iterate through the vector line-by-line (this feature is common in languages designed for data manipulation, like SAS, Matlab, and julia; it is rare in more general computing languages). R is optimized for working on data: unlike more general-purpose programming languages such as Python, R was built with the idea of facilitating data analysis. As a result, data structures in R tend to be more natural for statistical work than similar structures in Python or C, which can feel unwieldly. From a computer science perspective, though, R seems like an extremely odd language because the design choices that make data analysis easier are unconventional for more general-purpose languages.
 
-RStudio is an integrated development environment for R. Basically, it adds a pretty graphical layer on top of R, providing an easy way to develop R code, evaluate that code, and keep track of all of the variables which are available in the computing environment. RStudio contains integrations which provide syntax highlighting, code folding, basic checks (missing parentheses, etc.), and many other features. RStudio was designed around the idea of making R easier to use and making it easy to develop statistical software reproducibly. RStudio (the company) is responsible for adding many features to the R ecosystem which facilitate running statistical analyses and presenting the results in user-friendly ways.
+RStudio is an integrated development environment for R. Basically, it adds a pretty graphical layer on top of R, providing an easy way to develop R code, evaluate that code, and keep track of all of the variables which are available in the computing environment. RStudio contains integrations which provide syntax highlighting, code folding, basic checks (missing parentheses, etc.), debugging tools, and many other features. RStudio was designed around the idea of making R easier to use and making it easy to develop statistical software reproducibly. RStudio (the company) is responsible for adding many features to the R ecosystem which facilitate running statistical analyses and presenting the results in user-friendly ways.
+
+Another useful explanation of R and RStudio can be found in [Section 1 of ModernDive's book](https://moderndive.netlify.app/1-getting-started.html)
 
 ### Getting Set up: R
 
+Note that the tutorial videos use versions of R that are *old*. You should be installing at least R 3.5 (if you have an older version, please update.)
+
+R on Windows installation:
+
+![](https://www.youtube.com/watch?v=mfGFv-iB724)
+
+R on Mac installation:
+
+![](https://www.youtube.com/watch?v=Icawuhf0Yqo)
+
+R on Linux installation:
+
+On Linux, instead of a youtube video, you get a text-based  [tutorial](https://github.com/swirldev/swirl/wiki/Installing-swirl-on-Linux). One of the Debian maintainers, Dirk Eddelbuettel, is also on R core, which means that R tends to work extremely well with Debian-based distributions, like Ubuntu and Linux Mint. R does work on RPM based distros, and you can of course also compile it from source for Arch/Gentoo, but I've stuck with Deb-based distributions for approximately 7 years because it seems to be a bit less hassle. Additional troubleshooting can be found [here](https://pages.github.nceas.ucsb.edu/NCEAS/help/installing_r_on_ubuntu.html).
 ### Getting Set up: RStudio
+
+You can find RStudio at https://rstudio.com/products/rstudio/download/. You want the open source edition of RStudio Desktop. If you're feeling brave, you can install the [preview release](https://rstudio.com/products/rstudio/download/preview/#download) - this may have a few bugs, but tends to be relatively stable and has the latest features. Please install RStudio 1.3.9+ for this class. 
+
+If you're on Linux, go ahead and [import RStudio's public key](https://rstudio.com/code-signing/) so that software validation works. (All of the commands are provided in the linked page)
 
 ### Exploring RStudio
 
+![The RStudio window will look something like this.](image/Rstudio_env.png)
+
+In the top-left pane is the text editor. This is where you'll do most of your work.
+
+In the top right, you'll find the environment, history, and connections tabs. The environment tab shows you the objects available in R (variables, data files, etc.), the history tab shows you what code you've run recently, and the connections tab is useful for setting up database connections.
+
+On the bottom left is the console. There are also other tabs to give you a terminal (command line) prompt, and a jobs tab to monitor progress of long-running jobs. In this class we'll primarily use the console tab. 
+
+On the bottom right, there are a set of tabs: 
+- files (to give you an idea of where you are working, and what files are present), 
+- plots (which will be self-explanatory), 
+- packages (which extensions to R are installed and loaded), 
+- the help window (where documentation will show up), and 
+- the viewer window, which is used for interactive graphics or previewing HTML documents. 
+
+To get started, type 2+2 into the console window and hit enter.
+
+Now, type 2+2 into the text editor and press the run button that is on the pane's shortcut bar (or, you can hit Ctrl-Enter/CMD-Enter to send a single line to the console). 
+
+If both of those things worked, you're probably set up correctly!
+
+Next, try typing this into the text editor, then run the line. Look in the environment and see if you can see what has changed.
+
+```{r}
+a <- 3 # store 3 in the variable a
+```
+
+![Your environment window should now look something like this (the .Last.value entry may not be there, and that's ok)](image/Rstudio_env_var.png)
+
+You can use the environment window to preview your data, check on the status of variables, and more. Note that while R is running, the window doesn't update (so you can't check on the status of a loop while the loop is running using the window).
+
 ## SAS
 
-## LaTeX
-
-LaTeX purpose
-
-Overleaf vs. TexMaker and other GUIs
-
-For now, LaTeX is going to sit there under the hood and be used by other programs
+For SAS installation, see Steve Westerholt. 
 
 
 ## Version Control with Git
 
-Explanation of why version control matters (phD comic)
+![You don't want to end up here. Version control is the answer to this problem.](http://www.phdcomics.com/comics/archive/phd101212s.gif)
 
-### Getting set up: git
+Git is a program whose primary purpose is version control. Git tracks changes to each file that it is told to monitor, and as the files change, you provide short labels describing what the changes were and why they exist. Then, should something happen, you can go back to previous versions of the code and see what was there before. 
+
+When writing papers, this means you can cut material out freely, so long as the paper is being tracked by git. 
+
+The git material in this chapter is just going to link directly to the book "Happy Git with R" by Jenny Bryan. It's amazing, amusing, and generally well written. I'm not going to try to do better. 
+
+[Go read Chapter 1.](https://happygitwithr.com/big-picture.html). 
+
 
 ### Getting set up: github
 
+See the instructions [here](https://happygitwithr.com/github-acct.html)
+
+### Getting set up: git
+
+See the instructions [here](https://happygitwithr.com/install-git.html)
+
+### Introduce yourself to git
+
+You need to tell git what your name and email address are, because every "commit" you make will be signed. 
+
+You can follow the instructions [here](https://happygitwithr.com/hello-git.html), or just wait and run the R script to install and configure R, LaTeX, and packages.
+
+### Optional: Install a git client
+
+[Instructions](https://happygitwithr.com/git-client.html)
+
 ### Git and Github
 
-Explain the difference between the two
+Slightly crude (but memorable) analogy:
+<details>
+Git is to GitHub what Porn is to PornHub
+</details>
+
+Git is a program that runs on your machine and keeps track of changes to files that you tell it to monitor. 
+
+If you want, you can hook Git up to GitHub, and make a copy of your local git repository that lives in the cloud. Then, if you configure things correctly, your local repository will talk to GitHub without too much trouble. 
+
+Using Github with Git allows you to easily make a cloud backup of your important code, so that even if your  computer suddenly catches on fire, all of your important code files exist somewhere else. Remember: any data you don't have in 3 different places is data you don't care about.^[Yes, I'm aware that this sounds paranoid. It's been a very rare occasion that I've needed to restore something from another backup. You don't want to take chances. I knew a guy who had to retype his entire masters thesis from the printed out version the night before it was due because he had stored it on a network drive that was decommissioned. You don't want to be that guy.]
+
+## Easy Extra Setup Script
+
+Run [this script](code/01_setup_install.R) on your machine. It will ask you for some input - your name, email address, etc. Then it's going to run for a while, installing some packages (read the code file if you want to know what it's doing - I've provided short explanations of what each package does). 
+
+```{r eval = F}
+source("srvanderplas.github.io/unl-stat850/code/01_setup_install.R")
+```
+
+This script will set up git for you (e.g. the introduce yourself to git section above) and then will install `tinytex`, which is a version of LaTeX that is very simple and easy to install. 
+
+## LaTeX
+
+LaTeX is a typesetting program, which makes it different from most other document creation software, such as MS Word, which is "WYSIWYG" - what you see is what you get. In LaTeX, you'll type in code to create a document, and LaTeX will compile the document into something pretty. The goal is that you have to think less about formatting and what goes on which page - LaTeX will handle that part for you - so that you can think more about the content.
+
+In practice, it doesn't usually work out like that, so there are programs like markdown which aim to simplify document creation even more to free you from the formatting that LaTeX requires. 
+
+LaTeX is often used for typesetting statistical and mathematical papers because its equation editor is top notch. (It was actually written by Donald Knuth because he got so annoyed trying to write his dissertation that he took some time off to write TeX first, and then used it to write his dissertation).^[Amusingly, `knitr` was written in much the same manner. Yihui Xie had to substitute-teach ISU's version of 850 on the day we covered Sweave (a predecessor to knitr). He got so frustrated teaching the class that he went home and started writing `knitr`. Later, he developed Rmarkdown, bookdown, blogdown, and several other packages aimed at making writing documents + code easier to handle.
+
+Moral of the story - if you get frustrated with the tools you have, you're in good company. Use it as fuel to make better tools.] 
+
+We'll work with LaTeX later in the semester, but for now, we'll be primarily working with Markdown, which is much simpler. [Here's a quick cheatsheet](https://rmarkdown.rstudio.com/authoring_basics.html). 
+
+## Topic Sequencing
+
+In several places in this class, you'll have to use material that you haven't been formally taught yet. I will do my absolute best to provide thorough instructions, help you along as much as I can, and generally provide enough support that you can muddle through. But it's going to be hard to teach you everything you need to e.g. plot some data, before providing you the opportunity to SEE that data. And it's silly to teach you plotting before you know how to read data in. But to teach you how to read data in, you need to know about functions.
+
+You see my problem.
+
+So instead, what I'm going to do is to leave you lots of comments as to what a piece of code does when I'm using things you haven't been formally shown yet. Then, you can copy/paste/modify those pieces of code, and if they break, you can ask why and we'll dig into it (this is a good thing!). For each chapter, focus on learning how to write code that accomplishes that chapter's objectives. If you understand some of the code you're modifying that covers other topics not in that chapter, so much the better. But it's not an expectation or a requirement.
+
+If you're confused, please post on the class message boards so that those who have seen this material before can help you out.
