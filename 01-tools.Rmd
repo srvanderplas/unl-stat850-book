@@ -12,12 +12,11 @@ You will also need to sign up for a [GitHub account](https://help.github.com/en/
 
 This chapter will provide instructions for how to install and configure these programs (or how to obtain them), but first, it may be useful to get a "big picture" overview of how the course is structured
 
+
+
 ## Course Outline
 
 The goal of this class is to expose you to basic computing skills in R and SAS, which are two of the more common languages for statistical computing (python is the 3rd most common, and is particularly popular in data science and machine learning, but will not be explicitly taught in this class.)
-
-
-SAS is another extensively used statistical programming language. ... 
 
 
 ## R and RStudio
@@ -86,7 +85,9 @@ You can use the environment window to preview your data, check on the status of 
 
 ## SAS
 
-For SAS installation, see Steve Westerholt. 
+SAS is another extensively used statistical programming language. It is primarily used for mixed models and in the biostatistics community (for e.g. drug trials). 
+
+For SAS installation, see Steve Westerholt. He manages UNL SAS installations. 
 
 
 ## Version Control with Git
