@@ -1,5 +1,13 @@
 # External Data {#reading-data}
 
+## Module Objectives {-}
+
+- Import data from text and excel files into R and SAS for analysis
+- Conduct exploratory data analysis to determine 
+    - how the data is structured, 
+    - what cleaning must be done, and 
+    - what (if any) interesting artifacts are in the dataset
+
 ## External Data Formats
 
 - txt

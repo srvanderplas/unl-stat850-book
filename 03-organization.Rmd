@@ -67,6 +67,14 @@ There is a full set of [Rmarkdown tutorials](https://rmarkdown.rstudio.com/lesso
 
 Rmarkdown documents may contain code used to support an analysis, but they are usually not the best way to develop an analysis method - they are better for documentation, writing tutorials, and other scenarios where you need both text explanations and code/analysis/results. There are other "containers" for code, though, including functions, scripts, and packages. Each has their own advantages and disadvantages, and can be used together. 
 
+
+
+### Rmarkdown with... SAS?
+
+You may have noticed that I've been including SAS chunks throughout this book, and even in your homework assignments. Here's how that's set up.
+[SAS in Rmarkdown -- guide](http://ritsokiguess.site/docs/2018/08/20/sas-in-r-markdown/).
+It's really fairly simple. 
+
 ## Functions and Modules
 
 A function (or a module, in SAS) is a block of code which is only run when it is called. It takes arguments (known as parameters) and returns data or some other value. 

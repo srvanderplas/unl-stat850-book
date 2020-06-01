@@ -1,0 +1,26 @@
+# Introduction to Data Visualization {#data-vis-intro}
+
+## Module Objectives {-}
+
+- Create statistical charts in SAS and R
+- Use the grammar of graphics to describe different types of charts and graphs
+- Use the grammar of graphics to create layered graphics and highlight different features of a data set
+- Modify or construct alternate charts showing the same material with better readability and accessibility
+
+## Creating Charts in SAS
+
+## Creating Charts in R (base)
+
+## The Grammar of Graphics
+
+There are a lot of different types of charts.
+![](https://imgs.xkcd.com/comics/alignment_chart_alignment_chart.png)
+
+How do we classify them all?
+
+Introduce grammar of graphics as implemented in ggplot2
+
+## Good charts
+
+![Good charts are important](https://imgs.xkcd.com/comics/coronavirus_charts.png)
+

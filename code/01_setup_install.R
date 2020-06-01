@@ -7,7 +7,7 @@ user_email <- readline(prompt = "The email address associated with your github a
 # To start with...
 install.packages(c("devtools", "dplyr", "ggplot2", "tidyr", "purrr", "stringr",
                    "readxl", "tibble", "tinytex", "rmarkdown", "knitr", "git2r",
-                   "usethis"))
+                   "usethis", "SASmarkdown"))
 # Explanations:
 # devtools - tools for R development, including functions that allow you to install a package from github easily
 # dplyr, tidyr, purrr - tools for manipulating and transforming data
@@ -15,9 +15,10 @@ install.packages(c("devtools", "dplyr", "ggplot2", "tidyr", "purrr", "stringr",
 # readxl - read Excel files
 # tibble - easier ways to handle spreadsheet-like data
 # tinytex - install LaTeX from R
-# rmarkdown, knitr - create documents with R
+# rmarkdown, knitr, SASmarkdown - create documents with R
 # git2r - work with git in R
 # usethis - handy functions for R setup
+
 
 library(usethis)
 use_git_config(user.name = user_name, user.email = user_email, scope = "user")
