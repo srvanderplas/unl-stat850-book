@@ -1,0 +1,29 @@
+gridExtra,graphics,CRAN,baptiste,Grid graphics expansion functions
+zoo,computation,CRAN,,time series
+knitr,reproducible,CRAN,yihui,dynamic report generation
+markdown,reproducible,github,rstudio,markdown rendering
+htmltools,reproducible,CRAN,jcheng5,html tools in R
+car,computation,CRAN,,companion to applied regression
+Hmisc,computation,CRAN,,Miscellaneous functions
+survival,computation,CRAN,,Survival analysis
+lme4,computation,CRAN,,Linear mixed-effects models
+nlme,computation,CRAN,,linear and nonlinear mixed-effects models
+foreign,computation,CRAN,,"Read data files from SAS, SPSS, minitab, etc."
+rpart,computation,CRAN,,recursive partitioning
+formatR,language,CRAN,yihui,R formatting automatically
+RandomForest,computation,CRAN,,random forests
+boot,computation,CRAN,brian.ripley,bootstrap functions
+xml2,internet,github,hadley,XML parsing
+KernSmooth,computation,CRAN,brian.ripley,kernel smoothing
+spatial,computation,CRAN,brian.ripley,spatial data
+e1071,computation,CRAN,,kernel functions
+rmarkdown,reproducible,github,rstudio,rmarkdown dynamic documents
+shiny,internet,github,rstudio,interactive applets in R
+igraph,graphics,CRAN,gaborcsardi,network analysis
+ggthemes,graphics,github,jrnold,extra themes for ggplot2
+htmlwidgets,internet,github,ramnathv,HTML widgets in R
+Cairo,graphics,CRAN,,Cairo graphics
+cairoDevice,graphics,CRAN,,cairo device driver
+misc3d,graphics,CRAN,,3d plots
+mnormt,computation,CRAN,,multivariate normal and t distributions
+tidymodels,computation,CRAN,,Tidy modeling framework
