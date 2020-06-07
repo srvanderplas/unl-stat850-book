@@ -659,11 +659,9 @@ npkgs <- stringr::str_extract(txt, "features \\d{1,}") %>% stringr::str_remove("
 Currently, the CRAN package repository features `r npkgs` available packages. How do you navigate them to find the one you need? Sometimes, the [CRAN Task Views](https://cran.r-project.org/web/views/) may be helpful - for instance, if you want to see all of the packages which are useful for Meta-Analysis, Finance, Bayesian statistics, etc. Other times, it's useful to let Google help you navigate: searching for "R CRAN" + "what you want the package to do" can often narrow things down (I recommend adding CRAN in because Google results for "R" are not particularly useful.)
 
 
+### SAS
 
-
-
-
-## Comparisons - SAS and R
+In SAS, there are also packages of code that encapsulate scripts. However, unlike R (and many other languages), there is no centralized repository for SAS packages. Papers may include SAS packages to demonstrate new methods, and other packages may be found on GitHub or various SAS forums. 
 
 
 ## References
@@ -672,3 +670,4 @@ Currently, the CRAN package repository features `r npkgs` available packages. Ho
 - There is also a handy cheat sheet style summary of PROC IML in SAS [here](https://www.iuj.ac.jp/faculty/kucc625/sas/sas_iml.html) and some useful demonstrations of simple tasks in IML [here](https://faculty.tarleton.edu/crawford/documents/Math5364/ProcIMLandMacros.txt). 
 - A helpful blog post for scoping in SAS is [here](https://blogs.sas.com/content/iml/2013/04/29/understanding-local-and-global-variables-in-the-sasiml-language.html)
 - [Here is another explanation of pass-by-value vs. pass-by-reference](https://www.educative.io/edpresso/pass-by-value-vs-pass-by-reference) (intended for C programming)
+- [A comparison of R, SAS, and python](https://scholar.smu.edu/cgi/viewcontent.cgi?article=1021&context=datasciencereview) - source of information about the SAS package distribution system. 
