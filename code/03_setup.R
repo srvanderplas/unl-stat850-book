@@ -1,16 +1,13 @@
 # Read in package list
 # This is my list of essential packages. I probably don't update it enough... :(
 pkgs <- read.csv(
-  "https://raw.githubusercontent.com/srvanderplas/unl-stat840/code/03_initial_packages.csv",
+  "https://raw.githubusercontent.com/srvanderplas/unl-stat850/master/code/03_initial_packages.csv",
   stringsAsFactors = F, comment.char = "#")
 
-# Get rid of installr package if on linux
-if (Sys.info()[1] == "Linux") {
-  pkgs <- subset(pkgs, Name != "installr")
-}
-
 # Don't reinstall packages that are already installed
+# First, list all packages that are currently installed
 installed.pkgs <- installed.packages()
+# Then, remove any installed packages from the list of packages to install
 pkgs <- pkgs[!pkgs$Name %in% installed.pkgs,]
 
 # Separate out github packages
@@ -23,26 +20,19 @@ if (nrow(cran) > 0) {
                    dependencies = c('Suggests', 'Depends', 'Imports', 'Enhances'))
 }
 
-
 # Install github packages
-library(devtools)
+if (nrow(gh) > 0) {
 
-lapply(sprintf("%s/%s", gh$Author, gh$Name),
-       function(.) {
-         try(install_github(.,
-                            dependencies = c('Suggests', 'Depends', 'Imports', 'Enhances')))
-       })
+  # devtools is a package that makes it easy to install packages from github
+  if (!"devtools" %in% installed.packages()) {
+    install.packages("devtools")
+  }
 
-# Install other packages
-# Requires perl installation
-install.packages("WriteXLS", dependencies = T)
+  library(devtools)
 
-install.packages("devtools")
+  # github packages have to be installed individually (no vector based installation)
+  for (i in paste(gh$Author, gh$Name, sep = "/")) {
+    try(install_github(i, dependencies = c('Suggests', 'Depends', 'Imports', 'Enhances')))
+  }
 
-# Install handy RStudio extensions
-devtools::install_github(c("daattali/colourpicker",  # Color picker
-                           "MilesMcBain/mufflr",  # Pipe shortcuts
-                           "dokato/todor",  # Package todo management
-                           "daattali/addinslist",  # List of add-ins
-                           "mdlincoln/docthis"  # Roxygen skeleton for functions
-))
+}

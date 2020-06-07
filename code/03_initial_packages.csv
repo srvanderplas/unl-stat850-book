@@ -27,3 +27,12 @@ cairoDevice,graphics,CRAN,,cairo device driver
 misc3d,graphics,CRAN,,3d plots
 mnormt,computation,CRAN,,multivariate normal and t distributions
 tidymodels,computation,CRAN,,Tidy modeling framework
+devtools,general,CRAN,,tools for developing in R
+usethis,general,CRAN,,tools for interfacing with other packages in R
+DBI,IO,CRAN,,database interfacing
+odbc,IO,CRAN,,databases
+xlsx,IO,CRAN,,read excel sheets
+haven,IO,CRAN,,write SAS/SPSS/STATA files
+rgl,graphics,CRAN,,interactive visualizations
+DT,graphics,CRAN,,pretty tables
+fun,other,CRAN,,play games in R
