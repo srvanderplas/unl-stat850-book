@@ -89,9 +89,8 @@ mesodata <- read.fwf(url, skip = 3, widths = widths, header = F)
 mesodata_names <- read.fwf(url, skip = 2, n = 1, widths = widths, header = F, 
                            stringsAsFactors = F)
 names(mesodata) <- as.character(mesodata_names)
-```
-```{r, results = 'markup'}
-knitr::kable(mesodata)
+
+mesodata
 ```
 </details>
 
@@ -103,20 +102,26 @@ library(readr) # Better data importing in R
 read_table(url, skip = 2) # Gosh, that was much easier!
 ```
 
+
 In SAS, it's a bit more complicated. There's a [non-reproducible GUI method in enterprise guide](https://blogs.sas.com/content/sasdummy/2020/03/23/import-text-data-sas-enterprise-guide/). 
 Alternately, we can use a data step:
-
+  
 ```{sashtml}
 /* This downloads the file to my machine */
-x "curl https://www.mesonet.org/index.php/dataMdfMts/dataController/getFile/202006070000/mdf/TEXT/ > ~/Projects/Class/unl-stat850/2020-stat850/data/mesodata.txt"
+/* x "curl https://www.mesonet.org/index.php/dataMdfMts/dataController/getFile/202006070000/mdf/TEXT/ 
+> ~/Projects/Class/unl-stat850/2020-stat850/data/mesodata.txt" */
+/* only run this once */
 
-filename mesoloc  "~/Projects/Class/unl-stat850/2020-stat850/data/mesodata.txt";
 data mesodata;
-infile mesoloc firstobs = 4; /* Skip the first 3 rows */
-length STID $ 4; /* define ID length */
-input STID $ STNM TIME RELH TAIR WSPD WVEC WDIR WDSD WSSD WMAX RAIN PRES SRAD TA9M WS2M TS10 TB10 TS05 TS25 TS60 TR05 TR25 TR60;
+infile  "~/Projects/Class/unl-stat850/2020-stat850/data/mesodata.txt" firstobs = 4; 
+/* Skip the first 3 rows */
+  length STID $ 4; /* define ID length */
+  input STID $ STNM TIME RELH TAIR 
+        WSPD WVEC WDIR WDSD WSSD WMAX 
+        RAIN PRES SRAD TA9M WS2M TS10 
+        TB10 TS05 TS25 TS60 TR05 TR25 TR60;
 run;
-  
+
 proc print data=mesodata (obs=10); /* print the first 10 observations */
   run;
 ```
@@ -127,20 +132,121 @@ In SAS data statements, you generally need to specify the data names explicitly.
 
 Delimited text files are files where fields are separated by a specific character, such as " ", ",", tab, etc. Often, delimited text files will have the column names as the first row in the file. 
 
+As long as you know the delimiter, it's pretty easy to read in data from these files in R using the `readr` package. 
+```{r}
+url <- "https://raw.githubusercontent.com/shahinrostami/pokemon_dataset/master/pokemon_gen_1_to_8.csv"
 
+pokemon_info <- read_csv(url)
+pokemon_info[1:6, 1:6] # Show only the first 6 lines & cols
 
-```{sashtml}
-filename mesoloc  "~/Projects/Class/unl-stat850/2020-stat850/data/mesodata.txt";
+# a file delimited with |
 
-proc import datafile = mesoloc out=mesodata2
-  DBMS = DLM; /* white-space delimited file */
-  GETNAMES = YES
-  DATAROW=3
-  ;
-proc print data=mesodata2 (obs=10); /* print the first 10 observations */
-  run;
+url <- "https://raw.githubusercontent.com/srvanderplas/unl-stat850/master/data/NE_Features_20200501.txt"
+nebraska_locations <- read_delim(url, delim = "|")
+nebraska_locations[1:6, 1:6]
 ```
 
+You can also read in the same files using read.csv and read.delim, which are the equivalent base R functions. 
+```{r}
+url <- "https://raw.githubusercontent.com/shahinrostami/pokemon_dataset/master/pokemon_gen_1_to_8.csv"
+
+pokemon_info <- read.csv(url, header = T, stringsAsFactors = F)
+pokemon_info[1:6, 1:6] # Show only the first 6 lines & cols
+
+
+# a file delimited with |
+
+url <- "https://raw.githubusercontent.com/srvanderplas/unl-stat850/master/data/NE_Features_20200501.txt"
+nebraska_locations <- read.delim(url, sep = "|", header = T)
+nebraska_locations[1:6, 1:6]
+```
+
+SAS also has procs to accommodate CSV and other delimited files. PROC IMPORT may be the simplest way to do this, but of course PROC DATA will work as well. We do have to tell SAS to treat the data file as a UTF-8 file (because of the japanese characters) and that it needs to think carefully about the delimiters (the DSD option -- this tells it sequential delimiters = missing values, among other things). 
+
+While writing this code, I got an error of "Invalid logical name" because originally the filename was pokemonloc. It turns out your dataset names in SAS are limited to 8 characters. Ugh.
+
+````
+/* x "curl https://raw.githubusercontent.com/shahinrostami/pokemon_dataset/master/pokemon_gen_1_to_8.csv
+> ~/Projects/Class/unl-stat850/2020-stat850/data/pokemon.csv";
+only run this once... */
+
+filename pokeloc  "~/Projects/Class/unl-stat850/2020-stat850/data/pokemon.csv" encoding="utf-8" DSD;
+
+proc import datafile = pokeloc out=poke
+  DBMS = csv; /* comma delimited file */
+  GETNAMES = YES
+  ;
+proc print data=poke (obs=10); /* print the first 10 observations */
+  run;
+````
+Note: Due to UTF-8 issues, this code chunk runs when I paste it into SAS, but does not run in bookdown. The only abnormal thing is that on my computer, the japanese characters don't render. 
+
+
+````
+/* x "curl https://raw.githubusercontent.com/srvanderplas/unl-stat850/master/data/NE_Features_20200501.txt
+> ~/Projects/Class/unl-stat850/2020-stat850/data/NE_Features_20200501.txt";
+only run this once... */
+
+data nefeatures;
+infile "~/Projects/Class/unl-stat850/2020-stat850/data/NE_Features_20200501.txt"
+dlm='|' /* specify delimiter */
+  encoding="utf-8" /* specify encoding */
+  DSD /* delimiter sensitive data */
+  missover /* keep going if missing obs encountered */
+  firstobs=2; /* skip header row */
+  input FEATURE_ID $
+  FEATURE_NAME $
+  FEATURE_CLASS $
+  STATE_ALPHA $
+  STATE_NUMERIC
+COUNTY_NAME $
+  COUNTY_NUMERIC $
+  PRIMARY_LAT_DMS $
+  PRIM_LONG_DMS $
+  PRIM_LAT_DEC
+PRIM_LONG_DEC
+SOURCE_LAT_DMS $
+  SOURCE_LONG_DMS $
+  SOURCE_LAT_DEC
+SOURCE_LONG_DEC
+ELEV_IN_M
+ELEV_IN_FT
+MAP_NAME $
+  DATE_CREATED $
+  DATE_EDITED $
+  ;
+run;
+
+proc print data=nefeatures (obs=10); /* print the first 10 observations */
+  run;
+````
+
+In this example, it was easier to use a data step to import things, because for some reason proc import didn't like the delimiter. It's ok to use a roundabout way to solve a problem - you only really need to know one or two good solutions to a problem. 
+
+## Binary Files
+
+Both R and SAS have binary data files that store data in a more compact form. It is relatively common for government websites, in particular, to provide SAS data in binary form. 
+
+Luckily, it is possible to read the binary data files in both programs.
+
+<!-- Let's read in the data from the 2009 National hHusehold Travel Survey: -->
+<!-- ```{sashtml} -->
+<!-- libname classdat "~/Projects/Class/unl-stat850/2020-stat850/data"; -->
+<!-- /* this tells SAS where to look for (a bunch of) data files */ -->
+
+<!-- proc contents data=classdat.cen10pub; /* This tells sas to access the specific file */ -->
+<!-- run; -->
+<!-- ``` -->
+
+We can read the same file into R using the `sas7bdat` library:
+```{r}
+if (!"sas7bdat" %in% installed.packages()) install.packages("sas7bdat")
+
+library(sas7bdat)
+data <- read.sas7bdat("https://github.com/srvanderplas/unl-stat850/raw/master/data/cen10pub.sas7bdat")
+str(data)
+```
+If you are curious about what this data means, then by all means, take a look at the [codebook](https://github.com/srvanderplas/unl-stat850/raw/master/data/cen10_codebook.xlsx) (XLSX file). For now, it's enough that we can see roughly how it's structured.
 
 ## Importing Tabular Data into R
 
@@ -158,3 +264,6 @@ proc print data=mesodata2 (obs=10); /* print the first 10 observations */
 
 - [Reading JSON in SAS](https://support.sas.com/resources/papers/proceedings17/0856-2017.pdf) -- You know SAS documentation is getting weird when they advertise a method as "the sexiest way to import JSON data into SAS". 
 - [Reading Rdata files in SAS](http://proc-x.com/2015/05/import-rdata-to-sas-along-with-labels/)
+- [Common problems with SAS data files](https://blogs.sas.com/content/sgf/2015/04/17/turning-text-files-into-sas-data-sets-6-common-problems-and-their-solutions/)
+- U.S. Department of Transportation, Federal Highway Administration, 2009 National Household 
+Travel Survey. URL: http://nhts.ornl.gov. Data acquired from data.world. 
