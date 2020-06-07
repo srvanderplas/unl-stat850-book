@@ -637,6 +637,25 @@ You can source (run) an R script using the `source()` command with the file path
 
 Scripts in R end in `.r` or `.R`, while scripts in SAS end in `.sas`. 
 
+Scripts can be run in one of (at least) two modes: batch mode, or interactive mode. In batch mode, the entire script is run without human intervention or monitoring. This is useful for repetitive jobs -- for instance, to record the weather at 6h intervals throughout the day. In interactive mode, scripts may be run line-by-line or block-wise, with small tweaks made to the code as you proceed through the file. I find that in some cases, what starts out as an interactive mode script can become a batch script as I work the kinks out.
+
+If you ever need to use the high-performance computing resources on campus, you will need to write code to run in batch mode, because these jobs are generally not friendly to interactive programming. 
+
+### Try it out {- .tryitout}
+
+I maintain a list of packages that I find to be useful so that when I install R on a new machine (or update R), I don't have to spend 3 weeks realizing that I need to install X package. Instead of many repeated 5 minute pauses for package installation, I can just let this script run once and walk away.
+
+I've pared down my list of packages a bit for this class (you don't need the packages for analysis of 3D bullet scan data, for instance), but this step should help populate your R installation with a few new packages.
+
+Read the script (located [here](code/03_setup.R)) and try to understand what it is doing. Once you think you understand what it is doing, run the following command to run the script and install the packages on your machine. Were you right?
+
+```{r, eval = F}
+source("https://raw.githubusercontent.com/srvanderplas/unl-stat850/master/code/03_setup.R")
+```
+
+
+
+
 ## Packages and Modules
 
 Both SAS and R have systems for extending the base system/language with additional functionality. In R, these extensions are called packages, and in SAS they are called modules.^[Note that the various components of SAS can be *extremely* confusing to separate. I found [this](https://www.lexjansen.com/mwsug/2017/RF/MWSUG-2017-RF01.pdf) guide to be somewhat helpful.]

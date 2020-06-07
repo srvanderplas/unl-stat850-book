@@ -10,13 +10,137 @@
 
 ## External Data Formats
 
-- txt
-- tsv
-- csv
-- fixed width
-- excel/spreadsheet
-- databases
-- structured data (xml, json)
+In order to use statistical software to do anything interesting, we need to be able to get data into the program so that we can work with it effectively. For the moment, we'll focus on tabular data - data that is stored in a rectangular shape, with rows indicating observations and columns that show variables. This type of data can be stored on the computer in multiple ways:
+
+- as raw text, usually in a file that ends with .txt, .tsv, .csv, .dat, or sometimes, there will be no file extension at all. These types of files are human-readable. If part of a text file gets corrupted, the rest of the file may be recoverable. 
+
+- as a binary file. Binary files are compressed files that are readable by computers but not by humans. They generally take less space to store on disk (but the same amount of space when read into computer memory). If part of a binary file is corrupted, the entire file is usually affected.
+    - R, SAS, Stata, SPSS, and Minitab all have their own formats for storing binary data. Packages such as `foreign` in R will let you read data from other programs, and packages such as `haven` in R will let you write data from other programs. To read data from R into SAS, the easiest way is probably to [call R from PROC IML](http://proc-x.com/2015/05/import-rdata-to-sas-along-with-labels/). 
+
+- in a database. Databases are typically composed of a set of one or more tables, with information that may be related across tables. Data stored in a database may be easier to access, and may not require that the entire data set be stored in computer memory at the same time, but you may have to join several tables together to get the full set of data you want to work with. 
+
+- in a spreadsheet. Spreadsheets, such as those created by MS Excel, Google Sheets, or LibreOffice Calc, are not completely binary formats, but they're also not raw text files either. They're a hybrid. Practically, they may function like a poorly laid-out database, a text file, or a total nightmare, depending on who designed the spreadsheet. There is a collection of horror stories [here](https://github.com/jennybc/scary-excel-stories) and a series of even more horrifying tweets [here](https://twitter.com/JennyBryan/status/722954354198597632)
+
+![](https://imgs.xkcd.com/comics/algorithms.png)
+
+There are, of course, many other non-tabular data formats -- some open and easy to work with, some inpenetrable. A few which may be more common:
+
+- Web related data structures: XML (eXtensible markup language), JSON (JavaScript Object Notation), YAML. These structures have their own formats and field delimiters, but more importantly, are not necessarily easily converted to tabular structures. They are, however, useful for handling nested objects, such as trees. When read into R or SAS, these file formats are usually treated as lists, and may be restructured afterwards into a format useful for statistical analysis.
+
+- Spatial files: Shapefiles are by far the most common version of spatial files^[though there are a seemingly infinite number of actual formats, and they pop up at the most inconvenient times]. Spatial files often include structured encodings of geographic information plus corresponding tabular format data that goes with the geographic information. We'll explore these a bit more when we talk about maps. 
+
+
+To be minimally functional in R and SAS, let's start with figuring out how to read text, spreadsheet, and SQLite database formats into both programs. 
+
+## Reading text data
+
+There are several different variants of text data which are relatively common, but for the most part, text data files can be broken down into fixed-width and delimited formats. What's the difference, you say?
+
+### Fixed-width files
+
+In a fixed-width text file, the position of the data indicates which field (variable/column) it belongs to. These files are fairly common outputs from older FORTRAN-based programs, but may be found elsewhere as well - if you have a very large amount of data, a fixed-width format may be more efficient to read, because you can select only the portions of the file which matter for a particular analysis (and so you don't have to read the whole thing into memory). 
+
+```
+Col1    Col2    Col3
+ 3.4     4.2     5.4
+27.3    -2.4    15.9
+```
+
+In base R (no extra packages), you can read fwf files in using `read.fwf`, but you must specify the column breaks yourself.
+```{r, error = T}
+url <- "https://www.mesonet.org/index.php/dataMdfMts/dataController/getFile/202006070000/mdf/TEXT/"
+read.fwf(url, 
+         skip = 2, # Skip the first 2 lines
+         header = T) # There is a row with the column names specified
+```
+You can count all of those spaces by hand (not shown), you can use a different function, or you can write code to do it for you. 
+<details>
+```{r}
+
+# I like to cheat a bit....
+# Read the first few lines in
+tmp <- readLines(url, n = 20)[-c(1:2)]
+
+# split each line into a series of single characters
+tmp_chars <- strsplit(tmp, '') 
+
+# Bind the lines together into a character matrix
+# do.call applies a function to an entire list - so instead of doing 18 rbinds, 
+# one command will put all 18 rows together
+tmp_chars <- do.call("rbind", tmp_chars) # (it's ok if you don't get this line)
+
+# Make into a logical matrix where T = space, F = not space
+tmp_chars_space <- tmp_chars == " "
+
+# Add up the number of rows where there is a non-space character
+# space columns would have 0s/FALSE
+tmp_space <- colSums(!tmp_chars_space)
+
+# We need a nonzero column followed by a zero column
+breaks <- which(tmp_space != 0 & c(tmp_space[-1], 0) == 0)
+
+# Then, we need to get the widths between the columns
+widths <- diff(c(0, breaks))
+
+# Now we're ready to go
+mesodata <- read.fwf(url, skip = 3, widths = widths, header = F)
+# read header separately - if you use header = T, it errors for some reason.
+# It's easier just to work around the error than to fix it :)
+mesodata_names <- read.fwf(url, skip = 2, n = 1, widths = widths, header = F, 
+                           stringsAsFactors = F)
+names(mesodata) <- as.character(mesodata_names)
+```
+```{r, results = 'markup'}
+knitr::kable(mesodata)
+```
+</details>
+
+The `readr` package creates data-frame like objects called tibbles (really, they're a souped-up data frame), but it is *much* friendlier to use. Tibbles also do not have the problems with factors (see the [introduction to factors](#factors)) - they will always read characters in as characters. 
+
+```{r}
+library(readr) # Better data importing in R
+
+read_table(url, skip = 2) # Gosh, that was much easier!
+```
+
+In SAS, it's a bit more complicated. There's a [non-reproducible GUI method in enterprise guide](https://blogs.sas.com/content/sasdummy/2020/03/23/import-text-data-sas-enterprise-guide/). 
+Alternately, we can use a data step:
+
+```{sashtml}
+/* This downloads the file to my machine */
+x "curl https://www.mesonet.org/index.php/dataMdfMts/dataController/getFile/202006070000/mdf/TEXT/ > ~/Projects/Class/unl-stat850/2020-stat850/data/mesodata.txt"
+
+filename mesoloc  "~/Projects/Class/unl-stat850/2020-stat850/data/mesodata.txt";
+data mesodata;
+infile mesoloc firstobs = 4; /* Skip the first 3 rows */
+length STID $ 4; /* define ID length */
+input STID $ STNM TIME RELH TAIR WSPD WVEC WDIR WDSD WSSD WMAX RAIN PRES SRAD TA9M WS2M TS10 TB10 TS05 TS25 TS60 TR05 TR25 TR60;
+run;
+  
+proc print data=mesodata (obs=10); /* print the first 10 observations */
+  run;
+```
+
+In SAS data statements, you generally need to specify the data names explicitly. 
+
+### Delimited Text Files
+
+Delimited text files are files where fields are separated by a specific character, such as " ", ",", tab, etc. Often, delimited text files will have the column names as the first row in the file. 
+
+
+
+```{sashtml}
+filename mesoloc  "~/Projects/Class/unl-stat850/2020-stat850/data/mesodata.txt";
+
+proc import datafile = mesoloc out=mesodata2
+  DBMS = DLM; /* white-space delimited file */
+  GETNAMES = YES
+  DATAROW=3
+  ;
+proc print data=mesodata2 (obs=10); /* print the first 10 observations */
+  run;
+```
+
 
 ## Importing Tabular Data into R
 
@@ -29,3 +153,8 @@
 - basic plots?
 - unique values
 
+
+## References
+
+- [Reading JSON in SAS](https://support.sas.com/resources/papers/proceedings17/0856-2017.pdf) -- You know SAS documentation is getting weird when they advertise a method as "the sexiest way to import JSON data into SAS". 
+- [Reading Rdata files in SAS](http://proc-x.com/2015/05/import-rdata-to-sas-along-with-labels/)

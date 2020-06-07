@@ -205,6 +205,61 @@ typeof(z)
 ```
 
 
+#### Factors {#introfactors}
+
+In R, there is one other type of variable to know about, and that is a factor. Factors are basically labeled integers. Instead of storing the data as a string or character, R instead stores the data as a series of integers, and then stores a separate table mapping the integers to labels. This is technically more efficient, but it is also (and this is the technical term) a pain in the ass. 
+
+Factors are the default way to store characters for most base R functions. Or rather, they were. In R 4.0, the default way to read data in will change from `stringsAsFactors = T` to `stringsAsFactors = F`.^[You can read about why factors aren't ideal [here](https://developer.r-project.org/Blog/public/2020/02/16/stringsasfactors/index.html)]
+
+Let's look at the names of the months:
+```{r}
+month.name
+
+df <- data.frame(num = 1:12, name = month.name, stringsAsFactors = T)
+# I'm putting the argument in so that this is still relevant when everyone switches to R 4.0
+# Even with stringsAsFactors = F, factors are still useful and we still need to work with them.
+
+str(df)
+```
+
+Notice that as soon as we make that data.frame, the months are converted into a factor variable? The other big problem is that the order of the factor levels is ... not what we'd normally want. We don't want alphabetical ordering of month names - they have a different, implicit, and natural order.
+
+To fix this, we can explicitly specify that we're dealing with a factor, and what we want the levels to be. If you specify the levels manually (instead of letting R do the work for you) then you get to determine the order. 
+```{r}
+month_fct <- factor(month.name, levels = month.name)
+str(month_fct)
+```
+
+We can even be more explicit: 
+
+```{r}
+month_fct <- factor(month.name, levels = month.name, ordered = T)
+str(month_fct)
+```
+
+Making the factor ordered lets us explicitly say which levels are less than other levels.
+
+Factors are technically integers, with labels that are stored as an attribute. That doesn't mean you can do math with them, though. 
+```{r, error = T}
+month_fct[1] + month_fct[2]
+```
+
+Often, years or dates or other numeric-like information will end up as factor variables. When this happens, you need to be a little bit careful. 
+
+```{r}
+# This works pretty naturally for months, right?
+as.numeric(month_fct)
+
+yfact <- factor(2000:2020, levels = 2000:2020)
+yfact
+# But, this does not...
+as.numeric(yfact)
+
+as.character(yfact) # gets the labels
+as.numeric(as.character(yfact)) # gets the info we want
+```
+When converting factors with numeric labels, you need to first convert the factor to a character, and then to a numeric variable. That will get the information you actually want back out.
+
 
 ### SAS
 
