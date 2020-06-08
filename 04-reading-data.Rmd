@@ -15,7 +15,8 @@ In order to use statistical software to do anything interesting, we need to be a
 - as raw text, usually in a file that ends with .txt, .tsv, .csv, .dat, or sometimes, there will be no file extension at all. These types of files are human-readable. If part of a text file gets corrupted, the rest of the file may be recoverable. 
 
 - as a binary file. Binary files are compressed files that are readable by computers but not by humans. They generally take less space to store on disk (but the same amount of space when read into computer memory). If part of a binary file is corrupted, the entire file is usually affected.
-    - R, SAS, Stata, SPSS, and Minitab all have their own formats for storing binary data. Packages such as `foreign` in R will let you read data from other programs, and packages such as `haven` in R will let you write data from other programs. To read data from R into SAS, the easiest way is probably to [call R from PROC IML](http://proc-x.com/2015/05/import-rdata-to-sas-along-with-labels/). 
+    - R, SAS, Stata, SPSS, and Minitab all have their own formats for storing binary data. Packages such as `foreign` in R will let you read data from other programs, and packages such as `haven` in R will let you write data into binary formats used by other programs. To read data from R into SAS, the easiest way is probably to [call R from PROC IML](http://proc-x.com/2015/05/import-rdata-to-sas-along-with-labels/). 
+    - [Here](https://betterexplained.com/articles/a-little-diddy-about-binary-file-formats/) is a very thorough explanation of why binary file formats exist, and why they're not necessarily optimal.
 
 
 - in a spreadsheet. Spreadsheets, such as those created by MS Excel, Google Sheets, or LibreOffice Calc, are not completely binary formats, but they're also not raw text files either. They're a hybrid. Practically, they may function like a poorly laid-out database, a text file, or a total nightmare, depending on who designed the spreadsheet. There is a collection of horror stories [here](https://github.com/jennybc/scary-excel-stories) and a series of even more horrifying tweets [here](https://twitter.com/JennyBryan/status/722954354198597632)
@@ -33,7 +34,7 @@ There are, of course, many other non-tabular data formats -- some open and easy 
 
 To be minimally functional in R and SAS, let's start with figuring out how to read text, spreadsheet, and SQLite database formats into both programs. 
 
-## Reading text data
+## Reading and Writing text data
 
 There are several different variants of text data which are relatively common, but for the most part, text data files can be broken down into fixed-width and delimited formats. What's the difference, you say?
 
@@ -48,12 +49,16 @@ Col1    Col2    Col3
 ```
 
 In base R (no extra packages), you can read fwf files in using `read.fwf`, but you must specify the column breaks yourself.
+<details>
 ```{r, error = T}
 url <- "https://www.mesonet.org/index.php/dataMdfMts/dataController/getFile/202006070000/mdf/TEXT/"
 read.fwf(url, 
-         skip = 2, # Skip the first 2 lines
-         header = T) # There is a row with the column names specified
+         skip = 3, # Skip the first 2 lines
+         widths = c(5, 6, 6, 7, 7, 7, 7, 6, 7, 7, 7, 8, 9, 6, 7, 7, 7, 7, 7, 7, 
+7, 8, 8, 8)) # There is a row with the column names specified
 ```
+</details>
+
 You can count all of those spaces by hand (not shown), you can use a different function, or you can write code to do it for you. 
 <details>
 ```{r}
@@ -95,6 +100,8 @@ mesodata
 ```
 </details>
 
+But, there's an even simpler way...
+
 The `readr` package creates data-frame like objects called tibbles (really, they're a souped-up data frame), but it is *much* friendlier to use. Tibbles also do not have the problems with factors (see the [introduction to factors](#factors)) - they will always read characters in as characters. 
 
 ```{r, message = F}
@@ -103,10 +110,20 @@ library(readr) # Better data importing in R
 read_table(url, skip = 2) # Gosh, that was much easier!
 ```
 
+You can also write fixed-width files if you *really* want to: 
 
-In SAS, it's a bit more complicated. There's a [non-reproducible GUI method in enterprise guide](https://blogs.sas.com/content/sasdummy/2020/03/23/import-text-data-sas-enterprise-guide/). 
-Alternately, we can use a data step:
-  
+```{r, message = F}
+if (!"gdata" %in% installed.packages()) install.packages("gdata")
+
+library(gdata)
+
+write.fwf(mtcars, file = "data/04_mtcars-fixed-width.txt")
+```
+
+
+In SAS, it's a bit more complicated, but not that much - the biggest difference is that you generally have to specify the column names for SAS. For complicated data, as in R, you may also have to specify the column widths. 
+
+<details>  
 ```{sashtml}
 /* This downloads the file to my machine */
 /* x "curl https://www.mesonet.org/index.php/dataMdfMts/dataController/getFile/202006070000/mdf/TEXT/ 
@@ -126,14 +143,32 @@ run;
 proc print data=mesodata (obs=10); /* print the first 10 observations */
   run;
 ```
+</details>
 
 In SAS data statements, you generally need to specify the data names explicitly. 
+
+
+<!-- ```{sashtml} -->
+
+<!-- proc import datafile = "~/Projects/Class/unl-stat850/2020-stat850/data/mesodata.txt" out=mesodata  -->
+<!--   DBMS = DLM; /* delimited file */ -->
+<!--     datarow = 4; -->
+<!--     GETNAMES = YES; -->
+<!-- run; -->
+
+<!-- proc print data=mesodata (obs=10); /* print the first 10 observations */ -->
+<!--   run; -->
+
+<!-- ``` -->
+
+In theory you can also get SAS to write out a fixed-width file, but it's much easier to just... not. You can generally use a CSV or format of your choice -- and you should definitely do that, because delimited files are much easier to work with. 
 
 ### Delimited Text Files
 
 Delimited text files are files where fields are separated by a specific character, such as " ", ",", tab, etc. Often, delimited text files will have the column names as the first row in the file. 
 
 As long as you know the delimiter, it's pretty easy to read in data from these files in R using the `readr` package. 
+<details>
 ```{r}
 url <- "https://raw.githubusercontent.com/shahinrostami/pokemon_dataset/master/pokemon_gen_1_to_8.csv"
 
@@ -146,8 +181,10 @@ url <- "https://raw.githubusercontent.com/srvanderplas/unl-stat850/master/data/N
 nebraska_locations <- read_delim(url, delim = "|")
 nebraska_locations[1:6, 1:6]
 ```
+</details>
 
 You can also read in the same files using read.csv and read.delim, which are the equivalent base R functions. 
+<details>
 ```{r}
 url <- "https://raw.githubusercontent.com/shahinrostami/pokemon_dataset/master/pokemon_gen_1_to_8.csv"
 
@@ -161,17 +198,23 @@ url <- "https://raw.githubusercontent.com/srvanderplas/unl-stat850/master/data/N
 nebraska_locations <- read.delim(url, sep = "|", header = T)
 nebraska_locations[1:6, 1:6]
 ```
+</details>
 
-SAS also has procs to accommodate CSV and other delimited files. PROC IMPORT may be the simplest way to do this, but of course PROC DATA will work as well. We do have to tell SAS to treat the data file as a UTF-8 file (because of the japanese characters) and that it needs to think carefully about the delimiters (the DSD option -- this tells it sequential delimiters = missing values, among other things). 
+SAS also has procs to accommodate CSV and other delimited files. PROC IMPORT may be the simplest way to do this, but of course a DATA step will work as well. We do have to tell SAS to treat the data file as a UTF-8 file (because of the japanese characters). Don't know what UTF-8 is? [Watch this excellent YouTube video explaining the history of file encoding!](https://www.youtube.com/watch?v=MijmeoH9LT4)
 
-While writing this code, I got an error of "Invalid logical name" because originally the filename was pokemonloc. It turns out your dataset names in SAS are limited to 8 characters. Ugh.
+While writing this code, I got an error of "Invalid logical name" because originally the filename was pokemonloc. Let this be a friendly reminder that your dataset names in SAS are limited to 8 characters in SAS. 
+
+<details>
+#### Note {- .note}
+Note: Due to UTF-8 issues, this code chunk runs (with complaints) when I paste it into SAS, but does not run in bookdown. The complaints are because there are column names that are not valid SAS names (presumably, SAS doesn't allow UTF-8 characters as column names).
+
+#### {-}
 
 ````
-/* x "curl https://raw.githubusercontent.com/shahinrostami/pokemon_dataset/master/pokemon_gen_1_to_8.csv
-> ~/Projects/Class/unl-stat850/2020-stat850/data/pokemon.csv";
+/* x "curl https://raw.githubusercontent.com/shahinrostami/pokemon_dataset/master/pokemon_gen_1_to_8.csv > ~/Projects/Class/unl-stat850/2020-stat850/data/pokemon.csv";
 only run this once... */
 
-filename pokeloc  "~/Projects/Class/unl-stat850/2020-stat850/data/pokemon.csv" encoding="utf-8" DSD;
+filename pokeloc '~/Projects/Class/unl-stat850/2020-stat850/data/pokemon.csv' encoding="utf-8";
 
 proc import datafile = pokeloc out=poke
   DBMS = csv; /* comma delimited file */
@@ -181,18 +224,75 @@ proc print data=poke (obs=10); /* print the first 10 observations */
   run;
 ````
 
-#### Note {- .note}
-Note: Due to UTF-8 issues, this code chunk runs when I paste it into SAS, but does not run in bookdown. The only abnormal thing is that on my computer, the japanese characters don't render. 
+The only abnormal thing is that on my computer, the japanese characters don't render.
+[Here is the output from SAS running the above code interactively](other/04Pokemon_output.html)
 
-#### {-}
 
-````
+Alternately (because UTF-8 is finicky depending on your OS and the OS the data file was created under), you can convert the UTF-8 file to ASCII or some other safer encoding before trying to read it in.
+
+<details>
+If I fix the file in R (because I know how to fix it there... another option is to fix it manually), 
+```{r}
+library(readr)
+library(dplyr)
+tmp <- read_csv("~/Projects/Class/unl-stat850/2020-stat850/data/pokemon.csv")[,-1]
+# You'll learn how to do this later
+tmp <- select(tmp, -japanese_name) %>%
+  mutate_all(iconv, from="UTF-8", to = "ASCII//TRANSLIT")
+write_csv(tmp, "data/pokemon_ascii.csv", na='.')
+```
+
+Then, reading in the new file allows us to actually see the output.
+```{sashtml pokemon}
+filename pokeloc  "~/Projects/Class/unl-stat850/2020-stat850/data/pokemon_ascii.csv";
+
+proc import datafile = pokeloc out=poke
+  DBMS = csv /* comma delimited file */
+  replace;
+  GETNAMES = YES;
+  GUESSINGROWS = 1028 /* use all data for guessing the variable type */
+  ;
+proc print data=poke (obs=10); /* print the first 10 observations */
+  run; 
+```
+
+</details>
+</details>
+
+
+To read in a pipe delimited file (the '|' character), we have to make some changes. Here is the proc import code. Note that I am reading in a version of the file that I've converted to ASCII (see details below) because while the import works with the original file, it causes the SAS -> R pipeline that the book is built on to break. 
+<details>
+
+```{r}
+tmp <- readLines("data/NE_Features_20200501.txt")
+tmp_ascii <- iconv(tmp, to = "ASCII//TRANSLIT")
+writeLines(tmp_ascii, "data/NE_Features_ascii.txt")
+```
+</details>
+
+```{sashtml}
+proc import datafile = "~/Projects/Class/unl-stat850/2020-stat850/data/NE_Features_ascii.txt" out=nefeatures
+  DBMS = DLM /* delimited file */
+  replace;
+  GETNAMES = YES;
+  DELIMITER = '|';
+  GUESSINGROWS = 31582;
+run;
+
+proc print data=nefeatures (obs=10); /* print the first 10 observations */
+  run;
+
+```
+<details>
+Under the hood, proc import is just writing code for a data step. So when proc import doesn't work, we can just write the code ourselves. It requires a bit more work (specifying column names, for example) but it also doesn't fail nearly as often. 
+```{sashtml, warning = T, error = T}
 /* x "curl https://raw.githubusercontent.com/srvanderplas/unl-stat850/master/data/NE_Features_20200501.txt
 > ~/Projects/Class/unl-stat850/2020-stat850/data/NE_Features_20200501.txt";
 only run this once... */
 
 data nefeatures;
-infile "~/Projects/Class/unl-stat850/2020-stat850/data/NE_Features_20200501.txt"
+/*infile "~/Projects/Class/unl-stat850/2020-stat850/data/NE_Features_20200501.txt"*/
+infile "~/Projects/Class/unl-stat850/2020-stat850/data/NE_Features_ascii.txt"
 dlm='|' /* specify delimiter */
   encoding="utf-8" /* specify encoding */
   DSD /* delimiter sensitive data */
@@ -223,9 +323,9 @@ run;
 
 proc print data=nefeatures (obs=10); /* print the first 10 observations */
   run;
-````
+```
+</details>
 
-In this example, it was easier to use a data step to import things, because for some reason proc import didn't like the delimiter. It's ok to use a roundabout way to solve a problem - you only really need to know one or two good solutions to a problem. 
 
 ## Binary Files
 
@@ -233,14 +333,14 @@ Both R and SAS have binary data files that store data in a more compact form. It
 
 Luckily, it is possible to read the binary data files in both programs.
 
-<!-- Let's read in the data from the 2009 National hHusehold Travel Survey: -->
-<!-- ```{sashtml} -->
-<!-- libname classdat "~/Projects/Class/unl-stat850/2020-stat850/data"; -->
-<!-- /* this tells SAS where to look for (a bunch of) data files */ -->
+Let's read in the data from the 2009 National Household Travel Survey:
+```{sashtml}
+libname classdat "~/Projects/Class/unl-stat850/2020-stat850/data";
+/* this tells SAS where to look for (a bunch of) data files */
 
-<!-- proc contents data=classdat.cen10pub; /* This tells sas to access the specific file */ -->
-<!-- run; -->
-<!-- ``` -->
+proc contents data=classdat.cen10pub; /* This tells sas to access the specific file */
+run;
+```
 
 We can read the same file into R using the `sas7bdat` library:
 ```{r}
@@ -251,6 +351,11 @@ data <- read.sas7bdat("https://github.com/srvanderplas/unl-stat850/raw/master/da
 str(data)
 ```
 If you are curious about what this data means, then by all means, take a look at the [codebook](https://github.com/srvanderplas/unl-stat850/raw/master/data/cen10_codebook.xlsx) (XLSX file). For now, it's enough that we can see roughly how it's structured.
+
+There are [theoretically ways to read R data into SAS via the R subsystem](https://blogs.sas.com/content/iml/2011/05/13/calling-r-from-sasiml-software.html). Feel free to do that on your own machine.^[I tried, and it crashed SAS on my machine.]
+
+
+
 
 ## Importing Tabular Data into R
 
