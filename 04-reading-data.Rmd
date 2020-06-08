@@ -17,11 +17,12 @@ In order to use statistical software to do anything interesting, we need to be a
 - as a binary file. Binary files are compressed files that are readable by computers but not by humans. They generally take less space to store on disk (but the same amount of space when read into computer memory). If part of a binary file is corrupted, the entire file is usually affected.
     - R, SAS, Stata, SPSS, and Minitab all have their own formats for storing binary data. Packages such as `foreign` in R will let you read data from other programs, and packages such as `haven` in R will let you write data from other programs. To read data from R into SAS, the easiest way is probably to [call R from PROC IML](http://proc-x.com/2015/05/import-rdata-to-sas-along-with-labels/). 
 
-- in a database. Databases are typically composed of a set of one or more tables, with information that may be related across tables. Data stored in a database may be easier to access, and may not require that the entire data set be stored in computer memory at the same time, but you may have to join several tables together to get the full set of data you want to work with. 
 
 - in a spreadsheet. Spreadsheets, such as those created by MS Excel, Google Sheets, or LibreOffice Calc, are not completely binary formats, but they're also not raw text files either. They're a hybrid. Practically, they may function like a poorly laid-out database, a text file, or a total nightmare, depending on who designed the spreadsheet. There is a collection of horror stories [here](https://github.com/jennybc/scary-excel-stories) and a series of even more horrifying tweets [here](https://twitter.com/JennyBryan/status/722954354198597632)
 
-![](https://imgs.xkcd.com/comics/algorithms.png)
+[![](https://imgs.xkcd.com/comics/algorithms.png)](https://xkcd.com/1667/)
+
+- in a database. Databases are typically composed of a set of one or more tables, with information that may be related across tables. Data stored in a database may be easier to access, and may not require that the entire data set be stored in computer memory at the same time, but you may have to join several tables together to get the full set of data you want to work with. 
 
 There are, of course, many other non-tabular data formats -- some open and easy to work with, some inpenetrable. A few which may be more common:
 
@@ -96,7 +97,7 @@ mesodata
 
 The `readr` package creates data-frame like objects called tibbles (really, they're a souped-up data frame), but it is *much* friendlier to use. Tibbles also do not have the problems with factors (see the [introduction to factors](#factors)) - they will always read characters in as characters. 
 
-```{r}
+```{r, message = F}
 library(readr) # Better data importing in R
 
 read_table(url, skip = 2) # Gosh, that was much easier!
@@ -179,8 +180,11 @@ proc import datafile = pokeloc out=poke
 proc print data=poke (obs=10); /* print the first 10 observations */
   run;
 ````
+
+#### Note {- .note}
 Note: Due to UTF-8 issues, this code chunk runs when I paste it into SAS, but does not run in bookdown. The only abnormal thing is that on my computer, the japanese characters don't render. 
 
+#### {-}
 
 ````
 /* x "curl https://raw.githubusercontent.com/srvanderplas/unl-stat850/master/data/NE_Features_20200501.txt
