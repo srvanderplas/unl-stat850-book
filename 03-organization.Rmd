@@ -658,7 +658,7 @@ source("https://raw.githubusercontent.com/srvanderplas/unl-stat850/master/code/0
 
 ## Packages and Modules
 
-Both SAS and R have systems for extending the base system/language with additional functionality. In R, these extensions are called packages, and in SAS they are called modules.^[Note that the various components of SAS can be *extremely* confusing to separate. I found [this](https://www.lexjansen.com/mwsug/2017/RF/MWSUG-2017-RF01.pdf) guide to be somewhat helpful.]
+Both SAS and R have systems for extending the base system/language with additional functionality. In R, these extensions are called packages. In SAS, language extensions are called modules (for things sold by SAS), macros (for functions distributed by users), and in packages (which exist but are rarely used).^[Note that the various components of SAS can be *extremely* confusing to separate. I found [this](https://www.lexjansen.com/mwsug/2017/RF/MWSUG-2017-RF01.pdf) guide to be somewhat helpful.]
 
 ### R
 
@@ -680,7 +680,9 @@ Currently, the CRAN package repository features `r npkgs` available packages. Ho
 
 ### SAS
 
-In SAS, there are also packages of code that encapsulate scripts. However, unlike R (and many other languages), there is no centralized repository for SAS packages. Papers may include SAS packages to demonstrate new methods, and other packages may be found on GitHub or various SAS forums. 
+In SAS, there are also packages of code that encapsulate scripts. However, unlike R (and many other languages), there is no centralized repository for SAS packages. Papers may include SAS packages to demonstrate new methods, and other packages may be found on GitHub or various SAS forums.
+
+A more common way of distributing code in SAS seems to be through the use of single-file macros. (Even longtime SAS users don't necessarily know about the package system). These macros often need to be slightly customized to your environment (or you need to customize your environment to match the assumptions made in the macro, which can be harder). 
 
 
 ## References
