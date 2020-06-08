@@ -74,7 +74,7 @@ I kept the classic R reference card by my computer for about 5 years, and refere
 
 ## Variable types
 
-Variable types are sufficiently different in R and SAS that we will cover R first, then SAS. 
+Variable types are sufficiently different in R and SAS that we will cover R first, then SAS. For a general overview, though, [this video, titled 'Why TRUE + TRUE = 2'](https://youtu.be/6otW6OXjR8c?list=PL96C35uN7xGLLeET0dOWaKHkAlPsrkcha) is an excellent introduction. 
 
 ### R
 
@@ -83,7 +83,7 @@ In R, there are 4 commonly-used types:
 | Type | Description | 
 | ---- | ----------- | 
 | character | holds text-based information: "abcd" or "3.24a" are examples of values which would be stored as characters in R| 
-| logical | holds binary information: 0/1, or FALSE/TRUE. Logical variables are stored as single bit information (e.g. either a 0 or 1), but display as TRUE and FALSE (which are reserved words and constants). It is possible to use the shorthand `F` and `T`, but be careful with this, because `F` and `T` are not reserved, and other information can be stored within them.| 
+| logical | holds binary information: 0/1, or FALSE/TRUE. Logical variables are stored as single bit information (e.g. either a 0 or 1), but display as TRUE and FALSE (which are reserved words and constants). | 
 | integer | holds (as you might expect) integers. Note that integers are handled differently than doubles (floating point numbers), but in general, R will implicitly convert integers to doubles to avoid common pitfalls with integer divison (which does not allow for decimals). | 
 | double | holds floating point numbers. By default, most numeric variables in R are doubles.| 
 
@@ -120,6 +120,9 @@ is.integer(x)
 is.double(x)
 ```
 </details>
+
+
+It is possible to use the shorthand `F` and `T`, but be careful with this, because `F` and `T` are not reserved, and other information can be stored within them.
 
 ##### Integer Variables  {-}
 <details>
