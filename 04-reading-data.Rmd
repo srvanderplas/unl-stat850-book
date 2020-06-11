@@ -19,14 +19,15 @@ In order to use statistical software to do anything interesting, we need to be a
 
 - as raw text, usually in a file that ends with .txt, .tsv, .csv, .dat, or sometimes, there will be no file extension at all. These types of files are human-readable. If part of a text file gets corrupted, the rest of the file may be recoverable. 
 
-- as a binary file. Binary files are compressed files that are readable by computers but not by humans. They generally take less space to store on disk (but the same amount of space when read into computer memory). If part of a binary file is corrupted, the entire file is usually affected.
-    - R, SAS, Stata, SPSS, and Minitab all have their own formats for storing binary data. Packages such as `foreign` in R will let you read data from other programs, and packages such as `haven` in R will let you write data into binary formats used by other programs. To read data from R into SAS, the easiest way is probably to [call R from PROC IML](http://proc-x.com/2015/05/import-rdata-to-sas-along-with-labels/). 
-    - [Here](https://betterexplained.com/articles/a-little-diddy-about-binary-file-formats/) is a very thorough explanation of why binary file formats exist, and why they're not necessarily optimal.
-
 
 - in a spreadsheet. Spreadsheets, such as those created by MS Excel, Google Sheets, or LibreOffice Calc, are not completely binary formats, but they're also not raw text files either. They're a hybrid. Practically, they may function like a poorly laid-out database, a text file, or a total nightmare, depending on who designed the spreadsheet. There is a collection of horror stories [here](https://github.com/jennybc/scary-excel-stories) and a series of even more horrifying tweets [here](https://twitter.com/JennyBryan/status/722954354198597632)
 
 [![](https://imgs.xkcd.com/comics/algorithms.png)](https://xkcd.com/1667/)
+
+- as a binary file. Binary files are compressed files that are readable by computers but not by humans. They generally take less space to store on disk (but the same amount of space when read into computer memory). If part of a binary file is corrupted, the entire file is usually affected.
+    - R, SAS, Stata, SPSS, and Minitab all have their own formats for storing binary data. Packages such as `foreign` in R will let you read data from other programs, and packages such as `haven` in R will let you write data into binary formats used by other programs. To read data from R into SAS, the easiest way is probably to [call R from PROC IML](http://proc-x.com/2015/05/import-rdata-to-sas-along-with-labels/). 
+    - [Here](https://betterexplained.com/articles/a-little-diddy-about-binary-file-formats/) is a very thorough explanation of why binary file formats exist, and why they're not necessarily optimal.
+
 
 - in a database. Databases are typically composed of a set of one or more tables, with information that may be related across tables. Data stored in a database may be easier to access, and may not require that the entire data set be stored in computer memory at the same time, but you may have to join several tables together to get the full set of data you want to work with. 
 
@@ -37,9 +38,10 @@ There are, of course, many other non-tabular data formats -- some open and easy 
 - Spatial files: Shapefiles are by far the most common version of spatial files^[though there are a seemingly infinite number of actual formats, and they pop up at the most inconvenient times]. Spatial files often include structured encodings of geographic information plus corresponding tabular format data that goes with the geographic information. We'll explore these a bit more when we talk about maps. 
 
 
-To be minimally functional in R and SAS, let's start with figuring out how to read text, spreadsheet, and SQLite database formats into both programs. 
+To be minimally functional in R and SAS, it's important to know how to read in text files (CSV, tab-delimited, etc.). It can be helpful to also know how to read in XLSX files. We will briefly cover binary files and databases, but it is less critical to remember how to read these in without consulting one or more online references. 
 
-## Reading and Writing text data
+
+## Text Files
 
 There are several different variants of text data which are relatively common, but for the most part, text data files can be broken down into fixed-width and delimited formats. What's the difference, you say?
 
@@ -332,36 +334,72 @@ proc print data=nefeatures (obs=10); /* print the first 10 observations */
 ```
 </details>
 
+### Try it out {- .tryitout}
 
-## Binary Files
+Rebrickable.com contains tables of almost any information imaginable concerning Lego sets, conveninently available at their [download page](https://rebrickable.com/downloads/). Because these datasets are comparatively large, they are available as compressed CSV files - that is, the .gz extension is a gzip compression applied to the CSV. 
 
-Both R and SAS have binary data files that store data in a more compact form. It is relatively common for government websites, in particular, to provide SAS data in binary form. 
+The `readr` package can handle .csv.gz files with no problems. Try reading in the data using the appropriate function from that package. Can you save the data as an uncompressed csv?
 
-Luckily, it is possible to read the binary data files in both programs.
 
-Let's read in the data from the 2009 National Household Travel Survey:
-```{sashtml}
-libname classdat "~/Projects/Class/unl-stat850/2020-stat850/data";
-/* this tells SAS where to look for (a bunch of) data files */
+<details>
+```{r, eval = F}
+library(readr)
+legosets <- read_csv("https://cdn.rebrickable.com/media/downloads/sets.csv.gz")
+write_csv(legosets, "data/lego_sets.csv")
+```
+</details>
 
-proc contents data=classdat.cen10pub; /* This tells sas to access the specific file */
+In SAS, it is also possible to read gzip files directly; however, it is tricky to get PROC IMPORT to work with gzip files. The code below will 1) download the file (uncomment that part), 2) create a link to the gzip file, 3) create a link to where the unzipped file will go, and 4) unzip the file to the link specified in (3). 
+
+Can you write two different statements (one using proc import on the unzipped file, one using a datastep on the zipped file) to read the data in? Note that you may have to specify the length of character fields in the data step version using `length var_name $ 100;` before the input statement to set variable var_name to have maximum length of 100 characters. 
+
+```
+/* x "curl https://cdn.rebrickable.com/media/downloads/sets.csv.gz > \ 
+~/Projects/Class/unl-stat850/2020-stat850/data/lego_sets.csv.gz";
+only run this once... */
+
+filename legofile ZIP "~/Projects/Class/unl-stat850/2020-stat850/data/lego_sets.csv.gz" GZIP;
+filename target "~/Projects/Class/unl-stat850/2020-stat850/data/lego_sets.csv";
+
+data _null_;
+  infile legofile;
+  file target;
+  input;
+  put _infile_;
 run;
 ```
+<details>
+```{sashtml legosets}
+filename legofile ZIP "~/Projects/Class/unl-stat850/2020-stat850/data/lego_sets.csv.gz" GZIP;
+filename target "~/Projects/Class/unl-stat850/2020-stat850/data/lego_sets.csv";
 
-We can read the same file into R using the `sas7bdat` library:
-```{r}
-if (!"sas7bdat" %in% installed.packages()) install.packages("sas7bdat")
+data _null_;
+  infile legofile;
+  file target;
+  input;
+  put _infile_;
+run;
 
-library(sas7bdat)
-data <- read.sas7bdat("https://github.com/srvanderplas/unl-stat850/raw/master/data/cen10pub.sas7bdat")
-head(data)
+proc import datafile = target out=legoset DBMS=csv replace;
+GETNAMES=YES;
+GUESSINGROWS=15424;
+run;
+  
+data legoset2;
+  infile legofile dsd firstobs=2
+  dlm=",";
+  length set_num $20;
+  length name $100;
+  input set_num $ name $ year theme_id num_parts;
+  run;
+  
+proc print data=legoset (obs=10);
+  run;
+  
+proc print data=legoset2 (obs=10);
+  run;
 ```
-If you are curious about what this data means, then by all means, take a look at the [codebook](https://github.com/srvanderplas/unl-stat850/raw/master/data/cen10_codebook.xlsx) (XLSX file). For now, it's enough that we can see roughly how it's structured.
-
-There are [theoretically ways to read R data into SAS via the R subsystem](https://blogs.sas.com/content/iml/2011/05/13/calling-r-from-sasiml-software.html). Feel free to do that on your own machine.^[I tried, and it crashed SAS on my machine.]
-
-
-
+</details>
 
 
 ## Spreadsheets
@@ -397,13 +435,140 @@ RUN;
 
 [Here](https://stats.idre.ucla.edu/sas/faq/how-do-i-readwrite-excel-files-in-sas/) is some additional information about reading and writing Excel files in SAS. In general, it is better to avoid working in Excel, as it is not easy to reproduce the results. Saving your data in more reproducible formats will make writing reproducible code much easier. 
 
+### Try it out {- .tryitout}
+
+The Nebraska Department of Motor Vehicles publishes a database of vehicle registrations by type of license plate. [Link](https://dmv.nebraska.gov/sites/dmv.nebraska.gov/files/doc/2019_Veh_Reg_by_Plate_Type.xlsx)
+
+Read that data in using both R and SAS. Be sure to look at the structure of the excel file, so that you can read the data in properly!
+
+<details>
+```{r}
+url <- "https://dmv.nebraska.gov/sites/dmv.nebraska.gov/files/doc/2019_Veh_Reg_by_Plate_Type.xlsx"
+download.file(url, destfile = "data/2019_Vehicle_Registration_Plates_NE.xlsx", mode = "wb")
+library(readxl)
+ne_plates <- read_xlsx(path = "data/2019_Vehicle_Registration_Plates_NE.xlsx", skip = 1)
+ne_plates[1:10,1:6]
+```
+
+```{sashtml}
+PROC IMPORT OUT=WORK.licplate 
+    DATAFILE="~/Projects/Class/unl-stat850/2020-stat850/data/2019_Vehicle_Registration_Plates_NE.xlsx" 
+    DBMS=xlsx /* Tell SAS what type of file it's reading */ 
+    REPLACE; /* replace the dataset if it already exists */
+    RANGE="'Reg By Plate Type'$A2:0"
+  GETNAMES=yes;
+RUN;
+
+/* just a few columns... way too many to handle */
+PROC PRINT DATA=WORK.licplate (obs=10); /* print the first 10 observations */
+Var County Amateur__Radio Breast__Cancer Choose__Life County__Gov Comm__Truck Passenger Total;
+RUN;
+```
+</details>
+
+## Binary Files
+
+Both R and SAS have binary data files that store data in a more compact form. It is relatively common for government websites, in particular, to provide SAS data in binary form. 
+
+Luckily, it is possible to read the binary data files in both programs.
+
+Let's read in the data from the 2009 National Household Travel Survey:
+```{sashtml}
+libname classdat "~/Projects/Class/unl-stat850/2020-stat850/data";
+/* this tells SAS where to look for (a bunch of) data files */
+
+proc contents data=classdat.cen10pub; /* This tells sas to access the specific file */
+run;
+```
+
+We can read the same file into R using the `sas7bdat` library:
+```{r}
+if (!"sas7bdat" %in% installed.packages()) install.packages("sas7bdat")
+
+library(sas7bdat)
+data <- read.sas7bdat("https://github.com/srvanderplas/unl-stat850/raw/master/data/cen10pub.sas7bdat")
+head(data)
+```
+If you are curious about what this data means, then by all means, take a look at the [codebook](https://github.com/srvanderplas/unl-stat850/raw/master/data/cen10_codebook.xlsx) (XLSX file). For now, it's enough that we can see roughly how it's structured.
+
+There are [theoretically ways to read R data into SAS via the R subsystem](https://blogs.sas.com/content/iml/2011/05/13/calling-r-from-sasiml-software.html). Feel free to do that on your own machine.^[I tried, and it crashed SAS on my machine.]
+
+In R, there are a couple of different binary files. `.Rdata` is perhaps the most common, and can store several objects (along with their names) in the same file. 
+
+```{r}
+legos <- read_csv("data/lego_sets.csv")
+my_var <- "This variable contains a string"
+save(legos, my_var, file = "data/R_binary.Rdata")
+```
+
+If we look at the file sizes of `lego_sets.csv` (619 KB) and `R_binary.Rdata`(227.8 KB), the size difference between binary and flat file formats is obvious. 
+
+We can load the R binary file back in using the `load()` function. 
+<details>
+```{r}
+rm(legos, my_var) # clear the files out
+
+ls() # all objects in the working environment
+
+load("data/R_binary.Rdata")
+
+ls() # all objects in the working environment
+```
+</details>
+
+Another (less common) binary format used in R is the RDS format. Unlike Rdata, the RDS format does not save the object name - it only saves its contents. As a result, when you read from an RDS file, you need to store the result of that function into a variable.
+
+```{r}
+saveRDS(legos, "data/RDSlego.rds")
+
+other_lego <- readRDS("data/RDSlego.rds")
+```
+
+Because RDS formats don't save the object name, you can be sure that you're not over-writing some object in your workspace by loading a different file. The downside to this is that you have to save each object to its own RDS file separately. 
+
+### Try it out {- .tryitout}
+
+Read in two of the files from an earlier example, and save the results as an Rdata file with two objects. Then save each one as an RDS file. 
+
+In RStudio, go to Session -> Clear Workspace. (This will clear your environment)
+
+Now, using your RDS files, load the objects back into R with different names. 
+
+Finally, load your Rdata file. Are the two objects the same? (You can actually test this with `all.equal()` if you're curious)
+
+<details>
+
+```{r}
+library(readxl)
+police_violence <- read_xlsx("data/police_violence.xlsx", sheet = 1, guess_max = 7000)
+police_violence2 <- read_xlsx("data/police_violence.xlsx", sheet = 2, guess_max = 7000)
+
+save(police_violence, police_violence2, file = "data/04_Try_Binary.Rdata")
+saveRDS(police_violence, "data/04_Try_Binary1.rds")
+saveRDS(police_violence2, "data/04_Try_Binary2.rds")
+
+rm(police_violence, police_violence2) # Limited clearing of workspace... 
+
+pv1 <- readRDS("data/04_Try_Binary1.rds")
+pv2 <- readRDS("data/04_Try_Binary2.rds")
+
+load("data/04_Try_Binary.Rdata")
+
+all.equal(police_violence, pv1)
+all.equal(police_violence2, pv2)
+```
+
+</details>
+
 ## Databases
 
 There are many different database formats. Some of the most common databases are SQL* related formats and Microsoft Access files. 
 
+[This excellent GitHub repo contains code to connect to multiple types of databases in R, python, PHP, Java, SAS, and VBA](https://github.com/ParfaitG/DATABASE_CONNECTIONS)
+
 ### Microsoft Access
 
-In R, we can read in MS Access files using the `Hmisc` package, as long as the mdbtools library is available on your computer. For this demo, we'll be using the [Scottish Witchcraft Database](http://witches.shca.ed.ac.uk/index.cfm?fuseaction=home.register), which you can download from their website, or acquire from the course data folder. 
+In R, we can read in MS Access files using the `Hmisc` package, as long as the mdbtools library is available on your computer^[A currently maintained version of the library is [here](https://github.com/cyberemissary/mdbtools) and should work for UNIX platforms. It may be possible to install the library on Windows using the UNIX subsystem, per [this thread](https://github.com/brianb/mdbtools/issues/107)]. For this demo, we'll be using the [Scottish Witchcraft Database](http://witches.shca.ed.ac.uk/index.cfm?fuseaction=home.register), which you can download from their website, or acquire from the course data folder. 
 
 ```{r}
 if (!"Hmisc" %in% installed.packages()) install.packages("Hmisc")
@@ -436,7 +601,28 @@ babyname
 
 You can of course write formal queries using the DBI package, but for many databases, it's easier to do the querying in R. We'll cover both options later - the R version will be in the next module.
 
-In SAS, you can theoretically connect to SQLite databases, but there are very specific instructions for how to do that for each operating system (and it's not clear there's Linux support, in any case, so I'm SOL for demonstrating it. Sorry 'bout that.)
+In SAS, you can theoretically connect to SQLite databases, but there are very specific instructions for how to do that for each operating system. You'll need to acquire the [SQLite ODBC Driver](http://www.ch-werner.de/sqliteodbc/) for your operating system. You may also need to set up a DSN (Data Source Name) ([Windows](https://support.exagoinc.com/hc/en-us/articles/115005848908-Using-SQLite-Data-Sources), [Mac and Linux](https://db.rstudio.com/best-prsactices/drivers/#setting-up-database-connections-1))
+
+Here is my .odbc.ini file as I've configured it for my Ubuntu 18.04 machine. A similar file should work for any Mac or Linux machine. In windows, you'll need to use the ODBC Data Source Administrator to set this up. 
+
+````
+[babyname]
+Description = 2015 SSA baby names
+Driver = SQLite3
+Database = /home/susan/Projects/Class/unl-stat850/2020-stat850/data/ssa-babynames-for-2015.sqlite
+
+````
+
+```{sashtml sqlite3}
+/* This code requires that I've set up a DSN connecting the sqlite file to */
+/* a specific driver on my computer. You'll have to set up your machine to */
+/* have a configuration that is appropriate for your setup */
+  
+libname mydata odbc complete = "dsn=babyname; Database=~/Projects/Class/unl-stat850/2020-stat850/data/ssa-babynames-for-2015.sqlite";
+
+proc print data=mydata.babynames (obs=10);
+run;
+```
 
 
 ## Exploratory Data Analysis
@@ -445,6 +631,65 @@ In SAS, you can theoretically connect to SQLite databases, but there are very sp
 - summary statistics
 - basic plots?
 - unique values
+
+Once your data has been read in, we can do some basic exploratory data analysis. EDA is important because it helps us to know what challenges a particular data set might bring. Real data is often messy, with large amounts of cleaning that must be done before statistical analysis can commence. While in many classes you'll be given cleaner data, you do need to know how to clean your own data up so that you can use more interesting datasets for projects (and for fun!).
+
+### Summary Statistics
+
+Both R and SAS make it easy to get summary statistics from a dataset. 
+<details>
+```{sashtml}
+libname mydata odbc complete = "dsn=babyname; Database=~/Projects/Class/unl-stat850/2020-stat850/data/ssa-babynames-for-2015.sqlite";
+
+proc print data=mydata.babynames (obs=10);
+run;
+
+proc freq data=mydata.babynames;
+tables year*sex;
+run;
+
+```
+</details>
+Proc Freq generates frequency tables for variables or interactions of variables. This can help you to see whether there is missing information. 
+<details>
+```{sashtml}
+
+filename target "~/Projects/Class/unl-stat850/2020-stat850/data/lego_sets.csv";
+
+proc import datafile = target out=legoset DBMS=csv replace;
+GETNAMES=YES;
+GUESSINGROWS=15424;
+run;
+
+proc means data = legoset;
+run;
+
+proc means data = legoset;
+class theme_id;
+run;
+
+```
+</details>
+
+Proc Means can be used to get more useful summary statistics for numeric variables. Note that the Class statement identifies a categorical variable; the summary statistics are computed for each level of this variable. 
+
+For even higher levels of detail, proc univariate will provide variability, tests for location, quantiles, skewness, and will identify the extreme observations for you.
+<details>
+```{sashtml}
+
+filename target "~/Projects/Class/unl-stat850/2020-stat850/data/lego_sets.csv";
+
+proc import datafile = target out=legoset DBMS=csv replace;
+GETNAMES=YES;
+GUESSINGROWS=15424;
+run;
+
+proc univariate data = legoset;
+var num_parts;
+run;
+
+```
+</details>
 
 
 ## References
