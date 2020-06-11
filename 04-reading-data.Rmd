@@ -1,3 +1,8 @@
+---
+output: 
+  html_document: 
+    keep_md: yes
+---
 # External Data {#reading-data}
 
 ## Module Objectives {-}
@@ -50,10 +55,11 @@ Col1    Col2    Col3
 
 In base R (no extra packages), you can read fwf files in using `read.fwf`, but you must specify the column breaks yourself.
 <details>
-```{r, error = T}
+```{r, error = T, eval = -1, echo = -2}
 url <- "https://www.mesonet.org/index.php/dataMdfMts/dataController/getFile/202006070000/mdf/TEXT/"
+url <- "data/mesodata.txt"
 read.fwf(url, 
-         skip = 3, # Skip the first 2 lines
+         skip = 3, # Skip the first 2 lines (useless) + header line
          widths = c(5, 6, 6, 7, 7, 7, 7, 6, 7, 7, 7, 8, 9, 6, 7, 7, 7, 7, 7, 7, 
 7, 8, 8, 8)) # There is a row with the column names specified
 ```
@@ -348,7 +354,7 @@ if (!"sas7bdat" %in% installed.packages()) install.packages("sas7bdat")
 
 library(sas7bdat)
 data <- read.sas7bdat("https://github.com/srvanderplas/unl-stat850/raw/master/data/cen10pub.sas7bdat")
-str(data)
+head(data)
 ```
 If you are curious about what this data means, then by all means, take a look at the [codebook](https://github.com/srvanderplas/unl-stat850/raw/master/data/cen10_codebook.xlsx) (XLSX file). For now, it's enough that we can see roughly how it's structured.
 
@@ -357,9 +363,81 @@ There are [theoretically ways to read R data into SAS via the R subsystem](https
 
 
 
-## Importing Tabular Data into R
 
-## Importing Tabular Data into SAS
+## Spreadsheets
+
+In R, the easiest way to read Excel data in is to use the `readxl` package. There are many other packages with different features, however - I have used `openxlsx` in the past to format spreadsheets to send to clients, for instance. By far and away you are more likely to have problems with the arcane format of the Excel spreadsheet than with the package used to read the data in. It is usually helpful to open the spreadsheet up in Excel or LibreOffice first to make sure the formatting is as you expected it to be.
+
+```{r, warning = F}
+if (!"readxl" %in% installed.packages()) install.packages("readxl")
+library(readxl)
+path <- "~/Projects/Class/unl-stat850/2020-stat850/data/police_violence.xlsx"
+if (!file.exists(path)) download.file("https://mappingpoliceviolence.org/s/MPVDatasetDownload.xlsx", path, mode = "wb")
+
+police_violence <- read_xlsx("data/police_violence.xlsx", sheet = 1)
+police_violence[1:10, 1:6]
+```
+
+
+In SAS, PROC IMPORT is one easy way to read in xlsx files
+
+```{sashtml}
+PROC IMPORT OUT=WORK.police 
+    DATAFILE="~/Projects/Class/unl-stat850/2020-stat850/data/police_violence.xlsx" 
+    DBMS=xlsx /* Tell SAS what type of file it's reading */ 
+    REPLACE; /* replace the dataset if it already exists */
+  SHEET="2013-2019 Police Killings"; /* SAS reads the first sheet by default */
+  GETNAMES=yes;
+RUN;
+
+PROC PRINT DATA=WORK.police (obs=10); /* print the first 10 observations */
+  VAR Victim_s_name Victim_s_age Victim_s_gender Victim_s_race VAR6;
+RUN;
+```
+
+[Here](https://stats.idre.ucla.edu/sas/faq/how-do-i-readwrite-excel-files-in-sas/) is some additional information about reading and writing Excel files in SAS. In general, it is better to avoid working in Excel, as it is not easy to reproduce the results. Saving your data in more reproducible formats will make writing reproducible code much easier. 
+
+## Databases
+
+There are many different database formats. Some of the most common databases are SQL* related formats and Microsoft Access files. 
+
+### Microsoft Access
+
+In R, we can read in MS Access files using the `Hmisc` package, as long as the mdbtools library is available on your computer. For this demo, we'll be using the [Scottish Witchcraft Database](http://witches.shca.ed.ac.uk/index.cfm?fuseaction=home.register), which you can download from their website, or acquire from the course data folder. 
+
+```{r}
+if (!"Hmisc" %in% installed.packages()) install.packages("Hmisc")
+library(Hmisc)
+db_loc <- "data/Witchcraftsurvey_download.mdb"
+
+mdb.get(db_loc, tables = TRUE) # get table list
+mdb.get(db_loc, tables = "WDB_Trial") # get table of trials
+
+```
+Many databases have multiple tables with **keys** that connect information in each table. We'll spend more time on databases later in the semester - for now, it's enough to be able to get data out of one. 
+
+
+Unfortunately, it appears that SAS on Linux doesn't allow you to read in Access files. So I can't demonstrate that for you. But, since you know how to do it in R, worst case you can open up R and export all of the tables to separate CSV files, then read those into SAS. `emo::ji("sad")`
+
+### SQLite
+
+SQLite databases are contained in single files with the extension .SQLite. These files can still contain many different tables, though. Let's try working with a sqlite file that has only one table: 
+
+```{r}
+if (!"RSQLite" %in% installed.packages()) install.packages("RSQLite")
+if (!"DBI" %in% installed.packages()) install.packages("DBI")
+library(RSQLite)
+library(DBI)
+con <- dbConnect(RSQLite::SQLite(), "data/ssa-babynames-for-2015.sqlite")
+dbListTables(con) # List all the tables
+babyname <- dbReadTable(con, "babynames")
+babyname
+```
+
+You can of course write formal queries using the DBI package, but for many databases, it's easier to do the querying in R. We'll cover both options later - the R version will be in the next module.
+
+In SAS, you can theoretically connect to SQLite databases, but there are very specific instructions for how to do that for each operating system (and it's not clear there's Linux support, in any case, so I'm SOL for demonstrating it. Sorry 'bout that.)
+
 
 ## Exploratory Data Analysis
 
@@ -376,3 +454,9 @@ There are [theoretically ways to read R data into SAS via the R subsystem](https
 - [Common problems with SAS data files](https://blogs.sas.com/content/sgf/2015/04/17/turning-text-files-into-sas-data-sets-6-common-problems-and-their-solutions/)
 - U.S. Department of Transportation, Federal Highway Administration, 2009 National Household 
 Travel Survey. URL: http://nhts.ornl.gov. Data acquired from data.world. 
+- [RSQLite vignette](https://cran.r-project.org/web/packages/RSQLite/vignettes/RSQLite.html)
+
+
+
+
+

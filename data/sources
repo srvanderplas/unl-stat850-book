@@ -3,6 +3,10 @@ Provenance of data files
 NE_Features_20200501.txt - https://www.usgs.gov/core-science-systems/ngp/board-on-geographic-names/download-gnis-data
 mesodata.txt - https://www.mesonet.org/index.php/dataMdfMts/dataController/getFile/202006070000/mdf/TEXT/
 CDCref_d.sas7bdat - https://www.cdc.gov/nccdphp/dnpao/growthcharts/resources/sas.htm
+Police violence xlsx - https://mappingpoliceviolence.org/
+ssa-babynames-2015 sqlite - http://2016.padjo.org/tutorials/sqlite-data-starterpacks/#toc-social-security-administration-baby-names-2015-for-all-states
+
 
 Other sources to use
 - Pacific Walrus Coastal Haulout Database https://alaska.usgs.gov/products/data.php?dataid=74 - kml, shapefile, csv
+- accepted and rejected license plates - https://github.com/datanews/license-plates
