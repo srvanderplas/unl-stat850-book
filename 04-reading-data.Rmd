@@ -41,6 +41,7 @@ There are, of course, many other non-tabular data formats -- some open and easy 
 To be minimally functional in R and SAS, it's important to know how to read in text files (CSV, tab-delimited, etc.). It can be helpful to also know how to read in XLSX files. We will briefly cover binary files and databases, but it is less critical to remember how to read these in without consulting one or more online references. 
 
 
+
 ## Text Files
 
 There are several different variants of text data which are relatively common, but for the most part, text data files can be broken down into fixed-width and delimited formats. What's the difference, you say?
@@ -138,7 +139,8 @@ In SAS, it's a bit more complicated, but not that much - the biggest difference 
 > ~/Projects/Class/unl-stat850/2020-stat850/data/mesodata.txt" */
 /* only run this once */
 
-data mesodata;
+/* Specifying WORK.mesodata means the dataset will cease to exist after this chunk exits */
+data WORK.mesodata; 
 infile  "~/Projects/Class/unl-stat850/2020-stat850/data/mesodata.txt" firstobs = 4; 
 /* Skip the first 3 rows */
   length STID $ 4; /* define ID length */
@@ -220,9 +222,9 @@ Note: Due to UTF-8 issues, this code chunk runs (with complaints) when I paste i
 
 ````
 /* x "curl https://raw.githubusercontent.com/shahinrostami/pokemon_dataset/master/pokemon_gen_1_to_8.csv > ~/Projects/Class/unl-stat850/2020-stat850/data/pokemon.csv";
-only run this once... */
-
+only run this once to download the file... */
 filename pokeloc '~/Projects/Class/unl-stat850/2020-stat850/data/pokemon.csv' encoding="utf-8";
+
 
 proc import datafile = pokeloc out=poke
   DBMS = csv; /* comma delimited file */
@@ -252,15 +254,18 @@ write_csv(tmp, "data/pokemon_ascii.csv", na='.')
 
 Then, reading in the new file allows us to actually see the output.
 ```{sashtml pokemon}
+libname classdat "/home/susan/Projects/Class/unl-stat850/2020-stat850/sas/";
+/* Create a library of class data */
+
 filename pokeloc  "~/Projects/Class/unl-stat850/2020-stat850/data/pokemon_ascii.csv";
 
-proc import datafile = pokeloc out=poke
+proc import datafile = pokeloc out=classdat.poke
   DBMS = csv /* comma delimited file */
   replace;
   GETNAMES = YES;
   GUESSINGROWS = 1028 /* use all data for guessing the variable type */
   ;
-proc print data=poke (obs=10); /* print the first 10 observations */
+proc print data=classdat.poke (obs=10); /* print the first 10 observations */
   run; 
 ```
 
@@ -279,6 +284,7 @@ writeLines(tmp_ascii, "data/NE_Features_ascii.txt")
 </details>
 
 ```{sashtml}
+/* Without specifying the library to store the data in, it is stored in WORK */
 proc import datafile = "~/Projects/Class/unl-stat850/2020-stat850/data/NE_Features_ascii.txt" out=nefeatures
   DBMS = DLM /* delimited file */
   replace;
@@ -370,6 +376,9 @@ run;
 ```
 <details>
 ```{sashtml legosets}
+libname classdat "/home/susan/Projects/Class/unl-stat850/2020-stat850/sas/";
+/* Work with the library of class data */
+
 filename legofile ZIP "~/Projects/Class/unl-stat850/2020-stat850/data/lego_sets.csv.gz" GZIP;
 filename target "~/Projects/Class/unl-stat850/2020-stat850/data/lego_sets.csv";
 
@@ -380,11 +389,12 @@ data _null_;
   put _infile_;
 run;
 
-proc import datafile = target out=legoset DBMS=csv replace;
+proc import datafile = target out=classdat.legoset DBMS=csv replace;
 GETNAMES=YES;
 GUESSINGROWS=15424;
 run;
-  
+
+/* This dataset will be stored in WORK */
 data legoset2;
   infile legofile dsd firstobs=2
   dlm=",";
@@ -393,7 +403,7 @@ data legoset2;
   input set_num $ name $ year theme_id num_parts;
   run;
   
-proc print data=legoset (obs=10);
+proc print data=classdat.legoset (obs=10);
   run;
   
 proc print data=legoset2 (obs=10);
@@ -420,7 +430,9 @@ police_violence[1:10, 1:6]
 In SAS, PROC IMPORT is one easy way to read in xlsx files
 
 ```{sashtml}
-PROC IMPORT OUT=WORK.police 
+libname classdat "/home/susan/Projects/Class/unl-stat850/2020-stat850/sas/";
+
+PROC IMPORT OUT=classdat.police 
     DATAFILE="~/Projects/Class/unl-stat850/2020-stat850/data/police_violence.xlsx" 
     DBMS=xlsx /* Tell SAS what type of file it's reading */ 
     REPLACE; /* replace the dataset if it already exists */
@@ -428,7 +440,7 @@ PROC IMPORT OUT=WORK.police
   GETNAMES=yes;
 RUN;
 
-PROC PRINT DATA=WORK.police (obs=10); /* print the first 10 observations */
+PROC PRINT DATA=classdat.police (obs=10); /* print the first 10 observations */
   VAR Victim_s_name Victim_s_age Victim_s_gender Victim_s_race VAR6;
 RUN;
 ```
@@ -605,6 +617,7 @@ In SAS, you can theoretically connect to SQLite databases, but there are very sp
 
 Here is my .odbc.ini file as I've configured it for my Ubuntu 18.04 machine. A similar file should work for any Mac or Linux machine. In windows, you'll need to use the ODBC Data Source Administrator to set this up. 
 
+
 ````
 [babyname]
 Description = 2015 SSA baby names
@@ -634,61 +647,97 @@ run;
 
 Once your data has been read in, we can do some basic exploratory data analysis. EDA is important because it helps us to know what challenges a particular data set might bring. Real data is often messy, with large amounts of cleaning that must be done before statistical analysis can commence. While in many classes you'll be given cleaner data, you do need to know how to clean your own data up so that you can use more interesting datasets for projects (and for fun!).
 
-### Summary Statistics
+Both R and SAS make it relatively easy to get summary statistics from a dataset, but the "flow" of EDA is somewhat different between the two programs, so this section will cover SAS first, and then R. 
 
-Both R and SAS make it easy to get summary statistics from a dataset. 
+### SAS 
+
+
+[Proc Freq](https://go.documentation.sas.com/?docsetId=procstat&docsetTarget=procstat_freq_toc.htm&docsetVersion=9.4&locale=en) generates frequency tables for variables or interactions of variables. This can help you to see whether there is missing information. Using those frequency tables, you can create frequency plots and set up chi squared tests.
 <details>
-```{sashtml}
-libname mydata odbc complete = "dsn=babyname; Database=~/Projects/Class/unl-stat850/2020-stat850/data/ssa-babynames-for-2015.sqlite";
+```{sashtml proc-freq-demo}
+libname classdat "/home/susan/Projects/Class/unl-stat850/2020-stat850/sas/";
 
-proc print data=mydata.babynames (obs=10);
-run;
-
-proc freq data=mydata.babynames;
-tables year*sex;
-run;
-
-```
-</details>
-Proc Freq generates frequency tables for variables or interactions of variables. This can help you to see whether there is missing information. 
-<details>
-```{sashtml}
-
-filename target "~/Projects/Class/unl-stat850/2020-stat850/data/lego_sets.csv";
-
-proc import datafile = target out=legoset DBMS=csv replace;
-GETNAMES=YES;
-GUESSINGROWS=15424;
-run;
-
-proc means data = legoset;
-run;
-
-proc means data = legoset;
-class theme_id;
-run;
-
+ODS GRAPHICS ON;
+PROC FREQ DATA=classdat.poke ORDER=FORMATTED;
+  TABLES generation / CHISQ PLOTS=freqplot(type=dotplot);
+RUN;
+PROC FREQ DATA=classdat.poke ORDER=FREQ;
+  TABLES type_1 status / MAXLEVELS=10 PLOTS=freqplot(type=dotplot scale=percent);
+RUN;
+ODS GRAPHICS OFF;
 ```
 </details>
 
 Proc Means can be used to get more useful summary statistics for numeric variables. Note that the Class statement identifies a categorical variable; the summary statistics are computed for each level of this variable. 
 
-For even higher levels of detail, proc univariate will provide variability, tests for location, quantiles, skewness, and will identify the extreme observations for you.
+<details>
+```{sashtml proc-means-demo}
+libname classdat "/home/susan/Projects/Class/unl-stat850/2020-stat850/sas/";
+
+PROC MEANS DATA = classdat.legoset;
+run;
+
+proc means data = classdat.legoset;
+class theme_id;
+run;
+```
+</details>
+
+For even higher levels of detail, [Proc Univariate](https://go.documentation.sas.com/?docsetId=procstat&docsetTarget=procstat_univariate_toc.htm&docsetVersion=9.4&locale=en) will provide variability, tests for location, quantiles, skewness, and will identify the extreme observations for you. You can also get histograms for variables, even specifying distributions you'd like to be fit to the data (if that's something you want). 
+<details>
+```{sashtml proc-univariate-demo}
+libname classdat "/home/susan/Projects/Class/unl-stat850/2020-stat850/sas/";
+
+ODS GRAPHICS ON;
+PROC UNIVARIATE DATA = classdat.legoset;
+VAR num_parts year;
+HISTOGRAM num_parts year;
+RUN;
+ODS GRAPHICS OFF;
+```
+</details>
+
+#### Try it out {- .tryitout}
+
+One of the datasets we read in above records incidents of police violence around the country. Explore the variables present in [this dataset](sas/police.sas7bdat). Note that some variables may be too messy to handle with the things that you have seen thus far - that is ok. As you find irregularities, document them - these are things you may need to clean up in the dataset before you conduct a formal analysis.
+
+It is useful to memorize the SAS PROC options you use most frequently, but it's also a good idea to reference the SAS documentation - it provides a list of all viable options for each procedure, and generally has decent examples to show how those options are used.
+
 <details>
 ```{sashtml}
+libname classdat "/home/susan/Projects/Class/unl-stat850/2020-stat850/sas/";
 
-filename target "~/Projects/Class/unl-stat850/2020-stat850/data/lego_sets.csv";
+ODS GRAPHICS ON;
 
-proc import datafile = target out=legoset DBMS=csv replace;
-GETNAMES=YES;
-GUESSINGROWS=15424;
+DATA tmp;
+mydt = "06/11/2019";
+put mydt mmddyy10.;
 run;
 
-proc univariate data = legoset;
-var num_parts;
+
+DATA classdat.police2;
+SET classdat.police;
+age = input(Victim_s_age, ?3.);
+date = input(VAR6, MMDDYY10.);
 run;
+
+PROC FREQ DATA = classdat.police2 ORDER=FREQ;
+TABLES Victim_s_gender Victim_s_race State Cause_of_death Unarmed Geography__via_Trulia_methodolog / MAXLEVELS = 10;
+RUN;
+
+PROC MEANS DATA = classdat.police2;
+VAR age; /* Only numeric variable in this set */
+RUN;
+
+PROC UNIVARIATE DATA = classdat.police2;
+HISTOGRAM age date;
+
+RUN;
+ODS GRAPHICS OFF;
+
 
 ```
+
 </details>
 
 
