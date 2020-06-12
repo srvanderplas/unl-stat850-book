@@ -427,7 +427,7 @@ police_violence[1:10, 1:6]
 ```
 
 
-In SAS, PROC IMPORT is one easy way to read in xlsx files
+In SAS, PROC IMPORT is one easy way to read in xlsx files. In this code chunk, we have to handle the fact that one of the columns in the spreadsheet contains dates. [SAS and Excel handle dates a bit differently](https://support.sas.com/resources/papers/proceedings/proceedings/sugi29/068-29.pdf), so we have to transform the date variable -- and we may as well relabel it at the same time. To do this, we use a DATA statement that outputs to the same dataset it references. We define a new variable date, adjust the Excel dates so that they conform to SAS's standard, and tell SAS how to format the date. (We'll talk more about dates and times later)
 
 ```{sashtml}
 libname classdat "/home/susan/Projects/Class/unl-stat850/2020-stat850/sas/";
@@ -438,14 +438,33 @@ PROC IMPORT OUT=classdat.police
     REPLACE; /* replace the dataset if it already exists */
   SHEET="2013-2019 Police Killings"; /* SAS reads the first sheet by default */
   GETNAMES=yes;
+    informat VAR6 mmddyy10.; /* tell SAS what format the date is in */
 RUN;
 
+DATA classdat.police;
+  SET classdat.police; /* modify the dataset and write back out to it */
+  
+  date = VAR6 - 21916; /* Conversion to SAS date standard from Excel */
+  FORMAT date MMDDYY10.; /* Tell SAS how to format the data when printing it */ 
+  DROP VAR6; /* Get rid of the original data */
+  
+  num_age = INPUT(Victim_s_age, 3.); /* create numeric age variable */
+  
+  DROP 
+    A_brief_description_of_the_circu 
+    URL_of_image_of_victim 
+    Link_to_news_article_or_photo_of; 
+    /* drop longer variable to save space so the file fits on GitHub */
+    /* Size went from 100 MB to 6.7 MB without these 3 vars */
+RUN;
+
+
 PROC PRINT DATA=classdat.police (obs=10); /* print the first 10 observations */
-  VAR Victim_s_name Victim_s_age Victim_s_gender Victim_s_race VAR6;
+  VAR Victim_s_name Victim_s_age num_age Victim_s_gender Victim_s_race date;
 RUN;
 ```
 
-[Here](https://stats.idre.ucla.edu/sas/faq/how-do-i-readwrite-excel-files-in-sas/) is some additional information about reading and writing Excel files in SAS. In general, it is better to avoid working in Excel, as it is not easy to reproduce the results. Saving your data in more reproducible formats will make writing reproducible code much easier. 
+[Here](https://stats.idre.ucla.edu/sas/faq/how-do-i-readwrite-excel-files-in-sas/) is some additional information about reading and writing Excel files in SAS. In general, it is better to avoid working in Excel, as it is not easy to reproduce the results (and Excel is horrible about dates and times, among other issues). Saving your data in more reproducible formats will make writing reproducible code much easier. 
 
 ### Try it out {- .tryitout}
 
@@ -699,7 +718,7 @@ ODS GRAPHICS OFF;
 
 #### Try it out {- .tryitout}
 
-One of the datasets we read in above records incidents of police violence around the country. Explore the variables present in [this dataset](sas/police.sas7bdat). Note that some variables may be too messy to handle with the things that you have seen thus far - that is ok. As you find irregularities, document them - these are things you may need to clean up in the dataset before you conduct a formal analysis.
+One of the datasets we read in above records incidents of police violence around the country. Explore the variables present in [this dataset](data/police_violence.xlsx) (see code in the spreadsheets section to read it in). Note that some variables may be too messy to handle with the things that you have seen thus far - that is ok. As you find irregularities, document them - these are things you may need to clean up in the dataset before you conduct a formal analysis.
 
 It is useful to memorize the SAS PROC options you use most frequently, but it's also a good idea to reference the SAS documentation - it provides a list of all viable options for each procedure, and generally has decent examples to show how those options are used.
 
@@ -708,36 +727,44 @@ It is useful to memorize the SAS PROC options you use most frequently, but it's 
 libname classdat "/home/susan/Projects/Class/unl-stat850/2020-stat850/sas/";
 
 ODS GRAPHICS ON;
-
-DATA tmp;
-mydt = "06/11/2019";
-put mydt mmddyy10.;
-run;
-
-
-DATA classdat.police2;
-SET classdat.police;
-age = input(Victim_s_age, ?3.);
-date = input(VAR6, MMDDYY10.);
-run;
-
-PROC FREQ DATA = classdat.police2 ORDER=FREQ;
-TABLES Victim_s_gender Victim_s_race State Cause_of_death Unarmed Geography__via_Trulia_methodolog / MAXLEVELS = 10;
+PROC CONTENTS DATA = classdat.police; /* see what's in the dataset */
 RUN;
 
-PROC MEANS DATA = classdat.police2;
-VAR age; /* Only numeric variable in this set */
+PROC FREQ DATA = classdat.police ORDER=FREQ; /* Examine Freq of common vars */
+TABLES Victim_s_gender Victim_s_race State Cause_of_death 
+        Unarmed Geography__via_Trulia_methodolog / MAXLEVELS = 10;
 RUN;
 
-PROC UNIVARIATE DATA = classdat.police2;
-HISTOGRAM age date;
+PROC FREQ DATA = classdat.police ORDER=FREQ; /* Combinations of vars */
+TABLES Unarmed * Criminal_Charges_ / NOCUM NOPERCENT NOCOL NOROW MAXLEVELS=10;
+RUN;
 
+PROC MEANS DATA = classdat.police; /* Numeric variable exploration */
+VAR num_age; /* Only numeric variable in this set */
+RUN;
+
+PROC UNIVARIATE DATA = classdat.police; /* Investigating age/date info */
+HISTOGRAM num_age date;
 RUN;
 ODS GRAPHICS OFF;
-
-
 ```
 
+Oddities to note:
+- Gender - Unknown should be recoded as missing (' ')
+- Victim\_s\_race - Unknown race and Unknown Race should be recoded as missing
+- State - might need to check to make sure all states are valid (but top 10 are, at least)
+- Cause of death - sometimes, there are multiple causes. Also, varying capitalizations...
+- Geography - #N/A should be recoded as missing 
+- Criminal_Charges_ - What does No/NO mean? (would need to look up in the codebook)
+- Age - the maximum age recorded is 107, which bears some investigation... other extreme observations between 89 and 95 are also fairly interesting and could be investigated further. There are also several infants/young children included, which is horribly sad, but believable.
+- Date - PROC UNIVARIATE doesn't display date results with a meaningful format, even though format is specified.
+- 
+
+Conclusions (ok, probably obvious before this analysis):
+- It's much more likely for charges to be filed if the suspect was unarmed (but still very rare)
+- Data is relatively evenly distributed between 2013 and 2019.
+- It's fairly rare for police to kill female or transgender individuals - around 5% of all victims
+- California, Texas, and Florida, while populous, seem to have a disproportionate number of killings, especially compared to e.g. NY, which is also a high population state. To really make the state numbers meaningful, though, we'd need to know population counts. There's also an issue of accurate comparisons - some states may not report police killings with the same standards as other states. 
 </details>
 
 
