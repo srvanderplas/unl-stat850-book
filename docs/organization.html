@@ -234,7 +234,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="4.5.2" data-path="reading-data.html"><a href="reading-data.html#sqlite"><i class="fa fa-check"></i><b>4.5.2</b> SQLite</a></li>
 </ul></li>
 <li class="chapter" data-level="4.6" data-path="reading-data.html"><a href="reading-data.html#exploratory-data-analysis"><i class="fa fa-check"></i><b>4.6</b> Exploratory Data Analysis</a><ul>
-<li class="chapter" data-level="4.6.1" data-path="reading-data.html"><a href="reading-data.html#summary-statistics"><i class="fa fa-check"></i><b>4.6.1</b> Summary Statistics</a></li>
+<li class="chapter" data-level="4.6.1" data-path="reading-data.html"><a href="reading-data.html#sas-3"><i class="fa fa-check"></i><b>4.6.1</b> SAS</a></li>
+<li class="chapter" data-level="4.6.2" data-path="reading-data.html"><a href="reading-data.html#r-2"><i class="fa fa-check"></i><b>4.6.2</b> R</a></li>
 </ul></li>
 <li class="chapter" data-level="4.7" data-path="reading-data.html"><a href="reading-data.html#references-1"><i class="fa fa-check"></i><b>4.7</b> References</a></li>
 </ul></li>
@@ -505,7 +506,7 @@ Let’s examine how the colSums() function is implemented:
 <a class="sourceLine" id="cb92-20" data-line-number="20">    <span class="cf">else</span> <span class="kw">names</span>(z) &lt;-<span class="st"> </span><span class="kw">dimnames</span>(x)[[dims <span class="op">+</span><span class="st"> </span>1L]]</a>
 <a class="sourceLine" id="cb92-21" data-line-number="21">    z</a>
 <a class="sourceLine" id="cb92-22" data-line-number="22">}</a>
-<a class="sourceLine" id="cb92-23" data-line-number="23"><span class="op">&lt;</span>bytecode<span class="op">:</span><span class="st"> </span><span class="dv">0x558e9e24fbf0</span><span class="op">&gt;</span></a>
+<a class="sourceLine" id="cb92-23" data-line-number="23"><span class="op">&lt;</span>bytecode<span class="op">:</span><span class="st"> </span><span class="dv">0x55c7b8fe1360</span><span class="op">&gt;</span></a>
 <a class="sourceLine" id="cb92-24" data-line-number="24"><span class="er">&lt;</span>environment<span class="op">:</span><span class="st"> </span>namespace<span class="op">:</span>base<span class="op">&gt;</span></a></code></pre></div>
 You can see that the first 3 steps in the function are if statements to test whether the inputs are acceptable - x must be a data frame, a matrix, or an array (with 2+ dimensions). The next couple of lines test to see whether there are additional “column” dimensions (don’t worry if you don’t understand what’s going on in this code - it’s highly optimized and a bit arcane). Then, the function checks to see if x is real-valued or complex, and if it’s complex, computes the real and imaginary sums separately. The <code>.Internal(colSums(x...))</code> part is calling a C function - basically, functions written in C are faster than R because they’re compiled, so this speeds basic operations up in R. Then there are statements that transfer dimension names over to the summed object. At the end of the function, the last value computed is returned automatically (in this case, z).
 </details>
@@ -1376,7 +1377,7 @@ The trick to this problem is to realize that inside of the function, when a vari
 <a class="sourceLine" id="cb116-5" data-line-number="5"><span class="st">  </span><span class="kw">xml_parent</span>() <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb116-6" data-line-number="6"><span class="st">  </span><span class="kw">html_text</span>()</a>
 <a class="sourceLine" id="cb116-7" data-line-number="7">npkgs &lt;-<span class="st"> </span>stringr<span class="op">::</span><span class="kw">str_extract</span>(txt, <span class="st">&quot;features </span><span class="ch">\\</span><span class="st">d{1,}&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span>stringr<span class="op">::</span><span class="kw">str_remove</span>(<span class="st">&quot;features &quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">as.numeric</span>()</a></code></pre></div>
-<p>Currently, the CRAN package repository features 1.580810^{4} available packages. How do you navigate them to find the one you need? Sometimes, the <a href="https://cran.r-project.org/web/views/">CRAN Task Views</a> may be helpful - for instance, if you want to see all of the packages which are useful for Meta-Analysis, Finance, Bayesian statistics, etc. Other times, it’s useful to let Google help you navigate: searching for “R CRAN” + “what you want the package to do” can often narrow things down (I recommend adding CRAN in because Google results for “R” are not particularly useful.)</p>
+<p>Currently, the CRAN package repository features 1.584210^{4} available packages. How do you navigate them to find the one you need? Sometimes, the <a href="https://cran.r-project.org/web/views/">CRAN Task Views</a> may be helpful - for instance, if you want to see all of the packages which are useful for Meta-Analysis, Finance, Bayesian statistics, etc. Other times, it’s useful to let Google help you navigate: searching for “R CRAN” + “what you want the package to do” can often narrow things down (I recommend adding CRAN in because Google results for “R” are not particularly useful.)</p>
 </div>
 <div id="sas-2" class="section level3">
 <h3><span class="header-section-number">3.5.2</span> SAS</h3>
