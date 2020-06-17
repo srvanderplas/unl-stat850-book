@@ -567,7 +567,7 @@ The trick to this problem is to realize that inside of the function, when a vari
 ### Infix operators and the pipe in R
 
 #### Note {- .note}
-You do not need to understand this section yet. If you're feeling comfortable with the material, go ahead and read it now. Otherwise, make a note of where this is, and come back to it when we start using `dplyr` and `readr`. It makes more sense to talk about this in the functions section, but you don't need it yet.
+You do not need to understand this section yet. If you're feeling comfortable with the material, go ahead and read it now. Otherwise, make a note of where this is, and come back to it when we start using `dplyr` and `readr`. It makes more sense to talk about this in the functions section, and you're welcome to read through it, but you certainly don't have to fully grasp the content.
 
 #### {-}
 
@@ -589,6 +589,13 @@ R has a number of infix functions, but you can also create your own. User-define
 You can also call default infix operators using this syntax: \`+\`(3, 4) = `r 3+4`
 
 One of the most useful infix operators is the pipe, `%>%`, which is a part of the `magrittr` library and is commonly included in other packages, such as `dplyr`, and `tidyr` (we will talk about packages later in this chapter, but pipes are useful to discuss now, so roll with it for a few minutes). 
+</details>
+
+The one part of this section that is important to at least be able to use is the pipe: `%>%`. 
+
+<div class="learn-more">
+There is an [entire chapter dedicated to discussing the pipe in R4DS](https://r4ds.had.co.nz/pipes.html), including a discussion of when not to use the pipe. 
+</div>
 
 ```{r}
 library(magrittr)
@@ -597,7 +604,7 @@ library(magrittr)
 exp(3)
 
 ```
-The pipe takes the left hand side and a function, and puts the left hand side as an argument to the function on the right hand side. It doesn't sound very impressive, but it allows you to do some very cool things: you can "chain" operations.
+The pipe takes the left hand side and a function, and puts the left hand side as an argument to the function on the right hand side. It doesn't sound very impressive, but it allows you to do a very cool thing: "chain" operations.
 
 Consider 3 functions:
 ```{r}
@@ -614,16 +621,15 @@ f3 <- function(z2) {
 }
 ```
 
-Normally, you'd write `f3(f2(f1(4)))`, which you have to read from the inside to the outside. With pipes, you can write the same operation as:
+Normally, you'd write `f3(f2(f1(4)))`, which you have to read from the inside to the outside if you want to describe what this function call is doing. With pipes, you can write the same operation as:
 ```{r}
 4 %>% f1() %>% f2() %>% f3()
 ```
 
 This is much simpler to read - it's like a recipe. "Take 4, do f1, then f2, then f3". 
 
-You don't need to know how to define your own infix operators, but you will want to become familiar with the pipe eventually. 
+You don't need to know how to define your own infix operators, but you will want to become familiar with the pipe. It's a central component of writing "tidy" R code. Incidentally, SAS also has a use for the pipe: [leveraging the operating system to work with files](https://blogs.sas.com/content/sgf/2016/03/11/using-a-pipe-to-return-the-output-of-an-operating-system-command-to-sas-software/). In SAS, you just use the keyword `pipe`, which is hopefully pretty obvious. 
 
-</details>
 
 ## Scripts
 
