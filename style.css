@@ -37,6 +37,12 @@ pre code {
   color: orange;
 }
 
+.learn-more{
+  border:2px solid lime;
+  padding:10px;
+  
+}
+
 .example{
   border:2px solid blue;
   padding:10px;
