@@ -6,7 +6,32 @@
 - Filter, subset, and clean data to prepare a dataset for analysis
 - Describe and document operations performed on a data set transparently, and implement the operations using reproducible steps.
 
-## Filter
+In this section, we're going to start out by learning how to work with data. Generally speaking, data doesn't come in a form suitable for analysis - you have to clean it up, create the variables you care about, get rid of those you don't care about, and so on. 
+
+In R, we'll be using the `tidyverse` for this. It's a meta-package (a package that just loads other packages) that [collects packages designed with the same philosophy^[The philosophy includes a preference for pipes, ] and API (basically, the commands will use predictable argument names and structure). You've already been introduced to the tidyverse - specifically, `readr`. 
+
+In SAS, there is no tidyverse, but there is a relatively consistent structure for how to accomplish each task. Most data cleaning in SAS is accomplished in data steps. In the interests of not confusing terms too much between languages, I'm going to use the tidyverse "verbs" to describe operations in both SAS and R. 
+
+`dplyr` (one of the packages in the tidyverse) creates a "grammar of data manipulation" to make it easier to describe different operations. I find the `dplyr` grammar to be extremely useful when talking about data operations, so I'm going to attempt to show you how to do the same operations in R with dplyr, and in SAS (without the underlying framework). Each verb describes a common task when doing both exploratory data analysis and more formal statistical modeling. 
+
+[There is an excellent dplyr cheatsheet available from RStudio](https://github.com/rstudio/cheatsheets/blob/master/data-transformation.pdf). You may want to print it out to have a copy to reference as you work through this chapter. 
+
+## Tidy Data
+
+There are infinitely many ways to configure "messy" data, but data that is "tidy" has 3 attributes:
+
+1. Each variable has its own column
+2. Each observation has its own row
+3. Each value has its own cell
+
+We'll get more into how to work with different "messy" data configurations in the next module, but it's worth keeping rules 1 and 3 in mind while working through this module. 
+
+
+
+## Filter: Pick cases (rows) based on their values
+
+Filter 
+
 
 ## Select
 
