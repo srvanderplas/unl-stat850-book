@@ -34,26 +34,23 @@ We'll get more into how to work with different "messy" data configurations in th
 Filter allows us to work with a subset of a larger data frame, keeping only the rows we're interested in. We provide one or more logical conditions, and only those rows which meet the logical conditions are returned from `filter()`. Note that unless we store the result from `filter()` in the original object, we don't change the original. 
 
 Let's explore how it works, using the `starwars` dataset, which contains a comprehensive list of the characters in the Star Wars movies. 
+<details><summary>Data set up</summary>
 
-<details><summary>Demonstration of `filter()` in R</summary>
-```{r r-filter-data}
+This data set is included in the `dplyr` package, so we load that package and then use the `data()` function to load dataset into memory. The loading isn't complete until we actually use the dataset though... so let's print the first few rows. 
+
+```{r}
 library(dplyr)
 data(starwars)
 starwars
-
-# Get only the people
-filter(starwars, species == "Human")
-
-# Get only the people who come from Tatooine
-filter(starwars, species == "Human", homeworld == "Tatooine")
 ```
-</details>
+
+In the interests of demonstrating the process on the same data, I've exported the starwars data to a CSV file using the `readr` package.
+
+I had to remove the list-columns (films, vehicles, starships) because that format isn't supported by SAS. You can access the csv data [here](data/starwars.csv). Note that I exported the data using '.' as the NA/missing character so that it will be easy to read into SAS.
 
 ```{r starwars-data-export, eval = F}
 readr::write_csv(starwars[,1:11], "data/starwars.csv", na = '.')
 ```
-
-In the interests of demonstrating the process on the same data, I've exported the starwars data to a CSV file using the `readr` package. I had to remove the list-columns (films, vehicles, starships) because that format isn't supported by SAS. You can access the csv data [here](data/starwars.csv). Note that I exported the data using '.' as the NA/missing character so that it will be easy to read into SAS.
 
 Let's set that data up first: 
 ```{sashtml sas-setup-data}
@@ -71,30 +68,273 @@ RUN;
 ```
 
 If you want to directly load the SAS datafile, you can find it [here](sas/starwars.sas7bdat)
+</details>
 
-In SAS, as in SQL, the `filter()` operation is accomplished using the `where` clause. Multiple clauses can be connected using `and`, and compound statements can be grouped with parentheses. 
+Once the data is set up, using `filter` is actually very simple.
+
+<details><summary>Demonstration of `filter()` in R</summary>
+```{r r-filter-data}
+# Get only the people
+filter(starwars, species == "Human")
+
+# Get only the people who come from Tatooine
+filter(starwars, species == "Human", homeworld == "Tatooine")
+```
+</details>
+
+In SAS, as in SQL, the `filter()` operation is accomplished using a `where` clause. Multiple clauses can be connected using `and`, and compound statements can be grouped with parentheses. 
 <details><summary>Demonstration of `where` in SAS</summary>
-With these chunks, I am providing the SAS LOG output, because those tell us how many rows are left in the datasets. It's easier and hopefully less to read. 
-```{saslog}
+Rather than output the whole data table (which would take up a lot of space), I've linked the log file from each chunk below the chunk. 
+
+```{sashtml sas-filter1}
 libname classdat "/home/susan/Projects/Class/unl-stat850/2020-stat850/sas/";
 
 /* SAS limits dataset names to 8 characters, which is super annoying. */
 /* Sorry the names aren't descriptive... */
 
+proc printto log="other/05-filter-1.log" new; /* shows output log in bookdown */
 DATA tmp1; /* this is the out dataset */
-      /* By not having a library attached, I'm saying this is a temp dataset */
+/* By not having a library attached, SAS places this in WORK */
+/* It's a temporary dataset */
   set classdat.starwars;
   where (species = 'Human');
   run;
-  
+```
+See the log file [here](other/05-filter-1.log)
+
+```{sashtml sas-filter2}
+libname classdat "/home/susan/Projects/Class/unl-stat850/2020-stat850/sas/";
+
+proc printto log="other/05-filter-2.log" new; /* shows output log in bookdown */
 DATA tmp2; 
   set classdat.starwars;
   where (species = 'Human') and (homeworld = 'Tatooine');
   run;
 ```
+See the log file [here](other/05-filter-2.log)
+</details>
+
+#### Try it out {- .tryitout}
+
+Using the pokemon data, can you create a new data set or data frame (SAS and R, respectively) that has only water type pokemon? Can you write a filter statement that looks for any pokemon which has water type for either type1 or type2?
+
+<details><summary>R</summary>
+```{r}
+poke <- read_csv("data/pokemon_ascii.csv")
+
+filter(poke, type_1 == "Water")
+
+filter(poke, type_1 == "Water" | type_2 == "Water")
+# The conditions have to be separated by |, which means "or"
+
+```
+</details>
+
+<details><summary>SAS</summary>
+```{sashtml}
+libname classdat "/home/susan/Projects/Class/unl-stat850/2020-stat850/sas/";
+
+DATA water1;
+SET classdat.poke;
+WHERE type_1 = "Water";
+RUN;
+
+DATA water2;
+SET classdat.poke;
+WHERE (type_1 = "Water" OR type_2 = "Water");
+RUN;
+```
+
+In the interests of only showing the parts of the log that are useful, I've just pasted them into this chunk. Not reproducible, but faster to read.
+
+````
+NOTE: There were 134 observations read from the data set CLASSDAT.POKE.
+      WHERE type_1='Water';
+NOTE: The data set WORK.WATER1 has 134 observations and 49 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+NOTE: There were 153 observations read from the data set CLASSDAT.POKE.
+      WHERE (type_1='Water') or (type_2='Water');
+NOTE: The data set WORK.WATER2 has 153 observations and 49 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+````
+</details>
 
 
-## Select
+### Common filter operations
+
+In `dplyr`, there are a few helper functions which may be useful when constructing filter statements. 
+
+<details><summary>`row_number()` - this is only used inside of another dplyr function (e.g. filter). You might want to keep only even rows, or only the first 10 rows in a table.  </summary>
+```{r}
+filter(poke, (row_number() %% 2 == 0))
+# There are several pokemon who have multiple entries in the table, 
+# so the pokedex_number doesn't line up with the row number.
+```
+</details>
+
+<details><summary>`slice_max()` - this will keep the top values of a specified variable.</summary>
+
+It's like a filter statement, but it's a shortcut built to handle a common task. You could write a filter statement that would do this, but it would take a lot more code.
+```{r}
+slice_max(poke, order_by = total_points, n = 5) %>%
+  arrange(desc(total_points)) # Sort decreasing
+```
+By default, `slice_max()` returns values tied with the nth value as well, which is why our result has 6 rows. 
+```{r}
+slice_max(poke, order_by = total_points, n = 5, with_ties = F) %>%
+  arrange(desc(total_points)) # Sort decreasing
+```
+</details>
+
+
+In SAS, these same tasks require a bit more code.
+
+<details><summary>Keeping only certain rows in SAS</summary>
+
+In SAS, to use a variable, you have to define it in one data step, then make another data step in order to use that variable. But, like `dplyr`, SAS has a row number counter that we can use for this purpose. 
+```{sashtml rownumbers}
+libname classdat "/home/susan/Projects/Class/unl-stat850/2020-stat850/sas/";
+
+DATA tmp;
+SET classdat.poke;
+  rownum=_n_; /* SAS shorthand for row number */
+RUN; 
+
+DATA evenrow;
+  SET WORK.tmp;
+  WHERE MOD(rownum, 2) = 0;
+  DROP rownum; /* ditch temp variable */
+RUN;
+```
+</details>
+
+<details><summary>Top N values</summary>
+We're going to want to use PROC SORT to get the data arranged before we take the top N values. 
+According to [this](https://communities.sas.com/t5/General-SAS-Programming/if-and-where-statement-for-n/td-p/237647), we can't use `_n_` in a where statement, and the proposed solution isn't reliable. So we'll do it the long way.
+```{sashtml topnvalues, error = T}
+libname classdat "/home/susan/Projects/Class/unl-stat850/2020-stat850/sas/";
+
+PROC SORT DATA = classdat.poke 
+  OUT = pokesort;
+  BY descending total_points;
+RUN;
+
+DATA poken;
+  SET WORK.pokesort;
+  rownum = _n_;
+RUN;
+  
+DATA poken;
+  SET WORK.poken;
+  WHERE rownum <= 5;
+  DROP rownum;
+RUN;
+
+PROC PRINT DATA = poken;
+  VAR pokedex_number name status species type_1 total_points;
+RUN;
+```
+</details>
+
+In both cases, the SAS statements required to perform the task require a WHERE clause, but also a few other statements to get things working. The equivalent base R code would be about the same (though tricky in different spots) - the thing that makes the `tidyverse` philosophy so addictive is that it makes these common, everyday tasks both easy and concise (that is, few lines of code are required). 
+
+
+## Select: Pick columns
+
+Sometimes, we don't want to work with a set of 50 variables when we're only interested in 5. When that happens, we might be able to pick the variables we want by index (e.g. `df[, c(1, 3, 5)]`, or VAR statements, but that can get tedious). 
+
+In `dplyr`, the function to pick a few columns is `select()`. 
+
+There are a few parts to a `select()` statement. It's worth considering them in a bit more detail:
+
+> select(.data, ...)
+
+So as with just about every other tidyverse function, the first argument in a select statement is the data. After that, though, you can put just about anything that R can interpret. `...` means something along the lines of "put in any additional arguments that make sense in context or might be passed on to other functions". 
+
+So what can go in there? First, dplyr aims to work with standard R syntax, making it intuitive (and also, making it work with variable names instead of just variable indices).^[It accomplishes this through the magic of quasiquotation, which we will not cover in this course because it's basically witchcraft.] Most `dplyr` commands work with "bare" variable names - you don't need to put the variable name in quotes to reference it. There are a few exceptions to this rule, but they're very explicitly exceptions. 
+
+<details><summary>An exhaustive list of ways to select variables in `dplyr`</summary>
+- `var3:var5`: `select(df, var3:var5)` will give you a data frame with columns var3, anything between var3 and var 5, and var5
+
+- `!(<set of variables>)` will give you any columns that aren't in the set of variables in parentheses
+
+- `(<set of vars 1>) & (<set of vars 2>)` will give you any variables that are in both set 1 and set 2. `(<set of vars 1>) | (<set of vars 2>)` will give you any variables that are in either set 1 or set 2. 
+
+- `c()` combines sets of variables. 
+
+`dplyr` also defines a lot of variable selection "helpers" that can be used inside `select()` statements. These statements work with bare column names (so you don't have to put quotes around the column names when you use them). 
+
+- `everything()` matches all variables
+- `last_col()` matches the last variable. `last_col(offset = n)` selects the n-th to last variable.
+- `starts_with("xyz")` will match any columns with names that start with xyz. Similarly, `ends_with()` does exactly what you'd expect as well. 
+- `contains("xyz")` will match any columns with names containing the literal string "xyz". Note, `contains` does not work with regular expressions (you don't need to know what that means right now).
+- `matches(regex)` takes a regular expression as an argument and returns all columns matching that expression. 
+- `num_range(prefix, range)` selects any columns that start with prefix and have numbers matching the provided numerical range. 
+
+There are also selectors that deal with character vectors. These can be useful if you have a list of important variables and want to just keep those variables. 
+
+- `all_of(char)` matches all variable names in the character vector `char`. If one of the variables doesn't exist, this will return an error.
+- `any_of(char)` matches the contents of the character vector `char`, but does not throw an error if the variable doesn't exist in the data set. 
+
+There's one final selector - 
+
+- `where()` applies a function to each variable and selects those for which the function returns TRUE. This provides a lot of flexibility and opportunity to be creative (but I've never actually needed to use it). 
+
+</details>
+
+<details>
+<summary>Let's try these selector functions out and see what we can accomplish!</summary>
+
+```{r}
+if (!"nycflights13" %in% installed.packages()) install.packages("nycflights13")
+library(nycflights13)
+
+data(flights)
+str(flights)
+```
+
+We'll start out with the `nycflights13` package, which contains information on all flights that left a NYC airport to destinations in the US, Puerto Rico, and the US Virgin Islands. <span class="tryitout"> You might want to try out your EDA skills from the previous module to see what you can find out about the dataset. </span>
+
+
+We could get a data frame of departure information for each flight:
+```{r select-departure}
+select(flights, flight, year:day, tailnum, origin, matches("dep"))
+```
+
+Perhaps we want the plane and flight ID information to be the first columns:
+```{r select-rearrange}
+flights %>%
+  select(carrier:dest, everything())
+```
+
+Note that `everything()` won't duplicate columns you've already added.
+
+Exploring the difference between bare name selection and `all_of()`/`any_of()`
+```{r select-bare-vs-names, error = T}
+flights %>% 
+  select(carrier, flight, tailnum, matches("time"))
+
+varlist <- c("carrier", "flight", "tailnum", 
+             "dep_time", "sched_dep_time", "arr_time", "sched_arr_time", 
+             "air_time")
+
+flights %>%
+  select(all_of(varlist))
+
+varlist <- c(varlist, "whoops")
+
+flights %>%
+  select(all_of(varlist)) # this errors out b/c whoops doesn't exist
+
+flights %>%
+  select(any_of(varlist)) # this runs just fine
+```
+</details>
 
 ## Group By
 
