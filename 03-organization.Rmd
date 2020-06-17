@@ -567,11 +567,12 @@ The trick to this problem is to realize that inside of the function, when a vari
 ### Infix operators and the pipe in R
 
 #### Note {- .note}
-You do not need to understand this section yet. If you're feeling comfortable with the material, go ahead and read it now. Otherwise, make a note of where this is, and come back to it when we start using `dplyr` and `readr`. It makes more sense to talk about this in the functions section, and you're welcome to read through it, but you certainly don't have to fully grasp the content.
+You do not need to understand the collapsed section below. If you're feeling comfortable with the material, go ahead and read it now. I've left it in the functions section, because it's a topic relating to functions, but it's not essential to understand to use R (even at an advanced level)^[I had been using R for ~8 years before I ever heard the term "infix operator" - and I'd been using infix operators for a long time at that point, just without thinking about what they were.]. 
 
 #### {-}
 
 <details>
+<summary>Infix operators</summary>
 Most functions take arguments written after the function name. Can you think of any functions which work differently?
 
 **Infix** functions are functions that take arguments on both sides of the function name. Say, a + b: technically, a and b are arguments to the function +, so we could think of this as +(a, b). 
