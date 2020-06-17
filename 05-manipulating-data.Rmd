@@ -8,7 +8,7 @@
 
 In this section, we're going to start out by learning how to work with data. Generally speaking, data doesn't come in a form suitable for analysis - you have to clean it up, create the variables you care about, get rid of those you don't care about, and so on. 
 
-In R, we'll be using the `tidyverse` for this. It's a meta-package (a package that just loads other packages) that [collects packages designed with the same philosophy^[The philosophy includes a preference for pipes, ] and API (basically, the commands will use predictable argument names and structure). You've already been introduced to the tidyverse - specifically, `readr`. 
+In R, we'll be using the `tidyverse` for this. It's a meta-package (a package that just loads other packages) that [collects packages designed with the same philosophy^[The philosophy includes a preference for pipes, but this preference stems from the belief that code should be readable in the same way that text is readable.] and interface (basically, the commands will use predictable argument names and structure). You've already been introduced to the tidyverse - specifically, `readr`. 
 
 In SAS, there is no tidyverse, but there is a relatively consistent structure for how to accomplish each task. Most data cleaning in SAS is accomplished in data steps. In the interests of not confusing terms too much between languages, I'm going to use the tidyverse "verbs" to describe operations in both SAS and R. 
 
@@ -248,17 +248,17 @@ In both cases, the SAS statements required to perform the task require a WHERE c
 
 Sometimes, we don't want to work with a set of 50 variables when we're only interested in 5. When that happens, we might be able to pick the variables we want by index (e.g. `df[, c(1, 3, 5)]`, or VAR statements, but that can get tedious). 
 
-In `dplyr`, the function to pick a few columns is `select()`. 
-
-There are a few parts to a `select()` statement. It's worth considering them in a bit more detail:
+In `dplyr`, the function to pick a few columns is `select()`. The syntax from the help file (`?select`) looks deceptively simple. 
 
 > select(.data, ...)
 
 So as with just about every other tidyverse function, the first argument in a select statement is the data. After that, though, you can put just about anything that R can interpret. `...` means something along the lines of "put in any additional arguments that make sense in context or might be passed on to other functions". 
 
-So what can go in there? First, dplyr aims to work with standard R syntax, making it intuitive (and also, making it work with variable names instead of just variable indices).^[It accomplishes this through the magic of quasiquotation, which we will not cover in this course because it's basically witchcraft.] Most `dplyr` commands work with "bare" variable names - you don't need to put the variable name in quotes to reference it. There are a few exceptions to this rule, but they're very explicitly exceptions. 
+So what can go in there? 
 
 <details><summary>An exhaustive list of ways to select variables in `dplyr`</summary>
+First, dplyr aims to work with standard R syntax, making it intuitive (and also, making it work with variable names instead of just variable indices).^[It accomplishes this through the magic of quasiquotation, which we will not cover in this course because it's basically witchcraft.] Most `dplyr` commands work with "bare" variable names - you don't need to put the variable name in quotes to reference it. There are a few exceptions to this rule, but they're very explicitly exceptions. 
+
 - `var3:var5`: `select(df, var3:var5)` will give you a data frame with columns var3, anything between var3 and var 5, and var5
 
 - `!(<set of variables>)` will give you any columns that aren't in the set of variables in parentheses
@@ -298,7 +298,11 @@ data(flights)
 str(flights)
 ```
 
-We'll start out with the `nycflights13` package, which contains information on all flights that left a NYC airport to destinations in the US, Puerto Rico, and the US Virgin Islands. <span class="tryitout"> You might want to try out your EDA skills from the previous module to see what you can find out about the dataset. </span>
+We'll start out with the `nycflights13` package, which contains information on all flights that left a NYC airport to destinations in the US, Puerto Rico, and the US Virgin Islands. 
+
+::: {.tryitout}
+You might want to try out your EDA skills from the previous module to see what you can find out about the dataset, before seeing how `select()` works.
+:::
 
 
 We could get a data frame of departure information for each flight:
@@ -335,6 +339,12 @@ flights %>%
   select(any_of(varlist)) # this runs just fine
 ```
 </details>
+
+So for now, at least in R, you know how to cut your data down to size rowwise (with `filter`) and column-wise (with `select). 
+
+Unfortunately, SAS doesn't make column selection *quite* as easy. It's still not hard, but it can be tedious. 
+
+
 
 ## Group By
 
