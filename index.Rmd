@@ -18,7 +18,7 @@ knitr::opts_chunk$set(collapse = T, cache = T)
 
 ```
 
-```{r load-libraries, echo = F, message = F, warning = F}
+```{r load-libraries, echo = F, message = F, warning = F, cache = F}
 
 saspath <- "/usr/local/SASHome/SASFoundation/9.4/bin/sas_en"
 sasopts <- "-ls 75"
