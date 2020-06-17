@@ -1261,7 +1261,7 @@ In SAS DATA:
 <details>
 ```{sas doloop2}
 /* SAS DATA step example loop */
-proc printto log="saslog.log" new; /* to shows output log in bookdown */
+proc printto log="saslog.log" new; /* shows output log in bookdown */
 data A;
   do i = 1 to 10;
     put i=;
