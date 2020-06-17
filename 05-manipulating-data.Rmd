@@ -14,7 +14,8 @@ In SAS, there is no tidyverse, but there is a relatively consistent structure fo
 
 `dplyr` (one of the packages in the tidyverse) creates a "grammar of data manipulation" to make it easier to describe different operations. I find the `dplyr` grammar to be extremely useful when talking about data operations, so I'm going to attempt to show you how to do the same operations in R with dplyr, and in SAS (without the underlying framework). Each verb describes a common task when doing both exploratory data analysis and more formal statistical modeling. 
 
-[There is an excellent dplyr cheatsheet available from RStudio](https://github.com/rstudio/cheatsheets/blob/master/data-transformation.pdf). You may want to print it out to have a copy to reference as you work through this chapter. 
+<div class="learn-more">
+[There is an excellent dplyr cheatsheet available from RStudio](https://github.com/rstudio/cheatsheets/blob/master/data-transformation.pdf). You may want to print it out to have a copy to reference as you work through this chapter. </div>
 
 ## Tidy Data
 
