@@ -633,7 +633,7 @@ head(babyname, 10) # show the first 10 obs
 
 You can of course write formal queries using the DBI package, but for many databases, it's easier to do the querying in R. We'll cover both options later - the R version will be in the next module.
 
-In SAS, you can theoretically connect to SQLite databases, but there are very specific instructions for how to do that for each operating system. You'll need to acquire the [SQLite ODBC Driver](http://www.ch-werner.de/sqliteodbc/) for your operating system. You may also need to set up a DSN (Data Source Name) ([Windows](https://support.exagoinc.com/hc/en-us/articles/115005848908-Using-SQLite-Data-Sources), [Mac and Linux](https://db.rstudio.com/best-prsactices/drivers/#setting-up-database-connections-1))
+In SAS, you can theoretically connect to SQLite databases, but there are very specific instructions for how to do that for each operating system. You'll need to acquire the [SQLite ODBC Driver](http://www.ch-werner.de/sqliteodbc/) for your operating system. You may also need to set up a DSN (Data Source Name) ([Windows](https://support.exagoinc.com/hc/en-us/articles/115005848908-Using-SQLite-Data-Sources), [Mac and Linux](https://db.rstudio.com/best-prsactices/drivers/#setting-up-database-connections-1)).^[On one of my machines, I also had to make sure the file libodbc.so existed - it was named libodbc.so.1 on my laptop, so a symbolic link fixed the issue.] 
 
 Here is my .odbc.ini file as I've configured it for my Ubuntu 18.04 machine. A similar file should work for any Mac or Linux machine. In windows, you'll need to use the ODBC Data Source Administrator to set this up. 
 
