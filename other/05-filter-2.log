@@ -1,0 +1,18 @@
+NOTE: PROCEDURE PRINTTO used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+9          DATA tmp2;
+10           set classdat.starwars;
+11           where (species = 'Human') and (homeworld = 'Tatooine');
+12           run;
+
+NOTE: There were 8 observations read from the data set CLASSDAT.STARWARS.
+      WHERE (species='Human') and (homeworld='Tatooine');
+NOTE: The data set WORK.TMP2 has 8 observations and 11 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+

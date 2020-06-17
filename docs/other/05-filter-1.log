@@ -1,0 +1,20 @@
+NOTE: PROCEDURE PRINTTO used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+12         DATA tmp1; /* this is the out dataset */
+13         /* By not having a library attached, SAS places this in WORK */
+14         /* It's a temporary dataset */
+15           set classdat.starwars;
+16           where (species = 'Human');
+17           run;
+
+NOTE: There were 35 observations read from the data set CLASSDAT.STARWARS.
+      WHERE species='Human';
+NOTE: The data set WORK.TMP1 has 35 observations and 11 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
