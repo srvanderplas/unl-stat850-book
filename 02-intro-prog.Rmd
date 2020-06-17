@@ -436,6 +436,12 @@ mean(x)
 
 If you are reading in data from a file, this will cause some issues - the whole column of data will be formatted as characters. Keep an eye out for errors of this type. 
 
+Jenny Bryan has an excellent set of images to demonstrate [R data types as legos](https://twitter.com/JennyBryan/status/799639755344359426). She's released them under an open license, so I am shamelessly stealing them. 
+
+Logical vector | Factor vector | Integer and Numeric vectors
+-------------- | ------------- | --------------
+![](https://github.com/jennybc/lego-rstats/blob/master/lego-rstats_016.jpg?raw=true) | ![](https://github.com/jennybc/lego-rstats/raw/master/lego-rstats_017.jpg?raw=true) | ![](https://github.com/jennybc/lego-rstats/raw/master/lego-rstats_018.jpg?raw=true)
+
 #### {-}
 
 #### Indexing
@@ -553,6 +559,10 @@ x[1:2] # This will work
 x[[1:2]] # This won't work
 ```
 
+The lego version of a list looks like this: 
+![](https://github.com/jennybc/lego-rstats/raw/master/lego-rstats_019.jpg?raw=TRUE)
+Note that even though the vectors in the list are all the same size in this case, they don't have to be, because they're not organized in any sort of cohesive rectangle shape. 
+
 Some lists consist of named variables. These list components can be accessed either by index (as above) or by name, using the `$` operator. Names which have spaces or special characters must be enclosed in backticks (next to the 1 on the keyboard). Named components can also be accessed using the `[[ ]]` operator.
 ```{r list-name-demo, error = T}
 dog <- list(name = "Edison Vanderplas", age = 8, 
@@ -568,7 +578,9 @@ dog$`favorite toy`
 dog[["link(video)"]]
 ```
 
-Most complicated structures in R are lists. You should be able to access any of the pieces of a list using a combination of named references and indexing. 
+Most complicated structures in R are actually lists underneath. You should be able to access any of the pieces of a list using a combination of named references and indexing. 
+
+If you have trouble distinguishing between `$`, `[`, and `[[`, you're not alone. The [R for Data Science book has an excellent illustration](https://r4ds.had.co.nz/vectors.html#lists-of-condiments)
 
 You can get a sense of the structure of a list (or any other object) in R using the `str()` command. 
 
@@ -646,7 +658,13 @@ Using the list of pizza toppings above as a starting point, make your own list o
 
 #### Data frames (R only) {-}
 
-A data frame is a special type of list - one in which each element in the list is a vector of the same length. If you put these vectors side-by-side, you get a table of data that looks like a spreadsheet. When you examine the structure of a data frame, as shown below, you get each column shown in a row, with its type and  the first few values in the column. The `head()` command shows the first 6 rows of a data frame (enough to see what's there, not enough to overflow your screen).
+A data frame is a special type of list - one in which each element in the list is a vector of the same length. If you put these vectors side-by-side, you get a table of data that looks like a spreadsheet. 
+
+The lego variant of a data frame looks like this: 
+
+![](https://github.com/jennybc/lego-rstats/raw/master/lego-rstats_020.jpg?raw=TRUE)
+
+When you examine the structure of a data frame, as shown below, you get each column shown in a row, with its type and  the first few values in the column. The `head()` command shows the first 6 rows of a data frame (enough to see what's there, not enough to overflow your screen).
 
 ```{r dataframes}
 head(mtcars) ## A data frame included in base R
@@ -714,6 +732,29 @@ state_facts$state[which.min(state_facts$PopDensity)]
 ```
 </details>
 
+##### Advanced Data Frame Topics
+
+If at this point you're bored because you've seen this material before, keep reading to find out about tibbles, list columns and other ways to make data frames even more powerful. 
+
+<details>
+<summary>Tibbles</summary>
+A tibble is a fancy data frame that is optimized to work with the `tidyverse`, which is a collection of R packages that make data wrangling (getting the data clean and ready for analysis) easier. 
+
+You can read about tibbles [here](https://r4ds.had.co.nz/tibbles.html)
+</details>
+
+<details>
+<summary>List columns</summary>
+
+Let's start with the lego picture:
+
+![](https://github.com/jennybc/lego-rstats/raw/master/lego-rstats_014.jpg?raw=TRUE)
+(The full explanation is available in slide form [here](https://speakerdeck.com/jennybc/data-rectangling?slide=17)). 
+
+A list is just another object that could be stored in a data frame! It is a "generalized vector" in that each entry in a list can be thought of as another list - so a list is really a vector of lists. List-columns make it possible to store e.g. whole data sets in a nested, organized way. Another useful feature is that each entry in a list-column doesn't have to be the same length, which makes it easier to store "ragged" data. 
+
+You can see a couple of examples [here](https://jennybc.github.io/purrr-tutorial/ls13_list-columns.html) (but they assume that you know things that you'll only learn in a few modules). 
+</details>
 
 
 #### Data Sets (SAS) {-}
