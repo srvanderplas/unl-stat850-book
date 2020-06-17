@@ -31,7 +31,67 @@ We'll get more into how to work with different "messy" data configurations in th
 
 ## Filter: Pick cases (rows) based on their values
 
-Filter 
+Filter allows us to work with a subset of a larger data frame, keeping only the rows we're interested in. We provide one or more logical conditions, and only those rows which meet the logical conditions are returned from `filter()`. Note that unless we store the result from `filter()` in the original object, we don't change the original. 
+
+Let's explore how it works, using the `starwars` dataset, which contains a comprehensive list of the characters in the Star Wars movies. 
+
+<details><summary>Demonstration of `filter()` in R</summary>
+```{r r-filter-data}
+library(dplyr)
+data(starwars)
+starwars
+
+# Get only the people
+filter(starwars, species == "Human")
+
+# Get only the people who come from Tatooine
+filter(starwars, species == "Human", homeworld == "Tatooine")
+```
+</details>
+
+```{r starwars-data-export, eval = F}
+readr::write_csv(starwars[,1:11], "data/starwars.csv", na = '.')
+```
+
+In the interests of demonstrating the process on the same data, I've exported the starwars data to a CSV file using the `readr` package. I had to remove the list-columns (films, vehicles, starships) because that format isn't supported by SAS. You can access the csv data [here](data/starwars.csv). Note that I exported the data using '.' as the NA/missing character so that it will be easy to read into SAS.
+
+Let's set that data up first: 
+```{sashtml sas-setup-data}
+libname classdat "/home/susan/Projects/Class/unl-stat850/2020-stat850/sas/";
+filename swdat "/home/susan/Projects/Class/unl-stat850/2020-stat850/data/starwars.csv";
+
+PROC IMPORT DATAFILE = swdat OUT = classdat.starwars 
+    DBMS = CSV 
+    REPLACE; 
+    GETNAMES = YES;
+RUN;
+
+PROC PRINT DATA=classdat.starwars (obs=10);
+RUN;
+```
+
+If you want to directly load the SAS datafile, you can find it [here](sas/starwars.sas7bdat)
+
+In SAS, as in SQL, the `filter()` operation is accomplished using the `where` clause. Multiple clauses can be connected using `and`, and compound statements can be grouped with parentheses. 
+<details><summary>Demonstration of `where` in SAS</summary>
+With these chunks, I am providing the SAS LOG output, because those tell us how many rows are left in the datasets. It's easier and hopefully less to read. 
+```{saslog}
+libname classdat "/home/susan/Projects/Class/unl-stat850/2020-stat850/sas/";
+
+/* SAS limits dataset names to 8 characters, which is super annoying. */
+/* Sorry the names aren't descriptive... */
+
+DATA tmp1; /* this is the out dataset */
+      /* By not having a library attached, I'm saying this is a temp dataset */
+  set classdat.starwars;
+  where (species = 'Human');
+  run;
+  
+DATA tmp2; 
+  set classdat.starwars;
+  where (species = 'Human') and (homeworld = 'Tatooine');
+  run;
+```
 
 
 ## Select
