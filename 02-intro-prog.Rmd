@@ -58,19 +58,20 @@ Both [R](https://bookdown.org/rdpeng/rprogdatascience/history-and-overview-of-r.
 
 The biggest difference between R and SAS (at a fundamental level) is that R is a [**functional** language](http://adv-r.had.co.nz/Functional-programming.html) - it consists mainly of functions, which can (and do) manipulate objects, including other functions. SAS, on the other hand, is a procedural language - most SAS programs follow a specific series of steps, known as "proc"s. Procs are essentially functions (or compositions of multiple functions), but in SAS, it is simpler to think of an analysis as a series of procedural steps; in R, there are steps, but they may be implemented in a more flexible way (depending on the analysis). Another interesting feature of SAS is that it's really several languages - some commands work in PROC IML (interactive matrix language) but not in a DATA step. When looking for help in SAS, make sure you're referencing the correct part of the language documentation.
 
+::: learn-more
 **Basic Syntax and Cheatsheets**
 
 - [SAS Cheatsheet (from another class like this)](https://sites.ualberta.ca/~ahamann/teaching/renr480/SAS-Cheat.pdf)
 - [SAS Cheatsheet (by SAS)](https://support.sas.com/content/dam/SAS/support/en/books/data/base-syntax-ref.pdf)
 - [R Cheatsheet](https://rstudio.com/wp-content/uploads/2016/10/r-cheat-sheet-3.pdf) - this is a simplified cheat sheet offered by RStudio. 
 - [R Cheatsheet (classic)](https://cran.r-project.org/doc/contrib/Short-refcard.pdf)
-- [SAS Programming for R Users (free book)]()
-
-#### {- .note}
+- [SAS Programming for R Users (free book)](https://support.sas.com/content/dam/SAS/support/en/books/free-books/sas-programming-for-r-users.pdf)
 
 I kept the classic R reference card by my computer for about 5 years, and referenced it at least once or twice a day for that entire period. There will be other cheat sheets and reference cards scattered through this book because if you can't remember something's name, you might be able to remember where it is on the reference card (or at least, that's how I learned R).
 
-#### {-}
+:::
+
+
 
 ## Variable types
 
@@ -90,15 +91,11 @@ In R, there are 4 commonly-used types:
 
 You can test to see whether a variable holds a value of a specific type using the `is.xxx()` functions, which are demonstrated below. You can convert a variable of one type to another with `as.xxx()` functions. You can test what type a variable is using `typeof()`.
 
-#### {- .note}
-Note that `<-` is used for assigning a value to a variable. So the first line in the code below is read "x gets 'R is awesome'" or "x is assigned the value 'R is awesome'". 
+::: note
+Note that `<-` is used for assigning a value to a variable. So `x <- "R is awesome"` is read "x gets 'R is awesome'" or "x is assigned the value 'R is awesome'". 
+:::
 
-#### {-}
-
-#### Demonstration of variable types: {-}
-
-##### Character Variables {-}
-<details>
+<details><summary>Character variables</summary>
 ```{r is-fcns-char}
 x <- "R is awesome"
 typeof(x)
@@ -109,8 +106,7 @@ is.double(x)
 ```
 </details>
 
-##### Logical Variables  {-}
-<details>
+<details><summary>Logical Variables</summary>
 ```{r is-fcns-lgl}
 x <- FALSE
 typeof(x)
@@ -119,13 +115,10 @@ is.logical(x)
 is.integer(x)
 is.double(x)
 ```
+It is possible to use the shorthand `F` and `T`, but be careful with this, because `F` and `T` are not reserved, and other information can be stored within them.
 </details>
 
-
-It is possible to use the shorthand `F` and `T`, but be careful with this, because `F` and `T` are not reserved, and other information can be stored within them.
-
-##### Integer Variables  {-}
-<details>
+<details><summary>Integer Variables</summary>
 ```{r is-fcns-int}
 x <- 2
 typeof(x)
@@ -150,8 +143,7 @@ is.numeric(x)
 ```
 </details>
 
-##### Double Variables  {-}
-<details>
+<details><summary>Double Variables</summary>
 ```{r is-fcns-dbl}
 x <- 2.45
 typeof(x)
@@ -163,10 +155,11 @@ is.numeric(x)
 ```
 </details>
 
-##### Numeric Variables {-}
+<details><summary>Numeric Variables</summary>
 A fifth common "type"^[`numeric` is not really a type, it's a mode. Run `?mode` for more information.], `numeric` is really the union of two types: integer and double, and you may come across it when using `str()` or `mode()`, which are similar to `typeof()` but do not quite do the same thing. The `numeric` category exists because when doing math, we can add an integer and a double, but adding an integer and a string is ... trickier. Testing for numeric variables guarantees that we'll be able to do math with those variables. `is.numeric()` and `as.numeric()` work as you would expect them to work.
 
 The general case of this property of a language is called **implicit type conversion** - that is, R will implicitly (behind the scenes) convert your integer to a double and then add the other double, so that the result is unambiguously a double. 
+</details>
 
 #### Type Conversions
 R will generally work hard to seamlessly convert variables to different types. So, for instance, 
@@ -214,6 +207,8 @@ In R, there is one other type of variable to know about, and that is a factor. F
 
 Factors are the default way to store characters for most base R functions. Or rather, they were. In R 4.0, the default way to read data in will change from `stringsAsFactors = T` to `stringsAsFactors = F`.^[You can read about why factors aren't ideal [here](https://developer.r-project.org/Blog/public/2020/02/16/stringsasfactors/index.html)]
 
+::: example
+<details><summary>Factors example</summary>
 Let's look at the names of the months:
 ```{r}
 month.name
@@ -262,12 +257,56 @@ as.character(yfact) # gets the labels
 as.numeric(as.character(yfact)) # gets the info we want
 ```
 When converting factors with numeric labels, you need to first convert the factor to a character, and then to a numeric variable. That will get the information you actually want back out.
+</details>
+:::
 
+::: tryitout
+#### Try It Out
+
+1. Create variables `string`, `integer`, `decimal`, and `logical`, with types that match the relevant variable names.
+
+```{r, eval = F}
+string <- 
+integer <- 
+decimal <- 
+logical <- 
+```
+
+2. Can you get rid of the error that occurs when this chunk is run?
+```{r try-it-out-arithmetic, eval = F}
+logical + decimal
+integer + decimal
+string + integer
+```
+
+3. What happens when you add string to string? logical to logical?
+
+
+<details><summary>Solutions</summary>
+
+```{r try-it-out-data-type-answers, error = T}
+string <- "hi, I'm a string"
+integer <- 4L
+decimal <- 5.412
+logical <- TRUE
+
+logical + decimal
+integer + decimal
+as.numeric(string) + integer
+
+"abcd" + "defg"
+TRUE + TRUE
+```
+
+In R, adding a string to a string creates an error ("non-numeric argument to binary operator"). Adding a logical to a logical, e.g. TRUE + TRUE, results in `r TRUE + TRUE`, which is a numeric value.
+</summary>
+:::
 
 ### SAS
 
 In SAS, there are two basic variable types: numeric and character variables. Thus, SAS does not differentiate between integers and floats or doubles. Functionally, though, the same basic operations can be performed in SAS. As with R, SAS does attempt to implicitly convert variable types, and will notify you that the conversion has taken place in the log file.
 
+#### Type Conversions
 SAS will attempt to implicitly convert variables when:
 
 - a character value is assigned to a previously defined numeric variable
@@ -275,8 +314,11 @@ SAS will attempt to implicitly convert variables when:
 - a character value is compared to a numeric value using a comparison operator (<, >, <=, >=)
 - a character value is specified in a function that takes numeric arguments
 
-Note that implicit conversion does not occur in WHERE statements. (This will make more sense later, but is here for reference)
+::: note
+Implicit conversion does not occur in WHERE statements. (This will make more sense later, but is here for reference)
+:::
 
+<details><summary>Manual type conversions</summary>
 If you want to manually convert a value, the INPUT statement can be used. Unlike in R, the INPUT statement has the ability to read numbers which are formatted differently. For instance
 
 ```{sashtml sas-ex}
@@ -306,57 +348,17 @@ cat(readLines("saslog.log"), sep="\n")
 # Do not forget to remove the log file when you are done!
 unlink("saslog.log")
 ```
+</details>
 
 
-### Try it out: Variable types {- .tryitout}
-
-#### In R {-}
-
-1. Create variables `string`, `integer`, `decimal`, and `logical`, with types that match the relevant variable names.
-
-```{r, eval = F}
-string <- 
-integer <- 
-decimal <- 
-logical <- 
-```
-
-2. Can you get rid of the error that occurs when this chunk is run?
-```{r try-it-out-arithmetic, eval = F}
-logical + decimal
-integer + decimal
-string + integer
-```
-
-3. What happens when you add string to string? logical to logical?
-
-#### In SAS {-}
+::: tryitout
+#### Try it out {-}
 
 1. Create variables `string1` and `string2` that each have text/character values. "Bob" and "Jane" might be good options. How does logical operation work with actual character values?
 
 2. What happens if you use `string1` and add 3 to it? 
 
-
-#### Answers {-}
-
-<details>
-
-```{r try-it-out-data-type-answers, error = T}
-string <- "hi, I'm a string"
-integer <- 4L
-decimal <- 5.412
-logical <- TRUE
-
-logical + decimal
-integer + decimal
-as.numeric(string) + integer
-
-"abcd" + "defg"
-TRUE + TRUE
-```
-
-In R, adding a string to a string creates an error ("non-numeric argument to binary operator"). Adding a logical to a logical, e.g. TRUE + TRUE, results in `r TRUE + TRUE`, which is a numeric value.
-
+<details><summary>Solutions</summary>
 ```{sashtml try-it-out-data-type-answers-sas}
 
 proc printto log="saslog.log" new;
@@ -397,6 +399,7 @@ unlink("saslog.log")
 ```
 
 </details>
+:::
 
 ## Data structures
 
@@ -410,10 +413,9 @@ nd | array (R) |
 
 In the table above, homogeneous means that all entries in the structure must be of the same type. Heterogeneous means that the entries are allowed to be of different types. 
 
-#### {- .note}
+::: note
 Figuring out what to call these types with two languages is hard - in SAS, an array is a group of columns of a data set, but in R, it's a multi-dimensional matrix. In this section, we'll discuss the generic concepts relevant to both languages. The differences between the two languages will be discussed as appropriate. As there are more similarities than differences, it's easier to do this in a single section rather than duplicating half of the content.
-
-#### {-}
+:::
 
 ### Homogeneous data structures (R and SAS)
 
@@ -426,7 +428,7 @@ c(1, 2, "a", "b", "c")
 ```
 Because there were 3 character entries, the entire vector is now a character vector.
 
-#### Watch Out {- .watchout}
+::: watchout
 This behavior can cause some errors - for instance, R does not read in numeric data formatted with commas as numeric data. You may thus get the result
 
 ```{r data-structures-homogeneous2, error = T}
@@ -435,6 +437,8 @@ mean(x)
 ```
 
 If you are reading in data from a file, this will cause some issues - the whole column of data will be formatted as characters. Keep an eye out for errors of this type. 
+:::
+
 
 Jenny Bryan has an excellent set of images to demonstrate [R data types as legos](https://twitter.com/JennyBryan/status/799639755344359426). She's released them under an open license, so I am shamelessly stealing them. 
 
@@ -442,110 +446,22 @@ Logical vector | Factor vector | Integer and Numeric vectors
 -------------- | ------------- | --------------
 ![](https://github.com/jennybc/lego-rstats/blob/master/lego-rstats_016.jpg?raw=true) | ![](https://github.com/jennybc/lego-rstats/raw/master/lego-rstats_017.jpg?raw=true) | ![](https://github.com/jennybc/lego-rstats/raw/master/lego-rstats_018.jpg?raw=true)
 
-#### {-}
+These correspond to the 1-dimensional homogeneous data structures. Similarly, models can be made for 2-dimensional and 3-dimensional homogeneous data structures^[While there are both Duplo and Lego in my house, my toddler is a lot more willing to share than my husband, so Duplo will have to do.]:
 
-#### Indexing
-
-The 1, 2, and multi-dimensional homogeneous data types should be familiar from e.g. linear algebra and calculus. Single elements of a vector can be extracted using single square brackets, e.g. `x[1]` will get the first element of the vector `x`. In a matrix, elements are indexed as row, column, so to get the (2, 2) entry of a matrix x, you would use `x[2,2]`. This is extended for multi-dimensional arrays in R, with each dimension added, e.g. `x[3,1,2]` or `x[4, 3, 2, 1]`. 
-
-To get a full row or column from a matrix (in both SAS and R) you would use `x[1,]` (get the first row) or `x[,3]` (get the 3rd column). 
-
-To select multiple rows or columns from a matrix, you would use `x[, c(1, 3)]` in R or `x[,{1 3}]` in SAS - both options get the first and third column of the matrix, with all rows of data included.
-
-In both R and SAS, `a:b` where a and b are numbers will form a sequence from `a` to `b` by 1s. So `1:4` is `r 1:4`. This is often used to get a set of rows or columns: `x[3:4, 1:2]`.
-
-```{r matrix-example}
-x <- matrix(1:20, nrow = 5, byrow = T) 
-# Create a matrix with values 1 to 20, 5 rows, and fill by row
-
-x
-
-x[3:4, 1:2]
-# Gets a submatrix 
-```
-
-In SAS, the same basic code works (though matrix definition is a bit more manual). 
-
-```{sas matrix-example-sas}
-proc iml; /* Interactive Matrix Language */
-  x = {1 2 3 4 5, 6 7 8 9 10, 11 12 13 14 15, 16 17 18 19 20};
-  y = x[3:4, 1:2];
-  print x; /* Here, print is used instead of put */
-  print y;
-quit; /* exit proc IML */
-```
-
-
-Both R and SAS are 1-indexed languages, so the elements of a list or vector are indexed as 1, 2, 3, 4, ...  ^[Most languages are 0-indexed languages: C, C++, python, Java, javascript. Vectors in these languages are indexed as 0, 1, 2, 3.  Other 1-indexed languages include FORTRAN, Matlab, Julia, Mathematica, and Lua, many of which were intended for mathematical processing or data analysis.]
-
-As R has logical vectors, it is possible to index a vector using a logical vector of the same length.
-
-#### Try it out {- .tryitout}
-
-```{r vectorindexing, exercise = TRUE}
-# From project Euler
-
-# If we list all the natural numbers below 10 that are multiples of 3 or 5, 
-#    we get 3, 5, 6 and 9. The sum of these multiples is 23.
-# Find the sum of all the multiples of 3 or 5 below 1000.
-
-
-# Hint: The modulo operator, `%%`, gives the integer remainder of one number 
-#       divided by another. So `a %% b` gives the integer remainder when 
-#       dividing `a` by `b`. Modular division is often used to find multiples 
-#       of a number. 
-```
-
-##### Answers {-}
-<details>
-
-In R: 
-```{r vectorindexing-solution}
-
-x <- 1:999 # all nums below 1000
-
-m3 <- (x %% 3) == 0 # multiple of 3
-m5 <- (x %% 5) == 0 # multiple of 5
-m3or5 <- m3 | m5
-
-sum(x[m3or5])
-
-```
-
-In SAS: 
-```{sashtml vectorindexing-solution-sas}
-data tmp;
-  do x = 1 to 999;
-  output;
-  end;
-run;
-
-proc summary data=tmp; /* Summarize data */
-  where (mod(x, 3) = 0) | (mod(x, 5) = 0); 
-  /* Keep only obs where x is divisible by 3 or 5 */
-  
-  var x; /* what variable we want the summary for */
-  
-  output out=sum_x sum=; /* output sum_x to a new dataset */
-run;
-
-proc print data = sum_x; /* print our sum_x dataset */
-run;
-```
-
-</details>
-
-#### {-}
+Vector (1D) | Matrix (2D) | Array (3D)
+----------- | ----------- | ----------
+![](image/02_green-lego-1d.png) | ![](image/02_green-lego-2d.png) | ![](image/02_green-lego-3d.png)
 
 
 ### Heterogeneous data structures
 
 The heterogeneous data types are not much harder to grasp, as they're mostly different ways to combine various homogeneous data types.
 
-#### Lists {-}
+#### Lists 
 
-A **list** is, well, a list - a sequence of potentially different-typed values. Unlike when concatenating values, the `list()` command in R allows each value to keep its natural type. You can access elements of a list using `[]` (this will extract a subset of the list items) or `[[]]`, which will extract a single item from the list.
+A **list** is, well, a list - a sequence of potentially different-typed values. Unlike when concatenating values, the `list()` command in R allows each value to keep its natural type. You can access elements of a list using `[]` (this will extract a subset of the list items) or `[[]]`, which will extract a single item from the list. (there will be more on this in the [Indexing section](#indexing) below)
 
+<details><summary>Basic List Syntax in R</summary>
 ```{r list-index-demo, error = T}
 x <- list("a", "b", "c", 1, 2, 3)
 
@@ -558,12 +474,17 @@ x[1:2] # This will work
 
 x[[1:2]] # This won't work
 ```
+</details>
 
 The lego version of a list looks like this: 
-![](https://github.com/jennybc/lego-rstats/raw/master/lego-rstats_019.jpg?raw=TRUE)
-Note that even though the vectors in the list are all the same size in this case, they don't have to be, because they're not organized in any sort of cohesive rectangle shape. 
+```{r lego-list, echo = F, out.width = "50%", fig.cap = "A list of 4 vectors. Even though the vectors in the list are all the same size in this case, they don't have to be, because they're not organized in any sort of cohesive rectangle shape. A data frame (see below) is essentially a list where all of the components are vectors or lists of the same length. "}
+knitr::include_graphics("https://github.com/jennybc/lego-rstats/raw/master/lego-rstats_019.jpg?raw=TRUE")
+```
 
-Some lists consist of named variables. These list components can be accessed either by index (as above) or by name, using the `$` operator. Names which have spaces or special characters must be enclosed in backticks (next to the 1 on the keyboard). Named components can also be accessed using the `[[ ]]` operator.
+<details><summary>Indexing in Lists</summary>
+
+Some lists (and data frames) consist of named variables. These list components can be accessed either by index (as above) or by name, using the `$` operator. Names which have spaces or special characters must be enclosed in backticks (next to the 1 on the keyboard). Named components can also be accessed using the `[[ ]]` operator.
+
 ```{r list-name-demo, error = T}
 dog <- list(name = "Edison Vanderplas", age = 8, 
             breed = "Jack Russell Terrorist", 
@@ -577,12 +498,8 @@ dog$breed
 dog$`favorite toy`
 dog[["link(video)"]]
 ```
-
-Most complicated structures in R are actually lists underneath. You should be able to access any of the pieces of a list using a combination of named references and indexing. 
-
-If you have trouble distinguishing between `$`, `[`, and `[[`, you're not alone. The [R for Data Science book has an excellent illustration](https://r4ds.had.co.nz/vectors.html#lists-of-condiments)
-
-You can get a sense of the structure of a list (or any other object) in R using the `str()` command. 
+</details>
+You can get a sense of the structure of a list (or any other object) in R using the `str()` command.
 
 ```{r list-name-str}
 
@@ -590,6 +507,7 @@ str(dog)
 
 ```
 
+<details><summary>Recursive lists</summary>
 Lists can also contain other lists. When accessing a list-within-a-list, just add another index or name reference (see below). 
 
 ```{r}
@@ -613,8 +531,10 @@ essential_toppings
 yummy_toppings <- c(grocery_list$dairy[c(1, 2, 4)], grocery_list$meat[1], grocery_list[[5]][c(3, 5)])
 yummy_toppings
 ```
+</details>
 
-There are also [lists in SAS IML which function similarly to lists in R](https://documentation.sas.com/?docsetId=imlug&docsetTarget=imlug_langref_sect040.htm&docsetVersion=15.1&locale=en). To create a named object in a list, precede the name with `#`. In SAS, the `$` operator can be used to get items from a list, using either 
+<details><summary>Basic List Syntax in SAS</summary>
+There are also [lists in SAS IML](https://documentation.sas.com/?docsetId=imlug&docsetTarget=imlug_langref_sect040.htm&docsetVersion=15.1&locale=en) which function similarly to lists in R. To create a named object in a list, precede the name with `#`. In SAS, the `$` operator can be used to get items from a list, using either name or numeric references. 
 
 ```{sashtml}
 proc iml;
@@ -649,21 +569,25 @@ proc iml;
 quit;
 
 ```
+</details>
 
-
-##### Try it out {- .tryitout}
-
+::: tryitout
+##### Try it out {-}
 Using the list of pizza toppings above as a starting point, make your own list of pizza toppings organized by grocery store section (approximately). Create your own vectors of yummy, essential, and ick toppings, using R and SAS.
+:::
 
 
-#### Data frames (R only) {-}
+#### Data frames (R only) 
 
 A data frame is a special type of list - one in which each element in the list is a vector of the same length. If you put these vectors side-by-side, you get a table of data that looks like a spreadsheet. 
 
-The lego variant of a data frame looks like this: 
 
-![](https://github.com/jennybc/lego-rstats/raw/master/lego-rstats_020.jpg?raw=TRUE)
+The lego version of a data frame looks like this: 
+```{r lego-df, echo = F, out.width = "50%", fig.cap = "A data frame with data frame 4 columns. A data frame is essentially a list where all of the components are vectors or lists, and are constrained to have the same length. "}
+knitr::include_graphics("https://github.com/jennybc/lego-rstats/raw/master/lego-rstats_020.jpg?raw=TRUE")
+```
 
+<details><summary>Basic Data Frame Syntax</summary>
 When you examine the structure of a data frame, as shown below, you get each column shown in a row, with its type and  the first few values in the column. The `head()` command shows the first 6 rows of a data frame (enough to see what's there, not enough to overflow your screen).
 
 ```{r dataframes}
@@ -675,22 +599,41 @@ str(mtcars)
 
 You can change column values or add new columns easily using assignment. It's also easy to access specific columns to perform summary operations.
 
+```{r dfcols-sum}
+mtcars$gpm <- 1/mtcars$mpg # gpm is sometimes used to assess efficiency
+
+summary(mtcars$gpm)
+summary(mtcars$mpg)
+```
 
 Often, it is useful to know the dimensions of a data frame. The number of rows can be obtained by using `nrow(df)` and similarly, the columns can be obtained using `ncol(df)` (or, get both with `dim()`). There is also an easy way to get a summary of each column in the data frame, using `summary()`.
 
 
 ```{r}
-mtcars$gpm <- 1/mtcars$mpg # gpm is sometimes used to assess efficiency
-
-summary(mtcars$gpm)
-summary(mtcars$mpg)
-
 summary(mtcars)
+dim(mtcars)
+nrow(mtcars)
+ncol(mtcars)
 ```
 
 Missing variables in an R data frame are indicated with NA. 
+</details>
 
-##### Try it out {- .tryitout}
+<details><summary>Creating an R data frame</summary>
+```{r}
+math_and_lsd <- data.frame(lsd_conc = c(1.17, 2.97, 3.26, 4.69, 5.83, 6.00, 6.41),
+                           test_score = c(78.93, 58.20, 67.47, 37.47, 45.65, 32.92, 29.97))
+math_and_lsd
+
+# add a column - character vector
+math_and_lsd$subjective <- c("finally coming back", "getting better", "it's totally better", "really tripping out", "is it over?", "whoa, man", "I can taste color, but I can't do math")
+
+math_and_lsd
+```
+</details>
+
+::: tryitout
+##### Try it out {-}
 
 The dataset `state.x77` contains information on US state statistics in the 1970s. By default, it is a matrix, but we can easily convert it to a data frame, as shown below. 
 
@@ -712,7 +655,7 @@ head(state_facts)
 
 3. Calculate the average population density of each state (population per square mile) and store it in a new column `PopDensity`. Using the R reference card, can you find functions that you can combine to get the state with the minimum population density?
 
-<details>
+<details><summary>Solutions</summary>
 ```{r}
 # 3 ways to get rows and columns
 str(state_facts)
@@ -731,8 +674,9 @@ state_facts$PopDensity <- state_facts$Population * 1e3/state_facts$Area
 state_facts$state[which.min(state_facts$PopDensity)]
 ```
 </details>
+:::
 
-##### Advanced Data Frame Topics
+##### Advanced Data Frames: Tibbles and List-columns {-}
 
 If at this point you're bored because you've seen this material before, keep reading to find out about tibbles, list columns and other ways to make data frames even more powerful. 
 
@@ -740,11 +684,11 @@ If at this point you're bored because you've seen this material before, keep rea
 <summary>Tibbles</summary>
 A tibble is a fancy data frame that is optimized to work with the `tidyverse`, which is a collection of R packages that make data wrangling (getting the data clean and ready for analysis) easier. 
 
-You can read about tibbles [here](https://r4ds.had.co.nz/tibbles.html)
+[You can read about tibbles [here](https://r4ds.had.co.nz/tibbles.html).]{.learn-more}
 </details>
 
 <details>
-<summary>List columns</summary>
+<summary>You like data frames? Lists? Let's put some lists inside a data frame! (All about list columns)</summary>
 
 Let's start with the lego picture:
 
@@ -753,9 +697,11 @@ Let's start with the lego picture:
 
 A list is just another object that could be stored in a data frame! It is a "generalized vector" in that each entry in a list can be thought of as another list - so a list is really a vector of lists. List-columns make it possible to store e.g. whole data sets in a nested, organized way. Another useful feature is that each entry in a list-column doesn't have to be the same length, which makes it easier to store "ragged" data. 
 
+::: learn-more
 You can see a couple of examples [here](https://jennybc.github.io/purrr-tutorial/ls13_list-columns.html) (but they assume that you know things that you'll only learn in a few modules). 
-</details>
+:::
 
+</details>
 
 #### Data Sets (SAS) {-}
 
@@ -763,10 +709,12 @@ The SAS data set structure is similar to a R data frame.
 
 ![This is a schematic of a data set as taken from the SAS documentation](https://documentation.sas.com/api/docsets/basess/9.4/content/images/data-fit.png)
 
-The biggest difference is that in SAS, missing values are indicated with `.`.
+In SAS, missing values are indicated with `.`.
 
 SAS datasets also come with a description which is attached to the table. The descriptor portion of the data set records names of variables (and attributes), numbers of observations, and date/time stamps of creation and updates.
 
+<details><summary>Creating a SAS data set</summary>
+In the next code chunk, we'll create a data set using a SAS Data step. We'll talk more about the anatomy of a SAS command later, but for now, notice that I'm specifying some metadata (the title), telling SAS what the variable names are (Drugs, Score), and then providing some data (indicated by the datalines statement). 
 ```{sashtml mj-data-step}
 /* Data source: http://blog.yhat.com/posts/7-funny-datasets.html */
 data mathMJ;
@@ -790,8 +738,110 @@ run;
 proc print data = mathMJ;
 run;
 ```
+The last two blocks are SAS procedures (PROCs). In the first block, I'm asking SAS to describe the contents of the mathMJ dataset. In the second block, I'm telling SAS to print the whole mathMJ dataset out. 
+
+</details>
+
+### Indexing
+
+The 1, 2, and multi-dimensional homogeneous data types should be familiar from e.g. linear algebra and calculus. Single elements of a vector can be extracted using single square brackets, e.g. `x[1]` will get the first element of the vector `x`. In a matrix, elements are indexed as row, column, so to get the (2, 2) entry of a matrix x, you would use `x[2,2]`. This is extended for multi-dimensional arrays in R, with each dimension added, e.g. `x[3,1,2]` or `x[4, 3, 2, 1]`. 
+
+To get a full row or column from a matrix (in both SAS and R) you would use `x[1,]` (get the first row) or `x[,3]` (get the 3rd column). 
+
+To select multiple rows or columns from a matrix, you would use `x[, c(1, 3)]` in R or `x[,{1 3}]` in SAS - both options get the first and third column of the matrix, with all rows of data included.
+
+In both R and SAS, `a:b` where a and b are numbers will form a sequence from `a` to `b` by 1s. So `1:4` is `r 1:4`. This is often used to get a set of rows or columns: `x[3:4, 1:2]`.
+
+<details><summary>R matrix example</summary>
+```{r matrix-example}
+x <- matrix(1:20, nrow = 5, byrow = T) 
+# Create a matrix with values 1 to 20, 5 rows, and fill by row
+
+x
+
+x[3:4, 1:2]
+# Gets a submatrix 
+```
+</details>
+
+<details><summary>SAS matrix example</summary>
+In SAS, the same basic code works (though matrix definition is a bit more manual). 
+
+```{sas matrix-example-sas}
+proc iml; /* Interactive Matrix Language */
+  x = {1 2 3 4 5, 6 7 8 9 10, 11 12 13 14 15, 16 17 18 19 20};
+  y = x[3:4, 1:2];
+  print x; /* Here, print is used instead of put */
+  print y;
+quit; /* exit proc IML */
+```
+</details>
+
+Both R and SAS are 1-indexed languages, so the elements of a list or vector are indexed as 1, 2, 3, 4, ...  ^[Most languages are 0-indexed languages: C, C++, python, Java, javascript. Vectors in these languages are indexed as 0, 1, 2, 3.  Other 1-indexed languages include FORTRAN, Matlab, Julia, Mathematica, and Lua, many of which were intended for mathematical processing or data analysis.]
+
+As R has logical vectors, it is possible to index a vector using a logical vector of the same length.
+
+<div class="tryitout">
+##### Try it out {-}
+(From project Euler)
+
+If we list all the natural numbers below 10 that are multiples of 3 or 5,
+   we get 3, 5, 6 and 9. The sum of these multiples is 23.
+Find the sum of all the multiples of 3 or 5 below 1000.
 
 
+Hint: The modulo operator, `%%`, gives the integer remainder of one number
+      divided by another. So `a %% b` gives the integer remainder when
+      dividing `a` by `b`. Modular division is often used to find multiples
+      of a number.
+
+<details><summary>R solution</summary>
+```{r vectorindexing-solution}
+
+x <- 1:999 # all nums below 1000
+
+m3 <- (x %% 3) == 0 # multiple of 3
+m5 <- (x %% 5) == 0 # multiple of 5
+m3or5 <- m3 | m5
+
+sum(x[m3or5])
+```
+</details>
+
+<details><summary>SAS solution</summary>
+```{sashtml vectorindexing-solution-sas}
+data tmp;
+  do x = 1 to 999;
+  output;
+  end;
+run;
+
+proc summary data=tmp; /* Summarize data */
+  where (mod(x, 3) = 0) | (mod(x, 5) = 0); 
+  /* Keep only obs where x is divisible by 3 or 5 */
+  
+  var x; /* what variable we want the summary for */
+  
+  output out=sum_x sum=; /* output sum_x to a new dataset */
+run;
+
+proc print data = sum_x; /* print our sum_x dataset */
+run;
+```
+</details>
+</div>
+</div>
+
+Most complicated structures in R are actually lists underneath. You should be able to access any of the pieces of a list using a combination of named references and indexing. 
+
+If you have trouble distinguishing between `$`, `[`, and `[[`, you're not alone. The [R for Data Science book has an excellent illustration](https://r4ds.had.co.nz/vectors.html#lists-of-condiments), which I will summarize for you here in abbreviated form (pictures directly lifted from the book). 
+
+<details>
+<summary>R4DS indexing illustration</summary>
+`x` | `x[1]` | `x[[1]]` | `x[[1]][[1]]`
+--- | ------ | -------- | -------------
+![](image/02_pepper.jpg) | ![](image/pepper-1.jpg) | ![](image/pepper-2.jpg) | ![](image/pepper-3.jpg)
+</details>
 
 
 ## Control structures
@@ -800,11 +850,11 @@ run;
 
 If statements are just about as simple in programming as they are in real life. 
 
-
-```{r, fig.cap = "[Source](https://xkcd.com/1652/)", echo = F}
+```{r, fig.cap = "[Source](https://xkcd.com/1652/). I've actually met some programmers who talk like this in real life.", fig.align = "center", echo = F}
 knitr::include_graphics("https://imgs.xkcd.com/comics/conditionals.png")
 ```
 
+<details><summary>General structure of an if statement</summary>
 In general, the structure of an if statement is 
 
 ````
@@ -850,17 +900,16 @@ if (condition) {
   }
 }
 ````
+
 That is, `condition 2` is only checked once it is known that `condition` is false. Often, programmers use logic flow maps, like the one shown below, to map out a logical sequence and ensure that every possible value is handled appropriately.
 
 ![If statement flow diagram, from wikimedia commons](https://upload.wikimedia.org/wikipedia/commons/c/c5/If-Then-Else-diagram.svg)
+</details>
 
+<details><summary>Example: If/then logic in SAS and R</summary>
+The syntax for conditional statements using if/then logic is shown below using an example where Santa must determine which members of a household will receive a toy for Christmas and which members will receive coal. ^[Traditionally, naughty children get coal, while nice children get toys or candy.]
 
-The syntax for conditional statements using if/then logic is shown below using an example where Santa must determine which members of a household will receive a toy for Christmas and which members will receive coal. ^[Traditionally, naughty children got coal, while nice children got toys or candy.]
-
-#### Example {- .example}
-
-In R:
-<details>
+<details><summary>In R</summary>
 ```{r}
 tmp <- data.frame(name = c("Alex", "Edison", "Susan", "Ryan"),
                   status = c("naughty", "nice", NA, "neutral"),
@@ -897,9 +946,7 @@ tmp
 ```
 </details>
 
-In SAS:
-<details>
-
+<details><summary>In SAS</summary>
 In a data step:
 ```{sashtml}
 data santa;
@@ -1009,13 +1056,12 @@ run;
 
 Now things work the way we expected them to work.
 </details>
-
-#### {-}
+</details>
 
 There are more complicated if-statement like control structures, such as switch statements, which can save time and typing. In the interests of simplicity, we will skip these for now, as any conditional can be implemented with sequences of if statements in the proper order. If you would like to read about switch statements, here are links to [SAS case statement documentation](https://documentation.sas.com/?docsetId=sqlproc&docsetTarget=n0a85s0ijz65irn1h3jtariooea5.htm&docsetVersion=9.4&locale=en) and [base R switch statement explanation](https://www.tutorialgateway.org/r-switch-statement/) and [documentation](https://www.rdocumentation.org/packages/base/versions/3.6.2/topics/switch).
 
-#### Try it out {- .tryitout}
-
+<div class="tryitout">
+##### Try it out {-}
 The `sample()` function selects a random sample of entries from a vector. Suppose we sample a random vector $x$ with 10 entries. Write one or more if statements to fulfill the following conditions
 
 - if $x$ is divisible by 2, $y$ should be positive; otherwise, it should be negative.
@@ -1068,10 +1114,7 @@ proc print data = tmpsum; /* print our tmpsum dataset */
 run;
 ````
 
-Solutions
-<details>
-
-R Solution
+<details><summary>R Solution</summary>
 ```{r}
 set.seed(342502837)
 x <- sample(1:50, size = 20, replace = F)
@@ -1082,8 +1125,8 @@ y <- y_sign * y_mag
 
 sum(x * y)
 ```
-
-SAS Solution
+</details>
+<details><summary>SAS Solution</summary>
 
 ```{sashtml}
 proc iml;
@@ -1128,8 +1171,7 @@ run;
 
 See [this](https://www.oreilly.com/library/view/sas-certification-prep/9781607649243/p12osnn9d1s4hgn12yf8ffocxhw7.htm) to understand how the print statement works and how to add column summary values. 
 </details>
-
-#### {-}
+</div>
 
 ### Loops
 Often, we need to do a single task many times - for instance, we may need to calculate the average data value for each week, using daily data. Rather than typing out 52 different iterations of the same code, it is likely easier to type out one single block of code which contains the steps necessary to complete one instance of the task, and then leverage variables to ensure that each task is completed the correct number of times, using the correct inputs.
@@ -1149,9 +1191,7 @@ We use the `loop_invocation` function to indicate what type of loop we use. We h
 
 In a for loop, the steps in the loop body repeat a specified number of times. That is, *for* each value in a sequence, the steps within the loop are repeated. 
 
-##### {- .example}
-Example: Santa and if/else + loops in R (plus some debugging strategies)
-<details>
+<details><summary>Example: Santa and if/else + loops in R (plus some debugging strategies)</summary>
 For instance, suppose we want to revisit our R Santa example from the previous section. The original if/else code we wrote in R didn't work, because R evaluates if statements using a single (scalar or vector of length 1) condition. If we add a loop around that code, we can evaluate only one row at a time. We need to check every row, so we'll iterate over `1:nrow(tmp)` - it's better to get the upper bound from the data frame, rather than just using 4 - if we add another entry, the code will still work if we're using `nrow(tmp)` to define how many iterations we need.
 
 We start by defining our data frame:
@@ -1229,14 +1269,12 @@ tmp
 Now the if/else logic works exactly as intended. This is longer than the version using `ifelse()`, but it is perhaps more readable. 
 
 </details>
-##### {-}
 
 In most cases in R and SAS, it is possible to write code without needing loops at all, because both languages are vector-based - they will often use **vectorized** functions which implicitly loop over each row without having to write a loop to do so. `ifelse()` is a vectorized version of `if() {} else {}`. 
 
 Here is an example of the most basic for loop logic - printing the numbers 1 through 10 - in both R and SAS. SAS code is provided for both PROC IML and DATA steps.
 
-In R:
-<details>
+<details><summary>For loops in R</summary>
 ```{r forloop}
 # R Example loop
 for (i in 1:10) {
@@ -1245,8 +1283,7 @@ for (i in 1:10) {
 ```
 </details>
 
-In SAS IML:
-<details>
+<details><summary>"For loops" in SAS IML (using `do`)</summary>
 ```{sas doloop1}
 /* SAS IML example loop */
 proc iml;
@@ -1257,8 +1294,7 @@ quit;
 ```
 </details>
 
-In SAS DATA:
-<details>
+<details><summary>"For loops" in a SAS DATA step</summary>
 ```{sas doloop2}
 /* SAS DATA step example loop */
 proc printto log="saslog.log" new; /* shows output log in bookdown */
@@ -1283,8 +1319,7 @@ Another explanation of for loops is available at
 
 While the most straighforward (and common) case of for-loop use in practice is to count from 1 to N, both R and SAS allow for loops to use other sequence structures.
 
-In R:
-<details>
+<details><summary>Other sequences in loops in R</summary>
 
 R allows loops to occur over any vector... even randomly generated numbers, or nonnumeric vectors (say, a character vector of URLs).
 ```{r}
@@ -1305,8 +1340,7 @@ for (i in seq(5, 0, -.5)) {
 ```
 </details>
 
-In SAS:
-<details>
+<details><summary>Other sequence structures in SAS for loops</summary>
 We can iterate by non-integer values:
 ```{sas}
 proc printto log="saslog.log" new; /* to shows output log in bookdown */
@@ -1342,14 +1376,12 @@ cat(readLines("saslog.log"), sep="\n")
 # Do not forget to remove the log file when you are done!
 unlink("saslog.log")
 ```
-
 </details>
 
 
+::: tryitout
+##### Try it out (in R) {-}
 
-##### Try it out {- .tryitout}
-
-###### In R: {-}
 The `beepr` package plays sounds in R to alert you when your code has finished running (or just to annoy your friends and classmates). ([Documentation](https://www.r-project.org/nosvn/pandoc/beepr.html))
 You can install the package using the following command:
 ```{r, eval = F}
@@ -1366,8 +1398,21 @@ beep(sound = 1) # sound is any integer between 1 and 10.
 
 It may be helpful to add the command `Sys.sleep(5)` into your loop to space out the noises so that they can be heard individually.
 
+<details><summary>Solution</summary>
+```{r, eval = F}
+library(beepr)
 
-###### In SAS: {-}
+for (i in 1:10) {
+  beep(sound = i)
+  Sys.sleep(5)
+}
+
+```
+</details>
+:::
+
+::: tryitout
+##### Try it out (in SAS) {-}
 
 Write a for loop which will output the first 30 [fibbonacci numbers](https://en.wikipedia.org/wiki/Fibonacci_number). You can use the following code as a starting point:
 
@@ -1381,21 +1426,7 @@ quit;
 
 ````
 
-R Solution:
-<details>
-```{r, eval = F}
-library(beepr)
-
-for (i in 1:10) {
-  beep(sound = i)
-  Sys.sleep(5)
-}
-
-```
-</details>
-
-SAS Solution:
-<details>
+<details><summary>Solution</summary>
 
 ```{sas}
 /* SAS IML example loop */
@@ -1413,11 +1444,7 @@ quit;
 
 ```
 </details>
-
-
-##### {-}
-
-
+:::
 
 #### Condition-controlled loops (WHILE, DO WHILE)
 
@@ -1429,9 +1456,7 @@ Example: Let's solve the [Basel problem](https://en.wikipedia.org/wiki/Basel_pro
 
 We'll stick to calculating it computationally.
 
-
-In R:
-<details>
+<details><summary>In R</summary>
 
 ```{r basel-problem}
 # Start out by defining your starting values outside of the loop
@@ -1460,8 +1485,7 @@ prev_basel_value
 ```
 </details>
 
-in SAS:
-<details>
+<details><summary>In SAS</summary>
 ```{sas}
 proc iml;
   i = 1;
@@ -1493,7 +1517,8 @@ quit;
 
 Another explanation of while loops is available at [Khan Academy](https://www.khanacademy.org/computing/ap-computer-science-principles/programming-101/repetition-with-loops/a/conditional-repetition-of-instructions?modal=1).
 
-##### Try it out {- .tryitout}
+::: tryitout
+##### Try it out {-}
 
 Write a while loop in R and in SAS to calculate $\displaystyle \lim_{x \rightarrow 4} \frac{2 - \sqrt{x}}{4-x}$ by starting at 3 and halving the distance to 4 with each iteration. Exit the loop when you are within 1e-6 of the value computed on the previous iteration, or when you are within 1e-6 from 4. Which exit condition did you hit first? How do you know?
 
@@ -1535,6 +1560,7 @@ quit;
 
 ```
 </details>
+:::
 
 #### Other Loops and Interative Structures
 
@@ -1547,8 +1573,6 @@ While R and SAS are both extremely powerful statistical programming languages, t
 
 In this section, we will essentially be using both R and SAS as overgrown calculators.
 
-### Basic numerical operations
-
 | Operation | R | SAS | 
 | :--------- | :- | :--- |
 | Addition | + | + |
@@ -1560,8 +1584,7 @@ In this section, we will essentially be using both R and SAS as overgrown calcul
 | Matrix Exponentiation | ^ | \*\* |
 | Matrix Transpose | `t(A)` | `A\\`` |
 
-R demo:
-<details>
+<details><summary>R basic mathematical operators</summary>
 ```{r}
 # transpose these to make row vectors to match SAS
 x <- t(1:10)
@@ -1576,8 +1599,7 @@ t(x) %*% y
 ```
 </details>
 
-SAS demo:
-<details>
+<details><summary>SAS basic mathematical operators</summary>
 By default, SAS creates row vectors with `do(a, b, by = c)` syntax. The transpose operator (a single backtick) can be used to transform `A` into `A`\`. 
 ```{sashtml}
 proc iml;
@@ -1598,7 +1620,7 @@ quit;
 
 Other matrix operations, such as determinants and extraction of the matrix diagonal, are similarly easy:
 
-R: <details>
+<details><summary>R matrix operations</summary>
 ```{r}
 mat <- matrix(c(1, 2, 3, 6, 4, 5, 7, 8, 9), nrow = 3, byrow = T)
 t(mat) # transpose
@@ -1608,7 +1630,7 @@ diag(diag(mat)) # get a square matrix with off-diag 0s
 diag(1:3) # diag() also will create a diagonal matrix if given a vector
 ```
 </details>
-SAS: <details>
+<details><summary>SAS matrix operations</summary>
 ```{sashtml}
 proc iml;
   mat = {1 2 3, 6 4 5, 7 8 9};
@@ -1627,8 +1649,7 @@ quit;
 
 The other important matrix-related function is the inverse. In R, `A^-1` will get you the elementwise reciprocal of the matrix. Not exactly what we'd like to see... Instead, in both languages, we use the `solve()` function. The inverse is defined as the matrix B such that `AB = I` where `I` is the identity matrix (1's on diagonal, 0's off-diagonal). So if we `solve(A)` (in R) or `solve(A, diag(n))` in SAS (where n is a vector of 1s the size of A), we will get the inverse matrix.
 
-R: 
-<details>
+<details><summary>Invert a matrix in R</summary>
 ```{r}
 mat <- matrix(c(1, 2, 3, 6, 4, 5, 7, 8, 9), nrow = 3, byrow = T)
 
@@ -1639,8 +1660,7 @@ mat %*% minv
 ```
 </details>
 
-SAS: 
-<details>
+<details><summary>Invert a matrix in SAS</summary>
 [Documentation](https://documentation.sas.com/?docsetId=imlug&docsetTarget=imlug_langref_sect208.htm&docsetVersion=14.2&locale=en)
 ```{sashtml}
 proc iml;
@@ -1657,7 +1677,8 @@ quit;
 ```
 </details>
 
-## References and Links {-}
+
+## References and Links {- .learn-more}
 Non-exhaustive list of general R and SAS references used in this chapter:
 
 - SAS Matrix reference: http://www.math.wpi.edu/saspdf/iml/chap4.pdf
