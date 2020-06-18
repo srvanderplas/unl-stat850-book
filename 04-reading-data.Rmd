@@ -733,7 +733,7 @@ ODS GRAPHICS OFF;
 
 The plot here is called a scatterplot matrix. It contains histograms on the diagonal, and pairwise scatterplots on off-diagonals. It can be useful for spotting strong correlations among multiple variables which may affect the way you build a model. 
 
-#### Try it out {- .tryitout}
+#### Try it out {- .tryitout #police-violence-eda-sas}
 
 One of the datasets we read in above records incidents of police violence around the country. Explore the variables present in [this dataset](data/police_violence.xlsx) (see code in the spreadsheets section to read it in). Note that some variables may be too messy to handle with the things that you have seen thus far - that is ok. As you find irregularities, document them - these are things you may need to clean up in the dataset before you conduct a formal analysis.
 
@@ -790,10 +790,9 @@ In SAS, EDA is fairly straightforward - you use specific procedures for each dat
 
 In R, you put your whole order together from the a la carte menu. That is, R will give you all of the same summary information (and possibly more), but you have to assemble a series of commands to get each portion. This can be more efficient (since you don't have to wade through pages of output to get the piece you want) but may take a bit more coding as well.
 
-#### {- .note}
+::: note
 In this section, I will mostly be using the plot commands that come with base R and require no extra packages. The R for Data Science book shows plot commands which use the `ggplot2` library. We will learn this library later in this class - it produces beautiful plots - and if you want to use it at this point, you may. It requires a bit more thought as to how to specify the plot, though, which may not be desireable.
-
-#### {-}
+:::
 
 The first, and most basic EDA command in R is `summary()`. For numeric variables, `summary` provides 5-number summaries plus the mean. For categorical variables, `summary` provides the length of the variable and the Class and Mode. For factors, `summary` provides a table of the most common values, as well as a catch-all "other" category. 
 
@@ -855,11 +854,9 @@ hist(poke$generation, breaks = 0:8) # Much better.
 
 For continuous variables, we can use histograms, or we can examine kernel density plots. 
 
-#### {- .note}
-
+::: .note
 Remember that `%>%` is the "pipe" and takes the left side of the pipe to pass as an argument to the right side. This makes code easier to read because it becomes a step-wise "recipe". 
-
-#### {-}
+:::
 
 ```{r, out.width = "48%"}
 library(magrittr) # This provides the pipe command, %>%
@@ -914,7 +911,7 @@ pairs(poke[,19:23]) # hp - sp_defense columns
 
 [There's more information on how to customize these plots here](http://www.sthda.com/english/wiki/scatter-plot-matrices-r-base-graphs). 
 
-#### Try it out {- .tryitout}
+#### Try it out {- .tryitout #police-violence-eda-r}
 
 Explore the variables present in [the police violence data](data/police_violence.xlsx) (see code in the spreadsheets section to read it in). Note that some variables may be too messy to handle with the things that you have seen thus far - that is ok. As you find irregularities, document them - these are things you may need to clean up in the dataset before you conduct a formal analysis.
 
