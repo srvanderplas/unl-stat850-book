@@ -12,7 +12,7 @@ In R, we'll be using the `tidyverse` for this. It's a meta-package (a package th
 
 In SAS, there is no tidyverse, but there is a relatively consistent structure for how to accomplish each task. Most data cleaning in SAS is accomplished in data steps. In the interests of not confusing terms too much between languages, I'm going to use the tidyverse "verbs" to describe operations in both SAS and R. 
 
-`dplyr` (one of the packages in the tidyverse) creates a "grammar of data manipulation" to make it easier to describe different operations. I find the `dplyr` grammar to be extremely useful when talking about data operations, so I'm going to attempt to show you how to do the same operations in R with dplyr, and in SAS (without the underlying framework). Each verb describes a common task when doing both exploratory data analysis and more formal statistical modeling. 
+`dplyr` (one of the packages in the tidyverse) creates a "grammar of data manipulation" to make it easier to describe different operations. I find the `dplyr` grammar to be extremely useful when talking about data operations, so I'm going to attempt to show you how to do the same operations in R with dplyr, and in SAS (without the underlying framework). Each verb describes a common task when doing both exploratory data analysis and more formal statistical modeling. In all tidyverse functions, data comes first -- literally, as it's the first argument to any function. In addition, you don't use df$variable to access a variable - you refer to the variable by its name alone. This makes the syntax much cleaner and easier to read, which is another principle of the tidy philosophy. 
 
 <div class="learn-more">
 [There is an excellent dplyr cheatsheet available from RStudio](https://github.com/rstudio/cheatsheets/blob/master/data-transformation.pdf). You may want to print it out to have a copy to reference as you work through this chapter. </div>
@@ -119,14 +119,13 @@ See the log file [here](other/05-filter-2.log)
 Using the pokemon data, can you create a new data set or data frame (SAS and R, respectively) that has only water type pokemon? Can you write a filter statement that looks for any pokemon which has water type for either type1 or type2?
 
 <details><summary>R</summary>
-```{r}
+```{r, message = F}
 poke <- read_csv("data/pokemon_ascii.csv")
 
 filter(poke, type_1 == "Water")
 
 filter(poke, type_1 == "Water" | type_2 == "Water")
 # The conditions have to be separated by |, which means "or"
-
 ```
 </details>
 
@@ -399,6 +398,94 @@ RUN;
 ```
 </details>
 For the most part, that is what you need to functionally replicate `select()` syntax. It may be a bit more work because there aren't the same convenience functions, but it'll do and you don't have to remember as many keywords, so that's a plus. 
+
+## Mutate: Add and transform variables
+
+Up to this point, we've been primarily focusing on how to decrease the dimensionality of our dataset in various ways. But frequently, we also need to add columns for derived measures (e.g. BMI from weight and height information), change units, and replace missing or erroneous observations. The tidyverse verb for this is `mutate`. However, it's probably best to start this section out with a very short demonstration of how this process worked in R before the tidyverse came around.
+
+<details><summary>Pre-tidyverse base R "mutating" a data frame</summary>
+Lets use the police violence data to demonstrate. Remember the issues you identified with the data during EDA in Module 4 ([in SAS](#police-violence-eda-sas))([in R](#police-violence-eda-r))?
+
+The `gsub` function is basically R's version of "find and replace". 
+
+```{r}
+library(readxl)
+police_violence <- read_xlsx("data/police_violence.xlsx", guess_max = 7000)
+
+# There are two categories for "unknown race"
+table(police_violence$`Victim's race`, useNA = 'ifany')
+
+# This line substitutes "race" for "Race" so that there's consistent capitalization
+police_violence$race <- gsub("Race", "race", police_violence$`Victim's race`)
+
+# Fixed!
+table(police_violence$race)
+```
+
+You could do a simple operation like that in a single line, but you had to use the name of the data multiple times, and it very quickly becomes a complicated operation. 
+</details>
+
+The process in SAS is very similar. It's recommended that you use one data step to read in your data, and then a separate data step to clean the data, so that you are separating the two operations. 
+
+<details><summary>SAS - create a new variable</summary>
+We can create our variable a couple of different ways in SAS: 
+- Use the [TRANWRD function](https://v8doc.sas.com/sashtml/lgref/z0215027.htm) for find and replace.
+- Use an if statement and define the replacement ourselves
+
+Both are demonstrated below:
+```{sashtml}
+libname classdat "/home/susan/Projects/Class/unl-stat850/2020-stat850/sas/";
+/* Police violence data already in the library */
+
+DATA pvtmp;
+  SET classdat.police;
+  race = tranwrd(victim_s_race, "Race", "race");
+  race2 = victim_s_race; /* initialize it to current value */
+  IF victim_s_race='Unknown Race' THEN race2 = 'Unknown race';
+RUN;
+
+PROC FREQ DATA = pvtmp ORDER=FREQ; /* Combinations of vars */
+TABLES victim_s_race * race victim_s_race * race2 / 
+  NOCUM NOPERCENT NOCOL NOROW MAXLEVELS=10;
+RUN;
+```
+In both cases we can see that the recode worked the way we wanted and we've now gotten rid of the extra "unknown" category". 
+</details>
+
+In `dplyr`, the verb for this process is `mutate`, as mentioned above. The fundamentals of `mutate` are very similar to the approaches above; the power of the dplyr approach is only really evident when you are doing multiple operations in the same step. Once you're working at that level, the `dplyr` approach produces much more readable code. 
+
+<details><summary>`mutate()` a new variable</summary>
+```{r}
+# The data was read in above...
+library(dplyr)
+police_violence %>% 
+  mutate(race = gsub("Race", "race", `Victim's race`)) %>%
+  select(`Victim's race`, race) %>%
+  table()
+```
+The last 2 rows are just to organize the output - we keep only the two variables we're working with, and get a crosstab like PROC FREQ gave us in SAS. 
+</details>
+
+The learning curve here isn't actually knowing how to use mutate (though that's important). The challenge comes when you want to do something *new* and have to figure out how to e.g. use find and replace, or work with dates and times, or recode variables. I'm not going to be able to teach you how to handle every task you'll come across (people invent new ways to screw up data all the time!) but my goal is instead to teach you how to read documentation and google things intelligently, and to _understand what you're reading_ enough to actually implement it. This is something that comes with practice (and lots of googling, stack overflow searches, etc.). It's actually something of a common meme...
+
+```{r, echo = F}
+if(!"tweetrmd"%in%installed.packages()) devtools::install_github("gadenbuie/tweetrmd")
+if(!"webshot2"%in%installed.packages()) devtools::install_github("rstudio/webshot2")
+library(tweetrmd) # github.com/gadenbuie/tweetrmd
+library(memoise) # cache screenshots
+tweet_cached <- memoise(tweet_embed, cache = cache_filesystem('.tweets'))
+tweet_shot_cached <- memoise(tweet_screenshot, cache = cache_filesystem('.tweets'))
+
+tweet_screenshot(tweet_url("cszhu", "1230954186520461312"))
+tweet_screenshot(tweet_url("grubes14", "1168946210868269057"))
+```
+
+I'm going to do my best to expose you to some of the solutions to common problems and even point you in the right direction, but I'm intentionally *not* formally teaching you some of these things, because part of learning how to program is learning how to read documentation and other resources to figure things out. It would be relatively easy to teach you how to do a set list of tasks, but you'll be better statisticians and programmers if you learn the skills to solve any niche problem on your own. 
+
+```{r, echo = F, fig.cap = "Apologies for the noninclusive language, but the sentiment is real, even if not stated in an inclusive way."}
+
+tweet_screenshot(tweet_url("abt_programming", "459414524303785984"))
+```
 
 ## Group By
 
