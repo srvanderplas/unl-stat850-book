@@ -632,6 +632,63 @@ This is much simpler to read - it's like a recipe. "Take 4, do f1, then f2, then
 You don't need to know how to define your own infix operators, but you will want to become familiar with the pipe. It's a central component of writing "tidy" R code. Incidentally, SAS also has a use for the pipe: [leveraging the operating system to work with files](https://blogs.sas.com/content/sgf/2016/03/11/using-a-pipe-to-return-the-output-of-an-operating-system-command-to-sas-software/). In SAS, you just use the keyword `pipe`, which is hopefully pretty obvious. 
 
 
+
+## Procs  and Data steps
+In R, the primary unit of code is a function, and nearly every operation in R is a function call, but the functions themselves are malleable and can be easily re-written. SAS is not that flexible - its procedures have been checked and double-checked and maintained for 30 years (in many cases). That level of validation explains its popularity in e.g. the pharmaceutical industry or government, but it does lead to a certain rigidity in the "flow" of a SAS data analysis. Personally, I find that using SAS generally doesn't require much thought, but I quickly get frustrated when it's not possible to do the exact thing I want to do in a direct or relatively easy way. 
+
+The primary units of code in SAS are "steps", and come in two main flavors: data steps, and proc steps. Data steps are written by the user and customized extensively to the dataset you're creating or reading in. Proc steps, on the other hand, execute mainly pre-defined procedures that are built into SAS. Thus far, you've seen DATA steps and PROC PRINT and IML. In the next module, you'll see PROC IMPORT, PROC MEANS, PROC CORR, PROC SUMMARY, PROC FREQ, and PROC UNIVARIATE. 
+
+There is a handy [overview of the SAS language](https://stats.idre.ucla.edu/sas/library/sas-libraryoverview-of-the-sas-language/) that may be useful in understanding the code that you've only been reading and copying up to this point. 
+
+The bare SAS procedure with no options looks like this:
+```
+PROC MEANS;
+RUN;
+```
+By default, SAS will use the last dataset created to run this procedure. 
+
+SAS procedures can also be run with options that modify the statement. 
+```{sashtml}
+PROC PRINT DATA=SASHELP.CARS (obs=10);
+RUN;
+
+PROC MEANS DATA=SASHELP.CARS;
+RUN;
+```
+In the code above, both `DATA=SASHELP.CARS` and `(obs=10)` are options that modify their respective statements. 
+
+Some procs also support additional statements: for instance, we can use the VAR statement to tell SAS which variables we want to work with. 
+```{sashtml}
+PROC MEANS DATA=SASHELP.CARS;
+  VAR msrp cylinders;
+RUN;
+```
+Another statement, CLASS, tells SAS to run the procedure for each level of a named categorical variable. 
+```{sashtml}
+PROC MEANS DATA=SASHELP.CARS;
+  CLASS type;
+  VAR msrp cylinders;
+RUN;
+```
+
+Some statements may have additional options that further modify the statement. 
+
+The SAS documentation contains full lists of all statements (and all options for those statements). 
+
+::: tryitout
+Take a look at the [Dictionary of SAS DATA step statements](https://documentation.sas.com/?docsetId=lestmtsref&docsetTarget=p0gct6ariiecuhn15jkq8pzfzgef.htm&docsetVersion=9.4&locale=en). Find the RENAME statement and read up on its syntax. Can you rename the variable msrp in the SASHELP.CARS dataset?
+```
+DATA tmp; /* Create a temporary dataset */
+  SET SASHELP.CARS; /* use the CARS data */
+  
+  /* Your RENAME statement goes here */
+
+RUN;
+```
+:::
+
+There is an overview of many common SAS procedures [here](https://stats.idre.ucla.edu/sas/library/sas-libraryoverview-of-sas-procedures/). 
+
 ## Scripts
 
 Up until this point, you may have been writing code in an R Studio or SAS text editor window, or, you may have been typing commands into the command line without preserving them in a separate file. You might even have been working in R markdown documents, where you had code and non-code chunks of the file.
@@ -692,7 +749,7 @@ In SAS, there are also packages of code that encapsulate scripts. However, unlik
 A more common way of distributing code in SAS seems to be through the use of single-file macros. (Even longtime SAS users don't necessarily know about the package system). These macros often need to be slightly customized to your environment (or you need to customize your environment to match the assumptions made in the macro, which can be harder). 
 
 
-## References
+## References and Links {.learn-more -}
 
 - A more advanced take on functions in R can be found [here](http://adv-r.had.co.nz/Functions.html) (Advanced R chapter)
 - There is also a handy cheat sheet style summary of PROC IML in SAS [here](https://www.iuj.ac.jp/faculty/kucc625/sas/sas_iml.html) and some useful demonstrations of simple tasks in IML [here](https://faculty.tarleton.edu/crawford/documents/Math5364/ProcIMLandMacros.txt). 
