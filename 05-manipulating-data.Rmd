@@ -340,11 +340,65 @@ flights %>%
 ```
 </details>
 
-So for now, at least in R, you know how to cut your data down to size rowwise (with `filter`) and column-wise (with `select). 
+So for now, at least in R, you know how to cut your data down to size rowwise (with `filter`) and column-wise (with `select`). 
 
-Unfortunately, SAS doesn't make column selection *quite* as easy. It's still not hard, but it can be tedious. 
+Unfortunately, SAS doesn't make column selection *quite* as easy. It's still not hard, but it can be tedious. In SAS, there are two primary methods to select variables: KEEP selects variables, DROP removes variables. 
 
+```{r, eval = F}
+# Export flights data for SAS
+flights %>%
+  sample_frac(size = .25) %>% # Keep file from being too big
+write_csv("data/flights.csv", na = ".")
+```
 
+```
+/* Read in data */
+libname classdat "/home/susan/Projects/Class/unl-stat850/2020-stat850/sas/";
+filename fileloc '~/Projects/Class/unl-stat850/2020-stat850/data/flights.csv';
+PROC IMPORT  datafile = fileloc out=classdat.flights
+  DBMS = csv; /* comma delimited file */
+  GETNAMES = YES;
+RUN;
+```
+
+In SAS, a partial variable name either preceded or followed by `:` serves as  a wildcard.
+Ranges of variables can be specified with two dashes, e.g. `var3 -- var5`. 
+
+<details><summary>SAS KEEP statement</summary> 
+Unfortunately, the wildcard doesn't work on both ends, so to get the equivalent of `matches("dep")`, we have to use two different options in our KEEP statement (plus the extra variables that don't have dep in them).
+
+```{sashtml}
+
+libname classdat "/home/susan/Projects/Class/unl-stat850/2020-stat850/sas/";
+
+DATA tmpfly;
+  KEEP flight year--day tailnum origin dep: sched_dep:;
+  SET classdat.flights;
+RUN;
+
+PROC PRINT DATA = tmpfly (obs=10); 
+RUN;
+
+```
+Note also that SAS doesn't reorder the columns for us like `select()` does. 
+</details>
+
+If we'd prefer to carve out columns (rather than assembling a new dataset with the columns we want to keep), we can use a DROP statement, which works exactly the same way. Let's see what columns we removed implicitly last time by dropping everything we'd previously kept:
+
+<details><summary>SAS DROP statement</summary>
+```{sashtml sas-select-drop}
+libname classdat "/home/susan/Projects/Class/unl-stat850/2020-stat850/sas/";
+
+DATA tmpfly;
+  DROP flight year--day tailnum origin dep: sched_dep:;
+  SET classdat.flights;
+RUN;
+
+PROC PRINT DATA = tmpfly (obs=10); 
+RUN;
+```
+</details>
+For the most part, that is what you need to functionally replicate `select()` syntax. It may be a bit more work because there aren't the same convenience functions, but it'll do and you don't have to remember as many keywords, so that's a plus. 
 
 ## Group By
 
