@@ -14,8 +14,9 @@ description: "Introductions to statistical computing packages and document prepa
 # Introduction {-}
 
 ```{r setup, echo = F}
+library(magrittr)
+library(knitr)
 knitr::opts_chunk$set(collapse = T, cache = T)
-
 ```
 
 ```{r load-libraries, echo = F, message = F, warning = F, cache = F}
@@ -27,4 +28,23 @@ knitr::opts_chunk$set(engine.path=list(sas=saspath, saslog=saspath, sashtml=sasp
                       comment=NA)
 library(SASmarkdown)
 
+```
+
+```{r, include = F}
+.pkgkeeplist <- c("package:stats","package:graphics","package:grDevices","package:utils","package:datasets","package:methods","package:base", "package:SASmarkdown", "package:rmarkdown", "package:knitr", "package:magrittr")
+
+.objkeeplist <- c(".pkgkeeplist", ".objkeeplist", ".reset", "saspath", "sasopts")
+
+.reset <- function() {
+  basic.packages <- .pkgkeeplist
+
+  package.list <- search()[ifelse(unlist(gregexpr("package:",search()))==1,TRUE,FALSE)]
+
+  package.list <- setdiff(package.list,basic.packages)
+  
+  obj.list <- setdiff(ls(), .objkeeplist)
+
+  if (length(package.list)>0)  for (package in package.list) detach(package, character.only=TRUE)
+  rm(list = obj.list)
+}
 ```
