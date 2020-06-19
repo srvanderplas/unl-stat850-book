@@ -129,8 +129,8 @@ filter(poke, type_1 == "Water" | type_2 == "Water")
 ```
 </details>
 
-<details><summary>SAS</summary>
-```{sashtml}
+<details><summary>SAS DATA Step</summary>
+```{sashtml sas-filter-datastep}
 libname classdat "/home/susan/Projects/Class/unl-stat850/2020-stat850/sas/";
 
 DATA water1;
@@ -163,6 +163,34 @@ NOTE: DATA statement used (Total process time):
 ````
 </details>
 
+<details><summary>SAS PROC SQL</summary>
+
+At this point, you've seen the traditional SAS Data step options, but there is another SAS PROC that may be more useful (and more similar to `dplyr`). `dplyr` was developed to provide SQL-like syntax while enabling the use of more advanced computations than are supported in SQL. While SAS doesn't have anything quite the same as `dplyr`, it does have [PROC SQL](https://documentation.sas.com/?docsetId=sqlproc&docsetTarget=p07v6ho0hymhfvn1jboqfe38jnox.htm&docsetVersion=9.4&locale=en). In SQL, as in the SAS DATA step, `filter()` operations are performed using the keyword `WHERE`. 
+
+To limit the output I'm going to cheat a bit and use SELECT statements before I officially teach them to you - this is mostly so you don't get a table with all 49 variables in it. Similarly, I'm limiting the dataset to the first 5 observations that meet the condition so that we don't have to see *all* the water type pokemon. 
+```{sashtml sas-filter-sql-intro, warn = T, error = T}
+libname classdat "/home/susan/Projects/Class/unl-stat850/2020-stat850/sas/";
+
+PROC SQL;
+SELECT pokedex_number, name, type_1, type_number FROM classdat.poke (obs=5)
+WHERE type_1 = "Water";
+```
+
+If we want to store the output of our query to a new table, we can do that by starting our query with CREATE TABLE <table name> AS - this creates a table with our results. 
+
+```{sashtml sas-filter-sql-intro2}
+libname classdat "/home/susan/Projects/Class/unl-stat850/2020-stat850/sas/";
+
+PROC SQL;
+CREATE TABLE aquapoke AS
+SELECT pokedex_number, name, type_1, type_2, type_number FROM classdat.poke
+WHERE (type_1 = "Water" OR type_2 = "Water");
+
+PROC PRINT DATA=aquapoke (obs=10);
+RUN;
+```
+
+</details>
 
 ### Common filter operations
 
@@ -173,6 +201,13 @@ In `dplyr`, there are a few helper functions which may be useful when constructi
 filter(poke, (row_number() %% 2 == 0))
 # There are several pokemon who have multiple entries in the table, 
 # so the pokedex_number doesn't line up with the row number.
+```
+</details>
+
+
+<details><summary>`arrange()` - sort rows in the table by one or more variables</summary>
+```{r}
+arrange(poke, desc(total_points))
 ```
 </details>
 
@@ -189,9 +224,7 @@ slice_max(poke, order_by = total_points, n = 5, with_ties = F) %>%
   arrange(desc(total_points)) # Sort decreasing
 ```
 </details>
-
-
-In SAS, these same tasks require a bit more code.
+In SAS, these same tasks can sometimes require a bit more code.
 
 <details><summary>Keeping only certain rows in SAS</summary>
 
@@ -240,7 +273,53 @@ RUN;
 ```
 </details>
 
-In both cases, the SAS statements required to perform the task require a WHERE clause, but also a few other statements to get things working. The equivalent base R code would be about the same (though tricky in different spots) - the thing that makes the `tidyverse` philosophy so addictive is that it makes these common, everyday tasks both easy and concise (that is, few lines of code are required). 
+In both cases, the SAS statements required to perform the task require a WHERE clause, but also a few other statements to get things working. The equivalent base R code would be about the same (though tricky in different spots).
+
+[The thing that makes the `tidyverse` philosophy so addictive is that it makes these common, everyday tasks both easy and concise (that is, few lines of code are required). ]{.my-opinion}
+
+<details><summary>PROC SQL filter statements </summary>
+SQL doesn't have an intrinsic notion of ordered rows, so in order to select even rows, we need to create a temporary dataset with `_n_` copied into a variable (just like last time).
+```{sashtml filter-sql-1}
+libname classdat "/home/susan/Projects/Class/unl-stat850/2020-stat850/sas/";
+
+DATA poke;
+  SET classdat.poke;
+  rownum=_n_; 
+RUN; 
+
+PROC SQL;
+SELECT * FROM poke(obs=5)
+WHERE mod(rownum, 2) = 0;
+```
+
+SELECT \* says to select all variables. We'll talk about SELECT in the next section, but with SQL it's not reqlly possible to avoid using SELECT. 
+
+If we want the 5 pokemon with the highest total points, we can use ORDER BY to sort the table, and then specify that we only want 5 rows. 
+
+```{sashtml sas-filter-sql-2, error = F, warn = F, warning = F}
+libname classdat "/home/susan/Projects/Class/unl-stat850/2020-stat850/sas/";
+
+PROC SQL;
+SELECT pokedex_number, name, status, species, type_1, total_points 
+FROM classdat.poke(obs=5)
+ORDER BY total_points DESC;
+```
+
+As a reminder, if we want to store this new data into a new dataset, we have to start our statement with CREATE TABLE <tablename> AS, and then follow the statement with our query. 
+
+```{sashtml sas-filter-sql-3}
+libname classdat "/home/susan/Projects/Class/unl-stat850/2020-stat850/sas/";
+
+PROC SQL;
+CREATE TABLE poketmp AS
+SELECT pokedex_number, name, status, species, type_1, total_points 
+FROM classdat.poke(obs=5)
+ORDER BY total_points DESC;
+
+PROC PRINT DATA=poketmp;
+RUN;
+```
+</details>
 
 
 ## Select: Pick columns
@@ -397,6 +476,42 @@ PROC PRINT DATA = tmpfly (obs=10);
 RUN;
 ```
 </details>
+
+As with the filter statements, we can also use PROC SQL instead of a SAS DATA step. There are even ways to (sort-of) use elements of both. 
+
+<details><summary>SAS PROC SQL SELECT statement </summary>
+```{sashtml sas-select-sql}
+libname classdat "/home/susan/Projects/Class/unl-stat850/2020-stat850/sas/";
+
+PROC SQL;
+CREATE TABLE tmpfly 
+AS 
+SELECT flight, year, month, day, tailnum, origin 
+FROM classdat.flights;
+
+PROC PRINT DATA = tmpfly(obs=10);
+RUN;
+```
+Note that PROC SQL doesn't have a RUN statement - it is executed immediately. But, using the PROC SQL syntax, we still have to list out all of the variables, and that's a drag. 
+
+Luckily, PROC SQL will also let us use some of the DATA step options, if we're careful about it:
+```{sashtml sas-select-sql-data}
+libname classdat "/home/susan/Projects/Class/unl-stat850/2020-stat850/sas/";
+
+PROC SQL;
+CREATE TABLE tmpfly 
+AS 
+SELECT * 
+FROM classdat.flights(drop=year--day flight tailnum origin dep: sched_dep:);
+
+PROC PRINT DATA = tmpfly(obs=10);
+RUN;
+```
+
+Note the difference - we're selecting everything (in SQL) but dropping columns when we tell SQL where to look for the data. 
+
+</details>
+
 For the most part, that is what you need to functionally replicate `select()` syntax. It may be a bit more work because there aren't the same convenience functions, but it'll do and you don't have to remember as many keywords, so that's a plus. 
 
 ## Mutate: Add and transform variables
@@ -427,15 +542,14 @@ You could do a simple operation like that in a single line, but you had to use t
 
 The process in SAS is very similar. It's recommended that you use one data step to read in your data, and then a separate data step to clean the data, so that you are separating the two operations. 
 
-<details><summary>SAS - create a new variable</summary>
+<details><summary>SAS DATA STEP - create a new variable</summary>
 We can create our variable a couple of different ways in SAS: 
 - Use the [TRANWRD function](https://v8doc.sas.com/sashtml/lgref/z0215027.htm) for find and replace.
 - Use an if statement and define the replacement ourselves
 
 Both are demonstrated below:
-```{sashtml}
+```{sashtml sas-make-new-vars}
 libname classdat "/home/susan/Projects/Class/unl-stat850/2020-stat850/sas/";
-/* Police violence data already in the library */
 
 DATA pvtmp;
   SET classdat.police;
@@ -452,7 +566,41 @@ RUN;
 In both cases we can see that the recode worked the way we wanted and we've now gotten rid of the extra "unknown" category". 
 </details>
 
-In `dplyr`, the verb for this process is `mutate`, as mentioned above. The fundamentals of `mutate` are very similar to the approaches above; the power of the dplyr approach is only really evident when you are doing multiple operations in the same step. Once you're working at that level, the `dplyr` approach produces much more readable code. 
+We can also use PROC SQL to create new variables using relatively complex logic if necessary. 
+
+<details><summary>SAS PROC SQL - create a new variable</summary>
+
+In SQL, you define new variables using AS. In SELECT statements, this definition has the computation on the left and the variable on the right^[This is equivalent to using right assignment in R with `->`, which you shouldn't do unless you have a *really* good reason, because it's hard to read.]. 
+
+CASE WHEN is the if-else statement in SQL. When (`victim_s_race` = 'Unknown Race'), our variable value will be "Unknown race", otherwise it will be what ever value is in `victim_s_race`. 
+
+```{sashtml sas-make-new-vars-sql}
+libname classdat "/home/susan/Projects/Class/unl-stat850/2020-stat850/sas/";
+/* Police violence data already in the library */
+
+PROC SQL;
+CREATE TABLE pvtmp AS 
+SELECT * ,
+CASE WHEN victim_s_race='Unknown Race' THEN 'Unknown race' ELSE victim_s_race AS race 
+FROM classdat.police;
+
+
+PROC FREQ DATA = pvtmp ORDER=FREQ; /* Combinations of vars */
+TABLES victim_s_race * race / 
+  NOCUM NOPERCENT NOCOL NOROW MAXLEVELS=10;
+RUN;
+```
+
+</details>
+
+The choice of which method to use (DATA step or PROC SQL) involves weighing these competing factors:
+- computational time
+- code readability
+- programmer time
+
+[Personally, I find PROC SQL easier to work with, but I think the code is ugly. There are similar sql-syntax packages in R, but I don't feel the need to use them, because (for me) dplyr code is much easier to read (and thus, easier to maintain). dplyr code is not as efficient as SQL (or other packages, like `data.table`) on big datasets, but there are variants such as `dbplyr` to handle some of those cases, and I find that they don't come up very often in my work or research. If I were working at Google or Amazon, my opinion might be very different]{.my-opinion}
+
+The fundamentals of `mutate` are very similar to the approaches above; the power of the dplyr approach is only really evident when you are doing multiple operations in the same step. Once you're working at that level, the `dplyr` approach produces much more readable code. 
 
 <details><summary>`mutate()` a new variable</summary>
 ```{r}
@@ -497,6 +645,73 @@ What I will do is provide you with a quick list of packages in R which will solv
   - [Regular Expressions in SAS](https://support.sas.com/resources/papers/proceedings/proceedings/sugi29/265-29.pdf)
 :::
 
-## Group By
-
 ## Summarize
+The next verb is one that we've already implicitly seen in action: `summarize` takes a data frame with potentially many rows of data and reduces it down to one row of data using some function. You have used it to get single-row summaries of vectorized data in R, and in SAS, PROC MEANS is essentially the same thing. 
+
+Here (in a trivial example), I compute the overall average age of a victim of police violence, and then also compute the average number of characters in their name. Admittedly, that last computation is a bit silly, but it's mostly for demonstration purposes. 
+
+```{r}
+police_violence %>%
+  mutate(age = as.numeric(`Victim's age`)) %>%
+  summarize(age = mean(age, na.rm = T), name_length = mean(nchar(`Victim's name`)))
+```
+
+In SAS, we can do something similar:
+```{sashtml}
+libname classdat "/home/susan/Projects/Class/unl-stat850/2020-stat850/sas/";
+
+DATA pv;
+  SET classdat.police;
+  age = INPUT(victim_s_age, 3.);
+  name_len = LENGTH(victim_s_name);
+RUN;
+
+PROC MEANS DATA=pv;
+VAR age name_len;
+RUN;
+```
+
+By default, with SAS, we get a bit more than we bargained for; we can turn the extra output off with options. 
+
+In SAS, though, there's a proc that is going to be more useful for this type of work: PROC SQL. `dplyr` is built off of SQL philosophy and is designed to let you take advantage of the power of R for doing computations (because SQL's statistical abilities are limited). Similarly, PROC SQL in SAS is going to allow you to do powerful things and then take advantage of SAS's statistical powers. 
+
+```{sashtml}
+
+libname classdat "/home/susan/Projects/Class/unl-stat850/2020-stat850/sas/";
+
+DATA pv;
+  SET classdat.police;
+  age = INPUT(victim_s_age, 3.);
+  name_len = LENGTH(victim_s_name);
+RUN;
+
+PROC SQL;
+SELECT AVG(age) as age, AVG(name_len) as name_len
+FROM pv;
+```
+
+## Group By + 
+
+Frequently, we have data that is more specific than the data we need - for instance, I may have observations of the temperature at 15-minute intervals, but I might want to record the daily high and low value. To do this, I need to
+
+1. split my dataset into smaller datasets - one for each day
+2. compute summary values for each smaller dataset
+3. put my summarized data back together into a single dataset
+
+`group_by` is the verb that accomplishes the first task. `summarize` (in the next section) accomplishes the second task and implicitly accomplishes the third as well. 
+
+Let's try it out using the `storms` dataset that is part of the `dplyr` package:
+
+```{r}
+library(dplyr)
+data(storms)
+storms
+```
+
+We have named storms, observation time, storm location, status, wind, pressure, and diameter (for tropical storms and hurricanes). 
+
+```{r}
+storms %>%
+  group_by(name)
+
+```
