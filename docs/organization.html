@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Module 3 Organization: Packages, Functions, Scripts, and Documents | Stat 850: Computing Tools for Statisticians</title>
   <meta name="description" content="Introductions to statistical computing packages and document preparation software. Topics include: graphical techniques, data management, Monte Carlo simulation, dynamic document preparation, presentation software." />
-  <meta name="generator" content="bookdown 0.19 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.19.1 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Module 3 Organization: Packages, Functions, Scripts, and Documents | Stat 850: Computing Tools for Statisticians" />
   <meta property="og:type" content="book" />
@@ -71,9 +71,9 @@
 
 
 <style type="text/css">
-code.sourceCode > span { display: inline-block; line-height: 1.25; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-code.sourceCode > span:empty { height: 1.2em; }
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode { white-space: pre; position: relative; }
 pre.sourceCode { margin: 0; }
@@ -82,16 +82,14 @@ div.sourceCode { overflow: auto; }
 }
 @media print {
 code.sourceCode { white-space: pre-wrap; }
-code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
 }
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
+pre.numberSource a.sourceLine
+  { position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+  { content: attr(data-line-number);
     position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
+    border: none; pointer-events: all; display: inline-block;
     -webkit-touch-callout: none; -webkit-user-select: none;
     -khtml-user-select: none; -moz-user-select: none;
     -ms-user-select: none; user-select: none;
@@ -100,9 +98,9 @@ pre.numberSource code > span > a:first-child::before
   }
 pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
 div.sourceCode
-  {   }
+  {  }
 @media screen {
-code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+a.sourceLine::before { text-decoration: underline; }
 }
 code span.al { color: #ff0000; font-weight: bold; } /* Alert */
 code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
@@ -243,12 +241,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="manipulating-data.html"><a href="manipulating-data.html#module-objectives-4"><i class="fa fa-check"></i>Module Objectives</a></li>
 <li class="chapter" data-level="5.1" data-path="manipulating-data.html"><a href="manipulating-data.html#tidy-data"><i class="fa fa-check"></i><b>5.1</b> Tidy Data</a></li>
 <li class="chapter" data-level="5.2" data-path="manipulating-data.html"><a href="manipulating-data.html#filter-pick-cases-rows-based-on-their-values"><i class="fa fa-check"></i><b>5.2</b> Filter: Pick cases (rows) based on their values</a><ul>
-<li class="chapter" data-level="5.2.1" data-path="manipulating-data.html"><a href="manipulating-data.html#common-filter-operations"><i class="fa fa-check"></i><b>5.2.1</b> Common filter operations</a></li>
+<li class="chapter" data-level="5.2.1" data-path="manipulating-data.html"><a href="manipulating-data.html#common-filter-tasks"><i class="fa fa-check"></i><b>5.2.1</b> Common Filter() Tasks</a></li>
 </ul></li>
 <li class="chapter" data-level="5.3" data-path="manipulating-data.html"><a href="manipulating-data.html#select-pick-columns"><i class="fa fa-check"></i><b>5.3</b> Select: Pick columns</a></li>
 <li class="chapter" data-level="5.4" data-path="manipulating-data.html"><a href="manipulating-data.html#mutate-add-and-transform-variables"><i class="fa fa-check"></i><b>5.4</b> Mutate: Add and transform variables</a></li>
-<li class="chapter" data-level="5.5" data-path="manipulating-data.html"><a href="manipulating-data.html#group-by"><i class="fa fa-check"></i><b>5.5</b> Group By</a></li>
-<li class="chapter" data-level="5.6" data-path="manipulating-data.html"><a href="manipulating-data.html#summarize"><i class="fa fa-check"></i><b>5.6</b> Summarize</a></li>
+<li class="chapter" data-level="5.5" data-path="manipulating-data.html"><a href="manipulating-data.html#summarize"><i class="fa fa-check"></i><b>5.5</b> Summarize</a></li>
+<li class="chapter" data-level="5.6" data-path="manipulating-data.html"><a href="manipulating-data.html#group-by-power"><i class="fa fa-check"></i><b>5.6</b> Group By + (?) = Power!</a></li>
 </ul></li>
 <li class="chapter" data-level="6" data-path="transforming-data.html"><a href="transforming-data.html"><i class="fa fa-check"></i><b>6</b> Transforming Data</a><ul>
 <li class="chapter" data-level="" data-path="transforming-data.html"><a href="transforming-data.html#module-objectives-5"><i class="fa fa-check"></i>Module Objectives</a></li>
@@ -446,12 +444,12 @@ The general forms of these statements are as follows:
 The only difference between the RUN and CALL statements is the order of resolution.</code></pre>
 <p><a href="https://support.sas.com/rnd/app/iml/programming.html">Source: SAS function reference</a></p>
 <p>Let’s try functions out by writing a simple function that takes two numbers as arguments and adds them together.</p>
-<div class="sourceCode" id="cb91"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb91-1"><a href="organization.html#cb91-1"></a>adder &lt;-<span class="st"> </span><span class="cf">function</span>(a, b) {</span>
-<span id="cb91-2"><a href="organization.html#cb91-2"></a>  <span class="kw">return</span>(a <span class="op">+</span><span class="st"> </span>b)</span>
-<span id="cb91-3"><a href="organization.html#cb91-3"></a>}</span>
-<span id="cb91-4"><a href="organization.html#cb91-4"></a></span>
-<span id="cb91-5"><a href="organization.html#cb91-5"></a><span class="kw">adder</span>(<span class="dv">3</span>, <span class="dv">4</span>)</span>
-<span id="cb91-6"><a href="organization.html#cb91-6"></a>[<span class="dv">1</span>] <span class="dv">7</span></span></code></pre></div>
+<div class="sourceCode" id="cb91"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb91-1" data-line-number="1">adder &lt;-<span class="st"> </span><span class="cf">function</span>(a, b) {</a>
+<a class="sourceLine" id="cb91-2" data-line-number="2">  <span class="kw">return</span>(a <span class="op">+</span><span class="st"> </span>b)</a>
+<a class="sourceLine" id="cb91-3" data-line-number="3">}</a>
+<a class="sourceLine" id="cb91-4" data-line-number="4"></a>
+<a class="sourceLine" id="cb91-5" data-line-number="5"><span class="kw">adder</span>(<span class="dv">3</span>, <span class="dv">4</span>)</a>
+<a class="sourceLine" id="cb91-6" data-line-number="6">[<span class="dv">1</span>] <span class="dv">7</span></a></code></pre></div>
 <pre class="sashtml"><code>proc IML;
 
   start adder(a, b);
@@ -495,30 +493,30 @@ c
 <p>Of course, it’s not just important to be able to write your own functions. It’s also helpful to be able to see how functions are written, both to explore how a method is implemented and for debugging purposes. In SAS, this is generally not an option, because SAS is closed source, but in R, you can see the code behind any function which is implemented in R (it is harder to see functions implemented in C or C++, but not impossible) by typing the function name (no parentheses) into the command prompt.</p>
 <details>
 <p><summary>Let’s examine how the colSums() function is implemented</summary></p>
-<div class="sourceCode" id="cb93"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb93-1"><a href="organization.html#cb93-1"></a>colSums</span>
-<span id="cb93-2"><a href="organization.html#cb93-2"></a><span class="cf">function</span> (x, <span class="dt">na.rm =</span> <span class="ot">FALSE</span>, <span class="dt">dims =</span> 1L) </span>
-<span id="cb93-3"><a href="organization.html#cb93-3"></a>{</span>
-<span id="cb93-4"><a href="organization.html#cb93-4"></a>    <span class="cf">if</span> (<span class="kw">is.data.frame</span>(x)) </span>
-<span id="cb93-5"><a href="organization.html#cb93-5"></a>        x &lt;-<span class="st"> </span><span class="kw">as.matrix</span>(x)</span>
-<span id="cb93-6"><a href="organization.html#cb93-6"></a>    <span class="cf">if</span> (<span class="op">!</span><span class="kw">is.array</span>(x) <span class="op">||</span><span class="st"> </span><span class="kw">length</span>(dn &lt;-<span class="st"> </span><span class="kw">dim</span>(x)) <span class="op">&lt;</span><span class="st"> </span>2L) </span>
-<span id="cb93-7"><a href="organization.html#cb93-7"></a>        <span class="kw">stop</span>(<span class="st">&quot;&#39;x&#39; must be an array of at least two dimensions&quot;</span>)</span>
-<span id="cb93-8"><a href="organization.html#cb93-8"></a>    <span class="cf">if</span> (dims <span class="op">&lt;</span><span class="st"> </span>1L <span class="op">||</span><span class="st"> </span>dims <span class="op">&gt;</span><span class="st"> </span><span class="kw">length</span>(dn) <span class="op">-</span><span class="st"> </span>1L) </span>
-<span id="cb93-9"><a href="organization.html#cb93-9"></a>        <span class="kw">stop</span>(<span class="st">&quot;invalid &#39;dims&#39;&quot;</span>)</span>
-<span id="cb93-10"><a href="organization.html#cb93-10"></a>    n &lt;-<span class="st"> </span><span class="kw">prod</span>(dn[id &lt;-<span class="st"> </span><span class="kw">seq_len</span>(dims)])</span>
-<span id="cb93-11"><a href="organization.html#cb93-11"></a>    dn &lt;-<span class="st"> </span>dn[<span class="op">-</span>id]</span>
-<span id="cb93-12"><a href="organization.html#cb93-12"></a>    z &lt;-<span class="st"> </span><span class="cf">if</span> (<span class="kw">is.complex</span>(x)) </span>
-<span id="cb93-13"><a href="organization.html#cb93-13"></a>        <span class="kw">.Internal</span>(<span class="kw">colSums</span>(<span class="kw">Re</span>(x), n, <span class="kw">prod</span>(dn), na.rm)) <span class="op">+</span><span class="st"> </span>(<span class="dv">0</span><span class="op">+</span>1i) <span class="op">*</span><span class="st"> </span></span>
-<span id="cb93-14"><a href="organization.html#cb93-14"></a><span class="st">            </span><span class="kw">.Internal</span>(<span class="kw">colSums</span>(<span class="kw">Im</span>(x), n, <span class="kw">prod</span>(dn), na.rm))</span>
-<span id="cb93-15"><a href="organization.html#cb93-15"></a>    <span class="cf">else</span> <span class="kw">.Internal</span>(<span class="kw">colSums</span>(x, n, <span class="kw">prod</span>(dn), na.rm))</span>
-<span id="cb93-16"><a href="organization.html#cb93-16"></a>    <span class="cf">if</span> (<span class="kw">length</span>(dn) <span class="op">&gt;</span><span class="st"> </span>1L) {</span>
-<span id="cb93-17"><a href="organization.html#cb93-17"></a>        <span class="kw">dim</span>(z) &lt;-<span class="st"> </span>dn</span>
-<span id="cb93-18"><a href="organization.html#cb93-18"></a>        <span class="kw">dimnames</span>(z) &lt;-<span class="st"> </span><span class="kw">dimnames</span>(x)[<span class="op">-</span>id]</span>
-<span id="cb93-19"><a href="organization.html#cb93-19"></a>    }</span>
-<span id="cb93-20"><a href="organization.html#cb93-20"></a>    <span class="cf">else</span> <span class="kw">names</span>(z) &lt;-<span class="st"> </span><span class="kw">dimnames</span>(x)[[dims <span class="op">+</span><span class="st"> </span>1L]]</span>
-<span id="cb93-21"><a href="organization.html#cb93-21"></a>    z</span>
-<span id="cb93-22"><a href="organization.html#cb93-22"></a>}</span>
-<span id="cb93-23"><a href="organization.html#cb93-23"></a><span class="op">&lt;</span>bytecode<span class="op">:</span><span class="st"> </span><span class="dv">0x55e7c2e93d78</span><span class="op">&gt;</span></span>
-<span id="cb93-24"><a href="organization.html#cb93-24"></a><span class="er">&lt;</span>environment<span class="op">:</span><span class="st"> </span>namespace<span class="op">:</span>base<span class="op">&gt;</span></span></code></pre></div>
+<div class="sourceCode" id="cb93"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb93-1" data-line-number="1">colSums</a>
+<a class="sourceLine" id="cb93-2" data-line-number="2"><span class="cf">function</span> (x, <span class="dt">na.rm =</span> <span class="ot">FALSE</span>, <span class="dt">dims =</span> 1L) </a>
+<a class="sourceLine" id="cb93-3" data-line-number="3">{</a>
+<a class="sourceLine" id="cb93-4" data-line-number="4">    <span class="cf">if</span> (<span class="kw">is.data.frame</span>(x)) </a>
+<a class="sourceLine" id="cb93-5" data-line-number="5">        x &lt;-<span class="st"> </span><span class="kw">as.matrix</span>(x)</a>
+<a class="sourceLine" id="cb93-6" data-line-number="6">    <span class="cf">if</span> (<span class="op">!</span><span class="kw">is.array</span>(x) <span class="op">||</span><span class="st"> </span><span class="kw">length</span>(dn &lt;-<span class="st"> </span><span class="kw">dim</span>(x)) <span class="op">&lt;</span><span class="st"> </span>2L) </a>
+<a class="sourceLine" id="cb93-7" data-line-number="7">        <span class="kw">stop</span>(<span class="st">&quot;&#39;x&#39; must be an array of at least two dimensions&quot;</span>)</a>
+<a class="sourceLine" id="cb93-8" data-line-number="8">    <span class="cf">if</span> (dims <span class="op">&lt;</span><span class="st"> </span>1L <span class="op">||</span><span class="st"> </span>dims <span class="op">&gt;</span><span class="st"> </span><span class="kw">length</span>(dn) <span class="op">-</span><span class="st"> </span>1L) </a>
+<a class="sourceLine" id="cb93-9" data-line-number="9">        <span class="kw">stop</span>(<span class="st">&quot;invalid &#39;dims&#39;&quot;</span>)</a>
+<a class="sourceLine" id="cb93-10" data-line-number="10">    n &lt;-<span class="st"> </span><span class="kw">prod</span>(dn[id &lt;-<span class="st"> </span><span class="kw">seq_len</span>(dims)])</a>
+<a class="sourceLine" id="cb93-11" data-line-number="11">    dn &lt;-<span class="st"> </span>dn[<span class="op">-</span>id]</a>
+<a class="sourceLine" id="cb93-12" data-line-number="12">    z &lt;-<span class="st"> </span><span class="cf">if</span> (<span class="kw">is.complex</span>(x)) </a>
+<a class="sourceLine" id="cb93-13" data-line-number="13">        <span class="kw">.Internal</span>(<span class="kw">colSums</span>(<span class="kw">Re</span>(x), n, <span class="kw">prod</span>(dn), na.rm)) <span class="op">+</span><span class="st"> </span>(<span class="dv">0</span><span class="op">+</span>1i) <span class="op">*</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb93-14" data-line-number="14"><span class="st">            </span><span class="kw">.Internal</span>(<span class="kw">colSums</span>(<span class="kw">Im</span>(x), n, <span class="kw">prod</span>(dn), na.rm))</a>
+<a class="sourceLine" id="cb93-15" data-line-number="15">    <span class="cf">else</span> <span class="kw">.Internal</span>(<span class="kw">colSums</span>(x, n, <span class="kw">prod</span>(dn), na.rm))</a>
+<a class="sourceLine" id="cb93-16" data-line-number="16">    <span class="cf">if</span> (<span class="kw">length</span>(dn) <span class="op">&gt;</span><span class="st"> </span>1L) {</a>
+<a class="sourceLine" id="cb93-17" data-line-number="17">        <span class="kw">dim</span>(z) &lt;-<span class="st"> </span>dn</a>
+<a class="sourceLine" id="cb93-18" data-line-number="18">        <span class="kw">dimnames</span>(z) &lt;-<span class="st"> </span><span class="kw">dimnames</span>(x)[<span class="op">-</span>id]</a>
+<a class="sourceLine" id="cb93-19" data-line-number="19">    }</a>
+<a class="sourceLine" id="cb93-20" data-line-number="20">    <span class="cf">else</span> <span class="kw">names</span>(z) &lt;-<span class="st"> </span><span class="kw">dimnames</span>(x)[[dims <span class="op">+</span><span class="st"> </span>1L]]</a>
+<a class="sourceLine" id="cb93-21" data-line-number="21">    z</a>
+<a class="sourceLine" id="cb93-22" data-line-number="22">}</a>
+<a class="sourceLine" id="cb93-23" data-line-number="23"><span class="op">&lt;</span>bytecode<span class="op">:</span><span class="st"> </span><span class="dv">0x55963e7e3b70</span><span class="op">&gt;</span></a>
+<a class="sourceLine" id="cb93-24" data-line-number="24"><span class="er">&lt;</span>environment<span class="op">:</span><span class="st"> </span>namespace<span class="op">:</span>base<span class="op">&gt;</span></a></code></pre></div>
 <p>You can see that the first 3 steps in the function are if statements to test whether the inputs are acceptable - x must be a data frame, a matrix, or an array (with 2+ dimensions).</p>
 <p>The next couple of lines test to see whether there are additional “column” dimensions (don’t worry if you don’t understand what’s going on in this code - it’s highly optimized and a bit arcane).</p>
 <p>Then, the function checks to see if x is real-valued or complex, and if it’s complex, computes the real and imaginary sums separately.</p>
@@ -528,24 +526,24 @@ Then there are statements that transfer dimension names over to the summed objec
 <div class="tryitout">
 <div id="try-it-out-6" class="section level3 unnumbered">
 <h3>Try it out</h3>
-<p>Write a function named <code>circle_area</code> which computes the area of a circle given the radius. Make sure to use reasonable parameter names! (Note: in R, pi is conveniently stored in the variable of the same name - it can be overwritten if you want to do so, but why would you want to do that? In SAS, you can get the value of pi using <code>constant("pi")</code>)</p>
+<p>Write a function named <code>circle_area</code> which computes the area of a circle given the radius. Make sure to use reasonable parameter names! (Note: in R, pi is conveniently stored in the variable of the same name - it can be overwritten if you want to do so, but why would you want to do that? In SAS, you can get the value of pi using <code>constant(&quot;pi&quot;)</code>)</p>
 <details>
 <p><summary>Solution</summary></p>
-<div class="sourceCode" id="cb94"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb94-1"><a href="organization.html#cb94-1"></a>circle_area &lt;-<span class="st"> </span><span class="cf">function</span>(r) {</span>
-<span id="cb94-2"><a href="organization.html#cb94-2"></a>  r<span class="op">^</span><span class="dv">2</span><span class="op">*</span>pi <span class="co"># automatically returned as the last computed value</span></span>
-<span id="cb94-3"><a href="organization.html#cb94-3"></a>}</span>
-<span id="cb94-4"><a href="organization.html#cb94-4"></a></span>
-<span id="cb94-5"><a href="organization.html#cb94-5"></a><span class="kw">circle_area</span>(<span class="dv">5</span>)</span>
-<span id="cb94-6"><a href="organization.html#cb94-6"></a>[<span class="dv">1</span>] <span class="fl">78.53982</span></span></code></pre></div>
+<div class="sourceCode" id="cb94"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb94-1" data-line-number="1">circle_area &lt;-<span class="st"> </span><span class="cf">function</span>(r) {</a>
+<a class="sourceLine" id="cb94-2" data-line-number="2">  r<span class="op">^</span><span class="dv">2</span><span class="op">*</span>pi <span class="co"># automatically returned as the last computed value</span></a>
+<a class="sourceLine" id="cb94-3" data-line-number="3">}</a>
+<a class="sourceLine" id="cb94-4" data-line-number="4"></a>
+<a class="sourceLine" id="cb94-5" data-line-number="5"><span class="kw">circle_area</span>(<span class="dv">5</span>)</a>
+<a class="sourceLine" id="cb94-6" data-line-number="6">[<span class="dv">1</span>] <span class="fl">78.53982</span></a></code></pre></div>
 <p>A more complete and robust answer might include a test for numeric <code>r</code>:</p>
-<div class="sourceCode" id="cb95"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb95-1"><a href="organization.html#cb95-1"></a>circle_area &lt;-<span class="st"> </span><span class="cf">function</span>(r) {</span>
-<span id="cb95-2"><a href="organization.html#cb95-2"></a>  <span class="cf">if</span> (<span class="op">!</span><span class="kw">is.numeric</span>(r)) {</span>
-<span id="cb95-3"><a href="organization.html#cb95-3"></a>    <span class="kw">stop</span>(<span class="st">&quot;Supplied radius must be numeric&quot;</span>) <span class="co"># This issues an error</span></span>
-<span id="cb95-4"><a href="organization.html#cb95-4"></a>  }</span>
-<span id="cb95-5"><a href="organization.html#cb95-5"></a>  r<span class="op">^</span><span class="dv">2</span><span class="op">*</span>pi <span class="co"># automatically returned as the last computed value</span></span>
-<span id="cb95-6"><a href="organization.html#cb95-6"></a>}</span>
-<span id="cb95-7"><a href="organization.html#cb95-7"></a><span class="kw">circle_area</span>(<span class="dv">5</span>)</span>
-<span id="cb95-8"><a href="organization.html#cb95-8"></a>[<span class="dv">1</span>] <span class="fl">78.53982</span></span></code></pre></div>
+<div class="sourceCode" id="cb95"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb95-1" data-line-number="1">circle_area &lt;-<span class="st"> </span><span class="cf">function</span>(r) {</a>
+<a class="sourceLine" id="cb95-2" data-line-number="2">  <span class="cf">if</span> (<span class="op">!</span><span class="kw">is.numeric</span>(r)) {</a>
+<a class="sourceLine" id="cb95-3" data-line-number="3">    <span class="kw">stop</span>(<span class="st">&quot;Supplied radius must be numeric&quot;</span>) <span class="co"># This issues an error</span></a>
+<a class="sourceLine" id="cb95-4" data-line-number="4">  }</a>
+<a class="sourceLine" id="cb95-5" data-line-number="5">  r<span class="op">^</span><span class="dv">2</span><span class="op">*</span>pi <span class="co"># automatically returned as the last computed value</span></a>
+<a class="sourceLine" id="cb95-6" data-line-number="6">}</a>
+<a class="sourceLine" id="cb95-7" data-line-number="7"><span class="kw">circle_area</span>(<span class="dv">5</span>)</a>
+<a class="sourceLine" id="cb95-8" data-line-number="8">[<span class="dv">1</span>] <span class="fl">78.53982</span></a></code></pre></div>
 <pre class="sashtml"><code>proc IML;
 
   start circle_area(r);
@@ -597,54 +595,54 @@ c
 <p>In R, every function is defined in a certain environment, and once it is defined, executed in a specific environment. Think of an environment as a space full of available variables, functions, and objects. Any defined object or variable that a function has access to is <strong>in scope</strong>. When you are inside of a function block, you have access to values defined within the function, plus any other values outside the function. When there are two variables with the same name, the object in the environment which is “closest” is used.</p>
 <details>
 <p><summary>Demonstration of scoping in R</summary></p>
-<div class="sourceCode" id="cb97"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb97-1"><a href="organization.html#cb97-1"></a></span>
-<span id="cb97-2"><a href="organization.html#cb97-2"></a>a &lt;-<span class="st"> </span><span class="dv">3</span></span>
-<span id="cb97-3"><a href="organization.html#cb97-3"></a></span>
-<span id="cb97-4"><a href="organization.html#cb97-4"></a>myfun &lt;-<span class="st"> </span><span class="cf">function</span>(a, b) {</span>
-<span id="cb97-5"><a href="organization.html#cb97-5"></a>  a <span class="op">+</span><span class="st"> </span>b <span class="op">+</span><span class="st"> </span><span class="dv">2</span></span>
-<span id="cb97-6"><a href="organization.html#cb97-6"></a>}</span>
-<span id="cb97-7"><a href="organization.html#cb97-7"></a></span>
-<span id="cb97-8"><a href="organization.html#cb97-8"></a><span class="kw">myfun</span>(<span class="dv">5</span>, <span class="dv">6</span>) <span class="co"># a is 5 inside the function, so that overrides the </span></span>
-<span id="cb97-9"><a href="organization.html#cb97-9"></a>[<span class="dv">1</span>] <span class="dv">13</span></span>
-<span id="cb97-10"><a href="organization.html#cb97-10"></a>            <span class="co"># a defined outside the function</span></span>
-<span id="cb97-11"><a href="organization.html#cb97-11"></a></span>
-<span id="cb97-12"><a href="organization.html#cb97-12"></a><span class="kw">myfun</span>(a, <span class="dv">3</span>) <span class="co"># this references the a outside the function</span></span>
-<span id="cb97-13"><a href="organization.html#cb97-13"></a>[<span class="dv">1</span>] <span class="dv">8</span></span></code></pre></div>
+<div class="sourceCode" id="cb97"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb97-1" data-line-number="1"></a>
+<a class="sourceLine" id="cb97-2" data-line-number="2">a &lt;-<span class="st"> </span><span class="dv">3</span></a>
+<a class="sourceLine" id="cb97-3" data-line-number="3"></a>
+<a class="sourceLine" id="cb97-4" data-line-number="4">myfun &lt;-<span class="st"> </span><span class="cf">function</span>(a, b) {</a>
+<a class="sourceLine" id="cb97-5" data-line-number="5">  a <span class="op">+</span><span class="st"> </span>b <span class="op">+</span><span class="st"> </span><span class="dv">2</span></a>
+<a class="sourceLine" id="cb97-6" data-line-number="6">}</a>
+<a class="sourceLine" id="cb97-7" data-line-number="7"></a>
+<a class="sourceLine" id="cb97-8" data-line-number="8"><span class="kw">myfun</span>(<span class="dv">5</span>, <span class="dv">6</span>) <span class="co"># a is 5 inside the function, so that overrides the </span></a>
+<a class="sourceLine" id="cb97-9" data-line-number="9">[<span class="dv">1</span>] <span class="dv">13</span></a>
+<a class="sourceLine" id="cb97-10" data-line-number="10">            <span class="co"># a defined outside the function</span></a>
+<a class="sourceLine" id="cb97-11" data-line-number="11"></a>
+<a class="sourceLine" id="cb97-12" data-line-number="12"><span class="kw">myfun</span>(a, <span class="dv">3</span>) <span class="co"># this references the a outside the function</span></a>
+<a class="sourceLine" id="cb97-13" data-line-number="13">[<span class="dv">1</span>] <span class="dv">8</span></a></code></pre></div>
 <div class="figure">
-<img src="image/03_myfun_scope.png" alt="" />
+<img src="image/03_myfun_scope.png" alt="Scope diagram. When myfun() is called, the calling environment contains the two parameters a and b." />
 <p class="caption">Scope diagram. When myfun() is called, the calling environment contains the two parameters a and b.</p>
 </div>
-<div class="sourceCode" id="cb98"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb98-1"><a href="organization.html#cb98-1"></a>a &lt;-<span class="st"> </span><span class="dv">3</span></span>
-<span id="cb98-2"><a href="organization.html#cb98-2"></a></span>
-<span id="cb98-3"><a href="organization.html#cb98-3"></a>myfun2 &lt;-<span class="st"> </span><span class="cf">function</span>(d) {</span>
-<span id="cb98-4"><a href="organization.html#cb98-4"></a>  <span class="kw">myfun</span>(a, d)</span>
-<span id="cb98-5"><a href="organization.html#cb98-5"></a>}</span>
-<span id="cb98-6"><a href="organization.html#cb98-6"></a></span>
-<span id="cb98-7"><a href="organization.html#cb98-7"></a><span class="kw">myfun2</span>(<span class="dv">3</span>) <span class="co"># the only a in scope inside fun2 is the a defined at the top of the chunk</span></span>
-<span id="cb98-8"><a href="organization.html#cb98-8"></a>[<span class="dv">1</span>] <span class="dv">8</span></span></code></pre></div>
+<div class="sourceCode" id="cb98"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb98-1" data-line-number="1">a &lt;-<span class="st"> </span><span class="dv">3</span></a>
+<a class="sourceLine" id="cb98-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb98-3" data-line-number="3">myfun2 &lt;-<span class="st"> </span><span class="cf">function</span>(d) {</a>
+<a class="sourceLine" id="cb98-4" data-line-number="4">  <span class="kw">myfun</span>(a, d)</a>
+<a class="sourceLine" id="cb98-5" data-line-number="5">}</a>
+<a class="sourceLine" id="cb98-6" data-line-number="6"></a>
+<a class="sourceLine" id="cb98-7" data-line-number="7"><span class="kw">myfun2</span>(<span class="dv">3</span>) <span class="co"># the only a in scope inside fun2 is the a defined at the top of the chunk</span></a>
+<a class="sourceLine" id="cb98-8" data-line-number="8">[<span class="dv">1</span>] <span class="dv">8</span></a></code></pre></div>
 <div class="figure">
-<img src="image/03_myfun2_scope.png" alt="" />
+<img src="image/03_myfun2_scope.png" alt="Scope diagram. When myfun2() is called, the calling environment contains only a parameter d. a is pulled from the global environment, as there is no parameter a in the myfun2 calling environment." />
 <p class="caption">Scope diagram. When myfun2() is called, the calling environment contains only a parameter <span class="math inline">\(d\)</span>. <span class="math inline">\(a\)</span> is pulled from the global environment, as there is no parameter <span class="math inline">\(a\)</span> in the myfun2 calling environment.</p>
 </div>
-<div class="sourceCode" id="cb99"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb99-1"><a href="organization.html#cb99-1"></a>a &lt;-<span class="st"> </span><span class="dv">3</span></span>
-<span id="cb99-2"><a href="organization.html#cb99-2"></a></span>
-<span id="cb99-3"><a href="organization.html#cb99-3"></a>myfun3 &lt;-<span class="st"> </span><span class="cf">function</span>(a, d) {</span>
-<span id="cb99-4"><a href="organization.html#cb99-4"></a>  b &lt;-<span class="st"> </span>a; <span class="co"># make a copy of the value</span></span>
-<span id="cb99-5"><a href="organization.html#cb99-5"></a>  a &lt;-<span class="st"> </span><span class="dv">250</span>;</span>
-<span id="cb99-6"><a href="organization.html#cb99-6"></a>  <span class="kw">myfun</span>(b, d)</span>
-<span id="cb99-7"><a href="organization.html#cb99-7"></a>}</span>
-<span id="cb99-8"><a href="organization.html#cb99-8"></a></span>
-<span id="cb99-9"><a href="organization.html#cb99-9"></a>a</span>
-<span id="cb99-10"><a href="organization.html#cb99-10"></a>[<span class="dv">1</span>] <span class="dv">3</span></span>
-<span id="cb99-11"><a href="organization.html#cb99-11"></a></span>
-<span id="cb99-12"><a href="organization.html#cb99-12"></a><span class="kw">myfun3</span>(<span class="dv">5</span>, <span class="dv">3</span>) <span class="co"># now, a is defined inside fun3 as a = 5, so there is an a in </span></span>
-<span id="cb99-13"><a href="organization.html#cb99-13"></a>[<span class="dv">1</span>] <span class="dv">10</span></span>
-<span id="cb99-14"><a href="organization.html#cb99-14"></a>             <span class="co"># fun3&#39;s scope that isn&#39;t in the global environment.</span></span>
-<span id="cb99-15"><a href="organization.html#cb99-15"></a></span>
-<span id="cb99-16"><a href="organization.html#cb99-16"></a>a <span class="co"># value of a hasn&#39;t changed</span></span>
-<span id="cb99-17"><a href="organization.html#cb99-17"></a>[<span class="dv">1</span>] <span class="dv">3</span></span></code></pre></div>
+<div class="sourceCode" id="cb99"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb99-1" data-line-number="1">a &lt;-<span class="st"> </span><span class="dv">3</span></a>
+<a class="sourceLine" id="cb99-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb99-3" data-line-number="3">myfun3 &lt;-<span class="st"> </span><span class="cf">function</span>(a, d) {</a>
+<a class="sourceLine" id="cb99-4" data-line-number="4">  b &lt;-<span class="st"> </span>a; <span class="co"># make a copy of the value</span></a>
+<a class="sourceLine" id="cb99-5" data-line-number="5">  a &lt;-<span class="st"> </span><span class="dv">250</span>;</a>
+<a class="sourceLine" id="cb99-6" data-line-number="6">  <span class="kw">myfun</span>(b, d)</a>
+<a class="sourceLine" id="cb99-7" data-line-number="7">}</a>
+<a class="sourceLine" id="cb99-8" data-line-number="8"></a>
+<a class="sourceLine" id="cb99-9" data-line-number="9">a</a>
+<a class="sourceLine" id="cb99-10" data-line-number="10">[<span class="dv">1</span>] <span class="dv">3</span></a>
+<a class="sourceLine" id="cb99-11" data-line-number="11"></a>
+<a class="sourceLine" id="cb99-12" data-line-number="12"><span class="kw">myfun3</span>(<span class="dv">5</span>, <span class="dv">3</span>) <span class="co"># now, a is defined inside fun3 as a = 5, so there is an a in </span></a>
+<a class="sourceLine" id="cb99-13" data-line-number="13">[<span class="dv">1</span>] <span class="dv">10</span></a>
+<a class="sourceLine" id="cb99-14" data-line-number="14">             <span class="co"># fun3&#39;s scope that isn&#39;t in the global environment.</span></a>
+<a class="sourceLine" id="cb99-15" data-line-number="15"></a>
+<a class="sourceLine" id="cb99-16" data-line-number="16">a <span class="co"># value of a hasn&#39;t changed</span></a>
+<a class="sourceLine" id="cb99-17" data-line-number="17">[<span class="dv">1</span>] <span class="dv">3</span></a></code></pre></div>
 <div class="figure">
-<img src="image/03_myfun3_scope.png" alt="" />
+<img src="image/03_myfun3_scope.png" alt="Scope diagram. When myfun3() is called, the calling environment contains parameters a and d, which are then copied into the calling environment of myfun as a and b. The variable a in the global environment is ignored." />
 <p class="caption">Scope diagram. When myfun3() is called, the calling environment contains parameters a and d, which are then copied into the calling environment of myfun as <span class="math inline">\(a\)</span> and <span class="math inline">\(b\)</span>. The variable <span class="math inline">\(a\)</span> in the global environment is ignored.</p>
 </div>
 </details>
@@ -846,28 +844,28 @@ quit;
 <details>
 <p><summary>Argument passing in R</summary>
 In R, variables inside a function don’t modify variables which are outside a function (generally speaking). In SAS, this is not necessarily the case. In the first call to myfun(), we pass in two numerical arguments, and we see that even though the value of a changes inside the function, that change doesn’t affect the variable defined outside of the function. In the second call to myfun(), we pass a variable in as an argument, and we see that the variable changes after the function’s execution! In the R chunk (below), you can see that the behavior of what is essentially the same code is different.</p>
-<div class="sourceCode" id="cb104"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb104-1"><a href="organization.html#cb104-1"></a></span>
-<span id="cb104-2"><a href="organization.html#cb104-2"></a>a &lt;-<span class="st"> </span><span class="dv">3</span></span>
-<span id="cb104-3"><a href="organization.html#cb104-3"></a></span>
-<span id="cb104-4"><a href="organization.html#cb104-4"></a>myfun &lt;-<span class="st"> </span><span class="cf">function</span>(a, b) {</span>
-<span id="cb104-5"><a href="organization.html#cb104-5"></a>  a &lt;-<span class="st"> </span>a <span class="op">+</span><span class="st"> </span><span class="dv">2</span></span>
-<span id="cb104-6"><a href="organization.html#cb104-6"></a>  a <span class="op">+</span><span class="st"> </span>b</span>
-<span id="cb104-7"><a href="organization.html#cb104-7"></a>}</span>
-<span id="cb104-8"><a href="organization.html#cb104-8"></a></span>
-<span id="cb104-9"><a href="organization.html#cb104-9"></a>a</span>
-<span id="cb104-10"><a href="organization.html#cb104-10"></a>[<span class="dv">1</span>] <span class="dv">3</span></span>
-<span id="cb104-11"><a href="organization.html#cb104-11"></a></span>
-<span id="cb104-12"><a href="organization.html#cb104-12"></a><span class="kw">myfun</span>(<span class="dv">5</span>, <span class="dv">6</span>)</span>
-<span id="cb104-13"><a href="organization.html#cb104-13"></a>[<span class="dv">1</span>] <span class="dv">13</span></span>
-<span id="cb104-14"><a href="organization.html#cb104-14"></a></span>
-<span id="cb104-15"><a href="organization.html#cb104-15"></a>a</span>
-<span id="cb104-16"><a href="organization.html#cb104-16"></a>[<span class="dv">1</span>] <span class="dv">3</span></span>
-<span id="cb104-17"><a href="organization.html#cb104-17"></a></span>
-<span id="cb104-18"><a href="organization.html#cb104-18"></a><span class="kw">myfun</span>(a, <span class="dv">3</span>) </span>
-<span id="cb104-19"><a href="organization.html#cb104-19"></a>[<span class="dv">1</span>] <span class="dv">8</span></span>
-<span id="cb104-20"><a href="organization.html#cb104-20"></a></span>
-<span id="cb104-21"><a href="organization.html#cb104-21"></a>a</span>
-<span id="cb104-22"><a href="organization.html#cb104-22"></a>[<span class="dv">1</span>] <span class="dv">3</span></span></code></pre></div>
+<div class="sourceCode" id="cb104"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb104-1" data-line-number="1"></a>
+<a class="sourceLine" id="cb104-2" data-line-number="2">a &lt;-<span class="st"> </span><span class="dv">3</span></a>
+<a class="sourceLine" id="cb104-3" data-line-number="3"></a>
+<a class="sourceLine" id="cb104-4" data-line-number="4">myfun &lt;-<span class="st"> </span><span class="cf">function</span>(a, b) {</a>
+<a class="sourceLine" id="cb104-5" data-line-number="5">  a &lt;-<span class="st"> </span>a <span class="op">+</span><span class="st"> </span><span class="dv">2</span></a>
+<a class="sourceLine" id="cb104-6" data-line-number="6">  a <span class="op">+</span><span class="st"> </span>b</a>
+<a class="sourceLine" id="cb104-7" data-line-number="7">}</a>
+<a class="sourceLine" id="cb104-8" data-line-number="8"></a>
+<a class="sourceLine" id="cb104-9" data-line-number="9">a</a>
+<a class="sourceLine" id="cb104-10" data-line-number="10">[<span class="dv">1</span>] <span class="dv">3</span></a>
+<a class="sourceLine" id="cb104-11" data-line-number="11"></a>
+<a class="sourceLine" id="cb104-12" data-line-number="12"><span class="kw">myfun</span>(<span class="dv">5</span>, <span class="dv">6</span>)</a>
+<a class="sourceLine" id="cb104-13" data-line-number="13">[<span class="dv">1</span>] <span class="dv">13</span></a>
+<a class="sourceLine" id="cb104-14" data-line-number="14"></a>
+<a class="sourceLine" id="cb104-15" data-line-number="15">a</a>
+<a class="sourceLine" id="cb104-16" data-line-number="16">[<span class="dv">1</span>] <span class="dv">3</span></a>
+<a class="sourceLine" id="cb104-17" data-line-number="17"></a>
+<a class="sourceLine" id="cb104-18" data-line-number="18"><span class="kw">myfun</span>(a, <span class="dv">3</span>) </a>
+<a class="sourceLine" id="cb104-19" data-line-number="19">[<span class="dv">1</span>] <span class="dv">8</span></a>
+<a class="sourceLine" id="cb104-20" data-line-number="20"></a>
+<a class="sourceLine" id="cb104-21" data-line-number="21">a</a>
+<a class="sourceLine" id="cb104-22" data-line-number="22">[<span class="dv">1</span>] <span class="dv">3</span></a></code></pre></div>
 </details>
 <details>
 <p><summary>Another example of SAS passing arguments by reference (and the unexpected effects that can have on a program’s state)</summary></p>
@@ -1163,16 +1161,16 @@ If you want to avoid any of these side-effects of SAS’s pass-by-reference beha
 <div class="tryitout">
 <h4 id="try-it-out-7" class="unnumbered">Try it out</h4>
 <p>Can you predict what the output of this chunk will be?</p>
-<div class="sourceCode" id="cb107"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb107-1"><a href="organization.html#cb107-1"></a>f &lt;-<span class="st"> </span><span class="cf">function</span>(x) {</span>
-<span id="cb107-2"><a href="organization.html#cb107-2"></a>  f &lt;-<span class="st"> </span><span class="cf">function</span>(x) {</span>
-<span id="cb107-3"><a href="organization.html#cb107-3"></a>    f &lt;-<span class="st"> </span><span class="cf">function</span>(x) {</span>
-<span id="cb107-4"><a href="organization.html#cb107-4"></a>      x <span class="op">^</span><span class="st"> </span><span class="dv">2</span></span>
-<span id="cb107-5"><a href="organization.html#cb107-5"></a>    }</span>
-<span id="cb107-6"><a href="organization.html#cb107-6"></a>    <span class="kw">f</span>(x) <span class="op">+</span><span class="st"> </span><span class="dv">1</span></span>
-<span id="cb107-7"><a href="organization.html#cb107-7"></a>  }</span>
-<span id="cb107-8"><a href="organization.html#cb107-8"></a>  <span class="kw">f</span>(x) <span class="op">*</span><span class="st"> </span><span class="dv">2</span></span>
-<span id="cb107-9"><a href="organization.html#cb107-9"></a>}</span>
-<span id="cb107-10"><a href="organization.html#cb107-10"></a><span class="kw">f</span>(<span class="dv">10</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb107"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb107-1" data-line-number="1">f &lt;-<span class="st"> </span><span class="cf">function</span>(x) {</a>
+<a class="sourceLine" id="cb107-2" data-line-number="2">  f &lt;-<span class="st"> </span><span class="cf">function</span>(x) {</a>
+<a class="sourceLine" id="cb107-3" data-line-number="3">    f &lt;-<span class="st"> </span><span class="cf">function</span>(x) {</a>
+<a class="sourceLine" id="cb107-4" data-line-number="4">      x <span class="op">^</span><span class="st"> </span><span class="dv">2</span></a>
+<a class="sourceLine" id="cb107-5" data-line-number="5">    }</a>
+<a class="sourceLine" id="cb107-6" data-line-number="6">    <span class="kw">f</span>(x) <span class="op">+</span><span class="st"> </span><span class="dv">1</span></a>
+<a class="sourceLine" id="cb107-7" data-line-number="7">  }</a>
+<a class="sourceLine" id="cb107-8" data-line-number="8">  <span class="kw">f</span>(x) <span class="op">*</span><span class="st"> </span><span class="dv">2</span></a>
+<a class="sourceLine" id="cb107-9" data-line-number="9">}</a>
+<a class="sourceLine" id="cb107-10" data-line-number="10"><span class="kw">f</span>(<span class="dv">10</span>)</a></code></pre></div>
 <p>Run it - were you right?</p>
 <p>What happens when you run a similar program in SAS? (I only nested two functions this time, but you get the idea)</p>
 <pre><code>proc IML;
@@ -1267,12 +1265,12 @@ The trick to this problem is to realize that inside of the function, when a vari
 Most functions take arguments written after the function name. Can you think of any functions which work differently?</p>
 <p><strong>Infix</strong> functions are functions that take arguments on both sides of the function name. Say, a + b: technically, a and b are arguments to the function +, so we could think of this as +(a, b).</p>
 <p>R has a number of infix functions, but you can also create your own. User-defined infix functions start and end with %. So %&gt;%, %in%, %dosomething% would all be valid infix operators. To define one, you need to enclose the name in back-ticks (`).</p>
-<div class="sourceCode" id="cb112"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb112-1"><a href="organization.html#cb112-1"></a><span class="st">`</span><span class="dt">%dosomething%</span><span class="st">`</span> &lt;-<span class="st"> </span><span class="cf">function</span>(a, b) {</span>
-<span id="cb112-2"><a href="organization.html#cb112-2"></a>  a<span class="op">^</span>b <span class="op">-</span><span class="st"> </span>a <span class="op">+</span><span class="st"> </span>b</span>
-<span id="cb112-3"><a href="organization.html#cb112-3"></a>}</span>
-<span id="cb112-4"><a href="organization.html#cb112-4"></a></span>
-<span id="cb112-5"><a href="organization.html#cb112-5"></a><span class="dv">3</span> <span class="op">%dosomething%</span><span class="st"> </span><span class="dv">4</span></span>
-<span id="cb112-6"><a href="organization.html#cb112-6"></a>[<span class="dv">1</span>] <span class="dv">82</span></span></code></pre></div>
+<div class="sourceCode" id="cb112"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb112-1" data-line-number="1"><span class="st">`</span><span class="dt">%dosomething%</span><span class="st">`</span> &lt;-<span class="st"> </span><span class="cf">function</span>(a, b) {</a>
+<a class="sourceLine" id="cb112-2" data-line-number="2">  a<span class="op">^</span>b <span class="op">-</span><span class="st"> </span>a <span class="op">+</span><span class="st"> </span>b</a>
+<a class="sourceLine" id="cb112-3" data-line-number="3">}</a>
+<a class="sourceLine" id="cb112-4" data-line-number="4"></a>
+<a class="sourceLine" id="cb112-5" data-line-number="5"><span class="dv">3</span> <span class="op">%dosomething%</span><span class="st"> </span><span class="dv">4</span></a>
+<a class="sourceLine" id="cb112-6" data-line-number="6">[<span class="dv">1</span>] <span class="dv">82</span></a></code></pre></div>
 <p>You can also call default infix operators using this syntax: `+`(3, 4) = 7</p>
 One of the most useful infix operators is the pipe, <code>%&gt;%</code>, which is a part of the <code>magrittr</code> library and is commonly included in other packages, such as <code>dplyr</code>, and <code>tidyr</code> (we will talk about packages later in this chapter, but pipes are useful to discuss now, so roll with it for a few minutes).
 </details>
@@ -1280,28 +1278,28 @@ One of the most useful infix operators is the pipe, <code>%&gt;%</code>, which i
 <div class="learn-more">
 <p>There is an <a href="https://r4ds.had.co.nz/pipes.html">entire chapter dedicated to discussing the pipe in R4DS</a>, including a discussion of when not to use the pipe.</p>
 </div>
-<div class="sourceCode" id="cb113"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb113-1"><a href="organization.html#cb113-1"></a><span class="kw">library</span>(magrittr)</span>
-<span id="cb113-2"><a href="organization.html#cb113-2"></a></span>
-<span id="cb113-3"><a href="organization.html#cb113-3"></a><span class="dv">3</span> <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">exp</span>()</span>
-<span id="cb113-4"><a href="organization.html#cb113-4"></a>[<span class="dv">1</span>] <span class="fl">20.08554</span></span>
-<span id="cb113-5"><a href="organization.html#cb113-5"></a><span class="kw">exp</span>(<span class="dv">3</span>)</span>
-<span id="cb113-6"><a href="organization.html#cb113-6"></a>[<span class="dv">1</span>] <span class="fl">20.08554</span></span></code></pre></div>
+<div class="sourceCode" id="cb113"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb113-1" data-line-number="1"><span class="kw">library</span>(magrittr)</a>
+<a class="sourceLine" id="cb113-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb113-3" data-line-number="3"><span class="dv">3</span> <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">exp</span>()</a>
+<a class="sourceLine" id="cb113-4" data-line-number="4">[<span class="dv">1</span>] <span class="fl">20.08554</span></a>
+<a class="sourceLine" id="cb113-5" data-line-number="5"><span class="kw">exp</span>(<span class="dv">3</span>)</a>
+<a class="sourceLine" id="cb113-6" data-line-number="6">[<span class="dv">1</span>] <span class="fl">20.08554</span></a></code></pre></div>
 <p>The pipe takes the left hand side and a function, and puts the left hand side as an argument to the function on the right hand side. It doesn’t sound very impressive, but it allows you to do a very cool thing: “chain” operations.</p>
 <p>Consider 3 functions:</p>
-<div class="sourceCode" id="cb114"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb114-1"><a href="organization.html#cb114-1"></a>f1 &lt;-<span class="st"> </span><span class="cf">function</span>(x, <span class="dt">y =</span> <span class="dv">3</span>) {</span>
-<span id="cb114-2"><a href="organization.html#cb114-2"></a>  x <span class="op">*</span><span class="st"> </span>y</span>
-<span id="cb114-3"><a href="organization.html#cb114-3"></a>}</span>
-<span id="cb114-4"><a href="organization.html#cb114-4"></a></span>
-<span id="cb114-5"><a href="organization.html#cb114-5"></a>f2 &lt;-<span class="st"> </span><span class="cf">function</span>(z) {</span>
-<span id="cb114-6"><a href="organization.html#cb114-6"></a>  z<span class="op">^</span><span class="dv">2</span></span>
-<span id="cb114-7"><a href="organization.html#cb114-7"></a>}</span>
-<span id="cb114-8"><a href="organization.html#cb114-8"></a></span>
-<span id="cb114-9"><a href="organization.html#cb114-9"></a>f3 &lt;-<span class="st"> </span><span class="cf">function</span>(z2) {</span>
-<span id="cb114-10"><a href="organization.html#cb114-10"></a>  <span class="kw">log10</span>(z2)</span>
-<span id="cb114-11"><a href="organization.html#cb114-11"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb114"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb114-1" data-line-number="1">f1 &lt;-<span class="st"> </span><span class="cf">function</span>(x, <span class="dt">y =</span> <span class="dv">3</span>) {</a>
+<a class="sourceLine" id="cb114-2" data-line-number="2">  x <span class="op">*</span><span class="st"> </span>y</a>
+<a class="sourceLine" id="cb114-3" data-line-number="3">}</a>
+<a class="sourceLine" id="cb114-4" data-line-number="4"></a>
+<a class="sourceLine" id="cb114-5" data-line-number="5">f2 &lt;-<span class="st"> </span><span class="cf">function</span>(z) {</a>
+<a class="sourceLine" id="cb114-6" data-line-number="6">  z<span class="op">^</span><span class="dv">2</span></a>
+<a class="sourceLine" id="cb114-7" data-line-number="7">}</a>
+<a class="sourceLine" id="cb114-8" data-line-number="8"></a>
+<a class="sourceLine" id="cb114-9" data-line-number="9">f3 &lt;-<span class="st"> </span><span class="cf">function</span>(z2) {</a>
+<a class="sourceLine" id="cb114-10" data-line-number="10">  <span class="kw">log10</span>(z2)</a>
+<a class="sourceLine" id="cb114-11" data-line-number="11">}</a></code></pre></div>
 <p>Normally, you’d write <code>f3(f2(f1(4)))</code>, which you have to read from the inside to the outside if you want to describe what this function call is doing. With pipes, you can write the same operation as:</p>
-<div class="sourceCode" id="cb115"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb115-1"><a href="organization.html#cb115-1"></a><span class="dv">4</span> <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">f1</span>() <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">f2</span>() <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">f3</span>()</span>
-<span id="cb115-2"><a href="organization.html#cb115-2"></a>[<span class="dv">1</span>] <span class="fl">2.158362</span></span></code></pre></div>
+<div class="sourceCode" id="cb115"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb115-1" data-line-number="1"><span class="dv">4</span> <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">f1</span>() <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">f2</span>() <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">f3</span>()</a>
+<a class="sourceLine" id="cb115-2" data-line-number="2">[<span class="dv">1</span>] <span class="fl">2.158362</span></a></code></pre></div>
 <p>This is much simpler to read - it’s like a recipe. “Take 4, do f1, then f2, then f3”.</p>
 <p>You don’t need to know how to define your own infix operators, but you will want to become familiar with the pipe. It’s a central component of writing “tidy” R code. Incidentally, SAS also has a use for the pipe: <a href="https://blogs.sas.com/content/sgf/2016/03/11/using-a-pipe-to-return-the-output-of-an-operating-system-command-to-sas-software/">leveraging the operating system to work with files</a>. In SAS, you just use the keyword <code>pipe</code>, which is hopefully pretty obvious.</p>
 </div>
@@ -3120,8 +3118,8 @@ RUN;</code></pre>
 <p>I maintain a list of packages that I find to be useful so that when I install R on a new machine (or update R), I don’t have to spend 3 weeks realizing that I need to install X package. Instead of many repeated 5 minute pauses for package installation, I can just let this script run once and walk away.</p>
 <p>I’ve pared down my list of packages a bit for this class (you don’t need the packages for analysis of 3D bullet scan data, for instance), but this step should help populate your R installation with a few new packages.</p>
 <p>Read the script (located <a href="code/03_setup.R">here</a>) and try to understand what it is doing. Once you think you understand what it is doing, run the following command to run the script and install the packages on your machine. Were you right?</p>
-<div class="sourceCode" id="cb121"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb121-1"><a href="organization.html#cb121-1"></a>url &lt;-<span class="st"> &quot;https://raw.githubusercontent.com/srvanderplas/unl-stat850/master/code/03_setup.R&quot;</span></span>
-<span id="cb121-2"><a href="organization.html#cb121-2"></a><span class="kw">source</span>(url)</span></code></pre></div>
+<div class="sourceCode" id="cb121"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb121-1" data-line-number="1">url &lt;-<span class="st"> &quot;https://raw.githubusercontent.com/srvanderplas/unl-stat850/master/code/03_setup.R&quot;</span></a>
+<a class="sourceLine" id="cb121-2" data-line-number="2"><span class="kw">source</span>(url)</a></code></pre></div>
 </div>
 </div>
 <div id="packages" class="section level2">
@@ -3136,17 +3134,17 @@ A more common way of distributing code in SAS seems to be through the use of sin
 <p><summary>R packages</summary>
 In R, there are two main sources for packages: CRAN (the Comprehensive R Archive Network) (and related archives, such as MRAN, which is Microsoft’s version of CRAN) and github. R packages published on CRAN go through a basic verification process that makes sure that the package meets certain <a href="https://cran.r-project.org/">standards</a> (for instance, packages must have proper dependencies specified, cannot conflict with previous package names, must have a software license, and cannot contain malicious code). Note that CRAN does not check the packages for statistical correctness!</p>
 <p>On github, packages go through less verification. Many packages use a system where the version in development is on github and available for installation, but the version on CRAN is considered “stable”. Sometimes, packages are never put on CRAN: I contribute to several packages which are too large for CRAN, and it’s not worth the hassle to get an exception or figure out a workaround.</p>
-<div class="sourceCode" id="cb122"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb122-1"><a href="organization.html#cb122-1"></a><span class="kw">library</span>(rvest)</span>
-<span id="cb122-2"><a href="organization.html#cb122-2"></a>Loading required package<span class="op">:</span><span class="st"> </span>xml2</span>
-<span id="cb122-3"><a href="organization.html#cb122-3"></a>txt &lt;-<span class="st"> </span><span class="kw">read_xml</span>(<span class="st">&quot;https://cran.r-project.org/web/packages/&quot;</span>) <span class="op">%&gt;%</span></span>
-<span id="cb122-4"><a href="organization.html#cb122-4"></a><span class="st">  </span><span class="kw">html_node</span>(<span class="dt">css =</span> <span class="st">&quot;#pkgs&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb122-5"><a href="organization.html#cb122-5"></a><span class="st">  </span><span class="kw">xml_parent</span>() <span class="op">%&gt;%</span></span>
-<span id="cb122-6"><a href="organization.html#cb122-6"></a><span class="st">  </span><span class="kw">html_text</span>()</span>
-<span id="cb122-7"><a href="organization.html#cb122-7"></a>npkgs &lt;-<span class="st"> </span>stringr<span class="op">::</span><span class="kw">str_extract</span>(txt, <span class="st">&quot;features </span><span class="ch">\\</span><span class="st">d{1,}&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span>stringr<span class="op">::</span><span class="kw">str_remove</span>(<span class="st">&quot;features &quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">as.numeric</span>()</span></code></pre></div>
-<p>Currently, the CRAN package repository features 1.580610^{4} available packages. How do you navigate them to find the one you need? Sometimes, the <a href="https://cran.r-project.org/web/views/">CRAN Task Views</a> may be helpful - for instance, if you want to see all of the packages which are useful for Meta-Analysis, Finance, Bayesian statistics, etc. Other times, it’s useful to let Google help you navigate: searching for “R CRAN” + “what you want the package to do” can often narrow things down (I recommend adding CRAN in because Google results for “R” are not particularly useful.)</p>
+<div class="sourceCode" id="cb122"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb122-1" data-line-number="1"><span class="kw">library</span>(rvest)</a>
+<a class="sourceLine" id="cb122-2" data-line-number="2">Loading required package<span class="op">:</span><span class="st"> </span>xml2</a>
+<a class="sourceLine" id="cb122-3" data-line-number="3">txt &lt;-<span class="st"> </span><span class="kw">read_xml</span>(<span class="st">&quot;https://cran.r-project.org/web/packages/&quot;</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb122-4" data-line-number="4"><span class="st">  </span><span class="kw">html_node</span>(<span class="dt">css =</span> <span class="st">&quot;#pkgs&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb122-5" data-line-number="5"><span class="st">  </span><span class="kw">xml_parent</span>() <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb122-6" data-line-number="6"><span class="st">  </span><span class="kw">html_text</span>()</a>
+<a class="sourceLine" id="cb122-7" data-line-number="7">npkgs &lt;-<span class="st"> </span>stringr<span class="op">::</span><span class="kw">str_extract</span>(txt, <span class="st">&quot;features </span><span class="ch">\\</span><span class="st">d{1,}&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span>stringr<span class="op">::</span><span class="kw">str_remove</span>(<span class="st">&quot;features &quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">as.numeric</span>()</a></code></pre></div>
+<p>Currently, the CRAN package repository features 1.581610^{4} available packages. How do you navigate them to find the one you need? Sometimes, the <a href="https://cran.r-project.org/web/views/">CRAN Task Views</a> may be helpful - for instance, if you want to see all of the packages which are useful for Meta-Analysis, Finance, Bayesian statistics, etc. Other times, it’s useful to let Google help you navigate: searching for “R CRAN” + “what you want the package to do” can often narrow things down (I recommend adding CRAN in because Google results for “R” are not particularly useful.)</p>
 <p>Once you find and install a package (<code>install.packages()</code> for CRAN packages, <code>devtools::install_github()</code> for GitHub packages), you have to figure out how to use it. Many R packages come with <strong>vignettes</strong>, which are short articles that demonstrate how a package is used.
 You can browse the available vignettes using <code>browseVignettes()</code> (if you provide a package name as an argument, you will get only vignettes from that package).</p>
-Another way to get help on a package is to use <code>?&lt;package name&gt;</code>, e.g. <code>?ggplot2</code>. That will take you to the main package description page, and there are often links to documentation. At the bottom of the description page, you can click on a link to get to the Index, which is a list of all functions that are provided in that package. From there, you can find the documentation for each function in the package.
+Another way to get help on a package is to use <code>?&lt;package name&gt;</code>, e.g. <code>?ggplot2</code>. That will take you to the main package description page, and there are often links to documentation. At the bottom of the description page, you can click on a link to get to the Index, which is a list of all functions that are provided in that package. From there, you can find the documentation for each function in the package.
 </details>
 <div id="try-it-out-10" class="section level3 unnumbered tryitout">
 <h3>Try it out</h3>
@@ -3154,20 +3152,20 @@ Another way to get help on a package is to use <code>?&lt;package name&gt;</code
 <p>Get to the package index for the <code>tibble</code> package, either by navigating through the Packages tab in RStudio, or using <code>?tibble</code>. Access the documentation for the <code>tribble</code> function, and try loading the package and creating your own tibble using <code>tribble</code>.</p>
 <details>
 <p><summary>Solution</summary></p>
-<div class="sourceCode" id="cb123"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb123-1"><a href="organization.html#cb123-1"></a><span class="co">## install.packages(&quot;tibble&quot;)</span></span>
-<span id="cb123-2"><a href="organization.html#cb123-2"></a><span class="kw">library</span>(tibble)</span>
-<span id="cb123-3"><a href="organization.html#cb123-3"></a><span class="co">## ?tibble</span></span>
-<span id="cb123-4"><a href="organization.html#cb123-4"></a><span class="co">## ?tribble</span></span>
-<span id="cb123-5"><a href="organization.html#cb123-5"></a><span class="kw">tribble</span>(<span class="op">~</span>var1, <span class="op">~</span>var2,</span>
-<span id="cb123-6"><a href="organization.html#cb123-6"></a>        <span class="dv">1</span>, <span class="dv">2</span>, </span>
-<span id="cb123-7"><a href="organization.html#cb123-7"></a>        <span class="dv">3</span>, <span class="dv">4</span>,</span>
-<span id="cb123-8"><a href="organization.html#cb123-8"></a>        <span class="dv">5</span>, <span class="dv">6</span>)</span>
-<span id="cb123-9"><a href="organization.html#cb123-9"></a><span class="co"># A tibble: 3 x 2</span></span>
-<span id="cb123-10"><a href="organization.html#cb123-10"></a>   var1  var2</span>
-<span id="cb123-11"><a href="organization.html#cb123-11"></a>  <span class="op">&lt;</span>dbl<span class="op">&gt;</span><span class="st"> </span><span class="er">&lt;</span>dbl<span class="op">&gt;</span></span>
-<span id="cb123-12"><a href="organization.html#cb123-12"></a><span class="dv">1</span>     <span class="dv">1</span>     <span class="dv">2</span></span>
-<span id="cb123-13"><a href="organization.html#cb123-13"></a><span class="dv">2</span>     <span class="dv">3</span>     <span class="dv">4</span></span>
-<span id="cb123-14"><a href="organization.html#cb123-14"></a><span class="dv">3</span>     <span class="dv">5</span>     <span class="dv">6</span></span></code></pre></div>
+<div class="sourceCode" id="cb123"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb123-1" data-line-number="1"><span class="co">## install.packages(&quot;tibble&quot;)</span></a>
+<a class="sourceLine" id="cb123-2" data-line-number="2"><span class="kw">library</span>(tibble)</a>
+<a class="sourceLine" id="cb123-3" data-line-number="3"><span class="co">## ?tibble</span></a>
+<a class="sourceLine" id="cb123-4" data-line-number="4"><span class="co">## ?tribble</span></a>
+<a class="sourceLine" id="cb123-5" data-line-number="5"><span class="kw">tribble</span>(<span class="op">~</span>var1, <span class="op">~</span>var2,</a>
+<a class="sourceLine" id="cb123-6" data-line-number="6">        <span class="dv">1</span>, <span class="dv">2</span>, </a>
+<a class="sourceLine" id="cb123-7" data-line-number="7">        <span class="dv">3</span>, <span class="dv">4</span>,</a>
+<a class="sourceLine" id="cb123-8" data-line-number="8">        <span class="dv">5</span>, <span class="dv">6</span>)</a>
+<a class="sourceLine" id="cb123-9" data-line-number="9"><span class="co"># A tibble: 3 x 2</span></a>
+<a class="sourceLine" id="cb123-10" data-line-number="10">   var1  var2</a>
+<a class="sourceLine" id="cb123-11" data-line-number="11">  <span class="op">&lt;</span>dbl<span class="op">&gt;</span><span class="st"> </span><span class="er">&lt;</span>dbl<span class="op">&gt;</span></a>
+<a class="sourceLine" id="cb123-12" data-line-number="12"><span class="dv">1</span>     <span class="dv">1</span>     <span class="dv">2</span></a>
+<a class="sourceLine" id="cb123-13" data-line-number="13"><span class="dv">2</span>     <span class="dv">3</span>     <span class="dv">4</span></a>
+<a class="sourceLine" id="cb123-14" data-line-number="14"><span class="dv">3</span>     <span class="dv">5</span>     <span class="dv">6</span></a></code></pre></div>
 </details>
 </div>
 </div>
@@ -3186,9 +3184,9 @@ Another way to get help on a package is to use <code>?&lt;package name&gt;</code
 <div class="footnotes">
 <hr />
 <ol start="7">
-<li id="fn7"><p>if you’re familiar with C, the argument passed in is just a pointer to the original memory<a href="organization.html#fnref7" class="footnote-back">↩︎</a></p></li>
-<li id="fn8"><p>I had been using R for ~8 years before I ever heard the term “infix operator” - and I’d been using infix operators for a long time at that point, just without thinking about what they were.<a href="organization.html#fnref8" class="footnote-back">↩︎</a></p></li>
-<li id="fn9"><p>Note that the various components of SAS can be <em>extremely</em> confusing to separate. I found <a href="https://www.lexjansen.com/mwsug/2017/RF/MWSUG-2017-RF01.pdf">this</a> guide to be somewhat helpful.<a href="organization.html#fnref9" class="footnote-back">↩︎</a></p></li>
+<li id="fn7"><p>if you’re familiar with C, the argument passed in is just a pointer to the original memory<a href="organization.html#fnref7" class="footnote-back">↩</a></p></li>
+<li id="fn8"><p>I had been using R for ~8 years before I ever heard the term “infix operator” - and I’d been using infix operators for a long time at that point, just without thinking about what they were.<a href="organization.html#fnref8" class="footnote-back">↩</a></p></li>
+<li id="fn9"><p>Note that the various components of SAS can be <em>extremely</em> confusing to separate. I found <a href="https://www.lexjansen.com/mwsug/2017/RF/MWSUG-2017-RF01.pdf">this</a> guide to be somewhat helpful.<a href="organization.html#fnref9" class="footnote-back">↩</a></p></li>
 </ol>
 </div>
             </section>
