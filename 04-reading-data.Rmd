@@ -1,8 +1,7 @@
----
-output: 
-  html_document: 
-    keep_md: yes
----
+```{r, include = F}
+.reset()
+```
+
 # External Data {#reading-data}
 
 ## Module Objectives {-}
