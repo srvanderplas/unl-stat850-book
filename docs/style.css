@@ -40,10 +40,16 @@ pre code {
 .learn-more{
   border:2px solid lime;
   padding:10px;
-  
+
 }
 
 .example{
   border:2px solid blue;
   padding:10px;
+}
+
+.my-opinion{
+  border:1px solid deepskyblue;
+  padding:5px;
+  text-color: deepskyblue;
 }
