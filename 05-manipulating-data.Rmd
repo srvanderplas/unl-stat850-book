@@ -1018,7 +1018,7 @@ The SAS code for this is fairly similar (though I'll admit to not having the fin
 
 ```{sashtml ike-evolution-sas}
 libname classdat "/home/susan/Projects/Class/unl-stat850/2020-stat850/sas/";
-proc printto log="saslog.log" new;
+
 PROC SQL;
 CREATE TABLE ike AS
 SELECT * FROM classdat.storms WHERE name = "Ike"
