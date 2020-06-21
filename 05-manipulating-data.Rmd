@@ -693,7 +693,7 @@ RUN;
 
 By default, with SAS, we get a bit more than we bargained for; we can turn the extra output off with options.
 
-In SAS, though, there's a proc that is going to be more useful for this type of work: PROC SQL. `dplyr` is built off of SQL philosophy and is designed to let you take advantage of the power of R for doing computations (because SQL's statistical abilities are limited). Similarly, PROC SQL in SAS is going to allow you to do powerful things and then take advantage of SAS's statistical powers.
+Another option is to use PROC SQL in SAS, which will have a logical flow similar to `dplyr`. 
 
 ```{sashtml}
 
@@ -722,6 +722,7 @@ Frequently, we have data that is more specific than the data we need - for insta
 
 `group_by` is the verb that accomplishes the first task. `summarize` accomplishes the second task and implicitly accomplishes the third as well.
 
+<details><summary>Replicating frequency tables using `dplyr`</summary>
 Let's start with a trivial example: Suppose we want to count up every occurrence of a variable in a dataset. We can already do this with e.g. `table()`, but work with me for a moment.
 
 ```{r}
@@ -751,7 +752,7 @@ pv_race_sum <- grouped_pv %>%
 
 pv_race_sum
 ```
-
+</details>
 When we run summarize, we get back a data frame that is not grouped, with one line for each of the previously existing groups. `summarize` removes one "layer" of grouping with each run. 
 
 One layer of grouping? What does that mean, you may ask yourself. 
@@ -779,6 +780,7 @@ We grouped pv by gender and race, then ran summarize, which created one row for 
 
 Let's try a non-trivial example, using the `storms` dataset that is part of the `dplyr` package:
 
+<details><summary>Reading in the data</summary>
 ```{r}
 library(dplyr)
 library(lubridate) # for the make_datetime() function
@@ -790,7 +792,17 @@ storms <- storms %>%
   mutate(time = make_datetime(year, month, day, hour))
 ```
 
+````
+libname classdat "/home/susan/Projects/Class/unl-stat850/2020-stat850/sas/";
+filename fileloc '~/Projects/Class/unl-stat850/2020-stat850/data/storms.csv';
+PROC IMPORT  datafile = fileloc out=classdat.storms
+DBMS = csv; /* comma delimited file */
+GETNAMES = YES;
+RUN;
+````
+
 We have named storms, observation time, storm location, status, wind, pressure, and diameter (for tropical storms and hurricanes). 
+</details>
 
 <details><summary>One thing we might want to know is at what point each storm was the strongest. (group_by + filter + summarize)</summary> Let's define strongest in the following way: 
 
@@ -813,6 +825,40 @@ max_power_storm <- storms %>%
   ungroup()
 max_power_storm
 ```
+
+```{sashtml}
+libname classdat "/home/susan/Projects/Class/unl-stat850/2020-stat850/sas/";
+
+DATA classdat.storms;
+SET classdat.storms;
+date = MDY(month, day, year);
+time = DHMS(date, hour, 0, 0);
+FORMAT time DATETIME.;
+RUN;
+
+PROC SQL;
+  CREATE TABLE tmp1 AS
+  SELECT *
+  FROM classdat.storms
+  WHERE (NOT missing(pressure)) AND (NOT missing(wind))
+  GROUP BY year, name;
+  
+  CREATE TABLE tmp2 AS 
+  SELECT name, year, max(pressure) AS pressure, max(wind) AS wind
+  FROM tmp1 
+  GROUP BY year, name;
+  
+  CREATE TABLE tmp3 AS
+  
+  
+  CREATE TABLE maxpwr AS
+  SELECT year, name, mean(pressure) AS pressure, mean(wind) AS wind, category, status, mean(time) AS time
+  FROM tmp1
+  GROUP BY year, name;
+QUIT;
+
+```
+
 If we want to see a visual summary, we could plot a histogram of the minimum pressure of each storm. 
 ```{r}
 library(ggplot2)
