@@ -752,12 +752,9 @@ pv_race_sum <- grouped_pv %>%
 
 pv_race_sum
 ```
-</details>
 When we run summarize, we get back a data frame that is not grouped, with one line for each of the previously existing groups. `summarize` removes one "layer" of grouping with each run. 
 
-One layer of grouping? What does that mean, you may ask yourself. 
-
-<details><summary>Allow me to demonstrate.</summary>
+One layer of grouping? What does that mean?
 
 ```{r}
 tmp <- pv %>%
@@ -772,15 +769,38 @@ tmp %>%
 Apart from some warnings about how it's hard to take the minimum or maximum of a bunch of missing data (which is fair), we can see a message: 
 `summarise()` regrouping output by 'gender' (override with '.groups' argument)
 
-What this message is saying is that it is essentially dropping one layer of grouping (race) and grouping only by gender -- but it's also nice enough to tell you that you can override the default option if you want to do so by using the `.groups` argument. `?summarize` (or `?summarise` if you like UK English -- the developer is from NZ) gives you several options for how to handle the grouping of the result. 
-
+What this message is saying is that it is essentially dropping one layer of grouping (race) and grouping only by gender -- but it's also nice enough to tell you that you can override the default option if you want to do so by using the `.groups` argument. `?summarize`^[or `?summarise` if you like UK English -- the developer of this package is from NZ] gives you several options for how to handle the grouping of the result. 
 
 We grouped pv by gender and race, then ran summarize, which created one row for each combination of gender and race and "glued" them together. The resulting data frame is still grouped by gender, but because there's only one row for each race (for each level/group of gender), there's no reason to have that level of grouping anymore. So it's dropped by default. 
 </details>
 
+<details><summary>Replicating PROC FREQ using PROC SQL</summary>
+```{sashtml}
+libname classdat "/home/susan/Projects/Class/unl-stat850/2020-stat850/sas/";
+
+DATA pv;
+  SET classdat.police;
+  age = INPUT(victim_s_age, 3.);
+  IF victim_s_gender=' ' THEN victim_s_gender='Unknown';
+  race = victim_s_race; /* initialize it to current value */
+  IF victim_s_race='Unknown Race' THEN race = 'Unknown race';
+RUN;
+
+PROC SQL;
+  SELECT victim_s_gender AS gender, race, count(*) AS n
+  FROM pv
+  GROUP BY race;
+
+PROC SQL;
+  SELECT victim_s_gender AS gender, race, count(*) AS n, min(age) AS min_age, max(age) AS max_age
+  FROM pv
+  GROUP BY gender, race;
+```
+</details>
+
 Let's try a non-trivial example, using the `storms` dataset that is part of the `dplyr` package:
 
-<details><summary>Reading in the data</summary>
+<details><summary>Reading in the data (R and SAS)</summary>
 ```{r}
 library(dplyr)
 library(lubridate) # for the make_datetime() function
@@ -799,12 +819,19 @@ PROC IMPORT  datafile = fileloc out=classdat.storms
 DBMS = csv; /* comma delimited file */
 GETNAMES = YES;
 RUN;
+
+DATA classdat.storms;
+SET classdat.storms;
+date = MDY(month, day, year);
+time = DHMS(date, hour, 0, 0);
+FORMAT time DATETIME.;
+RUN;
 ````
 
 We have named storms, observation time, storm location, status, wind, pressure, and diameter (for tropical storms and hurricanes). 
 </details>
 
-<details><summary>One thing we might want to know is at what point each storm was the strongest. (group_by + filter + summarize)</summary> Let's define strongest in the following way: 
+<details><summary>One thing we might want to know is at what point each storm was the strongest. (group_by + filter + summarize) (in R)</summary> Let's define strongest in the following way: 
 
 1. The points where the storm is at its lowest atmospheric pressure (generally, the lower the atmospheric pressure, the more trouble a tropical disturbance will cause). 
 2. If there's a tie, we might want to know when the maximum wind speed occurred. 
@@ -826,39 +853,6 @@ max_power_storm <- storms %>%
 max_power_storm
 ```
 
-```{sashtml}
-libname classdat "/home/susan/Projects/Class/unl-stat850/2020-stat850/sas/";
-
-DATA classdat.storms;
-SET classdat.storms;
-date = MDY(month, day, year);
-time = DHMS(date, hour, 0, 0);
-FORMAT time DATETIME.;
-RUN;
-
-PROC SQL;
-  CREATE TABLE tmp1 AS
-  SELECT *
-  FROM classdat.storms
-  WHERE (NOT missing(pressure)) AND (NOT missing(wind))
-  GROUP BY year, name;
-  
-  CREATE TABLE tmp2 AS 
-  SELECT name, year, max(pressure) AS pressure, max(wind) AS wind
-  FROM tmp1 
-  GROUP BY year, name;
-  
-  CREATE TABLE tmp3 AS
-  
-  
-  CREATE TABLE maxpwr AS
-  SELECT year, name, mean(pressure) AS pressure, mean(wind) AS wind, category, status, mean(time) AS time
-  FROM tmp1
-  GROUP BY year, name;
-QUIT;
-
-```
-
 If we want to see a visual summary, we could plot a histogram of the minimum pressure of each storm. 
 ```{r}
 library(ggplot2)
@@ -869,6 +863,69 @@ We could also look to see whether there has been any change over time in pressur
 ggplot(max_power_storm, aes(x = time, y = pressure)) + geom_point()
 ```
 It seems to me that there are fewer high-pressure storms before 1990 or so, which may be due to the fact that some weak storms may not have been observed or recorded prior to widespread radar coverage in the Atlantic (see [this coverage map from 1995](image/weather_radar_graph_1995.gif)). 
+</details>
+
+<details><summary>One thing we might want to know is at what point each storm was the strongest. (SAS, PROC SQL)</summary> Let's define strongest in the following way: 
+
+1. The points where the storm is at its lowest atmospheric pressure (generally, the lower the atmospheric pressure, the more trouble a tropical disturbance will cause). 
+2. If there's a tie, we might want to know when the maximum wind speed occurred. 
+3. If that still doesn't get us a single row for each observation, lets just pick out the status and category (these are determined by wind speed, so they should be the same if maximum wind speed is the same) and compute the average time where this occurred. 
+
+In SAS, this is going to require some work. Specifically, while dplyr commands are stated in recipe order (do this, then this), SQL statements... aren't. WHERE comes after SELECT xxx FROM yyy, and GROUP BY comes after that again. 
+
+There are a couple of ways to handle that: sub-queries, and creating temporary tables. I think the temporary tables approach will be easier to demonstrate, so lets go with that. 
+
+Another challenge will be the fact that SAS PROC SQL doesn't handle missing data quite as easily as dplyr does (na.rm is a very nice function, all things considered). 
+We can think through the steps we need to take: 
+1. Create a table where wind and pressure observations aren't missing. We'll call that tmp1. 
+2. Filter tmp1, keeping only rows with minimum pressure and maximum wind for each storm/year combination (HAVING = WHERE, but after the GROUP BY clause has been applied). We'll call that tmp2. We can also select the variables we care about in this step. 
+3. Summarize tmp2, keeping columns name, year, pressure, wind, category, status, and time, where time is the mean of all maximum-power observations. The other variables should have only one value each. We can accomplish this task using the combination of SELECT and DISTINCT. DISTINCT says "keep only rows with new combinations of these values". 
+
+(Note also that we can format values inline in proc SQL Select statements. That forces SAS to treat time as a date-time variable, which will force it to format correctly in e.g. plots.)
+
+```{sashtml sas-group-by-storms-1}
+libname classdat "/home/susan/Projects/Class/unl-stat850/2020-stat850/sas/";
+
+
+PROC SQL;
+  CREATE TABLE tmp1 AS
+  SELECT *
+  FROM classdat.storms
+  WHERE (NOT missing(pressure)) AND (NOT missing(wind));
+  
+  CREATE TABLE tmp2 AS 
+  SELECT name, year, pressure, wind, category, status, time, 
+         min(pressure) AS minpressure, max(wind) AS maxwind
+  FROM tmp1 
+  GROUP BY year, name
+  HAVING pressure = minpressure AND wind = maxwind;
+  
+  CREATE TABLE maxpwr AS
+  SELECT DISTINCT name, year, pressure, wind, category, status, 
+                  mean(time) AS time format=DATETIME.
+  FROM tmp2
+  GROUP BY year, name;
+  
+QUIT;
+  
+PROC PRINT DATA=maxpwr (obs=5);
+  RUN;
+
+ODS GRAPHICS ON;
+ODS TRACE ON; /* this allows us to select only the plot and not tables */
+ODS SELECT HISTOGRAM;
+PROC UNIVARIATE DATA=maxpwr;
+  VAR pressure;
+  HISTOGRAM;
+  RUN;
+ODS TRACE OFF;
+  
+PROC sgplot DATA=maxpwr;
+  scatter X = time Y = pressure;
+RUN;
+  
+ODS GRAPHICS OFF;
+```
 </details>
 
 <details><summary>Another interesting way to look at this data would be to examine the duration of time a storm existed, as a function of its maximum category. (group_by + summarize + arrange). Do stronger storms exist for a longer period of time?</summary>
