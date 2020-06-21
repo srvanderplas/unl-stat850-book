@@ -815,8 +815,9 @@ storms <- storms %>%
 ````
 libname classdat "/home/susan/Projects/Class/unl-stat850/2020-stat850/sas/";
 filename fileloc '~/Projects/Class/unl-stat850/2020-stat850/data/storms.csv';
-PROC IMPORT  datafile = fileloc out=classdat.storms
+PROC IMPORT  datafile = fileloc out=classdat.storms REPLACE
 DBMS = csv; /* comma delimited file */
+GUESSINGROWS=500;
 GETNAMES = YES;
 RUN;
 
@@ -831,12 +832,13 @@ RUN;
 We have named storms, observation time, storm location, status, wind, pressure, and diameter (for tropical storms and hurricanes). 
 </details>
 
-<details><summary>One thing we might want to know is at what point each storm was the strongest. (group_by + filter + summarize) (in R)</summary> Let's define strongest in the following way: 
+One thing we might want to know is at what point each storm was the strongest. Let's define strongest in the following way: 
 
 1. The points where the storm is at its lowest atmospheric pressure (generally, the lower the atmospheric pressure, the more trouble a tropical disturbance will cause). 
 2. If there's a tie, we might want to know when the maximum wind speed occurred. 
 3. If that still doesn't get us a single row for each observation, lets just pick out the status and category (these are determined by wind speed, so they should be the same if maximum wind speed is the same) and compute the average time where this occurred. 
 
+<details><summary>group_by + filter + summary in R</summary> 
 ```{r}
 max_power_storm <- storms %>%
   # Storm names can be reused, so we need to have year to be sure it's the same instance
@@ -865,20 +867,15 @@ ggplot(max_power_storm, aes(x = time, y = pressure)) + geom_point()
 It seems to me that there are fewer high-pressure storms before 1990 or so, which may be due to the fact that some weak storms may not have been observed or recorded prior to widespread radar coverage in the Atlantic (see [this coverage map from 1995](image/weather_radar_graph_1995.gif)). 
 </details>
 
-<details><summary>One thing we might want to know is at what point each storm was the strongest. (SAS, PROC SQL)</summary> Let's define strongest in the following way: 
-
-1. The points where the storm is at its lowest atmospheric pressure (generally, the lower the atmospheric pressure, the more trouble a tropical disturbance will cause). 
-2. If there's a tie, we might want to know when the maximum wind speed occurred. 
-3. If that still doesn't get us a single row for each observation, lets just pick out the status and category (these are determined by wind speed, so they should be the same if maximum wind speed is the same) and compute the average time where this occurred. 
-
+<details><summary>Proc SQL in SAS</summary> 
 In SAS, this is going to require some work. Specifically, while dplyr commands are stated in recipe order (do this, then this), SQL statements... aren't. WHERE comes after SELECT xxx FROM yyy, and GROUP BY comes after that again. 
 
-There are a couple of ways to handle that: sub-queries, and creating temporary tables. I think the temporary tables approach will be easier to demonstrate, so lets go with that. 
+There are a couple of ways to handle that: sub-queries, and creating temporary tables. I think the temporary tables approach will be easier to demonstrate, read, and understand, so lets go with that. 
 
 Another challenge will be the fact that SAS PROC SQL doesn't handle missing data quite as easily as dplyr does (na.rm is a very nice function, all things considered). 
 We can think through the steps we need to take: 
 1. Create a table where wind and pressure observations aren't missing. We'll call that tmp1. 
-2. Filter tmp1, keeping only rows with minimum pressure and maximum wind for each storm/year combination (HAVING = WHERE, but after the GROUP BY clause has been applied). We'll call that tmp2. We can also select the variables we care about in this step. 
+2. Filter tmp1, keeping only rows with minimum pressure and maximum wind for each storm/year combination (HAVING is like WHERE, but after the GROUP BY clause has been applied). We'll call that tmp2. We can also select the variables we care about in this step. 
 3. Summarize tmp2, keeping columns name, year, pressure, wind, category, status, and time, where time is the mean of all maximum-power observations. The other variables should have only one value each. We can accomplish this task using the combination of SELECT and DISTINCT. DISTINCT says "keep only rows with new combinations of these values". 
 
 (Note also that we can format values inline in proc SQL Select statements. That forces SAS to treat time as a date-time variable, which will force it to format correctly in e.g. plots.)
@@ -920,7 +917,7 @@ PROC UNIVARIATE DATA=maxpwr;
   RUN;
 ODS TRACE OFF;
   
-PROC sgplot DATA=maxpwr;
+PROC SGPLOT DATA=maxpwr;
   scatter X = time Y = pressure;
 RUN;
   
@@ -928,7 +925,7 @@ ODS GRAPHICS OFF;
 ```
 </details>
 
-<details><summary>Another interesting way to look at this data would be to examine the duration of time a storm existed, as a function of its maximum category. (group_by + summarize + arrange). Do stronger storms exist for a longer period of time?</summary>
+<details><summary>Another interesting way to look at this data would be to examine the duration of time a storm existed, as a function of its maximum category. Do stronger storms exist for a longer period of time?</summary>
 
 ```{r}
 storm_strength_duration <- storms %>%
@@ -942,6 +939,25 @@ storm_strength_duration %>%
   ggplot(aes(x = max_strength, y = duration)) + geom_boxplot()
 ```
 You don't need to know how to create these plots yet, but I find it much easier to look at the chart and answer the question I started out with. 
+
+
+In SAS, we have to know that [datetimes are stored in seconds](https://documentation.sas.com/?docsetId=ds2pg&docsetTarget=n02zpqz4j5u3j9n1t0i95ncqep5g.htm&docsetVersion=3.1&locale=en).  So if we subtract two date time values, and we want our answer in days, then we need to divide by the number of seconds in a day: 24\*60\*60 = 86400. R has helper functions to do this for us, but it's not that much harder to just do the computuation ourselves. 
+
+```{sashtml storms-duration-category-sas}
+libname classdat "/home/susan/Projects/Class/unl-stat850/2020-stat850/sas/";
+PROC SQL;
+CREATE TABLE stormlencat AS
+SELECT name, year, (max(time) - min(time))/86400 AS duration, max(category) AS max_strength
+FROM classdat.storms
+GROUP BY year, name
+ORDER BY max_strength;
+
+ODS GRAPHICS ON;
+PROC BOXPLOT DATA=stormlencat;
+  PLOT duration * max_strength;
+RUN;
+ODS GRAPHICS OFF;
+```
 </details>
 
 <details><summary>We could also look to see how a storm's diameter evolves over time, from when the storm is first identified (group_by + mutate) </summary>
@@ -955,12 +971,41 @@ storm_evolution <- storms %>%
   mutate(time_since_start = difftime(time, min(time), units = "days")) %>%
   ungroup()
 
-ggplot(storm_evolution, aes(x = time_since_start, y = hu_diameter, group = interaction(name, year))) + geom_line(alpha = .2) + facet_wrap(~year, scales = "free_y")
+ggplot(storm_evolution, 
+       aes(x = time_since_start, y = hu_diameter, 
+           group = name)) + geom_line(alpha = .2) + 
+  facet_wrap(~year, scales = "free_y")
 ```
-For this plot, I've added `facet_wrap(~year)` to produce sub-plots for each year. This helps us to be able to see some individuality, because otherwise there are far too many storms. It seems that the vast majority of storms have a single bout of hurricane force winds (which either decreases or just terminates near the peak, presumably when the storm hits land and rapidly disintegrates). However, there are a few interesting exceptions - my favorite is in 2008 - the longest-lasting storm seems to have several local peaks in wind field diameter. 
+
+For this plot, I've added `facet_wrap(~year)` to produce sub-plots for each year. This helps us to be able to see some individuality, because otherwise there are far too many storms. 
+
+We can do something similar in SAS; this time, I decided to get rid of any storm which never had hurricane-force winds - that will get rid of a lot of lines that never leave the x-axis.
+
+```{sashtml storm-evolution-sas}
+libname classdat "/home/susan/Projects/Class/unl-stat850/2020-stat850/sas/";
+PROC SQL;
+CREATE TABLE stormevo AS
+SELECT name, year, (time - min(time))/86400 AS time_since_start, category, status, hu_diameter, ts_diameter, max(hu_diameter) AS max_hu_diameter
+FROM classdat.storms
+WHERE NOT MISSING(hu_diameter)
+GROUP BY year, name
+HAVING max_hu_diameter > 0
+ORDER BY year, name, time_since_start;
+
+ODS GRAPHICS ON;
+PROC SGPANEL DATA=stormevo;
+PANELBY year / COLUMNS = 4 ROWS = 3;
+SERIES X = time_since_start Y = hu_diameter / GROUP = name;
+RUN;
+ODS GRAPHICS OFF;
+```
+
+PROC SGPANEL in SAS does essentially the same thing as facet_wrap() in R - it allows you to select one or more variables to create sub-plots for. We do have to manually specify how many rows and columns (or SAS will give us 3 separate plots with 4 panels each). The essential components of the graph specification are the same - instead of specifying the use of a line, we specify "series" (which means plot a line). We specify the same x, y, and group variables, though the syntax differs a bit.
+
+It seems that the vast majority of storms have a single bout of hurricane force winds (which either decreases or just terminates near the peak, presumably when the storm hits land and rapidly disintegrates). However, there are a few interesting exceptions - my favorite is in 2008 - the longest-lasting storm seems to have several local peaks in wind field diameter. If we want, we can examine that further by plotting it separately.
+
 
 ```{r}
-
 storm_evolution %>%
   filter(year == 2008) %>%
   arrange(desc(time_since_start))
@@ -968,8 +1013,29 @@ storm_evolution %>%
 storm_evolution %>% filter(name == "Ike") %>%
   ggplot(aes(x = time, y = hu_diameter, color = category)) + geom_point()
 ```
+
+The SAS code for this is fairly similar (though I'll admit to not having the finesse with SAS to get a truly nice looking plot). At this point, we're going for quick-and-dirty graphics that show us what we want to know - we can figure out how to customize things later. 
+
+```{sashtml ike-evolution-sas}
+libname classdat "/home/susan/Projects/Class/unl-stat850/2020-stat850/sas/";
+proc printto log="saslog.log" new;
+PROC SQL;
+CREATE TABLE ike AS
+SELECT * FROM classdat.storms WHERE name = "Ike"
+ORDER BY time;
+
+ODS GRAPHICS ON;
+PROC SGPLOT DATA=ike;
+SCATTER X = time Y = hu_diameter / 
+  COLORRESPONSE=category /* color by another variable */
+  MARKERATTRS=(symbol=CircleFilled) /* use circles for points */
+  DATALABEL=category; /* label the circles with the value */
+RUN;
+ODS GRAPHICS OFF;
+```
+
 While I'm tempted to plot out the diameter and location on a map, it's a bit excessive for this particular problem. Luckily, Wikipedia has us covered: 
 ![Hurricane Ike's path and strength over time](https://upload.wikimedia.org/wikipedia/commons/5/5f/Ike_2008_track.png)
 
-It looks like Ike went long-ways across Cuba, which weakened it. When hurricanes weaken, often their wind fields expand (as they no longer have the angular momentum to maintain a tight structure). Ike crossed into the Gulf of Mexico, restrengthened, and then hit Houston. (I was living not far from there at the time -- it was not fun). 
+It looks like Ike went long-ways across Cuba, which weakened it. When hurricanes weaken, often their wind fields expand (as they no longer have the angular momentum to maintain a tight structure). Ike crossed into the Gulf of Mexico, restrengthened, and then hit Houston just about dead-on. (I was living just northwest of Houston when it hit (in College Station), and I can verify that it was not a fun time). 
 </details>
