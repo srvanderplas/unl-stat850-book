@@ -81,6 +81,252 @@ It is actually impossible to have a table that violates only one of the rules of
 
 By the end of this module, you should have the skills to "tidy" each of these tables. 
 
+## String operations: Creating new variables and separating multi-variable columns
+
+Nearly always, when multiple variables are stored in a single column, they are stored as character variables. There are many different "levels" of working with strings in programming, from simple find-and-replaced of fixed (constant) strings to regular expressions, which are extremely powerful (and extremely complicated). 
+
+> Some people, when confronted with a problem, think “I know, I’ll use regular expressions.” Now they have two problems. - Jamie Zawinski
+
+![Alternately, the xkcd version of the above quote](https://imgs.xkcd.com/comics/perl_problems.png)
+
+The tidyverse package to deal with strings is [`stringr`](https://stringr.tidyverse.org/). The functions in stringr take the form of `str_XXX` where XXX is a verb. So `str_split()`, `str_replace()`, `str_remove()`, `str_to_lower()` all should make some sense.
+
+```{r, eval = F}
+college_data <- read_csv("https://ed-public-download.app.cloud.gov/downloads/Most-Recent-Cohorts-All-Data-Elements.csv") 
+college_data2 <- college_data %>%
+  select(UNITID, INSTNM, CITY, STABBR, ZIP, ACCREDAGENCY, INSTURL, PREDDEG, MAIN, NUMBRANCH, HIGHDEG, CONTROL, ST_FIPS, LOCALE, LATITUDE, LONGITUDE) %>%
+  mutate(PREDDEG = factor(PREDDEG, levels = 0:4, labels = c("Not classified", "Predominantely certificate-degree granting", "Predominantely associate's-degree granting", "Predominantly bachelor's-degree granting", "Entirely graduate-degree granting")),
+         MAIN = factor(MAIN, levels = 0:1, labels = c("Not main campus", "main campus")),
+         HIGHDEG = factor(HIGHDEG, levels = 0:4, labels = c("Non-degree granting", "Certificate", "Associate", "Bachelors", "Graduate")),
+         CONTROL = factor(CONTROL, levels = 1:3, labels = c("Public", "Private Non Profit", "Private For Profit")))
+readr::write_csv(college_data2, "data/College_Data_Abbrev.csv")
+
+
+college_fips <- read_csv("data/CollegeFips.csv", col_names = F) %>%
+  set_names(c("ST_FIPS", "State")) %>%
+  mutate_all(as.character)
+
+college_data2 %>% select(STABBR, ST_FIPS) %>%
+  mutate(ST_FIPS = as.character(ST_FIPS)) %>%
+  unique() %>%
+  left_join(college_fips) %>%
+  write_csv("data/College_FIPS_Abbr.csv")
+
+college_data2 <- left_join(college_data2, college_fips)
+readr::write_csv(college_data2, "data/College_Data_Abbrev.csv", na = '.')
+```
+
+For this example, we'll use a subset of the US Department of Education College Scorecard data. [Documentation](https://collegescorecard.ed.gov/data/documentation/), [Data](https://collegescorecard.ed.gov/data/). I've selected a few columns from the institution-level data available on the College Scorecard site. 
+
+<details><summary>Let's take a look</summary>
+```{r}
+college <- read_csv("data/College_Data_Abbrev.csv", guess_max = 5000, na = '.')
+str(college)
+```
+
+```{sashtml sas-college-read-data}
+libname classdat "/home/susan/Projects/Class/unl-stat850/2020-stat850/sas/";
+
+filename fileloc '~/Projects/Class/unl-stat850/2020-stat850/data/College_Data_Abbrev.csv';
+PROC IMPORT  datafile = fileloc out=classdat.college REPLACE
+DBMS = csv; /* comma delimited file */
+GUESSINGROWS=500;
+GETNAMES = YES;
+RUN;
+
+PROC PRINT DATA = classdat.college (obs = 5);
+RUN;
+```
+</details>
+
+
+<details><summary>What proportion of the schools operating in each state have the state's name in the school name?</summary>
+
+We'll use `str_detect()` to look for the state name in the college name. 
+```{r, fig.width = 4, fig.height = 8, out.width = 4}
+# Outside the pipe
+str_detect(college$INSTNM, pattern = college$State)
+
+# Using the pipe and mutate:
+college <- college %>%
+  mutate(uses_st_name = str_detect(INSTNM, State))
+
+# By state - percentage of institution names
+college %>%
+  group_by(State) %>%
+  summarize(pct_uses_st_name = mean(uses_st_name), n = n()) %>%
+  filter(n > 5) %>% # only states/territories with at least 5 schools
+  # Reorder state factor level by percentage that uses state name
+  mutate(State = reorder(State, -pct_uses_st_name)) %>%
+  ggplot(data = ., aes(x = State, y = pct_uses_st_name)) + 
+  geom_col() + coord_flip() + 
+  geom_text(aes(y = 1, label = paste("Total Schools:", n)), hjust = 1)
+```
+
+In SAS, we use `find(x, pattern, 't')` to find the location of the pattern, which is 0 if the pattern is not found. To get something equivalent to `str_detect`, we just test whether this quantity is greater than 0. (The R equivalent of `find` is `str_locate()`). 
+
+Note that SAS pads character fields with spaces so that they are all the same length. So if we want to test for "Alabama    " we could omit the 't' option in the command, but since we usually don't want that, we need to tell SAS to trim the fields before searching for the pattern. 
+
+```{sashtml sas-college-find}
+libname classdat "/home/susan/Projects/Class/unl-stat850/2020-stat850/sas/";
+
+DATA collegetmp;
+set classdat.college;
+uses_st_name = find(INSTNM, State, 't') GT 0;
+RUN;
+
+
+PROC PRINT DATA = collegetmp (obs = 5);
+RUN;
+```
+</details>
+
+<details><summary>What are some common substrings in a set of text?</summary>
+For this, we'll start with working with the single column `INSTNM`. 
+
+```{r}
+head(college$INSTNM) %>% str_split(., " ") # Split on every space
+
+# We may need to fix certain things that should stay together
+# But doing too much of that gets tedious...
+str_replace(college$INSTNM, "A & M", "A&M") %>%
+  head() %>% 
+  str_split(., "[ -]") # This pattern says "either ' ' or '-'" 
+                       # (but the - has to be at the start or the end)
+```
+So we could take the time to clean up everything, making sure that e.g. San Diego is treated as a single word, but that's a pain in the rear. Instead, let's just see what happens if we brute-force it. 
+```{r}
+tmp <- college %>%
+  select(INSTNM, State) %>% 
+  mutate(name_words = str_split(INSTNM, '[ -]')) # This is a list-column
+tmp
+unnest(tmp) # Unnest duplicates rows so that the expanded data frame has the 
+            # same structure as the original data
+```
+List columns are one way to maintain tidy data. They allow you to have several "sub-observations" for each observation and are useful for precisely cases like this, where there are uneven numbers of words in each university's name. We're not going to focus on list columns, but if you're interested, check out `purrr` and this [excellent tutorial](https://jennybc.github.io/purrr-tutorial/). 
+```{r}
+unnest(tmp) %>% 
+  pull(name_words) %>% # this pulls out a single column
+  table() %>% 
+  sort(decreasing = T) %>% 
+  head(50)
+```
+
+In SAS, this is a bit more tricky. Most people I know that use both SAS and R will do the data cleaning in R once things get complicated, and then read the clean data in to SAS. That's a valid approach, but it's worth seeing what has to be done in SAS this once. As we get further into this class, I'll probably be more willing to say "we're just going to use R for this" for two reasons - 1. I know R better, and 2. R is generally better at handling the weird stuff; SAS is built to quickly handle things that are already formatted in a reasonable way. SAS seems to be highly preferred for e.g. fitting mixed/linear models, but it isn't the easiest tool to use for data cleaning. 
+
+But, in this particular case, there is [documentation about how to break a sentence into words](https://blogs.sas.com/content/iml/2016/07/11/break-sentence-into-words-sas.html) in SAS. 
+```{sashtml sas-college-split-string-words}
+libname classdat "/home/susan/Projects/Class/unl-stat850/2020-stat850/sas/";
+DATA collegename;
+SET classdat.college;
+numWords = countw(INSTNM, " ");
+DO i = 1 TO numWords;
+  word = scan(INSTNM, i, " ");
+  OUTPUT;
+END;
+KEEP word numWords;
+;
+
+PROC PRINT DATA=collegename (obs = 30);
+run;
+
+PROC FREQ DATA=collegename ORDER=FREQ;
+TABLES word / MAXLEVELS=30;
+RUN;
+```
+</details>
+
+There's one final string-related task that is fairly commonly encountered, and that is in e.g. the case of Table 3 above, where one column has two (or more) variables worth of data. We can use `str_extract()` if we want, but it's actually faster to use `separate()`, which is part of the `tidyr` package. 
+
+```{r}
+table3 %>%
+  separate(col = rate, into = c("cases", "population"), sep = "/", remove = F)
+```
+
+I've left the rate column in the original data frame just to make it easy to compare and verify that yes, it worked. 
+
+[The `scan()` function in SAS can be used similarly](https://communities.sas.com/t5/SAS-Procedures/Splitting-a-delimited-column-into-multiple-columns/td-p/351130), though it doesn't have quite the simplicity and convenience of `separate`.
+```{sashtml sas-table3-scan}
+data table3;
+length country $12 rate $20;
+input country $ year rate $;
+datalines;
+Afghanistan  1999 745/19987071     
+Afghanistan  2000 2666/20595360    
+Brazil       1999 37737/172006362  
+Brazil       2000 80488/174504898  
+China        1999 212258/1272915272
+China        2000 213766/1280428583
+;
+data table3split;
+set table3;
+length var1-var2 $10.;
+array var(2) $;
+do i = 1 to dim(var);
+  var[i]=scan(rate, i, '/', 'M');
+end;
+count = var1;
+population = var2;
+run;
+```
+
+`separate()` has a complement, `unite()`, which is useful for handling situations like in table5:
+```{r}
+table5 %>%
+  unite(col = "year", century:year, sep = '') %>%
+  separate(col = rate, into = c("cases", "population"), sep = "/")
+```
+
+Of course, it's much easier just to do a similar two-step operation (we have to convert to numeric variables to do math)
+```{r}
+table5 %>%
+  mutate(year = as.numeric(century)*100 + as.numeric(year)) %>% 
+  select(-century)
+```
+
+(Handy shortcut functions in `dplyr` don't completely remove the need to think).
+
+Similarly, it is possible to do this operation in SAS as well (by string concatenation or using the numeric approach), as shown below:
+
+```{sashtml sas-table5-concatenate}
+/* read in the data */
+DATA table5;
+LENGTH country $12 century year rate $20;
+INPUT country $ century year rate $;
+DATALINES;
+Afghanistan 19      99   745/19987071      
+Afghanistan 20      00   2666/20595360     
+Brazil      19      99   37737/172006362   
+Brazil      20      00   80488/174504898   
+China       19      99   212258/1272915272 
+China       20      00   213766/1280428583 
+;
+
+/* Format the data */
+DATA table5split;
+  SET table5;
+  LENGTH v1-v2 $10. yyc $3. centc $3. yyyyc $4.;
+  ARRAY v(2) $;
+  DO i = 1 TO dim(v);
+    v[i]=scan(rate, i, '/', 'M');
+  END;
+  count = v1;
+  population = v2;
+  /* Numeric version */
+  year = century*100 + year;
+  /* Character version */
+  yyc = PUT(year, 2.); /* convert to character */
+  centc = PUT(century, 2.); /* convert to character */
+  yyyyc = CATT('', centc, yearc); /* catt is truncate, then concatenate */
+RUN;
+
+/* Print the data */
+PROC PRINT DATA=table5split;
+  VAR country year yyyyc count population rate centc century yyc;
+RUN;
+```
+
+
 ## Pivot operations
 
 ### Wider
