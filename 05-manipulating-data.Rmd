@@ -1040,3 +1040,142 @@ While I'm tempted to plot out the diameter and location on a map, it's a bit exc
 
 It looks like Ike went long-ways across Cuba, which weakened it. When hurricanes weaken, often their wind fields expand (as they no longer have the angular momentum to maintain a tight structure). Ike crossed into the Gulf of Mexico, restrengthened, and then hit Houston just about dead-on. (I was living just northwest of Houston when it hit (in College Station), and I can verify that it was not a fun time). 
 </details>
+
+## Try it out {.tryitout -}
+<details><summary>Data Setup </summary>
+```{r}
+if (!"gapminder" %in% installed.packages()) install.packages("gapminder")
+library(gapminder)
+gapminder_unfiltered
+```
+
+```{r include = F}
+readr::write_csv(gapminder_unfiltered, "data/gapminder.csv", na = '.')
+```
+
+````
+libname classdat "/home/susan/Projects/Class/unl-stat850/2020-stat850/sas/";
+
+filename fileloc '~/Projects/Class/unl-stat850/2020-stat850/data/gapminder.csv';
+PROC IMPORT  datafile = fileloc out=classdat.gapminder REPLACE
+DBMS = csv; /* comma delimited file */
+GUESSINGROWS=500;
+GETNAMES = YES;
+RUN;
+````
+</details>
+
+You can [read about the gapminder project here](https://www.gapminder.org/data/documentation/). 
+
+The gapminder data used for this set of problems contains data from 142 countries on 5 continents. The filtered data in `gapminder` (in R) contain data about every 5 year period between 1952 and 2007, the country's life expectancy at birth, population, and per capita GDP (in US \$, inflation adjusted). In the `gapminder_unfiltered` table, however, things are a bit different. Some countries have yearly data, observations are missing, and some countries don't have complete data. I've exported the `gapminder_unfiltered` table to CSV for import into SAS as well - try to do these tasks in both languages. 
+
+Task 1: How bad is it? Using your EDA skills, determine *how bad* the unfiltered data are. You may want to look for missing values, number of records, etc. Use WHERE or filter to show any countries which have incomplete data. Describe, in words, what operations were necessary to get this information. 
+
+<details><summary>R</summary>
+```{r}
+gapminder_unfiltered %>% 
+  group_by(country) %>% 
+  summarize(n = n(), missinglifeExp = sum(is.na(lifeExp)), 
+            missingpop = sum(is.na(pop)),
+            missingGDP = sum(is.na(gdpPercap))) %>%
+  filter(n != length(seq(1952, 2007, by = 5)))
+```
+</details>
+
+<details><summary>SAS</summary>
+```{sashtml}
+libname classdat "/home/susan/Projects/Class/unl-stat850/2020-stat850/sas/";
+
+PROC SQL;
+CREATE TABLE gapsummary AS
+SELECT DISTINCT country, COUNT(*) AS n, 
+SUM(MISSING(lifeExp)) AS missinglifeExp, 
+SUM(MISSING(pop)) AS missingpop,
+SUM(MISSING(gdpPercap)) AS missingGDP
+FROM classdat.gapminder
+GROUP BY country;
+
+/* Print the problem countries only */
+PROC PRINT DATA = gapsummary;
+WHERE n ^= 12;
+RUN;
+```
+</details>
+
+In order to determine what gaps were present in the gapminder dataset, I determined how many years of data were available for each country by grouping the dataset and counting the rows. There should be 12 years worth of data between 1952 and 2007; as a result, I displayed the countries which did not have exactly 12 years of data. 
+
+Task 2: Exclude any data which isn't at 5-year increments, starting in 1952 (so 1952, 1957, 1962, ..., 2007). 
+
+<details><summary>R</summary>
+```{r}
+gapminder_unfiltered %>%
+  filter(year %in% seq(1952, 2007, by = 5))
+```
+</details>
+
+<details><summary>SAS</summary>
+```{sashtml}
+libname classdat "/home/susan/Projects/Class/unl-stat850/2020-stat850/sas/";
+
+PROC SQL;
+CREATE TABLE gap5 AS
+SELECT *
+FROM classdat.gapminder
+WHERE MOD(year, 5) = 2;
+
+/* Aus had too much data, so use it to see if the command worked */
+PROC PRINT DATA = gap5;
+WHERE country = "Australia";
+RUN;
+```
+</details>
+
+Task 3: Exclude any countries that don't have a full set of observations from 1952 - 2007 in 5-year increments. 
+
+<details><summary>R</summary>
+```{r}
+gapminder_unfiltered %>%
+  filter(year %in% seq(1952, 2007, by = 5)) %>%
+  group_by(country) %>%
+  mutate(nobs = n()) %>% # Use mutate instead of summarize so that all rows stay
+  filter(nobs == 12) %>%
+  select(-nobs)
+```
+</details>
+
+<details><summary>SAS</summary>
+```{sashtml}
+libname classdat "/home/susan/Projects/Class/unl-stat850/2020-stat850/sas/";
+
+PROC SQL;
+CREATE TABLE gap5 AS
+SELECT *
+FROM classdat.gapminder
+WHERE MOD(year, 5) = 2;
+
+CREATE TABLE gap_clean AS
+SELECT *, COUNT(*) as n 
+FROM gap5
+GROUP BY country
+HAVING n = 12;
+
+/* Clean up extra column */
+ALTER TABLE gap_clean 
+DROP n;
+
+PROC PRINT DATA = gap_clean;
+RUN;
+```
+</details>
+
+
+## References {.learn-more -}
+- [Introduction to dplyr](https://stat545.com/dplyr-intro.html) and [Single Table dplyr functions](https://stat545.com/dplyr-single.html)
+
+- [Using WHERE with SAS Procedures](https://stats.idre.ucla.edu/sas/modules/using-where-with-sas-procedures/)
+
+- [PROC SQL documentation](https://documentation.sas.com/?docsetId=sqlproc&docsetTarget=n1oihmdy7om5rmn1aorxui3kxizl.htm&docsetVersion=9.4&locale=en)
+
+- R for Data Science: [Data Transformations](https://r4ds.had.co.nz/transform.html)
+
+- Additional practice exercises: [Intro to the tidyverse](https://stat579-at-isu.github.io/materials/03_tidyverse/01_dplyr.html#19), [group_by + summarize examples](https://stat579-at-isu.github.io/materials//03_tidyverse/02_dplyr-examples.html), [group_by + mutate examples](https://stat579-at-isu.github.io/materials//03_tidyverse/03_dplyr-examples.html#1) (from a similar class at Iowa State)
