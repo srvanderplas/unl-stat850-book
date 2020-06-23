@@ -929,9 +929,17 @@ write_csv(disease_incidence, path = "data/who_disease_incidence.csv", na = ".")
 ```
 Download the exported data [here](data/who_disease_incidence.csv) and import it into SAS and R. Transform it into long format, so that there is a date column. You should end up with a table that has dimensions of approximately 6 columns and 83,000 rows (or something close to that). 
 
+Can you make a line plot of cases of Measles in France over time?
+
 <details><summary>R solution</summary>
 ```{r}
+who_disease <- read_csv("data/who_disease_incidence.csv", na = ".")
 
+who_disease_long <- who_disease %>%
+  pivot_longer(matches("\\d{4}"), names_to = "year", values_to = "cases") %>%
+  rename(Country = Cname) %>%
+  mutate(Disease = str_replace(Disease, "CRS", "Congenital Rubella"),
+         year = as.numeric(year))
 ```
 </details>
 
