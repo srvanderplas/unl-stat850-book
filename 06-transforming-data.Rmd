@@ -14,6 +14,12 @@ Most of the time, data does not come in a format suitable for analysis. Spreadsh
 
 Unfortunately, this type of data structure is not usually useful to us when we analyze or visualize the data. 
 
+::: note
+This section is going to seem like it drags on forever. It covers a lot of material, and a few different concepts. I highly recommend separating it out into 3 different "sessions" - Strings, Pivot operations, and Table Joins. 
+
+For now, you need to know this material well enough to 1) identify what operation needs to happen, and 2) know where to find the sample code for that operation. It will get easier to remember the specific syntax with practice. 
+:::
+
 ## Identifying the problem: Messy data
 
 These datasets all display the same data: TB cases documented by the WHO in Afghanistan, Brazil, and China, between 1999 and 2000. There are 4 variables: country, year, cases, and population, but each table has a different layout.
@@ -682,7 +688,7 @@ There's another string-related task that is fairly commonly encountered: separat
 knitr::include_graphics("image/tidyr_separate.png")
 ```
 <details><summary>Separating Variables</summary>
-We can use `str_extract()` if we want, but it's actually faster to use `separate()`, which is part of the `tidyr` package. 
+We can use `str_extract()` if we want, but it's actually faster to use `separate()`, which is part of the `tidyr` package. There is also `extract()`, which is another `tidyr` function that uses regular expressions and capture groups to split variables up. 
 
 ```{r}
 table3 %>%
@@ -787,9 +793,158 @@ RUN;
 
 ## Pivot operations
 
-### Wider
+It's fairly common for data to come in forms which are convenient for either human viewing or data entry. Unfortunately, these forms aren't necessarily the most friendly for analysis. 
 
 ### Longer
+
+In many cases, the data come in what we might call "wide" form - some of the column names are not names of variables, but instead, are themselves values of another variable. Let's look at this data from the WHO ([download page here](https://apps.who.int/gho/data/view.main.22500A?lang=en)).
+<details><summary>Data set up</summary>
+```{r rw-hiv-data-R}
+url <- "https://apps.who.int/gho/athena/data/xmart.csv?target=GHO/HIV_0000000026,SDGHIV&profile=crosstable&filter=COUNTRY:*;REGION:*;AGEGROUP:-&x-sideaxis=COUNTRY&x-topaxis=GHO;YEAR;SEX&x-collapse=true"
+
+# create colnames in shorter form
+hiv <- read_csv(url, na = "No data", ) %>%
+  select(-2) # get rid of only column that has raw totals
+
+# work with the names to make them shorter and more readable
+# otherwise, they're too long for SAS
+newnames <- names(hiv)  %>%
+  str_remove("New HIV infections \\(per 1000 uninfected population\\); ") %>%
+  str_replace_all("(\\d{4}); (Male|Female|Both)( sexes)?", "Rate_\\1_\\2")
+hiv <- set_names(hiv, newnames) %>%
+  # transliterate - get rid of non-ascii characters, replace w/ closest equiv
+  mutate(Country = iconv(Country, to="ASCII//TRANSLIT"))
+
+write_csv(hiv, path = "data/who_hiv.csv", na = '.') # make it easy for SAS
+```
+Since I've cheated a bit to make this easier to read in using SAS... hopefully that will be uneventful. 
+```{sashtml read-hiv-data-sas}
+libname classdat "/home/susan/Projects/Class/unl-stat850/2020-stat850/sas/";
+
+filename fileloc '~/Projects/Class/unl-stat850/2020-stat850/data/who_hiv.csv';
+PROC IMPORT  datafile = fileloc out=classdat.hiv REPLACE
+DBMS = csv; /* comma delimited file */
+GUESSINGROWS=500;
+GETNAMES = YES;
+RUN;
+
+```
+</details>
+Here, the column names (except for the first column) contain information about both group (Male, Female, total) and year. If we want to plot values over time, we're not going to have much fun. 
+
+The solution to this is to rearrange the data into "long form": to take the columns which contain values and "stack" them, adding a variable to indicate which column each value came from. To do this, we have to duplicate the values in any column which isn't being stacked (e.g. country, in both the example above and the image below). 
+
+```{r, echo = F, out.width = "50%", fig.cap = "A visual representation of what the pivot_longer operation looks like in practice."}
+knitr::include_graphics("image/tidyr_pivot_longer.png")
+```
+
+Once our data are in long form, we can separate values that once served as column labels into actual variables, and we'll have tidy(er) data. 
+
+<details><summary>In R, this operation is performed using `pivot_longer`</summary>
+The columns are moved to a variable with the name passed to the argument "names_to" (hopefully, that is easy to remember), and the values are moved to a variable with the name passed to the argument "values_to" (again, hopefully easy to remember). 
+```{r}
+hiv_tidy <- hiv %>%
+  pivot_longer(-Country, names_to = "key", values_to = "rate")
+```
+From this point, it's pretty easy to use things we've used in the past (regular expressions, separate, extract)
+
+```{r}
+hiv_tidier <- hiv_tidy %>%
+  # Split the key into Rate (don't keep), year, and group (F, M, Both)
+  separate(key, into = c(NA, "year", "group"), sep = "_", convert = T) %>%
+  # Fix the HTML sign for less than - we could remove it as well
+  mutate(rate = str_replace_all(rate, "&lt;", "<")) %>%
+  # Split the rate into estimate, lower bound, and upper bound
+  extract(rate, into = c("est", "lb", "ub"), regex = "([\\d\\.]{1,}) .([<\\d\\.]{1,}) - ([<\\d\\.]{1,}).", remove = F)
+```
+</details>
+<details><summary>In SAS, this operation is performed using `PROC TRANSPOSE`. </summary>
+
+[[Friendly guide to PROC TRANSPOSE](https://libguides.library.kent.edu/SAS/TransposeData)]{.learn-more}
+
+```{sashtml sas-transpose-hiv-clean, error = T, warning = T}
+libname classdat "/home/susan/Projects/Class/unl-stat850/2020-stat850/sas/";
+
+PROC TRANSPOSE DATA=classdat.hiv OUT = hivtidy;
+BY Country NOTSORTED; /* specify notsorted unless you know your data are sorted */
+VAR Rate_2018_Both--Rate_1990_Female; /* variables to transpose */
+RUN;
+
+title 'Intermediate result 1'; 
+PROC PRINT DATA=hivtidy(obs=5); RUN;
+
+/* Data step to clean up */
+DATA hivtidy;
+SET hivtidy (rename=col1=rate);
+group = scan(_name_,3,"_");
+year = input(scan(_name_, 2, "_"), 4.);
+drop _name_;
+RUN;
+
+title 'Intermediate result 2'; 
+PROC PRINT DATA=hivtidy(obs=5); RUN;
+
+/* Data step to clean up */
+DATA hivtidy;
+SET hivtidy;
+/* just get rid of the less than sign */
+rate = PRXCHANGE("s/&lt;//", -1, rate);
+rate = PRXCHANGE("s/[\[\]-]//", -1, rate);
+
+length v1-v3 4.2;
+array v(3) $;
+do i = 1 to dim(v);
+  v[i]=scan(rate, i, ' ');
+end;
+
+rename v1 = est v2 = lb v3 = ub;
+drop i rate;
+RUN;
+
+title 'Final result'; 
+PROC PRINT DATA=hivtidy(obs=5); RUN;
+
+```
+</details>
+
+#### Try it out {- .tryitout}
+In the next section, we'll be using the WHO surveillance of disease incidence data ([link](https://www.who.int/immunization/monitoring_surveillance/data/en/) - 3.1, [Excel link](http://www.who.int/entity/immunization/monitoring_surveillance/data/incidence_series.xls))
+
+It will require some preprocessing before it's suitable for a demonstration. I'll do some of it, but in this section, you're going to do the rest :)
+
+```{r}
+library(readxl)
+library(purrr) # This uses the map() function as a replacement for for loops. 
+# It's pretty sweet
+
+sheets <- excel_sheets("data/incidence_series.xls")
+sheets <- sheets[-c(1, length(sheets))] # get rid of 1st and last sheet name
+
+# This command says "for each sheet, read in the excel file with that sheet name"
+# map_df means paste them all together into a single data frame
+disease_incidence <- map_df(sheets, ~read_xls(path ="data/incidence_series.xls", sheet = .))
+
+# export for SAS (and R, if you want)
+write_csv(disease_incidence, path = "data/who_disease_incidence.csv", na = ".")
+```
+Download the exported data [here](data/who_disease_incidence.csv) and import it into SAS and R. Transform it into long format, so that there is a date column. You should end up with a table that has dimensions of approximately 6 columns and 83,000 rows (or something close to that). 
+
+<details><summary>R solution</summary>
+```{r}
+
+```
+</details>
+
+<details><summary>SAS solution</summary>
+```{r}
+
+```
+</details>
+
+### Wider
+
+While it's very common to need to transform data into a longer format, it's not that uncommon to need to do the reverse operation. Sometimes, you do one and then the other, to get the data into the format you want. In any case, to do that, we use PROC TRANSPOSE in SAS (again) or `pivot_wider` in R with `dplyr`. 
+
 
 ## Table Joins
 
@@ -802,3 +957,7 @@ String manipulation
 - [SAS and Perl regular expressions](https://support.sas.com/resources/papers/proceedings/proceedings/sugi29/265-29.pdf)
 - [PCRE tester](https://regex101.com/)
 - [R regex tester](https://spannbaueradam.shinyapps.io/r_regex_tester/) - has a short timeout period and will disconnect you if you're idle too long. But you can also clone the repo [here](https://github.com/AdamSpannbauer/r_regex_tester_app) and run it locally. 
+- [SAS scan statement](https://documentation.sas.com/?docsetId=ds2ref&docsetTarget=p13adatt2vvhcxn1ext6w6eet24p.htm&docsetVersion=9.4&locale=en#p1ub8nub953289n1dpsvh7gm88qs)
+
+Other stuff
+- [SAS rename statement](https://documentation.sas.com/?docsetId=lestmtsref&docsetTarget=n0x16kvqkxxdx5n1t04voifvo8wo.htm&docsetVersion=9.4&locale=en)
