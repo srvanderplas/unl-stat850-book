@@ -644,6 +644,35 @@ table(squirrels_colorfix$combo)
 ```
 </details>
 
+<details><summary>SAS solution</summary>
+```{sashtml}
+libname classdat "/home/susan/Projects/Class/unl-stat850/2020-stat850/sas/";
+
+DATA squirrelcolor;
+SET classdat.cleanSquirrel;
+
+LENGTH orig  $50 new_text1 $ 50 new_text2 $ 50 new_text3 $ 50;
+orig = Combination_of_Primary_and_Highl;
+
+IF _N_ = 1 THEN DO;
+  REthree = PRXPARSE("s/^(Gray|Cinnamon|Black)\+(Black|Cinnamon|Gray|White), (Black|Cinnamon|Gray|White), (Black|Cinnamon|Gray|White)$/$1+$2, $1+$3, $1+$4/");
+  REtwo = PRXPARSE("s/^(Gray|Cinnamon|Black)\+(Black|Cinnamon|Gray|White), (Black|Cinnamon|Gray|White)$/$1+$2, $1+$3/");
+  REplus = PRXPARSE("s/[^A-z]$//");
+END;
+RETAIN REplus REtwo REthree;
+
+CALL PRXCHANGE(REplus, -1, trim(orig), new_text1);
+CALL PRXCHANGE(REthree, -1, trim(new_text1), new_text2);
+CALL PRXCHANGE(REtwo, -1, trim(new_text2), new_text3);
+
+keep orig new_text1 new_text2 new_text3;
+RUN;
+
+/* print all combinations that occur w/ new value */
+PROC SQL; 
+SELECT DISTINCT orig, new_text3 FROM squirrelcolor;
+```
+</details>
 </details>
 
 ### Joining and Splitting Variables
