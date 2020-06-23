@@ -10,6 +10,76 @@
 - Transform variables to support analysis and visualization of data
 - Join tables together in order to create a single coherent dataset
 
+Most of the time, data does not come in a format suitable for analysis. Spreadsheets are generally optimized for data *viewing*, rather than for statistical analysis - they may be laid out so that there are multiple observations in a single row (e.g., commonly a year's worth of data, with monthly observations in each column). 
+
+Unfortunately, this type of data structure is not usually useful to us when we analyze or visualize the data. 
+
+## Identifying the problem: Messy data
+
+These datasets all display the same data: TB cases documented by the WHO in Afghanistan, Brazil, and China, between 1999 and 2000. There are 4 variables: country, year, cases, and population, but each table has a different layout.
+```{r, message = F}
+library(tidyverse)
+```
+
+```{r, echo = F}
+knitr::kable(table1, caption = "Table 1")
+```
+
+Here, each observation is a single row, each variable is a column, and everything is nicely arranged for e.g. regression or statistical analysis. We can easily compute another measure, such as cases per 100,000 population, by taking cases/population * 100000 (this would define a new column). 
+
+
+```{r, echo = F}
+knitr::kable(table2, caption = "Table 2")
+```
+
+Here, we have 4 columns again, but we now have 12 rows: one of the columns is an indicator of which of two numerical observations is recorded in that row; a second column stores the value. This form of the data is more easily plotted in e.g. ggplot2, if we want to show lines for both cases and population, but computing per capita cases would be much more difficult in this form than in the arrangement in table 1. 
+
+
+```{r, echo = F}
+knitr::kable(table3, caption = "Table 3")
+```
+
+This form has only 3 columns, because the rate variable (which is a character) stores both the case count and the population. We can't do *anything* with this format as it stands, because we can't do math on data stored as characters. However, this form might be easier to read and record for a human being. 
+
+
+```{r, echo = F}
+knitr::kable(table4a, caption = "Table 4a")
+knitr::kable(table4b, caption = "Table 4b")
+```
+
+In this form, we have two tables - one for population, and one for cases. Each year's observations are in a separate column. This format is often found in separate sheets of an excel workbook. To work with this data, we'll need to transform each table so that there is a column indicating which year an observation is from, and then merge the two tables together by country and year. 
+
+
+```{r, echo = F}
+knitr::kable(table5, caption = "Table 5")
+```
+
+Table 5 is very similar to table 3, but the year has been separated into two columns - century, and year. This is more common with year, month, and day in separate columns  (or date and time in separate columns), often to deal with the fact that spreadsheets don't always handle dates the way you'd hope they would. 
+
+
+These variations highlight the principles which can be said to define a tidy dataset:
+1. Each variable must have its own column
+2. Each observation must have its own row
+3. Each value must have its own cell
+
+<div class="tryitout">
+### Try it out {-}
+Go back through the 5 tables and determine whether each table is tidy, and if it is not, which rule or rules it violates. Figure out what you would have to do in order to compute a standardized TB infection rate per 100,000 people. 
+<details><summary>Solution</summary>
+1. table1 - this is tidy data. Computing a standardized infection rate is as simple as creating the variable rate = cases/population*100,000.
+2. table2 - each variable does not have its own column (so a single year's observation of one country actually has 2 rows). Computing a standardized infection rate requires moving cases and population so that each variable has its own column, and then you can proceed using the process in 1.
+3. table3 - each value does not have its own cell (and each variable does not have its own column). In Table 3, you'd have to separate the numerator and denominator of each cell, convert each to a numeric variable, and then you could proceed as in 1. 
+4. table4a and table 4b - there are multiple observations in each row because there is not a column for year. To compute the rate, you'd need to "stack" the two columns in each table into a single column, add a year column that is 1999, 1999, 1999, 2000, 2000, 2000, and then merge the two tables. Then you could proceed as in 1. 
+5. table 5 - each variable does not have its own column (there are two columns for year, in addition to the issues noted in table3). Computing the rate would be similar to table 3; the year issues aren't actually a huge deal unless you plot them, at which point 99 will seem to be bigger than 00 (so you'd need to combine the two year columns together first). 
+</details>
+</div>
+
+It is actually impossible to have a table that violates only one of the rules of tidy data - you have to violate at least two. So a simpler way to state the rules might be: 
+
+1. Each dataset goes into its own table (or tibble, if you are using R)
+2. Each variable gets its own column
+
+By the end of this module, you should have the skills to "tidy" each of these tables. 
 
 ## Pivot operations
 
