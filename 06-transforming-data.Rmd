@@ -929,7 +929,7 @@ write_csv(disease_incidence, path = "data/who_disease_incidence.csv", na = ".")
 ```
 Download the exported data [here](data/who_disease_incidence.csv) and import it into SAS and R. Transform it into long format, so that there is a date column. You should end up with a table that has dimensions of approximately 6 columns and 83,000 rows (or something close to that). 
 
-Can you make a line plot of cases of Measles in France over time?
+Can you make a line plot of cases of measles in Bangladesh over time?
 
 <details><summary>R solution</summary>
 ```{r}
@@ -940,12 +940,51 @@ who_disease_long <- who_disease %>%
   rename(Country = Cname) %>%
   mutate(Disease = str_replace(Disease, "CRS", "Congenital Rubella"),
          year = as.numeric(year))
+
+filter(who_disease_long, Country == "Bangladesh", Disease == "measles") %>%
+  ggplot(aes(x = year, y = cases)) + geom_line()
 ```
 </details>
 
 <details><summary>SAS solution</summary>
-```{r}
+```{sashtml}
+libname classdat "/home/susan/Projects/Class/unl-stat850/2020-stat850/sas/";
 
+filename fileloc '~/Projects/Class/unl-stat850/2020-stat850/data/who_disease_incidence.csv';
+PROC IMPORT  datafile = fileloc out=classdat.who_disease REPLACE
+DBMS = csv; /* comma delimited file */
+GUESSINGROWS=500;
+GETNAMES = YES;
+RUN;
+
+PROC TRANSPOSE DATA=classdat.who_disease OUT = classdat.disease_long;
+BY Disease Cname NOTSORTED; /* specify notsorted unless you know your data are sorted */
+VAR _2018--_1980; /* variables to transpose */
+RUN;
+
+title 'Intermediate result 1'; 
+PROC PRINT DATA=classdat.disease_long(obs=5); RUN;
+
+/* Data step to clean up */
+DATA classdat.disease_long;
+SET classdat.disease_long (rename=col1=cases);
+year = input(scan(_name_,1,"_"), 4.);
+drop _name_;
+RUN;
+
+title 'Final result'; 
+PROC PRINT DATA=classdat.disease_long(obs=5); RUN;
+
+PROC SQL;
+CREATE TABLE bangladesh AS
+SELECT * FROM classdat.disease_long WHERE (Cname = "Bangladesh") & (Disease = "measles");
+
+title 'Measles in Bangladesh'; 
+ODS GRAPHICS ON;
+PROC SGPLOT DATA=bangladesh;
+SERIES X = year Y = cases;
+RUN;
+ODS GRAPHICS OFF;
 ```
 </details>
 
