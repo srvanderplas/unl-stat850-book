@@ -358,6 +358,8 @@ In PCRE regular expressions, '/' are used as delimiters. SAS assigns each sequen
 
 <details><summary>PRXMATCH returns the first position of a string where a match is found (0 otherwise)</summary>
 
+In this example, however, lets just test to see whether PRXMATCH finds a match or not
+
 ```{sashtml}
 DATA strings;
   INFILE DATALINES DSD; /* This allows quoted strings */
@@ -619,7 +621,9 @@ RUN;
 A. Get rid of leading and trailing `+` characters
 B. Where two highlight colors exist, add the primary color to both of them (so `Gray+Cinnamon, White` becomes `Gray+Cinnamon, Gray+White`)
 
-You can do this by working with the original values or the combination values; whatever is easiest. <details><summary>R solution</summary>
+You can do this by working with the original values or the combination values; whatever is easiest. 
+
+<details><summary>R solution</summary>
 ```{r}
 squirrels_colorfix <- squirrels %>%
   # Make it easier to join things back together...
@@ -797,8 +801,232 @@ It's fairly common for data to come in forms which are convenient for either hum
 
 ### Longer
 
-In many cases, the data come in what we might call "wide" form - some of the column names are not names of variables, but instead, are themselves values of another variable. Let's look at this data from the WHO ([download page here](https://apps.who.int/gho/data/view.main.22500A?lang=en)).
-<details><summary>Data set up</summary>
+In many cases, the data come in what we might call "wide" form - some of the column names are not names of variables, but instead, are themselves values of another variable. 
+
+Tables 4a and 4b are good examples of data which is in "wide" form and should be in long(er) form: the years, which are variables, are column names, and the values are cases and population respectively.  
+```{r}
+table4a
+table4b
+```
+
+The solution to this is to rearrange the data into "long form": to take the columns which contain values and "stack" them, adding a variable to indicate which column each value came from. To do this, we have to duplicate the values in any column which isn't being stacked (e.g. country, in both the example above and the image below). 
+
+```{r, echo = F, out.width = "50%", fig.cap = "A visual representation of what the pivot_longer operation looks like in practice."}
+knitr::include_graphics("image/tidyr_pivot_longer.png")
+```
+
+Once our data are in long form, we can (if necessary) separate values that once served as column labels into actual variables, and we'll have tidy(er) data. 
+
+<details><summary>In R, wide-to-long conversions are performed using `pivot_longer()`</summary>
+```{r}
+tba <- table4a %>% 
+  pivot_longer(-country, names_to = "year", values_to = "cases")
+tbb <- table4b %>% 
+  pivot_longer(-country, names_to = "year", values_to = "population")
+
+# To get the tidy data, we join the two together (see Table joins below)
+left_join(tba, tbb, by = c("country", "year")) %>%
+  # make year numeric b/c it's dumb not to
+  mutate(year = as.numeric(year))
+
+```
+
+The columns are moved to a variable with the name passed to the argument "names_to" (hopefully, that is easy to remember), and the values are moved to a variable with the name passed to the argument "values_to" (again, hopefully easy to remember). 
+
+We identify ID variables (variables which we don't want to pivot) by not including them in the pivot statement. We can do this in one of two ways:
+
+- select only variables we want to pivot: `pivot_longer(table4a, cols = `1999`:`2000`, names_to = "year", values_to = "cases")`
+- select variables we don't want to pivot, using `-` to remove them. (see above, where `-country` excludes country from the pivot operation)
+
+Which option is easier depends how many things you're pivoting (and how the columns are structured). 
+
+If we wanted to avoid the table join, we could do this process another way: first, we would add a column to each tibble called id with values "cases" and "population" respectively. Then, we could bind the two tables together by row (so stack them on top of each other). We could then do a wide-to-long pivot, followed by a long-to-wide pivot to get our data into tidy form. 
+
+```{r}
+# Create ID columns
+table4a.x <- table4a %>% mutate(id = "cases")
+table4b.x <- table4b %>% mutate(id = "population")
+# Create one table
+table4 <- bind_rows(table4a.x, table4b.x)
+
+table4_long <- table4 %>%
+  # rearrange columns
+  select(country, id, `1999`, `2000`) %>%
+  # Don't pivot country or id
+  pivot_longer(-c(country:id), names_to = "year", values_to = "count")
+
+# Intermediate fully-long form
+table4_long
+
+# make wider, with case and population columns
+table4_tidy <- table4_long %>%
+  pivot_wider(names_from = id, values_from = count)
+
+table4_tidy
+```
+</details>
+
+::: note
+SAS will let you do a single transpose operation, where tidyr requires two separate pivots -- this is because tidyr is trying to make the steps readable, even though it means writing more code. 
+:::
+
+<details><summary>In SAS, we use PROC TRANSPOSE to perform wide-to-long pivot operations</summary>
+
+[[Friendly guide to PROC TRANSPOSE](https://libguides.library.kent.edu/SAS/TransposeData)]{.learn-more}
+
+```{sashtml}
+DATA table4a;
+input country $12. _1999 _2000;
+datalines;
+Afghanistan    745   2666
+Brazil       37737  80488
+China       212258 213766
+;
+
+PROC TRANSPOSE DATA=table4a out=table4atmp
+  (rename=(COL1 = cases)) /* rename output variable ('values_to') */
+  NAME = year /* where column names go ('names_to') */
+;
+BY country;  /* The combination of BY variables defines a row */
+VAR _1999 _2000; /* Specify variables to pivot */
+RUN;
+
+DATA table4b;
+input country $12. _1999 _2000;
+datalines;
+Afghanistan   19987071   20595360
+Brazil       172006362  174504898
+China       1272915272 1280428583
+;
+
+PROC TRANSPOSE DATA=table4b out=table4btmp 
+  (rename=(COL1 = population)) /* rename output variable ('values_to') */
+  NAME = year /* where the column names go ('names_to') */
+;
+BY country;  /* The combination of BY variables defines a row */
+VAR _1999 _2000; /* Specify variables to pivot */
+RUN;
+
+DATA table4clean;
+/* merge the two tables together */
+/* (country and year selected automatically as merge vars) */
+MERGE table4atmp table4btmp;
+/* Remove the first character of year, which is _ */
+/* Then convert to a numeric variable */
+year = input(SUBSTR(year, 2, 5), 4.);
+RUN;
+
+PROC PRINT DATA=table4clean;
+RUN;
+```
+In the above code, we let SAS name our output variable COL1, and then renamed it at the end by modifying the output statement. Another option would be to create an ID variable when inputting each data set, and use the ID statement to indicate that variable. 
+
+
+```{sashtml}
+DATA table4a;
+input country $12. _1999 _2000;
+id = "cases";
+datalines;
+Afghanistan    745   2666
+Brazil       37737  80488
+China       212258 213766
+;
+
+PROC TRANSPOSE DATA=table4a out=table4atmp
+  NAME = year /* where column names go ('names_to') */
+;
+BY country;  /* The combination of BY variables defines a row */
+VAR _1999 _2000; /* Specify variables to pivot */
+ID id; /* This variable holds the output variable name ('values_to') */
+RUN;
+
+DATA table4b;
+input country $12. _1999 _2000;
+id = "population";
+datalines;
+Afghanistan   19987071   20595360
+Brazil       172006362  174504898
+China       1272915272 1280428583
+;
+
+PROC TRANSPOSE DATA=table4b out=table4btmp 
+  NAME = year /* where the column names go ('names_to') */
+;
+BY country;  /* The combination of BY variables defines a row */
+VAR _1999 _2000; /* Specify variables to pivot */
+ID id; /* This variable holds the output variable name ('values_to') */
+RUN;
+
+DATA table4clean;
+/* merge the two tables together */
+/* (country and year selected automatically as merge vars) */
+MERGE table4atmp table4btmp;
+/* Remove the first character of year, which is _ */
+/* Then convert to a numeric variable */
+year = input(SUBSTR(year, 2, 5), 4.);
+RUN;
+
+PROC PRINT DATA=table4clean;
+RUN;
+```
+
+This seems a bit odd, as we're defining constant variables, but it works -- and provides some insight into how the reverse operation (long to wide) might work (e.g. nonconstant variables). 
+Imagine instead of transposing each dataset and then merging them, we just stack the two wide-format datasets on top of each other. Then we can do the same transpose operation, but we'll end up with two columns: cases, and population. 
+
+```{sashtml}
+DATA table4a;
+input country $12. _1999 _2000;
+id = "cases";
+datalines;
+Afghanistan    745   2666
+Brazil       37737  80488
+China       212258 213766
+;
+
+DATA table4b;
+input country $12. _1999 _2000;
+id = "population";
+datalines;
+Afghanistan   19987071   20595360
+Brazil       172006362  174504898
+China       1272915272 1280428583
+;
+
+DATA table4;
+/* stack the two datasets on top of each other */
+  SET table4b table4a;
+/* sort by country */
+  BY country;
+RUN;
+
+PROC TRANSPOSE DATA=table4 out=table4tmp NAME = year;
+BY country;
+VAR _1999 _2000;
+ID id; /* This variable holds the output variable names ('values_to') */
+RUN;
+
+DATA table4tmp;
+  SET table4tmp;
+/* Remove the first character of year, which is _ */
+/* Then convert to a numeric variable */
+year = input(SUBSTR(year, 2, 5), 4.);
+RUN;
+  
+PROC PRINT DATA=table4tmp;
+RUN;
+```
+</details>
+
+It's not too complicated -- and it definitely beats doing that operation by hand, even for short, simple tables. You can imagine how messy the cut/copy/paste job would be in Excel. 
+
+It takes some getting used to, but once you get a feel for how to do these transpose operations, you'll be able to handle messy data reproducibly - instead of describing how you did XYZ operations in Excel, you can provide a script that will take the original data as input and spit out clean, analysis-ready data as output. 
+
+::: warning
+Because wide-to-long transformations end up combining values from several columns into a single column, you can run into issues with type conversions that happen implicitly. If you try to `pivot_longer()` using a character column mixed in with numeric columns, your "value" column will be converted to a character automatically. 
+:::
+
+Now, let's look at a "real data" example using HIV case data from the World Health Organization.  ([download page here](https://apps.who.int/gho/data/view.main.22500A?lang=en)).
+<details><summary>WHO HIV data set up</summary>
 ```{r rw-hiv-data-R}
 url <- "https://apps.who.int/gho/athena/data/xmart.csv?target=GHO/HIV_0000000026,SDGHIV&profile=crosstable&filter=COUNTRY:*;REGION:*;AGEGROUP:-&x-sideaxis=COUNTRY&x-topaxis=GHO;YEAR;SEX&x-collapse=true"
 
@@ -830,80 +1058,117 @@ RUN;
 
 ```
 </details>
-Here, the column names (except for the first column) contain information about both group (Male, Female, total) and year. If we want to plot values over time, we're not going to have much fun. 
 
-The solution to this is to rearrange the data into "long form": to take the columns which contain values and "stack" them, adding a variable to indicate which column each value came from. To do this, we have to duplicate the values in any column which isn't being stacked (e.g. country, in both the example above and the image below). 
-
-```{r, echo = F, out.width = "50%", fig.cap = "A visual representation of what the pivot_longer operation looks like in practice."}
-knitr::include_graphics("image/tidyr_pivot_longer.png")
-```
-
-Once our data are in long form, we can separate values that once served as column labels into actual variables, and we'll have tidy(er) data. 
-
-<details><summary>In R, this operation is performed using `pivot_longer`</summary>
-The columns are moved to a variable with the name passed to the argument "names_to" (hopefully, that is easy to remember), and the values are moved to a variable with the name passed to the argument "values_to" (again, hopefully easy to remember). 
+<details><summary>Original Data Structure (WHO HIV data)</summary>
 ```{r}
-hiv_tidy <- hiv %>%
+hiv %>%
+  # Only look at 1st 6 cols, because there are too many
+  select(1:6) %>%
+  head()
+```
+Here, the column names (except for the first column) contain information about both group (Male, Female, total) and year. If we want to plot values over time, we're not going to have much fun. 
+</details>
+
+Thinking through the logical steps before writing the code can be helpful - even sketching out what you expect the data to (roughly) look like at each stage. 
+
+Current data observations: 
+
+- Our column names contain the year and the group (Both, Male, Female)
+- Our values contain estimates with a confidence interval - so est (LB, UB)
+    - Some intervals have `&lt;`, which is HTML code for `<`. We'll need to get rid of those.
+
+
+Our final dataset should look like this:
+
+Country | group | year | est | lb | ub
+------- | ----- | ---- | --- | -- | --
+narnia  | both  | 2020 | 0.3 | 0.2 | 0.4
+
+(give or take column order, capitalization, and/or reality)
+
+From this, our steps are:
+
+1. Transpose the data - all columns except Country (our BY variable)
+2. Separate the (what was column names) variable into group and year variables
+    - convert year to numeric
+3. Separate the (what was column values) variable into EST, LB, and UB columns
+    - Remove `&lt;` from the variable so that it's readable as numeric
+    - Remove `[`, `]` and `-` from the variable so that the values are separated by spaces
+    - Read each value into a separate column that's  numeric
+    - Rename the columns
+4. Clean up any extra variables hanging around.
+
+Now that we have a plan, lets execute that plan
+
+
+<details><summary>Wide-to-long transformation in R  (WHO HIV data)</summary>
+```{r}
+hiv_tidier <- hiv %>%
   pivot_longer(-Country, names_to = "key", values_to = "rate")
+hiv_tidier
 ```
 From this point, it's pretty easy to use things we've used in the past (regular expressions, separate, extract)
 
 ```{r}
-hiv_tidier <- hiv_tidy %>%
+ hiv_tidy <- hiv_tidier %>%
   # Split the key into Rate (don't keep), year, and group (F, M, Both)
   separate(key, into = c(NA, "year", "group"), sep = "_", convert = T) %>%
   # Fix the HTML sign for less than - we could remove it as well
   mutate(rate = str_replace_all(rate, "&lt;", "<")) %>%
   # Split the rate into estimate, lower bound, and upper bound
-  extract(rate, into = c("est", "lb", "ub"), regex = "([\\d\\.]{1,}) .([<\\d\\.]{1,}) - ([<\\d\\.]{1,}).", remove = F)
+  extract(rate, into = c("est", "lb", "ub"), regex = "([\\d\\.]{1,}) .([<\\d\\.]{1,}) - ([<\\d\\.]{1,}).", remove = T)
+hiv_tidy
 ```
 </details>
-<details><summary>In SAS, this operation is performed using `PROC TRANSPOSE`. </summary>
 
-[[Friendly guide to PROC TRANSPOSE](https://libguides.library.kent.edu/SAS/TransposeData)]{.learn-more}
+<details><summary>Wide-to-long transformation in SAS (WHO HIV data) </summary>
+I've thoroughly commented the code below to hopefully make the logical steps clear. 
 
 ```{sashtml sas-transpose-hiv-clean, error = T, warning = T}
 libname classdat "/home/susan/Projects/Class/unl-stat850/2020-stat850/sas/";
 
-PROC TRANSPOSE DATA=classdat.hiv OUT = hivtidy;
-BY Country NOTSORTED; /* specify notsorted unless you know your data are sorted */
-VAR Rate_2018_Both--Rate_1990_Female; /* variables to transpose */
+PROC TRANSPOSE DATA=classdat.hiv OUT = classdat.hivtidy
+(rename=(col1=rate)) /* "values_to" in tidyr speak */
+NAME = key;          /* "names_to" in tidyr speak */
+/* specify notsorted unless you know your data are sorted */
+  BY Country NOTSORTED; 
+/* variables to transpose - just list start and end, with -- in between  */
+  VAR Rate_2018_Both--Rate_1990_Female; 
 RUN;
 
-title 'Intermediate result 1'; 
-PROC PRINT DATA=hivtidy(obs=5); RUN;
+title 'Intermediate result'; 
+PROC PRINT DATA=classdat.hivtidy(obs=5); RUN;
 
 /* Data step to clean up */
-DATA hivtidy;
-SET hivtidy (rename=col1=rate);
-group = scan(_name_,3,"_");
-year = input(scan(_name_, 2, "_"), 4.);
-drop _name_;
-RUN;
-
-title 'Intermediate result 2'; 
-PROC PRINT DATA=hivtidy(obs=5); RUN;
-
-/* Data step to clean up */
-DATA hivtidy;
-SET hivtidy;
+DATA classdat.hivtidy;
+  SET classdat.hivtidy ;
+/* Create group and year variables from key */
+  group = scan(key,3,"_");
+  year = input(scan(key, 2, "_"), 4.);
+  
 /* just get rid of the less than sign */
-rate = PRXCHANGE("s/&lt;//", -1, rate);
-rate = PRXCHANGE("s/[\[\]-]//", -1, rate);
-
-length v1-v3 4.2;
-array v(3) $;
-do i = 1 to dim(v);
-  v[i]=scan(rate, i, ' ');
-end;
-
-rename v1 = est v2 = lb v3 = ub;
-drop i rate;
+  rate = PRXCHANGE("s/&lt;//", -1, rate);
+  rate = PRXCHANGE("s/[\[\]-]//", -1, rate);
+  
+/* Create 3 columns for the 3 values - est, lb, ub */
+  length v1-v3 4.2; /* define format */
+  array v(3) $; /* create a 3 column array to store values in */
+  do i = 1 to dim(v);
+    v[i]=scan(rate, i, ' '); /* get values from each row of rate */
+  end;
+  
+  rename v1 = est v2 = lb v3 = ub; /* rename things to be pretty */
+  
+/* get rid of extra vars */
+  drop _name_ i key rate;
 RUN;
 
 title 'Final result'; 
-PROC PRINT DATA=hivtidy(obs=5); RUN;
+PROC PRINT DATA=classdat.hivtidy(obs=5); RUN;
 
+```
+```{sashtml include = F}
+title;
 ```
 </details>
 
@@ -927,7 +1192,7 @@ disease_incidence <- map_df(sheets, ~read_xls(path ="data/incidence_series.xls",
 # export for SAS (and R, if you want)
 write_csv(disease_incidence, path = "data/who_disease_incidence.csv", na = ".")
 ```
-Download the exported data [here](data/who_disease_incidence.csv) and import it into SAS and R. Transform it into long format, so that there is a date column. You should end up with a table that has dimensions of approximately 6 columns and 83,000 rows (or something close to that). 
+Download the exported data [here](data/who_disease_incidence.csv) and import it into SAS and R. Transform it into long format, so that there is a year column. You should end up with a table that has dimensions of approximately 6 columns and 83,000 rows (or something close to that). 
 
 Can you make a line plot of cases of measles in Bangladesh over time?
 
@@ -957,8 +1222,13 @@ GUESSINGROWS=500;
 GETNAMES = YES;
 RUN;
 
-PROC TRANSPOSE DATA=classdat.who_disease OUT = classdat.disease_long;
-BY Disease Cname NOTSORTED; /* specify notsorted unless you know your data are sorted */
+/* Sort your data by the variables you want as the ID variables */
+PROC SORT DATA=classdat.who_disease OUT=who_dis_tmp;
+BY Disease Cname;
+RUN;
+
+PROC TRANSPOSE DATA = who_dis_tmp OUT = classdat.disease_long;
+BY Disease Cname; /* Same variable order as used to sort */
 VAR _2018--_1980; /* variables to transpose */
 RUN;
 
@@ -994,13 +1264,18 @@ While it's very common to need to transform data into a longer format, it's not 
 
 Table 2 is an example of a table that is in long format but needs to be converted to a wider layout to be "tidy" - there are separate rows for cases and population, which means that a single observation (one year, one country) has two rows. 
 
-To move a data frame from long format to wide format, we use PROC TRANSPOSE in SAS (again) or `pivot_wider` in R with `dplyr`. 
 
+```{r, echo = F, out.width = "50%", fig.cap = "A visual representation of what the pivot_wider operation looks like in practice."}
+knitr::include_graphics("image/tidyr_pivot_wider.png")
+```
+
+<details><summary>In R, long-to-wide conversion operations are performed using `pivot_wider()`</summary>
 ```{r}
 table2 %>%
   pivot_wider(names_from = type, values_from = count)
 ```
-
+</details>
+<details><summary>In SAS, we use PROC TRANSPOSE again</summary>
 ```{sashtml}
 DATA table2;
 input country $12. year  type$12. count 12.;
@@ -1028,27 +1303,580 @@ RUN;
 PROC PRINT DATA=table2tmp;
 RUN;
 ```
+</summary>
+
+::: warning
+If you don't sort your data properly before PROC TRANSPOSE in SAS, you may get a result that has an unexpected shape. SAS works rowwise (compared to R's column-wise operations) so the row order actually matters in SAS (it generally doesn't matter much in R). 
+:::
+
+Returning to our WHO HIV example, we might want our data to look like this:
+
+Country | year | measurement | Both | Male | Female
+------- | ---- | ----------- | ---- | ---- | ------
+Afghanistan | 2018 | est | .02 | .03 | .01
+ | 2018 | lb | .01 | .02 | .01
+ | 2018 | ub | .04 | .06 | .03
+ 
+As a reminder, the data currently looks like this: 
+```{r}
+hiv_tidy
+```
+ 
+::: tryitout
+
+Think through the steps you'd need to take to get the data into this form. Sketch out any intermediate state your data will need to go through.
+
+:::
+
+<details><summary>WHO HIV Data: long-to-wide steps</summary>
+1. We need est, lb, and ub in long form first, so we need to use a wide-to-long (pivot_longer) transpose operation.
+    - names_to = "measure"
+    - values_to = "value"
+    - BY variables: Country, year, group
+    - pivot variables (VAR in SAS): est, lb, ub
+
+2. We need group to be 3 columns: Both, Male, and Female. So we need to use a long-to-wide (pivot_wider) transpose operation. 
+    - By variables: Country, year, measure (so we'll need to sort in SAS)
+    - ID variable: group
+    - VAR variable: value
+    
+The intermediate form of the data will look like this:
+
+Country | year | group | measure | value
+------ | ---- | ---- | ----- | -----
+Afghanistan | 2018 | Both | est | 0.02
+Afghanistan | 2018 | Both | lb | 0.01
+Afghanistan | 2018 | Both | ub | 0.04
+Afghanistan | 2018 | Male | est | 0.03
+
+</details>
+
+<details><summary>WHO HIV Data: long-to-wide in R</summary>
+```{r}
+hiv_tidy %>%
+  pivot_longer(est:ub, names_to = "measure", values_to = "value") %>%
+  # Take the opportunity to transform everything to numeric at once...
+  mutate(value = parse_number(value)) %>%
+  pivot_wider(names_from = group, values_from = value)
+```
+</details>
+<details><summary>WHO HIV Data: long-to-wide in SAS</summary>
+In SAS, we can do the pivot operations in one step, but we have to sort everything first. 
+```{sashtml}
+libname classdat "/home/susan/Projects/Class/unl-stat850/2020-stat850/sas/";
+
+PROC SORT DATA = classdat.hivtidy;
+BY Country year group;
+RUN;
+
+PROC TRANSPOSE DATA = classdat.hivtidy OUT = hivtmp name = measure;
+BY Country year;
+VAR est lb ub;
+ID group;
+RUN;
+
+PROC PRINT data=hivtmp(obs=5);
+RUN;
+```
+</details>
+
+#### Try it out {- .tryitout}
+Use the long-format data you have from the previous Try It Out section (WHO Disease Incidence). Reshape this data into a "wide" format such that each disease is shown in a separate column. 
+
+Before you start: 
+- Which variable(s) will uniquely identify a row in your output data?
+- Which variable(s) will be used to create column names?
+
+Can you create a plot of polio cases over time for your 3 favorite countries?
+
+<details><summary>R solution</summary>
+```{r}
+who_disease_wide <- who_disease_long %>%
+  pivot_wider(id_cols = c(Country, year), names_from = Disease, values_from = cases)
+
+who_disease_wide %>%
+  filter(Country %in% c("Guatemala", "Central African Republic (the)", "Pakistan")) %>%
+  select(Country, year, polio) %>%
+  ggplot(aes(x = year, y = polio, color = Country)) + geom_line()
+```
+</details>
+
+<details><summary>SAS solution</summary>
+```{sashtml}
+libname classdat "/home/susan/Projects/Class/unl-stat850/2020-stat850/sas/";
+
+PROC SORT DATA = classdat.disease_long OUT = dis_long;
+BY Cname year; /* Variables we want to define rows of data */
+RUN;
+
+PROC TRANSPOSE DATA = dis_long OUT = classdat.disease_wide;
+ID Disease; /* Variable we want to name columns of data */
+VAR cases; /* Variable we want to be the values in each column */
+BY Cname year; /* These define a single row */
+RUN;
+
+title 'Polio incidence'; 
+PROC SGPLOT DATA=classdat.disease_wide 
+/* We can use a where clause in the DATA statement, if we want */
+  (WHERE=(Cname in ("Mexico", "Guatemala", "Pakistan")));
+/* Specify the colors to use for lines */
+styleattrs datacontrastcolors= (green orange purple);
+/* Map variables to axes */
+SERIES X = year Y = polio / 
+  /* Color lines by Country */
+  GROUP = Cname
+  /* Give the color mapping a name so you can modify its legend */
+  name = "a"
+  /* Make lines thicker so they're visible */
+  lineattrs=(thickness = 3);
+/* Change the legend title and what it is showing (line color) */
+KEYLEGEND "a" / title = "Country" type = linecolor;
+RUN;
+```
+</details>
+
+Congratulations! You now know how to reshape your data into all sorts of different formats. Use this knowledge wisely. 
+
+## Relational Data and Joining Tables
+
+We now know how to work extensively on one table at a time, but data doesn't always come organized in one table at a time. Instead, some data may be organized relationally - that is, certain aspects of the data apply to a group of data points, and certain aspects apply to individual data points, and there are relationships between individuals that have to be documented. 
+
+<details><summary>Example: Primary School Organization</summary>
+
+Each individual has certain characteristics: 
+- full_name
+- gender
+- birth date
+- ID number
+
+Each student has specific characteristics:
+- ID number 
+- parent name
+- parent phone number
+- medical information
+- Class ID
+
+Teachers may also have additional information:
+- ID number
+- Class ID
+- employment start date
+- education level
+- compensation level
+
+There are also fields like grades, which occur for each student in each class, but multiple times  a year. 
+- ID number
+- Student ID
+- Class ID
+- year
+- term number
+- subject
+- grade
+- comment
+
+And for teachers, there are employment records on a yearly basis
+- ID number
+- Employee ID
+- year
+- rating
+- comment
+
+But each class also has characteristics that describe the whole class as a unit: 
+- location ID
+- class ID
+- meeting time
+- grade level
+
+Each location might also have some logistical information attached:
+- location ID
+- room number
+- building
+- number of seats
+- AV equipment
+
+<iframe width="560" height="315" src='https://dbdiagram.io/embed/5ef387179ea313663b3b048e' alt = "A diagram representation of the described database"> </iframe>
 
 
+We could go on, but you can see that this data is hierarchical, but also relational: 
+- each class has both a teacher and a set of students
+- each class is held in a specific location that has certain equipment
 
-## Table Joins
+It would be silly to store this information in a single table (though it probably can be done) because all of the teacher information would be duplicated for each student in each class; all of the student's individual info would be duplicated for each grade. There would be a lot of wasted storage space and the tables would be much more confusing as well. 
 
+But, relational data also means we have to put in some work when we have a question that requires information from multiple tables. Suppose we want a list of all of the birthdays in a certain class. We would need to take the following steps: 
+
+- get the Class ID
+- get any teachers that are assigned that Class ID - specifically, get their ID number
+- get any students that are assigned that Class ID - specifically, get their ID number
+- append the results from teachers and students so that there is a list of all individuals in the class
+- look through the "individual data" table to find any individuals with matching ID numbers, and keep those individuals' birth days. 
+</details>
+
+Table joins allow us to combine information stored in different tables, keeping certain information (the stuff we need) while discarding extraneous information. 
+
+There are 3 main types of table joins:
+
+- Filtering joins, which remove rows from a table based on whether or not there is a matching row in another table (but the columns in the original table don't change)    
+Ex: finding all teachers or students who have class ClassID
+
+- Set operations, which treat observations as set elements (e.g. union, intersection, etc.)    
+Ex: taking the union of all student and teacher IDs to get a list of individual IDs
+
+- Mutating joins, which add columns from one table to matching rows in another table    
+Ex: adding birthday to the table of all individuals in a class
+
+**keys** are values that are found in multiple tables that can be used to connect the tables. A key (or set of keys) uniquely identify an observation. A **primary key** identifies an observation in its own table. A **foreign key** identifies an observation in another table.
+
+We're primarily going to focus on mutating joins, as filtering joins can be accomplished by ... filtering ... rather than by table joins. Feel free to read through the other types of joins [here](https://r4ds.had.co.nz/relational-data.html#filtering-joins)
+
+### Demonstration dataset setup
+
+We'll use the `nycflights13` package in R. Unfortunately, the data in this package are too big for me to reasonably store on github (you'll recall, I had to use a small sample the last time we played with this data...). So before we can work with this data, we have to load the tables into SAS, which means saving them out from R. 
+<details><summary>Instructions</summary>
+We'll use a function in the `dbplyr` package to do that.^[Incidentally, dbplyr is basically dplyr for databases, and is worth checking out, even if we aren't covering it in this class.]
+
+```{r}
+if (!"nycflights13" %in% installed.packages()) install.packages("nycflights13")
+if (!"dbplyr" %in% installed.packages()) install.packages("dbplyr")
+library(nycflights13)
+library(dbplyr)
+nycflights13_sqlite(path = "data/")
+```
+
+Then, you'll have to figure out where on your system database locations (DSNs) are stored. On Unix systems, it's /etc/odbc.ini (for system-wide access) and ~/.odbc.ini. On windows, you'll need to use the ODBC Data Source Administrator to set this up. 
+
+````
+[nycflight]
+Description = NYC flights database
+Driver = SQLite3
+Database = /home/susan/Projects/Class/unl-stat850/2020-stat850/data/nycflights13.sqlite
+
+````
+
+</details>
+
+```{sashtml sqlite3-nycflights, echo = F}
+/* This code requires that I've set up a DSN connecting the sqlite file to */
+/* a specific driver on my computer. You'll have to set up your machine to */
+/* have a configuration that is appropriate for your setup */
+  
+libname nycair odbc complete = "dsn=nycflight; Database=~/Projects/Class/unl-stat850/2020-stat850/data/nycflights13.sqlite";
+
+proc print data=nycair.flights (obs=3);
+title 'Flights table';
+run;
+proc print data=nycair.airlines (obs=3);
+title 'Airlines table';
+run;
+proc print data=nycair.airports (obs=3);
+title 'Airports table';
+run;
+proc print data=nycair.planes (obs=3);
+title 'Planes table';
+run;
+proc print data=nycair.weather (obs=3);
+title 'Weather table';
+run;
+
+/* clear titles */ title;
+```
+
+#### Try it out {- .tryitout}
+
+Sketch a diagram of which fields in each table match fields in other tables. 
+
+You can find the solution [here](https://r4ds.had.co.nz/relational-data.html#nycflights13-relational) (scroll down a bit).
+
+
+### Mutating joins
+
+A mutating join combines variables in two tables. There are excellent visual representations of the types of mutating joins [here](https://r4ds.had.co.nz/relational-data.html#mutating-joins). 
+
+
+Every join has a "left side" and a "right side" - so in `some_join(A, B)`, A is the left side, B is the right side. 
+
+Joins are differentiated based on how they treat the rows and columns of each side. In mutating joins, the columns from both sides are always kept. 
+
+<table><tr><td></td><td colspan = 2>Left Side</td><td colspan = 2>Right Side</td></tr>
+<th><td>Join Type</td><td>Rows</td><td>Cols</td><td>Rows</td><td>Cols</td></th>
+<tr><td>inner</td><td>matching</td><td>all</td><td>matching</td><td>all</td></tr>
+<tr><td>left</td><td>all</td><td>all</td><td>matching</td><td>all</td></tr>
+<tr><td>right</td><td>matching</td><td>all</td><td>all</td><td>all</td></tr>
+<tr><td>outer</td><td>all</td><td>all</td><td>all</td><td>all</td></tr>
+</table>
+
+<details><summary>Mutating joins in R</summary>
+```{r}
+t1 <- tibble(x = c("A", "B", "D"), y = c(1, 2, 3))
+t2 <- tibble(x = c("B", "C", "D"), z = c(2, 4, 5))
+```
+
+An inner join keeps only rows that exist on both sides, but keeps all columns.
+```{r}
+inner_join(t1, t2)
+```
+
+A left join keeps all of the rows in the left side, and adds any columns from the right side that match rows on the left. Rows on the left that don't match get filled in with NAs. 
+
+```{r}
+left_join(t1, t2)
+left_join(t2, t1)
+```
+
+There is a similar construct called a right join that is equivalent to flipping the arguments in a left join. The row and column ordering may be different, but all of the same values will be there
+
+```{r}
+right_join(t1, t2)
+right_join(t2, t1)
+```
+
+An outer join keeps everything - all rows, all columns. In dplyr, it's known as a `full_join`. 
+
+```{r}
+full_join(t1, t2)
+```
+</details>
+
+In SAS, you can do joins using a data step or PROC SQL. To do a join with data steps, you have to have your data sorted by columns that overlap. PROC SQL has no such requirement.
+
+[This guide shows the syntax for PROC SQL and DATA step joins side-by-side.](https://support.sas.com/resources/papers/proceedings/pdfs/sgf2008/178-2008.pdf)
+
+<details><summary>PROC SQL Mutating joins</summary>
+```{sashtml}
+data t1;
+input x $ y;
+datalines;
+A 1
+B 2
+D 3
+;
+
+data t2;
+input x $ z;
+datalines;
+B 2
+C 4
+D 5
+;
+
+title 'Inner join';
+PROC SQL;
+SELECT * FROM t1 as p1
+INNER JOIN t2 as p2 
+ON p1.x = p2.x;
+
+title 'Left join';
+PROC SQL;
+SELECT * FROM t1 as p1
+LEFT JOIN t2 as p2 
+ON p1.x = p2.x;
+
+title 'Right join';
+PROC SQL;
+SELECT * FROM t1 as p1
+RIGHT JOIN t2 as p2 
+ON p1.x = p2.x;
+
+title 'Full Outer join';
+PROC SQL;
+SELECT * FROM t1 as p1
+FULL OUTER JOIN t2 as p2 
+ON p1.x = p2.x;
+
+/* Use coalesce to prevent column duplication */
+
+title 'Inner join';
+PROC SQL;
+SELECT COALESCE(p1.x, p2.x) AS x, y, z
+FROM t1 as p1 INNER JOIN  t2 as p2
+on p1.x = p2.x;
+
+title 'Left join';
+PROC SQL;
+SELECT COALESCE(p1.x, p2.x) AS x, y, z
+FROM t1 as p1 LEFT JOIN t2 as p2 
+ON p1.x = p2.x;
+
+title 'Right join';
+PROC SQL;
+SELECT COALESCE(p1.x, p2.x) AS x, y, z
+FROM t1 as p1 RIGHT JOIN t2 as p2 
+ON p1.x = p2.x;
+
+title 'Full Outer join';
+PROC SQL;
+SELECT COALESCE(p1.x, p2.x) AS x, y, z
+FROM t1 as p1 FULL OUTER JOIN t2 as p2 
+ON p1.x = p2.x;
+
+title;
+```
+</details>
+
+<details><summary>Data Step Mutating joins</summary>
+```{sashtml}
+data t1;
+input x $ y;
+datalines;
+A 1
+B 2
+D 3
+;
+
+data t2;
+input x $ z;
+datalines;
+B 2
+C 4
+D 5
+;
+
+DATA inner;
+MERGE t1 (IN = p1) t2 (IN = p2);
+BY x;
+IF p1 AND p2;
+RUN;
+
+PROC PRINT DATA=inner;RUN;
+
+DATA left;
+MERGE t1 (IN = p1) t2 (IN = p2);
+BY x;
+IF p1;
+RUN;
+
+PROC PRINT DATA=left;RUN;
+
+DATA right;
+MERGE t1 (IN = p1) t2 (IN = p2);
+BY x;
+IF p2;
+RUN;
+
+PROC PRINT DATA=right;RUN;
+
+DATA outer;
+MERGE t1 (IN = p1) t2 (IN = p2);
+BY x;
+RUN;
+
+PROC PRINT DATA=outer;RUN;
+```
+</details>
+
+As before, these functions may become a bit more interesting once we try them out on real-world data. Using the flights data, let's determine whether there's a relationship between the age of a plane and its delays. 
+
+<details><summary>In R</summary>
+```{r flights-delay-age-R, out.width = "45%", fig.width = 6, fig.height = 6}
+library(nycflights13)
+
+plane_age <- planes %>%
+  mutate(age = 2013 - year) %>% # This gets us away from having to deal with 2 different year columns
+  select(tailnum, age, manufacturer)
+
+delays_by_plane <- flights %>%
+  select(dep_delay, arr_delay, carrier, flight, tailnum)
+
+# We only need to keep delays that have a plane age, so use inner join
+res <- inner_join(delays_by_plane, plane_age, by = "tailnum")
+
+ggplot(res, aes(x = age, y = dep_delay, group = cut_width(age, 1, center = 0))) + 
+  geom_boxplot() + 
+  ylab("Departure Delay (min)") + 
+  xlab("Plane age") + 
+  coord_cartesian(ylim = c(-20, 50))
+
+ggplot(res, aes(x = age, y = arr_delay, group = cut_width(age, 1, center = 0))) + 
+  geom_boxplot() + 
+  ylab("Arrival Delay (min)") + 
+  xlab("Plane age") + 
+  coord_cartesian(ylim = c(-30, 60))
+```
+It doesn't look like there's much of a relationship to me. If anything, older planes are more likely to be early, but I suspect there aren't enough of them to make that conclusion (`r sprintf("%.2f%%", mean(plane_age$age > 25, na.rm = T) * 100)` are over 25 years old, and `r sprintf("%.2f%%", mean(plane_age$age > 40, na.rm = T) * 100)` are over 40 years old).
+</details>
+
+<details><summary>In SAS</summary>
+```{sashtml flights-delay-age-sas-prep, collectcode=T}
+libname nycair odbc complete = "dsn=nycflight; Database=~/Projects/Class/unl-stat850/2020-stat850/data/nycflights13.sqlite";
+
+PROC SQL;
+CREATE TABLE tmp1 AS 
+SELECT 2013 - year AS age, tailnum FROM nycair.planes
+WHERE ^missing(year);
+
+CREATE TABLE tmp2 AS 
+SELECT tailnum, dep_delay, arr_delay, air_time, distance, hour, carrier, origin
+FROM nycair.flights;
+```
+Now that the prep work is done, we can get on with answering the question.
+```{sashtml flights-delay-age-sas-res, collectcode=T}
+
+PROC SQL;
+CREATE TABLE agedelay AS
+SELECT COALESCE(p1.tailnum, p2.tailnum) AS tailnum, 
+        age, dep_delay, arr_delay, air_time, distance, hour, carrier, origin
+FROM tmp1 as p1 INNER JOIN tmp2 as p2 
+ON p1.tailnum = p2.tailnum
+WHERE age < 25 /* only work with areas where there's enough data */
+ORDER BY age;
+
+PROC MEANS DATA = agedelay NOPRINT;
+BY age;
+VAR dep_delay arr_delay;
+OUTPUT OUT = agemeans;
+RUN;
+
+PROC TRANSPOSE DATA = agemeans(where = (_STAT_="MEAN")) 
+  OUT = agemeanst(drop= _Label_) 
+  name=VAR;
+BY age _FREQ_; /* Just to keep _FREQ_ around */
+VAR dep_delay arr_delay;
+ID _STAT_;
+RUN;
+```
+In theory, we could use some sort of linear model, but lets start with a simple plot of age * average delay and see where that takes us. 
+```{sashtml flights-delay-age-sas-plot1, collectcode=T}
+PROC SGPANEL DATA = agemeanst;
+PANELBY VAR;
+SCATTER X = age Y = MEAN;
+RUN;
+```
+I started wondering about that pattern - to me, it doesn't look like there's any particular trend so much as there's just low - high - low clusters. So I decided to plot frequency as well, and, lo and behold, the frequency count is similarly distributed. So my current working hypothesis is that there are a lot more observations in the middle group of planes that are 5-15 years old.
+
+```{sashtml flights-delay-age-sas-plot2, collectcode=T}
+
+PROC SGPLOT DATA = agemeanst;
+SCATTER X = age Y = _FREQ_;
+RUN;
+```
+It's also entirely possible that planes between 5-15 years of age have more mechanical issues, but I suspect most delays are due to airport, weather, etc. rather than mechanical malfunctions.  
+</details>
 
 ## References {- .learn-more}
 
 String manipulation
 
-- [R4DS chapter](https://r4ds.had.co.nz/strings.html)
+- [R4DS chapter - strings](https://r4ds.had.co.nz/strings.html)
 - [SAS and Perl regular expressions](https://support.sas.com/resources/papers/proceedings/proceedings/sugi29/265-29.pdf)
 - [PCRE tester](https://regex101.com/)
 - [R regex tester](https://spannbaueradam.shinyapps.io/r_regex_tester/) - has a short timeout period and will disconnect you if you're idle too long. But you can also clone the repo [here](https://github.com/AdamSpannbauer/r_regex_tester_app) and run it locally. 
 - [SAS scan statement](https://documentation.sas.com/?docsetId=ds2ref&docsetTarget=p13adatt2vvhcxn1ext6w6eet24p.htm&docsetVersion=9.4&locale=en#p1ub8nub953289n1dpsvh7gm88qs)
 
-Other stuff
-- [SAS rename statement](https://documentation.sas.com/?docsetId=lestmtsref&docsetTarget=n0x16kvqkxxdx5n1t04voifvo8wo.htm&docsetVersion=9.4&locale=en)
+Tidy data tutorials/references
 
-
-Tidy data tutorials
 - [Tidy Data - Data Skills for Reproducible Science](https://psyteachr.github.io/msc-data-skills/tidyr.html)
 - [Five Ways to Flip-Flop Your Data](http://cinsug.org/uploads/3/6/2/9/36298586/horstman_five_ways_to_flip_flop_your_data_paper.pdf)
+- [PROC TRANSPOSE reference](https://documentation.sas.com/?docsetId=proc&docsetVersion=9.4&docsetTarget=n1xno5xgs39b70n0zydov0owajj8.htm&locale=en)
+- [tidyr reference](https://tidyr.tidyverse.org/)
 
+Relational Data & Joins:
+
+- [R4DS chapter - Relational data](https://r4ds.had.co.nz/relational-data.html)
+- [Merge statement in SAS](https://documentation.sas.com/?docsetId=lestmtsref&docsetTarget=n1i8w2bwu1fn5kn1gpxj18xttbb0.htm&docsetVersion=9.4&locale=en)
+
+Other references
+
+- [SAS rename statement](https://documentation.sas.com/?docsetId=lestmtsref&docsetTarget=n0x16kvqkxxdx5n1t04voifvo8wo.htm&docsetVersion=9.4&locale=en)
+- [SAS graph customization](https://www.pharmasug.org/proceedings/2016/DG/PharmaSUG-2016-DG04.pdf)
+- [SAS SGPLOT procedure](https://documentation.sas.com/?docsetId=grstatproc&docsetTarget=n0yjdd910dh59zn1toodgupaj4v9.htm&docsetVersion=9.4&locale=en)
+- [Data Visualization with ggplot](https://psyteachr.github.io/msc-data-skills/ggplot.html)
+- [R graph gallery](https://www.r-graph-gallery.com/)
