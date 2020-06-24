@@ -578,7 +578,7 @@ The trick to this problem is to realize that inside of the function, when a vari
 </details>
 </div>
 
-### Infix operators and the pipe in R
+### The Pipe
 
 
 ::: note
@@ -797,3 +797,4 @@ tribble(~var1, ~var2,
 - A helpful blog post for scoping in SAS is [here](https://blogs.sas.com/content/iml/2013/04/29/understanding-local-and-global-variables-in-the-sasiml-language.html)
 - [Here is another explanation of pass-by-value vs. pass-by-reference](https://www.educative.io/edpresso/pass-by-value-vs-pass-by-reference) (intended for C programming)
 - [A comparison of R, SAS, and python](https://scholar.smu.edu/cgi/viewcontent.cgi?article=1021&context=datasciencereview) - source of information about the SAS package distribution system. 
+- [Another explanation of pipes](https://psyteachr.github.io/msc-data-skills/tidyr.html#pipes) (lots of examples)
