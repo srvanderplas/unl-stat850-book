@@ -20,26 +20,19 @@ library(SASmarkdown)
 ```
 
 ## Instructions
-This homework has two main problems. You should edit only the code chunks (and not the structure of the rest of the document) and the author: statement at the top of the file. 
+This homework has two main problems. In the FizzBuzz section, you should only modify the code chunks. In the Packages/Procedures section, you should modify the text (anything that doesn't have a `###` in front of it) and the code chunks. Feel free to add additional code chunks as necessary.
+
+Make sure you also edit the author name at the top of the document. 
 
 When you are finished with the assignment: 
 
-1. Save the file as 03_Packages, Scripts, Documents, and Functions/03_Lastname_Firstname.Rmd and compile it
+1. Save the file as 03_Packages, Scripts, Documents, and Functions/03_Lastname_Firstname.Rmd (filling in the assignment details) and compile it
 2. Commit the Rmd file and corresponding html file to your homework git repo
 3. Push the commit to github
-4. Locate the Rmd file on github and click on the SHA link for the file
+4. Locate the Rmd file on github and click on the SHA link for the file.
 5. Paste the url of the resulting page into Canvas to submit your assignment.
 
 Your assignment must compile on a different computer as long as the saspath is set correctly for that machine.
-
-
-## Exploring Packages and Modules
-Find an R package and a SAS module which are interesting to you. Below, describe or demonstrate some feature of each package (see the vignette for the R package or the SAS documentation for ideas of how to demonstrate the package's features). 
-
-### R Package: XXX
-
-### SAS Module: XXX
-
 
 ## FizzBuzz Functions
 
@@ -110,3 +103,31 @@ cat(readLines("saslog.log"), sep="\n")
 # Do not forget to remove the log file when you are done!
 unlink("saslog.log")
 ```
+
+
+## Exploring Packages and Modules
+
+### R Package: XXX
+Find an R package which is interesting to you. Fill in the package name above, and describe or demonstrate some feature of the package here. 
+
+### SAS Procedure: XXX
+Look through the [SAS Procedures Guide](https://go.documentation.sas.com/?docsetId=proc&docsetTarget=part-2.htm&docsetVersion=9.4&locale=en) (or [this](https://go.documentation.sas.com/?docsetId=proc&docsetTarget=p0ptdedyvyouspn1erbeqr0floca.htm&docsetVersion=9.4&locale=en) guide to procedures documented elsewhere) and find a procedure that is interesting to you that we haven't yet discussed (which is most of them). Read the documentation of that procedure and demonstrate its use on a data set that is appropriate. Do not just copy the example code - actually explore what the procedure does. 
+
+Fill in your code in the chunk below.
+```{sashtml proc-demo, error = T}
+proc printto log="saslog.log" new;
+
+
+````
+
+
+```{r readlog2}
+cat(readLines("saslog.log"), sep="\n")
+```
+
+
+```{r cleanuplog2}
+# Do not forget to remove the log file when you are done!
+unlink("saslog.log")
+```
+
