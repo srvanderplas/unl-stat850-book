@@ -653,6 +653,7 @@ What I will do is provide you with a quick list of packages in R which will solv
   - [Regular Expression Cheatsheet (R)](https://rstudio.com/wp-content/uploads/2016/09/RegExCheatsheet.pdf)
   - [Common String operations in SAS](https://www.listendata.com/2014/12/sas-character-functions.html)
   - [Regular Expressions in SAS](https://support.sas.com/resources/papers/proceedings/proceedings/sugi29/265-29.pdf)
+  - We'll talk more about strings in the next module...
 :::
 
 ```{r, cache = F, echo = F, include = F}
