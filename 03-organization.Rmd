@@ -93,7 +93,9 @@ It's really fairly easy, which surprised me -- I was expecting it to be a lot mo
 
 A function (or a module, in SAS) is a block of code which is only run when it is called. It takes arguments (known as parameters) and returns data or some other value. 
 
+::: learn-more
 There is some extensive material on this subject in [R for Data Science on functions](https://r4ds.had.co.nz/functions.html). If you aren't familiar with functions, you should read that material before proceeding.
+:::
 
 Let's look at the structure of a generic function in pseudocode (code that isn't really part of any language, but describes the steps of a program):
 
@@ -108,7 +110,7 @@ my_function_name = function(param1, param2 = 3) {
 
 ````
 
-The first part of a function declaration (storing information in a named object) is the function's intended name, `my_function_name`. Then, we indicate that we are defining a function, and what **parameters** our function requires. For `param1`, we do not provide a default value, but for `param2`, we indicate that the **default value** is 3. Thus, if we call the function (tell the program to run this function with certain arguments and provide the result), we could either say `my_function_name(param1 = value1, param2 = value2)` or `my_function_name(param1 = value1)` (which is equivalent to `my_function_name(param1 = value1, param2 = 3)`). Inside the function block (indicated by `{}` here, but some languages may use `do ... end;`), we perform whatever steps we've decided to include in the function, and then at the end of the function, we **return** a value - the function exits, and leaves behind some information.
+The first part of a function declaration (storing information in a named object) is the function's intended name, `my_function_name`. Then, we indicate that we are defining a function, and what **parameters** our function requires. For `param1`, we do not provide a default value, but for `param2`, we indicate that the **default value** is 3. Thus, if we call the function (tell the program to run this function with certain arguments and provide the result), we could either say `my_function_name(param1 = value1, param2 = value2)` or `my_function_name(param1 = value1)` (which is equivalent to `my_function_name(param1 = value1, param2 = 3)`). In R, you can even say `my_function_name(value1, value2)` and the assumption is that you've supplied the parameters in the correct order.^[It's a good idea to specify your parameter names when you're using functions you're unfamiliar with, which at this point, is probably all of them.] Inside the function block (indicated by `{}` here, but some languages may use `do ... end;`), we perform whatever steps we've decided to include in the function, and then at the end of the function, we **return** a value - the function exits, and leaves behind some information.
 
 In R, functions look like this: 
 
@@ -154,7 +156,7 @@ proc IML;
     return(a + b);
   finish;
 
-  c = adder(3, 4);
+  c = adder(3, 4); /* In IML, you can use the function like this as well */
   print c;
 
 quit;
