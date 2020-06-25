@@ -202,7 +202,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="3.3" data-path="organization.html"><a href="organization.html#functions-and-modules"><i class="fa fa-check"></i><b>3.3</b> Functions and Modules</a><ul>
 <li class="chapter" data-level="" data-path="organization.html"><a href="organization.html#try-it-out-6"><i class="fa fa-check"></i>Try it out</a></li>
 <li class="chapter" data-level="3.3.1" data-path="organization.html"><a href="organization.html#scope"><i class="fa fa-check"></i><b>3.3.1</b> Scope</a></li>
-<li class="chapter" data-level="3.3.2" data-path="organization.html"><a href="organization.html#infix-operators-and-the-pipe-in-r"><i class="fa fa-check"></i><b>3.3.2</b> Infix operators and the pipe in R</a></li>
+<li class="chapter" data-level="3.3.2" data-path="organization.html"><a href="organization.html#the-pipe"><i class="fa fa-check"></i><b>3.3.2</b> The Pipe</a></li>
 </ul></li>
 <li class="chapter" data-level="3.4" data-path="organization.html"><a href="organization.html#procs-and-data-steps"><i class="fa fa-check"></i><b>3.4</b> Procs and Data steps</a></li>
 <li class="chapter" data-level="3.5" data-path="organization.html"><a href="organization.html#scripts"><i class="fa fa-check"></i><b>3.5</b> Scripts</a><ul>
@@ -263,7 +263,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="6.3.1" data-path="transforming-data.html"><a href="transforming-data.html#longer"><i class="fa fa-check"></i><b>6.3.1</b> Longer</a></li>
 <li class="chapter" data-level="6.3.2" data-path="transforming-data.html"><a href="transforming-data.html#wider"><i class="fa fa-check"></i><b>6.3.2</b> Wider</a></li>
 </ul></li>
-<li class="chapter" data-level="6.4" data-path="transforming-data.html"><a href="transforming-data.html#table-joins"><i class="fa fa-check"></i><b>6.4</b> Table Joins</a></li>
+<li class="chapter" data-level="6.4" data-path="transforming-data.html"><a href="transforming-data.html#relational-data-and-joining-tables"><i class="fa fa-check"></i><b>6.4</b> Relational Data and Joining Tables</a><ul>
+<li class="chapter" data-level="6.4.1" data-path="transforming-data.html"><a href="transforming-data.html#demonstration-dataset-setup"><i class="fa fa-check"></i><b>6.4.1</b> Demonstration dataset setup</a></li>
+<li class="chapter" data-level="6.4.2" data-path="transforming-data.html"><a href="transforming-data.html#mutating-joins"><i class="fa fa-check"></i><b>6.4.2</b> Mutating joins</a></li>
+</ul></li>
 <li class="chapter" data-level="" data-path="transforming-data.html"><a href="transforming-data.html#references-2"><i class="fa fa-check"></i>References</a></li>
 </ul></li>
 <li class="chapter" data-level="7" data-path="debugging.html"><a href="debugging.html"><i class="fa fa-check"></i><b>7</b> Principles of Debugging</a><ul>
@@ -760,7 +763,7 @@ x=1
 NOTE: The data set WORK.SET1 has 1 observations and 3 variables.
 NOTE: DATA statement used (Total process time):
       real time           0.00 seconds
-      cpu time            0.00 seconds
+      cpu time            0.01 seconds
       
 
 14         </code></pre>
@@ -1728,7 +1731,7 @@ V9
 Physical Name
 </th>
 <td class="l data">
-/tmp/SAS_workA06B00002CA6_silicon
+/tmp/SAS_workBB7500003248_silicon
 </td>
 </tr>
 <tr>
@@ -1736,7 +1739,7 @@ Physical Name
 Filename
 </th>
 <td class="l data">
-/tmp/SAS_workA06B00002CA6_silicon
+/tmp/SAS_workBB7500003248_silicon
 </td>
 </tr>
 <tr>
@@ -1744,7 +1747,7 @@ Filename
 Inode Number
 </th>
 <td class="l data">
-11538326
+11538215
 </td>
 </tr>
 <tr>
@@ -1833,7 +1836,7 @@ DATA
 128KB
 </td>
 <td class="l data">
-06/19/2020 13:39:18
+06/24/2020 17:51:27
 </td>
 </tr>
 <tr>
@@ -1850,7 +1853,7 @@ CATALOG
 12KB
 </td>
 <td class="l data">
-06/19/2020 13:39:18
+06/24/2020 17:51:27
 </td>
 </tr>
 <tr>
@@ -1867,7 +1870,7 @@ ITEMSTOR
 32KB
 </td>
 <td class="l data">
-06/19/2020 13:39:18
+06/24/2020 17:51:27
 </td>
 </tr>
 <tr>
@@ -1884,7 +1887,7 @@ CATALOG
 20KB
 </td>
 <td class="l data">
-06/19/2020 13:39:18
+06/24/2020 17:51:27
 </td>
 </tr>
 </tbody>
@@ -1964,7 +1967,7 @@ Indexes
 Created
 </th>
 <td class="l data">
-06/19/2020 13:39:18
+06/24/2020 17:51:27
 </td>
 <th class="l rowheader" scope="row">
 Observation Length
@@ -1978,7 +1981,7 @@ Observation Length
 Last Modified
 </th>
 <td class="l data">
-06/19/2020 13:39:18
+06/24/2020 17:51:27
 </td>
 <th class="l rowheader" scope="row">
 Deleted Observations
@@ -2124,7 +2127,7 @@ Number of Data Set Repairs
 Filename
 </th>
 <td class="l data">
-/tmp/SAS_workA06B00002CA6_silicon/mathmj.sas7bdat
+/tmp/SAS_workBB7500003248_silicon/mathmj.sas7bdat
 </td>
 </tr>
 <tr>
@@ -2148,7 +2151,7 @@ Linux
 Inode Number
 </th>
 <td class="l data">
-11538331
+11538332
 </td>
 </tr>
 <tr>
@@ -3767,7 +3770,7 @@ i=1.5
 NOTE: The data set WORK.A has 1 observations and 2 variables.
 NOTE: DATA statement used (Total process time):
       real time           0.00 seconds
-      cpu time            0.01 seconds
+      cpu time            0.00 seconds
       </code></pre>
 </details>
 <div class="tryitout">

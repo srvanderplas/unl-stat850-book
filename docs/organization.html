@@ -202,7 +202,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="3.3" data-path="organization.html"><a href="organization.html#functions-and-modules"><i class="fa fa-check"></i><b>3.3</b> Functions and Modules</a><ul>
 <li class="chapter" data-level="" data-path="organization.html"><a href="organization.html#try-it-out-6"><i class="fa fa-check"></i>Try it out</a></li>
 <li class="chapter" data-level="3.3.1" data-path="organization.html"><a href="organization.html#scope"><i class="fa fa-check"></i><b>3.3.1</b> Scope</a></li>
-<li class="chapter" data-level="3.3.2" data-path="organization.html"><a href="organization.html#infix-operators-and-the-pipe-in-r"><i class="fa fa-check"></i><b>3.3.2</b> Infix operators and the pipe in R</a></li>
+<li class="chapter" data-level="3.3.2" data-path="organization.html"><a href="organization.html#the-pipe"><i class="fa fa-check"></i><b>3.3.2</b> The Pipe</a></li>
 </ul></li>
 <li class="chapter" data-level="3.4" data-path="organization.html"><a href="organization.html#procs-and-data-steps"><i class="fa fa-check"></i><b>3.4</b> Procs and Data steps</a></li>
 <li class="chapter" data-level="3.5" data-path="organization.html"><a href="organization.html#scripts"><i class="fa fa-check"></i><b>3.5</b> Scripts</a><ul>
@@ -263,7 +263,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="6.3.1" data-path="transforming-data.html"><a href="transforming-data.html#longer"><i class="fa fa-check"></i><b>6.3.1</b> Longer</a></li>
 <li class="chapter" data-level="6.3.2" data-path="transforming-data.html"><a href="transforming-data.html#wider"><i class="fa fa-check"></i><b>6.3.2</b> Wider</a></li>
 </ul></li>
-<li class="chapter" data-level="6.4" data-path="transforming-data.html"><a href="transforming-data.html#table-joins"><i class="fa fa-check"></i><b>6.4</b> Table Joins</a></li>
+<li class="chapter" data-level="6.4" data-path="transforming-data.html"><a href="transforming-data.html#relational-data-and-joining-tables"><i class="fa fa-check"></i><b>6.4</b> Relational Data and Joining Tables</a><ul>
+<li class="chapter" data-level="6.4.1" data-path="transforming-data.html"><a href="transforming-data.html#demonstration-dataset-setup"><i class="fa fa-check"></i><b>6.4.1</b> Demonstration dataset setup</a></li>
+<li class="chapter" data-level="6.4.2" data-path="transforming-data.html"><a href="transforming-data.html#mutating-joins"><i class="fa fa-check"></i><b>6.4.2</b> Mutating joins</a></li>
+</ul></li>
 <li class="chapter" data-level="" data-path="transforming-data.html"><a href="transforming-data.html#references-2"><i class="fa fa-check"></i>References</a></li>
 </ul></li>
 <li class="chapter" data-level="7" data-path="debugging.html"><a href="debugging.html"><i class="fa fa-check"></i><b>7</b> Principles of Debugging</a><ul>
@@ -524,7 +527,7 @@ c
 <a class="sourceLine" id="cb93-20" data-line-number="20">    <span class="cf">else</span> <span class="kw">names</span>(z) &lt;-<span class="st"> </span><span class="kw">dimnames</span>(x)[[dims <span class="op">+</span><span class="st"> </span>1L]]</a>
 <a class="sourceLine" id="cb93-21" data-line-number="21">    z</a>
 <a class="sourceLine" id="cb93-22" data-line-number="22">}</a>
-<a class="sourceLine" id="cb93-23" data-line-number="23"><span class="op">&lt;</span>bytecode<span class="op">:</span><span class="st"> </span><span class="dv">0x55963e7e3b70</span><span class="op">&gt;</span></a>
+<a class="sourceLine" id="cb93-23" data-line-number="23"><span class="op">&lt;</span>bytecode<span class="op">:</span><span class="st"> </span><span class="dv">0x55b3290d86e0</span><span class="op">&gt;</span></a>
 <a class="sourceLine" id="cb93-24" data-line-number="24"><span class="er">&lt;</span>environment<span class="op">:</span><span class="st"> </span>namespace<span class="op">:</span>base<span class="op">&gt;</span></a></code></pre></div>
 <p>You can see that the first 3 steps in the function are if statements to test whether the inputs are acceptable - x must be a data frame, a matrix, or an array (with 2+ dimensions).</p>
 <p>The next couple of lines test to see whether there are additional “column” dimensions (don’t worry if you don’t understand what’s going on in this code - it’s highly optimized and a bit arcane).</p>
@@ -1264,8 +1267,8 @@ The trick to this problem is to realize that inside of the function, when a vari
 </details>
 </div>
 </div>
-<div id="infix-operators-and-the-pipe-in-r" class="section level3">
-<h3><span class="header-section-number">3.3.2</span> Infix operators and the pipe in R</h3>
+<div id="the-pipe" class="section level3">
+<h3><span class="header-section-number">3.3.2</span> The Pipe</h3>
 <div class="note">
 <p>You do not need to understand the collapsed section below. If you’re feeling comfortable with the material, go ahead and read it now. I’ve left it in the functions section, because it’s a topic relating to functions, but it’s not essential to understand to use R (even at an advanced level)<a href="#fn8" class="footnote-ref" id="fnref8"><sup>8</sup></a>.</p>
 </div>
@@ -3144,13 +3147,12 @@ A more common way of distributing code in SAS seems to be through the use of sin
 In R, there are two main sources for packages: CRAN (the Comprehensive R Archive Network) (and related archives, such as MRAN, which is Microsoft’s version of CRAN) and github. R packages published on CRAN go through a basic verification process that makes sure that the package meets certain <a href="https://cran.r-project.org/">standards</a> (for instance, packages must have proper dependencies specified, cannot conflict with previous package names, must have a software license, and cannot contain malicious code). Note that CRAN does not check the packages for statistical correctness!</p>
 <p>On github, packages go through less verification. Many packages use a system where the version in development is on github and available for installation, but the version on CRAN is considered “stable”. Sometimes, packages are never put on CRAN: I contribute to several packages which are too large for CRAN, and it’s not worth the hassle to get an exception or figure out a workaround.</p>
 <div class="sourceCode" id="cb122"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb122-1" data-line-number="1"><span class="kw">library</span>(rvest)</a>
-<a class="sourceLine" id="cb122-2" data-line-number="2">Loading required package<span class="op">:</span><span class="st"> </span>xml2</a>
-<a class="sourceLine" id="cb122-3" data-line-number="3">txt &lt;-<span class="st"> </span><span class="kw">read_xml</span>(<span class="st">&quot;https://cran.r-project.org/web/packages/&quot;</span>) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb122-4" data-line-number="4"><span class="st">  </span><span class="kw">html_node</span>(<span class="dt">css =</span> <span class="st">&quot;#pkgs&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb122-5" data-line-number="5"><span class="st">  </span><span class="kw">xml_parent</span>() <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb122-6" data-line-number="6"><span class="st">  </span><span class="kw">html_text</span>()</a>
-<a class="sourceLine" id="cb122-7" data-line-number="7">npkgs &lt;-<span class="st"> </span>stringr<span class="op">::</span><span class="kw">str_extract</span>(txt, <span class="st">&quot;features </span><span class="ch">\\</span><span class="st">d{1,}&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span>stringr<span class="op">::</span><span class="kw">str_remove</span>(<span class="st">&quot;features &quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">as.numeric</span>()</a></code></pre></div>
-<p>Currently, the CRAN package repository features 1.581610^{4} available packages. How do you navigate them to find the one you need? Sometimes, the <a href="https://cran.r-project.org/web/views/">CRAN Task Views</a> may be helpful - for instance, if you want to see all of the packages which are useful for Meta-Analysis, Finance, Bayesian statistics, etc. Other times, it’s useful to let Google help you navigate: searching for “R CRAN” + “what you want the package to do” can often narrow things down (I recommend adding CRAN in because Google results for “R” are not particularly useful.)</p>
+<a class="sourceLine" id="cb122-2" data-line-number="2">txt &lt;-<span class="st"> </span><span class="kw">read_xml</span>(<span class="st">&quot;https://cran.r-project.org/web/packages/&quot;</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb122-3" data-line-number="3"><span class="st">  </span><span class="kw">html_node</span>(<span class="dt">css =</span> <span class="st">&quot;#pkgs&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb122-4" data-line-number="4"><span class="st">  </span><span class="kw">xml_parent</span>() <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb122-5" data-line-number="5"><span class="st">  </span><span class="kw">html_text</span>()</a>
+<a class="sourceLine" id="cb122-6" data-line-number="6">npkgs &lt;-<span class="st"> </span>stringr<span class="op">::</span><span class="kw">str_extract</span>(txt, <span class="st">&quot;features </span><span class="ch">\\</span><span class="st">d{1,}&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span>stringr<span class="op">::</span><span class="kw">str_remove</span>(<span class="st">&quot;features &quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">as.numeric</span>()</a></code></pre></div>
+<p>Currently, the CRAN package repository features 1.584910^{4} available packages. How do you navigate them to find the one you need? Sometimes, the <a href="https://cran.r-project.org/web/views/">CRAN Task Views</a> may be helpful - for instance, if you want to see all of the packages which are useful for Meta-Analysis, Finance, Bayesian statistics, etc. Other times, it’s useful to let Google help you navigate: searching for “R CRAN” + “what you want the package to do” can often narrow things down (I recommend adding CRAN in because Google results for “R” are not particularly useful.)</p>
 <p>Once you find and install a package (<code>install.packages()</code> for CRAN packages, <code>devtools::install_github()</code> for GitHub packages), you have to figure out how to use it. Many R packages come with <strong>vignettes</strong>, which are short articles that demonstrate how a package is used.
 You can browse the available vignettes using <code>browseVignettes()</code> (if you provide a package name as an argument, you will get only vignettes from that package).</p>
 Another way to get help on a package is to use <code>?&lt;package name&gt;</code>, e.g. <code>?ggplot2</code>. That will take you to the main package description page, and there are often links to documentation. At the bottom of the description page, you can click on a link to get to the Index, which is a list of all functions that are provided in that package. From there, you can find the documentation for each function in the package.
@@ -3186,6 +3188,7 @@ Another way to get help on a package is to use <code>?&lt;package name&gt;</code
 <li>A helpful blog post for scoping in SAS is <a href="https://blogs.sas.com/content/iml/2013/04/29/understanding-local-and-global-variables-in-the-sasiml-language.html">here</a></li>
 <li><a href="https://www.educative.io/edpresso/pass-by-value-vs-pass-by-reference">Here is another explanation of pass-by-value vs. pass-by-reference</a> (intended for C programming)</li>
 <li><a href="https://scholar.smu.edu/cgi/viewcontent.cgi?article=1021&amp;context=datasciencereview">A comparison of R, SAS, and python</a> - source of information about the SAS package distribution system.</li>
+<li><a href="https://psyteachr.github.io/msc-data-skills/tidyr.html#pipes">Another explanation of pipes</a> (lots of examples)</li>
 </ul>
 
 </div>
