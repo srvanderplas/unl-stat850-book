@@ -202,7 +202,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="3.3" data-path="organization.html"><a href="organization.html#functions-and-modules"><i class="fa fa-check"></i><b>3.3</b> Functions and Modules</a><ul>
 <li class="chapter" data-level="" data-path="organization.html"><a href="organization.html#try-it-out-6"><i class="fa fa-check"></i>Try it out</a></li>
 <li class="chapter" data-level="3.3.1" data-path="organization.html"><a href="organization.html#scope"><i class="fa fa-check"></i><b>3.3.1</b> Scope</a></li>
-<li class="chapter" data-level="3.3.2" data-path="organization.html"><a href="organization.html#infix-operators-and-the-pipe-in-r"><i class="fa fa-check"></i><b>3.3.2</b> Infix operators and the pipe in R</a></li>
+<li class="chapter" data-level="3.3.2" data-path="organization.html"><a href="organization.html#the-pipe"><i class="fa fa-check"></i><b>3.3.2</b> The Pipe</a></li>
 </ul></li>
 <li class="chapter" data-level="3.4" data-path="organization.html"><a href="organization.html#procs-and-data-steps"><i class="fa fa-check"></i><b>3.4</b> Procs and Data steps</a></li>
 <li class="chapter" data-level="3.5" data-path="organization.html"><a href="organization.html#scripts"><i class="fa fa-check"></i><b>3.5</b> Scripts</a><ul>
@@ -263,7 +263,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="6.3.1" data-path="transforming-data.html"><a href="transforming-data.html#longer"><i class="fa fa-check"></i><b>6.3.1</b> Longer</a></li>
 <li class="chapter" data-level="6.3.2" data-path="transforming-data.html"><a href="transforming-data.html#wider"><i class="fa fa-check"></i><b>6.3.2</b> Wider</a></li>
 </ul></li>
-<li class="chapter" data-level="6.4" data-path="transforming-data.html"><a href="transforming-data.html#table-joins"><i class="fa fa-check"></i><b>6.4</b> Table Joins</a></li>
+<li class="chapter" data-level="6.4" data-path="transforming-data.html"><a href="transforming-data.html#relational-data-and-joining-tables"><i class="fa fa-check"></i><b>6.4</b> Relational Data and Joining Tables</a><ul>
+<li class="chapter" data-level="6.4.1" data-path="transforming-data.html"><a href="transforming-data.html#demonstration-dataset-setup"><i class="fa fa-check"></i><b>6.4.1</b> Demonstration dataset setup</a></li>
+<li class="chapter" data-level="6.4.2" data-path="transforming-data.html"><a href="transforming-data.html#mutating-joins"><i class="fa fa-check"></i><b>6.4.2</b> Mutating joins</a></li>
+</ul></li>
 <li class="chapter" data-level="" data-path="transforming-data.html"><a href="transforming-data.html#references-2"><i class="fa fa-check"></i>References</a></li>
 </ul></li>
 <li class="chapter" data-level="7" data-path="debugging.html"><a href="debugging.html"><i class="fa fa-check"></i><b>7</b> Principles of Debugging</a><ul>
@@ -3300,6 +3303,7 @@ Ex: <code>[abc]</code> will match any single character <code>a</code>, <code>b</
 <p>In PCRE regular expressions, ‘/’ are used as delimiters. SAS assigns each sequential regular expression a number (so that you can reference them if necessary).</p>
 <details>
 <p><summary>PRXMATCH returns the first position of a string where a match is found (0 otherwise)</summary></p>
+<p>In this example, however, lets just test to see whether PRXMATCH finds a match or not</p>
 <pre class="sashtml"><code>DATA strings;
   INFILE DATALINES DSD; /* This allows quoted strings */
   INPUT string ~ $150.; /* ~ says deal with quoted strings */
@@ -4176,7 +4180,7 @@ Indexes
 Created
 </th>
 <td class="l data">
-06/23/2020 13:47:54
+06/24/2020 17:53:15
 </td>
 <th class="l rowheader" scope="row">
 Observation Length
@@ -4190,7 +4194,7 @@ Observation Length
 Last Modified
 </th>
 <td class="l data">
-06/23/2020 13:47:54
+06/24/2020 17:53:15
 </td>
 <th class="l rowheader" scope="row">
 Deleted Observations
@@ -5177,7 +5181,7 @@ $1.
 <p><summary>Task 2: Clean up the Combination of primary and highlight fur color column</summary>
 A. Get rid of leading and trailing <code>+</code> characters
 B. Where two highlight colors exist, add the primary color to both of them (so <code>Gray+Cinnamon, White</code> becomes <code>Gray+Cinnamon, Gray+White</code>)</p>
-You can do this by working with the original values or the combination values; whatever is easiest.
+<p>You can do this by working with the original values or the combination values; whatever is easiest.</p>
 <details>
 <p><summary>R solution</summary></p>
 <div class="sourceCode" id="cb270"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb270-1" data-line-number="1">squirrels_colorfix &lt;-<span class="st"> </span>squirrels <span class="op">%&gt;%</span></a>
@@ -5841,30 +5845,702 @@ China
 <p>It’s fairly common for data to come in forms which are convenient for either human viewing or data entry. Unfortunately, these forms aren’t necessarily the most friendly for analysis.</p>
 <div id="longer" class="section level3">
 <h3><span class="header-section-number">6.3.1</span> Longer</h3>
-In many cases, the data come in what we might call “wide” form - some of the column names are not names of variables, but instead, are themselves values of another variable. Let’s look at this data from the WHO (<a href="https://apps.who.int/gho/data/view.main.22500A?lang=en">download page here</a>).
+<p>In many cases, the data come in what we might call “wide” form - some of the column names are not names of variables, but instead, are themselves values of another variable.</p>
+<p>Tables 4a and 4b are good examples of data which is in “wide” form and should be in long(er) form: the years, which are variables, are column names, and the values are cases and population respectively.</p>
+<div class="sourceCode" id="cb277"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb277-1" data-line-number="1">table4a</a>
+<a class="sourceLine" id="cb277-2" data-line-number="2"><span class="co"># A tibble: 3 x 3</span></a>
+<a class="sourceLine" id="cb277-3" data-line-number="3">  country     <span class="st">`</span><span class="dt">1999</span><span class="st">`</span> <span class="st">`</span><span class="dt">2000</span><span class="st">`</span></a>
+<a class="sourceLine" id="cb277-4" data-line-number="4"><span class="op">*</span><span class="st"> </span><span class="er">&lt;</span>chr<span class="op">&gt;</span><span class="st">        </span><span class="er">&lt;</span>int<span class="op">&gt;</span><span class="st">  </span><span class="er">&lt;</span>int<span class="op">&gt;</span></a>
+<a class="sourceLine" id="cb277-5" data-line-number="5"><span class="dv">1</span> Afghanistan    <span class="dv">745</span>   <span class="dv">2666</span></a>
+<a class="sourceLine" id="cb277-6" data-line-number="6"><span class="dv">2</span> Brazil       <span class="dv">37737</span>  <span class="dv">80488</span></a>
+<a class="sourceLine" id="cb277-7" data-line-number="7"><span class="dv">3</span> China       <span class="dv">212258</span> <span class="dv">213766</span></a>
+<a class="sourceLine" id="cb277-8" data-line-number="8">table4b</a>
+<a class="sourceLine" id="cb277-9" data-line-number="9"><span class="co"># A tibble: 3 x 3</span></a>
+<a class="sourceLine" id="cb277-10" data-line-number="10">  country         <span class="st">`</span><span class="dt">1999</span><span class="st">`</span>     <span class="st">`</span><span class="dt">2000</span><span class="st">`</span></a>
+<a class="sourceLine" id="cb277-11" data-line-number="11"><span class="op">*</span><span class="st"> </span><span class="er">&lt;</span>chr<span class="op">&gt;</span><span class="st">            </span><span class="er">&lt;</span>int<span class="op">&gt;</span><span class="st">      </span><span class="er">&lt;</span>int<span class="op">&gt;</span></a>
+<a class="sourceLine" id="cb277-12" data-line-number="12"><span class="dv">1</span> Afghanistan   <span class="dv">19987071</span>   <span class="dv">20595360</span></a>
+<a class="sourceLine" id="cb277-13" data-line-number="13"><span class="dv">2</span> Brazil       <span class="dv">172006362</span>  <span class="dv">174504898</span></a>
+<a class="sourceLine" id="cb277-14" data-line-number="14"><span class="dv">3</span> China       <span class="dv">1272915272</span> <span class="dv">1280428583</span></a></code></pre></div>
+<p>The solution to this is to rearrange the data into “long form”: to take the columns which contain values and “stack” them, adding a variable to indicate which column each value came from. To do this, we have to duplicate the values in any column which isn’t being stacked (e.g. country, in both the example above and the image below).</p>
+<div class="figure"><span id="fig:unnamed-chunk-197"></span>
+<img src="image/tidyr_pivot_longer.png" alt="A visual representation of what the pivot_longer operation looks like in practice." width="50%" />
+<p class="caption">
+Figure 6.3: A visual representation of what the pivot_longer operation looks like in practice.
+</p>
+</div>
+<p>Once our data are in long form, we can (if necessary) separate values that once served as column labels into actual variables, and we’ll have tidy(er) data.</p>
 <details>
-<p><summary>Data set up</summary></p>
-<div class="sourceCode" id="cb277"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb277-1" data-line-number="1">url &lt;-<span class="st"> &quot;https://apps.who.int/gho/athena/data/xmart.csv?target=GHO/HIV_0000000026,SDGHIV&amp;profile=crosstable&amp;filter=COUNTRY:*;REGION:*;AGEGROUP:-&amp;x-sideaxis=COUNTRY&amp;x-topaxis=GHO;YEAR;SEX&amp;x-collapse=true&quot;</span></a>
-<a class="sourceLine" id="cb277-2" data-line-number="2"></a>
-<a class="sourceLine" id="cb277-3" data-line-number="3"><span class="co"># create colnames in shorter form</span></a>
-<a class="sourceLine" id="cb277-4" data-line-number="4">hiv &lt;-<span class="st"> </span><span class="kw">read_csv</span>(url, <span class="dt">na =</span> <span class="st">&quot;No data&quot;</span>, ) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb277-5" data-line-number="5"><span class="st">  </span><span class="kw">select</span>(<span class="op">-</span><span class="dv">2</span>) <span class="co"># get rid of only column that has raw totals</span></a>
-<a class="sourceLine" id="cb277-6" data-line-number="6">Parsed with column specification<span class="op">:</span></a>
-<a class="sourceLine" id="cb277-7" data-line-number="7"><span class="kw">cols</span>(</a>
-<a class="sourceLine" id="cb277-8" data-line-number="8">  <span class="dt">.default =</span> <span class="kw">col_character</span>()</a>
-<a class="sourceLine" id="cb277-9" data-line-number="9">)</a>
-<a class="sourceLine" id="cb277-10" data-line-number="10">See <span class="kw">spec</span>(...) <span class="cf">for</span> full column specifications.</a>
-<a class="sourceLine" id="cb277-11" data-line-number="11"></a>
-<a class="sourceLine" id="cb277-12" data-line-number="12"><span class="co"># work with the names to make them shorter and more readable</span></a>
-<a class="sourceLine" id="cb277-13" data-line-number="13"><span class="co"># otherwise, they&#39;re too long for SAS</span></a>
-<a class="sourceLine" id="cb277-14" data-line-number="14">newnames &lt;-<span class="st"> </span><span class="kw">names</span>(hiv)  <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb277-15" data-line-number="15"><span class="st">  </span><span class="kw">str_remove</span>(<span class="st">&quot;New HIV infections </span><span class="ch">\\</span><span class="st">(per 1000 uninfected population</span><span class="ch">\\</span><span class="st">); &quot;</span>) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb277-16" data-line-number="16"><span class="st">  </span><span class="kw">str_replace_all</span>(<span class="st">&quot;(</span><span class="ch">\\</span><span class="st">d{4}); (Male|Female|Both)( sexes)?&quot;</span>, <span class="st">&quot;Rate_</span><span class="ch">\\</span><span class="st">1_</span><span class="ch">\\</span><span class="st">2&quot;</span>)</a>
-<a class="sourceLine" id="cb277-17" data-line-number="17">hiv &lt;-<span class="st"> </span><span class="kw">set_names</span>(hiv, newnames) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb277-18" data-line-number="18"><span class="st">  </span><span class="co"># transliterate - get rid of non-ascii characters, replace w/ closest equiv</span></a>
-<a class="sourceLine" id="cb277-19" data-line-number="19"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">Country =</span> <span class="kw">iconv</span>(Country, <span class="dt">to=</span><span class="st">&quot;ASCII//TRANSLIT&quot;</span>))</a>
-<a class="sourceLine" id="cb277-20" data-line-number="20"></a>
-<a class="sourceLine" id="cb277-21" data-line-number="21"><span class="kw">write_csv</span>(hiv, <span class="dt">path =</span> <span class="st">&quot;data/who_hiv.csv&quot;</span>, <span class="dt">na =</span> <span class="st">&#39;.&#39;</span>) <span class="co"># make it easy for SAS</span></a></code></pre></div>
+<p><summary>In R, wide-to-long conversions are performed using <code>pivot_longer()</code></summary></p>
+<div class="sourceCode" id="cb278"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb278-1" data-line-number="1">tba &lt;-<span class="st"> </span>table4a <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb278-2" data-line-number="2"><span class="st">  </span><span class="kw">pivot_longer</span>(<span class="op">-</span>country, <span class="dt">names_to =</span> <span class="st">&quot;year&quot;</span>, <span class="dt">values_to =</span> <span class="st">&quot;cases&quot;</span>)</a>
+<a class="sourceLine" id="cb278-3" data-line-number="3">tbb &lt;-<span class="st"> </span>table4b <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb278-4" data-line-number="4"><span class="st">  </span><span class="kw">pivot_longer</span>(<span class="op">-</span>country, <span class="dt">names_to =</span> <span class="st">&quot;year&quot;</span>, <span class="dt">values_to =</span> <span class="st">&quot;population&quot;</span>)</a>
+<a class="sourceLine" id="cb278-5" data-line-number="5"></a>
+<a class="sourceLine" id="cb278-6" data-line-number="6"><span class="co"># To get the tidy data, we join the two together (see Table joins below)</span></a>
+<a class="sourceLine" id="cb278-7" data-line-number="7"><span class="kw">left_join</span>(tba, tbb, <span class="dt">by =</span> <span class="kw">c</span>(<span class="st">&quot;country&quot;</span>, <span class="st">&quot;year&quot;</span>)) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb278-8" data-line-number="8"><span class="st">  </span><span class="co"># make year numeric b/c it&#39;s dumb not to</span></a>
+<a class="sourceLine" id="cb278-9" data-line-number="9"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">year =</span> <span class="kw">as.numeric</span>(year))</a>
+<a class="sourceLine" id="cb278-10" data-line-number="10"><span class="co"># A tibble: 6 x 4</span></a>
+<a class="sourceLine" id="cb278-11" data-line-number="11">  country      year  cases population</a>
+<a class="sourceLine" id="cb278-12" data-line-number="12">  <span class="op">&lt;</span>chr<span class="op">&gt;</span><span class="st">       </span><span class="er">&lt;</span>dbl<span class="op">&gt;</span><span class="st">  </span><span class="er">&lt;</span>int<span class="op">&gt;</span><span class="st">      </span><span class="er">&lt;</span>int<span class="op">&gt;</span></a>
+<a class="sourceLine" id="cb278-13" data-line-number="13"><span class="dv">1</span> Afghanistan  <span class="dv">1999</span>    <span class="dv">745</span>   <span class="dv">19987071</span></a>
+<a class="sourceLine" id="cb278-14" data-line-number="14"><span class="dv">2</span> Afghanistan  <span class="dv">2000</span>   <span class="dv">2666</span>   <span class="dv">20595360</span></a>
+<a class="sourceLine" id="cb278-15" data-line-number="15"><span class="dv">3</span> Brazil       <span class="dv">1999</span>  <span class="dv">37737</span>  <span class="dv">172006362</span></a>
+<a class="sourceLine" id="cb278-16" data-line-number="16"><span class="dv">4</span> Brazil       <span class="dv">2000</span>  <span class="dv">80488</span>  <span class="dv">174504898</span></a>
+<a class="sourceLine" id="cb278-17" data-line-number="17"><span class="dv">5</span> China        <span class="dv">1999</span> <span class="dv">212258</span> <span class="dv">1272915272</span></a>
+<a class="sourceLine" id="cb278-18" data-line-number="18"><span class="dv">6</span> China        <span class="dv">2000</span> <span class="dv">213766</span> <span class="dv">1280428583</span></a></code></pre></div>
+<p>The columns are moved to a variable with the name passed to the argument “names_to” (hopefully, that is easy to remember), and the values are moved to a variable with the name passed to the argument “values_to” (again, hopefully easy to remember).</p>
+<p>We identify ID variables (variables which we don’t want to pivot) by not including them in the pivot statement. We can do this in one of two ways:</p>
+<ul>
+<li>select only variables we want to pivot: <code>pivot_longer(table4a, cols =</code>1999<code>:</code>2000<code>, names_to = &quot;year&quot;, values_to = &quot;cases&quot;)</code></li>
+<li>select variables we don’t want to pivot, using <code>-</code> to remove them. (see above, where <code>-country</code> excludes country from the pivot operation)</li>
+</ul>
+<p>Which option is easier depends how many things you’re pivoting (and how the columns are structured).</p>
+<p>If we wanted to avoid the table join, we could do this process another way: first, we would add a column to each tibble called id with values “cases” and “population” respectively. Then, we could bind the two tables together by row (so stack them on top of each other). We could then do a wide-to-long pivot, followed by a long-to-wide pivot to get our data into tidy form.</p>
+<div class="sourceCode" id="cb279"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb279-1" data-line-number="1"><span class="co"># Create ID columns</span></a>
+<a class="sourceLine" id="cb279-2" data-line-number="2">table4a.x &lt;-<span class="st"> </span>table4a <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">mutate</span>(<span class="dt">id =</span> <span class="st">&quot;cases&quot;</span>)</a>
+<a class="sourceLine" id="cb279-3" data-line-number="3">table4b.x &lt;-<span class="st"> </span>table4b <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">mutate</span>(<span class="dt">id =</span> <span class="st">&quot;population&quot;</span>)</a>
+<a class="sourceLine" id="cb279-4" data-line-number="4"><span class="co"># Create one table</span></a>
+<a class="sourceLine" id="cb279-5" data-line-number="5">table4 &lt;-<span class="st"> </span><span class="kw">bind_rows</span>(table4a.x, table4b.x)</a>
+<a class="sourceLine" id="cb279-6" data-line-number="6"></a>
+<a class="sourceLine" id="cb279-7" data-line-number="7">table4_long &lt;-<span class="st"> </span>table4 <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb279-8" data-line-number="8"><span class="st">  </span><span class="co"># rearrange columns</span></a>
+<a class="sourceLine" id="cb279-9" data-line-number="9"><span class="st">  </span><span class="kw">select</span>(country, id, <span class="st">`</span><span class="dt">1999</span><span class="st">`</span>, <span class="st">`</span><span class="dt">2000</span><span class="st">`</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb279-10" data-line-number="10"><span class="st">  </span><span class="co"># Don&#39;t pivot country or id</span></a>
+<a class="sourceLine" id="cb279-11" data-line-number="11"><span class="st">  </span><span class="kw">pivot_longer</span>(<span class="op">-</span><span class="kw">c</span>(country<span class="op">:</span>id), <span class="dt">names_to =</span> <span class="st">&quot;year&quot;</span>, <span class="dt">values_to =</span> <span class="st">&quot;count&quot;</span>)</a>
+<a class="sourceLine" id="cb279-12" data-line-number="12"></a>
+<a class="sourceLine" id="cb279-13" data-line-number="13"><span class="co"># Intermediate fully-long form</span></a>
+<a class="sourceLine" id="cb279-14" data-line-number="14">table4_long</a>
+<a class="sourceLine" id="cb279-15" data-line-number="15"><span class="co"># A tibble: 12 x 4</span></a>
+<a class="sourceLine" id="cb279-16" data-line-number="16">   country     id         year       count</a>
+<a class="sourceLine" id="cb279-17" data-line-number="17">   <span class="op">&lt;</span>chr<span class="op">&gt;</span><span class="st">       </span><span class="er">&lt;</span>chr<span class="op">&gt;</span><span class="st">      </span><span class="er">&lt;</span>chr<span class="op">&gt;</span><span class="st">      </span><span class="er">&lt;</span>int<span class="op">&gt;</span></a>
+<a class="sourceLine" id="cb279-18" data-line-number="18"><span class="st"> </span><span class="dv">1</span> Afghanistan cases      <span class="dv">1999</span>         <span class="dv">745</span></a>
+<a class="sourceLine" id="cb279-19" data-line-number="19"> <span class="dv">2</span> Afghanistan cases      <span class="dv">2000</span>        <span class="dv">2666</span></a>
+<a class="sourceLine" id="cb279-20" data-line-number="20"> <span class="dv">3</span> Brazil      cases      <span class="dv">1999</span>       <span class="dv">37737</span></a>
+<a class="sourceLine" id="cb279-21" data-line-number="21"> <span class="dv">4</span> Brazil      cases      <span class="dv">2000</span>       <span class="dv">80488</span></a>
+<a class="sourceLine" id="cb279-22" data-line-number="22"> <span class="dv">5</span> China       cases      <span class="dv">1999</span>      <span class="dv">212258</span></a>
+<a class="sourceLine" id="cb279-23" data-line-number="23"> <span class="dv">6</span> China       cases      <span class="dv">2000</span>      <span class="dv">213766</span></a>
+<a class="sourceLine" id="cb279-24" data-line-number="24"> <span class="dv">7</span> Afghanistan population <span class="dv">1999</span>    <span class="dv">19987071</span></a>
+<a class="sourceLine" id="cb279-25" data-line-number="25"> <span class="dv">8</span> Afghanistan population <span class="dv">2000</span>    <span class="dv">20595360</span></a>
+<a class="sourceLine" id="cb279-26" data-line-number="26"> <span class="dv">9</span> Brazil      population <span class="dv">1999</span>   <span class="dv">172006362</span></a>
+<a class="sourceLine" id="cb279-27" data-line-number="27"><span class="dv">10</span> Brazil      population <span class="dv">2000</span>   <span class="dv">174504898</span></a>
+<a class="sourceLine" id="cb279-28" data-line-number="28"><span class="dv">11</span> China       population <span class="dv">1999</span>  <span class="dv">1272915272</span></a>
+<a class="sourceLine" id="cb279-29" data-line-number="29"><span class="dv">12</span> China       population <span class="dv">2000</span>  <span class="dv">1280428583</span></a>
+<a class="sourceLine" id="cb279-30" data-line-number="30"></a>
+<a class="sourceLine" id="cb279-31" data-line-number="31"><span class="co"># make wider, with case and population columns</span></a>
+<a class="sourceLine" id="cb279-32" data-line-number="32">table4_tidy &lt;-<span class="st"> </span>table4_long <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb279-33" data-line-number="33"><span class="st">  </span><span class="kw">pivot_wider</span>(<span class="dt">names_from =</span> id, <span class="dt">values_from =</span> count)</a>
+<a class="sourceLine" id="cb279-34" data-line-number="34"></a>
+<a class="sourceLine" id="cb279-35" data-line-number="35">table4_tidy</a>
+<a class="sourceLine" id="cb279-36" data-line-number="36"><span class="co"># A tibble: 6 x 4</span></a>
+<a class="sourceLine" id="cb279-37" data-line-number="37">  country     year   cases population</a>
+<a class="sourceLine" id="cb279-38" data-line-number="38">  <span class="op">&lt;</span>chr<span class="op">&gt;</span><span class="st">       </span><span class="er">&lt;</span>chr<span class="op">&gt;</span><span class="st">  </span><span class="er">&lt;</span>int<span class="op">&gt;</span><span class="st">      </span><span class="er">&lt;</span>int<span class="op">&gt;</span></a>
+<a class="sourceLine" id="cb279-39" data-line-number="39"><span class="dv">1</span> Afghanistan <span class="dv">1999</span>     <span class="dv">745</span>   <span class="dv">19987071</span></a>
+<a class="sourceLine" id="cb279-40" data-line-number="40"><span class="dv">2</span> Afghanistan <span class="dv">2000</span>    <span class="dv">2666</span>   <span class="dv">20595360</span></a>
+<a class="sourceLine" id="cb279-41" data-line-number="41"><span class="dv">3</span> Brazil      <span class="dv">1999</span>   <span class="dv">37737</span>  <span class="dv">172006362</span></a>
+<a class="sourceLine" id="cb279-42" data-line-number="42"><span class="dv">4</span> Brazil      <span class="dv">2000</span>   <span class="dv">80488</span>  <span class="dv">174504898</span></a>
+<a class="sourceLine" id="cb279-43" data-line-number="43"><span class="dv">5</span> China       <span class="dv">1999</span>  <span class="dv">212258</span> <span class="dv">1272915272</span></a>
+<a class="sourceLine" id="cb279-44" data-line-number="44"><span class="dv">6</span> China       <span class="dv">2000</span>  <span class="dv">213766</span> <span class="dv">1280428583</span></a></code></pre></div>
+</details>
+<div class="note">
+<p>SAS will let you do a single transpose operation, where tidyr requires two separate pivots – this is because tidyr is trying to make the steps readable, even though it means writing more code.</p>
+</div>
+<details>
+<p><summary>In SAS, we use PROC TRANSPOSE to perform wide-to-long pivot operations</summary></p>
+<p><span class="learn-more"><a href="https://libguides.library.kent.edu/SAS/TransposeData">Friendly guide to PROC TRANSPOSE</a></span></p>
+<pre class="sashtml"><code>DATA table4a;
+input country $12. _1999 _2000;
+datalines;
+Afghanistan    745   2666
+Brazil       37737  80488
+China       212258 213766
+;
+
+PROC TRANSPOSE DATA=table4a out=table4atmp
+  (rename=(COL1 = cases)) /* rename output variable (&#39;values_to&#39;) */
+  NAME = year /* where column names go (&#39;names_to&#39;) */
+;
+BY country;  /* The combination of BY variables defines a row */
+VAR _1999 _2000; /* Specify variables to pivot */
+RUN;
+
+DATA table4b;
+input country $12. _1999 _2000;
+datalines;
+Afghanistan   19987071   20595360
+Brazil       172006362  174504898
+China       1272915272 1280428583
+;
+
+PROC TRANSPOSE DATA=table4b out=table4btmp 
+  (rename=(COL1 = population)) /* rename output variable (&#39;values_to&#39;) */
+  NAME = year /* where the column names go (&#39;names_to&#39;) */
+;
+BY country;  /* The combination of BY variables defines a row */
+VAR _1999 _2000; /* Specify variables to pivot */
+RUN;
+
+DATA table4clean;
+/* merge the two tables together */
+/* (country and year selected automatically as merge vars) */
+MERGE table4atmp table4btmp;
+/* Remove the first character of year, which is _ */
+/* Then convert to a numeric variable */
+year = input(SUBSTR(year, 2, 5), 4.);
+RUN;
+
+PROC PRINT DATA=table4clean;
+RUN;</code></pre>
+<div class="branch">
+<a name="IDX"></a>
+<div>
+<div align="center">
+<!--BEGINTABLE-->
+<table class="table" cellspacing="0" cellpadding="7" rules="groups" frame="hsides" summary="Procedure Print: Data Set WORK.TABLE4CLEAN">
+<colgroup>
+<col>
+</colgroup>
+<colgroup>
+<col>
+<col>
+<col>
+<col>
+</colgroup>
+<thead>
+<tr>
+<th class="r header" scope="col">
+Obs
+</th>
+<th class="l header" scope="col">
+country
+</th>
+<th class="l header" scope="col">
+year
+</th>
+<th class="r header" scope="col">
+cases
+</th>
+<th class="r header" scope="col">
+population
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th class="r rowheader" scope="row">
+1
+</th>
+<td class="l data">
+Afghanistan
+</td>
+<td class="l data">
+1999
+</td>
+<td class="r data">
+745
+</td>
+<td class="r data">
+19987071
+</td>
+</tr>
+<tr>
+<th class="r rowheader" scope="row">
+2
+</th>
+<td class="l data">
+Afghanistan
+</td>
+<td class="l data">
+2000
+</td>
+<td class="r data">
+2666
+</td>
+<td class="r data">
+20595360
+</td>
+</tr>
+<tr>
+<th class="r rowheader" scope="row">
+3
+</th>
+<td class="l data">
+Brazil
+</td>
+<td class="l data">
+1999
+</td>
+<td class="r data">
+37737
+</td>
+<td class="r data">
+172006362
+</td>
+</tr>
+<tr>
+<th class="r rowheader" scope="row">
+4
+</th>
+<td class="l data">
+Brazil
+</td>
+<td class="l data">
+2000
+</td>
+<td class="r data">
+80488
+</td>
+<td class="r data">
+174504898
+</td>
+</tr>
+<tr>
+<th class="r rowheader" scope="row">
+5
+</th>
+<td class="l data">
+China
+</td>
+<td class="l data">
+1999
+</td>
+<td class="r data">
+212258
+</td>
+<td class="r data">
+1272915272
+</td>
+</tr>
+<tr>
+<th class="r rowheader" scope="row">
+6
+</th>
+<td class="l data">
+China
+</td>
+<td class="l data">
+2000
+</td>
+<td class="r data">
+213766
+</td>
+<td class="r data">
+1280428583
+</td>
+</tr>
+</tbody>
+</table>
+<!--ENDTABLE-->
+</div>
+</div>
+<br>
+</div>
+<p>In the above code, we let SAS name our output variable COL1, and then renamed it at the end by modifying the output statement. Another option would be to create an ID variable when inputting each data set, and use the ID statement to indicate that variable.</p>
+<pre class="sashtml"><code>DATA table4a;
+input country $12. _1999 _2000;
+id = &quot;cases&quot;;
+datalines;
+Afghanistan    745   2666
+Brazil       37737  80488
+China       212258 213766
+;
+
+PROC TRANSPOSE DATA=table4a out=table4atmp
+  NAME = year /* where column names go (&#39;names_to&#39;) */
+;
+BY country;  /* The combination of BY variables defines a row */
+VAR _1999 _2000; /* Specify variables to pivot */
+ID id; /* This variable holds the output variable name (&#39;values_to&#39;) */
+RUN;
+
+DATA table4b;
+input country $12. _1999 _2000;
+id = &quot;population&quot;;
+datalines;
+Afghanistan   19987071   20595360
+Brazil       172006362  174504898
+China       1272915272 1280428583
+;
+
+PROC TRANSPOSE DATA=table4b out=table4btmp 
+  NAME = year /* where the column names go (&#39;names_to&#39;) */
+;
+BY country;  /* The combination of BY variables defines a row */
+VAR _1999 _2000; /* Specify variables to pivot */
+ID id; /* This variable holds the output variable name (&#39;values_to&#39;) */
+RUN;
+
+DATA table4clean;
+/* merge the two tables together */
+/* (country and year selected automatically as merge vars) */
+MERGE table4atmp table4btmp;
+/* Remove the first character of year, which is _ */
+/* Then convert to a numeric variable */
+year = input(SUBSTR(year, 2, 5), 4.);
+RUN;
+
+PROC PRINT DATA=table4clean;
+RUN;</code></pre>
+<div class="branch">
+<a name="IDX"></a>
+<div>
+<div align="center">
+<!--BEGINTABLE-->
+<table class="table" cellspacing="0" cellpadding="7" rules="groups" frame="hsides" summary="Procedure Print: Data Set WORK.TABLE4CLEAN">
+<colgroup>
+<col>
+</colgroup>
+<colgroup>
+<col>
+<col>
+<col>
+<col>
+</colgroup>
+<thead>
+<tr>
+<th class="r header" scope="col">
+Obs
+</th>
+<th class="l header" scope="col">
+country
+</th>
+<th class="l header" scope="col">
+year
+</th>
+<th class="r header" scope="col">
+cases
+</th>
+<th class="r header" scope="col">
+population
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th class="r rowheader" scope="row">
+1
+</th>
+<td class="l data">
+Afghanistan
+</td>
+<td class="l data">
+1999
+</td>
+<td class="r data">
+745
+</td>
+<td class="r data">
+19987071
+</td>
+</tr>
+<tr>
+<th class="r rowheader" scope="row">
+2
+</th>
+<td class="l data">
+Afghanistan
+</td>
+<td class="l data">
+2000
+</td>
+<td class="r data">
+2666
+</td>
+<td class="r data">
+20595360
+</td>
+</tr>
+<tr>
+<th class="r rowheader" scope="row">
+3
+</th>
+<td class="l data">
+Brazil
+</td>
+<td class="l data">
+1999
+</td>
+<td class="r data">
+37737
+</td>
+<td class="r data">
+172006362
+</td>
+</tr>
+<tr>
+<th class="r rowheader" scope="row">
+4
+</th>
+<td class="l data">
+Brazil
+</td>
+<td class="l data">
+2000
+</td>
+<td class="r data">
+80488
+</td>
+<td class="r data">
+174504898
+</td>
+</tr>
+<tr>
+<th class="r rowheader" scope="row">
+5
+</th>
+<td class="l data">
+China
+</td>
+<td class="l data">
+1999
+</td>
+<td class="r data">
+212258
+</td>
+<td class="r data">
+1272915272
+</td>
+</tr>
+<tr>
+<th class="r rowheader" scope="row">
+6
+</th>
+<td class="l data">
+China
+</td>
+<td class="l data">
+2000
+</td>
+<td class="r data">
+213766
+</td>
+<td class="r data">
+1280428583
+</td>
+</tr>
+</tbody>
+</table>
+<!--ENDTABLE-->
+</div>
+</div>
+<br>
+</div>
+<p>This seems a bit odd, as we’re defining constant variables, but it works – and provides some insight into how the reverse operation (long to wide) might work (e.g. nonconstant variables).
+Imagine instead of transposing each dataset and then merging them, we just stack the two wide-format datasets on top of each other. Then we can do the same transpose operation, but we’ll end up with two columns: cases, and population.</p>
+<pre class="sashtml"><code>DATA table4a;
+input country $12. _1999 _2000;
+id = &quot;cases&quot;;
+datalines;
+Afghanistan    745   2666
+Brazil       37737  80488
+China       212258 213766
+;
+
+DATA table4b;
+input country $12. _1999 _2000;
+id = &quot;population&quot;;
+datalines;
+Afghanistan   19987071   20595360
+Brazil       172006362  174504898
+China       1272915272 1280428583
+;
+
+DATA table4;
+/* stack the two datasets on top of each other */
+  SET table4b table4a;
+/* sort by country */
+  BY country;
+RUN;
+
+PROC TRANSPOSE DATA=table4 out=table4tmp NAME = year;
+BY country;
+VAR _1999 _2000;
+ID id; /* This variable holds the output variable names (&#39;values_to&#39;) */
+RUN;
+
+DATA table4tmp;
+  SET table4tmp;
+/* Remove the first character of year, which is _ */
+/* Then convert to a numeric variable */
+year = input(SUBSTR(year, 2, 5), 4.);
+RUN;
+  
+PROC PRINT DATA=table4tmp;
+RUN;</code></pre>
+<div class="branch">
+<a name="IDX"></a>
+<div>
+<div align="center">
+<!--BEGINTABLE-->
+<table class="table" cellspacing="0" cellpadding="7" rules="groups" frame="hsides" summary="Procedure Print: Data Set WORK.TABLE4TMP">
+<colgroup>
+<col>
+</colgroup>
+<colgroup>
+<col>
+<col>
+<col>
+<col>
+</colgroup>
+<thead>
+<tr>
+<th class="r header" scope="col">
+Obs
+</th>
+<th class="l header" scope="col">
+country
+</th>
+<th class="l header" scope="col">
+year
+</th>
+<th class="r header" scope="col">
+population
+</th>
+<th class="r header" scope="col">
+cases
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th class="r rowheader" scope="row">
+1
+</th>
+<td class="l data">
+Afghanistan
+</td>
+<td class="l data">
+1999
+</td>
+<td class="r data">
+19987071
+</td>
+<td class="r data">
+745
+</td>
+</tr>
+<tr>
+<th class="r rowheader" scope="row">
+2
+</th>
+<td class="l data">
+Afghanistan
+</td>
+<td class="l data">
+2000
+</td>
+<td class="r data">
+20595360
+</td>
+<td class="r data">
+2666
+</td>
+</tr>
+<tr>
+<th class="r rowheader" scope="row">
+3
+</th>
+<td class="l data">
+Brazil
+</td>
+<td class="l data">
+1999
+</td>
+<td class="r data">
+172006362
+</td>
+<td class="r data">
+37737
+</td>
+</tr>
+<tr>
+<th class="r rowheader" scope="row">
+4
+</th>
+<td class="l data">
+Brazil
+</td>
+<td class="l data">
+2000
+</td>
+<td class="r data">
+174504898
+</td>
+<td class="r data">
+80488
+</td>
+</tr>
+<tr>
+<th class="r rowheader" scope="row">
+5
+</th>
+<td class="l data">
+China
+</td>
+<td class="l data">
+1999
+</td>
+<td class="r data">
+1272915272
+</td>
+<td class="r data">
+212258
+</td>
+</tr>
+<tr>
+<th class="r rowheader" scope="row">
+6
+</th>
+<td class="l data">
+China
+</td>
+<td class="l data">
+2000
+</td>
+<td class="r data">
+1280428583
+</td>
+<td class="r data">
+213766
+</td>
+</tr>
+</tbody>
+</table>
+<!--ENDTABLE-->
+</div>
+</div>
+<br>
+</div>
+</details>
+<p>It’s not too complicated – and it definitely beats doing that operation by hand, even for short, simple tables. You can imagine how messy the cut/copy/paste job would be in Excel.</p>
+<p>It takes some getting used to, but once you get a feel for how to do these transpose operations, you’ll be able to handle messy data reproducibly - instead of describing how you did XYZ operations in Excel, you can provide a script that will take the original data as input and spit out clean, analysis-ready data as output.</p>
+<div class="warning">
+<p>Because wide-to-long transformations end up combining values from several columns into a single column, you can run into issues with type conversions that happen implicitly. If you try to <code>pivot_longer()</code> using a character column mixed in with numeric columns, your “value” column will be converted to a character automatically.</p>
+</div>
+Now, let’s look at a “real data” example using HIV case data from the World Health Organization. (<a href="https://apps.who.int/gho/data/view.main.22500A?lang=en">download page here</a>).
+<details>
+<p><summary>WHO HIV data set up</summary></p>
+<div class="sourceCode" id="cb283"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb283-1" data-line-number="1">url &lt;-<span class="st"> &quot;https://apps.who.int/gho/athena/data/xmart.csv?target=GHO/HIV_0000000026,SDGHIV&amp;profile=crosstable&amp;filter=COUNTRY:*;REGION:*;AGEGROUP:-&amp;x-sideaxis=COUNTRY&amp;x-topaxis=GHO;YEAR;SEX&amp;x-collapse=true&quot;</span></a>
+<a class="sourceLine" id="cb283-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb283-3" data-line-number="3"><span class="co"># create colnames in shorter form</span></a>
+<a class="sourceLine" id="cb283-4" data-line-number="4">hiv &lt;-<span class="st"> </span><span class="kw">read_csv</span>(url, <span class="dt">na =</span> <span class="st">&quot;No data&quot;</span>, ) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb283-5" data-line-number="5"><span class="st">  </span><span class="kw">select</span>(<span class="op">-</span><span class="dv">2</span>) <span class="co"># get rid of only column that has raw totals</span></a>
+<a class="sourceLine" id="cb283-6" data-line-number="6">Parsed with column specification<span class="op">:</span></a>
+<a class="sourceLine" id="cb283-7" data-line-number="7"><span class="kw">cols</span>(</a>
+<a class="sourceLine" id="cb283-8" data-line-number="8">  <span class="dt">.default =</span> <span class="kw">col_character</span>()</a>
+<a class="sourceLine" id="cb283-9" data-line-number="9">)</a>
+<a class="sourceLine" id="cb283-10" data-line-number="10">See <span class="kw">spec</span>(...) <span class="cf">for</span> full column specifications.</a>
+<a class="sourceLine" id="cb283-11" data-line-number="11"></a>
+<a class="sourceLine" id="cb283-12" data-line-number="12"><span class="co"># work with the names to make them shorter and more readable</span></a>
+<a class="sourceLine" id="cb283-13" data-line-number="13"><span class="co"># otherwise, they&#39;re too long for SAS</span></a>
+<a class="sourceLine" id="cb283-14" data-line-number="14">newnames &lt;-<span class="st"> </span><span class="kw">names</span>(hiv)  <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb283-15" data-line-number="15"><span class="st">  </span><span class="kw">str_remove</span>(<span class="st">&quot;New HIV infections </span><span class="ch">\\</span><span class="st">(per 1000 uninfected population</span><span class="ch">\\</span><span class="st">); &quot;</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb283-16" data-line-number="16"><span class="st">  </span><span class="kw">str_replace_all</span>(<span class="st">&quot;(</span><span class="ch">\\</span><span class="st">d{4}); (Male|Female|Both)( sexes)?&quot;</span>, <span class="st">&quot;Rate_</span><span class="ch">\\</span><span class="st">1_</span><span class="ch">\\</span><span class="st">2&quot;</span>)</a>
+<a class="sourceLine" id="cb283-17" data-line-number="17">hiv &lt;-<span class="st"> </span><span class="kw">set_names</span>(hiv, newnames) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb283-18" data-line-number="18"><span class="st">  </span><span class="co"># transliterate - get rid of non-ascii characters, replace w/ closest equiv</span></a>
+<a class="sourceLine" id="cb283-19" data-line-number="19"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">Country =</span> <span class="kw">iconv</span>(Country, <span class="dt">to=</span><span class="st">&quot;ASCII//TRANSLIT&quot;</span>))</a>
+<a class="sourceLine" id="cb283-20" data-line-number="20"></a>
+<a class="sourceLine" id="cb283-21" data-line-number="21"><span class="kw">write_csv</span>(hiv, <span class="dt">path =</span> <span class="st">&quot;data/who_hiv.csv&quot;</span>, <span class="dt">na =</span> <span class="st">&#39;.&#39;</span>) <span class="co"># make it easy for SAS</span></a></code></pre></div>
 <p>Since I’ve cheated a bit to make this easier to read in using SAS… hopefully that will be uneventful.</p>
 <pre class="sashtml"><code>libname classdat &quot;/home/susan/Projects/Class/unl-stat850/2020-stat850/sas/&quot;;
 
@@ -5876,32 +6552,120 @@ GETNAMES = YES;
 RUN;
 </code></pre>
 </details>
-<p>Here, the column names (except for the first column) contain information about both group (Male, Female, total) and year. If we want to plot values over time, we’re not going to have much fun.</p>
-<p>The solution to this is to rearrange the data into “long form”: to take the columns which contain values and “stack” them, adding a variable to indicate which column each value came from. To do this, we have to duplicate the values in any column which isn’t being stacked (e.g. country, in both the example above and the image below).</p>
-<div class="figure"><span id="fig:unnamed-chunk-196"></span>
-<img src="image/tidyr_pivot_longer.png" alt="A visual representation of what the pivot_longer operation looks like in practice." width="50%" />
-<p class="caption">
-Figure 6.3: A visual representation of what the pivot_longer operation looks like in practice.
-</p>
-</div>
-<p>Once our data are in long form, we can separate values that once served as column labels into actual variables, and we’ll have tidy(er) data.</p>
 <details>
-<p><summary>In R, this operation is performed using <code>pivot_longer</code></summary>
-The columns are moved to a variable with the name passed to the argument “names_to” (hopefully, that is easy to remember), and the values are moved to a variable with the name passed to the argument “values_to” (again, hopefully easy to remember).</p>
-<div class="sourceCode" id="cb279"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb279-1" data-line-number="1">hiv_tidy &lt;-<span class="st"> </span>hiv <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb279-2" data-line-number="2"><span class="st">  </span><span class="kw">pivot_longer</span>(<span class="op">-</span>Country, <span class="dt">names_to =</span> <span class="st">&quot;key&quot;</span>, <span class="dt">values_to =</span> <span class="st">&quot;rate&quot;</span>)</a></code></pre></div>
+<p><summary>Original Data Structure (WHO HIV data)</summary></p>
+<div class="sourceCode" id="cb285"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb285-1" data-line-number="1">hiv <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb285-2" data-line-number="2"><span class="st">  </span><span class="co"># Only look at 1st 6 cols, because there are too many</span></a>
+<a class="sourceLine" id="cb285-3" data-line-number="3"><span class="st">  </span><span class="kw">select</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">6</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb285-4" data-line-number="4"><span class="st">  </span><span class="kw">head</span>()</a>
+<a class="sourceLine" id="cb285-5" data-line-number="5"><span class="co"># A tibble: 6 x 6</span></a>
+<a class="sourceLine" id="cb285-6" data-line-number="6">  Country Rate_<span class="dv">2018</span>_Both Rate_<span class="dv">2018</span>_Male Rate_<span class="dv">2018</span>_Female Rate_<span class="dv">2017</span>_Both</a>
+<a class="sourceLine" id="cb285-7" data-line-number="7">  <span class="op">&lt;</span>chr<span class="op">&gt;</span><span class="st">   </span><span class="er">&lt;</span>chr<span class="op">&gt;</span><span class="st">          </span><span class="er">&lt;</span>chr<span class="op">&gt;</span><span class="st">          </span><span class="er">&lt;</span>chr<span class="op">&gt;</span><span class="st">            </span><span class="er">&lt;</span>chr<span class="op">&gt;</span><span class="st">         </span></a>
+<a class="sourceLine" id="cb285-8" data-line-number="8"><span class="dv">1</span> Afghan… <span class="fl">0.02</span> [<span class="fl">0.01</span> <span class="op">-</span><span class="st"> </span>… <span class="fl">0.03</span> [<span class="fl">0.02</span> <span class="op">-</span><span class="st"> </span>… <span class="fl">0.01</span> [<span class="op">&amp;</span>lt;<span class="fl">0.01</span> … <span class="fl">0.02</span> [<span class="fl">0.01</span> <span class="op">-</span><span class="st"> </span>…</a>
+<a class="sourceLine" id="cb285-9" data-line-number="9"><span class="dv">2</span> Albania <span class="op">&lt;</span><span class="ot">NA</span><span class="op">&gt;</span><span class="st">           </span><span class="er">&lt;</span><span class="ot">NA</span><span class="op">&gt;</span><span class="st">           </span><span class="er">&lt;</span><span class="ot">NA</span><span class="op">&gt;</span><span class="st">             </span><span class="er">&lt;</span><span class="ot">NA</span><span class="op">&gt;</span><span class="st">          </span></a>
+<a class="sourceLine" id="cb285-10" data-line-number="10"><span class="dv">3</span> Algeria <span class="fl">0.03</span> [<span class="fl">0.03</span> <span class="op">-</span><span class="st"> </span>… <span class="fl">0.03</span> [<span class="fl">0.03</span> <span class="op">-</span><span class="st"> </span>… <span class="fl">0.03</span> [<span class="fl">0.02</span> <span class="op">-</span><span class="st"> </span><span class="fl">0.</span>… <span class="fl">0.03</span> [<span class="fl">0.03</span> <span class="op">-</span><span class="st"> </span>…</a>
+<a class="sourceLine" id="cb285-11" data-line-number="11"><span class="dv">4</span> Angola  <span class="fl">1.01</span> [<span class="fl">0.75</span> <span class="op">-</span><span class="st"> </span>… <span class="fl">0.74</span> [<span class="fl">0.55</span> <span class="op">-</span><span class="st"> </span>… <span class="fl">1.27</span> [<span class="fl">0.96</span> <span class="op">-</span><span class="st"> </span><span class="fl">1.</span>… <span class="fl">1.06</span> [<span class="fl">0.82</span> <span class="op">-</span><span class="st"> </span>…</a>
+<a class="sourceLine" id="cb285-12" data-line-number="12"><span class="dv">5</span> Argent… <span class="fl">0.15</span> [<span class="fl">0.13</span> <span class="op">-</span><span class="st"> </span>… <span class="fl">0.21</span> [<span class="fl">0.18</span> <span class="op">-</span><span class="st"> </span>… <span class="fl">0.09</span> [<span class="fl">0.08</span> <span class="op">-</span><span class="st"> </span><span class="fl">0.</span>… <span class="fl">0.15</span> [<span class="fl">0.13</span> <span class="op">-</span><span class="st"> </span>…</a>
+<a class="sourceLine" id="cb285-13" data-line-number="13"><span class="dv">6</span> Armenia <span class="fl">0.06</span> [<span class="fl">0.04</span> <span class="op">-</span><span class="st"> </span>… <span class="fl">0.09</span> [<span class="fl">0.06</span> <span class="op">-</span><span class="st"> </span>… <span class="fl">0.04</span> [<span class="fl">0.02</span> <span class="op">-</span><span class="st"> </span><span class="fl">0.</span>… <span class="fl">0.06</span> [<span class="fl">0.04</span> <span class="op">-</span><span class="st"> </span>…</a>
+<a class="sourceLine" id="cb285-14" data-line-number="14"><span class="co"># … with 1 more variable: Rate_2017_Male &lt;chr&gt;</span></a></code></pre></div>
+Here, the column names (except for the first column) contain information about both group (Male, Female, total) and year. If we want to plot values over time, we’re not going to have much fun.
+</details>
+<p>Thinking through the logical steps before writing the code can be helpful - even sketching out what you expect the data to (roughly) look like at each stage.</p>
+<p>Current data observations:</p>
+<ul>
+<li>Our column names contain the year and the group (Both, Male, Female)</li>
+<li>Our values contain estimates with a confidence interval - so est (LB, UB)
+<ul>
+<li>Some intervals have <code>&amp;lt;</code>, which is HTML code for <code>&lt;</code>. We’ll need to get rid of those.</li>
+</ul></li>
+</ul>
+<p>Our final dataset should look like this:</p>
+<table>
+<thead>
+<tr class="header">
+<th>Country</th>
+<th>group</th>
+<th>year</th>
+<th>est</th>
+<th>lb</th>
+<th>ub</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>narnia</td>
+<td>both</td>
+<td>2020</td>
+<td>0.3</td>
+<td>0.2</td>
+<td>0.4</td>
+</tr>
+</tbody>
+</table>
+<p>(give or take column order, capitalization, and/or reality)</p>
+<p>From this, our steps are:</p>
+<ol style="list-style-type: decimal">
+<li>Transpose the data - all columns except Country (our BY variable)</li>
+<li>Separate the (what was column names) variable into group and year variables
+<ul>
+<li>convert year to numeric</li>
+</ul></li>
+<li>Separate the (what was column values) variable into EST, LB, and UB columns
+<ul>
+<li>Remove <code>&amp;lt;</code> from the variable so that it’s readable as numeric</li>
+<li>Remove <code>[</code>, <code>]</code> and <code>-</code> from the variable so that the values are separated by spaces</li>
+<li>Read each value into a separate column that’s numeric</li>
+<li>Rename the columns</li>
+</ul></li>
+<li>Clean up any extra variables hanging around.</li>
+</ol>
+<p>Now that we have a plan, lets execute that plan</p>
+<details>
+<p><summary>Wide-to-long transformation in R (WHO HIV data)</summary></p>
+<div class="sourceCode" id="cb286"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb286-1" data-line-number="1">hiv_tidier &lt;-<span class="st"> </span>hiv <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb286-2" data-line-number="2"><span class="st">  </span><span class="kw">pivot_longer</span>(<span class="op">-</span>Country, <span class="dt">names_to =</span> <span class="st">&quot;key&quot;</span>, <span class="dt">values_to =</span> <span class="st">&quot;rate&quot;</span>)</a>
+<a class="sourceLine" id="cb286-3" data-line-number="3">hiv_tidier</a>
+<a class="sourceLine" id="cb286-4" data-line-number="4"><span class="co"># A tibble: 14,790 x 3</span></a>
+<a class="sourceLine" id="cb286-5" data-line-number="5">   Country     key              rate                  </a>
+<a class="sourceLine" id="cb286-6" data-line-number="6">   <span class="op">&lt;</span>chr<span class="op">&gt;</span><span class="st">       </span><span class="er">&lt;</span>chr<span class="op">&gt;</span><span class="st">            </span><span class="er">&lt;</span>chr<span class="op">&gt;</span><span class="st">                 </span></a>
+<a class="sourceLine" id="cb286-7" data-line-number="7"><span class="st"> </span><span class="dv">1</span> Afghanistan Rate_<span class="dv">2018</span>_Both   <span class="fl">0.02</span> [<span class="fl">0.01</span> <span class="op">-</span><span class="st"> </span><span class="fl">0.04</span>]    </a>
+<a class="sourceLine" id="cb286-8" data-line-number="8"> <span class="dv">2</span> Afghanistan Rate_<span class="dv">2018</span>_Male   <span class="fl">0.03</span> [<span class="fl">0.02</span> <span class="op">-</span><span class="st"> </span><span class="fl">0.06</span>]    </a>
+<a class="sourceLine" id="cb286-9" data-line-number="9"> <span class="dv">3</span> Afghanistan Rate_<span class="dv">2018</span>_Female <span class="fl">0.01</span> [<span class="op">&amp;</span>lt;<span class="fl">0.01</span> <span class="op">-</span><span class="st"> </span><span class="fl">0.03</span>]</a>
+<a class="sourceLine" id="cb286-10" data-line-number="10"> <span class="dv">4</span> Afghanistan Rate_<span class="dv">2017</span>_Both   <span class="fl">0.02</span> [<span class="fl">0.01</span> <span class="op">-</span><span class="st"> </span><span class="fl">0.04</span>]    </a>
+<a class="sourceLine" id="cb286-11" data-line-number="11"> <span class="dv">5</span> Afghanistan Rate_<span class="dv">2017</span>_Male   <span class="fl">0.03</span> [<span class="fl">0.02</span> <span class="op">-</span><span class="st"> </span><span class="fl">0.06</span>]    </a>
+<a class="sourceLine" id="cb286-12" data-line-number="12"> <span class="dv">6</span> Afghanistan Rate_<span class="dv">2017</span>_Female <span class="fl">0.01</span> [<span class="op">&amp;</span>lt;<span class="fl">0.01</span> <span class="op">-</span><span class="st"> </span><span class="fl">0.03</span>]</a>
+<a class="sourceLine" id="cb286-13" data-line-number="13"> <span class="dv">7</span> Afghanistan Rate_<span class="dv">2016</span>_Both   <span class="fl">0.02</span> [<span class="fl">0.01</span> <span class="op">-</span><span class="st"> </span><span class="fl">0.04</span>]    </a>
+<a class="sourceLine" id="cb286-14" data-line-number="14"> <span class="dv">8</span> Afghanistan Rate_<span class="dv">2016</span>_Male   <span class="fl">0.03</span> [<span class="fl">0.02</span> <span class="op">-</span><span class="st"> </span><span class="fl">0.06</span>]    </a>
+<a class="sourceLine" id="cb286-15" data-line-number="15"> <span class="dv">9</span> Afghanistan Rate_<span class="dv">2016</span>_Female <span class="fl">0.01</span> [<span class="op">&amp;</span>lt;<span class="fl">0.01</span> <span class="op">-</span><span class="st"> </span><span class="fl">0.02</span>]</a>
+<a class="sourceLine" id="cb286-16" data-line-number="16"><span class="dv">10</span> Afghanistan Rate_<span class="dv">2015</span>_Both   <span class="fl">0.02</span> [<span class="fl">0.01</span> <span class="op">-</span><span class="st"> </span><span class="fl">0.04</span>]    </a>
+<a class="sourceLine" id="cb286-17" data-line-number="17"><span class="co"># … with 14,780 more rows</span></a></code></pre></div>
 <p>From this point, it’s pretty easy to use things we’ve used in the past (regular expressions, separate, extract)</p>
-<div class="sourceCode" id="cb280"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb280-1" data-line-number="1">hiv_tidier &lt;-<span class="st"> </span>hiv_tidy <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb280-2" data-line-number="2"><span class="st">  </span><span class="co"># Split the key into Rate (don&#39;t keep), year, and group (F, M, Both)</span></a>
-<a class="sourceLine" id="cb280-3" data-line-number="3"><span class="st">  </span><span class="kw">separate</span>(key, <span class="dt">into =</span> <span class="kw">c</span>(<span class="ot">NA</span>, <span class="st">&quot;year&quot;</span>, <span class="st">&quot;group&quot;</span>), <span class="dt">sep =</span> <span class="st">&quot;_&quot;</span>, <span class="dt">convert =</span> T) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb280-4" data-line-number="4"><span class="st">  </span><span class="co"># Fix the HTML sign for less than - we could remove it as well</span></a>
-<a class="sourceLine" id="cb280-5" data-line-number="5"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">rate =</span> <span class="kw">str_replace_all</span>(rate, <span class="st">&quot;&amp;lt;&quot;</span>, <span class="st">&quot;&lt;&quot;</span>)) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb280-6" data-line-number="6"><span class="st">  </span><span class="co"># Split the rate into estimate, lower bound, and upper bound</span></a>
-<a class="sourceLine" id="cb280-7" data-line-number="7"><span class="st">  </span><span class="kw">extract</span>(rate, <span class="dt">into =</span> <span class="kw">c</span>(<span class="st">&quot;est&quot;</span>, <span class="st">&quot;lb&quot;</span>, <span class="st">&quot;ub&quot;</span>), <span class="dt">regex =</span> <span class="st">&quot;([</span><span class="ch">\\</span><span class="st">d</span><span class="ch">\\</span><span class="st">.]{1,}) .([&lt;</span><span class="ch">\\</span><span class="st">d</span><span class="ch">\\</span><span class="st">.]{1,}) - ([&lt;</span><span class="ch">\\</span><span class="st">d</span><span class="ch">\\</span><span class="st">.]{1,}).&quot;</span>, <span class="dt">remove =</span> F)</a></code></pre></div>
+<div class="sourceCode" id="cb287"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb287-1" data-line-number="1"> hiv_tidy &lt;-<span class="st"> </span>hiv_tidier <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb287-2" data-line-number="2"><span class="st">  </span><span class="co"># Split the key into Rate (don&#39;t keep), year, and group (F, M, Both)</span></a>
+<a class="sourceLine" id="cb287-3" data-line-number="3"><span class="st">  </span><span class="kw">separate</span>(key, <span class="dt">into =</span> <span class="kw">c</span>(<span class="ot">NA</span>, <span class="st">&quot;year&quot;</span>, <span class="st">&quot;group&quot;</span>), <span class="dt">sep =</span> <span class="st">&quot;_&quot;</span>, <span class="dt">convert =</span> T) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb287-4" data-line-number="4"><span class="st">  </span><span class="co"># Fix the HTML sign for less than - we could remove it as well</span></a>
+<a class="sourceLine" id="cb287-5" data-line-number="5"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">rate =</span> <span class="kw">str_replace_all</span>(rate, <span class="st">&quot;&amp;lt;&quot;</span>, <span class="st">&quot;&lt;&quot;</span>)) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb287-6" data-line-number="6"><span class="st">  </span><span class="co"># Split the rate into estimate, lower bound, and upper bound</span></a>
+<a class="sourceLine" id="cb287-7" data-line-number="7"><span class="st">  </span><span class="kw">extract</span>(rate, <span class="dt">into =</span> <span class="kw">c</span>(<span class="st">&quot;est&quot;</span>, <span class="st">&quot;lb&quot;</span>, <span class="st">&quot;ub&quot;</span>), <span class="dt">regex =</span> <span class="st">&quot;([</span><span class="ch">\\</span><span class="st">d</span><span class="ch">\\</span><span class="st">.]{1,}) .([&lt;</span><span class="ch">\\</span><span class="st">d</span><span class="ch">\\</span><span class="st">.]{1,}) - ([&lt;</span><span class="ch">\\</span><span class="st">d</span><span class="ch">\\</span><span class="st">.]{1,}).&quot;</span>, <span class="dt">remove =</span> T)</a>
+<a class="sourceLine" id="cb287-8" data-line-number="8">hiv_tidy</a>
+<a class="sourceLine" id="cb287-9" data-line-number="9"><span class="co"># A tibble: 14,790 x 6</span></a>
+<a class="sourceLine" id="cb287-10" data-line-number="10">   Country      year group  est   lb    ub   </a>
+<a class="sourceLine" id="cb287-11" data-line-number="11">   <span class="op">&lt;</span>chr<span class="op">&gt;</span><span class="st">       </span><span class="er">&lt;</span>int<span class="op">&gt;</span><span class="st"> </span><span class="er">&lt;</span>chr<span class="op">&gt;</span><span class="st">  </span><span class="er">&lt;</span>chr<span class="op">&gt;</span><span class="st"> </span><span class="er">&lt;</span>chr<span class="op">&gt;</span><span class="st"> </span><span class="er">&lt;</span>chr<span class="op">&gt;</span></a>
+<a class="sourceLine" id="cb287-12" data-line-number="12"><span class="st"> </span><span class="dv">1</span> Afghanistan  <span class="dv">2018</span> Both   <span class="fl">0.02</span>  <span class="fl">0.01</span>  <span class="fl">0.04</span> </a>
+<a class="sourceLine" id="cb287-13" data-line-number="13"> <span class="dv">2</span> Afghanistan  <span class="dv">2018</span> Male   <span class="fl">0.03</span>  <span class="fl">0.02</span>  <span class="fl">0.06</span> </a>
+<a class="sourceLine" id="cb287-14" data-line-number="14"> <span class="dv">3</span> Afghanistan  <span class="dv">2018</span> Female <span class="fl">0.01</span>  <span class="op">&lt;</span><span class="fl">0.01</span> <span class="fl">0.03</span> </a>
+<a class="sourceLine" id="cb287-15" data-line-number="15"> <span class="dv">4</span> Afghanistan  <span class="dv">2017</span> Both   <span class="fl">0.02</span>  <span class="fl">0.01</span>  <span class="fl">0.04</span> </a>
+<a class="sourceLine" id="cb287-16" data-line-number="16"> <span class="dv">5</span> Afghanistan  <span class="dv">2017</span> Male   <span class="fl">0.03</span>  <span class="fl">0.02</span>  <span class="fl">0.06</span> </a>
+<a class="sourceLine" id="cb287-17" data-line-number="17"> <span class="dv">6</span> Afghanistan  <span class="dv">2017</span> Female <span class="fl">0.01</span>  <span class="op">&lt;</span><span class="fl">0.01</span> <span class="fl">0.03</span> </a>
+<a class="sourceLine" id="cb287-18" data-line-number="18"> <span class="dv">7</span> Afghanistan  <span class="dv">2016</span> Both   <span class="fl">0.02</span>  <span class="fl">0.01</span>  <span class="fl">0.04</span> </a>
+<a class="sourceLine" id="cb287-19" data-line-number="19"> <span class="dv">8</span> Afghanistan  <span class="dv">2016</span> Male   <span class="fl">0.03</span>  <span class="fl">0.02</span>  <span class="fl">0.06</span> </a>
+<a class="sourceLine" id="cb287-20" data-line-number="20"> <span class="dv">9</span> Afghanistan  <span class="dv">2016</span> Female <span class="fl">0.01</span>  <span class="op">&lt;</span><span class="fl">0.01</span> <span class="fl">0.02</span> </a>
+<a class="sourceLine" id="cb287-21" data-line-number="21"><span class="dv">10</span> Afghanistan  <span class="dv">2015</span> Both   <span class="fl">0.02</span>  <span class="fl">0.01</span>  <span class="fl">0.04</span> </a>
+<a class="sourceLine" id="cb287-22" data-line-number="22"><span class="co"># … with 14,780 more rows</span></a></code></pre></div>
 </details>
 <details>
-<p><summary>In SAS, this operation is performed using <code>PROC TRANSPOSE</code>. </summary></p>
-<p><span class="learn-more"><a href="https://libguides.library.kent.edu/SAS/TransposeData">Friendly guide to PROC TRANSPOSE</a></span></p>
+<p><summary>Wide-to-long transformation in SAS (WHO HIV data) </summary>
+I’ve thoroughly commented the code below to hopefully make the logical steps clear.</p>
 <pre class="sashtml"><code>6          libname classdat
 6        ! &quot;/home/susan/Projects/Class/unl-stat850/2020-stat850/sas/&quot;;
 NOTE: Libref CLASSDAT was successfully assigned as follows: 
@@ -5909,90 +6673,79 @@ NOTE: Libref CLASSDAT was successfully assigned as follows:
       Physical Name: 
       /home/susan/Projects/Class/unl-stat850/2020-stat850/sas
 7          
-8          PROC TRANSPOSE DATA=classdat.hiv OUT = hivtidy;
-9          BY Country NOTSORTED; /* specify notsorted unless you know your
-9        ! data are sorted */
-10         VAR Rate_2018_Both--Rate_1990_Female; /* variables to transpose
-10       ! */
-11         RUN;
+8          PROC TRANSPOSE DATA=classdat.hiv OUT = classdat.hivtidy
+9          (rename=(col1=rate)) /* &quot;values_to&quot; in tidyr speak */
+10         NAME = key;          /* &quot;names_to&quot; in tidyr speak */
+11         /* specify notsorted unless you know your data are sorted */
+12           BY Country NOTSORTED;
+13         /* variables to transpose - just list start and end, with -- in
+13       ! between  */
+14           VAR Rate_2018_Both--Rate_1990_Female;
+15         RUN;
 
 NOTE: There were 170 observations read from the data set CLASSDAT.HIV.
-NOTE: The data set WORK.HIVTIDY has 14790 observations and 3 variables.
+NOTE: The data set CLASSDAT.HIVTIDY has 14790 observations and 3 variables.
 NOTE: PROCEDURE TRANSPOSE used (Total process time):
-      real time           0.01 seconds
-      cpu time            0.02 seconds
-      
-
-12         
-13         title &#39;Intermediate result 1&#39;;
-14         PROC PRINT DATA=hivtidy(obs=5); RUN;
-
-NOTE: There were 5 observations read from the data set WORK.HIVTIDY.
-NOTE: PROCEDURE PRINT used (Total process time):
-      real time           0.00 seconds
-      cpu time            0.01 seconds
-      
-
-15         
-16         /* Data step to clean up */
-17         DATA hivtidy;
-18         SET hivtidy (rename=col1=rate);
-19         group = scan(_name_,3,&quot;_&quot;);
-20         year = input(scan(_name_, 2, &quot;_&quot;), 4.);
-21         drop _name_;
-22         RUN;
-
-NOTE: There were 14790 observations read from the data set WORK.HIVTIDY.
-NOTE: The data set WORK.HIVTIDY has 14790 observations and 4 variables.
-NOTE: DATA statement used (Total process time):
       real time           0.02 seconds
       cpu time            0.02 seconds
       
 
-23         
-24         title &#39;Intermediate result 2&#39;;
-25         PROC PRINT DATA=hivtidy(obs=5); RUN;
+16         
+17         title &#39;Intermediate result&#39;;
+18         PROC PRINT DATA=classdat.hivtidy(obs=5); RUN;
 
-NOTE: There were 5 observations read from the data set WORK.HIVTIDY.
+NOTE: There were 5 observations read from the data set CLASSDAT.HIVTIDY.
 NOTE: PROCEDURE PRINT used (Total process time):
       real time           0.00 seconds
       cpu time            0.00 seconds
       
 
+19         
+20         /* Data step to clean up */
+21         DATA classdat.hivtidy;
+22           SET classdat.hivtidy ;
+23         /* Create group and year variables from key */
+24           group = scan(key,3,&quot;_&quot;);
+25           year = input(scan(key, 2, &quot;_&quot;), 4.);
 26         
-27         /* Data step to clean up */
-28         DATA hivtidy;
-29         SET hivtidy;
-30         /* just get rid of the less than sign */
-31         rate = PRXCHANGE(&quot;s/&amp;lt;//&quot;, -1, rate);
+27         /* just get rid of the less than sign */
+28           rate = PRXCHANGE(&quot;s/&amp;lt;//&quot;, -1, rate);
 WARNING: Apparent symbolic reference LT not resolved.
-32         rate = PRXCHANGE(&quot;s/[\[\]-]//&quot;, -1, rate);
-33         
-34         length v1-v3 4.2;
-35         array v(3) $;
-36         do i = 1 to dim(v);
-37           v[i]=scan(rate, i, &#39; &#39;);
-38         end;
+29           rate = PRXCHANGE(&quot;s/[\[\]-]//&quot;, -1, rate);
+30         
+31         /* Create 3 columns for the 3 values - est, lb, ub */
+32           length v1-v3 4.2; /* define format */
+33           array v(3) $; /* create a 3 column array to store values in */
+34           do i = 1 to dim(v);
+35             v[i]=scan(rate, i, &#39; &#39;); /* get values from each row of rate
+35       !  */
+36           end;
+37         
+38           rename v1 = est v2 = lb v3 = ub; /* rename things to be pretty
+38       !  */
 39         
-40         rename v1 = est v2 = lb v3 = ub;
-41         drop i rate;
+40         /* get rid of extra vars */
+41           drop _name_ i key rate;
 42         RUN;
 
 NOTE: Character values have been converted to numeric 
       values at the places given by: (Line):(Column).
-      37:3   
-NOTE: There were 14790 observations read from the data set WORK.HIVTIDY.
-NOTE: The data set WORK.HIVTIDY has 14790 observations and 6 variables.
+      35:5   
+WARNING: The variable _name_ in the DROP, KEEP, or RENAME list has never 
+         been referenced.
+NOTE: There were 14790 observations read from the data set 
+      CLASSDAT.HIVTIDY.
+NOTE: The data set CLASSDAT.HIVTIDY has 14790 observations and 6 variables.
 NOTE: DATA statement used (Total process time):
-      real time           0.03 seconds
+      real time           0.04 seconds
       cpu time            0.04 seconds
       
 
 43         
 44         title &#39;Final result&#39;;
-45         PROC PRINT DATA=hivtidy(obs=5); RUN;
+45         PROC PRINT DATA=classdat.hivtidy(obs=5); RUN;
 
-NOTE: There were 5 observations read from the data set WORK.HIVTIDY.
+NOTE: There were 5 observations read from the data set CLASSDAT.HIVTIDY.
 NOTE: PROCEDURE PRINT used (Total process time):
       real time           0.00 seconds
       cpu time            0.00 seconds
@@ -6004,7 +6757,7 @@ NOTE: PROCEDURE PRINT used (Total process time):
 <table class="systitleandfootercontainer" width="100%" cellspacing="0" cellpadding="1" rules="none" frame="void" summary="Page Layout">
 <tr>
 <td class="c systemtitle">
-Intermediate result 1
+Intermediate result
 </td>
 </tr>
 </table>
@@ -6012,7 +6765,7 @@ Intermediate result 1
 <div>
 <div align="center">
 <!--BEGINTABLE-->
-<table class="table" cellspacing="0" cellpadding="7" rules="groups" frame="hsides" summary="Procedure Print: Data Set WORK.HIVTIDY">
+<table class="table" cellspacing="0" cellpadding="7" rules="groups" frame="hsides" summary="Procedure Print: Data Set CLASSDAT.HIVTIDY">
 <colgroup>
 <col>
 </colgroup>
@@ -6030,10 +6783,10 @@ Obs
 Country
 </th>
 <th class="l header" scope="col">
-<em>NAME</em>
+key
 </th>
 <th class="l header" scope="col">
-COL1
+rate
 </th>
 </tr>
 </thead>
@@ -6124,145 +6877,6 @@ Rate_2017_Male
 <table class="systitleandfootercontainer" width="100%" cellspacing="0" cellpadding="1" rules="none" frame="void" summary="Page Layout">
 <tr>
 <td class="c systemtitle">
-Intermediate result 2
-</td>
-</tr>
-</table>
-<br>
-<div>
-<div align="center">
-<!--BEGINTABLE-->
-<table class="table" cellspacing="0" cellpadding="7" rules="groups" frame="hsides" summary="Procedure Print: Data Set WORK.HIVTIDY">
-<colgroup>
-<col>
-</colgroup>
-<colgroup>
-<col>
-<col>
-<col>
-<col>
-</colgroup>
-<thead>
-<tr>
-<th class="r header" scope="col">
-Obs
-</th>
-<th class="l header" scope="col">
-Country
-</th>
-<th class="l header" scope="col">
-rate
-</th>
-<th class="l header" scope="col">
-group
-</th>
-<th class="r header" scope="col">
-year
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<th class="r rowheader" scope="row">
-1
-</th>
-<td class="l data">
-Afghanistan
-</td>
-<td class="l data">
-0.02 [0.01 - 0.04]
-</td>
-<td class="l data">
-Both
-</td>
-<td class="r data">
-2018
-</td>
-</tr>
-<tr>
-<th class="r rowheader" scope="row">
-2
-</th>
-<td class="l data">
-Afghanistan
-</td>
-<td class="l data">
-0.03 [0.02 - 0.06]
-</td>
-<td class="l data">
-Male
-</td>
-<td class="r data">
-2018
-</td>
-</tr>
-<tr>
-<th class="r rowheader" scope="row">
-3
-</th>
-<td class="l data">
-Afghanistan
-</td>
-<td class="l data">
-0.01 [&amp;lt;0.01 - 0.03]
-</td>
-<td class="l data">
-Female
-</td>
-<td class="r data">
-2018
-</td>
-</tr>
-<tr>
-<th class="r rowheader" scope="row">
-4
-</th>
-<td class="l data">
-Afghanistan
-</td>
-<td class="l data">
-0.02 [0.01 - 0.04]
-</td>
-<td class="l data">
-Both
-</td>
-<td class="r data">
-2017
-</td>
-</tr>
-<tr>
-<th class="r rowheader" scope="row">
-5
-</th>
-<td class="l data">
-Afghanistan
-</td>
-<td class="l data">
-0.03 [0.02 - 0.06]
-</td>
-<td class="l data">
-Male
-</td>
-<td class="r data">
-2017
-</td>
-</tr>
-</tbody>
-</table>
-<!--ENDTABLE-->
-</div>
-</div>
-<br>
-</div>
-<div class="branch">
-<p style="page-break-after: always;">
-<br/>
-</p>
-<hr size="3"/>
-<a name="IDX2"></a>
-<table class="systitleandfootercontainer" width="100%" cellspacing="0" cellpadding="1" rules="none" frame="void" summary="Page Layout">
-<tr>
-<td class="c systemtitle">
 Final result
 </td>
 </tr>
@@ -6271,7 +6885,7 @@ Final result
 <div>
 <div align="center">
 <!--BEGINTABLE-->
-<table class="table" cellspacing="0" cellpadding="7" rules="groups" frame="hsides" summary="Procedure Print: Data Set WORK.HIVTIDY">
+<table class="table" cellspacing="0" cellpadding="7" rules="groups" frame="hsides" summary="Procedure Print: Data Set CLASSDAT.HIVTIDY">
 <colgroup>
 <col>
 </colgroup>
@@ -6432,29 +7046,3455 @@ Male
 <br>
 </div>
 </details>
+<div id="try-it-out-18" class="section level4 unnumbered tryitout">
+<h4>Try it out</h4>
+<p>In the next section, we’ll be using the WHO surveillance of disease incidence data (<a href="https://www.who.int/immunization/monitoring_surveillance/data/en/">link</a> - 3.1, <a href="http://www.who.int/entity/immunization/monitoring_surveillance/data/incidence_series.xls">Excel link</a>)</p>
+<p>It will require some preprocessing before it’s suitable for a demonstration. I’ll do some of it, but in this section, you’re going to do the rest :)</p>
+<div class="sourceCode" id="cb289"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb289-1" data-line-number="1"><span class="kw">library</span>(readxl)</a>
+<a class="sourceLine" id="cb289-2" data-line-number="2"><span class="kw">library</span>(purrr) <span class="co"># This uses the map() function as a replacement for for loops. </span></a>
+<a class="sourceLine" id="cb289-3" data-line-number="3"><span class="co"># It&#39;s pretty sweet</span></a>
+<a class="sourceLine" id="cb289-4" data-line-number="4"></a>
+<a class="sourceLine" id="cb289-5" data-line-number="5">sheets &lt;-<span class="st"> </span><span class="kw">excel_sheets</span>(<span class="st">&quot;data/incidence_series.xls&quot;</span>)</a>
+<a class="sourceLine" id="cb289-6" data-line-number="6">sheets &lt;-<span class="st"> </span>sheets[<span class="op">-</span><span class="kw">c</span>(<span class="dv">1</span>, <span class="kw">length</span>(sheets))] <span class="co"># get rid of 1st and last sheet name</span></a>
+<a class="sourceLine" id="cb289-7" data-line-number="7"></a>
+<a class="sourceLine" id="cb289-8" data-line-number="8"><span class="co"># This command says &quot;for each sheet, read in the excel file with that sheet name&quot;</span></a>
+<a class="sourceLine" id="cb289-9" data-line-number="9"><span class="co"># map_df means paste them all together into a single data frame</span></a>
+<a class="sourceLine" id="cb289-10" data-line-number="10">disease_incidence &lt;-<span class="st"> </span><span class="kw">map_df</span>(sheets, <span class="op">~</span><span class="kw">read_xls</span>(<span class="dt">path =</span><span class="st">&quot;data/incidence_series.xls&quot;</span>, <span class="dt">sheet =</span> .))</a>
+<a class="sourceLine" id="cb289-11" data-line-number="11"></a>
+<a class="sourceLine" id="cb289-12" data-line-number="12"><span class="co"># export for SAS (and R, if you want)</span></a>
+<a class="sourceLine" id="cb289-13" data-line-number="13"><span class="kw">write_csv</span>(disease_incidence, <span class="dt">path =</span> <span class="st">&quot;data/who_disease_incidence.csv&quot;</span>, <span class="dt">na =</span> <span class="st">&quot;.&quot;</span>)</a></code></pre></div>
+<p>Download the exported data <a href="data/who_disease_incidence.csv">here</a> and import it into SAS and R. Transform it into long format, so that there is a year column. You should end up with a table that has dimensions of approximately 6 columns and 83,000 rows (or something close to that).</p>
+<p>Can you make a line plot of cases of measles in Bangladesh over time?</p>
+<details>
+<p><summary>R solution</summary></p>
+<div class="sourceCode" id="cb290"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb290-1" data-line-number="1">who_disease &lt;-<span class="st"> </span><span class="kw">read_csv</span>(<span class="st">&quot;data/who_disease_incidence.csv&quot;</span>, <span class="dt">na =</span> <span class="st">&quot;.&quot;</span>)</a>
+<a class="sourceLine" id="cb290-2" data-line-number="2">Parsed with column specification<span class="op">:</span></a>
+<a class="sourceLine" id="cb290-3" data-line-number="3"><span class="kw">cols</span>(</a>
+<a class="sourceLine" id="cb290-4" data-line-number="4">  <span class="dt">.default =</span> <span class="kw">col_double</span>(),</a>
+<a class="sourceLine" id="cb290-5" data-line-number="5">  <span class="dt">WHO_REGION =</span> <span class="kw">col_character</span>(),</a>
+<a class="sourceLine" id="cb290-6" data-line-number="6">  <span class="dt">ISO_code =</span> <span class="kw">col_character</span>(),</a>
+<a class="sourceLine" id="cb290-7" data-line-number="7">  <span class="dt">Cname =</span> <span class="kw">col_character</span>(),</a>
+<a class="sourceLine" id="cb290-8" data-line-number="8">  <span class="dt">Disease =</span> <span class="kw">col_character</span>()</a>
+<a class="sourceLine" id="cb290-9" data-line-number="9">)</a>
+<a class="sourceLine" id="cb290-10" data-line-number="10">See <span class="kw">spec</span>(...) <span class="cf">for</span> full column specifications.</a>
+<a class="sourceLine" id="cb290-11" data-line-number="11"></a>
+<a class="sourceLine" id="cb290-12" data-line-number="12">who_disease_long &lt;-<span class="st"> </span>who_disease <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb290-13" data-line-number="13"><span class="st">  </span><span class="kw">pivot_longer</span>(<span class="kw">matches</span>(<span class="st">&quot;</span><span class="ch">\\</span><span class="st">d{4}&quot;</span>), <span class="dt">names_to =</span> <span class="st">&quot;year&quot;</span>, <span class="dt">values_to =</span> <span class="st">&quot;cases&quot;</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb290-14" data-line-number="14"><span class="st">  </span><span class="kw">rename</span>(<span class="dt">Country =</span> Cname) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb290-15" data-line-number="15"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">Disease =</span> <span class="kw">str_replace</span>(Disease, <span class="st">&quot;CRS&quot;</span>, <span class="st">&quot;Congenital Rubella&quot;</span>),</a>
+<a class="sourceLine" id="cb290-16" data-line-number="16">         <span class="dt">year =</span> <span class="kw">as.numeric</span>(year))</a>
+<a class="sourceLine" id="cb290-17" data-line-number="17"></a>
+<a class="sourceLine" id="cb290-18" data-line-number="18"><span class="kw">filter</span>(who_disease_long, Country <span class="op">==</span><span class="st"> &quot;Bangladesh&quot;</span>, Disease <span class="op">==</span><span class="st"> &quot;measles&quot;</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb290-19" data-line-number="19"><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> year, <span class="dt">y =</span> cases)) <span class="op">+</span><span class="st"> </span><span class="kw">geom_line</span>()</a></code></pre></div>
+<img src="unl-stat850_files/figure-html/unnamed-chunk-208-1.png" width="672" />
+</details>
+<details>
+<p><summary>SAS solution</summary></p>
+<pre class="sashtml"><code>libname classdat &quot;/home/susan/Projects/Class/unl-stat850/2020-stat850/sas/&quot;;
+
+filename fileloc &#39;~/Projects/Class/unl-stat850/2020-stat850/data/who_disease_incidence.csv&#39;;
+PROC IMPORT  datafile = fileloc out=classdat.who_disease REPLACE
+DBMS = csv; /* comma delimited file */
+GUESSINGROWS=500;
+GETNAMES = YES;
+RUN;
+
+/* Sort your data by the variables you want as the ID variables */
+PROC SORT DATA=classdat.who_disease OUT=who_dis_tmp;
+BY Disease Cname;
+RUN;
+
+PROC TRANSPOSE DATA = who_dis_tmp OUT = classdat.disease_long;
+BY Disease Cname; /* Same variable order as used to sort */
+VAR _2018--_1980; /* variables to transpose */
+RUN;
+
+title &#39;Intermediate result 1&#39;; 
+PROC PRINT DATA=classdat.disease_long(obs=5); RUN;
+
+/* Data step to clean up */
+DATA classdat.disease_long;
+SET classdat.disease_long (rename=col1=cases);
+year = input(scan(_name_,1,&quot;_&quot;), 4.);
+drop _name_;
+RUN;
+
+title &#39;Final result&#39;; 
+PROC PRINT DATA=classdat.disease_long(obs=5); RUN;
+
+PROC SQL;
+CREATE TABLE bangladesh AS
+SELECT * FROM classdat.disease_long WHERE (Cname = &quot;Bangladesh&quot;) &amp; (Disease = &quot;measles&quot;);
+
+title &#39;Measles in Bangladesh&#39;; 
+ODS GRAPHICS ON;
+PROC SGPLOT DATA=bangladesh;
+SERIES X = year Y = cases;
+RUN;
+ODS GRAPHICS OFF;</code></pre>
+<div class="branch">
+<a name="IDX"></a>
+<table class="systitleandfootercontainer" width="100%" cellspacing="0" cellpadding="1" rules="none" frame="void" summary="Page Layout">
+<tr>
+<td class="c systemtitle">
+Intermediate result 1
+</td>
+</tr>
+</table>
+<br>
+<div>
+<div align="center">
+<!--BEGINTABLE-->
+<table class="table" cellspacing="0" cellpadding="7" rules="groups" frame="hsides" summary="Procedure Print: Data Set CLASSDAT.DISEASE_LONG">
+<colgroup>
+<col>
+</colgroup>
+<colgroup>
+<col>
+<col>
+<col>
+<col>
+</colgroup>
+<thead>
+<tr>
+<th class="r header" scope="col">
+Obs
+</th>
+<th class="l header" scope="col">
+Disease
+</th>
+<th class="l header" scope="col">
+Cname
+</th>
+<th class="l header" scope="col">
+<em>NAME</em>
+</th>
+<th class="r header" scope="col">
+COL1
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th class="r rowheader" scope="row">
+1
+</th>
+<td class="l data">
+CRS
+</td>
+<td class="l data">
+Afghanistan
+</td>
+<td class="l data">
+_2018
+</td>
+<td class="r data">
+.
+</td>
+</tr>
+<tr>
+<th class="r rowheader" scope="row">
+2
+</th>
+<td class="l data">
+CRS
+</td>
+<td class="l data">
+Afghanistan
+</td>
+<td class="l data">
+_2017
+</td>
+<td class="r data">
+.
+</td>
+</tr>
+<tr>
+<th class="r rowheader" scope="row">
+3
+</th>
+<td class="l data">
+CRS
+</td>
+<td class="l data">
+Afghanistan
+</td>
+<td class="l data">
+_2016
+</td>
+<td class="r data">
+.
+</td>
+</tr>
+<tr>
+<th class="r rowheader" scope="row">
+4
+</th>
+<td class="l data">
+CRS
+</td>
+<td class="l data">
+Afghanistan
+</td>
+<td class="l data">
+_2015
+</td>
+<td class="r data">
+0
+</td>
+</tr>
+<tr>
+<th class="r rowheader" scope="row">
+5
+</th>
+<td class="l data">
+CRS
+</td>
+<td class="l data">
+Afghanistan
+</td>
+<td class="l data">
+_2014
+</td>
+<td class="r data">
+0
+</td>
+</tr>
+</tbody>
+</table>
+<!--ENDTABLE-->
+</div>
+</div>
+<br>
+</div>
+<div class="branch">
+<p style="page-break-after: always;">
+<br/>
+</p>
+<hr size="3"/>
+<a name="IDX1"></a>
+<table class="systitleandfootercontainer" width="100%" cellspacing="0" cellpadding="1" rules="none" frame="void" summary="Page Layout">
+<tr>
+<td class="c systemtitle">
+Final result
+</td>
+</tr>
+</table>
+<br>
+<div>
+<div align="center">
+<!--BEGINTABLE-->
+<table class="table" cellspacing="0" cellpadding="7" rules="groups" frame="hsides" summary="Procedure Print: Data Set CLASSDAT.DISEASE_LONG">
+<colgroup>
+<col>
+</colgroup>
+<colgroup>
+<col>
+<col>
+<col>
+<col>
+</colgroup>
+<thead>
+<tr>
+<th class="r header" scope="col">
+Obs
+</th>
+<th class="l header" scope="col">
+Disease
+</th>
+<th class="l header" scope="col">
+Cname
+</th>
+<th class="r header" scope="col">
+cases
+</th>
+<th class="r header" scope="col">
+year
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th class="r rowheader" scope="row">
+1
+</th>
+<td class="l data">
+CRS
+</td>
+<td class="l data">
+Afghanistan
+</td>
+<td class="r data">
+.
+</td>
+<td class="r data">
+2018
+</td>
+</tr>
+<tr>
+<th class="r rowheader" scope="row">
+2
+</th>
+<td class="l data">
+CRS
+</td>
+<td class="l data">
+Afghanistan
+</td>
+<td class="r data">
+.
+</td>
+<td class="r data">
+2017
+</td>
+</tr>
+<tr>
+<th class="r rowheader" scope="row">
+3
+</th>
+<td class="l data">
+CRS
+</td>
+<td class="l data">
+Afghanistan
+</td>
+<td class="r data">
+.
+</td>
+<td class="r data">
+2016
+</td>
+</tr>
+<tr>
+<th class="r rowheader" scope="row">
+4
+</th>
+<td class="l data">
+CRS
+</td>
+<td class="l data">
+Afghanistan
+</td>
+<td class="r data">
+0
+</td>
+<td class="r data">
+2015
+</td>
+</tr>
+<tr>
+<th class="r rowheader" scope="row">
+5
+</th>
+<td class="l data">
+CRS
+</td>
+<td class="l data">
+Afghanistan
+</td>
+<td class="r data">
+0
+</td>
+<td class="r data">
+2014
+</td>
+</tr>
+</tbody>
+</table>
+<!--ENDTABLE-->
+</div>
+</div>
+<br>
+</div>
+<div class="branch">
+<p style="page-break-after: always;">
+<br/>
+</p>
+<hr size="3"/>
+<a name="IDX2"></a>
+<div>
+<div class="c">
+<p><img alt="The SGPlot Procedure" src="unnamed-chunk-209.png" style=" height: 480px; width: 640px;" border="0" class="c"></p>
+</div>
+</div>
+<br>
+</div>
+</details>
+</div>
 </div>
 <div id="wider" class="section level3">
 <h3><span class="header-section-number">6.3.2</span> Wider</h3>
-<p>While it’s very common to need to transform data into a longer format, it’s not that uncommon to need to do the reverse operation. Sometimes, you do one and then the other, to get the data into the format you want. In any case, to do that, we use PROC TRANSPOSE in SAS (again) or <code>pivot_wider</code> in R with <code>dplyr</code>.</p>
+<p>While it’s very common to need to transform data into a longer format, it’s not that uncommon to need to do the reverse operation. When an observation is scattered across multiple rows, your data is too long and needs to be made wider again.</p>
+<p>Table 2 is an example of a table that is in long format but needs to be converted to a wider layout to be “tidy” - there are separate rows for cases and population, which means that a single observation (one year, one country) has two rows.</p>
+<div class="figure"><span id="fig:unnamed-chunk-210"></span>
+<img src="image/tidyr_pivot_wider.png" alt="A visual representation of what the pivot_wider operation looks like in practice." width="50%" />
+<p class="caption">
+Figure 6.4: A visual representation of what the pivot_wider operation looks like in practice.
+</p>
+</div>
+<details>
+<p><summary>In R, long-to-wide conversion operations are performed using <code>pivot_wider()</code></summary></p>
+<div class="sourceCode" id="cb292"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb292-1" data-line-number="1">table2 <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb292-2" data-line-number="2"><span class="st">  </span><span class="kw">pivot_wider</span>(<span class="dt">names_from =</span> type, <span class="dt">values_from =</span> count)</a>
+<a class="sourceLine" id="cb292-3" data-line-number="3"><span class="co"># A tibble: 6 x 4</span></a>
+<a class="sourceLine" id="cb292-4" data-line-number="4">  country      year  cases population</a>
+<a class="sourceLine" id="cb292-5" data-line-number="5">  <span class="op">&lt;</span>chr<span class="op">&gt;</span><span class="st">       </span><span class="er">&lt;</span>int<span class="op">&gt;</span><span class="st">  </span><span class="er">&lt;</span>int<span class="op">&gt;</span><span class="st">      </span><span class="er">&lt;</span>int<span class="op">&gt;</span></a>
+<a class="sourceLine" id="cb292-6" data-line-number="6"><span class="dv">1</span> Afghanistan  <span class="dv">1999</span>    <span class="dv">745</span>   <span class="dv">19987071</span></a>
+<a class="sourceLine" id="cb292-7" data-line-number="7"><span class="dv">2</span> Afghanistan  <span class="dv">2000</span>   <span class="dv">2666</span>   <span class="dv">20595360</span></a>
+<a class="sourceLine" id="cb292-8" data-line-number="8"><span class="dv">3</span> Brazil       <span class="dv">1999</span>  <span class="dv">37737</span>  <span class="dv">172006362</span></a>
+<a class="sourceLine" id="cb292-9" data-line-number="9"><span class="dv">4</span> Brazil       <span class="dv">2000</span>  <span class="dv">80488</span>  <span class="dv">174504898</span></a>
+<a class="sourceLine" id="cb292-10" data-line-number="10"><span class="dv">5</span> China        <span class="dv">1999</span> <span class="dv">212258</span> <span class="dv">1272915272</span></a>
+<a class="sourceLine" id="cb292-11" data-line-number="11"><span class="dv">6</span> China        <span class="dv">2000</span> <span class="dv">213766</span> <span class="dv">1280428583</span></a></code></pre></div>
+</details>
+<details>
+<p><summary>In SAS, we use PROC TRANSPOSE again</summary></p>
+<pre class="sashtml"><code>DATA table2;
+input country $12. year  type$12. count 12.;
+datalines;
+Afghanistan  1999 cases              745
+Afghanistan  1999 population    19987071
+Afghanistan  2000 cases             2666
+Afghanistan  2000 population    20595360
+Brazil       1999 cases            37737
+Brazil       1999 population   172006362
+Brazil       2000 cases            80488
+Brazil       2000 population   174504898
+China        1999 cases           212258
+China        1999 population  1272915272
+China        2000 cases           213766
+China        2000 population  1280428583
+;
+
+PROC TRANSPOSE DATA=table2 out=table2tmp;
+ID type; /* Equivalent to names_from */
+BY country year;  /* The combination of BY variables defines a row */
+VAR count; /* Equivalent to values_from */
+RUN;
+
+PROC PRINT DATA=table2tmp;
+RUN;</code></pre>
+<div class="branch">
+<a name="IDX"></a>
+<div>
+<div align="center">
+<!--BEGINTABLE-->
+<table class="table" cellspacing="0" cellpadding="7" rules="groups" frame="hsides" summary="Procedure Print: Data Set WORK.TABLE2TMP">
+<colgroup>
+<col>
+</colgroup>
+<colgroup>
+<col>
+<col>
+<col>
+<col>
+<col>
+</colgroup>
+<thead>
+<tr>
+<th class="r header" scope="col">
+Obs
+</th>
+<th class="l header" scope="col">
+country
+</th>
+<th class="r header" scope="col">
+year
+</th>
+<th class="l header" scope="col">
+<em>NAME</em>
+</th>
+<th class="r header" scope="col">
+cases
+</th>
+<th class="r header" scope="col">
+population
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th class="r rowheader" scope="row">
+1
+</th>
+<td class="l data">
+Afghanistan
+</td>
+<td class="r data">
+1999
+</td>
+<td class="l data">
+count
+</td>
+<td class="r data">
+745
+</td>
+<td class="r data">
+19987071
+</td>
+</tr>
+<tr>
+<th class="r rowheader" scope="row">
+2
+</th>
+<td class="l data">
+Afghanistan
+</td>
+<td class="r data">
+2000
+</td>
+<td class="l data">
+count
+</td>
+<td class="r data">
+2666
+</td>
+<td class="r data">
+20595360
+</td>
+</tr>
+<tr>
+<th class="r rowheader" scope="row">
+3
+</th>
+<td class="l data">
+Brazil
+</td>
+<td class="r data">
+1999
+</td>
+<td class="l data">
+count
+</td>
+<td class="r data">
+37737
+</td>
+<td class="r data">
+172006362
+</td>
+</tr>
+<tr>
+<th class="r rowheader" scope="row">
+4
+</th>
+<td class="l data">
+Brazil
+</td>
+<td class="r data">
+2000
+</td>
+<td class="l data">
+count
+</td>
+<td class="r data">
+80488
+</td>
+<td class="r data">
+174504898
+</td>
+</tr>
+<tr>
+<th class="r rowheader" scope="row">
+5
+</th>
+<td class="l data">
+China
+</td>
+<td class="r data">
+1999
+</td>
+<td class="l data">
+count
+</td>
+<td class="r data">
+212258
+</td>
+<td class="r data">
+1272915272
+</td>
+</tr>
+<tr>
+<th class="r rowheader" scope="row">
+6
+</th>
+<td class="l data">
+China
+</td>
+<td class="r data">
+2000
+</td>
+<td class="l data">
+count
+</td>
+<td class="r data">
+213766
+</td>
+<td class="r data">
+1280428583
+</td>
+</tr>
+</tbody>
+</table>
+<!--ENDTABLE-->
 </div>
 </div>
-<div id="table-joins" class="section level2">
-<h2><span class="header-section-number">6.4</span> Table Joins</h2>
+<br>
+</div>
+<p></summary></p>
+<div class="warning">
+<p>If you don’t sort your data properly before PROC TRANSPOSE in SAS, you may get a result that has an unexpected shape. SAS works rowwise (compared to R’s column-wise operations) so the row order actually matters in SAS (it generally doesn’t matter much in R).</p>
+</div>
+<p>Returning to our WHO HIV example, we might want our data to look like this:</p>
+<table>
+<thead>
+<tr class="header">
+<th>Country</th>
+<th>year</th>
+<th>measurement</th>
+<th>Both</th>
+<th>Male</th>
+<th>Female</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Afghanistan</td>
+<td>2018</td>
+<td>est</td>
+<td>.02</td>
+<td>.03</td>
+<td>.01</td>
+</tr>
+<tr class="even">
+<td>2018</td>
+<td>lb</td>
+<td>.01</td>
+<td>.02</td>
+<td>.01</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>2018</td>
+<td>ub</td>
+<td>.04</td>
+<td>.06</td>
+<td>.03</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>As a reminder, the data currently looks like this:</p>
+<div class="sourceCode" id="cb294"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb294-1" data-line-number="1">hiv_tidy</a>
+<a class="sourceLine" id="cb294-2" data-line-number="2"><span class="co"># A tibble: 14,790 x 6</span></a>
+<a class="sourceLine" id="cb294-3" data-line-number="3">   Country      year group  est   lb    ub   </a>
+<a class="sourceLine" id="cb294-4" data-line-number="4">   <span class="op">&lt;</span>chr<span class="op">&gt;</span><span class="st">       </span><span class="er">&lt;</span>int<span class="op">&gt;</span><span class="st"> </span><span class="er">&lt;</span>chr<span class="op">&gt;</span><span class="st">  </span><span class="er">&lt;</span>chr<span class="op">&gt;</span><span class="st"> </span><span class="er">&lt;</span>chr<span class="op">&gt;</span><span class="st"> </span><span class="er">&lt;</span>chr<span class="op">&gt;</span></a>
+<a class="sourceLine" id="cb294-5" data-line-number="5"><span class="st"> </span><span class="dv">1</span> Afghanistan  <span class="dv">2018</span> Both   <span class="fl">0.02</span>  <span class="fl">0.01</span>  <span class="fl">0.04</span> </a>
+<a class="sourceLine" id="cb294-6" data-line-number="6"> <span class="dv">2</span> Afghanistan  <span class="dv">2018</span> Male   <span class="fl">0.03</span>  <span class="fl">0.02</span>  <span class="fl">0.06</span> </a>
+<a class="sourceLine" id="cb294-7" data-line-number="7"> <span class="dv">3</span> Afghanistan  <span class="dv">2018</span> Female <span class="fl">0.01</span>  <span class="op">&lt;</span><span class="fl">0.01</span> <span class="fl">0.03</span> </a>
+<a class="sourceLine" id="cb294-8" data-line-number="8"> <span class="dv">4</span> Afghanistan  <span class="dv">2017</span> Both   <span class="fl">0.02</span>  <span class="fl">0.01</span>  <span class="fl">0.04</span> </a>
+<a class="sourceLine" id="cb294-9" data-line-number="9"> <span class="dv">5</span> Afghanistan  <span class="dv">2017</span> Male   <span class="fl">0.03</span>  <span class="fl">0.02</span>  <span class="fl">0.06</span> </a>
+<a class="sourceLine" id="cb294-10" data-line-number="10"> <span class="dv">6</span> Afghanistan  <span class="dv">2017</span> Female <span class="fl">0.01</span>  <span class="op">&lt;</span><span class="fl">0.01</span> <span class="fl">0.03</span> </a>
+<a class="sourceLine" id="cb294-11" data-line-number="11"> <span class="dv">7</span> Afghanistan  <span class="dv">2016</span> Both   <span class="fl">0.02</span>  <span class="fl">0.01</span>  <span class="fl">0.04</span> </a>
+<a class="sourceLine" id="cb294-12" data-line-number="12"> <span class="dv">8</span> Afghanistan  <span class="dv">2016</span> Male   <span class="fl">0.03</span>  <span class="fl">0.02</span>  <span class="fl">0.06</span> </a>
+<a class="sourceLine" id="cb294-13" data-line-number="13"> <span class="dv">9</span> Afghanistan  <span class="dv">2016</span> Female <span class="fl">0.01</span>  <span class="op">&lt;</span><span class="fl">0.01</span> <span class="fl">0.02</span> </a>
+<a class="sourceLine" id="cb294-14" data-line-number="14"><span class="dv">10</span> Afghanistan  <span class="dv">2015</span> Both   <span class="fl">0.02</span>  <span class="fl">0.01</span>  <span class="fl">0.04</span> </a>
+<a class="sourceLine" id="cb294-15" data-line-number="15"><span class="co"># … with 14,780 more rows</span></a></code></pre></div>
+<div class="tryitout">
+<p>Think through the steps you’d need to take to get the data into this form. Sketch out any intermediate state your data will need to go through.</p>
+</div>
+<details>
+<p><summary>WHO HIV Data: long-to-wide steps</summary>
+1. We need est, lb, and ub in long form first, so we need to use a wide-to-long (pivot_longer) transpose operation.
+- names_to = “measure”
+- values_to = “value”
+- BY variables: Country, year, group
+- pivot variables (VAR in SAS): est, lb, ub</p>
+<ol start="2" style="list-style-type: decimal">
+<li>We need group to be 3 columns: Both, Male, and Female. So we need to use a long-to-wide (pivot_wider) transpose operation.
+<ul>
+<li>By variables: Country, year, measure (so we’ll need to sort in SAS)</li>
+<li>ID variable: group</li>
+<li>VAR variable: value</li>
+</ul></li>
+</ol>
+<p>The intermediate form of the data will look like this:</p>
+<table>
+<thead>
+<tr class="header">
+<th>Country</th>
+<th>year</th>
+<th>group</th>
+<th>measure</th>
+<th>value</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Afghanistan</td>
+<td>2018</td>
+<td>Both</td>
+<td>est</td>
+<td>0.02</td>
+</tr>
+<tr class="even">
+<td>Afghanistan</td>
+<td>2018</td>
+<td>Both</td>
+<td>lb</td>
+<td>0.01</td>
+</tr>
+<tr class="odd">
+<td>Afghanistan</td>
+<td>2018</td>
+<td>Both</td>
+<td>ub</td>
+<td>0.04</td>
+</tr>
+<tr class="even">
+<td>Afghanistan</td>
+<td>2018</td>
+<td>Male</td>
+<td>est</td>
+<td>0.03</td>
+</tr>
+</tbody>
+</table>
+</details>
+<details>
+<p><summary>WHO HIV Data: long-to-wide in R</summary></p>
+<div class="sourceCode" id="cb295"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb295-1" data-line-number="1">hiv_tidy <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb295-2" data-line-number="2"><span class="st">  </span><span class="kw">pivot_longer</span>(est<span class="op">:</span>ub, <span class="dt">names_to =</span> <span class="st">&quot;measure&quot;</span>, <span class="dt">values_to =</span> <span class="st">&quot;value&quot;</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb295-3" data-line-number="3"><span class="st">  </span><span class="co"># Take the opportunity to transform everything to numeric at once...</span></a>
+<a class="sourceLine" id="cb295-4" data-line-number="4"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">value =</span> <span class="kw">parse_number</span>(value)) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb295-5" data-line-number="5"><span class="st">  </span><span class="kw">pivot_wider</span>(<span class="dt">names_from =</span> group, <span class="dt">values_from =</span> value)</a>
+<a class="sourceLine" id="cb295-6" data-line-number="6"><span class="co"># A tibble: 14,790 x 6</span></a>
+<a class="sourceLine" id="cb295-7" data-line-number="7">   Country      year measure  Both  Male Female</a>
+<a class="sourceLine" id="cb295-8" data-line-number="8">   <span class="op">&lt;</span>chr<span class="op">&gt;</span><span class="st">       </span><span class="er">&lt;</span>int<span class="op">&gt;</span><span class="st"> </span><span class="er">&lt;</span>chr<span class="op">&gt;</span><span class="st">   </span><span class="er">&lt;</span>dbl<span class="op">&gt;</span><span class="st"> </span><span class="er">&lt;</span>dbl<span class="op">&gt;</span><span class="st">  </span><span class="er">&lt;</span>dbl<span class="op">&gt;</span></a>
+<a class="sourceLine" id="cb295-9" data-line-number="9"><span class="st"> </span><span class="dv">1</span> Afghanistan  <span class="dv">2018</span> est      <span class="fl">0.02</span>  <span class="fl">0.03</span>   <span class="fl">0.01</span></a>
+<a class="sourceLine" id="cb295-10" data-line-number="10"> <span class="dv">2</span> Afghanistan  <span class="dv">2018</span> lb       <span class="fl">0.01</span>  <span class="fl">0.02</span>   <span class="fl">0.01</span></a>
+<a class="sourceLine" id="cb295-11" data-line-number="11"> <span class="dv">3</span> Afghanistan  <span class="dv">2018</span> ub       <span class="fl">0.04</span>  <span class="fl">0.06</span>   <span class="fl">0.03</span></a>
+<a class="sourceLine" id="cb295-12" data-line-number="12"> <span class="dv">4</span> Afghanistan  <span class="dv">2017</span> est      <span class="fl">0.02</span>  <span class="fl">0.03</span>   <span class="fl">0.01</span></a>
+<a class="sourceLine" id="cb295-13" data-line-number="13"> <span class="dv">5</span> Afghanistan  <span class="dv">2017</span> lb       <span class="fl">0.01</span>  <span class="fl">0.02</span>   <span class="fl">0.01</span></a>
+<a class="sourceLine" id="cb295-14" data-line-number="14"> <span class="dv">6</span> Afghanistan  <span class="dv">2017</span> ub       <span class="fl">0.04</span>  <span class="fl">0.06</span>   <span class="fl">0.03</span></a>
+<a class="sourceLine" id="cb295-15" data-line-number="15"> <span class="dv">7</span> Afghanistan  <span class="dv">2016</span> est      <span class="fl">0.02</span>  <span class="fl">0.03</span>   <span class="fl">0.01</span></a>
+<a class="sourceLine" id="cb295-16" data-line-number="16"> <span class="dv">8</span> Afghanistan  <span class="dv">2016</span> lb       <span class="fl">0.01</span>  <span class="fl">0.02</span>   <span class="fl">0.01</span></a>
+<a class="sourceLine" id="cb295-17" data-line-number="17"> <span class="dv">9</span> Afghanistan  <span class="dv">2016</span> ub       <span class="fl">0.04</span>  <span class="fl">0.06</span>   <span class="fl">0.02</span></a>
+<a class="sourceLine" id="cb295-18" data-line-number="18"><span class="dv">10</span> Afghanistan  <span class="dv">2015</span> est      <span class="fl">0.02</span>  <span class="fl">0.03</span>   <span class="fl">0.01</span></a>
+<a class="sourceLine" id="cb295-19" data-line-number="19"><span class="co"># … with 14,780 more rows</span></a></code></pre></div>
+</details>
+<details>
+<p><summary>WHO HIV Data: long-to-wide in SAS</summary>
+In SAS, we can do the pivot operations in one step, but we have to sort everything first.</p>
+<pre class="sashtml"><code>libname classdat &quot;/home/susan/Projects/Class/unl-stat850/2020-stat850/sas/&quot;;
+
+PROC SORT DATA = classdat.hivtidy;
+BY Country year group;
+RUN;
+
+PROC TRANSPOSE DATA = classdat.hivtidy OUT = hivtmp name = measure;
+BY Country year;
+VAR est lb ub;
+ID group;
+RUN;
+
+PROC PRINT data=hivtmp(obs=5);
+RUN;</code></pre>
+<div class="branch">
+<a name="IDX"></a>
+<div>
+<div align="center">
+<!--BEGINTABLE-->
+<table class="table" cellspacing="0" cellpadding="7" rules="groups" frame="hsides" summary="Procedure Print: Data Set WORK.HIVTMP">
+<colgroup>
+<col>
+</colgroup>
+<colgroup>
+<col>
+<col>
+<col>
+<col>
+<col>
+<col>
+</colgroup>
+<thead>
+<tr>
+<th class="r header" scope="col">
+Obs
+</th>
+<th class="l header" scope="col">
+Country
+</th>
+<th class="r header" scope="col">
+year
+</th>
+<th class="l header" scope="col">
+measure
+</th>
+<th class="r header" scope="col">
+Both
+</th>
+<th class="r header" scope="col">
+Female
+</th>
+<th class="r header" scope="col">
+Male
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th class="r rowheader" scope="row">
+1
+</th>
+<td class="l data">
+Afghanistan
+</td>
+<td class="r data">
+1990
+</td>
+<td class="l data">
+est
+</td>
+<td class="r data">
+0.010000
+</td>
+<td class="r data">
+.009999998
+</td>
+<td class="r data">
+0.010000
+</td>
+</tr>
+<tr>
+<th class="r rowheader" scope="row">
+2
+</th>
+<td class="l data">
+Afghanistan
+</td>
+<td class="r data">
+1990
+</td>
+<td class="l data">
+lb
+</td>
+<td class="r data">
+0.010000
+</td>
+<td class="r data">
+.009999998
+</td>
+<td class="r data">
+0.010000
+</td>
+</tr>
+<tr>
+<th class="r rowheader" scope="row">
+3
+</th>
+<td class="l data">
+Afghanistan
+</td>
+<td class="r data">
+1990
+</td>
+<td class="l data">
+ub
+</td>
+<td class="r data">
+0.020000
+</td>
+<td class="r data">
+.009999998
+</td>
+<td class="r data">
+0.030000
+</td>
+</tr>
+<tr>
+<th class="r rowheader" scope="row">
+4
+</th>
+<td class="l data">
+Afghanistan
+</td>
+<td class="r data">
+1991
+</td>
+<td class="l data">
+est
+</td>
+<td class="r data">
+0.010000
+</td>
+<td class="r data">
+.009999998
+</td>
+<td class="r data">
+0.010000
+</td>
+</tr>
+<tr>
+<th class="r rowheader" scope="row">
+5
+</th>
+<td class="l data">
+Afghanistan
+</td>
+<td class="r data">
+1991
+</td>
+<td class="l data">
+lb
+</td>
+<td class="r data">
+0.010000
+</td>
+<td class="r data">
+.009999998
+</td>
+<td class="r data">
+0.010000
+</td>
+</tr>
+</tbody>
+</table>
+<!--ENDTABLE-->
+</div>
+</div>
+<br>
+</div>
+</details>
+<div id="try-it-out-19" class="section level4 unnumbered tryitout">
+<h4>Try it out</h4>
+<p>Use the long-format data you have from the previous Try It Out section (WHO Disease Incidence). Reshape this data into a “wide” format such that each disease is shown in a separate column.</p>
+<p>Before you start:
+- Which variable(s) will uniquely identify a row in your output data?
+- Which variable(s) will be used to create column names?</p>
+<p>Can you create a plot of polio cases over time for your 3 favorite countries?</p>
+<details>
+<p><summary>R solution</summary></p>
+<div class="sourceCode" id="cb297"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb297-1" data-line-number="1">who_disease_wide &lt;-<span class="st"> </span>who_disease_long <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb297-2" data-line-number="2"><span class="st">  </span><span class="kw">pivot_wider</span>(<span class="dt">id_cols =</span> <span class="kw">c</span>(Country, year), <span class="dt">names_from =</span> Disease, <span class="dt">values_from =</span> cases)</a>
+<a class="sourceLine" id="cb297-3" data-line-number="3"></a>
+<a class="sourceLine" id="cb297-4" data-line-number="4">who_disease_wide <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb297-5" data-line-number="5"><span class="st">  </span><span class="kw">filter</span>(Country <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Guatemala&quot;</span>, <span class="st">&quot;Central African Republic (the)&quot;</span>, <span class="st">&quot;Pakistan&quot;</span>)) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb297-6" data-line-number="6"><span class="st">  </span><span class="kw">select</span>(Country, year, polio) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb297-7" data-line-number="7"><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> year, <span class="dt">y =</span> polio, <span class="dt">color =</span> Country)) <span class="op">+</span><span class="st"> </span><span class="kw">geom_line</span>()</a></code></pre></div>
+<img src="unl-stat850_files/figure-html/unnamed-chunk-216-1.png" width="672" />
+</details>
+<details>
+<p><summary>SAS solution</summary></p>
+<pre class="sashtml"><code>libname classdat &quot;/home/susan/Projects/Class/unl-stat850/2020-stat850/sas/&quot;;
+
+PROC SORT DATA = classdat.disease_long OUT = dis_long;
+BY Cname year; /* Variables we want to define rows of data */
+RUN;
+
+PROC TRANSPOSE DATA = dis_long OUT = classdat.disease_wide;
+ID Disease; /* Variable we want to name columns of data */
+VAR cases; /* Variable we want to be the values in each column */
+BY Cname year; /* These define a single row */
+RUN;
+
+title &#39;Polio incidence&#39;; 
+PROC SGPLOT DATA=classdat.disease_wide 
+/* We can use a where clause in the DATA statement, if we want */
+  (WHERE=(Cname in (&quot;Mexico&quot;, &quot;Guatemala&quot;, &quot;Pakistan&quot;)));
+/* Specify the colors to use for lines */
+styleattrs datacontrastcolors= (green orange purple);
+/* Map variables to axes */
+SERIES X = year Y = polio / 
+  /* Color lines by Country */
+  GROUP = Cname
+  /* Give the color mapping a name so you can modify its legend */
+  name = &quot;a&quot;
+  /* Make lines thicker so they&#39;re visible */
+  lineattrs=(thickness = 3);
+/* Change the legend title and what it is showing (line color) */
+KEYLEGEND &quot;a&quot; / title = &quot;Country&quot; type = linecolor;
+RUN;</code></pre>
+<div class="branch">
+<a name="IDX"></a>
+<div>
+<div class="c">
+<p><img alt="The SGPlot Procedure" src="unnamed-chunk-217.png" style=" height: 480px; width: 640px;" border="0" class="c"></p>
+</div>
+</div>
+<p><br></p>
+</div>
+</details>
+<p>Congratulations! You now know how to reshape your data into all sorts of different formats. Use this knowledge wisely.</p>
+</div>
+</div>
+</div>
+<div id="relational-data-and-joining-tables" class="section level2">
+<h2><span class="header-section-number">6.4</span> Relational Data and Joining Tables</h2>
+<p>We now know how to work extensively on one table at a time, but data doesn’t always come organized in one table at a time. Instead, some data may be organized relationally - that is, certain aspects of the data apply to a group of data points, and certain aspects apply to individual data points, and there are relationships between individuals that have to be documented.</p>
+<details>
+<p><summary>Example: Primary School Organization</summary></p>
+<p>Each individual has certain characteristics:
+- full_name
+- gender
+- birth date
+- ID number</p>
+<p>Each student has specific characteristics:
+- ID number
+- parent name
+- parent phone number
+- medical information
+- Class ID</p>
+<p>Teachers may also have additional information:
+- ID number
+- Class ID
+- employment start date
+- education level
+- compensation level</p>
+<p>There are also fields like grades, which occur for each student in each class, but multiple times a year.
+- ID number
+- Student ID
+- Class ID
+- year
+- term number
+- subject
+- grade
+- comment</p>
+<p>And for teachers, there are employment records on a yearly basis
+- ID number
+- Employee ID
+- year
+- rating
+- comment</p>
+<p>But each class also has characteristics that describe the whole class as a unit:
+- location ID
+- class ID
+- meeting time
+- grade level</p>
+<p>Each location might also have some logistical information attached:
+- location ID
+- room number
+- building
+- number of seats
+- AV equipment</p>
+<iframe width="560" height="315" src="https://dbdiagram.io/embed/5ef387179ea313663b3b048e" alt="A diagram representation of the described database">
+</iframe>
+<p>We could go on, but you can see that this data is hierarchical, but also relational:
+- each class has both a teacher and a set of students
+- each class is held in a specific location that has certain equipment</p>
+<p>It would be silly to store this information in a single table (though it probably can be done) because all of the teacher information would be duplicated for each student in each class; all of the student’s individual info would be duplicated for each grade. There would be a lot of wasted storage space and the tables would be much more confusing as well.</p>
+<p>But, relational data also means we have to put in some work when we have a question that requires information from multiple tables. Suppose we want a list of all of the birthdays in a certain class. We would need to take the following steps:</p>
+<ul>
+<li>get the Class ID</li>
+<li>get any teachers that are assigned that Class ID - specifically, get their ID number</li>
+<li>get any students that are assigned that Class ID - specifically, get their ID number</li>
+<li>append the results from teachers and students so that there is a list of all individuals in the class</li>
+<li>look through the “individual data” table to find any individuals with matching ID numbers, and keep those individuals’ birth days.</li>
+</ul>
+</details>
+<p>Table joins allow us to combine information stored in different tables, keeping certain information (the stuff we need) while discarding extraneous information.</p>
+<p>There are 3 main types of table joins:</p>
+<ul>
+<li><p>Filtering joins, which remove rows from a table based on whether or not there is a matching row in another table (but the columns in the original table don’t change)<br />
+Ex: finding all teachers or students who have class ClassID</p></li>
+<li><p>Set operations, which treat observations as set elements (e.g. union, intersection, etc.)<br />
+Ex: taking the union of all student and teacher IDs to get a list of individual IDs</p></li>
+<li><p>Mutating joins, which add columns from one table to matching rows in another table<br />
+Ex: adding birthday to the table of all individuals in a class</p></li>
+</ul>
+<p><strong>keys</strong> are values that are found in multiple tables that can be used to connect the tables. A key (or set of keys) uniquely identify an observation. A <strong>primary key</strong> identifies an observation in its own table. A <strong>foreign key</strong> identifies an observation in another table.</p>
+<p>We’re primarily going to focus on mutating joins, as filtering joins can be accomplished by … filtering … rather than by table joins. Feel free to read through the other types of joins <a href="https://r4ds.had.co.nz/relational-data.html#filtering-joins">here</a></p>
+<div id="demonstration-dataset-setup" class="section level3">
+<h3><span class="header-section-number">6.4.1</span> Demonstration dataset setup</h3>
+We’ll use the <code>nycflights13</code> package in R. Unfortunately, the data in this package are too big for me to reasonably store on github (you’ll recall, I had to use a small sample the last time we played with this data…). So before we can work with this data, we have to load the tables into SAS, which means saving them out from R.
+<details>
+<p><summary>Instructions</summary>
+We’ll use a function in the <code>dbplyr</code> package to do that.<a href="#fn20" class="footnote-ref" id="fnref20"><sup>20</sup></a></p>
+<div class="sourceCode" id="cb299"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb299-1" data-line-number="1"><span class="cf">if</span> (<span class="op">!</span><span class="st">&quot;nycflights13&quot;</span> <span class="op">%in%</span><span class="st"> </span><span class="kw">installed.packages</span>()) <span class="kw">install.packages</span>(<span class="st">&quot;nycflights13&quot;</span>)</a>
+<a class="sourceLine" id="cb299-2" data-line-number="2"><span class="cf">if</span> (<span class="op">!</span><span class="st">&quot;dbplyr&quot;</span> <span class="op">%in%</span><span class="st"> </span><span class="kw">installed.packages</span>()) <span class="kw">install.packages</span>(<span class="st">&quot;dbplyr&quot;</span>)</a>
+<a class="sourceLine" id="cb299-3" data-line-number="3"><span class="kw">library</span>(nycflights13)</a>
+<a class="sourceLine" id="cb299-4" data-line-number="4"><span class="kw">library</span>(dbplyr)</a>
+<a class="sourceLine" id="cb299-5" data-line-number="5"><span class="kw">nycflights13_sqlite</span>(<span class="dt">path =</span> <span class="st">&quot;data/&quot;</span>)</a>
+<a class="sourceLine" id="cb299-6" data-line-number="6">Caching nycflights db at data<span class="op">/</span><span class="er">/</span>nycflights13.sqlite</a>
+<a class="sourceLine" id="cb299-7" data-line-number="7">Warning<span class="op">:</span><span class="st"> `</span><span class="dt">src_sqlite()</span><span class="st">`</span> is deprecated as of dplyr <span class="dv">1</span>.<span class="dv">0</span>.<span class="fl">0.</span></a>
+<a class="sourceLine" id="cb299-8" data-line-number="8">Please use <span class="st">`</span><span class="dt">tbl()</span><span class="st">`</span> directly with a database connection</a>
+<a class="sourceLine" id="cb299-9" data-line-number="9">This warning is displayed once every <span class="dv">8</span> hours.</a>
+<a class="sourceLine" id="cb299-10" data-line-number="10">Call <span class="st">`</span><span class="dt">lifecycle::last_warnings()</span><span class="st">`</span> to see where this warning was generated.</a>
+<a class="sourceLine" id="cb299-11" data-line-number="11">src<span class="op">:</span><span class="st">  </span>sqlite <span class="dv">3</span>.<span class="fl">30.1</span> [<span class="op">/</span>home<span class="op">/</span>susan<span class="op">/</span>Projects<span class="op">/</span>Class<span class="op">/</span>unl<span class="op">-</span>stat850<span class="op">/</span><span class="dv">2020</span><span class="op">-</span>stat850<span class="op">/</span>data<span class="op">/</span>nycflights13.sqlite]</a>
+<a class="sourceLine" id="cb299-12" data-line-number="12">tbls<span class="op">:</span><span class="st"> </span>airlines, airports, flights, planes, sqlite_stat1, sqlite_stat4, weather</a></code></pre></div>
+<p>Then, you’ll have to figure out where on your system database locations (DSNs) are stored. On Unix systems, it’s /etc/odbc.ini (for system-wide access) and ~/.odbc.ini. On windows, you’ll need to use the ODBC Data Source Administrator to set this up.</p>
+<pre><code>[nycflight]
+Description = NYC flights database
+Driver = SQLite3
+Database = /home/susan/Projects/Class/unl-stat850/2020-stat850/data/nycflights13.sqlite
+</code></pre>
+</details>
+<div class="branch">
+<a name="IDX"></a>
+<table class="systitleandfootercontainer" width="100%" cellspacing="0" cellpadding="1" rules="none" frame="void" summary="Page Layout">
+<tr>
+<td class="c systemtitle">
+Flights table
+</td>
+</tr>
+</table>
+<br>
+<div>
+<div align="center">
+<!--BEGINTABLE-->
+<table class="table" cellspacing="0" cellpadding="7" rules="groups" frame="hsides" summary="Procedure Print: Data Set NYCAIR.flights">
+<colgroup>
+<col>
+</colgroup>
+<colgroup>
+<col>
+<col>
+<col>
+<col>
+<col>
+<col>
+<col>
+<col>
+<col>
+<col>
+<col>
+<col>
+<col>
+<col>
+<col>
+<col>
+<col>
+<col>
+<col>
+</colgroup>
+<thead>
+<tr>
+<th class="r header" scope="col">
+Obs
+</th>
+<th class="r header" scope="col">
+year
+</th>
+<th class="r header" scope="col">
+month
+</th>
+<th class="r header" scope="col">
+day
+</th>
+<th class="r header" scope="col">
+dep_time
+</th>
+<th class="r header" scope="col">
+sched_dep_time
+</th>
+<th class="r header" scope="col">
+dep_delay
+</th>
+<th class="r header" scope="col">
+arr_time
+</th>
+<th class="r header" scope="col">
+sched_arr_time
+</th>
+<th class="r header" scope="col">
+arr_delay
+</th>
+<th class="l header" scope="col">
+carrier
+</th>
+<th class="r header" scope="col">
+flight
+</th>
+<th class="l header" scope="col">
+tailnum
+</th>
+<th class="l header" scope="col">
+origin
+</th>
+<th class="l header" scope="col">
+dest
+</th>
+<th class="r header" scope="col">
+air_time
+</th>
+<th class="r header" scope="col">
+distance
+</th>
+<th class="r header" scope="col">
+hour
+</th>
+<th class="r header" scope="col">
+minute
+</th>
+<th class="r header" scope="col">
+time_hour
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th class="r rowheader" scope="row">
+1
+</th>
+<td class="r data">
+2013
+</td>
+<td class="r data">
+1
+</td>
+<td class="r data">
+1
+</td>
+<td class="r data">
+517
+</td>
+<td class="r data">
+515
+</td>
+<td class="r data">
+2
+</td>
+<td class="r data">
+830
+</td>
+<td class="r data">
+819
+</td>
+<td class="r data">
+11
+</td>
+<td class="l data">
+UA
+</td>
+<td class="r data">
+1545
+</td>
+<td class="l data">
+N14228
+</td>
+<td class="l data">
+EWR
+</td>
+<td class="l data">
+IAH
+</td>
+<td class="r data">
+227
+</td>
+<td class="r data">
+1400
+</td>
+<td class="r data">
+5
+</td>
+<td class="r data">
+15
+</td>
+<td class="r data">
+1357034400
+</td>
+</tr>
+<tr>
+<th class="r rowheader" scope="row">
+2
+</th>
+<td class="r data">
+2013
+</td>
+<td class="r data">
+1
+</td>
+<td class="r data">
+1
+</td>
+<td class="r data">
+533
+</td>
+<td class="r data">
+529
+</td>
+<td class="r data">
+4
+</td>
+<td class="r data">
+850
+</td>
+<td class="r data">
+830
+</td>
+<td class="r data">
+20
+</td>
+<td class="l data">
+UA
+</td>
+<td class="r data">
+1714
+</td>
+<td class="l data">
+N24211
+</td>
+<td class="l data">
+LGA
+</td>
+<td class="l data">
+IAH
+</td>
+<td class="r data">
+227
+</td>
+<td class="r data">
+1416
+</td>
+<td class="r data">
+5
+</td>
+<td class="r data">
+29
+</td>
+<td class="r data">
+1357034400
+</td>
+</tr>
+<tr>
+<th class="r rowheader" scope="row">
+3
+</th>
+<td class="r data">
+2013
+</td>
+<td class="r data">
+1
+</td>
+<td class="r data">
+1
+</td>
+<td class="r data">
+542
+</td>
+<td class="r data">
+540
+</td>
+<td class="r data">
+2
+</td>
+<td class="r data">
+923
+</td>
+<td class="r data">
+850
+</td>
+<td class="r data">
+33
+</td>
+<td class="l data">
+AA
+</td>
+<td class="r data">
+1141
+</td>
+<td class="l data">
+N619AA
+</td>
+<td class="l data">
+JFK
+</td>
+<td class="l data">
+MIA
+</td>
+<td class="r data">
+160
+</td>
+<td class="r data">
+1089
+</td>
+<td class="r data">
+5
+</td>
+<td class="r data">
+40
+</td>
+<td class="r data">
+1357034400
+</td>
+</tr>
+</tbody>
+</table>
+<!--ENDTABLE-->
+</div>
+</div>
+<br>
+</div>
+<div class="branch">
+<p style="page-break-after: always;">
+<br/>
+</p>
+<hr size="3"/>
+<a name="IDX1"></a>
+<table class="systitleandfootercontainer" width="100%" cellspacing="0" cellpadding="1" rules="none" frame="void" summary="Page Layout">
+<tr>
+<td class="c systemtitle">
+Airlines table
+</td>
+</tr>
+</table>
+<br>
+<div>
+<div align="center">
+<!--BEGINTABLE-->
+<table class="table" cellspacing="0" cellpadding="7" rules="groups" frame="hsides" summary="Procedure Print: Data Set NYCAIR.airlines">
+<colgroup>
+<col>
+</colgroup>
+<colgroup>
+<col>
+<col>
+</colgroup>
+<thead>
+<tr>
+<th class="r header" scope="col">
+Obs
+</th>
+<th class="l header" scope="col">
+carrier
+</th>
+<th class="l header" scope="col">
+name
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th class="r rowheader" scope="row">
+1
+</th>
+<td class="l data">
+9E
+</td>
+<td class="l data">
+Endeavor Air Inc.
+</td>
+</tr>
+<tr>
+<th class="r rowheader" scope="row">
+2
+</th>
+<td class="l data">
+AA
+</td>
+<td class="l data">
+American Airlines Inc.
+</td>
+</tr>
+<tr>
+<th class="r rowheader" scope="row">
+3
+</th>
+<td class="l data">
+AS
+</td>
+<td class="l data">
+Alaska Airlines Inc.
+</td>
+</tr>
+</tbody>
+</table>
+<!--ENDTABLE-->
+</div>
+</div>
+<br>
+</div>
+<div class="branch">
+<p style="page-break-after: always;">
+<br/>
+</p>
+<hr size="3"/>
+<a name="IDX2"></a>
+<table class="systitleandfootercontainer" width="100%" cellspacing="0" cellpadding="1" rules="none" frame="void" summary="Page Layout">
+<tr>
+<td class="c systemtitle">
+Airports table
+</td>
+</tr>
+</table>
+<br>
+<div>
+<div align="center">
+<!--BEGINTABLE-->
+<table class="table" cellspacing="0" cellpadding="7" rules="groups" frame="hsides" summary="Procedure Print: Data Set NYCAIR.airports">
+<colgroup>
+<col>
+</colgroup>
+<colgroup>
+<col>
+<col>
+<col>
+<col>
+<col>
+<col>
+<col>
+<col>
+</colgroup>
+<thead>
+<tr>
+<th class="r header" scope="col">
+Obs
+</th>
+<th class="l header" scope="col">
+faa
+</th>
+<th class="l header" scope="col">
+name
+</th>
+<th class="r header" scope="col">
+lat
+</th>
+<th class="r header" scope="col">
+lon
+</th>
+<th class="r header" scope="col">
+alt
+</th>
+<th class="r header" scope="col">
+tz
+</th>
+<th class="l header" scope="col">
+dst
+</th>
+<th class="l header" scope="col">
+tzone
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th class="r rowheader" scope="row">
+1
+</th>
+<td class="l data">
+04G
+</td>
+<td class="l data">
+Lansdowne Airport
+</td>
+<td class="r data">
+41.1305
+</td>
+<td class="r data" nowrap>
+-80.6196
+</td>
+<td class="r data">
+1044
+</td>
+<td class="r data" nowrap>
+-5
+</td>
+<td class="l data">
+A
+</td>
+<td class="l data">
+America/New_York
+</td>
+</tr>
+<tr>
+<th class="r rowheader" scope="row">
+2
+</th>
+<td class="l data">
+06A
+</td>
+<td class="l data">
+Moton Field Municipal Airport
+</td>
+<td class="r data">
+32.4606
+</td>
+<td class="r data" nowrap>
+-85.6800
+</td>
+<td class="r data">
+264
+</td>
+<td class="r data" nowrap>
+-6
+</td>
+<td class="l data">
+A
+</td>
+<td class="l data">
+America/Chicago
+</td>
+</tr>
+<tr>
+<th class="r rowheader" scope="row">
+3
+</th>
+<td class="l data">
+06C
+</td>
+<td class="l data">
+Schaumburg Regional
+</td>
+<td class="r data">
+41.9893
+</td>
+<td class="r data" nowrap>
+-88.1012
+</td>
+<td class="r data">
+801
+</td>
+<td class="r data" nowrap>
+-6
+</td>
+<td class="l data">
+A
+</td>
+<td class="l data">
+America/Chicago
+</td>
+</tr>
+</tbody>
+</table>
+<!--ENDTABLE-->
+</div>
+</div>
+<br>
+</div>
+<div class="branch">
+<p style="page-break-after: always;">
+<br/>
+</p>
+<hr size="3"/>
+<a name="IDX3"></a>
+<table class="systitleandfootercontainer" width="100%" cellspacing="0" cellpadding="1" rules="none" frame="void" summary="Page Layout">
+<tr>
+<td class="c systemtitle">
+Planes table
+</td>
+</tr>
+</table>
+<br>
+<div>
+<div align="center">
+<!--BEGINTABLE-->
+<table class="table" cellspacing="0" cellpadding="7" rules="groups" frame="hsides" summary="Procedure Print: Data Set NYCAIR.planes">
+<colgroup>
+<col>
+</colgroup>
+<colgroup>
+<col>
+<col>
+<col>
+<col>
+<col>
+<col>
+<col>
+<col>
+<col>
+</colgroup>
+<thead>
+<tr>
+<th class="r header" scope="col">
+Obs
+</th>
+<th class="l header" scope="col">
+tailnum
+</th>
+<th class="r header" scope="col">
+year
+</th>
+<th class="l header" scope="col">
+type
+</th>
+<th class="l header" scope="col">
+manufacturer
+</th>
+<th class="l header" scope="col">
+model
+</th>
+<th class="r header" scope="col">
+engines
+</th>
+<th class="r header" scope="col">
+seats
+</th>
+<th class="r header" scope="col">
+speed
+</th>
+<th class="l header" scope="col">
+engine
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th class="r rowheader" scope="row">
+1
+</th>
+<td class="l data">
+N10156
+</td>
+<td class="r data">
+2004
+</td>
+<td class="l data">
+Fixed wing multi engine
+</td>
+<td class="l data">
+EMBRAER
+</td>
+<td class="l data" nowrap>
+EMB-145XR
+</td>
+<td class="r data">
+2
+</td>
+<td class="r data">
+55
+</td>
+<td class="r data">
+.
+</td>
+<td class="l data">
+Turbo-fan
+</td>
+</tr>
+<tr>
+<th class="r rowheader" scope="row">
+2
+</th>
+<td class="l data">
+N102UW
+</td>
+<td class="r data">
+1998
+</td>
+<td class="l data">
+Fixed wing multi engine
+</td>
+<td class="l data">
+AIRBUS INDUSTRIE
+</td>
+<td class="l data">
+A320-214
+</td>
+<td class="r data">
+2
+</td>
+<td class="r data">
+182
+</td>
+<td class="r data">
+.
+</td>
+<td class="l data">
+Turbo-fan
+</td>
+</tr>
+<tr>
+<th class="r rowheader" scope="row">
+3
+</th>
+<td class="l data">
+N103US
+</td>
+<td class="r data">
+1999
+</td>
+<td class="l data">
+Fixed wing multi engine
+</td>
+<td class="l data">
+AIRBUS INDUSTRIE
+</td>
+<td class="l data">
+A320-214
+</td>
+<td class="r data">
+2
+</td>
+<td class="r data">
+182
+</td>
+<td class="r data">
+.
+</td>
+<td class="l data">
+Turbo-fan
+</td>
+</tr>
+</tbody>
+</table>
+<!--ENDTABLE-->
+</div>
+</div>
+<br>
+</div>
+<div class="branch">
+<p style="page-break-after: always;">
+<br/>
+</p>
+<hr size="3"/>
+<a name="IDX4"></a>
+<table class="systitleandfootercontainer" width="100%" cellspacing="0" cellpadding="1" rules="none" frame="void" summary="Page Layout">
+<tr>
+<td class="c systemtitle">
+Weather table
+</td>
+</tr>
+</table>
+<br>
+<div>
+<div align="center">
+<!--BEGINTABLE-->
+<table class="table" cellspacing="0" cellpadding="7" rules="groups" frame="hsides" summary="Procedure Print: Data Set NYCAIR.weather">
+<colgroup>
+<col>
+</colgroup>
+<colgroup>
+<col>
+<col>
+<col>
+<col>
+<col>
+<col>
+<col>
+<col>
+<col>
+<col>
+<col>
+<col>
+<col>
+<col>
+<col>
+</colgroup>
+<thead>
+<tr>
+<th class="r header" scope="col">
+Obs
+</th>
+<th class="l header" scope="col">
+origin
+</th>
+<th class="r header" scope="col">
+year
+</th>
+<th class="r header" scope="col">
+month
+</th>
+<th class="r header" scope="col">
+day
+</th>
+<th class="r header" scope="col">
+hour
+</th>
+<th class="r header" scope="col">
+temp
+</th>
+<th class="r header" scope="col">
+dewp
+</th>
+<th class="r header" scope="col">
+humid
+</th>
+<th class="r header" scope="col">
+wind_dir
+</th>
+<th class="r header" scope="col">
+wind_speed
+</th>
+<th class="r header" scope="col">
+wind_gust
+</th>
+<th class="r header" scope="col">
+precip
+</th>
+<th class="r header" scope="col">
+pressure
+</th>
+<th class="r header" scope="col">
+visib
+</th>
+<th class="r header" scope="col">
+time_hour
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th class="r rowheader" scope="row">
+1
+</th>
+<td class="l data">
+EWR
+</td>
+<td class="r data">
+2013
+</td>
+<td class="r data">
+1
+</td>
+<td class="r data">
+1
+</td>
+<td class="r data">
+1
+</td>
+<td class="r data">
+39.02
+</td>
+<td class="r data">
+26.06
+</td>
+<td class="r data">
+59.37
+</td>
+<td class="r data">
+270
+</td>
+<td class="r data">
+10.3570
+</td>
+<td class="r data">
+.
+</td>
+<td class="r data">
+0
+</td>
+<td class="r data">
+1012.0
+</td>
+<td class="r data">
+10
+</td>
+<td class="r data">
+1357020000
+</td>
+</tr>
+<tr>
+<th class="r rowheader" scope="row">
+2
+</th>
+<td class="l data">
+EWR
+</td>
+<td class="r data">
+2013
+</td>
+<td class="r data">
+1
+</td>
+<td class="r data">
+1
+</td>
+<td class="r data">
+2
+</td>
+<td class="r data">
+39.02
+</td>
+<td class="r data">
+26.96
+</td>
+<td class="r data">
+61.63
+</td>
+<td class="r data">
+250
+</td>
+<td class="r data">
+8.0555
+</td>
+<td class="r data">
+.
+</td>
+<td class="r data">
+0
+</td>
+<td class="r data">
+1012.3
+</td>
+<td class="r data">
+10
+</td>
+<td class="r data">
+1357023600
+</td>
+</tr>
+<tr>
+<th class="r rowheader" scope="row">
+3
+</th>
+<td class="l data">
+EWR
+</td>
+<td class="r data">
+2013
+</td>
+<td class="r data">
+1
+</td>
+<td class="r data">
+1
+</td>
+<td class="r data">
+3
+</td>
+<td class="r data">
+39.02
+</td>
+<td class="r data">
+28.04
+</td>
+<td class="r data">
+64.43
+</td>
+<td class="r data">
+240
+</td>
+<td class="r data">
+11.5078
+</td>
+<td class="r data">
+.
+</td>
+<td class="r data">
+0
+</td>
+<td class="r data">
+1012.5
+</td>
+<td class="r data">
+10
+</td>
+<td class="r data">
+1357027200
+</td>
+</tr>
+</tbody>
+</table>
+<!--ENDTABLE-->
+</div>
+</div>
+<br>
+</div>
+<div id="try-it-out-20" class="section level4 unnumbered tryitout">
+<h4>Try it out</h4>
+<p>Sketch a diagram of which fields in each table match fields in other tables.</p>
+<p>You can find the solution <a href="https://r4ds.had.co.nz/relational-data.html#nycflights13-relational">here</a> (scroll down a bit).</p>
+</div>
+</div>
+<div id="mutating-joins" class="section level3">
+<h3><span class="header-section-number">6.4.2</span> Mutating joins</h3>
+<p>A mutating join combines variables in two tables. There are excellent visual representations of the types of mutating joins <a href="https://r4ds.had.co.nz/relational-data.html#mutating-joins">here</a>.</p>
+<p>Every join has a “left side” and a “right side” - so in <code>some_join(A, B)</code>, A is the left side, B is the right side.</p>
+<p>Joins are differentiated based on how they treat the rows and columns of each side. In mutating joins, the columns from both sides are always kept.</p>
+<table>
+<tr>
+<td>
+</td>
+<td colspan="2">
+Left Side
+</td>
+<td colspan="2">
+Right Side
+</td>
+</tr>
+<th>
+<td>
+Join Type
+</td>
+<td>
+Rows
+</td>
+<td>
+Cols
+</td>
+<td>
+Rows
+</td>
+<td>
+Cols
+</td>
+</th>
+<tr>
+<td>
+inner
+</td>
+<td>
+matching
+</td>
+<td>
+all
+</td>
+<td>
+matching
+</td>
+<td>
+all
+</td>
+</tr>
+<tr>
+<td>
+left
+</td>
+<td>
+all
+</td>
+<td>
+all
+</td>
+<td>
+matching
+</td>
+<td>
+all
+</td>
+</tr>
+<tr>
+<td>
+right
+</td>
+<td>
+matching
+</td>
+<td>
+all
+</td>
+<td>
+all
+</td>
+<td>
+all
+</td>
+</tr>
+<tr>
+<td>
+outer
+</td>
+<td>
+all
+</td>
+<td>
+all
+</td>
+<td>
+all
+</td>
+<td>
+all
+</td>
+</tr>
+</table>
+<details>
+<p><summary>Mutating joins in R</summary></p>
+<div class="sourceCode" id="cb301"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb301-1" data-line-number="1">t1 &lt;-<span class="st"> </span><span class="kw">tibble</span>(<span class="dt">x =</span> <span class="kw">c</span>(<span class="st">&quot;A&quot;</span>, <span class="st">&quot;B&quot;</span>, <span class="st">&quot;D&quot;</span>), <span class="dt">y =</span> <span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>))</a>
+<a class="sourceLine" id="cb301-2" data-line-number="2">t2 &lt;-<span class="st"> </span><span class="kw">tibble</span>(<span class="dt">x =</span> <span class="kw">c</span>(<span class="st">&quot;B&quot;</span>, <span class="st">&quot;C&quot;</span>, <span class="st">&quot;D&quot;</span>), <span class="dt">z =</span> <span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">4</span>, <span class="dv">5</span>))</a></code></pre></div>
+<p>An inner join keeps only rows that exist on both sides, but keeps all columns.</p>
+<div class="sourceCode" id="cb302"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb302-1" data-line-number="1"><span class="kw">inner_join</span>(t1, t2)</a>
+<a class="sourceLine" id="cb302-2" data-line-number="2">Joining, by =<span class="st"> &quot;x&quot;</span></a>
+<a class="sourceLine" id="cb302-3" data-line-number="3"><span class="co"># A tibble: 2 x 3</span></a>
+<a class="sourceLine" id="cb302-4" data-line-number="4">  x         y     z</a>
+<a class="sourceLine" id="cb302-5" data-line-number="5">  <span class="op">&lt;</span>chr<span class="op">&gt;</span><span class="st"> </span><span class="er">&lt;</span>dbl<span class="op">&gt;</span><span class="st"> </span><span class="er">&lt;</span>dbl<span class="op">&gt;</span></a>
+<a class="sourceLine" id="cb302-6" data-line-number="6"><span class="dv">1</span> B         <span class="dv">2</span>     <span class="dv">2</span></a>
+<a class="sourceLine" id="cb302-7" data-line-number="7"><span class="dv">2</span> D         <span class="dv">3</span>     <span class="dv">5</span></a></code></pre></div>
+<p>A left join keeps all of the rows in the left side, and adds any columns from the right side that match rows on the left. Rows on the left that don’t match get filled in with NAs.</p>
+<div class="sourceCode" id="cb303"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb303-1" data-line-number="1"><span class="kw">left_join</span>(t1, t2)</a>
+<a class="sourceLine" id="cb303-2" data-line-number="2">Joining, by =<span class="st"> &quot;x&quot;</span></a>
+<a class="sourceLine" id="cb303-3" data-line-number="3"><span class="co"># A tibble: 3 x 3</span></a>
+<a class="sourceLine" id="cb303-4" data-line-number="4">  x         y     z</a>
+<a class="sourceLine" id="cb303-5" data-line-number="5">  <span class="op">&lt;</span>chr<span class="op">&gt;</span><span class="st"> </span><span class="er">&lt;</span>dbl<span class="op">&gt;</span><span class="st"> </span><span class="er">&lt;</span>dbl<span class="op">&gt;</span></a>
+<a class="sourceLine" id="cb303-6" data-line-number="6"><span class="dv">1</span> A         <span class="dv">1</span>    <span class="ot">NA</span></a>
+<a class="sourceLine" id="cb303-7" data-line-number="7"><span class="dv">2</span> B         <span class="dv">2</span>     <span class="dv">2</span></a>
+<a class="sourceLine" id="cb303-8" data-line-number="8"><span class="dv">3</span> D         <span class="dv">3</span>     <span class="dv">5</span></a>
+<a class="sourceLine" id="cb303-9" data-line-number="9"><span class="kw">left_join</span>(t2, t1)</a>
+<a class="sourceLine" id="cb303-10" data-line-number="10">Joining, by =<span class="st"> &quot;x&quot;</span></a>
+<a class="sourceLine" id="cb303-11" data-line-number="11"><span class="co"># A tibble: 3 x 3</span></a>
+<a class="sourceLine" id="cb303-12" data-line-number="12">  x         z     y</a>
+<a class="sourceLine" id="cb303-13" data-line-number="13">  <span class="op">&lt;</span>chr<span class="op">&gt;</span><span class="st"> </span><span class="er">&lt;</span>dbl<span class="op">&gt;</span><span class="st"> </span><span class="er">&lt;</span>dbl<span class="op">&gt;</span></a>
+<a class="sourceLine" id="cb303-14" data-line-number="14"><span class="dv">1</span> B         <span class="dv">2</span>     <span class="dv">2</span></a>
+<a class="sourceLine" id="cb303-15" data-line-number="15"><span class="dv">2</span> C         <span class="dv">4</span>    <span class="ot">NA</span></a>
+<a class="sourceLine" id="cb303-16" data-line-number="16"><span class="dv">3</span> D         <span class="dv">5</span>     <span class="dv">3</span></a></code></pre></div>
+<p>There is a similar construct called a right join that is equivalent to flipping the arguments in a left join. The row and column ordering may be different, but all of the same values will be there</p>
+<div class="sourceCode" id="cb304"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb304-1" data-line-number="1"><span class="kw">right_join</span>(t1, t2)</a>
+<a class="sourceLine" id="cb304-2" data-line-number="2">Joining, by =<span class="st"> &quot;x&quot;</span></a>
+<a class="sourceLine" id="cb304-3" data-line-number="3"><span class="co"># A tibble: 3 x 3</span></a>
+<a class="sourceLine" id="cb304-4" data-line-number="4">  x         y     z</a>
+<a class="sourceLine" id="cb304-5" data-line-number="5">  <span class="op">&lt;</span>chr<span class="op">&gt;</span><span class="st"> </span><span class="er">&lt;</span>dbl<span class="op">&gt;</span><span class="st"> </span><span class="er">&lt;</span>dbl<span class="op">&gt;</span></a>
+<a class="sourceLine" id="cb304-6" data-line-number="6"><span class="dv">1</span> B         <span class="dv">2</span>     <span class="dv">2</span></a>
+<a class="sourceLine" id="cb304-7" data-line-number="7"><span class="dv">2</span> D         <span class="dv">3</span>     <span class="dv">5</span></a>
+<a class="sourceLine" id="cb304-8" data-line-number="8"><span class="dv">3</span> C        <span class="ot">NA</span>     <span class="dv">4</span></a>
+<a class="sourceLine" id="cb304-9" data-line-number="9"><span class="kw">right_join</span>(t2, t1)</a>
+<a class="sourceLine" id="cb304-10" data-line-number="10">Joining, by =<span class="st"> &quot;x&quot;</span></a>
+<a class="sourceLine" id="cb304-11" data-line-number="11"><span class="co"># A tibble: 3 x 3</span></a>
+<a class="sourceLine" id="cb304-12" data-line-number="12">  x         z     y</a>
+<a class="sourceLine" id="cb304-13" data-line-number="13">  <span class="op">&lt;</span>chr<span class="op">&gt;</span><span class="st"> </span><span class="er">&lt;</span>dbl<span class="op">&gt;</span><span class="st"> </span><span class="er">&lt;</span>dbl<span class="op">&gt;</span></a>
+<a class="sourceLine" id="cb304-14" data-line-number="14"><span class="dv">1</span> B         <span class="dv">2</span>     <span class="dv">2</span></a>
+<a class="sourceLine" id="cb304-15" data-line-number="15"><span class="dv">2</span> D         <span class="dv">5</span>     <span class="dv">3</span></a>
+<a class="sourceLine" id="cb304-16" data-line-number="16"><span class="dv">3</span> A        <span class="ot">NA</span>     <span class="dv">1</span></a></code></pre></div>
+<p>An outer join keeps everything - all rows, all columns. In dplyr, it’s known as a <code>full_join</code>.</p>
+<div class="sourceCode" id="cb305"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb305-1" data-line-number="1"><span class="kw">full_join</span>(t1, t2)</a>
+<a class="sourceLine" id="cb305-2" data-line-number="2">Joining, by =<span class="st"> &quot;x&quot;</span></a>
+<a class="sourceLine" id="cb305-3" data-line-number="3"><span class="co"># A tibble: 4 x 3</span></a>
+<a class="sourceLine" id="cb305-4" data-line-number="4">  x         y     z</a>
+<a class="sourceLine" id="cb305-5" data-line-number="5">  <span class="op">&lt;</span>chr<span class="op">&gt;</span><span class="st"> </span><span class="er">&lt;</span>dbl<span class="op">&gt;</span><span class="st"> </span><span class="er">&lt;</span>dbl<span class="op">&gt;</span></a>
+<a class="sourceLine" id="cb305-6" data-line-number="6"><span class="dv">1</span> A         <span class="dv">1</span>    <span class="ot">NA</span></a>
+<a class="sourceLine" id="cb305-7" data-line-number="7"><span class="dv">2</span> B         <span class="dv">2</span>     <span class="dv">2</span></a>
+<a class="sourceLine" id="cb305-8" data-line-number="8"><span class="dv">3</span> D         <span class="dv">3</span>     <span class="dv">5</span></a>
+<a class="sourceLine" id="cb305-9" data-line-number="9"><span class="dv">4</span> C        <span class="ot">NA</span>     <span class="dv">4</span></a></code></pre></div>
+</details>
+<p>In SAS, you can do joins using a data step or PROC SQL. To do a join with data steps, you have to have your data sorted by columns that overlap. PROC SQL has no such requirement.</p>
+<p><a href="https://support.sas.com/resources/papers/proceedings/pdfs/sgf2008/178-2008.pdf">This guide shows the syntax for PROC SQL and DATA step joins side-by-side.</a></p>
+<details>
+<p><summary>PROC SQL Mutating joins</summary></p>
+<pre class="sashtml"><code>data t1;
+input x $ y;
+datalines;
+A 1
+B 2
+D 3
+;
+
+data t2;
+input x $ z;
+datalines;
+B 2
+C 4
+D 5
+;
+
+title &#39;Inner join&#39;;
+PROC SQL;
+SELECT * FROM t1 as p1
+INNER JOIN t2 as p2 
+ON p1.x = p2.x;
+
+title &#39;Left join&#39;;
+PROC SQL;
+SELECT * FROM t1 as p1
+LEFT JOIN t2 as p2 
+ON p1.x = p2.x;
+
+title &#39;Right join&#39;;
+PROC SQL;
+SELECT * FROM t1 as p1
+RIGHT JOIN t2 as p2 
+ON p1.x = p2.x;
+
+title &#39;Full Outer join&#39;;
+PROC SQL;
+SELECT * FROM t1 as p1
+FULL OUTER JOIN t2 as p2 
+ON p1.x = p2.x;
+
+/* Use coalesce to prevent column duplication */
+
+title &#39;Inner join&#39;;
+PROC SQL;
+SELECT COALESCE(p1.x, p2.x) AS x, y, z
+FROM t1 as p1 INNER JOIN  t2 as p2
+on p1.x = p2.x;
+
+title &#39;Left join&#39;;
+PROC SQL;
+SELECT COALESCE(p1.x, p2.x) AS x, y, z
+FROM t1 as p1 LEFT JOIN t2 as p2 
+ON p1.x = p2.x;
+
+title &#39;Right join&#39;;
+PROC SQL;
+SELECT COALESCE(p1.x, p2.x) AS x, y, z
+FROM t1 as p1 RIGHT JOIN t2 as p2 
+ON p1.x = p2.x;
+
+title &#39;Full Outer join&#39;;
+PROC SQL;
+SELECT COALESCE(p1.x, p2.x) AS x, y, z
+FROM t1 as p1 FULL OUTER JOIN t2 as p2 
+ON p1.x = p2.x;
+
+title;</code></pre>
+<div class="branch">
+<a name="IDX"></a>
+<table class="systitleandfootercontainer" width="100%" cellspacing="0" cellpadding="1" rules="none" frame="void" summary="Page Layout">
+<tr>
+<td class="c systemtitle">
+Inner join
+</td>
+</tr>
+</table>
+<br>
+<div>
+<div align="center">
+<!--BEGINTABLE-->
+<table class="table" cellspacing="0" cellpadding="7" rules="groups" frame="hsides" summary="Procedure SQL: Query Results">
+<colgroup>
+<col>
+<col>
+<col>
+<col>
+</colgroup>
+<thead>
+<tr>
+<th class="l b header" scope="col">
+x
+</th>
+<th class="r b header" scope="col">
+y
+</th>
+<th class="l b header" scope="col">
+x
+</th>
+<th class="r b header" scope="col">
+z
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="l data">
+B
+</td>
+<td class="r data">
+2
+</td>
+<td class="l data">
+B
+</td>
+<td class="r data">
+2
+</td>
+</tr>
+<tr>
+<td class="l data">
+D
+</td>
+<td class="r data">
+3
+</td>
+<td class="l data">
+D
+</td>
+<td class="r data">
+5
+</td>
+</tr>
+</tbody>
+</table>
+<!--ENDTABLE-->
+</div>
+</div>
+<br>
+</div>
+<div class="branch">
+<p style="page-break-after: always;">
+<br/>
+</p>
+<hr size="3"/>
+<a name="IDX1"></a>
+<table class="systitleandfootercontainer" width="100%" cellspacing="0" cellpadding="1" rules="none" frame="void" summary="Page Layout">
+<tr>
+<td class="c systemtitle">
+Left join
+</td>
+</tr>
+</table>
+<br>
+<div>
+<div align="center">
+<!--BEGINTABLE-->
+<table class="table" cellspacing="0" cellpadding="7" rules="groups" frame="hsides" summary="Procedure SQL: Query Results">
+<colgroup>
+<col>
+<col>
+<col>
+<col>
+</colgroup>
+<thead>
+<tr>
+<th class="l b header" scope="col">
+x
+</th>
+<th class="r b header" scope="col">
+y
+</th>
+<th class="l b header" scope="col">
+x
+</th>
+<th class="r b header" scope="col">
+z
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="l data">
+A
+</td>
+<td class="r data">
+1
+</td>
+<td class="l data">
+</td>
+<td class="r data">
+.
+</td>
+</tr>
+<tr>
+<td class="l data">
+B
+</td>
+<td class="r data">
+2
+</td>
+<td class="l data">
+B
+</td>
+<td class="r data">
+2
+</td>
+</tr>
+<tr>
+<td class="l data">
+D
+</td>
+<td class="r data">
+3
+</td>
+<td class="l data">
+D
+</td>
+<td class="r data">
+5
+</td>
+</tr>
+</tbody>
+</table>
+<!--ENDTABLE-->
+</div>
+</div>
+<br>
+</div>
+<div class="branch">
+<p style="page-break-after: always;">
+<br/>
+</p>
+<hr size="3"/>
+<a name="IDX2"></a>
+<table class="systitleandfootercontainer" width="100%" cellspacing="0" cellpadding="1" rules="none" frame="void" summary="Page Layout">
+<tr>
+<td class="c systemtitle">
+Right join
+</td>
+</tr>
+</table>
+<br>
+<div>
+<div align="center">
+<!--BEGINTABLE-->
+<table class="table" cellspacing="0" cellpadding="7" rules="groups" frame="hsides" summary="Procedure SQL: Query Results">
+<colgroup>
+<col>
+<col>
+<col>
+<col>
+</colgroup>
+<thead>
+<tr>
+<th class="l b header" scope="col">
+x
+</th>
+<th class="r b header" scope="col">
+y
+</th>
+<th class="l b header" scope="col">
+x
+</th>
+<th class="r b header" scope="col">
+z
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="l data">
+B
+</td>
+<td class="r data">
+2
+</td>
+<td class="l data">
+B
+</td>
+<td class="r data">
+2
+</td>
+</tr>
+<tr>
+<td class="l data">
+</td>
+<td class="r data">
+.
+</td>
+<td class="l data">
+C
+</td>
+<td class="r data">
+4
+</td>
+</tr>
+<tr>
+<td class="l data">
+D
+</td>
+<td class="r data">
+3
+</td>
+<td class="l data">
+D
+</td>
+<td class="r data">
+5
+</td>
+</tr>
+</tbody>
+</table>
+<!--ENDTABLE-->
+</div>
+</div>
+<br>
+</div>
+<div class="branch">
+<p style="page-break-after: always;">
+<br/>
+</p>
+<hr size="3"/>
+<a name="IDX3"></a>
+<table class="systitleandfootercontainer" width="100%" cellspacing="0" cellpadding="1" rules="none" frame="void" summary="Page Layout">
+<tr>
+<td class="c systemtitle">
+Full Outer join
+</td>
+</tr>
+</table>
+<br>
+<div>
+<div align="center">
+<!--BEGINTABLE-->
+<table class="table" cellspacing="0" cellpadding="7" rules="groups" frame="hsides" summary="Procedure SQL: Query Results">
+<colgroup>
+<col>
+<col>
+<col>
+<col>
+</colgroup>
+<thead>
+<tr>
+<th class="l b header" scope="col">
+x
+</th>
+<th class="r b header" scope="col">
+y
+</th>
+<th class="l b header" scope="col">
+x
+</th>
+<th class="r b header" scope="col">
+z
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="l data">
+A
+</td>
+<td class="r data">
+1
+</td>
+<td class="l data">
+</td>
+<td class="r data">
+.
+</td>
+</tr>
+<tr>
+<td class="l data">
+B
+</td>
+<td class="r data">
+2
+</td>
+<td class="l data">
+B
+</td>
+<td class="r data">
+2
+</td>
+</tr>
+<tr>
+<td class="l data">
+</td>
+<td class="r data">
+.
+</td>
+<td class="l data">
+C
+</td>
+<td class="r data">
+4
+</td>
+</tr>
+<tr>
+<td class="l data">
+D
+</td>
+<td class="r data">
+3
+</td>
+<td class="l data">
+D
+</td>
+<td class="r data">
+5
+</td>
+</tr>
+</tbody>
+</table>
+<!--ENDTABLE-->
+</div>
+</div>
+<br>
+</div>
+<div class="branch">
+<p style="page-break-after: always;">
+<br/>
+</p>
+<hr size="3"/>
+<a name="IDX4"></a>
+<table class="systitleandfootercontainer" width="100%" cellspacing="0" cellpadding="1" rules="none" frame="void" summary="Page Layout">
+<tr>
+<td class="c systemtitle">
+Inner join
+</td>
+</tr>
+</table>
+<br>
+<div>
+<div align="center">
+<!--BEGINTABLE-->
+<table class="table" cellspacing="0" cellpadding="7" rules="groups" frame="hsides" summary="Procedure SQL: Query Results">
+<colgroup>
+<col>
+<col>
+<col>
+</colgroup>
+<thead>
+<tr>
+<th class="l b header" scope="col">
+x
+</th>
+<th class="r b header" scope="col">
+y
+</th>
+<th class="r b header" scope="col">
+z
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="l data">
+B
+</td>
+<td class="r data">
+2
+</td>
+<td class="r data">
+2
+</td>
+</tr>
+<tr>
+<td class="l data">
+D
+</td>
+<td class="r data">
+3
+</td>
+<td class="r data">
+5
+</td>
+</tr>
+</tbody>
+</table>
+<!--ENDTABLE-->
+</div>
+</div>
+<br>
+</div>
+<div class="branch">
+<p style="page-break-after: always;">
+<br/>
+</p>
+<hr size="3"/>
+<a name="IDX5"></a>
+<table class="systitleandfootercontainer" width="100%" cellspacing="0" cellpadding="1" rules="none" frame="void" summary="Page Layout">
+<tr>
+<td class="c systemtitle">
+Left join
+</td>
+</tr>
+</table>
+<br>
+<div>
+<div align="center">
+<!--BEGINTABLE-->
+<table class="table" cellspacing="0" cellpadding="7" rules="groups" frame="hsides" summary="Procedure SQL: Query Results">
+<colgroup>
+<col>
+<col>
+<col>
+</colgroup>
+<thead>
+<tr>
+<th class="l b header" scope="col">
+x
+</th>
+<th class="r b header" scope="col">
+y
+</th>
+<th class="r b header" scope="col">
+z
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="l data">
+A
+</td>
+<td class="r data">
+1
+</td>
+<td class="r data">
+.
+</td>
+</tr>
+<tr>
+<td class="l data">
+B
+</td>
+<td class="r data">
+2
+</td>
+<td class="r data">
+2
+</td>
+</tr>
+<tr>
+<td class="l data">
+D
+</td>
+<td class="r data">
+3
+</td>
+<td class="r data">
+5
+</td>
+</tr>
+</tbody>
+</table>
+<!--ENDTABLE-->
+</div>
+</div>
+<br>
+</div>
+<div class="branch">
+<p style="page-break-after: always;">
+<br/>
+</p>
+<hr size="3"/>
+<a name="IDX6"></a>
+<table class="systitleandfootercontainer" width="100%" cellspacing="0" cellpadding="1" rules="none" frame="void" summary="Page Layout">
+<tr>
+<td class="c systemtitle">
+Right join
+</td>
+</tr>
+</table>
+<br>
+<div>
+<div align="center">
+<!--BEGINTABLE-->
+<table class="table" cellspacing="0" cellpadding="7" rules="groups" frame="hsides" summary="Procedure SQL: Query Results">
+<colgroup>
+<col>
+<col>
+<col>
+</colgroup>
+<thead>
+<tr>
+<th class="l b header" scope="col">
+x
+</th>
+<th class="r b header" scope="col">
+y
+</th>
+<th class="r b header" scope="col">
+z
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="l data">
+B
+</td>
+<td class="r data">
+2
+</td>
+<td class="r data">
+2
+</td>
+</tr>
+<tr>
+<td class="l data">
+C
+</td>
+<td class="r data">
+.
+</td>
+<td class="r data">
+4
+</td>
+</tr>
+<tr>
+<td class="l data">
+D
+</td>
+<td class="r data">
+3
+</td>
+<td class="r data">
+5
+</td>
+</tr>
+</tbody>
+</table>
+<!--ENDTABLE-->
+</div>
+</div>
+<br>
+</div>
+<div class="branch">
+<p style="page-break-after: always;">
+<br/>
+</p>
+<hr size="3"/>
+<a name="IDX7"></a>
+<table class="systitleandfootercontainer" width="100%" cellspacing="0" cellpadding="1" rules="none" frame="void" summary="Page Layout">
+<tr>
+<td class="c systemtitle">
+Full Outer join
+</td>
+</tr>
+</table>
+<br>
+<div>
+<div align="center">
+<!--BEGINTABLE-->
+<table class="table" cellspacing="0" cellpadding="7" rules="groups" frame="hsides" summary="Procedure SQL: Query Results">
+<colgroup>
+<col>
+<col>
+<col>
+</colgroup>
+<thead>
+<tr>
+<th class="l b header" scope="col">
+x
+</th>
+<th class="r b header" scope="col">
+y
+</th>
+<th class="r b header" scope="col">
+z
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="l data">
+A
+</td>
+<td class="r data">
+1
+</td>
+<td class="r data">
+.
+</td>
+</tr>
+<tr>
+<td class="l data">
+B
+</td>
+<td class="r data">
+2
+</td>
+<td class="r data">
+2
+</td>
+</tr>
+<tr>
+<td class="l data">
+C
+</td>
+<td class="r data">
+.
+</td>
+<td class="r data">
+4
+</td>
+</tr>
+<tr>
+<td class="l data">
+D
+</td>
+<td class="r data">
+3
+</td>
+<td class="r data">
+5
+</td>
+</tr>
+</tbody>
+</table>
+<!--ENDTABLE-->
+</div>
+</div>
+<br>
+</div>
+</details>
+<details>
+<p><summary>Data Step Mutating joins</summary></p>
+<pre class="sashtml"><code>data t1;
+input x $ y;
+datalines;
+A 1
+B 2
+D 3
+;
+
+data t2;
+input x $ z;
+datalines;
+B 2
+C 4
+D 5
+;
+
+DATA inner;
+MERGE t1 (IN = p1) t2 (IN = p2);
+BY x;
+IF p1 AND p2;
+RUN;
+
+PROC PRINT DATA=inner;RUN;
+
+DATA left;
+MERGE t1 (IN = p1) t2 (IN = p2);
+BY x;
+IF p1;
+RUN;
+
+PROC PRINT DATA=left;RUN;
+
+DATA right;
+MERGE t1 (IN = p1) t2 (IN = p2);
+BY x;
+IF p2;
+RUN;
+
+PROC PRINT DATA=right;RUN;
+
+DATA outer;
+MERGE t1 (IN = p1) t2 (IN = p2);
+BY x;
+RUN;
+
+PROC PRINT DATA=outer;RUN;</code></pre>
+<div class="branch">
+<a name="IDX"></a>
+<div>
+<div align="center">
+<!--BEGINTABLE-->
+<table class="table" cellspacing="0" cellpadding="7" rules="groups" frame="hsides" summary="Procedure Print: Data Set WORK.INNER">
+<colgroup>
+<col>
+</colgroup>
+<colgroup>
+<col>
+<col>
+<col>
+</colgroup>
+<thead>
+<tr>
+<th class="r header" scope="col">
+Obs
+</th>
+<th class="l header" scope="col">
+x
+</th>
+<th class="r header" scope="col">
+y
+</th>
+<th class="r header" scope="col">
+z
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th class="r rowheader" scope="row">
+1
+</th>
+<td class="l data">
+B
+</td>
+<td class="r data">
+2
+</td>
+<td class="r data">
+2
+</td>
+</tr>
+<tr>
+<th class="r rowheader" scope="row">
+2
+</th>
+<td class="l data">
+D
+</td>
+<td class="r data">
+3
+</td>
+<td class="r data">
+5
+</td>
+</tr>
+</tbody>
+</table>
+<!--ENDTABLE-->
+</div>
+</div>
+<br>
+</div>
+<div class="branch">
+<p style="page-break-after: always;">
+<br/>
+</p>
+<hr size="3"/>
+<a name="IDX1"></a>
+<div>
+<div align="center">
+<!--BEGINTABLE-->
+<table class="table" cellspacing="0" cellpadding="7" rules="groups" frame="hsides" summary="Procedure Print: Data Set WORK.LEFT">
+<colgroup>
+<col>
+</colgroup>
+<colgroup>
+<col>
+<col>
+<col>
+</colgroup>
+<thead>
+<tr>
+<th class="r header" scope="col">
+Obs
+</th>
+<th class="l header" scope="col">
+x
+</th>
+<th class="r header" scope="col">
+y
+</th>
+<th class="r header" scope="col">
+z
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th class="r rowheader" scope="row">
+1
+</th>
+<td class="l data">
+A
+</td>
+<td class="r data">
+1
+</td>
+<td class="r data">
+.
+</td>
+</tr>
+<tr>
+<th class="r rowheader" scope="row">
+2
+</th>
+<td class="l data">
+B
+</td>
+<td class="r data">
+2
+</td>
+<td class="r data">
+2
+</td>
+</tr>
+<tr>
+<th class="r rowheader" scope="row">
+3
+</th>
+<td class="l data">
+D
+</td>
+<td class="r data">
+3
+</td>
+<td class="r data">
+5
+</td>
+</tr>
+</tbody>
+</table>
+<!--ENDTABLE-->
+</div>
+</div>
+<br>
+</div>
+<div class="branch">
+<p style="page-break-after: always;">
+<br/>
+</p>
+<hr size="3"/>
+<a name="IDX2"></a>
+<div>
+<div align="center">
+<!--BEGINTABLE-->
+<table class="table" cellspacing="0" cellpadding="7" rules="groups" frame="hsides" summary="Procedure Print: Data Set WORK.RIGHT">
+<colgroup>
+<col>
+</colgroup>
+<colgroup>
+<col>
+<col>
+<col>
+</colgroup>
+<thead>
+<tr>
+<th class="r header" scope="col">
+Obs
+</th>
+<th class="l header" scope="col">
+x
+</th>
+<th class="r header" scope="col">
+y
+</th>
+<th class="r header" scope="col">
+z
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th class="r rowheader" scope="row">
+1
+</th>
+<td class="l data">
+B
+</td>
+<td class="r data">
+2
+</td>
+<td class="r data">
+2
+</td>
+</tr>
+<tr>
+<th class="r rowheader" scope="row">
+2
+</th>
+<td class="l data">
+C
+</td>
+<td class="r data">
+.
+</td>
+<td class="r data">
+4
+</td>
+</tr>
+<tr>
+<th class="r rowheader" scope="row">
+3
+</th>
+<td class="l data">
+D
+</td>
+<td class="r data">
+3
+</td>
+<td class="r data">
+5
+</td>
+</tr>
+</tbody>
+</table>
+<!--ENDTABLE-->
+</div>
+</div>
+<br>
+</div>
+<div class="branch">
+<p style="page-break-after: always;">
+<br/>
+</p>
+<hr size="3"/>
+<a name="IDX3"></a>
+<div>
+<div align="center">
+<!--BEGINTABLE-->
+<table class="table" cellspacing="0" cellpadding="7" rules="groups" frame="hsides" summary="Procedure Print: Data Set WORK.OUTER">
+<colgroup>
+<col>
+</colgroup>
+<colgroup>
+<col>
+<col>
+<col>
+</colgroup>
+<thead>
+<tr>
+<th class="r header" scope="col">
+Obs
+</th>
+<th class="l header" scope="col">
+x
+</th>
+<th class="r header" scope="col">
+y
+</th>
+<th class="r header" scope="col">
+z
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th class="r rowheader" scope="row">
+1
+</th>
+<td class="l data">
+A
+</td>
+<td class="r data">
+1
+</td>
+<td class="r data">
+.
+</td>
+</tr>
+<tr>
+<th class="r rowheader" scope="row">
+2
+</th>
+<td class="l data">
+B
+</td>
+<td class="r data">
+2
+</td>
+<td class="r data">
+2
+</td>
+</tr>
+<tr>
+<th class="r rowheader" scope="row">
+3
+</th>
+<td class="l data">
+C
+</td>
+<td class="r data">
+.
+</td>
+<td class="r data">
+4
+</td>
+</tr>
+<tr>
+<th class="r rowheader" scope="row">
+4
+</th>
+<td class="l data">
+D
+</td>
+<td class="r data">
+3
+</td>
+<td class="r data">
+5
+</td>
+</tr>
+</tbody>
+</table>
+<!--ENDTABLE-->
+</div>
+</div>
+<br>
+</div>
+</details>
+<p>As before, these functions may become a bit more interesting once we try them out on real-world data. Using the flights data, let’s determine whether there’s a relationship between the age of a plane and its delays.</p>
+<details>
+<p><summary>In R</summary></p>
+<div class="sourceCode" id="cb308"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb308-1" data-line-number="1"><span class="kw">library</span>(nycflights13)</a>
+<a class="sourceLine" id="cb308-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb308-3" data-line-number="3">plane_age &lt;-<span class="st"> </span>planes <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb308-4" data-line-number="4"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">age =</span> <span class="dv">2013</span> <span class="op">-</span><span class="st"> </span>year) <span class="op">%&gt;%</span><span class="st"> </span><span class="co"># This gets us away from having to deal with 2 different year columns</span></a>
+<a class="sourceLine" id="cb308-5" data-line-number="5"><span class="st">  </span><span class="kw">select</span>(tailnum, age, manufacturer)</a>
+<a class="sourceLine" id="cb308-6" data-line-number="6"></a>
+<a class="sourceLine" id="cb308-7" data-line-number="7">delays_by_plane &lt;-<span class="st"> </span>flights <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb308-8" data-line-number="8"><span class="st">  </span><span class="kw">select</span>(dep_delay, arr_delay, carrier, flight, tailnum)</a>
+<a class="sourceLine" id="cb308-9" data-line-number="9"></a>
+<a class="sourceLine" id="cb308-10" data-line-number="10"><span class="co"># We only need to keep delays that have a plane age, so use inner join</span></a>
+<a class="sourceLine" id="cb308-11" data-line-number="11">res &lt;-<span class="st"> </span><span class="kw">inner_join</span>(delays_by_plane, plane_age, <span class="dt">by =</span> <span class="st">&quot;tailnum&quot;</span>)</a>
+<a class="sourceLine" id="cb308-12" data-line-number="12"></a>
+<a class="sourceLine" id="cb308-13" data-line-number="13"><span class="kw">ggplot</span>(res, <span class="kw">aes</span>(<span class="dt">x =</span> age, <span class="dt">y =</span> dep_delay, <span class="dt">group =</span> <span class="kw">cut_width</span>(age, <span class="dv">1</span>, <span class="dt">center =</span> <span class="dv">0</span>))) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb308-14" data-line-number="14"><span class="st">  </span><span class="kw">geom_boxplot</span>() <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb308-15" data-line-number="15"><span class="st">  </span><span class="kw">ylab</span>(<span class="st">&quot;Departure Delay (min)&quot;</span>) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb308-16" data-line-number="16"><span class="st">  </span><span class="kw">xlab</span>(<span class="st">&quot;Plane age&quot;</span>) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb308-17" data-line-number="17"><span class="st">  </span><span class="kw">coord_cartesian</span>(<span class="dt">ylim =</span> <span class="kw">c</span>(<span class="op">-</span><span class="dv">20</span>, <span class="dv">50</span>))</a>
+<a class="sourceLine" id="cb308-18" data-line-number="18">Warning<span class="op">:</span><span class="st"> </span>Removed <span class="dv">5306</span> rows containing missing <span class="kw">values</span> (stat_boxplot).</a>
+<a class="sourceLine" id="cb308-19" data-line-number="19">Warning<span class="op">:</span><span class="st"> </span>Removed <span class="dv">4068</span> rows containing non<span class="op">-</span>finite <span class="kw">values</span> (stat_boxplot).</a></code></pre></div>
+<p><img src="unl-stat850_files/figure-html/flights-delay-age-R-1.png" width="45%" /></p>
+<div class="sourceCode" id="cb309"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb309-1" data-line-number="1"></a>
+<a class="sourceLine" id="cb309-2" data-line-number="2"><span class="kw">ggplot</span>(res, <span class="kw">aes</span>(<span class="dt">x =</span> age, <span class="dt">y =</span> arr_delay, <span class="dt">group =</span> <span class="kw">cut_width</span>(age, <span class="dv">1</span>, <span class="dt">center =</span> <span class="dv">0</span>))) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb309-3" data-line-number="3"><span class="st">  </span><span class="kw">geom_boxplot</span>() <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb309-4" data-line-number="4"><span class="st">  </span><span class="kw">ylab</span>(<span class="st">&quot;Arrival Delay (min)&quot;</span>) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb309-5" data-line-number="5"><span class="st">  </span><span class="kw">xlab</span>(<span class="st">&quot;Plane age&quot;</span>) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb309-6" data-line-number="6"><span class="st">  </span><span class="kw">coord_cartesian</span>(<span class="dt">ylim =</span> <span class="kw">c</span>(<span class="op">-</span><span class="dv">30</span>, <span class="dv">60</span>))</a>
+<a class="sourceLine" id="cb309-7" data-line-number="7">Warning<span class="op">:</span><span class="st"> </span>Removed <span class="dv">5306</span> rows containing missing <span class="kw">values</span> (stat_boxplot).</a>
+<a class="sourceLine" id="cb309-8" data-line-number="8">Warning<span class="op">:</span><span class="st"> </span>Removed <span class="dv">5011</span> rows containing non<span class="op">-</span>finite <span class="kw">values</span> (stat_boxplot).</a></code></pre></div>
+<img src="unl-stat850_files/figure-html/flights-delay-age-R-2.png" width="45%" />
+It doesn’t look like there’s much of a relationship to me. If anything, older planes are more likely to be early, but I suspect there aren’t enough of them to make that conclusion (3.54% are over 25 years old, and 0.28% are over 40 years old).
+</details>
+<details>
+<p><summary>In SAS</summary></p>
+<pre class="sashtml"><code>libname nycair odbc complete = &quot;dsn=nycflight; Database=~/Projects/Class/unl-stat850/2020-stat850/data/nycflights13.sqlite&quot;;
+
+PROC SQL;
+CREATE TABLE tmp1 AS 
+SELECT 2013 - year AS age, tailnum FROM nycair.planes
+WHERE ^missing(year);
+
+CREATE TABLE tmp2 AS 
+SELECT tailnum, dep_delay, arr_delay, air_time, distance, hour, carrier, origin
+FROM nycair.flights;</code></pre>
+<p>Now that the prep work is done, we can get on with answering the question.</p>
+<pre class="sashtml"><code>
+PROC SQL;
+CREATE TABLE agedelay AS
+SELECT COALESCE(p1.tailnum, p2.tailnum) AS tailnum, 
+        age, dep_delay, arr_delay, air_time, distance, hour, carrier, origin
+FROM tmp1 as p1 INNER JOIN tmp2 as p2 
+ON p1.tailnum = p2.tailnum
+WHERE age &lt; 25 /* only work with areas where there&#39;s enough data */
+ORDER BY age;
+
+PROC MEANS DATA = agedelay NOPRINT;
+BY age;
+VAR dep_delay arr_delay;
+OUTPUT OUT = agemeans;
+RUN;
+
+PROC TRANSPOSE DATA = agemeans(where = (_STAT_=&quot;MEAN&quot;)) 
+  OUT = agemeanst(drop= _Label_) 
+  name=VAR;
+BY age _FREQ_; /* Just to keep _FREQ_ around */
+VAR dep_delay arr_delay;
+ID _STAT_;
+RUN;</code></pre>
+<p>In theory, we could use some sort of linear model, but lets start with a simple plot of age * average delay and see where that takes us.</p>
+<pre class="sashtml"><code>PROC SGPANEL DATA = agemeanst;
+PANELBY VAR;
+SCATTER X = age Y = MEAN;
+RUN;</code></pre>
+<div class="branch">
+<a name="IDX"></a>
+<div>
+<div class="c">
+<p><img alt="The SGPanel Procedure" src="flights-delay-age-sas-plot1.png" style=" height: 480px; width: 640px;" border="0" class="c"></p>
+</div>
+</div>
+<p><br></p>
+</div>
+<p>I started wondering about that pattern - to me, it doesn’t look like there’s any particular trend so much as there’s just low - high - low clusters. So I decided to plot frequency as well, and, lo and behold, the frequency count is similarly distributed. So my current working hypothesis is that there are a lot more observations in the middle group of planes that are 5-15 years old.</p>
+<pre class="sashtml"><code>
+PROC SGPLOT DATA = agemeanst;
+SCATTER X = age Y = _FREQ_;
+RUN;</code></pre>
+<div class="branch">
+<a name="IDX"></a>
+<div>
+<div class="c">
+<p><img alt="The SGPlot Procedure" src="flights-delay-age-sas-plot2.png" style=" height: 480px; width: 640px;" border="0" class="c"></p>
+</div>
+</div>
+<p><br></p>
+</div>
+It’s also entirely possible that planes between 5-15 years of age have more mechanical issues, but I suspect most delays are due to airport, weather, etc. rather than mechanical malfunctions.
+</details>
+</div>
 </div>
 <div id="references-2" class="section level2 unnumbered learn-more">
 <h2>References</h2>
 <p>String manipulation</p>
 <ul>
-<li><a href="https://r4ds.had.co.nz/strings.html">R4DS chapter</a></li>
+<li><a href="https://r4ds.had.co.nz/strings.html">R4DS chapter - strings</a></li>
 <li><a href="https://support.sas.com/resources/papers/proceedings/proceedings/sugi29/265-29.pdf">SAS and Perl regular expressions</a></li>
 <li><a href="https://regex101.com/">PCRE tester</a></li>
 <li><a href="https://spannbaueradam.shinyapps.io/r_regex_tester/">R regex tester</a> - has a short timeout period and will disconnect you if you’re idle too long. But you can also clone the repo <a href="https://github.com/AdamSpannbauer/r_regex_tester_app">here</a> and run it locally.</li>
 <li><a href="https://documentation.sas.com/?docsetId=ds2ref&amp;docsetTarget=p13adatt2vvhcxn1ext6w6eet24p.htm&amp;docsetVersion=9.4&amp;locale=en#p1ub8nub953289n1dpsvh7gm88qs">SAS scan statement</a></li>
 </ul>
-<p>Other stuff
-- <a href="https://documentation.sas.com/?docsetId=lestmtsref&amp;docsetTarget=n0x16kvqkxxdx5n1t04voifvo8wo.htm&amp;docsetVersion=9.4&amp;locale=en">SAS rename statement</a></p>
+<p>Tidy data tutorials/references</p>
+<ul>
+<li><a href="https://psyteachr.github.io/msc-data-skills/tidyr.html">Tidy Data - Data Skills for Reproducible Science</a></li>
+<li><a href="http://cinsug.org/uploads/3/6/2/9/36298586/horstman_five_ways_to_flip_flop_your_data_paper.pdf">Five Ways to Flip-Flop Your Data</a></li>
+<li><a href="https://documentation.sas.com/?docsetId=proc&amp;docsetVersion=9.4&amp;docsetTarget=n1xno5xgs39b70n0zydov0owajj8.htm&amp;locale=en">PROC TRANSPOSE reference</a></li>
+<li><a href="https://tidyr.tidyverse.org/">tidyr reference</a></li>
+</ul>
+<p>Relational Data &amp; Joins:</p>
+<ul>
+<li><a href="https://r4ds.had.co.nz/relational-data.html">R4DS chapter - Relational data</a></li>
+<li><a href="https://documentation.sas.com/?docsetId=lestmtsref&amp;docsetTarget=n1i8w2bwu1fn5kn1gpxj18xttbb0.htm&amp;docsetVersion=9.4&amp;locale=en">Merge statement in SAS</a></li>
+</ul>
+<p>Other references</p>
+<ul>
+<li><a href="https://documentation.sas.com/?docsetId=lestmtsref&amp;docsetTarget=n0x16kvqkxxdx5n1t04voifvo8wo.htm&amp;docsetVersion=9.4&amp;locale=en">SAS rename statement</a></li>
+<li><a href="https://www.pharmasug.org/proceedings/2016/DG/PharmaSUG-2016-DG04.pdf">SAS graph customization</a></li>
+<li><a href="https://documentation.sas.com/?docsetId=grstatproc&amp;docsetTarget=n0yjdd910dh59zn1toodgupaj4v9.htm&amp;docsetVersion=9.4&amp;locale=en">SAS SGPLOT procedure</a></li>
+<li><a href="https://psyteachr.github.io/msc-data-skills/ggplot.html">Data Visualization with ggplot</a></li>
+<li><a href="https://www.r-graph-gallery.com/">R graph gallery</a></li>
+</ul>
 
 </div>
+</div>
+<div class="footnotes">
+<hr />
+<ol start="20">
+<li id="fn20"><p>Incidentally, dbplyr is basically dplyr for databases, and is worth checking out, even if we aren’t covering it in this class.<a href="transforming-data.html#fnref20" class="footnote-back">↩</a></p></li>
+</ol>
 </div>
             </section>
 
