@@ -533,8 +533,6 @@ larger <- function(x, y) {
 
 ## Debugging Tools in SAS
 
-### Background
-
 In SAS, there are two stages that occur after you submit lines to the console. 
 - The Compilation Phase: code is parsed. In this step, SAS will catch the logic errors, misspellings, missing key words, etc.
 - The Execution Phase: program is run. In this step, SAS will catch any wrong assignments, loop issues, etc.
@@ -546,11 +544,24 @@ Sas recognizes four types of errors:
 - Data errors - errors that occur when statements are correct but data is invalid (taking the log of a negative number, etc.)
 
 
+SAS is built around enterprise users, as opposed to R's open-source philosophy. SAS code also is more formulaic than R code, which means it is usually easier to figure out what is going wrong with the code. As a result, you may find that errors in your SAS code are much easier to diagnose than errors in your R code. Generally, it will tell you exactly where you are missing a semicolon, or exactly what word it thinks you've misspelled (and usually, it tries to correct that for you, but it doesn't always succeed). In my experience with SAS (which is very limited and mostly contained in this book), SAS error messages are much easier to google and find solutions, right up until you're working in Linux or some other not-well-supported system and the error is related to how the underlying OS handles some task. As a downside, though, trying to do a task SAS doesn't think you need to do can be much more difficult than necessary. 
+
+See the references section for a couple of good guides to SAS error statements and warnings. These guides are likely sufficient for most of your SAS debugging needs. 
+
+There are certainly other errors which can occur in SAS -- logic errors are not something SAS can protect you from . These errors can have dramatic consequences, as demonstrated in [this twitter thread](https://twitter.com/eric_weinhandl/status/1253127109830156289) about a [JAMA retraction due to a coding error](https://twitter.com/hswapnil/status/1252783448055517185). To debug these types of errors, you can use the same print() techniques demonstrated in R. For these types of errors, there's nothing special about what language you're using (outside of the usual quirks of every language) - the error is in the logic, not the encoding of that logic. 
 
 ## Minimal Working Examples
 
-## Researching Error Messages
+If all else has failed, and you can't figure out what is causing your error, it's probably time to ask for help. If you have a friend or buddy that knows the language you're working in, by all means ask for help sooner - use them as a rubber duck if you have to. But when you ask for help online, often you're asking people who are much more knowledgeable about the topic - members of R core and SAS browse stackoverflow and may drop in and help you out. Under those circumstances, it's better to make the task of helping you as easy as possible because it shows respect for their time. The same thing goes for your supervisors and professors. 
 
+So, with that said, there are numerous resources for writing what's called a "minimal working example", "reproducible example" (commonly abbreviated reprex), or MCVE (minimal complete verifiable example). Much of this is lifted directly from the StackOverflow post describing a [minimal reproducible example](https://stackoverflow.com/help/minimal-reproducible-example).
+
+The goal is to reproduce the error message with information that is 
+- **minimal** - as little code as possible to still reproduce the problem
+- **complete** - everything necessary to reproduce the issue is contained in the description/question
+- **reproducible** - test the code you provide to reproduce the problem. 
+
+You should format your question to make it as easy as possible to help you. Make it so that code can be copied from your post directly and pasted into a terminal. Describe what you see and what you'd hope to see if the code were working. 
 
 ## References {- .learn-more}
 
@@ -567,3 +578,8 @@ Sas recognizes four types of errors:
 - [WTF R - What They Forgot to Teach You about R Debugging chapter](https://rstats.wtf/debugging-r-code.html)
 
 - [Debugging 101 in SAS](https://support.sas.com/resources/papers/proceedings16/2748-2016.pdf)
+
+- [Debugging SAS Programs - Ch. 1: The Basics of Debugging](https://support.sas.com/publishing/pubcat/chaps/57743.pdf)
+
+- [A webinar by Jenny Bryan/RStudio on Reproducible Examples](https://rstudio.com/resources/webinars/help-me-help-you-creating-reproducible-examples/)
+
