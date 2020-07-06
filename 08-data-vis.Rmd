@@ -10,6 +10,49 @@
 - Use the grammar of graphics to create layered graphics and highlight different features of a data set
 - Modify or construct alternate charts showing the same material with better readability and accessibility
 
+This is going to be a fairly extensive chapter (in terms of content) because I want you to have a resource to access later, if you need it. But, this is also the chapter where we really start to focus on R instead of SAS. Even the hardcore SAS users I know (in this department and others) go into R when they want to make a publication-quality chart. 
+
+Visualization and statistical graphics are also my research area, so I'm probably going to be a bit more passionate about this chapter, which means there's probably going to be more to read. Sorry about that in advance. I'll do my best to indicate which content is actually mission-critical and which content you can skip if you're not that interested.
+
+## Why do we create graphics?
+
+> The greatest possibilities of visual display lie in vividness and inescapability of the intended message. A visual display can stop your mental flow in its tracks and make you think. A visual display can force you to notice what you never expected to see. ("Why, that scatter diagram has a hole in the middle!") -- John Tukey, [Data Based Graphics: Visual Display in the Decades to Come](https://projecteuclid.org/euclid.ss/1177012101)
+
+<details><summary>Charts are easier to understand than raw data. (more details inside) </summary>
+When you think about it, data is a pretty artificial thing. We exist in a world of tangible objects, but data are an abstraction - even when the data record information about the tangible world, the measurements are a way of removing the physical and transforming the "real world" into a virtual thing. As an artificial entity, it can be hard to wrap our heads around what our data contain. The solution to this is to transform our data back into something that is "tangible" in some way -- if not physical and literally touch-able, at least something we can view and "wrap our heads around". 
+
+Consider this thought experiment: You have a simple dataset - 2 variables, 500 observations. You want to get a sense of how the variables relate to each other. You can do one of the following options:
+
+1. Print out the dataset
+2. Create some summary statistics of each variable and perhaps the covariance between the two variables
+3. Draw a scatterplot of the two variables
+
+Which one would you rather use? Why?
+
+Our brains are very good at processing large amounts of visual information quickly - it's important to be able to e.g. survey a field and pick out the tiger that might eat you. When we present information visually, in a format that can leverage our visual processing abilities, we offload some of the work of understanding the data to a chart that organizes it for us. You could argue that printing out the data is a visual presentation, but it requires that you read that data in as text, which we're not nearly as equipped to process quickly (and in parallel). 
+
+In addition, I've found that it's a lot easier to talk to non-experts about complicated statistics using visualizations. Moving the discussion from abstract concepts to concrete shapes and lines keeps people who are potentially already math or stat phobic from completely panicking and tuning out.
+</details>
+
+## General approaches to creating graphics
+
+There are two general approaches to generating statistical graphics computationally: 
+
+1. Manually specify the plot that you want, doing the preprocessing and summarizing before you create the plot.    
+This is the approach taken by base R and the original SAS Graphics Engine
+
+2. Describe the relationship between the plot and the data, using sensible defaults that can be customized for common operations.    
+This is the approach taken by `ggplot2` and (sort-of, partially, kinda) the SAS ODS Graphics Engine^[I'll fully admit my bias here - I think ODS graphics are better than the default SAS graphics, but still *really* ugly, and something of a pain in the rear to actually use. But, if you prefer SAS Graphics, you do you. Better you than me, is all I'm saying.]
+
+Let's see how this looks with an example. Suppose we want to create a pie chart (trust me, we don't - [pie charts are terrible, and we've known it for 100 years](http://www.jstor.org/stable/2276829)). 
+<details><summary>R example</summary>
+```{r}
+poke <- read_csv("data/pokemon_ascii.csv")
+
+```
+</details>
+
+
 ## Creating Charts in SAS
 
 ## Creating Charts in R (base)
