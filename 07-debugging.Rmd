@@ -1,3 +1,7 @@
+```{r, include = F}
+.reset()
+```
+
 # Principles of Debugging {#debugging}
 
 ## Module Objectives {-}
@@ -397,7 +401,7 @@ I start with
 library(png)
 library(xml2)
 
-# get the most current xkcd or the specified number
+# get the most current xkcd
 get_xkcd <- function(id = NULL) {
   url <- "http://xkcd.com"
   page <- read_html(url)
@@ -419,7 +423,7 @@ library(png)
 library(xml2)
 library(tidyverse)
 
-# get the most current xkcd or the specified number
+# get the most current xkcd
 get_xkcd <- function(id = NULL) {
   
   url <- "http://xkcd.com"
@@ -445,6 +449,50 @@ get_xkcd() %>%
 ```
 </details>
 
+#### Try it out {- .tryitout}
+Each xkcd has a corresponding ID number (ordered sequentially from 1 to 2328 at the time this was written). Modify the XKCD function above to make use of the id parameter, so that you can pass in an ID number and get the relevant comic. Use browser() to help you figure out what logic you need to add. You should not need to change the web scraping code - the only change should be to the URL. 
+What things might you add to make this function "defensive programming" compatible? 
+
+<details><summary>Solution</summary>
+```{r}
+# get the most current xkcd or the specified number
+get_xkcd <- function(id = NULL) {
+  if (is.null(id)) {
+    # Have to get the location of the image ourselves
+    url <- "http://xkcd.com"
+  } else if (is.numeric(id)) {
+    url <- paste0("http://xkcd.com/", id, "/")
+  } else {
+    # only allow numeric or null input
+    stop("To get current xkcd, pass in NULL, otherwise, pass in a valid comic number")
+  }
+
+  page <- read_html(url)
+  # Find the comic
+  image <- xml_find_first(page, "//div[@id='comic']/img") %>%
+    # pull the address out of the tag
+    xml_attr("src")
+  # Fix image address so that we can access the image
+  image <- substr(image, 3, nchar(image)) # cut the first 2 characters off
+
+  # make temp file
+  location <- tempfile(fileext = "png")
+  download.file(image, destfile = location, quiet = T)
+
+  # This checks to make sure we saved the file correctly
+  if (file.exists(location)) {
+    readPNG(source = location)
+  } else {
+    # Give a good informative error message
+    stop(paste("Something went wrong saving the image at ", image, " to ", location))
+  }
+}
+
+get_xkcd(2259) %>%
+  as.raster() %>% 
+  plot()
+```
+</details>
 
 ### `debug()` - the general debugging workhorse
 
