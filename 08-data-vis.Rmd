@@ -10,6 +10,12 @@
 - Use the grammar of graphics to create layered graphics and highlight different features of a data set
 - Modify or construct alternate charts showing the same material with better readability and accessibility
 
+
+There are a lot of different types of charts.
+![](https://imgs.xkcd.com/comics/alignment_chart_alignment_chart.png)
+
+Hopefully by the end of this, you will be able to at least make the charts which are most commonly used to show data and statistical concepts. 
+
 This is going to be a fairly extensive chapter (in terms of content) because I want you to have a resource to access later, if you need it. But, this is also the chapter where we really start to focus on R instead of SAS. Even the hardcore SAS users I know (in this department and others) go into R when they want to make a publication-quality chart. 
 
 Visualization and statistical graphics are also my research area, so I'm probably going to be a bit more passionate about this chapter, which means there's probably going to be more to read. Sorry about that in advance. I'll do my best to indicate which content is actually mission-critical and which content you can skip if you're not that interested.
@@ -44,14 +50,127 @@ This is the approach taken by base R and the original SAS Graphics Engine
 2. Describe the relationship between the plot and the data, using sensible defaults that can be customized for common operations.    
 This is the approach taken by `ggplot2` and (sort-of, partially, kinda) the SAS ODS Graphics Engine^[I'll fully admit my bias here - I think ODS graphics are better than the default SAS graphics, but still *really* ugly, and something of a pain in the rear to actually use. But, if you prefer SAS Graphics, you do you. Better you than me, is all I'm saying.]
 
-Let's see how this looks with an example. Suppose we want to create a pie chart (trust me, we don't - [pie charts are terrible, and we've known it for 100 years](http://www.jstor.org/stable/2276829)). 
+In either case, you're going to learn how to make graphics by finding sample code, changing that code to match your dataset, and tweaking things as you go. That's the best way to learn this, and while option 2 does have a structure and some syntax to learn, once you're familiar with the principles, you'll still want to learn graphics by doing it. 
+
+Let's see how this looks with an example. Suppose we want to create a pie chart (trust me, we don't - [pie charts are terrible, and we've known it for 100 years](http://www.jstor.org/stable/2276829)) for the same data. 
 <details><summary>R example</summary>
+```{r, message = F}
+# Setup the data
+library(tidyverse)
+poke <- read_csv("data/pokemon_ascii.csv", na = '.') %>%
+  mutate(generation = factor(generation))
+```
+
+Let's start with what we want: for each generation, we want the total number of pokemon. 
+
+To get a pie chart, we want that information mapped to a circle, with each generation represented by an angle whose size is proportional to the number of pokemon in that generation.
+
+Option 1: Precompute things ourselves
+
 ```{r}
-poke <- read_csv("data/pokemon_ascii.csv")
+# Create summary of pokemon by type
+poke %>%
+  group_by(generation) %>%
+  count() %>%
+  # with(., <base command>) lets you use the pipe easily with a base R command
+  # that is otherwise not pipe friendly
+  with(., pie(n, labels = generation, main = "Generations of Pokemon"))
 
 ```
+
+We could alternately make a bar chart and stack the bars on top of each other. This also shows proportion (section vs. total) but does so in a linear fashion.
+
+```{r}
+# Create summary of pokemon by type
+tmp <- poke %>%
+  group_by(generation) %>%
+  count() 
+
+# Matrix is necessary for a stacked bar chart
+matrix(tmp$n, nrow = 8, ncol = 1, dimnames = list(tmp$generation)) %>%
+barplot(beside = F, legend.text = T, main = "Generations of Pokemon")
+```
+
+Option 2: Describe the relationship between the data and the plotted objects.
+
+This method is going to take a bit of explaining, but it is extremely powerful. We start by specifying which variables we want to be mapped to which features of the data. In a pie chart, we don't care about the x coordinate - the whole chart is centered at (0,0). So we just pass in something. We care about the fill of the slices, though - we want each generation to have a different fill color. 
+
+Then, we want to summarize our data by the number of objects in each category - this is basically a stacked bar chart. Any variables specified in the plot statement are used to implicitly calculate the statistical summary we want -- that is, to count the rows. 
+```{r}
+ggplot(aes(x = "", fill = generation), data = poke) + 
+  geom_bar(position = "stack") 
+```
+
+But we didn't want a stacked bar chart, we wanted a pie chart. So we transform the coordinate plane from cartesian coordinates to polar coordinates. We specify that we want angle to correspond to the "y" coordinate, and that we want to start at $\theta = 0$. 
+
+```{r, message = F}
+
+ggplot(aes(x = "", fill = generation), data = poke) + 
+  geom_bar(position = "stack") + 
+  coord_polar("y", start = 0)
+```
+
+Notice how the syntax and arguments to the functions didn't change much between the bar chart and the pie chart? That's because the `ggplot` package uses what's called the **grammar of graphics**, which is a way to describe plots based on the underlying mathematical relationships between data and plotted objects. It's much more structured and formal than the equivalent SAS graphics command. 
 </details>
 
+<details><summary>SAS Example</summary>
+Original SAS graphics engine
+```{sashtml gchart-pie, collectcode = T}
+libname classdat "/home/susan/Projects/Class/unl-stat850/2020-stat850/sas/";
+
+/* This step creates a constant variable in the data frame, 
+so that all generations can be stacked in one bar */
+
+DATA poketmp;
+SET classdat.poke;
+i = 1;
+RUN;
+
+PROC GCHART data=poketmp;
+pie generation / other = 0;
+RUN;
+  
+PROC GCHART data=poketmp;
+VBAR i / SUBGROUP = generation;
+RUN;
+
+QUIT; 
+/* Note that if you forget the quit statement using SASMarkdown, things dont work well */
+```
+
+ODS Graphics    
+Note: This is a terrible example in SAS because there isn't an easy way to create a pie chart^[It's not often you'll find me approving of SAS graphics, but this is definitely a point in SAS's favor]. We have to resort to using SAS Graph Template Language. 
+
+```{sashtml ods-pie, error = T, collectcode = T}
+/* Define a pie chart template */
+ODS GRAPHICS ON;
+PROC TEMPLATE;
+DEFINE STATGRAPH simplepie;
+  BEGINGRAPH;
+    LAYOUT REGION;
+      PIECHART category=generation;
+    ENDLAYOUT;
+  ENDGRAPH;
+END;
+RUN;
+
+/* Make the pie chart */ 
+PROC SGRENDER data=classdat.poke 
+              template=simplepie;
+RUN;
+
+/* Use SGPLOT to make a stacked bar chart */
+PROC SGPLOT data=poketmp;
+VBAR i / GROUP = generation;
+RUN;
+              
+ODS GRAPHICS OFF;
+```
+
+The syntax of SAS ODS Graphics is supposed to incorporate some principles of the grammar of graphics (option 2), but in my opinion it doesn't quite get there. But, I learned ggplot2 first, and had little exposure to SAS graphics until I started preparing this course. 
+</details>
+
+We'll talk first about the general idea behind the grammar of graphics, and then we will look specifically at code. For relatively simple plots, I will try to provide examples of both styles of graphics in each program, but for more complicated plots, I will default to showing you how to do it in ggplot2. 
 
 ## Creating Charts in SAS
 
@@ -59,8 +178,6 @@ poke <- read_csv("data/pokemon_ascii.csv")
 
 ## The Grammar of Graphics
 
-There are a lot of different types of charts.
-![](https://imgs.xkcd.com/comics/alignment_chart_alignment_chart.png)
 
 How do we classify them all?
 
