@@ -291,6 +291,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="8.3" data-path="data-vis-intro.html"><a href="data-vis-intro.html#the-grammar-of-graphics"><i class="fa fa-check"></i><b>8.3</b> The Grammar of Graphics</a><ul>
 <li class="chapter" data-level="8.3.1" data-path="data-vis-intro.html"><a href="data-vis-intro.html#demonstration-aesthetic-mappings-and-basic-plots"><i class="fa fa-check"></i><b>8.3.1</b> Demonstration: Aesthetic Mappings and Basic Plots</a></li>
 <li class="chapter" data-level="8.3.2" data-path="data-vis-intro.html"><a href="data-vis-intro.html#syntax-and-general-structure-layers"><i class="fa fa-check"></i><b>8.3.2</b> Syntax and General Structure: Layers</a></li>
+<li class="chapter" data-level="8.3.3" data-path="data-vis-intro.html"><a href="data-vis-intro.html#statistics-and-different-types-of-plots"><i class="fa fa-check"></i><b>8.3.3</b> Statistics and Different Types of Plots</a></li>
+<li class="chapter" data-level="8.3.4" data-path="data-vis-intro.html"><a href="data-vis-intro.html#small-multiples-plots"><i class="fa fa-check"></i><b>8.3.4</b> Small Multiples Plots</a></li>
 </ul></li>
 <li class="chapter" data-level="8.4" data-path="data-vis-intro.html"><a href="data-vis-intro.html#good-charts"><i class="fa fa-check"></i><b>8.4</b> Good charts</a></li>
 <li class="chapter" data-level="8.5" data-path="reading-data.html"><a href="reading-data.html#references"><i class="fa fa-check"></i><b>8.5</b> References</a><ul>
@@ -505,52 +507,93 @@ QUIT;
 </div>
 <p>ODS Graphics<br />
 Note: This is a terrible example in SAS because there isn’t an easy way to create a pie chart<a href="#fn26" class="footnote-ref" id="fnref26"><sup>26</sup></a>. We have to resort to using SAS Graph Template Language.</p>
-<pre class="sashtml"><code>6          /* Define a pie chart template */
-7          PROC TEMPLATE;
-8          DEFINE STATGRAPH WORK.simplepie;
-9            BEGINGRAPH;
-10             LAYOUT REGION;
-11               PIECHART category=generation;
-12             ENDLAYOUT;
-13           ENDGRAPH;
-14         END;
-NOTE: Overwriting existing template/link: Work.Simplepie
-NOTE: STATGRAPH &#39;Work.Simplepie&#39; has been saved to: SASUSER.TEMPLAT
-15         RUN;
+<pre class="sashtml"><code>6          libname classdat
+6        ! &quot;/home/susan/Projects/Class/unl-stat850/2020-stat850/sas/&quot;;
+NOTE: Libref CLASSDAT was successfully assigned as follows: 
+      Engine:        V9 
+      Physical Name: 
+      /home/susan/Projects/Class/unl-stat850/2020-stat850/sas
+7          
+8          DATA poketmp;
+9          SET classdat.poke;
+10         i = 1;
+11         RUN;
+
+NOTE: There were 1028 observations read from the data set CLASSDAT.POKE.
+NOTE: The data set WORK.POKETMP has 1028 observations and 50 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.01 seconds
+      
+
+12         
+13         /* Define a pie chart template */
+14         PROC TEMPLATE;
+15         DEFINE STATGRAPH WORK.simplepie;
+16           BEGINGRAPH;
+17             LAYOUT REGION;
+18               PIECHART category=generation;
+19             ENDLAYOUT;
+20           ENDGRAPH;
+21         END;
+ERROR: Template &#39;Work.Simplepie&#39; was unable to write to template store!
+22         RUN;
 NOTE: PROCEDURE TEMPLATE used (Total process time):
       real time           0.00 seconds
       cpu time            0.00 seconds
       
-
-16         
-17         /* Make the pie chart */
-18         PROC SGRENDER data=classdat.poke template=WORK.simplepie;
-ERROR: Libref CLASSDAT is not assigned.
-19         RUN;
-
+WARNING: Errors were produced.
 NOTE: The SAS System stopped processing this step because of errors.
+23         
+24         /* Make the pie chart */
+
+
+25         PROC SGRENDER data=classdat.poke template=WORK.simplepie;
+26         RUN;
+
+NOTE: There were 1028 observations read from the data set CLASSDAT.POKE.
 NOTE: PROCEDURE SGRENDER used (Total process time):
-      real time           0.00 seconds
-      cpu time            0.00 seconds
+      real time           1.77 seconds
+      cpu time            0.04 seconds
       
-20         
-21         /* Use SGPLOT to make a stacked bar chart */
 
+27         
+28         /* Use SGPLOT to make a stacked bar chart */
+29         PROC SGPLOT data=poketmp;
+30         VBAR i / GROUP = generation;
+31         RUN;
 
-22         PROC SGPLOT data=poketmp;
-ERROR: File WORK.POKETMP.DATA does not exist.
-23         VBAR i / GROUP = generation;
-ERROR: No data set open to look up variables.
-ERROR: No data set open to look up variables.
-24         RUN;
-
-NOTE: The SAS System stopped processing this step because of errors.
+NOTE: Since no format is assigned, the numeric category variable will use 
+      the default of BEST6.
 NOTE: PROCEDURE SGPLOT used (Total process time):
-      real time           0.00 seconds
-      cpu time            0.00 seconds
+      real time           0.19 seconds
+      cpu time            0.02 seconds
       
+NOTE: There were 1028 observations read from the data set WORK.POKETMP.
 
 ERROR: Errors printed on page 1.</code></pre>
+<div class="branch">
+<a name="IDX"></a>
+<div>
+<div class="c">
+<p><img alt="The SGRender Procedure" src="ods-pie.png" style=" height: 480px; width: 640px;" border="0" class="c"></p>
+</div>
+</div>
+<p><br></p>
+</div>
+<div class="branch">
+<p style="page-break-after: always;">
+<br/>
+</p>
+<hr size="3"/>
+<a name="IDX1"></a>
+<div>
+<div class="c">
+<p><img alt="The SGPlot Procedure" src="ods-pie1.png" style=" height: 480px; width: 640px;" border="0" class="c"></p>
+</div>
+</div>
+<br>
+</div>
 As in base R, the syntax between the two types of charts is different, even though the underlying operations required to make the plots are very similar. This is one example of why I don’t agree with the assertion that ODS graphics is like ggplot2 syntax - the functionality may be similar, but the structure is not.
 </details>
 <p>If only because it provides us with a place to start (because otherwise, we would just work through a graph gallery or two, and that’s boring), we’ll talk first about the general idea behind the grammar of graphics. For each concept, I’ll provide you first with the ggplot grammar of graphics code, and then, where it is possible to replicate the chart easily in base R or SAS ODS graphics, I will provide code for that as well - so that you can compare the approaches, but also so that you get a sense for what is easy and what is possible in each plotting system.</p>
@@ -831,27 +874,36 @@ RUN;
 <details>
 <p><summary>SAS ODS line plots</summary></p>
 <pre class="sashtml"><code>6          
+7          libname classdat
+7        ! &quot;/home/susan/Projects/Class/unl-stat850/2020-stat850/sas/&quot;;
+NOTE: Libref CLASSDAT was successfully assigned as follows: 
+      Engine:        V9 
+      Physical Name: 
+      /home/susan/Projects/Class/unl-stat850/2020-stat850/sas
+8          PROC SGPLOT data=classdat.fbiwide NOAUTOLEGEND;
+9          SERIES x = Population y = Assault /
+10           lineattrs=(pattern=solid)
+11           group = Abb; /* maps to color by default */
+12         RUN;
 
-
-7          PROC SGPLOT data=classdat.fbiwide NOAUTOLEGEND;
-ERROR: Libref CLASSDAT is not assigned.
-8          SERIES x = Population y = Assault /
-ERROR: No data set open to look up variables.
-9            lineattrs=(pattern=solid)
-ERROR: No data set open to look up variables.
-10           group = Abb; /* maps to color by default */
-ERROR: No data set open to look up variables.
-11         RUN;
-
-NOTE: The SAS System stopped processing this step because of errors.
 NOTE: PROCEDURE SGPLOT used (Total process time):
-      real time           0.00 seconds
-      cpu time            0.00 seconds
+      real time           0.17 seconds
+      cpu time            0.06 seconds
       
-12         
+NOTE: There were 2959 observations read from the data set CLASSDAT.FBIWIDE.
 
+13         
 
-ERROR: Errors printed on pages 2,3.</code></pre>
+ERROR: Errors printed on page 2.</code></pre>
+<div class="branch">
+<a name="IDX"></a>
+<div>
+<div class="c">
+<p><img alt="The SGPlot Procedure" src="unnamed-chunk-274.png" style=" height: 480px; width: 640px;" border="0" class="c"></p>
+</div>
+</div>
+<p><br></p>
+</div>
 <a href="https://documentation.sas.com/?docsetId=grstatproc&amp;docsetTarget=p0er4dg9tojp05n1sf7maeqdz1d8.htm&amp;docsetVersion=9.4&amp;locale=en">SAS Line attributes and patterns options</a>
 </details>
 <p>So we can color our points (or lines) by a categorical variable, but that’s not all! We can also map numeric variables to aesthetics!</p>
@@ -971,27 +1023,36 @@ If we use <code>?points</code> and find out that the size parameter is <code>cex
 <p><summary>SAS ODS graphics and numeric variable transformations</summary>
 In order to change point size to show a different variable value, we have to use BUBBLE instead of SCATTER.</p>
 <pre class="sashtml"><code>6          
+7          libname classdat
+7        ! &quot;/home/susan/Projects/Class/unl-stat850/2020-stat850/sas/&quot;;
+NOTE: Libref CLASSDAT was successfully assigned as follows: 
+      Engine:        V9 
+      Physical Name: 
+      /home/susan/Projects/Class/unl-stat850/2020-stat850/sas
+8          PROC SGPLOT data=classdat.poke;
+9          BUBBLE x = attack y = sp_attack size = weight_kg /
+10           BRADIUSMAX=10 BRADIUSMIN =2
+11           transparency=0.5;
+12         RUN;
 
-
-7          PROC SGPLOT data=classdat.poke;
-ERROR: Libref CLASSDAT is not assigned.
-8          BUBBLE x = attack y = sp_attack size = weight_kg /
-ERROR: No data set open to look up variables.
-ERROR: No data set open to look up variables.
-9            BRADIUSMAX=10 BRADIUSMIN =2
-ERROR: No data set open to look up variables.
-10           transparency=0.5;
-11         RUN;
-
-NOTE: The SAS System stopped processing this step because of errors.
 NOTE: PROCEDURE SGPLOT used (Total process time):
-      real time           0.00 seconds
-      cpu time            0.00 seconds
+      real time           0.13 seconds
+      cpu time            0.03 seconds
       
-12         
+NOTE: There were 1028 observations read from the data set CLASSDAT.POKE.
 
+13         
 
 ERROR: Errors printed on page 2.</code></pre>
+<div class="branch">
+<a name="IDX"></a>
+<div>
+<div class="c">
+<p><img alt="The SGPlot Procedure" src="unnamed-chunk-283.png" style=" height: 480px; width: 640px;" border="0" class="c"></p>
+</div>
+</div>
+<p><br></p>
+</div>
 As best as I can tell, there’s no similar plot option that would let us map a variable to transparency. There are attribute maps, but the options are discrete (which weight is not) or range (which would let us define ranges to map to a single value), and they don’t appear to support transparency. In theory, I think we could go to SAS Template graph language, but … ugh. To be honest, at this point, I’d move the data into R and graph things there.
 </details>
 <div id="try-it-out" class="section level4 tryitout">
@@ -1147,7 +1208,7 @@ Let’s plot points for the location of every place of worship (according to the
 <a class="sourceLine" id="cb400-15" data-line-number="15"><span class="st">  </span><span class="kw">theme</span>(<span class="dt">legend.position =</span> <span class="st">&quot;bottom&quot;</span>)</a>
 <a class="sourceLine" id="cb400-16" data-line-number="16">layer_map</a></code></pre></div>
 <p><img src="unl-stat850_files/figure-html/unnamed-chunk-297-1.png" width="672" /></p>
-<p>Just to examine the South in a little more depth… I wanted to know a bit more about where my grandma lives (because there are churches everywhere, down there).</p>
+<p>Just to examine the South in a little more depth… I wanted to know a bit more about where my grandma lives (because there are churches everywhere, or so it seems).</p>
 <div class="sourceCode" id="cb401"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb401-1" data-line-number="1">layer_map <span class="op">+</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb401-2" data-line-number="2"><span class="st">  </span><span class="co"># coord_fixed maintains the proper aspect ratio</span></a>
 <a class="sourceLine" id="cb401-3" data-line-number="3"><span class="st">  </span><span class="kw">coord_fixed</span>(<span class="dt">xlim =</span> <span class="kw">c</span>(<span class="op">-</span><span class="fl">83.5</span>, <span class="fl">-78.5</span>), <span class="dt">ylim =</span> <span class="kw">c</span>(<span class="dv">31</span>, <span class="dv">36</span>))</a></code></pre></div>
@@ -1235,6 +1296,153 @@ First, let’s do a bit of string processing.</p>
 <details>
 </div>
 </div>
+<div id="statistics-and-different-types-of-plots" class="section level3">
+<h3><span class="header-section-number">8.3.3</span> Statistics and Different Types of Plots</h3>
+<p>At this point, we’ve primarily looked at charts which have two continuous variables - scatter plots, and line plots. There are a number of situations where these types of charts are inadequate. For one thing, we might want to only look at the distribution of a single variable. Or, we might want to look at how a continuous response variable changes when the level of a categorical variable changes. In this section, we’ll hit the most common types of plots, but there are almost infinite variations. Sites like <a href="https://datavizcatalogue.com/search.html">the Data Viz Catalogue</a> can be useful if you’re trying to accomplish a specific task and want to know what type of plot to use.</p>
+<div id="box-plots" class="section level4">
+<h4><span class="header-section-number">8.3.3.1</span> Box Plots</h4>
+<p>Let’s look at the relative frequency of different types of crimes, putting all states on an equal scale of 100k residents so that the numbers are comparable and also meaningful.</p>
+<div class="sourceCode" id="cb407"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb407-1" data-line-number="1">fbi <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb407-2" data-line-number="2"><span class="st">  </span><span class="kw">filter</span>(Year <span class="op">==</span><span class="st"> </span><span class="kw">max</span>(Year)) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb407-3" data-line-number="3"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">per_100k =</span> Count<span class="op">/</span>Population<span class="op">*</span><span class="dv">100000</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb407-4" data-line-number="4"><span class="st">  </span><span class="co"># make nicer names</span></a>
+<a class="sourceLine" id="cb407-5" data-line-number="5"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">crime =</span> <span class="kw">str_replace_all</span>(Type, <span class="kw">c</span>(<span class="st">&quot;Murder.*&quot;</span> =<span class="st"> &quot;Murder&quot;</span>, </a>
+<a class="sourceLine" id="cb407-6" data-line-number="6">                                         <span class="st">&quot;.*[Rr]ape&quot;</span> =<span class="st"> &quot;Rape&quot;</span>, </a>
+<a class="sourceLine" id="cb407-7" data-line-number="7">                                         <span class="st">&quot;.*vehicle.theft&quot;</span> =<span class="st"> &quot;Vehicle Theft&quot;</span>,</a>
+<a class="sourceLine" id="cb407-8" data-line-number="8">                                         <span class="st">&quot;Larceny.theft&quot;</span> =<span class="st"> &quot;Theft&quot;</span>,</a>
+<a class="sourceLine" id="cb407-9" data-line-number="9">                                         <span class="st">&quot;.*assault&quot;</span> =<span class="st"> &quot;Assault&quot;</span>))) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb407-10" data-line-number="10"><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> crime, <span class="dt">y =</span> per_100k)) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb407-11" data-line-number="11"><span class="st">  </span><span class="kw">geom_boxplot</span>() <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb407-12" data-line-number="12"><span class="st">  </span><span class="kw">ggtitle</span>(<span class="kw">paste</span>(<span class="st">&quot;Crimes per 100k people,&quot;</span>, <span class="kw">max</span>(fbi<span class="op">$</span>Year)))</a>
+<a class="sourceLine" id="cb407-13" data-line-number="13">Warning<span class="op">:</span><span class="st"> </span>Removed <span class="dv">52</span> rows containing non<span class="op">-</span>finite <span class="kw">values</span> (stat_boxplot).</a></code></pre></div>
+<p><img src="unl-stat850_files/figure-html/unnamed-chunk-306-1.png" width="672" /></p>
+<p>We might want to sort crimes by incidence level, because it makes the plot prettier and also gives us an ordered list of crimes in descending frequency.</p>
+<div class="sourceCode" id="cb408"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb408-1" data-line-number="1">tmp &lt;-<span class="st"> </span>fbi <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb408-2" data-line-number="2"><span class="st">  </span><span class="kw">filter</span>(Year <span class="op">==</span><span class="st"> </span><span class="kw">max</span>(Year)) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb408-3" data-line-number="3"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">per_100k =</span> Count<span class="op">/</span>Population<span class="op">*</span><span class="dv">100000</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb408-4" data-line-number="4"><span class="st">  </span><span class="co"># make nicer names</span></a>
+<a class="sourceLine" id="cb408-5" data-line-number="5"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">crime =</span> <span class="kw">str_replace_all</span>(<span class="kw">as.character</span>(Type), </a>
+<a class="sourceLine" id="cb408-6" data-line-number="6">                                 <span class="kw">c</span>(<span class="st">&quot;Murder.*&quot;</span> =<span class="st"> &quot;Murder&quot;</span>, </a>
+<a class="sourceLine" id="cb408-7" data-line-number="7">                                   <span class="st">&quot;.*[Rr]ape&quot;</span> =<span class="st"> &quot;Rape&quot;</span>, </a>
+<a class="sourceLine" id="cb408-8" data-line-number="8">                                   <span class="st">&quot;.*vehicle.theft&quot;</span> =<span class="st"> &quot;GTA&quot;</span>,</a>
+<a class="sourceLine" id="cb408-9" data-line-number="9">                                   <span class="st">&quot;Larceny.theft&quot;</span> =<span class="st"> &quot;Theft&quot;</span>,</a>
+<a class="sourceLine" id="cb408-10" data-line-number="10">                                   <span class="st">&quot;.*assault&quot;</span> =<span class="st"> &quot;Assault&quot;</span>)))</a>
+<a class="sourceLine" id="cb408-11" data-line-number="11">tmpsum &lt;-<span class="st"> </span>tmp <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb408-12" data-line-number="12"><span class="st">  </span><span class="kw">group_by</span>(crime) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb408-13" data-line-number="13"><span class="st">  </span><span class="kw">summarize</span>(<span class="dt">ref =</span> <span class="kw">mean</span>(per_100k, <span class="dt">na.rm =</span> T)) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb408-14" data-line-number="14"><span class="st">  </span><span class="kw">ungroup</span>() <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb408-15" data-line-number="15"><span class="st">  </span><span class="kw">arrange</span>(<span class="kw">desc</span>(ref))</a>
+<a class="sourceLine" id="cb408-16" data-line-number="16"><span class="st">`</span><span class="dt">summarise()</span><span class="st">`</span> ungrouping <span class="kw">output</span> (override with <span class="st">`</span><span class="dt">.groups</span><span class="st">`</span> argument)</a>
+<a class="sourceLine" id="cb408-17" data-line-number="17"></a>
+<a class="sourceLine" id="cb408-18" data-line-number="18">tmp &lt;-<span class="st"> </span>tmp <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb408-19" data-line-number="19"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">crime =</span> <span class="kw">factor</span>(crime, <span class="dt">levels =</span> tmpsum<span class="op">$</span>crime))</a>
+<a class="sourceLine" id="cb408-20" data-line-number="20"></a>
+<a class="sourceLine" id="cb408-21" data-line-number="21">tmp <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb408-22" data-line-number="22"><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> crime, <span class="dt">y =</span> per_100k, <span class="dt">color =</span> Violent.crime)) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb408-23" data-line-number="23"><span class="st">  </span><span class="kw">geom_boxplot</span>() <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb408-24" data-line-number="24"><span class="st">  </span><span class="kw">ggtitle</span>(<span class="kw">paste</span>(<span class="st">&quot;Crimes per 100k people,&quot;</span>, <span class="kw">max</span>(fbi<span class="op">$</span>Year)))</a>
+<a class="sourceLine" id="cb408-25" data-line-number="25">Warning<span class="op">:</span><span class="st"> </span>Removed <span class="dv">52</span> rows containing non<span class="op">-</span>finite <span class="kw">values</span> (stat_boxplot).</a></code></pre></div>
+<img src="unl-stat850_files/figure-html/unnamed-chunk-307-1.png" width="672" />
+<details>
+<p><summary>Boxplots in base R</summary></p>
+<div class="sourceCode" id="cb409"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb409-1" data-line-number="1"><span class="kw">boxplot</span>(per_100k<span class="op">~</span>crime, <span class="dt">data =</span> tmp)</a></code></pre></div>
+<img src="unl-stat850_files/figure-html/unnamed-chunk-308-1.png" width="672" />
+</details>
+<details>
+<p><summary>Boxplots in SAS</summary></p>
+<pre class="sashtml"><code>libname classdat &quot;/home/susan/Projects/Class/unl-stat850/2020-stat850/sas/&quot;;
+
+DATA WORK.fbitmp;
+SET classdat.fbi;
+per_100k = Count/Population*100000;
+RUN;
+
+PROC SGPLOT data=fbitmp;
+hbox per_100k / group = Type;
+RUN;</code></pre>
+<div class="branch">
+<a name="IDX"></a>
+<div>
+<div class="c">
+<p><img alt="The SGPlot Procedure" src="unnamed-chunk-309.png" style=" height: 480px; width: 640px;" border="0" class="c"></p>
+</div>
+</div>
+<p><br></p>
+</div>
+</details>
+</div>
+<div id="bar-charts" class="section level4">
+<h4><span class="header-section-number">8.3.3.2</span> Bar Charts</h4>
+<p>A bar chart is a plot with a categorical variable on one axis and a summary statistic on the other (usually, this is a count). Note that a bar chart is NOT the same as a histogram (a histogram looks very similar, but has a binned numeric variable on one axis and counts on the other). Geometrically, bar charts are rectangles; typically each rectangle will have equal width and variable height.</p>
+<div class="sourceCode" id="cb411"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb411-1" data-line-number="1"><span class="kw">ggplot</span>(poke, <span class="kw">aes</span>(<span class="dt">x =</span> generation)) <span class="op">+</span><span class="st"> </span><span class="kw">geom_bar</span>()</a></code></pre></div>
+<p><img src="unl-stat850_files/figure-html/unnamed-chunk-310-1.png" width="672" /></p>
+<p>As with other types of charts, we can add more information by adding aesthetic mappings:</p>
+<div class="sourceCode" id="cb412"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb412-1" data-line-number="1">poke <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb412-2" data-line-number="2"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">status =</span> <span class="kw">factor</span>(</a>
+<a class="sourceLine" id="cb412-3" data-line-number="3">    status, </a>
+<a class="sourceLine" id="cb412-4" data-line-number="4">    <span class="dt">levels =</span> <span class="kw">c</span>(<span class="st">&quot;Normal&quot;</span>, <span class="st">&quot;Mythical&quot;</span>, </a>
+<a class="sourceLine" id="cb412-5" data-line-number="5">               <span class="st">&quot;Sub Legendary&quot;</span>, <span class="st">&quot;Legendary&quot;</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb412-6" data-line-number="6"><span class="st">      </span><span class="kw">rev</span>() <span class="co"># ggplot orders things backwards of how you&#39;d want them </span></a>
+<a class="sourceLine" id="cb412-7" data-line-number="7">  )) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb412-8" data-line-number="8"><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> generation, <span class="dt">fill =</span> status)) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb412-9" data-line-number="9"><span class="st">  </span><span class="kw">geom_bar</span>() <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb412-10" data-line-number="10"><span class="st">  </span><span class="co"># The default colors are awful for colorblind people (like me), so lets fix it</span></a>
+<a class="sourceLine" id="cb412-11" data-line-number="11"><span class="st">  </span><span class="kw">scale_fill_brewer</span>(<span class="dt">palette =</span> <span class="st">&quot;Paired&quot;</span>)</a></code></pre></div>
+<p><img src="unl-stat850_files/figure-html/unnamed-chunk-311-1.png" width="672" />
+We can get different visual information from the same data, if we switch which variable is on the axis and which is the fill variable</p>
+<div class="sourceCode" id="cb413"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb413-1" data-line-number="1">poke <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb413-2" data-line-number="2"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">status =</span> <span class="kw">factor</span>(</a>
+<a class="sourceLine" id="cb413-3" data-line-number="3">    status, </a>
+<a class="sourceLine" id="cb413-4" data-line-number="4">    <span class="dt">levels =</span> <span class="kw">c</span>(<span class="st">&quot;Normal&quot;</span>, <span class="st">&quot;Mythical&quot;</span>, </a>
+<a class="sourceLine" id="cb413-5" data-line-number="5">               <span class="st">&quot;Sub Legendary&quot;</span>, <span class="st">&quot;Legendary&quot;</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb413-6" data-line-number="6"><span class="st">      </span><span class="kw">rev</span>() <span class="co"># ggplot orders things backwards of how you&#39;d want them </span></a>
+<a class="sourceLine" id="cb413-7" data-line-number="7">  )) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb413-8" data-line-number="8"><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> status, <span class="dt">fill =</span> generation)) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb413-9" data-line-number="9"><span class="st">  </span><span class="kw">geom_bar</span>(<span class="dt">position =</span> <span class="st">&quot;dodge&quot;</span>)</a></code></pre></div>
+<p><img src="unl-stat850_files/figure-html/unnamed-chunk-312-1.png" width="672" /></p>
+<p>We can also get useful information by changing the statistic: what if we use the proportion of responses in each category instead of the raw count? To do this, as far as I know, we have to do at least a little bit of preprocessing, because we need a nested order of grouping factors, and ggplot doesn’t do that very well.</p>
+<div class="sourceCode" id="cb414"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb414-1" data-line-number="1">poke <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb414-2" data-line-number="2"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">status =</span> <span class="kw">factor</span>(</a>
+<a class="sourceLine" id="cb414-3" data-line-number="3">    status, </a>
+<a class="sourceLine" id="cb414-4" data-line-number="4">    <span class="dt">levels =</span> <span class="kw">c</span>(<span class="st">&quot;Normal&quot;</span>, <span class="st">&quot;Mythical&quot;</span>, </a>
+<a class="sourceLine" id="cb414-5" data-line-number="5">               <span class="st">&quot;Sub Legendary&quot;</span>, <span class="st">&quot;Legendary&quot;</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb414-6" data-line-number="6"><span class="st">      </span><span class="kw">rev</span>() <span class="co"># ggplot orders things backwards of how you&#39;d want them </span></a>
+<a class="sourceLine" id="cb414-7" data-line-number="7">  )) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb414-8" data-line-number="8"><span class="st">  </span><span class="kw">group_by</span>(status, generation) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb414-9" data-line-number="9"><span class="st">  </span><span class="kw">count</span>() <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb414-10" data-line-number="10"><span class="st">  </span><span class="kw">group_by</span>(status) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb414-11" data-line-number="11"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">prop =</span> n<span class="op">/</span><span class="kw">sum</span>(n)) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb414-12" data-line-number="12"><span class="st">  </span><span class="kw">ungroup</span>() <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb414-13" data-line-number="13"><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> status, <span class="dt">fill =</span> generation, <span class="dt">weight =</span> prop)) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb414-14" data-line-number="14"><span class="st">  </span><span class="kw">geom_bar</span>() <span class="op">+</span></a>
+<a class="sourceLine" id="cb414-15" data-line-number="15"><span class="st">  </span><span class="co"># The default colors are awful for colorblind people (like me), so lets fix it</span></a>
+<a class="sourceLine" id="cb414-16" data-line-number="16"><span class="st">  </span><span class="kw">scale_fill_brewer</span>(<span class="dt">palette =</span> <span class="st">&quot;Paired&quot;</span>)</a></code></pre></div>
+<p><img src="unl-stat850_files/figure-html/unnamed-chunk-313-1.png" width="672" /></p>
+<div class="sourceCode" id="cb415"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb415-1" data-line-number="1"></a>
+<a class="sourceLine" id="cb415-2" data-line-number="2">poke <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb415-3" data-line-number="3"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">status =</span> <span class="kw">factor</span>(</a>
+<a class="sourceLine" id="cb415-4" data-line-number="4">    status, </a>
+<a class="sourceLine" id="cb415-5" data-line-number="5">    <span class="dt">levels =</span> <span class="kw">c</span>(<span class="st">&quot;Normal&quot;</span>, <span class="st">&quot;Mythical&quot;</span>, </a>
+<a class="sourceLine" id="cb415-6" data-line-number="6">               <span class="st">&quot;Sub Legendary&quot;</span>, <span class="st">&quot;Legendary&quot;</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb415-7" data-line-number="7"><span class="st">      </span><span class="kw">rev</span>() <span class="co"># ggplot orders things backwards of how you&#39;d want them </span></a>
+<a class="sourceLine" id="cb415-8" data-line-number="8">  )) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb415-9" data-line-number="9"><span class="st">  </span><span class="kw">group_by</span>(generation, status) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb415-10" data-line-number="10"><span class="st">  </span><span class="kw">count</span>() <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb415-11" data-line-number="11"><span class="st">  </span><span class="kw">group_by</span>(generation) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb415-12" data-line-number="12"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">prop =</span> n<span class="op">/</span><span class="kw">sum</span>(n)) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb415-13" data-line-number="13"><span class="st">  </span><span class="kw">ungroup</span>() <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb415-14" data-line-number="14"><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> generation, <span class="dt">fill =</span> status, <span class="dt">weight =</span> prop)) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb415-15" data-line-number="15"><span class="st">  </span><span class="kw">geom_bar</span>() <span class="op">+</span></a>
+<a class="sourceLine" id="cb415-16" data-line-number="16"><span class="st">  </span><span class="co"># The default colors are awful for colorblind people (like me), so lets fix it</span></a>
+<a class="sourceLine" id="cb415-17" data-line-number="17"><span class="st">  </span><span class="kw">scale_fill_brewer</span>(<span class="dt">palette =</span> <span class="st">&quot;Paired&quot;</span>)</a></code></pre></div>
+<p><img src="unl-stat850_files/figure-html/unnamed-chunk-313-2.png" width="672" /></p>
+</div>
+</div>
+<div id="small-multiples-plots" class="section level3">
+<h3><span class="header-section-number">8.3.4</span> Small Multiples Plots</h3>
+<p>Sometimes, you want to show separate plots for each level of a factor (or a combination of factors). Often, this happens when you expect the plot’s gross shape to change - something relatively obvious. Other times, though, you might just have too much data and need to break it down somehow.</p>
+<p>These sub-plots within a plot are called small multiples, or facets, or panel plots, depending on the software or discipline.</p>
+</div>
 </div>
 <div id="good-charts" class="section level2">
 <h2><span class="header-section-number">8.4</span> Good charts</h2>
@@ -1248,9 +1456,9 @@ First, let’s do a bit of string processing.</p>
 <div id="r-graphics" class="section level3">
 <h3><span class="header-section-number">8.5.1</span> R graphics</h3>
 <ul>
-<li><p>ggplot2 reference guide</p></li>
-<li><p>R graph cookbook</p></li>
-<li><p>R Graphics</p></li>
+<li><a href="https://github.com/rstudio/cheatsheets/raw/master/data-visualization-2.1.pdf">ggplot2 cheat sheet</a></li>
+<li><p><a href="https://ggplot2.tidyverse.org/reference/">ggplot2 reference guide</a></p></li>
+<li><p><a href="https://r-graphics.org/">R graph cookbook</a></p></li>
 <li><p><a href="https://ramnathv.github.io/pycon2014-r/visualize/base_graphics.html">Data Visualization in R</a> (@ramnathv)</p></li>
 </ul>
 </div>
