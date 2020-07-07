@@ -34,17 +34,15 @@ Another useful explanation of R and RStudio can be found in [Section 1 of Modern
 
 Note that the tutorial videos use versions of R that are *old*. You should be installing at least R 3.5 (if you have an older version, please update.) The basic installation process is the same, though, so the videos are still useful.
 
-R on Windows installation:
+[R on Windows installation](https://www.youtube.com/watch?v=mfGFv-iB724)
 
-![](https://www.youtube.com/watch?v=mfGFv-iB724)
+[R on Mac installation](https://www.youtube.com/watch?v=Icawuhf0Yqo)
 
-R on Mac installation:
-
-![](https://www.youtube.com/watch?v=Icawuhf0Yqo)
-
-R on Linux installation:
+<details><summary>R on Linux installation</summary>
 
 On Linux, instead of a youtube video, you get a text-based  [tutorial](https://github.com/swirldev/swirl/wiki/Installing-swirl-on-Linux). One of the Debian maintainers, Dirk Eddelbuettel, is also on R core, which means that R tends to work extremely well with Debian-based distributions, like Ubuntu and Linux Mint. R does work on RPM based distros, and you can of course also compile it from source for Arch/Gentoo, but I've stuck with Deb-based distributions for approximately 7 years because it seems to be a bit less hassle. Additional troubleshooting can be found [here](https://pages.github.nceas.ucsb.edu/NCEAS/help/installing_r_on_ubuntu.html).
+</details>
+
 ### Getting Set up: RStudio
 
 You can find RStudio at https://rstudio.com/products/rstudio/download/. You want the open source edition of RStudio Desktop. If you're feeling brave, you can install the [preview release](https://rstudio.com/products/rstudio/download/preview/#download) - this may have a few bugs, but tends to be relatively stable and has the latest features. Please install RStudio 1.3.9+ for this class. 
@@ -93,6 +91,7 @@ For SAS installation, see Steve Westerholt. He manages UNL SAS installations.
 ### Note {- .note}
 SAS looks different on different machines. On Linux, SAS looks like you took a time machine back to the early 1990s. Screenshots from SAS will likely look *very* different on your machine than on mine. I will try to integrate screenshots from other OS's where it matters.
 
+XXX TODO: Get Windows/Mac screenshots XXX
 
 ## Version Control with Git
 
@@ -104,7 +103,7 @@ When writing papers, this means you can cut material out freely, so long as the 
 
 The git material in this chapter is just going to link directly to the book "Happy Git with R" by Jenny Bryan. It's amazing, amusing, and generally well written. I'm not going to try to do better. 
 
-[Go read Chapter 1.](https://happygitwithr.com/big-picture.html). 
+[Go read Chapter 1.](https://happygitwithr.com/big-picture.html)
 
 
 ### Getting set up: github
@@ -166,11 +165,11 @@ We'll work with LaTeX later in the semester, but for now, we'll be primarily wor
 
 ## Topic Sequencing
 
-In several places in this class, you'll have to use material that you haven't been formally taught yet. I will do my absolute best to provide thorough instructions, help you along as much as I can, and generally provide enough support that you can muddle through. But it's going to be hard to teach you everything you need to e.g. plot some data, before providing you the opportunity to SEE that data. And it's silly to teach you plotting before you know how to read data in. But to teach you how to read data in, you need to know about functions.
+In several places in this class, you'll have to use material that you haven't been formally taught yet. I will do my absolute best to provide thorough instructions, help you along as much as I can, and generally provide enough support that you can muddle through. But it's going to be hard to teach you everything you need to e.g. analyze some data, before providing you the opportunity to SEE that data using visualization packages. And it's silly to teach you plotting before you know how to read data in. But to teach you how to read data in, you need to be able to take a look at the data, and plots are the best way to do that. To do any of this stuff, you need to know about functions.
 
 You see my problem.
 
-So instead, what I'm going to do is to leave you lots of comments as to what a piece of code does when I'm using things you haven't been formally shown yet. Then, you can copy/paste/modify those pieces of code, and if they break, you can ask why and we'll dig into it (this is a good thing!). For each chapter, focus on learning how to write code that accomplishes that chapter's objectives. If you understand some of the code you're modifying that covers other topics not in that chapter, so much the better. But it's not an expectation or a requirement.
+So instead, what I'm going to do is to leave you lots of comments as to what a piece of code does when I'm using things you haven't been formally shown yet. Then, you can copy/paste/modify those pieces of code, and if they break, you can ask why and we'll dig into it (breaking code is usually a good thing, because it means you're learning how to program). For each chapter, focus on learning how to write code that accomplishes that chapter's objectives. If you understand some of the code you're modifying that covers other topics not in that chapter, so much the better. But it's not an expectation or a requirement.
 
 If you're confused, please post on the class message boards so that those who have seen this material before can help you out.
 
