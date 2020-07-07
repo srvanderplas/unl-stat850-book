@@ -975,7 +975,7 @@ ggplot(aes(x = status, fill = generation)) +
   geom_bar(position = "dodge")
 ```
 
-We can also get useful information by changing the statistic: what if we use the proportion of responses in each category instead of the raw count? To do this, as far as I know, we have to do at least a little bit of preprocessing. 
+We can also get useful information by changing the statistic: what if we use the proportion of responses in each category instead of the raw count? To do this, as far as I know, we have to do at least a little bit of preprocessing, because we need a nested order of grouping factors, and ggplot doesn't do that very well. 
 
 ```{r}
 poke %>%
@@ -985,10 +985,30 @@ poke %>%
                "Sub Legendary", "Legendary") %>%
       rev() # ggplot orders things backwards of how you'd want them 
   )) %>%
-  group_by()
-ggplot(aes(x = status, fill = generation)) + 
-  stat_count(aes(y = ..count..)) + 
-  # geom_bar(aes(y = ..prop.., fill = generation)) + 
+  group_by(status, generation) %>%
+  count() %>%
+  group_by(status) %>%
+  mutate(prop = n/sum(n)) %>%
+  ungroup() %>%
+ggplot(aes(x = status, fill = generation, weight = prop)) + 
+  geom_bar() +
+  # The default colors are awful for colorblind people (like me), so lets fix it
+  scale_fill_brewer(palette = "Paired")
+
+poke %>%
+  mutate(status = factor(
+    status, 
+    levels = c("Normal", "Mythical", 
+               "Sub Legendary", "Legendary") %>%
+      rev() # ggplot orders things backwards of how you'd want them 
+  )) %>%
+  group_by(generation, status) %>%
+  count() %>%
+  group_by(generation) %>%
+  mutate(prop = n/sum(n)) %>%
+  ungroup() %>%
+ggplot(aes(x = generation, fill = status, weight = prop)) + 
+  geom_bar() +
   # The default colors are awful for colorblind people (like me), so lets fix it
   scale_fill_brewer(palette = "Paired")
 ```
