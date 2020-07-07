@@ -12,6 +12,7 @@ WHO disease incidence data - http://www.who.int/entity/immunization/monitoring_s
 WHO HIV data - https://apps.who.int/gho/athena/data/xmart.csv?target=GHO/HIV_0000000026,SDGHIV&profile=crosstable&filter=COUNTRY:*;REGION:*;AGEGROUP:-&x-sideaxis=COUNTRY&x-topaxis=GHO;YEAR;SEX&x-collapse=true
 2017 Animal Inventory - https://quickstats.nass.usda.gov/results/0E600DE3-BFE8-36F3-9E58-59771D0CEE61
 Medicare & Medicaid Open Payments - https://openpaymentsdata.cms.gov/dataset/General-Payment-Data-Detailed-Dataset-2018-Reporti/xrap-xhey/data (Date_of_Payment<20180201, Form of payment = cash or cash equiv, physician primary type = medical doc)
+- Places of worship - https://hifld-geoplatform.opendata.arcgis.com/datasets/all-places-of-worship
 
 Other sources to use
 - Pacific Walrus Coastal Haulout Database https://alaska.usgs.gov/products/data.php?dataid=74 - kml, shapefile, csv
