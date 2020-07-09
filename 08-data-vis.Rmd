@@ -878,7 +878,7 @@ rm(list = c("objs", "rm_objs"))
 At this point, we've primarily looked at charts which have two continuous variables - scatter plots, and line plots. There are a number of situations where these types of charts are inadequate. For one thing, we might want to only look at the distribution of a single variable. Or, we might want to look at how a continuous response variable changes when the level of a categorical variable changes. In this section, we'll hit the most common types of plots, but there are almost infinite variations. Sites like [the Data Viz Catalogue](https://datavizcatalogue.com/search.html) can be useful if you're trying to accomplish a specific task and want to know what type of plot to use. 
 
 #### Box Plots
-A box plot can show some summary information about the distribution of a single continuous variable, and usually is used to show differences in the level of a response variable at different levels of a categorical variable. 
+<details><summary>A box plot can show some summary information about the distribution of a single continuous variable, and usually is used to show differences in the level of a response variable at different levels of a categorical variable. </summary>
 
 Let's look at the relative frequency of different types of crimes, putting all states on an equal scale of 100k residents so that the numbers are comparable and also meaningful. 
 
@@ -955,9 +955,11 @@ tmp %>%
   ggtitle(paste("Crimes per 100k people,", max(fbi$Year)))
 ```
 
+</details>
 
 #### Histograms and Density Plots
-Box plots aren't the only way to show distributions, though. If we want to, we can show distributions using histograms or density plots. A histogram involves binning the variable, counting the number of observations that fall within each specified range. Usually, these ranges have constant width (but not always). 
+<details><summary>
+Box plots aren't the only way to show distributions, though. If we want to, we can show distributions using histograms or density plots. A histogram involves binning the variable, counting the number of observations that fall within each specified range. Usually, these ranges have constant width (but not always). </summary>
 
 ```{r}
 poke %>%
@@ -1097,10 +1099,11 @@ I found a blog post describing how to compute two-dimensional bins and make a [h
 
 
 Of course, joint distributions can also be shown using a scatterplot. Another useful geom when examining distributions is `geom_rug`, which shows univariate distributions in the margins of the plot.
+</details>
 
 #### Bar Charts
-
-A bar chart is a plot with a categorical variable on one axis and a summary statistic on the other (usually, this is a count). Note that a bar chart is NOT the same as a histogram (a histogram looks very similar, but has a binned numeric variable on one axis and counts on the other). Geometrically, bar charts are rectangles; typically each rectangle will have equal width and variable height.
+<details><summary>
+A bar chart is a plot with a categorical variable on one axis and a summary statistic on the other (usually, this is a count).</summary> Note that a bar chart is NOT the same as a histogram (a histogram looks very similar, but has a binned numeric variable on one axis and counts on the other). Geometrically, bar charts are rectangles; typically each rectangle will have equal width and variable height.
 
 ```{r}
 ggplot(poke, aes(x = generation)) + geom_bar()
@@ -1187,6 +1190,7 @@ HBAR type_1;
 RUN;
 ```
 </details>
+</details>
 
 #### Other useful geoms
 
@@ -1203,8 +1207,8 @@ There are a few other geoms which may be useful from time to time, especially wh
 ### Small Multiples
 
 Sometimes, you want to show separate plots for each level of a factor (or a combination of factors). Often, this happens when you expect the gross shape of the plotted information to change - something relatively obvious. Other times, though, you might just have too much data and need to break it down somehow. 
-
-These sub-plots within a plot are called small multiples, or facets, or panel plots, depending on the software or discipline. 
+<details><summary>
+These sub-plots within a plot are called small multiples, or facets, or panel plots, depending on the software or discipline. </summary>
 
 ```{r}
 fbi %>%
@@ -1250,6 +1254,7 @@ RUN;
 ```
 </details>
 
+</details>
 
 ### Try it out {- .tryitout}
 
@@ -1370,7 +1375,8 @@ Unfortunately, while our visual system is *amazing*, it is not always as accurat
 
 ### Perceptual and Cognitive Factors
 
-#### Color    
+#### Color
+<details><summary>Color perception, color blindness, and context</summary>
 Our eyes are optimized for perceiving the yellow/green region of the color spectrum. Why? Well, our sun produces yellow light, and plants tend to be green. It's pretty important to be able to distinguish different shades of green (evolutionarily speaking) because it impacts your ability to feed yourself. There aren't that many purple or blue predators, so there is less selection pressure to improve perception of that part of the visual spectrum.    
 
 ![Sensitivity of the human eye to different wavelengths of visual light (Image from Wikimedia commons)](https://upload.wikimedia.org/wikipedia/commons/c/c0/Eyesensitivity.svg)
@@ -1397,6 +1403,7 @@ knitr::include_graphics("image/CheckerShadow2.png")
 ```
 
 Our brains are extremely dependent on context and make excellent use of the large amounts of experience we have with the real world. As a result, we implicitly "remove" the effect of things like shadows as we make sense of the input to the visual system. This can result in odd things, like the checkerboard and shadow shown above - because we're correcting for the shadow, B looks lighter than A even though when the context is removed they are clearly the same shade. 
+</details>
 
 **Implications and Guidelines**
 - Do not use rainbow color gradient schemes - because of the unequal perception of different wavelengths, these schemes are _misleading_ - the color distance does not match the perceptual distance. 
@@ -1415,7 +1422,7 @@ Our brains are extremely dependent on context and make excellent use of the larg
 
 #### Short Term Memory
 
-We have a limited amount of memory that we can instantaneously utilize. This mental space, called **short-term memory**, holds information for active use, but only for a limited amount of time. Without rehearsing information, short term memory lasts a few seconds. 
+We have a limited amount of memory that we can instantaneously utilize. This mental space, called **short-term memory**, holds information for active use, but only for a limited amount of time. <details><summary>Without rehearsing information, short term memory lasts a few seconds. </summary>
 
 ::: tryitout
 
@@ -1431,6 +1438,7 @@ What was the third number?
 Without rehearsing the information (repeating it over and over to yourself), the try it out task may have been challenging. Short term memory has a capacity of between 3 and 9 "bits" of information. 
 
 In charts and graphs, short term memory is important because we need to be able to associate information from e.g. a key, legend, or caption with information plotted on the graph. As a result, if you try to plot more than ~6 categories of information, your reader will have to shift between the legend and the graph repeatedly, increasing the amount of cognitive labor required to digest the information in the chart.
+</details>
 
 Where possible, try to keep your legends to 6 or 7 characteristics. 
 
