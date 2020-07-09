@@ -1477,7 +1477,7 @@ You can read about the gestalt rules [here](https://en.wikipedia.org/wiki/Princi
 In graphics, we can leverage the gestalt principles of grouping to create order and meaning. If we color points by another variable, we are creating groups of similar points which assist with the perception of groups instead of individual observations. If we add a trend line, we create the perception that the points are moving "with" the line (in most cases), or occasionally, that the line is dividing up two groups of points. Depending on what features of the data you wish to emphasize, you might choose different aesthetics mappings, facet variables, and factor orders. 
 </details>
 
-Suppose I want to emphasize the change in the murder rate between 1980 and 2010. 
+<details><summary>Example: Suppose I want to emphasize the change in the murder rate between 1980 and 2010. </summary>
 
 <details><summary>I could use a bar chart</summary>
 ```{r, fig.height = 8, fig.width = 6}
@@ -1511,6 +1511,7 @@ fbiwide %>%
 Which one best demonstrates that in every state and region, the murder rate decreeased?
 
 The line segment plot connects related observations (from the same state) but allows you to assess similarity between the lines (e.g. almost all states have negative slope). The same information goes into the creation of the other two plots, but the bar chart is extremely cluttered, and the boxplot doesn't allow you to connect single state observations over time. So while you can see an aggregate relationship (overall, the average number of murders in each state per 100k residents decreased) you can't see the individual relationships. 
+</details>
 
 The aesthetic mappings and choices you make when creating plots have a huge impact on the conclusions that you (and others) can easily make when examining those plots.^[See [this paper](https://doi.org/10.1080/10618600.2016.1209116) for more details.] 
 
