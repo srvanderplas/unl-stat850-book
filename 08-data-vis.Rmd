@@ -11,9 +11,11 @@
 - Modify or construct alternate charts showing the same material with better readability and accessibility
 
 
-There are a lot of different types of charts, and equally many ways  to categorize and describe the different types of charts. 
+There are a lot of different types of charts, and equally many ways  to categorize and describe the different types of charts. <details><summary>This is one of the less serious schemes I've seen</summary>
+But, in my opinion, Randall missed the opportunity to put a pie chart as Neutral Evil. 
 
 ![](https://imgs.xkcd.com/comics/alignment_chart_alignment_chart.png)
+</details>
 
 Hopefully by the end of this, you will be able to at least make the charts which are most commonly used to show data and statistical concepts. 
 
@@ -28,11 +30,11 @@ Visualization and statistical graphics are also my research area, so I'm probabl
 <details><summary>Charts are easier to understand than raw data. (more details inside) </summary>
 When you think about it, data is a pretty artificial thing. We exist in a world of tangible objects, but data are an abstraction - even when the data record information about the tangible world, the measurements are a way of removing the physical and transforming the "real world" into a virtual thing. As an artificial entity, it can be hard to wrap our heads around what our data contain. The solution to this is to transform our data back into something that is "tangible" in some way -- if not physical and literally touch-able, at least something we can view and "wrap our heads around". 
 
-Consider this thought experiment: You have a simple dataset - 2 variables, 500 observations. You want to get a sense of how the variables relate to each other. You can do one of the following options:
+Consider this thought experiment: You have a simple data set - 2 variables, 500 observations. You want to get a sense of how the variables relate to each other. You can do one of the following options:
 
-1. Print out the dataset
+1. Print out the data set
 2. Create some summary statistics of each variable and perhaps the covariance between the two variables
-3. Draw a scatterplot of the two variables
+3. Draw a scatter plot of the two variables
 
 Which one would you rather use? Why?
 
@@ -54,7 +56,7 @@ In the introduction to [The Grammar of Graphics](https://www.springer.com/gp/boo
 Base R graphics and the original SAS graphics engine fall firmly into the first camp. `ggplot2` was designed using the philosophy of the grammar of graphics, and is still the primary place that people learn about the grammar of graphics in statistics. The SAS ODS Graphics Engine^[I'll fully admit my bias here - I think ODS graphics are better than the default SAS graphics, but I still prefer the syntax and logic behind ggplot2. But, if you prefer SAS Graphics, you do you. Better you than me, is all I'm saying.] falls somewhere in between the two approaches - it provides some sensible defaults, but its design isn't rooted in the philosophy of the grammar of graphics, so if (as some SAS manuals have claimed) there is a similarity between the two, it's functional (in my opinion) and not because of an underlying similarity in the design strategy.
 
 ::: note
-In either case, you're going to learn how to make graphics by finding sample code, changing that code to match your dataset, and tweaking things as you go. That's the best way to learn this, and while option 2 does have a structure and some syntax to learn, once you're familiar with the principles, you'll still want to learn graphics by doing it. 
+In either case, you're going to learn how to make graphics by finding sample code, changing that code to match your data set, and tweaking things as you go. That's the best way to learn this, and while option 2 does have a structure and some syntax to learn, once you're familiar with the principles, you'll still want to learn graphics by doing it. 
 :::
 
 There are other graphics systems in R (namely, `lattice`, plus some web-based rendering engines) that you could explore, but it's far more important that you know how to functionally create plots in R and/or SAS. I don't recommend you try to become proficient in all of them. Pick one (two at most) and get to know that, then google for the rest.
@@ -113,7 +115,7 @@ ggplot(aes(x = "", fill = generation), data = poke) +
   geom_bar(position = "stack") 
 ```
 
-If we want a pie chart, we can get one very easily - we transform the coordinate plane from cartesian coordinates to polar coordinates. We specify that we want angle to correspond to the "y" coordinate, and that we want to start at $\theta = 0$. 
+If we want a pie chart, we can get one very easily - we transform the coordinate plane from Cartesian coordinates to polar coordinates. We specify that we want angle to correspond to the "y" coordinate, and that we want to start at $\theta = 0$. 
 
 ```{r, message = F}
 ggplot(aes(x = "", fill = generation), data = poke) + 
@@ -197,13 +199,13 @@ In the grammar of graphics, a plot consists of several mostly independent specif
 2. **layers** - geometric elements (points, lines, rectangles, text, ...) 
 3. **transformations** - transformations specify a functional link between the data and the displayed information (identity, count, bins, density, regression). Transformations act on the variables. 
 4. **scales** - scales map values in data space to values in the aesthetic space. Scales change the coordinate space of an aesthetic, but don't change the underlying value (so the change is at the visual level, not the mathematical level). 
-5. **coordinate system** - e.g. polar or cartesian
-6. **facetting** - facets allow you to split plots by other variables to produce many sub-plots.
+5. **coordinate system** - e.g. polar or Cartesian
+6. **faceting** - facets allow you to split plots by other variables to produce many sub-plots.
 7. **theme** - formatting items, such as background color, fonts, margins...
 
 We can contrast this with other plotting systems (e.g. Base R), where transformations and scales must be handled manually, there may be separate plotting systems for different coordinate systems, etc. 
 
-Functionally, the biggest difference between the two systems is that in the grammar of graphics system (as implemented in ggplot2), we work with a full tabular dataset. So like the rest of the tidyverse, ggplot2 will allow you to reference bare column names as if they were variables, so long as you've passed in the data set to the `data =` argument.^[This can sometimes be a pain, though, depending on the set up, because you may end up with labels that are repeated many, many times. As with any system, you just have to make sure you're formatting your data consistent with the underlying philosophy.] 
+Functionally, the biggest difference between the two systems is that in the grammar of graphics system (as implemented in ggplot2), we work with a full tabular data set. So like the rest of the tidyverse, ggplot2 will allow you to reference bare column names as if they were variables, so long as you've passed in the data set to the `data =` argument.^[This can sometimes be a pain, though, depending on the set up, because you may end up with labels that are repeated many, many times. As with any system, you just have to make sure you're formatting your data consistent with the underlying philosophy.] 
 
 <details><summary>Let's get the data set up in both SAS and R</summary>
 ```{r}
@@ -257,7 +259,7 @@ RUN;
 
 ### Demonstration: Aesthetic Mappings and Basic Plots
 
-A basic scatterplot is a combination of an aesthetic mapping for x and y (position), combined with the specification that the geometric object to be displayed is a point. Without any of the components (x, y, geom_point) you don't have a scatterplot. 
+A basic scatter plot is a combination of an aesthetic mapping for x and y (position), combined with the specification that the geometric object to be displayed is a point. Without any of the components (x, y, geom_point) you don't have a scatter plot. 
 ```{r}
 ggplot(fbiwide, aes(x = Burglary, y = Murder)) + geom_point()
 ```
@@ -350,7 +352,7 @@ ggplot(fbiwide, aes(x = Population, y = Assault, color = Abb)) + geom_point()
 ```
 
 <details><summary>Base R variable mapping</summary>
-In base R, you can also create scatterplots that have different plot aesthetics, but we have to get a bit more hands-on than we did with ggplot2.
+In base R, you can also create scatter plots that have different plot aesthetics, but we have to get a bit more hands-on than we did with ggplot2.
 ```{r, error = T}
 # This doesn't work because the values in Abb aren't actually colors
 # and plot() doesn't handle the mapping between color and abbreviation for us
@@ -477,7 +479,7 @@ poke %>%
 ```
 
 <details><summary>See more numeric scales</summary>
-We could get fancier still and map the pokemon's height to size. 
+We could get fancier still and map the Pokemon's height to size. 
 
 ```{r}
 poke %>% 
@@ -615,15 +617,15 @@ As best as I can tell, there's no similar plot option that would let us map a va
 
 #### Try it out {.tryitout}
 
-Explore the happy dataset, which is a selection of variables from the general social survey (`?happy`) related to happiness. What associations can you find between the variables? Can you use what you know about the graphics help resources to figure out how to create new plot types?
+Explore the happy data set, which is a selection of variables from the general social survey (`?happy`) related to happiness. What associations can you find between the variables? Can you use what you know about the graphics help resources to figure out how to create new plot types?
 
 ### Syntax and General Structure: Layers
 
 One of the main advantages of ggplot2 is that the syntax is basically consistent across very different types of plots. In base R and SAS, this is not the case - you have to look up the available options for each different plot type. In ggplot2, I might have to look up what the aesthetic names are for a specific geom, but I can guess most of the time. So let's look a bit more into what ggplot2's approach to graph specification is and what it allows us to do.
 
-You're fairly used to the syntax of the pipe by now; but ggplot works on a slightly different (but similar) concept that we've used implicitly up until this point. There is the intial plot statement, `ggplot()`, and successive layers are added using `+`. 
+You're fairly used to the syntax of the pipe by now; but ggplot works on a slightly different (but similar) concept that we've used implicitly up until this point. There is the initial plot statement, `ggplot()`, and successive layers are added using `+`. 
 
-You can specify a dataset and aesthetic variables in the `ggplot()` statement (which is what we'll usually do), but you can also have a completely blank `ggplot()` statement and specify your aesthetic mappings and datasets for each layer separately. This approach is more useful when you start creating complex plots, because you may need to plot summary information and raw data, or e.g. separate tables with city information, geographic boundaries, and rivers, all of which need to be represented in the same map.
+You can specify a data set and aesthetic variables in the `ggplot()` statement (which is what we'll usually do), but you can also have a completely blank `ggplot()` statement and specify your aesthetic mappings and data sets for each layer separately. This approach is more useful when you start creating complex plots, because you may need to plot summary information and raw data, or e.g. separate tables with city information, geographic boundaries, and rivers, all of which need to be represented in the same map.
 
 Let's play with maps for a little bit, because they provide a good example of how ggplot layers work. This is likely to be an extended, meandering example. 
 
@@ -669,7 +671,7 @@ The state data is similarly structured:
 head(states)
 ```
 
-Now, let's look at our worship place data. The full dataset was more extensive (and much larger), so I've reduced the number of columns so that I'm able to put it on GitHub. 
+Now, let's look at our worship place data. The full data set was more extensive (and much larger), so I've reduced the number of columns so that I'm able to put it on GitHub. 
 ```{r}
 head(worship)
 ```
@@ -776,7 +778,7 @@ Just for context, the northwest corner of South Carolina ("upstate" to the local
 
 #### Try it out {- .tryitout}
 
-Pick a few denominations or religious organizations (or even just a more generic pattern, like names starting with ST) and do some rough string matching. What spatial patterns do you detect? (This won't be totally accurate, and doesn't need to be, in order to paint a picture of the country's religious affiliations and congregations)
+Pick a few denominations or religious organizations (or even just a more generic pattern, like names starting with ST, or schools) and do some rough string matching. What spatial patterns do you detect? (This won't be totally accurate, and doesn't need to be, in order to paint a picture of the country's religious affiliations and congregations)
 
 <details><summary>One solution</summary>
 First, let's do a bit of string processing.
@@ -789,7 +791,7 @@ common_words <- worship %>%
   sort(decreasing = TRUE)
 common_words[1:40]
 ```
-Let's work with the following denominations: BAPTIST, LUTHERAN, METHODIST, PRESBYTERIAN, EPISCOPAL - I've left out CHRISTIAN, ASSEMBLY (because it could be ASSEMBLY OF GOD or a more generic term for a congreggation), and TEMPLE because it could refer to any number of religions - Jewish, Hindu, etc. This will give us a very rough categorization (e.g. there are Methodist Episcopal churches which will be counted as one and not the other, and UMC is a common abbreviation for United Methodist Church but won't be counted as one this way). 
+Let's work with the following denominations: BAPTIST, LUTHERAN, METHODIST, PRESBYTERIAN, EPISCOPAL - I've left out CHRISTIAN, ASSEMBLY (because it could be ASSEMBLY OF GOD or a more generic term for a congregation), and TEMPLE because it could refer to any number of religions - Jewish, Hindu, etc. This will give us a very rough categorization (e.g. there are Methodist Episcopal churches which will be counted as one and not the other, and UMC is a common abbreviation for United Methodist Church but won't be counted as one this way). 
 
 ```{r}
 worship <- worship %>%
@@ -876,6 +878,8 @@ rm(list = c("objs", "rm_objs"))
 At this point, we've primarily looked at charts which have two continuous variables - scatter plots, and line plots. There are a number of situations where these types of charts are inadequate. For one thing, we might want to only look at the distribution of a single variable. Or, we might want to look at how a continuous response variable changes when the level of a categorical variable changes. In this section, we'll hit the most common types of plots, but there are almost infinite variations. Sites like [the Data Viz Catalogue](https://datavizcatalogue.com/search.html) can be useful if you're trying to accomplish a specific task and want to know what type of plot to use. 
 
 #### Box Plots
+A box plot can show some summary information about the distribution of a single continuous variable, and usually is used to show differences in the level of a response variable at different levels of a categorical variable. 
+
 Let's look at the relative frequency of different types of crimes, putting all states on an equal scale of 100k residents so that the numbers are comparable and also meaningful. 
 
 ```{r}
@@ -920,12 +924,12 @@ tmp %>%
   geom_boxplot() + 
   ggtitle(paste("Crimes per 100k people,", max(fbi$Year)))
 ```
-<details><summary>Boxplots in base R</summary>
+<details><summary>Box plots in base R</summary>
 ```{r}
 boxplot(per_100k~crime, data = tmp)
 ```
 </details>
-<details><summary>Boxplots in SAS</summary>
+<details><summary>Box plots in SAS</summary>
 ```{sashtml error = T, collectcode = T}
 libname classdat "/home/susan/Projects/Class/unl-stat850/2020-stat850/sas/";
 
@@ -939,6 +943,160 @@ hbox per_100k / group = Type;
 RUN;
 ```
 </details>
+
+There are other variants of box plots (and similar concepts). Here is a violin plot, which attempts to show some more information about the distribution of the continuous variable (instead of hiding it all in the summary statistics). 
+
+```{r}
+tmp %>%
+  ggplot(aes(x = crime, y = per_100k, color = Violent.crime)) + 
+  geom_violin(scale = "width", # This ensures all plots have the same max width
+                               # Otherwise, theft is too skinny to really see
+              draw_quantiles = c(.25, .5, .75)) + 
+  ggtitle(paste("Crimes per 100k people,", max(fbi$Year)))
+```
+
+
+#### Histograms and Density Plots
+Box plots aren't the only way to show distributions, though. If we want to, we can show distributions using histograms or density plots. A histogram involves binning the variable, counting the number of observations that fall within each specified range. Usually, these ranges have constant width (but not always). 
+
+```{r}
+poke %>%
+  ggplot(aes(x = hp)) + 
+  geom_histogram(color = "black", fill = "grey")
+
+poke %>%
+  ggplot(aes(x = hp)) + 
+  geom_histogram(color = "black", fill = "grey", binwidth = 20)
+```
+
+You should always look at  a histogram under multiple bin widths, because that parameter can change the visual appearance of the distribution quite a bit. In base R, you can get histograms with the `hist()` function. 
+
+<details><summary>Histograms in SAS</summary>
+```{sashtml}
+libname classdat "/home/susan/Projects/Class/unl-stat850/2020-stat850/sas/";
+
+DATA WORK.fbitmp;
+SET classdat.fbi;
+per_100k = Count/Population*100000;
+RUN;
+
+PROC SGPLOT data=fbitmp(WHERE=(Type = "Robbery"));
+histogram per_100k;
+RUN;
+```
+</details>
+
+A density plot is an empirical method of estimating the probability density function of a variable. Thus, instead of count, the y axis in a density plot will be labeled "density" and the curve will be scaled so that the distribution integrates to 1. Density plots can be quite useful for continuous variables, but are also dependent on parameter selection - instead of a bin width, you may need to adjust a kernel width. 
+
+```{r}
+
+poke %>%
+  ggplot(aes(x = hp)) + 
+  geom_density(color = "black", fill = "grey")
+```
+
+If you try to create a density plot for a variable which has only a limited number of values, you'll often get an extremely spiky distribution. If your variable is e.g. measured in imprecise intervals, even though it's continuous, you can adjust the bandwidth, but you may be better off using a histogram and choosing your bin width to be a multiple of your measurement precision. A spiky density curve can alert you to other problems in your data - for instance, the presence of a large number of 0s might tell you a mixture distribution would be a more appropriate distribution when you're modeling the data. 
+
+```{r}
+poke %>%
+  ggplot(aes(x = catch_rate)) + 
+  geom_density(color = "black", fill = "grey")
+```
+
+In base R, you can get a density plot of a single variable with `plot(density(...))`. 
+
+<details><summary>Density plots in SAS</summary>
+```{sashtml}
+libname classdat "/home/susan/Projects/Class/unl-stat850/2020-stat850/sas/";
+
+DATA WORK.fbitmp;
+SET classdat.fbi;
+per_100k = Count/Population*100000;
+RUN;
+
+PROC SGPLOT data=fbitmp(WHERE=(Type = "Robbery"));
+density per_100k / type = kernel;
+RUN;
+```
+</details>
+
+If you're careful to specify your mappings properly, you can plot a density curve on top of a histogram. Since both geoms compute statistics, you have to read the help files to see that they actually are computing multiple statistics.
+
+::: tryitout
+Read the help files and attempt to create your own histogram/density combination, before looking at the solution below
+:::
+
+<details><summary>Histogram/Density combo</summary>
+geom_histogram lists computed variables count, density, ncount, and ndensity. It will be easiest just to use the computed variable density, which we access by putting `y = ..density..` in the aesthetic statement for the histogram geom. This moves the histogram to the same scale as the density - both will be scaled to integrate/sum to 1. 
+
+```{r}
+poke %>%
+  ggplot(aes(x = catch_rate)) + 
+  geom_histogram(aes(y = ..density..)) + 
+  geom_density(color = "black", fill = "white", alpha = .25)
+```
+
+We could similarly tell the density function we want a plot on the count scale, but this is harder to read and compare. Personally, I prefer the first version. 
+```{r}
+poke %>%
+  ggplot(aes(x = catch_rate)) + 
+  geom_histogram() + 
+  geom_density(aes(y = ..count..), color = "black", fill = "white", alpha = .25)
+```
+
+In SAS, this is actually easier than it is in ggplot2: As long as you put the histogram first in the SGPLOT statement, you'll get the right scale. 
+
+```{sashtml}
+libname classdat "/home/susan/Projects/Class/unl-stat850/2020-stat850/sas/";
+
+DATA WORK.fbitmp;
+SET classdat.fbi;
+per_100k = Count/Population*100000;
+RUN;
+
+PROC SGPLOT data=fbitmp(WHERE=(Type = "Robbery"));
+histogram per_100k;
+density per_100k / type = kernel;
+RUN;
+```
+</details>
+
+You can use density plots and histograms in two dimensions to show the bivariate relationship between two variables, but at that point we have to represent the height of the density using another variable (as x and y are taken by the two variables you're computing a density for). 
+
+One common aesthetic choice is to map density (or counts) to the fill color, leaving you to imagine a "height" associated with the color.  
+```{r}
+poke %>%
+  ggplot(aes(x = height_m, y = weight_kg)) + 
+  geom_bin2d(aes(fill = ..count..), bins = 18, drop = F) + 
+  scale_x_log10() + 
+  scale_y_log10()
+
+poke %>%
+  ggplot(aes(x = height_m, y = weight_kg)) + 
+  geom_hex(aes(fill = ..count..), drop = F) + 
+  scale_x_log10() + 
+  scale_y_log10()
+
+poke %>%
+  ggplot(aes(x = height_m, y = weight_kg)) + 
+  geom_density2d_filled() + 
+  scale_x_log10() + 
+  scale_y_log10()
+```
+
+Alternately, it may be preferable to plot only the contour outlines.
+```{r}
+poke %>%
+  ggplot(aes(x = height_m, y = weight_kg)) + 
+  geom_density2d(bins = 15) + 
+  scale_x_log10() + 
+  scale_y_log10()
+```
+
+I found a blog post describing how to compute two-dimensional bins and make a [heatmap bin plot in SAS.](https://blogs.sas.com/content/iml/2014/08/27/counts-in-2d-bins.html)
+
+
+Of course, joint distributions can also be shown using a scatterplot. Another useful geom when examining distributions is `geom_rug`, which shows univariate distributions in the margins of the plot.
 
 #### Bar Charts
 
@@ -962,7 +1120,9 @@ ggplot(aes(x = generation, fill = status)) +
   # The default colors are awful for colorblind people (like me), so lets fix it
   scale_fill_brewer(palette = "Paired")
 ```
-We can get different visual information from the same data, if we switch which variable is on the axis and which is the fill variable
+
+We can get different visual information from the same data, if we switch which variable is on the axis and which is the fill variable.
+
 ```{r}
 poke %>%
   mutate(status = factor(
@@ -975,7 +1135,7 @@ ggplot(aes(x = status, fill = generation)) +
   geom_bar(position = "dodge")
 ```
 
-We can also get useful information by changing the statistic: what if we use the proportion of responses in each category instead of the raw count? To do this, as far as I know, we have to do at least a little bit of preprocessing, because we need a nested order of grouping factors, and ggplot doesn't do that very well. 
+We can also get useful information by changing the statistic: what if we use the proportion of responses in each category instead of the raw count? To do this, as far as I know, we have to do at least a little bit of pre-processing, because we need a nested order of grouping factors, and ggplot doesn't do that very well. 
 
 ```{r}
 poke %>%
@@ -1013,21 +1173,389 @@ ggplot(aes(x = generation, fill = status, weight = prop)) +
   scale_fill_brewer(palette = "Paired")
 ```
 
+<details><summary>Bar Charts in SAS</summary>
+```{sashtml}
+libname classdat "/home/susan/Projects/Class/unl-stat850/2020-stat850/sas/";
 
-### Small Multiples Plots
 
-Sometimes, you want to show separate plots for each level of a factor (or a combination of factors). Often, this happens when you expect the plot's gross shape to change - something relatively obvious. Other times, though, you might just have too much data and need to break it down somehow. 
+PROC SGPLOT data=classdat.poke;
+VBAR status;
+RUN;
+
+PROC SGPLOT data=classdat.poke;
+HBAR type_1;
+RUN;
+```
+</details>
+
+#### Other useful geoms
+
+There are a few other geoms which may be useful from time to time, especially when adding additional information to a plot. 
+
+- `geom_hline` draws horizontal lines
+- `geom_vline` draws vertical lines
+- `geom_abline` draws a line in slope-intercept form
+- `geom_function` draws a function over the domain of the plot
+- `geom_smooth` draws a smooth line over e.g. a scatterplot. You can use this to fit an implicit linear regression, but by default it uses loess or generalized additive models to produce a more flexible fit. 
+
+
+
+### Small Multiples
+
+Sometimes, you want to show separate plots for each level of a factor (or a combination of factors). Often, this happens when you expect the gross shape of the plotted information to change - something relatively obvious. Other times, though, you might just have too much data and need to break it down somehow. 
 
 These sub-plots within a plot are called small multiples, or facets, or panel plots, depending on the software or discipline. 
 
+```{r}
+fbi %>%
+  filter(Abb == "NE") %>%
+  ggplot(aes(x = Year, y = Count/Population)) + 
+  geom_col() + 
+  facet_wrap(~Type)
+```
+
+The options to make panel plots in ggplot2 are `facet_wrap`, which wraps the specified panels into an overall plot with a reasonable aspect ratio, and `facet_grid`, which creates a grid of panels. 
+
+We can control the scales on the panels - in some cases, it is advantageous to have the same scale for all panels, while at other times, such as in the example above, varying the scales at the panel level may allow you to see more detail. 
 
 
+```{r}
+fbi %>%
+  filter(Abb == "NE") %>%
+  ggplot(aes(x = Year, y = Count/Population)) + 
+  geom_col() + 
+  facet_wrap(~Type, scales = "free_y")
+```
+
+Using a grid-style facet, we can make it easy to compare the relative trends in sub-populations. 
+
+```{r}
+fbi %>%
+  filter(Abb %in% c("D.C.", "NY"),
+         Type %in% c("Burglary", "Robbery")) %>%
+  ggplot(aes(x = Year, y = Count/Population)) + 
+  geom_col() + 
+  facet_grid(Abb~Type)
+```
+
+<details><summary>Panel plots in SAS</summary>
+Basically the same syntax as SGPLOT, but using SGPANEL and a PANELBY statement. This is very similar to ggplot2's `facet_` addition. 
+```{sashtml}
+libname classdat "/home/susan/Projects/Class/unl-stat850/2020-stat850/sas/";
+
+PROC SGPANEL data=classdat.poke;
+PANELBY status;
+HBAR type_1;
+RUN;
+```
+</details>
+
+
+### Try it out {- .tryitout}
+
+The classdata package contains the `box` dataset, which has weekly box office numbers. Conduct an exploratory data analysis of the dataset, using different types of plots appropriately. What is the most interesting aspect of the data you found in your exploration?
+
+<details><summary>One possible solution</summary>
+```{r}
+library(classdata)
+library(lubridate) # Work with dates and times
+data(box)
+
+head(box)
+
+ggplot(box, aes(x = Week, y = Gross, group = Movie)) + 
+  geom_line(alpha = .1)
+
+# Ok, that's weird. Some movie was in theaters for 100,000 weeks? Or re-released?
+filter(box, Week > 100) %>%
+  group_by(Movie) %>% 
+  summarize(max_week = max(Week)) %>%
+  arrange(desc(max_week))
+
+box %>%
+  filter(Week < 100) %>%
+  ggplot(aes(x = Week, y = Gross, group = Movie)) + 
+  geom_line(alpha = .01) + 
+  scale_y_log10()
+```
+To me, this looks like there are two main groups of movies - the less common movies that are hugely grossing initially, but decline relatively quickly in weekly gross, and the more common movies that show a gradual decline until they are removed from theaters. Most movies don't seem to go beyond 25 weeks. 
+
+```{r}
+# Still kind of a mess. Let's facet by year of initial release
+movie_summary <- box %>%
+  group_by(Movie) %>%
+  summarize(release_year = min(year(Date)), 
+            weeks = max(Week), 
+            total.gross = Total.Gross[Week == max(Week)],
+            .groups = "drop_last")
+
+box %>%
+  left_join(select(movie_summary, Movie, release_year))  %>%
+  filter(Week < 25) %>%
+  ggplot(aes(x = Week, y = Gross, group = Movie)) + 
+  geom_line(alpha = .05) + 
+  facet_wrap(~release_year) + 
+  scale_y_log10()
+```
+
+This pattern is relatively consistent year after year, but some years have many more high-grossing movies. 
+
+Let's look at the relationship between last week's rank and this week's rank.
+```{r}
+box %>%
+  left_join(select(movie_summary, Movie, release_year))  %>%
+  filter(Week < 25, Week > 1) %>%
+  ggplot(aes(x = Rank.Last.Week, y = Rank, group = Movie)) + 
+  geom_point(alpha = .05) + 
+  scale_y_reverse() + 
+  facet_wrap(~Week)
+```
+It's very strong, as expected, but this is extremely overplotted, so we might be missing some details. Let's look at the 2d density to see if we get anything interesting.
+
+```{r}
+box %>%
+  filter(Week < 15, Week > 1) %>%
+  ggplot(aes(x = Rank.Last.Week, y = Rank)) + 
+  geom_density2d_filled() + 
+  scale_y_reverse() + 
+  facet_wrap(~Week)
+```
+
+As we go week by week, we see the mode of the distribution shift down in rank. By week 9, it's extremely uncommon for a movie to be in the top 10. 
+
+Next, lets look at the relationship between the number of theaters showing a movie and the weekly gross receipts. 
+```{r}
+box %>%
+  left_join(select(movie_summary, Movie, release_year))  %>%
+  filter(Rank <= 25) %>%
+  ggplot(aes(x = Thtrs., y = Gross)) + 
+  geom_density2d_filled() + 
+  scale_y_log10()
+```
+
+It would be interesting to see if this relationship is the same for all distributors. 
+```{r}
+distributors <- box %>% group_by(Distributor, Movie) %>%
+  filter(Week == max(Week)) %>%
+  group_by(Distributor) %>%
+  summarize(n = n(), median.gross = median(Total.Gross)) %>%
+  arrange(desc(median.gross))
+
+head(distributors, 10)
+
+distributors %>%
+  filter(n >= 25) %>% # want distributors with at least 25 movies
+  slice(1:10) %>% # keep top 10 rows
+  left_join(box) %>%
+  mutate(Distributor = factor(Distributor) %>% reorder(-median.gross)) %>%
+  filter(Week <= 10) %>% # Only look at the first 10 weeks of a movie
+  ggplot(aes(x = Thtrs., y = Gross)) + 
+  geom_density2d_filled(contour_var = "ndensity") + 
+  scale_y_log10() + 
+  facet_wrap(~Distributor)
+```
+It's rather obvious that Disney is the real outlier here - it has movies that are extremely widely released and very high grossing, and a limited-release movie is a relatively rare thing. Compare this to e.g. Lionsgate, where most movies are limited to a few theaters and it's relatively rare to have a widely released movie. </details>
 
 ## Good charts
 
-![Good charts are important](https://imgs.xkcd.com/comics/coronavirus_charts.png)
+Earlier, I mentioned that we've known pie charts suck for 100 years. But what makes a chart good? And how do we tell?
+
+::: note
+This is my area of research, so I'm going to *try* to keep this to a broad overview, but I may not succeed. Sorry in advance. 
+:::
+
+A chart is good if it allows the user to draw useful conclusions that are supported by data. Obviously, this definition depends on the purpose of the chart - a simple EDA chart is going to have a different purpose than a chart showing e.g. the predicted path of a hurricane, which people will use to make decisions about whether or not to evacuate. 
+
+Unfortunately, while our visual system is *amazing*, it is not always as accurate as the computers we use to render graphics. We have physical limits in the number of colors we can perceive, our short term memory, attention, and our ability to accurately read information off of charts in different forms. 
+
+### Perceptual and Cognitive Factors
+
+#### Color    
+Our eyes are optimized for perceiving the yellow/green region of the color spectrum. Why? Well, our sun produces yellow light, and plants tend to be green. It's pretty important to be able to distinguish different shades of green (evolutionarily speaking) because it impacts your ability to feed yourself. There aren't that many purple or blue predators, so there is less selection pressure to improve perception of that part of the visual spectrum.    
+
+![Sensitivity of the human eye to different wavelengths of visual light (Image from Wikimedia commons)](https://upload.wikimedia.org/wikipedia/commons/c/c0/Eyesensitivity.svg)
+
+Not everyone perceives color in the same way. Some individuals are [colorblind or color deficient](https://en.wikipedia.org/wiki/Color_blindness). We have 3 cones used for color detection, as well as cells called rods which detect light intensity (brightness/darkness). In about 5% of the population (10% of XY individuals, <1% of XX individuals), one or more of the cones may be missing or malformed, leading to color blindness - a reduced ability to perceive different shades. The rods, however, function normally in almost all of the population, which means that light/dark contrasts are extremely safe, while contrasts based on the hue of the color are problematic in some instances. 
+
+<details><summary>You can take a test designed to screen for colorblindness [here](https://www.eyeque.com/color-blind-test/test/) (your monitor may affect how you score on this test - I am colorblind, but on some monitors, I can pass the test, and on some, I perform worse than normal). A different test is available [here](https://www.color-blindness.com/farnsworth-munsell-100-hue-color-vision-test/). </summary>
+![My results on one monitor](image/08_colorblindness_monitorLG.png)
+![My results on a monitor that has a different tech and supposedly higher color fidelity](image/08_colorblindness_monitorDell.png)
+
+![The Munsell colorblindness test](image/08_colorblind_munsell.png)
+In reality, I know that I have issues with perceiving some shades of red, green, and brown. I have particular trouble with very dark or very light colors, especially when they are close to grey or brown. 
+</details>
+
+<details><summary>It is possible to simulate the effect of color blindness and color deficiency on an image. </summary>
+<table width="100%"><tr><td rowspan = 2 width="40%">
+![Original image using a rainbow color scale](image/RainbowScaleOrig.jpg)</td><td width="20%">![Red cone deficient](image/RainbowScaleOrig-protanomaly.jpg)</td><td width="20%">![Green cone deficient](image/RainbowScaleOrig-deuteranomaly.jpg)</td><td width="20%">![Blue cone deficient](image/RainbowScaleOrig-tritanomaly.jpg)</td></tr><tr><td width="20%">![Red cone absent](image/RainbowScaleOrig-protanopia.jpg)</td><td width="20%">![Green cone absent](image/RainbowScaleOrig-deuteranopia.jpg)</td><td width="20%">![Blue cone absent](image/RainbowScaleOrig-tritanopia.jpg)</td></tr></table>
+
+In addition to colorblindness, there are other factors than the actual color value which are important in how we experience color. 
+
+```{r, fig.cap = "The color constancy illusion. The squares marked A and B are actually the same color", out.width = "45%"}
+knitr::include_graphics("image/CheckerShadow.png")
+knitr::include_graphics("image/CheckerShadow2.png")
+```
+
+Our brains are extremely dependent on context and make excellent use of the large amounts of experience we have with the real world. As a result, we implicitly "remove" the effect of things like shadows as we make sense of the input to the visual system. This can result in odd things, like the checkerboard and shadow shown above - because we're correcting for the shadow, B looks lighter than A even though when the context is removed they are clearly the same shade. 
+
+**Implications and Guidelines**
+- Do not use rainbow color gradient schemes - because of the unequal perception of different wavelengths, these schemes are _misleading_ - the color distance does not match the perceptual distance. 
+- Avoid any scheme that uses green-yellow-red signaling if you have a target audience that may include colorblind people. 
+- To "colorblind-proof" a graphic, you can use a couple of strategies: 
+    - double encoding - where you use color, use another aesthetic (line type, shape) as well to help your colorblind readers out
+    - If you can print your chart out in black and white and still read it, it will be safe for colorblind users. This is the only foolproof way to do it!
+    - If you are using a color gradient, use a monochromatic color scheme where possible. This is perceived as light -> dark by colorblind people, so it will be correctly perceived no matter what color you use. 
+    - If you have a bidirectional scale (e.g. showing positive and negative values), the safest scheme to use is purple - white - orange. In any color scale that is multi-hue, it is important to transition through white, instead of from one color to another directly. 
+- Be conscious of what certain colors "mean"
+    - Leveraging common associations can make it easier to read a color scale and remember what it stands for (e.g. blue for cold, orange/red for hot is a natural scale, red = Republican and blue = Democrat in the US, white -> blue gradients for showing rainfall totals) 
+    - Some colors can can provoke emotional responses that may not be desirable.^[When the COVID-19 outbreak started, many maps were using white-to-red gradients to show case counts and/or deaths. [The emotional association between red and blood, danger, and death may have caused people to become more frightened than what was reasonable given the available information.](https://www.esri.com/arcgis-blog/products/product/mapping/mapping-coronavirus-responsibly/)] 
+    - It is also important to be conscious of the social baggage that certain color schemes may have - the pink/blue color scheme often used to denote gender can be unnecessarily polarizing, and it may be easier to use a colder color (blue or purple) for men and a warmer color (yellow, orange, lighter green) for women^[Lisa Charlotte Rost. [What to consider when choosing colors for data visualization.](https://www.dataquest.io/blog/what-to-consider-when-choosing-colors-for-data-visualization/)]. 
+- There are packages such as `RColorBrewer` and `dichromat` that have color palettes which are aesthetically pleasing, and, in many cases, colorblind friendly (`dichromat` is better for that than `RColorBrewer`). You can also take a look at other [ways to find nice color palettes](https://lisacharlotterost.de/2016/04/22/Colors-for-DataVis/). 
 
 
+#### Short Term Memory
+
+We have a limited amount of memory that we can instantaneously utilize. This mental space, called **short-term memory**, holds information for active use, but only for a limited amount of time. Without rehearsing information, short term memory lasts a few seconds. 
+
+::: tryitout
+
+<details><summary>Click here, read the information, and then click to hide it.</summary> 1 4 2 2 3 9 8 0 7 8</details>
+
+Wait a few seconds
+
+<details>
+What was the third number?
+</details>
+:::
+
+Without rehearsing the information (repeating it over and over to yourself), the try it out task may have been challenging. Short term memory has a capacity of between 3 and 9 "bits" of information. 
+
+In charts and graphs, short term memory is important because we need to be able to associate information from e.g. a key, legend, or caption with information plotted on the graph. As a result, if you try to plot more than ~6 categories of information, your reader will have to shift between the legend and the graph repeatedly, increasing the amount of cognitive labor required to digest the information in the chart.
+
+Where possible, try to keep your legends to 6 or 7 characteristics. 
+
+**Implications and Guidelines**
+- Limit the number of categories in your legends to minimize the short term memory demands on your reader.
+    - When using continuous color schemes, you may want to use a log scale to better show differences in value across orders of magnitude. 
+- Use colors and symbols which have implicit meaning to minimize the need to refer to the legend.
+- Add annotations on the plot, where possible, to reduce the need to re-read captions.
+
+#### Grouping and Sense-making
+<details><summary>Imposing order on visual chaos.</summary>
+<details><summary>What does the figure below look like to you?</summary>
+![Is it a rabbit, or a duck?](image/DuckRabbitIllusion.jpg)
+</details>
+
+When faced with ambiguity, our brains use available context and past experience to try to tip the balance between alternate interpretations of an image. When there is still some ambiguity, many times the brain will just decide to interpret an image as one of the possible options. 
+
+![Consider this image - what do you see?](image/IllusoryContour.png)
+
+Did you see something like "3 circles, a triangle with a black outline, and a white triangle on top of that"? What's actually there are 3 angles and 3 pac-man shapes. But, it's much more likely that we're seeing layers of information, where some of the information is obscured (like the "mouth" of the pac-man circles, or the middle segment of each side of the triangle). This explanation is simpler, and more consistent with our experience. 
+
+Now, look at the logo for the Pittsburgh Zoo. 
+![What do you see?](https://upload.wikimedia.org/wikipedia/en/5/5b/Pittsburgh_Zoo_%26_PPG_Aquarium_logo.svg)
+Do you see the gorilla and lionness? Or do you see a tree? Here, we're not entirely sure which part of the image is the figure and which is the background. 
+
+
+The ambiguous figures shown above demonstrate that our brains are actively imposing order upon the visual stimuli we encounter. There are some heuristics for how this order is applied which impact our perception of statistical graphs. The catchphrase of Gestalt psychology is 
+> The whole is greater than the sum of the parts
+
+That is, what we perceive and the meaning we derive from the visual scene is more than the individual components of that visual scene. 
+
+![The Gestalt Heuristics help us to impose order on ambiguous visual stimuli](image/gestalt.jpg)
+
+You can read about the gestalt rules [here](https://en.wikipedia.org/wiki/Principles_of_grouping), but they are also demonstrated in the figure above. 
+
+In graphics, we can leverage the gestalt principles of grouping to create order and meaning. If we color points by another variable, we are creating groups of similar points which assist with the perception of groups instead of individual observations. If we add a trend line, we create the perception that the points are moving "with" the line (in most cases), or occasionally, that the line is dividing up two groups of points. Depending on what features of the data you wish to emphasize, you might choose different aesthetics mappings, facet variables, and factor orders. 
+</details>
+
+Suppose I want to emphasize the change in the murder rate between 1980 and 2010. 
+
+<details><summary>I could use a bar chart</summary>
+```{r, fig.height = 8, fig.width = 6}
+fbiwide %>% 
+  filter(Year %in% c(1980, 2010)) %>%
+  ggplot(aes(x = State, y = Murder/Population*100000, fill = factor(Year))) + 
+  geom_col(position = "dodge") +
+  coord_flip() + 
+  ylab("Murders per 100,000 residents")
+```
+</details>
+<details><summary>Or, I could use a line chart</summary>
+```{r}
+fbiwide %>% 
+  filter(Year %in% c(1980, 2010)) %>%
+  ggplot(aes(x = Year, y = Murder/Population*100000, group = State)) + 
+  geom_line() + 
+  ylab("Murders per 100,000 residents")
+```
+</details>
+<details><summary>Or, I could use a box plot</summary>
+```{r}
+fbiwide %>% 
+  filter(Year %in% c(1980, 2010)) %>%
+  ggplot(aes(x = factor(Year), y = Murder/Population*100000)) + 
+  geom_boxplot() + 
+  ylab("Murders per 100,000 residents")
+```
+</details>
+
+Which one best demonstrates that in every state and region, the murder rate decreeased?
+
+The line segment plot connects related observations (from the same state) but allows you to assess similarity between the lines (e.g. almost all states have negative slope). The same information goes into the creation of the other two plots, but the bar chart is extremely cluttered, and the boxplot doesn't allow you to connect single state observations over time. So while you can see an aggregate relationship (overall, the average number of murders in each state per 100k residents decreased) you can't see the individual relationships. 
+
+The aesthetic mappings and choices you make when creating plots have a huge impact on the conclusions that you (and others) can easily make when examining those plots.^[See [this paper](https://doi.org/10.1080/10618600.2016.1209116) for more details.] 
+
+### General guidelines for accuracy
+
+There are certain tasks which are easier for us relative to other, similar tasks. 
+
+```{r, echo = F, fig.cap = "Which of the lines is the longest? Shortest? It is much easier to determine the relative length of the line when the ends are aligned. In fact, the line lengths are the same in both panels."}
+segs <- bind_rows(
+  tibble(x = 1:3, y1 = 0, y2 = c(2.5, 2.75, 2.25), type = "Aligned scale"),
+  tibble(x = 1:3, y1 = c(1, 0, .5), y2 = c(1, 0, .5) + c(2.5, 2.75, 2.25), type = "Unaligned scale")
+)
+ggplot(segs, aes(x = x, xend = x, y = y1, yend = y2)) + 
+  geom_segment() + facet_wrap(~type) + coord_fixed() + 
+  theme(axis.text = element_blank(), axis.ticks = element_blank(), axis.title = element_blank())
+```
+
+In general, when making judgements corresponding to numerical quantities, there is an order of tasks from easiest (1) to hardest (6), with equivalent tasks at the same level.^[See [this paper](https://www.jstor.org/stable/2288400) for the major source of this ranking; other follow-up studies have been integrated, but the essential order is largely unchanged.] 
+
+1. Position (common scale)
+2. Position (non-aligned scale)
+3. Length, Direction, Angle, Slope
+4. Area
+5. Volume, Density, Curvature
+6. Shading, Color Saturation, Color Hue
+
+If we compare a pie chart and a stacked bar chart, the bar chart asks readers to make judgements of position on a non-aligned scale, while a pie chart asks readers to assess angle. This is one reason why pie charts are not preferable -- they make it harder on the reader, and as a result we are less accurate when reading information from pie charts. 
+
+When creating a chart, it is helpful to consider which variables you want to show, and how accurate reader perception needs to be to get useful information from the chart. In many cases, less is more - you can easily overload someone, which may keep them from engaging with your chart at all. Variables which require the reader to notice small changes should be shown on position scales (x, y) rather than using color, alpha blending, etc.
+
+There is also a general increase in dimensionality from 1-3 to 4 (2d) to 5 (3d). In general, showing information in 3 dimensions when 2 will suffice is misleading - the addition of that extra dimension causes an increase in chart area allocated to the item that is disproportionate to the actual area. 
+
+```{r include = F}
+imgs <- list.files("image", "3d_pie", full.names = T)
+tmp <- tibble(portfolio = c("Cash", "Bond", "Stocks"), 
+              pct = c(.05, .35, .5),
+              img = purrr::map(imgs, ~png::readPNG(source = .)),
+              px = purrr::map_dbl(img, ~sum(.[,,4] != 0 ))) %>%
+  mutate(px_pct = px/sum(px))
+tmp
+```
+![Here, the area and height both encode the same variable, leading to a far disproportionate number of pixels allocated to "Stocks" than "Cash Investments" ([h/t Junk Charts](https://junkcharts.typepad.com/junk_charts/2020/06/when-the-pie-chart-is-more-complex-than-the-data.html)). In the first chart, stocks make up 60% of the portfolio, but have 67.5% of the pixels; Cash makes up 5% of the portfolio but those investments represent 2.3% of the pixels.](image/3d_graphs_suck.jpg). 
+
+[Ted ED: How to spot a misleading graph - Lea Gaslowitz](https://youtu.be/E91bGT9BjYk)
+[Business Insider: The Worst Graphs Ever](https://www.businessinsider.com/the-27-worst-charts-of-all-time-2013-6)
+
+Extra dimensions and other annotations are sometimes called "chartjunk" and should only be used if they contribute to the overall numerical accuracy of the chart (e.g. they should not just be for decoration). 
+
+### How do we know?
+
+We do experiments on people (*evil cackle*)! No, seriously, we do. See [this paper](https://www.annualreviews.org/doi/abs/10.1146/annurev-statistics-031219-041252) for a review of graphical testing in statistics, and [this paper](https://doi.org/10.1109/TVCG.2012.230) for one example of how we test competing designs to figure out that polar coordinates make everything harder. 
+
+If you're still curious after reading those, set up an appointment and let's talk!. 
 
 ## References
 
