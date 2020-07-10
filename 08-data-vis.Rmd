@@ -257,8 +257,10 @@ RUN;
 ```
 </details>
 
+
 ### Demonstration: Aesthetic Mappings and Basic Plots
 
+<details><summary>Basic Scatter plots</summary>
 A basic scatter plot is a combination of an aesthetic mapping for x and y (position), combined with the specification that the geometric object to be displayed is a point. Without any of the components (x, y, geom_point) you don't have a scatter plot. 
 ```{r}
 ggplot(fbiwide, aes(x = Burglary, y = Murder)) + geom_point()
@@ -288,7 +290,8 @@ SCATTER x = Burglary y = Murder;
 RUN;
 ```
 </details>
-
+</details>
+<details><summary>Adding labels and titles</summary>
 We can add a title to the plot
 ```{r}
 ggplot(fbiwide, aes(x = Murder, y = Assault)) + geom_point() + 
@@ -312,7 +315,9 @@ SCATTER x = Assault y = Murder;
 RUN;
 ```
 </details>
+</details>
 
+<details><summary>Changing characteristics of plotted objects</summary>
 We can also modify the appearance of the plotted objects
 ```{r}
 ggplot(fbiwide, aes(x = Population, y = Assault)) +
@@ -344,7 +349,9 @@ SCATTER x = Population y = Assault /
 RUN;
 ```
 </details>
+</details>
 
+<details><summary>Mapping categorical variables to aesthetics like color</summary>
 If we want to get fancy, we can map other **variables** to aesthetics like color, size, etc. We could explore the relationship between Population and Assault, but we'd expect that over time, observations from each state would be closely related. We could explore that by coloring each point by state (note, this doesn't allow us to really see which states belong to which points so much as it visually associates connected points.)
 
 ```{r}
@@ -393,7 +400,9 @@ RUN;
   
 ```
 </details>
+</details>
 
+<details><summary>Line plots</summary>
 A better way to graphically examine this hypothesis (the patterns in the data are clusters of each state's points) might be to change the geometric object - we could use lines instead of points to show this data. In that case, we'd want to show separate lines (groups) for each state.
 
 ```{r}
@@ -467,7 +476,9 @@ RUN;
 ```
 [SAS Line attributes and patterns options](https://documentation.sas.com/?docsetId=grstatproc&docsetTarget=p0er4dg9tojp05n1sf7maeqdz1d8.htm&docsetVersion=9.4&locale=en)
 </details>
+</details>
 
+<details><summary>Mapping numeric variables to aesthetics</summary>
 So we can color our points (or lines) by a categorical variable, but that's not all! We can also map numeric variables to aesthetics!
 
 There are perhaps too many data points in the FBI data to effectively show size variation, so let's temporarily switch to pokemon and examine the relationship between attack and special attack points. Let's also map alpha to weight, so that lighter points correspond to lighter pokemon.
@@ -614,6 +625,7 @@ RUN;
 
 As best as I can tell, there's no similar plot option that would let us map a variable to transparency. There are attribute maps, but the options are discrete (which weight is not) or range (which would let us define ranges to map to a single value), and they don't appear to support transparency. In theory, I think we could go to SAS Template graph language, but ... ugh. To be honest, at this point, I'd move the data into R and graph things there.
 </details>
+</details>
 
 #### Try it out {.tryitout}
 
@@ -627,10 +639,9 @@ You're fairly used to the syntax of the pipe by now; but ggplot works on a sligh
 
 You can specify a data set and aesthetic variables in the `ggplot()` statement (which is what we'll usually do), but you can also have a completely blank `ggplot()` statement and specify your aesthetic mappings and data sets for each layer separately. This approach is more useful when you start creating complex plots, because you may need to plot summary information and raw data, or e.g. separate tables with city information, geographic boundaries, and rivers, all of which need to be represented in the same map.
 
-Let's play with maps for a little bit, because they provide a good example of how ggplot layers work. This is likely to be an extended, meandering example. 
+In this extended example, we'll examine the different features we need to make a map and how to add new layers to a map. We'll also look at some new geoms: `geom_polygon` and `geom_path`.
 
 ```{r dataprep08, include = F, eval = F}
-
 worship <- read_csv("data/All_Places_Of_Worship.csv", guess_max = 5000) %>%
   select(EIN, NAME, STREET, CITY, STATE, ZIP, AFFILIATION, FOUNDATION, long = X, lat = Y)
 
@@ -641,7 +652,7 @@ pkgs <- installed.packages()
 # Install any of the packages that you don't have
 install.packages(setdiff(c("ggthemes", "mapdata", "maps"), pkgs))
 ```
-<details><summary>Initial data set up and exploration</summary>
+<details><summary>Initial data set up and exploration of the data sets</summary>
 ```{r}
 library(ggplot2)
 library(maps)
@@ -681,14 +692,14 @@ We have tax numbers, entity names, mailing address, affiliation, foundation, and
 While I'm tempted to play around with the names of the organizations a bit (for instance, how many different "First XXX Church" exist in the country?) it's probably for the best that we keep moving.
 </details>
 
-<details><summary>Basic map geoms</summary>
+<details><summary>Basic map geoms - `geom_path` and `geom_polygon`</summary>
 Let's try plotting this out. Maybe we can start with just plotting the outline using `geom_line`?
 ```{r}
 ggplot() + 
   geom_line(aes(x = long, y = lat, group = group), data = us_map)
 ```
 
-A line geom is plotted sequentially w.r.t. the magnitude of x. That doesn't really work for us - we want x and y to be plotted in order of the observations. To do that, we need `geom_path`. 
+A line geom is plotted sequentially with respect to the magnitude of x. That doesn't really work for us - we want x and y to be plotted in order of the observations. To do that, we need `geom_path`. 
 ```{r}
 ggplot() + 
   geom_path(aes(x = long, y = lat, group = group), data = us_map)
@@ -706,16 +717,18 @@ ggplot() + geom_polygon(aes(x = long, y = lat, group = group), data = us_map,
 ggplot() + geom_polygon(aes(x = long, y = lat), data = us_map,
                         fill = "white", color = "black")
 ```
+
+Generally, your base map layer will be plotted with `geom_polygon`, and you will use `geom_path` and `geom_polygon` to plot additional layers on top of the base map. 
 </details>
 
-<details><summary>Let's spice this up and add more layers!</summary>
+<details><summary>Let's add more layers!</summary>
 Let's plot points for the location of every place of worship (according to the IRS) in the US. First, we can plot the points by themselves:
 
 ```{r}
 ggplot() + geom_point(aes(x = long, y = lat), data = worship)
 ```
 
-Wow. One problem we're going to have is Alaska. Let's go ahead and remove those points now - we could make the map more complicated, but it won't add much to the overall value of the example. 
+Wow. One problem we're going to have is Alaska -- it isn't on our base map of the contiguous states. Let's go ahead and remove those points for now - we could make the map more complicated, but it won't add much to the overall value of the example. 
 
 ```{r}
 worship_full <- worship
@@ -724,7 +737,7 @@ worship <- filter(worship, STATE != "AK")
 ggplot() + geom_point(aes(x = long, y = lat), data = worship, size = .1, alpha = .1)
 ```
 
-At this point it's worth remembering the [population density issue](https://xkcd.com/1138/), but let's keep moving.
+At this point it's worth remembering the [population density issue](https://xkcd.com/1138/). With that said, we have quite a lot of churches here, and while some of the darker areas are dense populations, not all of the church clusters are in areas I'd call "dense". 
 
 Suppose we want to add our church data to our national map. We can plot our US map first, then add the points on top of it. 
 ```{r}
@@ -733,6 +746,7 @@ ggplot()  +
                fill = "white", color = "grey") + 
   geom_point(aes(x = long, y = lat), data = worship, size = .1, alpha = .1)
 ```
+The order of the geom statements determines the plotting order. 
 
 It might help to add some state information in too. We could plot states on top of the full US map, but (hopefully) the states tile the national map, so it's better just to plot the states. 
 
@@ -743,10 +757,9 @@ ggplot()  +
   geom_point(aes(x = long, y = lat), data = worship, size = .1, alpha = .1)
 ```
 
-It might be helpful to figure out where there are major cities - some of them are obvious, but I suspect there are certain areas where there are more churches per capita - I've driven through enough small towns in the South, and I have relatives in NW Iowa.
+It might be helpful to figure out where there are major cities - some of them are obvious, but I suspect there are certain areas where there are more churches per capita^[I've driven through enough small towns in the South, and I have relatives in NW Iowa. There are a LOT of churches in those places].
 
-The `us.cities` database has all US cities over 40k people, plus state capitals of any size. 
-
+The `us.cities` database has all US cities over 40k people, plus state capitals of any size. Let's add major US cities as open circles (so that we don't obscure the church data too much). 
 
 ```{r}
 large_cities <- us.cities %>%
@@ -767,13 +780,16 @@ layer_map <- ggplot()  +
 layer_map
 ```
 
-Just to examine the South in a little more depth... I wanted to know a bit more about where my grandma lives (because there are churches everywhere, or so it seems). 
+Just to examine the South in a little more depth, because there's an extremely dark area northeast of Atlanta, GA and southwest of Charlotte, NC that doesn't correspond to any major cities.
 ```{r}
 layer_map + 
   # coord_fixed maintains the proper aspect ratio
-  coord_fixed(xlim = c(-83.5, -78.5), ylim = c(31, 36))
+  coord_fixed(xlim = c(-86.5, -78.5), ylim = c(31, 36))
 ```
-Just for context, the northwest corner of South Carolina ("upstate" to the locals) isn't that dense, population wise, but it is certainly rich in churches. It's nice to confirm my childhood memories with data.
+It looks like most of the dark area I noticed corresponds to sprawling Atlanta suburbs, which may not be big enough individually to meet our criteria of 100k people or more. There are also several smaller clusters of churches along what I suspect is the interstate between Atlanta and Charlotte, corresponding to the Greenville-Spartanburg metro (the metro is over 100k people, but individual cities don't meet the threshold). 
+
+We could add a layer corresponding to the interstates to provide more geographic context, but I think the point here is pretty clear - you can do some very cool things with maps. 
+
 </details>
 
 #### Try it out {- .tryitout}
@@ -873,11 +889,56 @@ rm(list = c("objs", "rm_objs"))
 ```
 
 
+
+#### Try it out -- Middle Earth edition {- .tryitout}
+<details><summary>Dedicated fans have re-created middle earth in digital format using ArcGIS files. These map file formats, called shape files, can be read into R and plotted. </summary>
+
+You may need to install a few spatial packages first ([Mac and Windows](http://www.nickeubank.com/wp-content/uploads/2015/10/RGIS1_SpatialDataTypes_part0_setup.html), [Linux](https://philmikejones.me/tutorials/2014-07-14-installing-rgdal-in-r-on-linux/)
+
+The `sf` package in R contains a special geom, `geom_sf`, which will plot map objects with an appropriate geom, whether they are points, lines, or polygons. In complicated maps with many layers, this is a really awesome feature. 
+
+I've provided some code to get you started, but there are many other shapefiles in the dataset. Pick some layers which you think are interesting, and plot them with appropriate geoms to make a map of Middle Earth. 
+
+Unfortunately, in this map there is not an underlying polygon (the coastline is a series of shorter segments), so I have provided a theme statement that should provide a white background upon which you can build. 
+```{r}
+library(ggplot2)
+library(ggthemes)
+library(tidyverse)
+library(sf)
+
+if (!file.exists("data/MiddleEarthMap.zip")) {
+  download.file("https://github.com/jvangeld/ME-GIS/archive/master.zip", "data/MiddleEarthMap.zip", mode = "wb")
+}
+if (!dir.exists("data/ME-GIS-master/")) {
+  unzip("data/MiddleEarthMap.zip", exdir = "data/")
+}
+
+coastline <- read_sf("data/ME-GIS-master/Coastline2.shp")
+cities <- read_sf("data/ME-GIS-master/Cities.shp")
+forests <- read_sf("data/ME-GIS-master/Forests.shp")
+lakes <- read_sf("data/ME-GIS-master/Lakes.shp")
+rivers <- read_sf("data/ME-GIS-master/Rivers.shp")
+roads <- read_sf("data/ME-GIS-master/Roads.shp")
+
+ggplot() + 
+  geom_sf(data = coastline) + 
+  geom_sf(data = forests, color = NA, fill = "darkgreen", alpha = .2) + 
+  geom_sf(data = rivers, color = "blue", alpha = .1) + 
+  geom_sf(data = lakes, fill = "blue", color = NA, alpha = .2) + 
+  theme_map()
+```
+</details>
+
+
 ### Statistics and Different Types of Plots
 
 At this point, we've primarily looked at charts which have two continuous variables - scatter plots, and line plots. There are a number of situations where these types of charts are inadequate. For one thing, we might want to only look at the distribution of a single variable. Or, we might want to look at how a continuous response variable changes when the level of a categorical variable changes. In this section, we'll hit the most common types of plots, but there are almost infinite variations. Sites like [the Data Viz Catalogue](https://datavizcatalogue.com/search.html) can be useful if you're trying to accomplish a specific task and want to know what type of plot to use. 
 
-#### Box Plots
+In all of the plots which we discuss in this section, there is an implicit statistical function applied to the data before plotting. So while you may specify e.g. `x = var1`,  what is plotted is `f(var1)`, where `f()` might be the mean/median/quartiles, a binned count, or a computed kernel density. 
+
+In ggplot2, you can formally specify a statistic by using `stat_xxx` functions, but many geoms implicitly call these same functions. 
+
+#### Box Plots {-}
 <details><summary>A box plot can show some summary information about the distribution of a single continuous variable, and usually is used to show differences in the level of a response variable at different levels of a categorical variable. </summary>
 
 Let's look at the relative frequency of different types of crimes, putting all states on an equal scale of 100k residents so that the numbers are comparable and also meaningful. 
@@ -924,6 +985,28 @@ tmp %>%
   geom_boxplot() + 
   ggtitle(paste("Crimes per 100k people,", max(fbi$Year)))
 ```
+
+<details><summary>Box plots implicitly call `stat_fivenumber()`, which computes the five-number summary used to construct the box plot lines and box.</summary> 
+You could, in theory, create a box plot by calling something like this (I stopped at the boxes, but you get the idea)
+```{r, echo = -1}
+has_groups <- ggplot2:::has_groups
+tibble(x = rep(1:2, each = 50),
+       y = rnorm(100)) %>%
+ggplot(aes(x = x, y = y, group = x)) +
+  # the box - actually make 2 half-boxes
+  geom_rect(aes(xmin = x - after_stat(width)/2, xmax = x + after_stat(width)/2, 
+                ymin = after_stat(lower), ymax = after_stat(middle)), 
+            stat = 'fivenumber',
+            fill = "white", color = "black") + 
+  geom_rect(aes(xmin = x - after_stat(width)/2, xmax = x + after_stat(width)/2, 
+                ymin = after_stat(middle), ymax = after_stat(upper)), 
+            stat = 'fivenumber',
+            fill = "white", color = "black")
+  
+
+```
+</details>
+
 <details><summary>Box plots in base R</summary>
 ```{r}
 boxplot(per_100k~crime, data = tmp)
@@ -957,10 +1040,10 @@ tmp %>%
 
 </details>
 
-#### Histograms and Density Plots
+#### Histograms and Density Plots {-}
 <details><summary>
-Box plots aren't the only way to show distributions, though. If we want to, we can show distributions using histograms or density plots. A histogram involves binning the variable, counting the number of observations that fall within each specified range. Usually, these ranges have constant width (but not always). </summary>
-
+Box plots aren't the only way to show distributions, though. If we want to, we can show distributions using histograms or density plots. A **histogram** is created by binning the variable, then counting the number of observations that fall within each specified range.</summary>
+Usually, these ranges have constant width (but not always). 
 ```{r}
 poke %>%
   ggplot(aes(x = hp)) + 
@@ -971,7 +1054,18 @@ poke %>%
   geom_histogram(color = "black", fill = "grey", binwidth = 20)
 ```
 
-You should always look at  a histogram under multiple bin widths, because that parameter can change the visual appearance of the distribution quite a bit. In base R, you can get histograms with the `hist()` function. 
+You should always look at  a histogram under multiple bin widths, because that parameter can change the visual appearance of the distribution quite a bit. 
+
+<details><summary>In a histogram, the statistic that is computed is `stat_bin` - we break the x range up into intervals and then count how many points lie in each interval. </summary>
+
+```{r}
+tibble(x = rnorm(100)) %>%
+  ggplot(aes(x = x)) + 
+  stat_bin(geom = "bar") # this is equivalent to geom_histogram
+```
+</details>
+
+In base R, you can get histograms with the `hist()` function. 
 
 <details><summary>Histograms in SAS</summary>
 ```{sashtml}
@@ -987,8 +1081,10 @@ histogram per_100k;
 RUN;
 ```
 </details>
+</details>
 
-A density plot is an empirical method of estimating the probability density function of a variable. Thus, instead of count, the y axis in a density plot will be labeled "density" and the curve will be scaled so that the distribution integrates to 1. Density plots can be quite useful for continuous variables, but are also dependent on parameter selection - instead of a bin width, you may need to adjust a kernel width. 
+<details><summary>
+A **kernel density** is an empirical method of estimating the probability density function of a variable. In a density plot, instead of count, the y axis is labeled "density" and the continuous curve will be scaled so that the distribution integrates to 1.</summary> Density plots can be quite useful for continuous variables, but are also dependent on parameter selection - instead of a bin width, you may need to adjust a kernel width (though there are algorithms that will select this by default, so usually you only have to tweak it a bit). 
 
 ```{r}
 
@@ -1021,15 +1117,17 @@ density per_100k / type = kernel;
 RUN;
 ```
 </details>
+</details>
 
-If you're careful to specify your mappings properly, you can plot a density curve on top of a histogram. Since both geoms compute statistics, you have to read the help files to see that they actually are computing multiple statistics.
-
+ 
 ::: tryitout
-Read the help files and attempt to create your own histogram/density combination, before looking at the solution below
+Read the help files for `stat_density` and `stat_histogram` and attempt to create your own histogram/density combination, before looking at the solution below
 :::
 
-<details><summary>Histogram/Density combo</summary>
-geom_histogram lists computed variables count, density, ncount, and ndensity. It will be easiest just to use the computed variable density, which we access by putting `y = ..density..` in the aesthetic statement for the histogram geom. This moves the histogram to the same scale as the density - both will be scaled to integrate/sum to 1. 
+<details><summary>If you're careful to specify your mappings properly, you can plot a density curve on top of a histogram.</summary>
+Since both geoms compute statistics, you have to read the help files to see that they actually are computing multiple statistics.
+
+`geom_histogram` lists computed variables count, density, ncount, and ndensity. It will be easiest just to use the computed variable density, which we access by putting `y = ..density..` in the aesthetic statement for the histogram geom. This moves the histogram to the same scale as the density - both will be scaled to integrate/sum to 1. 
 
 ```{r}
 poke %>%
@@ -1063,7 +1161,8 @@ RUN;
 ```
 </details>
 
-You can use density plots and histograms in two dimensions to show the bivariate relationship between two variables, but at that point we have to represent the height of the density using another variable (as x and y are taken by the two variables you're computing a density for). 
+<details><summary>Higher Dimensional "histograms" and densities</summary>
+You can use density plots and histograms in two dimensions to show the bivariate relationship between two variables, but at that point we have to represent the height of the density or number of points in the bin using another aesthetic (as x and y are taken by the two variables you're computing a density for). 
 
 One common aesthetic choice is to map density (or counts) to the fill color, leaving you to imagine a "height" associated with the color.  
 ```{r}
@@ -1101,7 +1200,7 @@ I found a blog post describing how to compute two-dimensional bins and make a [h
 Of course, joint distributions can also be shown using a scatterplot. Another useful geom when examining distributions is `geom_rug`, which shows univariate distributions in the margins of the plot.
 </details>
 
-#### Bar Charts
+#### Bar Charts {-}
 <details><summary>
 A bar chart is a plot with a categorical variable on one axis and a summary statistic on the other (usually, this is a count).</summary> Note that a bar chart is NOT the same as a histogram (a histogram looks very similar, but has a binned numeric variable on one axis and counts on the other). Geometrically, bar charts are rectangles; typically each rectangle will have equal width and variable height.
 
@@ -1192,7 +1291,7 @@ RUN;
 </details>
 </details>
 
-#### Other useful geoms
+#### Other useful geoms {-}
 
 There are a few other geoms which may be useful from time to time, especially when adding additional information to a plot. 
 
@@ -1572,30 +1671,25 @@ If you're still curious after reading those, set up an appointment and let's tal
 
 - [ggplot2 cheat sheet](https://github.com/rstudio/cheatsheets/raw/master/data-visualization-2.1.pdf)
 - [ggplot2 reference guide](https://ggplot2.tidyverse.org/reference/)
-
 - [R graph cookbook](https://r-graphics.org/)
-
 - [Data Visualization in R](https://ramnathv.github.io/pycon2014-r/visualize/base_graphics.html) (\@ramnathv)
 
 ### SAS graphics
 - [SGPLOT cheat sheet](https://support.sas.com/rnd/app/ODSGraphics/TipSheet_SGPLOT.pdf)
 - [Replicating ggplot2 in SAS SGPLOT](https://blogs.sas.com/content/graphicallyspeaking/2013/12/01/r-u-graphing-with-sas/)
-
 - [ODS Graphics in SAS](https://support.sas.com/resources/papers/76822_ODSGraph2011.pdf)
-
 - [Periodic Table of SAS ODS graphics](https://blogs.sas.com/content/sastraining/2018/04/19/a-periodic-table-of-sas-ods-graphics/) [(code and actual graphic)](http://robslink.com/SAS/democd97/periodic_table_ods_graphs_info.htm)
+- [Holiday Graphics in SAS](http://www.scsug.org/wp-content/uploads/2018/10/Conway-Oh-There%E2%80%99s-No-Place-Like-SAS-ODS-Graphics-for-the-Holidays.pdf), and, on that same theme, [Captain America](https://communities.sas.com/t5/Graphics-Programming/Fun-with-SAS-ODS-Graphics-3-Cheers-for-the-Red-White-and-Blue/m-p/666607/highlight/true#M20162) in SAS
 
-- [Data Visualization Style Guidelines](https://medium.com/nightingale/style-guidelines-92ebe166addc)
 
-### Types of Charts
+### Types of Charts and Chart Styling
 
 - The [Data Vis Project](https://datavizproject.com/)
 - [Data Visualization Catalogue](https://datavizcatalogue.com/)
 - [The pros and cons of chart taxonomies](https://medium.com/nightingale/the-pros-and-cons-of-chart-taxonomies-5c8e094578c4)
+- [Data Visualization Style Guidelines](https://medium.com/nightingale/style-guidelines-92ebe166addc)
 
 ### Other Graphics packages
-
-- 
 
 - [plotnine](https://plotnine.readthedocs.io/en/stable/index.html) in python (ggplot2 clone)
 - [matplotlib](https://matplotlib.org/) in python
@@ -1603,8 +1697,5 @@ If you're still curious after reading those, set up an appointment and let's tal
 - [Tableau](https://www.tableau.com/) - student licenses are free
 
 - [d3](https://www.d3-graph-gallery.com/) - javascript graphics
-
-### Cool examples
-- [Holiday Graphics in SAS](http://www.scsug.org/wp-content/uploads/2018/10/Conway-Oh-There%E2%80%99s-No-Place-Like-SAS-ODS-Graphics-for-the-Holidays.pdf), and, on that same theme, [Captain America](https://communities.sas.com/t5/Graphics-Programming/Fun-with-SAS-ODS-Graphics-3-Cheers-for-the-Red-White-and-Blue/m-p/666607/highlight/true#M20162) in SAS
 
 
