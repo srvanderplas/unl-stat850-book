@@ -1311,7 +1311,8 @@ First, let’s do a bit of string processing.</p>
 <p>At this point, we’ve primarily looked at charts which have two continuous variables - scatter plots, and line plots. There are a number of situations where these types of charts are inadequate. For one thing, we might want to only look at the distribution of a single variable. Or, we might want to look at how a continuous response variable changes when the level of a categorical variable changes. In this section, we’ll hit the most common types of plots, but there are almost infinite variations. Sites like <a href="https://datavizcatalogue.com/search.html">the Data Viz Catalogue</a> can be useful if you’re trying to accomplish a specific task and want to know what type of plot to use.</p>
 <div id="box-plots" class="section level4">
 <h4><span class="header-section-number">8.3.3.1</span> Box Plots</h4>
-<p>A box plot can show some summary information about the distribution of a single continuous variable, and usually is used to show differences in the level of a response variable at different levels of a categorical variable.</p>
+<details>
+<p><summary>A box plot can show some summary information about the distribution of a single continuous variable, and usually is used to show differences in the level of a response variable at different levels of a categorical variable. </summary></p>
 <p>Let’s look at the relative frequency of different types of crimes, putting all states on an equal scale of 100k residents so that the numbers are comparable and also meaningful.</p>
 <div class="sourceCode" id="cb407"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb407-1" data-line-number="1">fbi <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb407-2" data-line-number="2"><span class="st">  </span><span class="kw">filter</span>(Year <span class="op">==</span><span class="st"> </span><span class="kw">max</span>(Year)) <span class="op">%&gt;%</span></a>
@@ -1392,10 +1393,13 @@ RUN;</code></pre>
 <a class="sourceLine" id="cb411-8" data-line-number="8">Warning <span class="cf">in</span> <span class="kw">regularize.values</span>(x, y, ties, <span class="kw">missing</span>(ties))<span class="op">:</span><span class="st"> </span>collapsing to unique</a>
 <a class="sourceLine" id="cb411-9" data-line-number="9"><span class="st">&#39;x&#39;</span> values</a></code></pre></div>
 <p><img src="unl-stat850_files/figure-html/unnamed-chunk-310-1.png" width="672" /></p>
+</details>
 </div>
 <div id="histograms-and-density-plots" class="section level4">
 <h4><span class="header-section-number">8.3.3.2</span> Histograms and Density Plots</h4>
-<p>Box plots aren’t the only way to show distributions, though. If we want to, we can show distributions using histograms or density plots. A histogram involves binning the variable, counting the number of observations that fall within each specified range. Usually, these ranges have constant width (but not always).</p>
+<details>
+<p><summary>
+Box plots aren’t the only way to show distributions, though. If we want to, we can show distributions using histograms or density plots. A histogram involves binning the variable, counting the number of observations that fall within each specified range. Usually, these ranges have constant width (but not always). </summary></p>
 <div class="sourceCode" id="cb412"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb412-1" data-line-number="1">poke <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb412-2" data-line-number="2"><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> hp)) <span class="op">+</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb412-3" data-line-number="3"><span class="st">  </span><span class="kw">geom_histogram</span>(<span class="dt">color =</span> <span class="st">&quot;black&quot;</span>, <span class="dt">fill =</span> <span class="st">&quot;grey&quot;</span>)</a>
@@ -1545,11 +1549,14 @@ RUN;</code></pre>
 <a class="sourceLine" id="cb424-6" data-line-number="6">Warning<span class="op">:</span><span class="st"> </span>Removed <span class="dv">1</span> rows containing non<span class="op">-</span>finite <span class="kw">values</span> (stat_density2d).</a></code></pre></div>
 <p><img src="unl-stat850_files/figure-html/unnamed-chunk-320-1.png" width="672" /></p>
 <p>I found a blog post describing how to compute two-dimensional bins and make a <a href="https://blogs.sas.com/content/iml/2014/08/27/counts-in-2d-bins.html">heatmap bin plot in SAS.</a></p>
-<p>Of course, joint distributions can also be shown using a scatterplot. Another useful geom when examining distributions is <code>geom_rug</code>, which shows univariate distributions in the margins of the plot.</p>
+Of course, joint distributions can also be shown using a scatterplot. Another useful geom when examining distributions is <code>geom_rug</code>, which shows univariate distributions in the margins of the plot.
+</details>
 </div>
 <div id="bar-charts" class="section level4">
 <h4><span class="header-section-number">8.3.3.3</span> Bar Charts</h4>
-<p>A bar chart is a plot with a categorical variable on one axis and a summary statistic on the other (usually, this is a count). Note that a bar chart is NOT the same as a histogram (a histogram looks very similar, but has a binned numeric variable on one axis and counts on the other). Geometrically, bar charts are rectangles; typically each rectangle will have equal width and variable height.</p>
+<details>
+<p><summary>
+A bar chart is a plot with a categorical variable on one axis and a summary statistic on the other (usually, this is a count).</summary> Note that a bar chart is NOT the same as a histogram (a histogram looks very similar, but has a binned numeric variable on one axis and counts on the other). Geometrically, bar charts are rectangles; typically each rectangle will have equal width and variable height.</p>
 <div class="sourceCode" id="cb425"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb425-1" data-line-number="1"><span class="kw">ggplot</span>(poke, <span class="kw">aes</span>(<span class="dt">x =</span> generation)) <span class="op">+</span><span class="st"> </span><span class="kw">geom_bar</span>()</a></code></pre></div>
 <p><img src="unl-stat850_files/figure-html/unnamed-chunk-321-1.png" width="672" /></p>
 <p>As with other types of charts, we can add more information by adding aesthetic mappings:</p>
@@ -1647,6 +1654,7 @@ RUN;</code></pre>
 <br>
 </div>
 </details>
+</details>
 </div>
 <div id="other-useful-geoms" class="section level4">
 <h4><span class="header-section-number">8.3.3.4</span> Other useful geoms</h4>
@@ -1662,8 +1670,10 @@ RUN;</code></pre>
 </div>
 <div id="small-multiples" class="section level3">
 <h3><span class="header-section-number">8.3.4</span> Small Multiples</h3>
-<p>Sometimes, you want to show separate plots for each level of a factor (or a combination of factors). Often, this happens when you expect the gross shape of the plotted information to change - something relatively obvious. Other times, though, you might just have too much data and need to break it down somehow.</p>
-<p>These sub-plots within a plot are called small multiples, or facets, or panel plots, depending on the software or discipline.</p>
+Sometimes, you want to show separate plots for each level of a factor (or a combination of factors). Often, this happens when you expect the gross shape of the plotted information to change - something relatively obvious. Other times, though, you might just have too much data and need to break it down somehow.
+<details>
+<p><summary>
+These sub-plots within a plot are called small multiples, or facets, or panel plots, depending on the software or discipline. </summary></p>
 <div class="sourceCode" id="cb431"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb431-1" data-line-number="1">fbi <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb431-2" data-line-number="2"><span class="st">  </span><span class="kw">filter</span>(Abb <span class="op">==</span><span class="st"> &quot;NE&quot;</span>) <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb431-3" data-line-number="3"><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> Year, <span class="dt">y =</span> Count<span class="op">/</span>Population)) <span class="op">+</span><span class="st"> </span></a>
@@ -1706,6 +1716,7 @@ RUN;</code></pre>
 </div>
 <p><br></p>
 </div>
+</details>
 </details>
 </div>
 <div id="try-it-out-2" class="section level3 unnumbered tryitout">
@@ -1870,7 +1881,9 @@ It’s rather obvious that Disney is the real outlier here - it has movies that 
 <h3><span class="header-section-number">8.4.1</span> Perceptual and Cognitive Factors</h3>
 <div id="color" class="section level4">
 <h4><span class="header-section-number">8.4.1.1</span> Color</h4>
-<p>Our eyes are optimized for perceiving the yellow/green region of the color spectrum. Why? Well, our sun produces yellow light, and plants tend to be green. It’s pretty important to be able to distinguish different shades of green (evolutionarily speaking) because it impacts your ability to feed yourself. There aren’t that many purple or blue predators, so there is less selection pressure to improve perception of that part of the visual spectrum.</p>
+<details>
+<p><summary>Color perception, color blindness, and context</summary>
+Our eyes are optimized for perceiving the yellow/green region of the color spectrum. Why? Well, our sun produces yellow light, and plants tend to be green. It’s pretty important to be able to distinguish different shades of green (evolutionarily speaking) because it impacts your ability to feed yourself. There aren’t that many purple or blue predators, so there is less selection pressure to improve perception of that part of the visual spectrum.</p>
 <div class="figure">
 <img src="https://upload.wikimedia.org/wikipedia/commons/c/c0/Eyesensitivity.svg" alt="Sensitivity of the human eye to different wavelengths of visual light (Image from Wikimedia commons)" />
 <p class="caption">Sensitivity of the human eye to different wavelengths of visual light (Image from Wikimedia commons)</p>
@@ -1927,7 +1940,8 @@ Figure 8.1: The color constancy illusion. The squares marked A and B are actuall
 Figure 8.2: The color constancy illusion. The squares marked A and B are actually the same color
 </p>
 </div>
-<p>Our brains are extremely dependent on context and make excellent use of the large amounts of experience we have with the real world. As a result, we implicitly “remove” the effect of things like shadows as we make sense of the input to the visual system. This can result in odd things, like the checkerboard and shadow shown above - because we’re correcting for the shadow, B looks lighter than A even though when the context is removed they are clearly the same shade.</p>
+Our brains are extremely dependent on context and make excellent use of the large amounts of experience we have with the real world. As a result, we implicitly “remove” the effect of things like shadows as we make sense of the input to the visual system. This can result in odd things, like the checkerboard and shadow shown above - because we’re correcting for the shadow, B looks lighter than A even though when the context is removed they are clearly the same shade.
+</details>
 <p><strong>Implications and Guidelines</strong>
 - Do not use rainbow color gradient schemes - because of the unequal perception of different wavelengths, these schemes are <em>misleading</em> - the color distance does not match the perceptual distance.
 - Avoid any scheme that uses green-yellow-red signaling if you have a target audience that may include colorblind people.
@@ -1944,7 +1958,9 @@ Figure 8.2: The color constancy illusion. The squares marked A and B are actuall
 </div>
 <div id="short-term-memory" class="section level4">
 <h4><span class="header-section-number">8.4.1.2</span> Short Term Memory</h4>
-<p>We have a limited amount of memory that we can instantaneously utilize. This mental space, called <strong>short-term memory</strong>, holds information for active use, but only for a limited amount of time. Without rehearsing information, short term memory lasts a few seconds.</p>
+We have a limited amount of memory that we can instantaneously utilize. This mental space, called <strong>short-term memory</strong>, holds information for active use, but only for a limited amount of time.
+<details>
+<p><summary>Without rehearsing information, short term memory lasts a few seconds. </summary></p>
 <div class="tryitout">
 <details>
 <summary>Click here, read the information, and then click to hide it.</summary> 1 4 2 2 3 9 8 0 7 8
@@ -1955,7 +1971,8 @@ What was the third number?
 </details>
 </div>
 <p>Without rehearsing the information (repeating it over and over to yourself), the try it out task may have been challenging. Short term memory has a capacity of between 3 and 9 “bits” of information.</p>
-<p>In charts and graphs, short term memory is important because we need to be able to associate information from e.g. a key, legend, or caption with information plotted on the graph. As a result, if you try to plot more than ~6 categories of information, your reader will have to shift between the legend and the graph repeatedly, increasing the amount of cognitive labor required to digest the information in the chart.</p>
+In charts and graphs, short term memory is important because we need to be able to associate information from e.g. a key, legend, or caption with information plotted on the graph. As a result, if you try to plot more than ~6 categories of information, your reader will have to shift between the legend and the graph repeatedly, increasing the amount of cognitive labor required to digest the information in the chart.
+</details>
 <p>Where possible, try to keep your legends to 6 or 7 characteristics.</p>
 <p><strong>Implications and Guidelines</strong>
 - Limit the number of categories in your legends to minimize the short term memory demands on your reader.
