@@ -275,6 +275,9 @@ ggplot(tidy_coefs, aes(x = estimate, color = group)) +
 Obviously, you should experiment with different methods of generating a high-leverage point (maybe use a different distribution?) but this generating mechanism is simple enough for our purposes and shows that the addition of high leverage points biases the true values (slope = 1, intercept = 0).
 <details>
 
+[Here is a similar example worked through in SAS with IML](https://blogs.sas.com/content/iml/2016/09/08/coverage-probability-confidence-intervals.html). Note the use of BY-group processing to analyze each group at once - this is very similar to the use of `purrr::map()` in the R code. 
+
+
 ### Try it out {- .tryitout}
 
 Let's explore what happens to estimates when certain observations are censored. Suppose we have a poorly-designed digital thermometer which cannot detect temperatures above 102$^\circ F$; for these temperatures, the thermometer will record a value of 102.0. 
@@ -460,9 +463,22 @@ needle_sim(1000)
 
 needle_sim(10000)
 ```
+
+[This blog post contains code for a SAS implementation](https://blogs.sas.com/content/iml/2012/01/04/simulation-of-buffons-needle-in-sas-2.html)
 </details>
 
 ## References
 
+- [Simulation](https://bookdown.org/rdpeng/rprogdatascience/simulation.html) (R programming for Data Science chapter)
+
+- [Simulation](http://rstudio-pubs-static.s3.amazonaws.com/302783_75485bd9eb4646698f534a4833a026e5.html#_simulation_) - R Studio lesson
+
+- [Simulation, focusing on statistical modeling](http://www.columbia.edu/~cjd11/charles_dimaggio/DIRE/resources/R/simRreg.pdf) (R)
+
 - [Simulating Data with SAS](https://support.sas.com/content/dam/SAS/support/en/books/simulating-data-with-sas/65378_excerpt.pdf) (Excerpt)
 
+- [Simulating a Drunkard's Walk in 2D in SAS](https://blogs.sas.com/content/iml/2015/08/12/2d-drunkards-walk.html)
+
+- [Simulation from a triangle distribution (SAS)](https://blogs.sas.com/content/iml/2015/07/22/sim-triangular-distrib.html)
+
+- [Simulating the Monty Hall problem (SAS)](https://blogs.sas.com/content/iml/2015/04/01/monty-hall.html)
