@@ -482,3 +482,5 @@ needle_sim(10000)
 - [Simulation from a triangle distribution (SAS)](https://blogs.sas.com/content/iml/2015/07/22/sim-triangular-distrib.html)
 
 - [Simulating the Monty Hall problem (SAS)](https://blogs.sas.com/content/iml/2015/04/01/monty-hall.html)
+
+- [When to use `purrr`](https://education.rstudio.com/blog/2020/07/teaching-the-tidyverse-in-2020-part-4-when-to-purrr/) (part of the 'teaching the tidyverse' series) - essentially, purrr is a great intro to functional programming, but there are other ways to solve iterative problems in R as well, and some of them are easier than purrr (but purrr is a general approach that is very powerful). 
