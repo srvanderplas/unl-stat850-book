@@ -181,14 +181,20 @@ If you're confused, please post on the class message boards so that those who ha
 
 I've set this class up so that you'll be using version control from the very beginning. Not only will  this help you to learn good habits, it will also give you a platform for collaboration, hosting your work online, and more. 
 
+![If that doesn't fix it, git.txt contains the phone number of a friend of mine who understands git. Just wait through a few minutes of 'It's really pretty simple, just think of branches as...' and eventually you'll learn the commands that will fix everything.](https://imgs.xkcd.com/comics/git.png)
+
 In this class, we'll be using Github Classroom. Basically, this allows me to set up a template repository for each assignment. You'll accept the assignment, which will create a copy of the repository on your GitHub account, and then your work will be saved to your repository using a fairly standard workflow which will be discussed  below. When you submit your assignment, you'll copy the link to the commit you want to be graded, and upload that to Canvas. I will clone your repository, compile your files (I'll change the SAS path if necessary), and grade the compiled result. 
 
-So, what does your typical git/GitHub workflow look like? I'll go through this in chronological order. In most cases, you'll want to follow along on your own GitHub account. 
+So, what does your typical git/GitHub workflow look like? I'll go through this in (roughly) chronological order. This is primarily my higher-level understanding of git - I do not have any idea how it works on the backend, but I'm pretty comfortable with the clone/push/pull/commit/add workflows, and I've used a few of the more complicated features (branches, pull requests) on occasion. 
 
 ### Create a Repository
 **Repositories** are single-project containers. You may have code, documentation, data, TODO lists, and more associated with a project. 
 
 To create a repository, you can start with your local computer first, or you can start with the online repository first. 
+
+::: .watch-out
+Both methods are relatively simple, but the options you choose depend on which method you're using, so be careful not to get them confused. 
+:::
 
 #### Local repository first
 
@@ -227,4 +233,117 @@ Using the command line, you can type in `git add README` (this tells git to trac
 Using the GUI, you navigate to the git pane, check the box next to the README file, click the Commit button, write a message ("Add readme file"), and click the commit button. 
 
 ![Screen capture video of the steps described above to add and commit a file in RStudio](video/Rstudio-git-commit.gif)
+The final step is to create a corresponding repository on GitHub. Navigate to your github profile and make sure you're logged in. Create a new repository using the "New" button. Name your  repository whatever you want, fill in the description if you want (this can help you later, if you forget what exactly a certain repo was *for*), and DO NOT add a README, license file, or anything else (if you do, you will have a bad  time). 
+
+You'll be taken to your empty repository, and git will provide you the lines to paste into your git shell (or terminal) -- you can access this within RStudio, as shown below. Paste those lines in, and you'll be good to  go.
+
+![Connect your local git repository to GitHub](video/Rstudio-github-remote.gif)
+
+####  GitHub repository first
+
+In the github-first method, you'll create a repository in GitHub and then clone it to your local machine (clone = create an exact copy locally). 
+
+GUI method:
+
+1. Log into github and create a new repository
+2. Initialize your repository with a README
+3. Copy the repository location by clicking on the "Code" button on the repo homepage
+4. Open RStudio -> Project -> New Project -> From version control. Paste your repository URL into the box. Hit enter.
+5. Make a change to the README file
+6. Click commit, then push your changes
+7. Check that the remote repository (Github) updated
+
+![Video of the GUI method for creating a repository starting with GitHub](video/Rstudio-github-first-method.gif)
+
+Command line method:
+
+1. Log into github and create a new repository
+2. Initialize your repository with a README
+3. Copy the repository location by clicking on the "Code" button on the repo homepage
+4. Navigate to the location you want your repository to live on your machine.
+5. Clone the repository by using the git shell or terminal: `git clone <your repo url here>`. In my case, this looks like `git clone git@github.com:stat850-unl/hello-world-2.git`
+6. Make a change to your README file and save the change
+7. Commit your changes: `git commit -a -m "change readme"` (-a = all, that is, any  changed file git is already tracking).
+8. Push your changes to the remote (GitHub) repository and check that the repo has updated: `git push`
+
+### Adding files
+
+`git add` tells git that you want it to track a particular file. 
+
+![git add  diagram: add tells git to add the file to the index of files git monitors.](image/git-add.png)
+
+You don't need to understand exactly what git is doing on the backend, but it is important to know that the actual **contents** of the file aren't logged by `git add` - you have to **commit** your changes for the contents to change. `git add` deals solely with the index of files that git "knows about", and what it thinks belongs in each commit. 
+
+If you use the RStudio GUI for your git interface, you generally won't have to do much with git add; it's (sort-of, kind-of) equivalent to clicking the check box.
+
+#### What files should I add to git?
+
+Git is built for tracking text files. It  will (begrudgingly) deal with small binary files (e.g. images, PDFs) without complaining too much, but it is NOT meant for storing large files, and GitHub will not allow you to push anything that has a file larger than 100MB^[Yes, I'm seriously pushing it with this book; several of the datasets are ~30 MB]. Larger files can be handled with git-lfs (large file storage), but storing large files online is not something you can get for free.
+
+In general, you should only add a file to git if you created it by hand. If you compiled the result, that should  not be in the git repository under normal conditions (there are exceptions to this rule -- this book is hosted on github, which means I've pushed the compiled book to the github repository). 
+
+You should also be  cautious about adding files like .Rprog, .directory, .DS_Store, etc. These files are used by your operating system or by RStudio, and pushing them may cause problems for your collaborators (if you're collaborating). Tracking changes to  these files also doesn't really do much good.
+
+I **highly** recommend that you make a point to only add and commit files which you consciously want to track. 
+
+### Staging your changes
+
+In RStudio,  when you check a box next to the file name in the git tab, you are effectively adding the file (if it is not already added) AND staging all of the changes you've made to the file. In practice, `git add` will both add and stage all of the changes to any given file, but it is also useful in some cases to stage only certain lines from a file.
+
+More formally, **staging** is saying "I'd like these changes to be added to the current version, I think". Before you **commit** your changes, you have to first **stage** them. You can think of this like going to the grocery store: you have items in your cart, but you can put them back at any point before checkout. Staging changes is like adding items to your cart; committing those changes is like checking out.
+
+Individually staging lines of a file is most useful in situations where you've made changes which should be part of multiple commits. To stage individual lines of a file, you can use `git add -i` at the command line, or you can attempt to use RStudio's "stage selection" interface. Both  will work, though git can't always separate changes quite as finely as you might want (and as a result, RStudio's interface sometimes seems  unresponsive, even though the underlying issue is with what git can do).
+
+
+
+### Committing your changes
+
+A git **commit** is the equivalent of a log entry - it tells git to record the state of the file, along with a message about what that state means. On the back end, git will save a copy of the file in its current state to its cache. 
+
+![Here, we commit the red line as a change to our file.](image/git-commit.png)
+
+In general, you want your commit message to be relatively short, but also informative. The best way to do this is to commit **small** blocks of changes. Work to commit  every time you've accomplished a small task. This will do two things: 
+
+1. You'll have small, bite-sized changes that are briefly described  to serve as a record of what you've done (and what still needs doing)
+2. When you mess up (or end up in a merge conflict) you will have a much easier time pinpointing the spot where things went bad, what code was there before, and (because you have nice, descriptive commit messages) how the error occurred.
+
+### Pushing and Pulling
+
+When you're working alone, you generally won't need to worry about having to update your local copy of the repository (unless you're using multiple machines). However, statistics  is collaborative, and one of the most powerful parts of git is that you can use it to keep track of changes when multiple people are working on the same document. 
+
+::: .watch-out
+If you are working collaboratively and you and your collaborator are working on the same file, git will be able to resolve the change you make SO LONG AS YOU'RE NOT EDITING THE SAME LINE. Git works based on lines of text - it detects when there is a change in any line of a text document.
+
+For this reason, I find it makes my life easier to put each sentence on a separate line, so that I can tweak things with fewer merge conflicts. Merge conflicts aren't a huge deal, but they slow the workflow down, and are best avoided where possible. 
+:::
+
+**Pulling** describes the process of updating your local copy of the repository (the copy on your computer) with the files that are "in the cloud" (on GitHub). `git pull` (or using the Pull button in RStudio) will perform this update for you. If you are working with collaborators in real time, it is good practice to pull, commit, and push often, because  this vastly reduces the merge conflict potential (and the scope of any conflicts that do pop up). 
+
+![git pull copies the version of the project on GitHub to your computer](image/git_pull_diagram.png)
+![git push copies the version of the project on your computer to GitHub](image/git_push_diagram.png)
+In general, your workflow will be 
+
+1. Clone the project or create a new repository
+2. Make some changes
+3. Stage the changes with git add
+4. Commit the changes with git commit
+5. Pull any changes from the remote repository
+6. Resolve any merge conflicts
+7. Push the changes (and merged files) with git push
+
+If you're working alone, steps 5 and 6 are not likely to be necessary, but it is good practice to just pull before you push anyways.
+
+
+## References
+
+- [Git "Hello World" Tutorial on GitHub](https://guides.github.com/activities/hello-world/)
+
+- [Crash course on git](https://www.youtube.com/watch?v=SWYqp7iY_Tc) (30 minute YouTube video)
+
+- [Git and GitHub for poets](https://www.youtube.com/watch?v=BCQHnlnPusY&list=PLRqwX-V7Uu6ZF9C0YMKuns9sLDzK6zoiV) YouTube playlist (this is supposed to be the best introduction to Git out there...)
+
+- [More advanced git concepts, in comic form](https://dev.to/erikaheidi/stage-commit-push-a-git-story-comic-a37), by Erika Heidi
+
+
+
 
