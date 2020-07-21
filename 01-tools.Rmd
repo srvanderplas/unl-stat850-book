@@ -220,5 +220,11 @@ Alternately, if you prefer a GUI (graphical user interface) approach, that will 
 4. Navigate to your new Git tab on the top right.
 
 ![Screen capture video of the steps described above to create a git repository in RStudio](video/Rstudio-existing-git.gif)
+The next step is to add our file to the repository. 
 
+Using the command line, you can type in `git add README` (this tells git to track the file) and then commit your changes (enter them into the record) using `git commit -m "Add readme file"`.
+
+Using the GUI, you navigate to the git pane, check the box next to the README file, click the Commit button, write a message ("Add readme file"), and click the commit button. 
+
+![Screen capture video of the steps described above to add and commit a file in RStudio](video/Rstudio-git-commit.gif)
 
