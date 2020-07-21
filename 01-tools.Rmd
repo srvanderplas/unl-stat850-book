@@ -165,7 +165,7 @@ We'll work with LaTeX later in the semester, but for now, we'll be primarily wor
 
 ## Topic Sequencing
 
-In several places in this class, you'll have to use material that you haven't been formally taught yet. I will do my absolute best to provide thorough instructions, help you along as much as I can, and generally provide enough support that you can muddle through. But it's going to be hard to teach you everything you need to e.g. analyze some data, before providing you the opportunity to SEE that data using visualization packages. And it's silly to teach you plotting before you know how to read data in. But to teach you how to read data in, you need to be able to take a look at the data, and plots are the best way to do that. To do any of this stuff, you need to know about functions.
+In several places in this class, you'll have to use material that you haven't been formally taught yet. I will do my absolute best to provide thorough instructions, help you along as much as I can, and generally provide enough support that you can muddle through. But it's going to be hard to teach you everything you need to e.g. analyze some data, before providing you the opportunity to SEE that data using visualization packages. And it's silly to teach you plotting before you know how to read data in. But to teach you how to read data in, you need to be able to take a look at the data, and plots are the best way to do that. To do any of this stuff, you need to know about functions, but it can be easier to figure out how to run a function than to write a function. 
 
 You see my problem.
 
@@ -179,4 +179,46 @@ If you're confused, please post on the class message boards so that those who ha
 
 ## Using Version Control
 
-XXX Need to fix this - write when GitHub Classroom setup is known XXX
+I've set this class up so that you'll be using version control from the very beginning. Not only will  this help you to learn good habits, it will also give you a platform for collaboration, hosting your work online, and more. 
+
+In this class, we'll be using Github Classroom. Basically, this allows me to set up a template repository for each assignment. You'll accept the assignment, which will create a copy of the repository on your GitHub account, and then your work will be saved to your repository using a fairly standard workflow which will be discussed  below. When you submit your assignment, you'll copy the link to the commit you want to be graded, and upload that to Canvas. I will clone your repository, compile your files (I'll change the SAS path if necessary), and grade the compiled result. 
+
+So, what does your typical git/GitHub workflow look like? I'll go through this in chronological order. In most cases, you'll want to follow along on your own GitHub account. 
+
+### Create a Repository
+**Repositories** are single-project containers. You may have code, documentation, data, TODO lists, and more associated with a project. 
+
+To create a repository, you can start with your local computer first, or you can start with the online repository first. 
+
+#### Local repository first
+
+Let's suppose you already have a folder on your machine named `hello-world-1` (you may want to create this folder now). You've created a starter document, say, a text file named README with "hello world" written in it. 
+
+If you want, you can use the following R code to set this up:
+```{r, eval = F}
+dir <- "./hello-world-1"
+if (!dir.exists(dir)) {
+  dir.create(dir)
+}
+file <- file.path(dir, "README")
+if (!file.exists(file)) {
+  writeLines("hello world", con = file)
+}
+```
+
+To create a local git repository, we can go to the terminal (in Mac/Linux) or the git bash shell (in Windows), navigate to our repository folder (not shown, will be different on each computer), and type in 
+
+```
+git init
+```
+
+Alternately, if you prefer a GUI (graphical user interface) approach, that will work too:
+
+1. Open Rstudio
+2. Project (upper right corner) -> New Project -> Existing Directory. Navigate to the directory.
+3. (In your new project) Tools -> Project options -> Git/SVN -> select git from the dropdown, initialize new repository. RStudio will  need to restart.
+4. Navigate to your new Git tab on the top right.
+
+![Screen capture video of the steps described above to create a git repository in RStudio](video/Rstudio-existing-git.gif)
+
+
