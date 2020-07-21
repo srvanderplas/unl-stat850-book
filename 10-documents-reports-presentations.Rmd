@@ -1,0 +1,187 @@
+# Documents and Reports {#docs-reports}
+
+## Module Objectives {-}
+Be able to create 
+
+- presentation slides in LaTeX and rmarkdown
+- posters in LaTeX and rmarkdown
+- A CV in LaTeX and/or rmarkdown
+
+This chapter will be shorter in length than many of the rest, but you should not devote less time to it. Instead, you should spend the time playing with the different options presented here and deciding which one of each is your favorite. Rather than detailing all of the customization options in each package, I think you'll have an easier time looking at examples, trying to customize them yourself to get the effect you want, and figuring out how to do that by reading the documentation, stackoverflow posts, and other help files -- those are the skills you'll need when you try to put this knowledge into action. 
+
+## Literate Programming, `knitr`, and `rmarkdown`
+
+[Literate programming](https://en.wikipedia.org/wiki/Literate_programming) is a programming method where you explain the code in natural language (e.g. English) in roughly the same space that you write the code (in a programming language). This solves two problems: code isn't always clear as to what its goals are, and natural language descriptions of algorithms aren't always clear enough to contain the details of  how something is actually implemented.
+
+The `knitr` and `Rmarkdown` packages are both implementations of literate programming (and the two packages tend to overlap a bit, because both were written by the same author, Yihui Xie). `knitr` is primarily focused on the creation of Rnw (r no weave) files, which are essentially LaTeX files with R code inside. Rnw files are compiled into pdfs.  `rmarkdown` uses `Rmd` or `Rmarkdown` files, which  can then be compiled into many different formats: pdf, html, markdown, Microsoft Word. 
+
+One major advantage of `knitr` and `Rmarkdown` from a practical perspective is that it largely removes the need to keep track of graphs and charts when you're writing a paper, making a presentation, etc. The charts and tables based on your method automatically update when the document is recompiled. 
+
+If you're not reading this chapter early, you've been using Rmarkdown for the entire semester to submit your homework. Hopefully that's been fairly easy. In this chapter, we're going to explore some other applications of literate programming: creating slides, posters, PDF documents, and more. 
+
+## A Very Brief Introduction to LaTeX
+
+LaTeX is a document preparation utility that attempts to take the focus off of layout (so you don't have to spend 30 minutes trying to get the page break in the right place in e.g. Word) and bibliographic details. I'm not convinced LaTeX succeeds at freeing you from layout concerns, but it's certainly true that it is much more powerful than Word for  layout purposes. The philosophy of LaTeX is that presentation shouldn't get in the way of content: you should be able to change the presentation formatting systematically, without having to mess with the content. This allows you to switch templates easily, make document-wide changes in a single command, and more. 
+
+<div class="tryitout">
+In Rstudio, copy the text in the document below, paste it into a text file in the editor window, and name it `test.tex`. You should see a Compile PDF button show up at the top of the document. Click that button to compile the document. 
+
+```
+\documentclass{article} % this tells LaTeX what type of document to make 
+% Note, comments are prefaced by a % sign. If you need to type the actual symbol
+% you will have to escape it with \%.
+
+\begin{document}
+Hello \LaTeX!
+\end{document}
+```
+</div>
+
+Most commonly, you'll use the `article` document class for papers, and `beamer` for presentations and posters. Other useful classes include `moderncv` (for CVs) and `book`, as well as the [LaTeX class maintained by the UNL math department for thesis formatting](https://www.math.unl.edu/graduate/nuthesis/nuthesis.zip). Note that by changing the extension of any .tex file to .Rnw,  you can easily add R code chunks to a LaTeX file. 
+
+There are several types of latex commands: 
+
+- Declarations: statements like `\documentclass`, `\usepackage` or `\small`, which are stated once and take effect until further notice. 
+- Environments: statements with matching `\begin{xxx}` and `\end{xxx}` clauses that define a block of the document which is treated differently. Common environments include figures and tables. 
+- Special characters: another type of command that don't define formatting or structure, but may print special characters, e.g. `\%` to print a literal `%` character.
+
+Both declarations and environments may come with  both optional and required arguments. Required arguments are placed in `{...}` brackets, while optional arguments are placed in `[...]` brackets. You can, for instance, start your document with `\documentclass[12pt]{article}` to specify the base font size. 
+
+One of the most useful features in LaTeX is math mode, which you can enter by enclosing text in `$...$` (for inline statements), `$$...$$` (for statements on their own  line), or using other environments like `\begin{array}...\end{array}` that come in math-specific packages. Once in math mode, you can use [math symbol commands](https://www.caam.rice.edu/~heinken/latex/symbols.pdf) to get characters like $\theta, \pi, \sum, \int, \infty$, and more. 
+
+### Try it out {- .tryitout}
+With any document creation software, the easiest way to learn how to do it is to find a sample document, tinker with it, see if you can make things the way you want them to be, and then google the errors when you inevitably screw something up.
+
+Take the sample document up above and see if you can do the following tasks:    
+(I've linked to documentation that may be useful)
+
+1. [Add an image](https://www.overleaf.com/learn/latex/Inserting_Images)
+
+2. Add the [quadratic formula and the PDF of a normal distribution to the document](https://www.overleaf.com/learn/latex/Mathematical_expressions)
+
+3. In extremely [large](https://www.overleaf.com/learn/latex/Font_sizes,_families,_and_styles) text, print LaTeX using the `\LaTeX` command
+
+4. In extremely small, [italic](https://www.overleaf.com/learn/latex/Bold,_italics_and_underlining) text, print your name
+
+<details><summary>Solution</summary>
+```
+\documentclass{article} % this tells LaTeX what type of document to make 
+
+% Add the graphicx package so that we can include images
+\usepackage{graphicx}
+
+\begin{document}
+Hello \LaTeX!
+
+% Include a figure
+\begin{figure}[h]
+\centering
+\includegraphics[width=.5\textwidth]{../image/IllusoryContour.png}
+\caption{Illusory contour image}
+\end{figure}
+
+% Add the quadratic formula and the normal PDF to the document
+$y = ax^2 + bx + c$ can be solved to get $$x = \frac{-b \pm \sqrt{b^2 - 4ac}}{2a}$$
+
+The PDF of a normal distribution is $$f(x | \mu, \sigma) = \frac{1}{\sigma\sqrt{2\pi}} e^{-\frac{(x - \mu)^2}{2\sigma^2}}$$
+
+% In extremely large text, print \LaTeX
+
+\Huge\LaTeX
+
+% In extremely small italic text, print your name
+
+\tiny\emph{Your name}
+
+\end{document}
+```
+
+You can see the compiled pdf [here](other/test.pdf).
+</details>
+
+### Knitr
+
+R code chunks are embedded in LaTeX documents using:
+```
+% start of chunk
+<<chunk-name, ...options...>>=
+
+@
+% end of chunk
+```
+
+You can embed numerical results inline using `\Sexpr{...}` where your R code goes in the `...`. 
+
+Unfortunately, knitr does not work with SAS... for that, you'll need Rmarkdown (or you can use a Jupyter notebook). 
+
+#### How this works {-}
+
+To compile a Rnw document, knitr first runs all of the R code, generating any figures or tables or text output for each chunk. For each chunk, knitr  replaces the chunk code with LaTeX code to include the results; the result of this operation is saved to a tex file. Once the tex file is created, knitr compiles the tex file into a pdf.
+
+
+## Slides
+
+### Beamer (LaTeX) and knitr
+
+[Beamer](https://www.overleaf.com/learn/latex/beamer) is a powerful LaTeX class which allows you to create slides. The only change necessary to turn a beamer slide deck into a knitr slide deck is to add `fragile` as an option to any slide with verbatim content.
+
+#### Try it out {- .tryitout}
+
+Download and compile [beamer-demo.Rnw](other/beamer-demo.Rnw). 
+
+What happens when you remove the `[fragile]` from each frame declaration?
+
+Can you change the theme of the presentation?
+
+Add another slide, and on that slide, show an appropriate style ggplot2 graph of the distribution of board game ratings, reading in the board game ratings using the following code:
+```{r, eval = F, echo = 1}
+board_games <- readr::read_csv("https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2019/2019-03-12/board_games.csv")
+library(ggplot2)
+ggplot(board_games, aes(x = average_rating)) + geom_density()
+```
+
+You can also create Beamer slides using Rmarkdown, if you want, but you'll probably have more control over the fine  details if you go straight to the Rnw file without going through Rmd first. It's a trade-off -- the file will probably be simpler in Rmarkdown, but you won't have nearly as much control.
+
+### HTML slides
+
+RStudio has a host of other options for html slide presentations. There are some definite advantages to HTML presentations: they're easy to share (via URL), you can add gifs, emojis, and interactive graphics, and you can set up github to host the presentations as well^[I have a repository for all of the presentations I've given, and I use github pages to render the html presentations. Very easy, convenient, and I never have to carry a flash drive around]. 
+
+The downside to HTML slides is that there are approximately 100000 different javascript libraries that create HTML slides, and all of them have different capabilities. Many of these libraries have R extensions that will let you create Rmarkdown slides, but they each have slightly different markdown syntax and capabilities.
+
+![Slide options available by default in RStudio](image/Rmarkdown_slide_options.png)
+You can get the [full details](https://bookdown.org/yihui/rmarkdown/presentations.html) of any fully supported slide class in Rmarkdown by looking at the Rmarkdown book, which is freely available online. These guidelines will give you specifics about how to customize slides, add incremental information, change  transitions, print your slides to PDF, and include speaker notes. 
+
+It should be relatively straightforward to create an ioslides or slidy presentation, given that you've been using Rmarkdown all semester. From some reading, it seems as if [slidy has more options, but ioslides is simpler to use](https://yintingchou.com/posts/ioslides-vs-slidify-in-r-markdown-presentation/).
+
+However, the library I prefer at the moment is [`xaringan`](https://bookdown.org/yihui/rmarkdown/xaringan.html), which is a package written by  Yihui Xie (same guy that wrote rmarkdown/knitr). If you install the `xaringan` package, you can easily create a xaringan presentation by selecting the "From Template" option in the "New R markdown" window (shown above). Yihui has an excellent [blog post](https://yihui.org/en/2017/08/why-xaringan-remark-js/) describing the features of xaringan that aren't found in other libraries.
+
+Rather than repeat the documentation for each slide package in this document, I think it is probably easier just to link you to the documentation for each deck. 
+
+- [ioslides](https://bookdown.org/yihui/rmarkdown/ioslides-presentation.html)
+- [slidy](https://bookdown.org/yihui/rmarkdown/slidy-presentation.html)
+- [xaringan](https://bookdown.org/yihui/rmarkdown/xaringan.html)
+- [reveal.js](https://bookdown.org/yihui/rmarkdown/revealjs.html)
+
+::: tryitout
+Take a few minutes and try each of them out to see what feels right to you.
+:::
+
+If you're familiar with CSS (or happier tinkering to get the look of something exactly right) then `xaringan` is probably what you  want to go with, but any option is fine. The nice feature of reveal.js presentations (my favorite option before `xaringan`) is that you have 2D slide  layouts, so you can have multiple sections in your presentation, and move horizontally and vertically through the slides. 
+
+## Posters
+
+### LaTeX
+[Overleaf has a fantastic gallery of posters made in LaTeX](https://www.overleaf.com/gallery/tagged/poster).  
+
+
+### Pagedown
+
+
+### xaringan
+
+### pagedown
+
+
+## Other options
+
+- Jupyter with SAS
