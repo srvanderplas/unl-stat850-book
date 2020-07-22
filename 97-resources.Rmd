@@ -3,3 +3,9 @@
 ## Comparing Languages
 
 - [Data Scientist’s Analysis Toolbox: Comparison of Python, R, and SAS Performance]
+
+
+
+```{r clean-up-homedir-imgs, include = F}
+file.remove(list.files(".", ".png"))
+```
