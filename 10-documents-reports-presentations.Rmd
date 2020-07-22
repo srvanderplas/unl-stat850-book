@@ -19,7 +19,7 @@ The `knitr` and `Rmarkdown` packages are both implementations of literate progra
 
 One major advantage of `knitr` and `Rmarkdown` from a practical perspective is that it largely removes the need to keep track of graphs and charts when you're writing a paper, making a presentation, etc. The charts and tables based on your method automatically update when the document is recompiled. 
 
-If you're not reading this chapter early, you've been using Rmarkdown for the entire semester to submit your homework. Hopefully that's been fairly easy. In this chapter, we're going to explore some other applications of literate programming: creating slides, posters, PDF documents, and more. 
+If you're not reading this chapter early, you've been using Rmarkdown for the entire semester to submit your homework. Hopefully that's been fairly easy - you've been creating Rmarkdown *documents* all semester. In this chapter, we're going to explore some other applications of literate programming: creating slides, posters, and more. 
 
 ## A Very Brief Introduction to LaTeX
 
