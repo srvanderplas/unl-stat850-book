@@ -31,7 +31,7 @@
   
   
 <link rel="prev" href="simulation.html"/>
-<link rel="next" href="data-analysis.html"/>
+<link rel="next" href="interactive-graphics.html"/>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -349,26 +349,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="10.6" data-path="docs-reports.html"><a href="docs-reports.html#using-github-pages"><i class="fa fa-check"></i><b>10.6</b> Using Github Pages</a></li>
 <li class="chapter" data-level="10.7" data-path="tools.html"><a href="tools.html#references"><i class="fa fa-check"></i><b>10.7</b> References</a></li>
 </ul></li>
-<li class="chapter" data-level="11" data-path="data-analysis.html"><a href="data-analysis.html"><i class="fa fa-check"></i><b>11</b> Introduction to Data Analysis</a><ul>
+<li class="chapter" data-level="11" data-path="interactive-graphics.html"><a href="interactive-graphics.html"><i class="fa fa-check"></i><b>11</b> Interactive Graphics</a><ul>
 <li class="chapter" data-level="" data-path="tools.html"><a href="tools.html#module-objectives"><i class="fa fa-check"></i>Module Objectives</a></li>
-<li class="chapter" data-level="11.1" data-path="data-analysis.html"><a href="data-analysis.html#models-in-sas"><i class="fa fa-check"></i><b>11.1</b> Models in SAS</a></li>
-<li class="chapter" data-level="11.2" data-path="data-analysis.html"><a href="data-analysis.html#models-in-r"><i class="fa fa-check"></i><b>11.2</b> Models in R</a><ul>
-<li class="chapter" data-level="11.2.1" data-path="data-analysis.html"><a href="data-analysis.html#standard-models"><i class="fa fa-check"></i><b>11.2.1</b> Standard Models</a></li>
-<li class="chapter" data-level="11.2.2" data-path="data-analysis.html"><a href="data-analysis.html#tidymodels"><i class="fa fa-check"></i><b>11.2.2</b> Tidymodels</a></li>
+<li class="chapter" data-level="11.1" data-path="interactive-graphics.html"><a href="interactive-graphics.html#plotly"><i class="fa fa-check"></i><b>11.1</b> Plotly</a></li>
+<li class="chapter" data-level="11.2" data-path="interactive-graphics.html"><a href="interactive-graphics.html#shiny"><i class="fa fa-check"></i><b>11.2</b> Shiny</a></li>
 </ul></li>
-</ul></li>
-<li class="chapter" data-level="12" data-path="presentations.html"><a href="presentations.html"><i class="fa fa-check"></i><b>12</b> Dynamic Presentations</a><ul>
-<li class="chapter" data-level="12.1" data-path="docs-reports.html"><a href="docs-reports.html#slides"><i class="fa fa-check"></i><b>12.1</b> Slides</a><ul>
-<li class="chapter" data-level="12.1.1" data-path="docs-reports.html"><a href="docs-reports.html#beamer-latex-and-knitr"><i class="fa fa-check"></i><b>12.1.1</b> Beamer (LaTeX) and knitr</a></li>
-<li class="chapter" data-level="12.1.2" data-path="presentations.html"><a href="presentations.html#xaringan"><i class="fa fa-check"></i><b>12.1.2</b> xaringan</a></li>
-</ul></li>
-<li class="chapter" data-level="12.2" data-path="docs-reports.html"><a href="docs-reports.html#posters"><i class="fa fa-check"></i><b>12.2</b> Posters</a><ul>
-<li class="chapter" data-level="12.2.1" data-path="presentations.html"><a href="presentations.html#beamer-latex-and-knitr-1"><i class="fa fa-check"></i><b>12.2.1</b> Beamer (LaTeX) and knitr</a></li>
-<li class="chapter" data-level="12.2.2" data-path="docs-reports.html"><a href="docs-reports.html#pagedown"><i class="fa fa-check"></i><b>12.2.2</b> Pagedown</a></li>
-</ul></li>
-</ul></li>
-<li class="chapter" data-level="13" data-path="other-resources-articles-and-food-for-thought.html"><a href="other-resources-articles-and-food-for-thought.html"><i class="fa fa-check"></i><b>13</b> Other Resources, Articles, and Food for Thought</a><ul>
-<li class="chapter" data-level="13.1" data-path="other-resources-articles-and-food-for-thought.html"><a href="other-resources-articles-and-food-for-thought.html#comparing-languages"><i class="fa fa-check"></i><b>13.1</b> Comparing Languages</a></li>
+<li class="chapter" data-level="12" data-path="other-resources-articles-and-food-for-thought.html"><a href="other-resources-articles-and-food-for-thought.html"><i class="fa fa-check"></i><b>12</b> Other Resources, Articles, and Food for Thought</a><ul>
+<li class="chapter" data-level="12.1" data-path="other-resources-articles-and-food-for-thought.html"><a href="other-resources-articles-and-food-for-thought.html#comparing-languages"><i class="fa fa-check"></i><b>12.1</b> Comparing Languages</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="tools.html"><a href="tools.html#references"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
@@ -409,7 +396,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p><a href="https://en.wikipedia.org/wiki/Literate_programming">Literate programming</a> is a programming method where you explain the code in natural language (e.g. English) in roughly the same space that you write the code (in a programming language). This solves two problems: code isn’t always clear as to what its goals are, and natural language descriptions of algorithms aren’t always clear enough to contain the details of how something is actually implemented.</p>
 <p>The <code>knitr</code> and <code>Rmarkdown</code> packages are both implementations of literate programming (and the two packages tend to overlap a bit, because both were written by the same author, Yihui Xie). <code>knitr</code> is primarily focused on the creation of Rnw (r no weave) files, which are essentially LaTeX files with R code inside. Rnw files are compiled into pdfs. <code>rmarkdown</code> uses <code>Rmd</code> or <code>Rmarkdown</code> files, which can then be compiled into many different formats: pdf, html, markdown, Microsoft Word.</p>
 <p>One major advantage of <code>knitr</code> and <code>Rmarkdown</code> from a practical perspective is that it largely removes the need to keep track of graphs and charts when you’re writing a paper, making a presentation, etc. The charts and tables based on your method automatically update when the document is recompiled.</p>
-<p>If you’re not reading this chapter early, you’ve been using Rmarkdown for the entire semester to submit your homework. Hopefully that’s been fairly easy. In this chapter, we’re going to explore some other applications of literate programming: creating slides, posters, PDF documents, and more.</p>
+<p>If you’re not reading this chapter early, you’ve been using Rmarkdown for the entire semester to submit your homework. Hopefully that’s been fairly easy - you’ve been creating Rmarkdown <em>documents</em> all semester. In this chapter, we’re going to explore some other applications of literate programming: creating slides, posters, and more.</p>
 </div>
 <div id="a-very-brief-introduction-to-latex" class="section level2">
 <h2><span class="header-section-number">10.2</span> A Very Brief Introduction to LaTeX</h2>
@@ -636,7 +623,7 @@ You can see the compiled pdf <a href="other/test.pdf">here</a>.
         </div>
       </div>
 <a href="simulation.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="data-analysis.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="interactive-graphics.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
