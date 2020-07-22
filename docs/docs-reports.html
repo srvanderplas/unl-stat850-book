@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Module 10 Documents and Reports | Stat 850: Computing Tools for Statisticians</title>
   <meta name="description" content="Introductions to statistical computing packages and document preparation software. Topics include: graphical techniques, data management, Monte Carlo simulation, dynamic document preparation, presentation software." />
-  <meta name="generator" content="bookdown 0.19 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.20.1 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Module 10 Documents and Reports | Stat 850: Computing Tools for Statisticians" />
   <meta property="og:type" content="book" />
@@ -49,7 +49,6 @@
 
 
 
-<script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
 <script>
 
 (function() {
@@ -72,9 +71,9 @@
 
 
 <style type="text/css">
-code.sourceCode > span { display: inline-block; line-height: 1.25; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-code.sourceCode > span:empty { height: 1.2em; }
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode { white-space: pre; position: relative; }
 pre.sourceCode { margin: 0; }
@@ -83,16 +82,14 @@ div.sourceCode { overflow: auto; }
 }
 @media print {
 code.sourceCode { white-space: pre-wrap; }
-code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
 }
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
+pre.numberSource a.sourceLine
+  { position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+  { content: attr(data-line-number);
     position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
+    border: none; pointer-events: all; display: inline-block;
     -webkit-touch-callout: none; -webkit-user-select: none;
     -khtml-user-select: none; -moz-user-select: none;
     -ms-user-select: none; user-select: none;
@@ -101,9 +98,9 @@ pre.numberSource code > span > a:first-child::before
   }
 pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
 div.sourceCode
-  {   }
+  {  }
 @media screen {
-code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+a.sourceLine::before { text-decoration: underline; }
 }
 code span.al { color: #ff0000; font-weight: bold; } /* Alert */
 code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
@@ -183,12 +180,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="1.8" data-path="tools.html"><a href="tools.html#references"><i class="fa fa-check"></i><b>1.8</b> References</a></li>
 </ul></li>
 <li class="chapter" data-level="2" data-path="intro-prog.html"><a href="intro-prog.html"><i class="fa fa-check"></i><b>2</b> Introduction to Statistical Programming</a><ul>
-<li class="chapter" data-level="" data-path="intro-prog.html"><a href="intro-prog.html#module-objectives-1"><i class="fa fa-check"></i>Module Objectives</a></li>
+<li class="chapter" data-level="" data-path="tools.html"><a href="tools.html#module-objectives"><i class="fa fa-check"></i>Module Objectives</a></li>
 <li class="chapter" data-level="" data-path="intro-prog.html"><a href="intro-prog.html#definitions"><i class="fa fa-check"></i>Definitions</a></li>
 <li class="chapter" data-level="" data-path="intro-prog.html"><a href="intro-prog.html#statistical-programming-languages"><i class="fa fa-check"></i>Statistical Programming Languages</a></li>
 <li class="chapter" data-level="2.1" data-path="intro-prog.html"><a href="intro-prog.html#variable-types"><i class="fa fa-check"></i><b>2.1</b> Variable types</a><ul>
 <li class="chapter" data-level="2.1.1" data-path="intro-prog.html"><a href="intro-prog.html#r"><i class="fa fa-check"></i><b>2.1.1</b> R</a></li>
-<li class="chapter" data-level="2.1.2" data-path="intro-prog.html"><a href="intro-prog.html#sas-1"><i class="fa fa-check"></i><b>2.1.2</b> SAS</a></li>
+<li class="chapter" data-level="2.1.2" data-path="tools.html"><a href="tools.html#sas"><i class="fa fa-check"></i><b>2.1.2</b> SAS</a></li>
 </ul></li>
 <li class="chapter" data-level="2.2" data-path="intro-prog.html"><a href="intro-prog.html#data-structures"><i class="fa fa-check"></i><b>2.2</b> Data structures</a><ul>
 <li class="chapter" data-level="2.2.1" data-path="intro-prog.html"><a href="intro-prog.html#homogeneous-data-structures-r-and-sas"><i class="fa fa-check"></i><b>2.2.1</b> Homogeneous data structures (R and SAS)</a></li>
@@ -203,7 +200,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="intro-prog.html"><a href="intro-prog.html#references-and-links"><i class="fa fa-check"></i>References and Links</a></li>
 </ul></li>
 <li class="chapter" data-level="3" data-path="organization.html"><a href="organization.html"><i class="fa fa-check"></i><b>3</b> Organization: Packages, Functions, Scripts, and Documents</a><ul>
-<li class="chapter" data-level="" data-path="organization.html"><a href="organization.html#module-objectives-2"><i class="fa fa-check"></i>Module Objectives</a></li>
+<li class="chapter" data-level="" data-path="tools.html"><a href="tools.html#module-objectives"><i class="fa fa-check"></i>Module Objectives</a></li>
 <li class="chapter" data-level="3.1" data-path="organization.html"><a href="organization.html#reproducibility"><i class="fa fa-check"></i><b>3.1</b> Reproducibility</a><ul>
 <li class="chapter" data-level="" data-path="organization.html"><a href="organization.html#reproducibility-references-and-reading"><i class="fa fa-check"></i>Reproducibility References and Reading</a></li>
 </ul></li>
@@ -211,65 +208,60 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="3.2.1" data-path="organization.html"><a href="organization.html#rmarkdown-with-sas"><i class="fa fa-check"></i><b>3.2.1</b> Rmarkdown with… SAS?</a></li>
 </ul></li>
 <li class="chapter" data-level="3.3" data-path="organization.html"><a href="organization.html#functions-and-modules"><i class="fa fa-check"></i><b>3.3</b> Functions and Modules</a><ul>
-<li class="chapter" data-level="" data-path="organization.html"><a href="organization.html#try-it-out-7"><i class="fa fa-check"></i>Try it out</a></li>
+<li class="chapter" data-level="" data-path="intro-prog.html"><a href="intro-prog.html#try-it-out"><i class="fa fa-check"></i>Try it out</a></li>
 <li class="chapter" data-level="3.3.1" data-path="organization.html"><a href="organization.html#scope"><i class="fa fa-check"></i><b>3.3.1</b> Scope</a></li>
 <li class="chapter" data-level="3.3.2" data-path="organization.html"><a href="organization.html#the-pipe"><i class="fa fa-check"></i><b>3.3.2</b> The Pipe</a></li>
 </ul></li>
-<li class="chapter" data-level="3.4" data-path="organization.html"><a href="organization.html#procs-and-data-steps"><i class="fa fa-check"></i><b>3.4</b> Procs and Data steps</a><ul>
-<li class="chapter" data-level="" data-path="organization.html"><a href="organization.html#try-it-out-9"><i class="fa fa-check"></i>Try It Out</a></li>
-</ul></li>
+<li class="chapter" data-level="3.4" data-path="organization.html"><a href="organization.html#procs-and-data-steps"><i class="fa fa-check"></i><b>3.4</b> Procs and Data steps</a></li>
 <li class="chapter" data-level="3.5" data-path="organization.html"><a href="organization.html#scripts"><i class="fa fa-check"></i><b>3.5</b> Scripts</a><ul>
-<li class="chapter" data-level="" data-path="organization.html"><a href="organization.html#try-it-out-10"><i class="fa fa-check"></i>Try it out</a></li>
+<li class="chapter" data-level="" data-path="intro-prog.html"><a href="intro-prog.html#try-it-out-3"><i class="fa fa-check"></i>Try it out</a></li>
 </ul></li>
 <li class="chapter" data-level="3.6" data-path="organization.html"><a href="organization.html#packages"><i class="fa fa-check"></i><b>3.6</b> Packages</a><ul>
-<li class="chapter" data-level="" data-path="organization.html"><a href="organization.html#try-it-out-11"><i class="fa fa-check"></i>Try it out</a></li>
+<li class="chapter" data-level="" data-path="intro-prog.html"><a href="intro-prog.html#try-it-out-4"><i class="fa fa-check"></i>Try it out</a></li>
 </ul></li>
-<li class="chapter" data-level="" data-path="organization.html"><a href="organization.html#references-and-links-1"><i class="fa fa-check"></i>References and Links</a></li>
+<li class="chapter" data-level="" data-path="intro-prog.html"><a href="intro-prog.html#references-and-links"><i class="fa fa-check"></i>References and Links</a></li>
 </ul></li>
 <li class="chapter" data-level="4" data-path="reading-data.html"><a href="reading-data.html"><i class="fa fa-check"></i><b>4</b> External Data</a><ul>
-<li class="chapter" data-level="" data-path="reading-data.html"><a href="reading-data.html#module-objectives-3"><i class="fa fa-check"></i>Module Objectives</a></li>
+<li class="chapter" data-level="" data-path="tools.html"><a href="tools.html#module-objectives"><i class="fa fa-check"></i>Module Objectives</a></li>
 <li class="chapter" data-level="4.1" data-path="reading-data.html"><a href="reading-data.html#external-data-formats"><i class="fa fa-check"></i><b>4.1</b> External Data Formats</a></li>
 <li class="chapter" data-level="4.2" data-path="reading-data.html"><a href="reading-data.html#text-files"><i class="fa fa-check"></i><b>4.2</b> Text Files</a><ul>
 <li class="chapter" data-level="4.2.1" data-path="reading-data.html"><a href="reading-data.html#fixed-width-files"><i class="fa fa-check"></i><b>4.2.1</b> Fixed-width files</a></li>
 <li class="chapter" data-level="4.2.2" data-path="reading-data.html"><a href="reading-data.html#delimited-text-files"><i class="fa fa-check"></i><b>4.2.2</b> Delimited Text Files</a></li>
-<li class="chapter" data-level="" data-path="reading-data.html"><a href="reading-data.html#try-it-out-12"><i class="fa fa-check"></i>Try it out</a></li>
+<li class="chapter" data-level="" data-path="intro-prog.html"><a href="intro-prog.html#try-it-out"><i class="fa fa-check"></i>Try it out</a></li>
 </ul></li>
 <li class="chapter" data-level="4.3" data-path="reading-data.html"><a href="reading-data.html#spreadsheets"><i class="fa fa-check"></i><b>4.3</b> Spreadsheets</a><ul>
-<li class="chapter" data-level="" data-path="reading-data.html"><a href="reading-data.html#try-it-out-13"><i class="fa fa-check"></i>Try it out</a></li>
+<li class="chapter" data-level="" data-path="intro-prog.html"><a href="intro-prog.html#try-it-out-1"><i class="fa fa-check"></i>Try it out</a></li>
 </ul></li>
 <li class="chapter" data-level="4.4" data-path="reading-data.html"><a href="reading-data.html#binary-files"><i class="fa fa-check"></i><b>4.4</b> Binary Files</a><ul>
-<li class="chapter" data-level="" data-path="reading-data.html"><a href="reading-data.html#try-it-out-14"><i class="fa fa-check"></i>Try it out</a></li>
+<li class="chapter" data-level="" data-path="intro-prog.html"><a href="intro-prog.html#try-it-out-2"><i class="fa fa-check"></i>Try it out</a></li>
 </ul></li>
 <li class="chapter" data-level="4.5" data-path="reading-data.html"><a href="reading-data.html#databases"><i class="fa fa-check"></i><b>4.5</b> Databases</a><ul>
 <li class="chapter" data-level="4.5.1" data-path="reading-data.html"><a href="reading-data.html#microsoft-access"><i class="fa fa-check"></i><b>4.5.1</b> Microsoft Access</a></li>
 <li class="chapter" data-level="4.5.2" data-path="reading-data.html"><a href="reading-data.html#sqlite"><i class="fa fa-check"></i><b>4.5.2</b> SQLite</a></li>
 </ul></li>
 <li class="chapter" data-level="4.6" data-path="reading-data.html"><a href="reading-data.html#exploratory-data-analysis"><i class="fa fa-check"></i><b>4.6</b> Exploratory Data Analysis</a><ul>
-<li class="chapter" data-level="4.6.1" data-path="reading-data.html"><a href="reading-data.html#sas-2"><i class="fa fa-check"></i><b>4.6.1</b> SAS</a></li>
-<li class="chapter" data-level="4.6.2" data-path="reading-data.html"><a href="reading-data.html#r-1"><i class="fa fa-check"></i><b>4.6.2</b> R</a></li>
+<li class="chapter" data-level="4.6.1" data-path="tools.html"><a href="tools.html#sas"><i class="fa fa-check"></i><b>4.6.1</b> SAS</a></li>
+<li class="chapter" data-level="4.6.2" data-path="intro-prog.html"><a href="intro-prog.html#r"><i class="fa fa-check"></i><b>4.6.2</b> R</a></li>
 <li class="chapter" data-level="4.6.3" data-path="reading-data.html"><a href="reading-data.html#comparison"><i class="fa fa-check"></i><b>4.6.3</b> Comparison</a></li>
 </ul></li>
-<li class="chapter" data-level="4.7" data-path="reading-data.html"><a href="reading-data.html#references-1"><i class="fa fa-check"></i><b>4.7</b> References</a></li>
+<li class="chapter" data-level="4.7" data-path="tools.html"><a href="tools.html#references"><i class="fa fa-check"></i><b>4.7</b> References</a></li>
 </ul></li>
 <li class="chapter" data-level="5" data-path="manipulating-data.html"><a href="manipulating-data.html"><i class="fa fa-check"></i><b>5</b> Manipulating Data</a><ul>
-<li class="chapter" data-level="" data-path="manipulating-data.html"><a href="manipulating-data.html#module-objectives-4"><i class="fa fa-check"></i>Module Objectives</a></li>
+<li class="chapter" data-level="" data-path="tools.html"><a href="tools.html#module-objectives"><i class="fa fa-check"></i>Module Objectives</a></li>
 <li class="chapter" data-level="5.1" data-path="manipulating-data.html"><a href="manipulating-data.html#tidy-data"><i class="fa fa-check"></i><b>5.1</b> Tidy Data</a></li>
 <li class="chapter" data-level="5.2" data-path="manipulating-data.html"><a href="manipulating-data.html#filter-pick-cases-rows-based-on-their-values"><i class="fa fa-check"></i><b>5.2</b> Filter: Pick cases (rows) based on their values</a><ul>
 <li class="chapter" data-level="5.2.1" data-path="manipulating-data.html"><a href="manipulating-data.html#common-filter-tasks"><i class="fa fa-check"></i><b>5.2.1</b> Common Filter() Tasks</a></li>
-<li class="chapter" data-level="" data-path="manipulating-data.html"><a href="manipulating-data.html#try-it-out-15"><i class="fa fa-check"></i>Try it out</a></li>
 </ul></li>
 <li class="chapter" data-level="5.3" data-path="manipulating-data.html"><a href="manipulating-data.html#select-pick-columns"><i class="fa fa-check"></i><b>5.3</b> Select: Pick columns</a></li>
 <li class="chapter" data-level="5.4" data-path="manipulating-data.html"><a href="manipulating-data.html#mutate-add-and-transform-variables"><i class="fa fa-check"></i><b>5.4</b> Mutate: Add and transform variables</a></li>
 <li class="chapter" data-level="5.5" data-path="manipulating-data.html"><a href="manipulating-data.html#summarize"><i class="fa fa-check"></i><b>5.5</b> Summarize</a></li>
 <li class="chapter" data-level="5.6" data-path="manipulating-data.html"><a href="manipulating-data.html#group-by-power"><i class="fa fa-check"></i><b>5.6</b> Group By + (?) = Power!</a></li>
-<li class="chapter" data-level="" data-path="manipulating-data.html"><a href="manipulating-data.html#try-it-out-16"><i class="fa fa-check"></i>Try it out</a></li>
-<li class="chapter" data-level="" data-path="manipulating-data.html"><a href="manipulating-data.html#references-2"><i class="fa fa-check"></i>References</a></li>
+<li class="chapter" data-level="" data-path="intro-prog.html"><a href="intro-prog.html#try-it-out-1"><i class="fa fa-check"></i>Try it out</a></li>
+<li class="chapter" data-level="" data-path="tools.html"><a href="tools.html#references"><i class="fa fa-check"></i>References</a></li>
 </ul></li>
 <li class="chapter" data-level="6" data-path="transforming-data.html"><a href="transforming-data.html"><i class="fa fa-check"></i><b>6</b> Transforming Data</a><ul>
-<li class="chapter" data-level="" data-path="transforming-data.html"><a href="transforming-data.html#module-objectives-5"><i class="fa fa-check"></i>Module Objectives</a></li>
-<li class="chapter" data-level="6.1" data-path="transforming-data.html"><a href="transforming-data.html#identifying-the-problem-messy-data"><i class="fa fa-check"></i><b>6.1</b> Identifying the problem: Messy data</a><ul>
-<li class="chapter" data-level="" data-path="transforming-data.html"><a href="transforming-data.html#try-it-out-17"><i class="fa fa-check"></i>Try it out</a></li>
-</ul></li>
+<li class="chapter" data-level="" data-path="tools.html"><a href="tools.html#module-objectives"><i class="fa fa-check"></i>Module Objectives</a></li>
+<li class="chapter" data-level="6.1" data-path="transforming-data.html"><a href="transforming-data.html#identifying-the-problem-messy-data"><i class="fa fa-check"></i><b>6.1</b> Identifying the problem: Messy data</a></li>
 <li class="chapter" data-level="6.2" data-path="transforming-data.html"><a href="transforming-data.html#string-operations-creating-new-variables-and-separating-multi-variable-columns"><i class="fa fa-check"></i><b>6.2</b> String operations: Creating new variables and separating multi-variable columns</a><ul>
 <li class="chapter" data-level="6.2.1" data-path="transforming-data.html"><a href="transforming-data.html#basic-string-operations"><i class="fa fa-check"></i><b>6.2.1</b> Basic String Operations</a></li>
 <li class="chapter" data-level="6.2.2" data-path="transforming-data.html"><a href="transforming-data.html#regular-expressions"><i class="fa fa-check"></i><b>6.2.2</b> Regular Expressions</a></li>
@@ -283,10 +275,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="6.4.1" data-path="transforming-data.html"><a href="transforming-data.html#demonstration-dataset-setup"><i class="fa fa-check"></i><b>6.4.1</b> Demonstration dataset setup</a></li>
 <li class="chapter" data-level="6.4.2" data-path="transforming-data.html"><a href="transforming-data.html#mutating-joins"><i class="fa fa-check"></i><b>6.4.2</b> Mutating joins</a></li>
 </ul></li>
-<li class="chapter" data-level="" data-path="transforming-data.html"><a href="transforming-data.html#references-3"><i class="fa fa-check"></i>References</a></li>
+<li class="chapter" data-level="" data-path="tools.html"><a href="tools.html#references"><i class="fa fa-check"></i>References</a></li>
 </ul></li>
 <li class="chapter" data-level="7" data-path="debugging.html"><a href="debugging.html"><i class="fa fa-check"></i><b>7</b> Principles of Debugging</a><ul>
-<li class="chapter" data-level="" data-path="debugging.html"><a href="debugging.html#module-objectives-6"><i class="fa fa-check"></i>Module Objectives</a></li>
+<li class="chapter" data-level="" data-path="tools.html"><a href="tools.html#module-objectives"><i class="fa fa-check"></i>Module Objectives</a></li>
 <li class="chapter" data-level="7.1" data-path="debugging.html"><a href="debugging.html#defensive-programming"><i class="fa fa-check"></i><b>7.1</b> Defensive Programming</a></li>
 <li class="chapter" data-level="7.2" data-path="debugging.html"><a href="debugging.html#general-debugging-strategies"><i class="fa fa-check"></i><b>7.2</b> General Debugging Strategies</a></li>
 <li class="chapter" data-level="7.3" data-path="debugging.html"><a href="debugging.html#debugging-tools-in-r"><i class="fa fa-check"></i><b>7.3</b> Debugging Tools in R</a><ul>
@@ -294,14 +286,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="7.3.2" data-path="debugging.html"><a href="debugging.html#after-an-error-has-occurred---traceback"><i class="fa fa-check"></i><b>7.3.2</b> After an error has occurred - <code>traceback()</code></a></li>
 <li class="chapter" data-level="7.3.3" data-path="debugging.html"><a href="debugging.html#browser---debugging-your-own-code-interactively"><i class="fa fa-check"></i><b>7.3.3</b> <code>browser()</code> - debugging your own code, interactively</a></li>
 <li class="chapter" data-level="7.3.4" data-path="debugging.html"><a href="debugging.html#debug---the-general-debugging-workhorse"><i class="fa fa-check"></i><b>7.3.4</b> <code>debug()</code> - the general debugging workhorse</a></li>
-<li class="chapter" data-level="" data-path="debugging.html"><a href="debugging.html#try-it-out-24"><i class="fa fa-check"></i>Try it out</a></li>
+<li class="chapter" data-level="" data-path="intro-prog.html"><a href="intro-prog.html#try-it-out-2"><i class="fa fa-check"></i>Try it out</a></li>
 </ul></li>
 <li class="chapter" data-level="7.4" data-path="debugging.html"><a href="debugging.html#debugging-tools-in-sas"><i class="fa fa-check"></i><b>7.4</b> Debugging Tools in SAS</a></li>
 <li class="chapter" data-level="7.5" data-path="debugging.html"><a href="debugging.html#minimal-working-examples"><i class="fa fa-check"></i><b>7.5</b> Minimal Working Examples</a></li>
-<li class="chapter" data-level="" data-path="debugging.html"><a href="debugging.html#references-4"><i class="fa fa-check"></i>References</a></li>
+<li class="chapter" data-level="" data-path="tools.html"><a href="tools.html#references"><i class="fa fa-check"></i>References</a></li>
 </ul></li>
 <li class="chapter" data-level="8" data-path="data-vis-intro.html"><a href="data-vis-intro.html"><i class="fa fa-check"></i><b>8</b> Introduction to Data Visualization</a><ul>
-<li class="chapter" data-level="" data-path="data-vis-intro.html"><a href="data-vis-intro.html#module-objectives-7"><i class="fa fa-check"></i>Module Objectives</a></li>
+<li class="chapter" data-level="" data-path="tools.html"><a href="tools.html#module-objectives"><i class="fa fa-check"></i>Module Objectives</a></li>
 <li class="chapter" data-level="8.1" data-path="data-vis-intro.html"><a href="data-vis-intro.html#why-do-we-create-graphics"><i class="fa fa-check"></i><b>8.1</b> Why do we create graphics?</a></li>
 <li class="chapter" data-level="8.2" data-path="data-vis-intro.html"><a href="data-vis-intro.html#general-approaches-to-creating-graphics"><i class="fa fa-check"></i><b>8.2</b> General approaches to creating graphics</a></li>
 <li class="chapter" data-level="8.3" data-path="data-vis-intro.html"><a href="data-vis-intro.html#the-grammar-of-graphics"><i class="fa fa-check"></i><b>8.3</b> The Grammar of Graphics</a><ul>
@@ -309,14 +301,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="8.3.2" data-path="data-vis-intro.html"><a href="data-vis-intro.html#syntax-and-general-structure-layers"><i class="fa fa-check"></i><b>8.3.2</b> Syntax and General Structure: Layers</a></li>
 <li class="chapter" data-level="8.3.3" data-path="data-vis-intro.html"><a href="data-vis-intro.html#statistics-and-different-types-of-plots"><i class="fa fa-check"></i><b>8.3.3</b> Statistics and Different Types of Plots</a></li>
 <li class="chapter" data-level="8.3.4" data-path="data-vis-intro.html"><a href="data-vis-intro.html#small-multiples"><i class="fa fa-check"></i><b>8.3.4</b> Small Multiples</a></li>
-<li class="chapter" data-level="" data-path="data-vis-intro.html"><a href="data-vis-intro.html#try-it-out-27"><i class="fa fa-check"></i>Try it out</a></li>
+<li class="chapter" data-level="" data-path="intro-prog.html"><a href="intro-prog.html#try-it-out-2"><i class="fa fa-check"></i>Try it out</a></li>
 </ul></li>
 <li class="chapter" data-level="8.4" data-path="data-vis-intro.html"><a href="data-vis-intro.html#good-charts"><i class="fa fa-check"></i><b>8.4</b> Good charts</a><ul>
 <li class="chapter" data-level="8.4.1" data-path="data-vis-intro.html"><a href="data-vis-intro.html#perceptual-and-cognitive-factors"><i class="fa fa-check"></i><b>8.4.1</b> Perceptual and Cognitive Factors</a></li>
 <li class="chapter" data-level="8.4.2" data-path="data-vis-intro.html"><a href="data-vis-intro.html#general-guidelines-for-accuracy"><i class="fa fa-check"></i><b>8.4.2</b> General guidelines for accuracy</a></li>
 <li class="chapter" data-level="8.4.3" data-path="data-vis-intro.html"><a href="data-vis-intro.html#how-do-we-know"><i class="fa fa-check"></i><b>8.4.3</b> How do we know?</a></li>
 </ul></li>
-<li class="chapter" data-level="8.5" data-path="data-vis-intro.html"><a href="data-vis-intro.html#references-5"><i class="fa fa-check"></i><b>8.5</b> References</a><ul>
+<li class="chapter" data-level="8.5" data-path="tools.html"><a href="tools.html#references"><i class="fa fa-check"></i><b>8.5</b> References</a><ul>
 <li class="chapter" data-level="8.5.1" data-path="data-vis-intro.html"><a href="data-vis-intro.html#r-graphics"><i class="fa fa-check"></i><b>8.5.1</b> R graphics</a></li>
 <li class="chapter" data-level="8.5.2" data-path="data-vis-intro.html"><a href="data-vis-intro.html#sas-graphics"><i class="fa fa-check"></i><b>8.5.2</b> SAS graphics</a></li>
 <li class="chapter" data-level="8.5.3" data-path="data-vis-intro.html"><a href="data-vis-intro.html#types-of-charts-and-chart-styling"><i class="fa fa-check"></i><b>8.5.3</b> Types of Charts and Chart Styling</a></li>
@@ -324,40 +316,40 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="9" data-path="simulation.html"><a href="simulation.html"><i class="fa fa-check"></i><b>9</b> Simulation and Reproducibility</a><ul>
-<li class="chapter" data-level="" data-path="simulation.html"><a href="simulation.html#module-objectives-8"><i class="fa fa-check"></i>Module Objectives</a></li>
+<li class="chapter" data-level="" data-path="tools.html"><a href="tools.html#module-objectives"><i class="fa fa-check"></i>Module Objectives</a></li>
 <li class="chapter" data-level="9.1" data-path="simulation.html"><a href="simulation.html#pseudorandom-number-generation"><i class="fa fa-check"></i><b>9.1</b> Pseudorandom Number Generation</a></li>
 <li class="chapter" data-level="9.2" data-path="simulation.html"><a href="simulation.html#built-in-simulations-from-distributions"><i class="fa fa-check"></i><b>9.2</b> Built-in simulations from distributions</a><ul>
-<li class="chapter" data-level="" data-path="simulation.html"><a href="simulation.html#try-it-out-28"><i class="fa fa-check"></i>Try it out</a></li>
+<li class="chapter" data-level="" data-path="intro-prog.html"><a href="intro-prog.html#try-it-out"><i class="fa fa-check"></i>Try it out</a></li>
 </ul></li>
 <li class="chapter" data-level="9.3" data-path="simulation.html"><a href="simulation.html#simulation-to-test-model-assumptions"><i class="fa fa-check"></i><b>9.3</b> Simulation to test model assumptions</a><ul>
-<li class="chapter" data-level="" data-path="simulation.html"><a href="simulation.html#try-it-out-29"><i class="fa fa-check"></i>Try it out</a></li>
+<li class="chapter" data-level="" data-path="intro-prog.html"><a href="intro-prog.html#try-it-out-1"><i class="fa fa-check"></i>Try it out</a></li>
 </ul></li>
 <li class="chapter" data-level="9.4" data-path="simulation.html"><a href="simulation.html#monte-carlo-methods"><i class="fa fa-check"></i><b>9.4</b> Monte Carlo methods</a><ul>
-<li class="chapter" data-level="" data-path="simulation.html"><a href="simulation.html#try-it-out-30"><i class="fa fa-check"></i>Try it out</a></li>
+<li class="chapter" data-level="" data-path="intro-prog.html"><a href="intro-prog.html#try-it-out-2"><i class="fa fa-check"></i>Try it out</a></li>
 </ul></li>
-<li class="chapter" data-level="9.5" data-path="simulation.html"><a href="simulation.html#references-6"><i class="fa fa-check"></i><b>9.5</b> References</a></li>
+<li class="chapter" data-level="9.5" data-path="tools.html"><a href="tools.html#references"><i class="fa fa-check"></i><b>9.5</b> References</a></li>
 </ul></li>
 <li class="chapter" data-level="10" data-path="docs-reports.html"><a href="docs-reports.html"><i class="fa fa-check"></i><b>10</b> Documents and Reports</a><ul>
-<li class="chapter" data-level="" data-path="docs-reports.html"><a href="docs-reports.html#module-objectives-9"><i class="fa fa-check"></i>Module Objectives</a></li>
+<li class="chapter" data-level="" data-path="tools.html"><a href="tools.html#module-objectives"><i class="fa fa-check"></i>Module Objectives</a></li>
 <li class="chapter" data-level="10.1" data-path="docs-reports.html"><a href="docs-reports.html#literate-programming-knitr-and-rmarkdown"><i class="fa fa-check"></i><b>10.1</b> Literate Programming, <code>knitr</code>, and <code>rmarkdown</code></a></li>
 <li class="chapter" data-level="10.2" data-path="docs-reports.html"><a href="docs-reports.html#a-very-brief-introduction-to-latex"><i class="fa fa-check"></i><b>10.2</b> A Very Brief Introduction to LaTeX</a><ul>
-<li class="chapter" data-level="" data-path="docs-reports.html"><a href="docs-reports.html#try-it-out-31"><i class="fa fa-check"></i>Try it out</a></li>
+<li class="chapter" data-level="" data-path="intro-prog.html"><a href="intro-prog.html#try-it-out"><i class="fa fa-check"></i>Try it out</a></li>
 <li class="chapter" data-level="10.2.1" data-path="docs-reports.html"><a href="docs-reports.html#knitr"><i class="fa fa-check"></i><b>10.2.1</b> Knitr</a></li>
 </ul></li>
 <li class="chapter" data-level="10.3" data-path="docs-reports.html"><a href="docs-reports.html#slides"><i class="fa fa-check"></i><b>10.3</b> Slides</a><ul>
 <li class="chapter" data-level="10.3.1" data-path="docs-reports.html"><a href="docs-reports.html#beamer-latex-and-knitr"><i class="fa fa-check"></i><b>10.3.1</b> Beamer (LaTeX) and knitr</a></li>
-<li class="chapter" data-level="10.3.2" data-path="docs-reports.html"><a href="docs-reports.html#xaringan"><i class="fa fa-check"></i><b>10.3.2</b> xaringan</a></li>
+<li class="chapter" data-level="10.3.2" data-path="docs-reports.html"><a href="docs-reports.html#html-slides"><i class="fa fa-check"></i><b>10.3.2</b> HTML slides</a></li>
 </ul></li>
 <li class="chapter" data-level="10.4" data-path="docs-reports.html"><a href="docs-reports.html#posters"><i class="fa fa-check"></i><b>10.4</b> Posters</a><ul>
-<li class="chapter" data-level="10.4.1" data-path="docs-reports.html"><a href="docs-reports.html#beamer-latex-and-knitr-1"><i class="fa fa-check"></i><b>10.4.1</b> Beamer (LaTeX) and knitr</a></li>
+<li class="chapter" data-level="10.4.1" data-path="tools.html"><a href="tools.html#latex"><i class="fa fa-check"></i><b>10.4.1</b> LaTeX</a></li>
 <li class="chapter" data-level="10.4.2" data-path="docs-reports.html"><a href="docs-reports.html#pagedown"><i class="fa fa-check"></i><b>10.4.2</b> Pagedown</a></li>
-<li class="chapter" data-level="10.4.3" data-path="docs-reports.html"><a href="docs-reports.html#xaringan-1"><i class="fa fa-check"></i><b>10.4.3</b> xaringan</a></li>
+<li class="chapter" data-level="10.4.3" data-path="docs-reports.html"><a href="docs-reports.html#xaringan"><i class="fa fa-check"></i><b>10.4.3</b> xaringan</a></li>
 <li class="chapter" data-level="10.4.4" data-path="docs-reports.html"><a href="docs-reports.html#pagedown-1"><i class="fa fa-check"></i><b>10.4.4</b> pagedown</a></li>
 </ul></li>
 <li class="chapter" data-level="10.5" data-path="docs-reports.html"><a href="docs-reports.html#other-options"><i class="fa fa-check"></i><b>10.5</b> Other options</a></li>
 </ul></li>
 <li class="chapter" data-level="11" data-path="data-analysis.html"><a href="data-analysis.html"><i class="fa fa-check"></i><b>11</b> Introduction to Data Analysis</a><ul>
-<li class="chapter" data-level="" data-path="data-analysis.html"><a href="data-analysis.html#module-objectives-10"><i class="fa fa-check"></i>Module Objectives</a></li>
+<li class="chapter" data-level="" data-path="tools.html"><a href="tools.html#module-objectives"><i class="fa fa-check"></i>Module Objectives</a></li>
 <li class="chapter" data-level="11.1" data-path="data-analysis.html"><a href="data-analysis.html#models-in-sas"><i class="fa fa-check"></i><b>11.1</b> Models in SAS</a></li>
 <li class="chapter" data-level="11.2" data-path="data-analysis.html"><a href="data-analysis.html#models-in-r"><i class="fa fa-check"></i><b>11.2</b> Models in R</a><ul>
 <li class="chapter" data-level="11.2.1" data-path="data-analysis.html"><a href="data-analysis.html#standard-models"><i class="fa fa-check"></i><b>11.2.1</b> Standard Models</a></li>
@@ -365,19 +357,19 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="12" data-path="presentations.html"><a href="presentations.html"><i class="fa fa-check"></i><b>12</b> Dynamic Presentations</a><ul>
-<li class="chapter" data-level="12.1" data-path="presentations.html"><a href="presentations.html#slides-1"><i class="fa fa-check"></i><b>12.1</b> Slides</a><ul>
-<li class="chapter" data-level="12.1.1" data-path="presentations.html"><a href="presentations.html#beamer-latex-and-knitr-2"><i class="fa fa-check"></i><b>12.1.1</b> Beamer (LaTeX) and knitr</a></li>
-<li class="chapter" data-level="12.1.2" data-path="presentations.html"><a href="presentations.html#xaringan-2"><i class="fa fa-check"></i><b>12.1.2</b> xaringan</a></li>
+<li class="chapter" data-level="12.1" data-path="docs-reports.html"><a href="docs-reports.html#slides"><i class="fa fa-check"></i><b>12.1</b> Slides</a><ul>
+<li class="chapter" data-level="12.1.1" data-path="docs-reports.html"><a href="docs-reports.html#beamer-latex-and-knitr"><i class="fa fa-check"></i><b>12.1.1</b> Beamer (LaTeX) and knitr</a></li>
+<li class="chapter" data-level="12.1.2" data-path="docs-reports.html"><a href="docs-reports.html#xaringan"><i class="fa fa-check"></i><b>12.1.2</b> xaringan</a></li>
 </ul></li>
-<li class="chapter" data-level="12.2" data-path="presentations.html"><a href="presentations.html#posters-1"><i class="fa fa-check"></i><b>12.2</b> Posters</a><ul>
-<li class="chapter" data-level="12.2.1" data-path="presentations.html"><a href="presentations.html#beamer-latex-and-knitr-3"><i class="fa fa-check"></i><b>12.2.1</b> Beamer (LaTeX) and knitr</a></li>
-<li class="chapter" data-level="12.2.2" data-path="presentations.html"><a href="presentations.html#pagedown-2"><i class="fa fa-check"></i><b>12.2.2</b> Pagedown</a></li>
+<li class="chapter" data-level="12.2" data-path="docs-reports.html"><a href="docs-reports.html#posters"><i class="fa fa-check"></i><b>12.2</b> Posters</a><ul>
+<li class="chapter" data-level="12.2.1" data-path="presentations.html"><a href="presentations.html#beamer-latex-and-knitr-1"><i class="fa fa-check"></i><b>12.2.1</b> Beamer (LaTeX) and knitr</a></li>
+<li class="chapter" data-level="12.2.2" data-path="docs-reports.html"><a href="docs-reports.html#pagedown"><i class="fa fa-check"></i><b>12.2.2</b> Pagedown</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="13" data-path="other-resources-articles-and-food-for-thought.html"><a href="other-resources-articles-and-food-for-thought.html"><i class="fa fa-check"></i><b>13</b> Other Resources, Articles, and Food for Thought</a><ul>
 <li class="chapter" data-level="13.1" data-path="other-resources-articles-and-food-for-thought.html"><a href="other-resources-articles-and-food-for-thought.html#comparing-languages"><i class="fa fa-check"></i><b>13.1</b> Comparing Languages</a></li>
 </ul></li>
-<li class="chapter" data-level="" data-path="references-7.html"><a href="references-7.html"><i class="fa fa-check"></i>References</a></li>
+<li class="chapter" data-level="" data-path="tools.html"><a href="tools.html#references"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
 
@@ -400,13 +392,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
             <section class="normal" id="section-">
 <div id="docs-reports" class="section level1">
 <h1><span class="header-section-number">Module 10</span> Documents and Reports</h1>
-<div id="module-objectives-9" class="section level2 unnumbered">
+<div id="module-objectives" class="section level2 unnumbered">
 <h2>Module Objectives</h2>
+<p>Be able to create</p>
 <ul>
-<li>Create presentation slides in LaTeX and rmarkdown</li>
-<li>Create posters in LaTeX and rmarkdown</li>
-<li>Create a CV in LaTeX and/or rmarkdown</li>
+<li>presentation slides in LaTeX and rmarkdown</li>
+<li>posters in LaTeX and rmarkdown</li>
+<li>A CV in LaTeX and/or rmarkdown</li>
 </ul>
+<p>This chapter will be shorter in length than many of the rest, but you should not devote less time to it. Instead, you should spend the time playing with the different options presented here and deciding which one of each is your favorite. Rather than detailing all of the customization options in each package, I think you’ll have an easier time looking at examples, trying to customize them yourself to get the effect you want, and figuring out how to do that by reading the documentation, stackoverflow posts, and other help files – those are the skills you’ll need when you try to put this knowledge into action.</p>
 </div>
 <div id="literate-programming-knitr-and-rmarkdown" class="section level2">
 <h2><span class="header-section-number">10.1</span> Literate Programming, <code>knitr</code>, and <code>rmarkdown</code></h2>
@@ -433,11 +427,11 @@ Hello \LaTeX!
 <ul>
 <li>Declarations: statements like <code>\documentclass</code>, <code>\usepackage</code> or <code>\small</code>, which are stated once and take effect until further notice.</li>
 <li>Environments: statements with matching <code>\begin{xxx}</code> and <code>\end{xxx}</code> clauses that define a block of the document which is treated differently. Common environments include figures and tables.</li>
-<li>Special characters: another type of command that don’t define formatting or structure, but may print special characters, e.g. <code>\%</code> to print a literal <code>%</code> character.</li>
+<li>Special characters: another type of command that don’t define formatting or structure, but may print special characters, e.g. <code>\%</code> to print a literal <code>%</code> character.</li>
 </ul>
 <p>Both declarations and environments may come with both optional and required arguments. Required arguments are placed in <code>{...}</code> brackets, while optional arguments are placed in <code>[...]</code> brackets. You can, for instance, start your document with <code>\documentclass[12pt]{article}</code> to specify the base font size.</p>
 <p>One of the most useful features in LaTeX is math mode, which you can enter by enclosing text in <code>$...$</code> (for inline statements), <code>$$...$$</code> (for statements on their own line), or using other environments like <code>\begin{array}...\end{array}</code> that come in math-specific packages. Once in math mode, you can use <a href="https://www.caam.rice.edu/~heinken/latex/symbols.pdf">math symbol commands</a> to get characters like <span class="math inline">\(\theta, \pi, \sum, \int, \infty\)</span>, and more.</p>
-<div id="try-it-out-31" class="section level3 unnumbered tryitout">
+<div id="try-it-out" class="section level3 unnumbered tryitout">
 <h3>Try it out</h3>
 <p>With any document creation software, the easiest way to learn how to do it is to find a sample document, tinker with it, see if you can make things the way you want them to be, and then google the errors when you inevitably screw something up.</p>
 <p>Take the sample document up above and see if you can do the following tasks:<br />
@@ -490,6 +484,8 @@ You can see the compiled pdf <a href="other/test.pdf">here</a>.
 
 @
 % end of chunk</code></pre>
+<p>You can embed numerical results inline using <code>\Sexpr{...}</code> where your R code goes in the <code>...</code>.</p>
+<p>Unfortunately, knitr does not work with SAS… for that, you’ll need Rmarkdown (or you can use a Jupyter notebook).</p>
 <div id="how-this-works" class="section level4 unnumbered">
 <h4>How this works</h4>
 <p>To compile a Rnw document, knitr first runs all of the R code, generating any figures or tables or text output for each chunk. For each chunk, knitr replaces the chunk code with LaTeX code to include the results; the result of this operation is saved to a tex file. Once the tex file is created, knitr compiles the tex file into a pdf.</p>
@@ -501,28 +497,47 @@ You can see the compiled pdf <a href="other/test.pdf">here</a>.
 <div id="beamer-latex-and-knitr" class="section level3">
 <h3><span class="header-section-number">10.3.1</span> Beamer (LaTeX) and knitr</h3>
 <p><a href="https://www.overleaf.com/learn/latex/beamer">Beamer</a> is a powerful LaTeX class which allows you to create slides. The only change necessary to turn a beamer slide deck into a knitr slide deck is to add <code>fragile</code> as an option to any slide with verbatim content.</p>
-<div id="try-it-out-32" class="section level4 unnumbered tryitout">
+<div id="try-it-out-1" class="section level4 unnumbered tryitout">
 <h4>Try it out</h4>
 <p>Download and compile <a href="other/beamer-demo.Rnw">beamer-demo.Rnw</a>.</p>
 <p>What happens when you remove the <code>[fragile]</code> from each frame declaration?</p>
 <p>Can you change the theme of the presentation?</p>
 <p>Add another slide, and on that slide, show an appropriate style ggplot2 graph of the distribution of board game ratings, reading in the board game ratings using the following code:</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="docs-reports.html#cb4-1"></a>board_games &lt;-<span class="st"> </span>readr<span class="op">::</span><span class="kw">read_csv</span>(<span class="st">&quot;https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2019/2019-03-12/board_games.csv&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb475"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb475-1" data-line-number="1">board_games &lt;-<span class="st"> </span>readr<span class="op">::</span><span class="kw">read_csv</span>(<span class="st">&quot;https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2019/2019-03-12/board_games.csv&quot;</span>)</a></code></pre></div>
+<p>You can also create Beamer slides using Rmarkdown, if you want, but you’ll probably have more control over the fine details if you go straight to the Rnw file without going through Rmd first. It’s a trade-off – the file will probably be simpler in Rmarkdown, but you won’t have nearly as much control.</p>
 </div>
 </div>
-<div id="xaringan" class="section level3">
-<h3><span class="header-section-number">10.3.2</span> xaringan</h3>
+<div id="html-slides" class="section level3">
+<h3><span class="header-section-number">10.3.2</span> HTML slides</h3>
+<p>RStudio has a host of other options for html slide presentations. There are some definite advantages to HTML presentations: they’re easy to share (via URL), you can add gifs, emojis, and interactive graphics, and you can set up github to host the presentations as well<a href="#fn35" class="footnote-ref" id="fnref35"><sup>35</sup></a>.</p>
+<p>The downside to HTML slides is that there are approximately 100000 different javascript libraries that create HTML slides, and all of them have different capabilities. Many of these libraries have R extensions that will let you create Rmarkdown slides, but they each have slightly different markdown syntax and capabilities.</p>
+<p><img src="image/Rmarkdown_slide_options.png" alt="Slide options available by default in RStudio" />
+You can get the <a href="https://bookdown.org/yihui/rmarkdown/presentations.html">full details</a> of any fully supported slide class in Rmarkdown by looking at the Rmarkdown book, which is freely available online. These guidelines will give you specifics about how to customize slides, add incremental information, change transitions, print your slides to PDF, and include speaker notes.</p>
+<p>It should be relatively straightforward to create an ioslides or slidy presentation, given that you’ve been using Rmarkdown all semester. From some reading, it seems as if <a href="https://yintingchou.com/posts/ioslides-vs-slidify-in-r-markdown-presentation/">slidy has more options, but ioslides is simpler to use</a>.</p>
+<p>However, the library I prefer at the moment is <a href="https://bookdown.org/yihui/rmarkdown/xaringan.html"><code>xaringan</code></a>, which is a package written by Yihui Xie (same guy that wrote rmarkdown/knitr). If you install the <code>xaringan</code> package, you can easily create a xaringan presentation by selecting the “From Template” option in the “New R markdown” window (shown above). Yihui has an excellent <a href="https://yihui.org/en/2017/08/why-xaringan-remark-js/">blog post</a> describing the features of xaringan that aren’t found in other libraries.</p>
+<p>Rather than repeat the documentation for each slide package in this document, I think it is probably easier just to link you to the documentation for each deck.</p>
+<ul>
+<li><a href="https://bookdown.org/yihui/rmarkdown/ioslides-presentation.html">ioslides</a></li>
+<li><a href="https://bookdown.org/yihui/rmarkdown/slidy-presentation.html">slidy</a></li>
+<li><a href="https://bookdown.org/yihui/rmarkdown/xaringan.html">xaringan</a></li>
+<li><a href="https://bookdown.org/yihui/rmarkdown/revealjs.html">reveal.js</a></li>
+</ul>
+<div class="tryitout">
+<p>Take a few minutes and try each of them out to see what feels right to you.</p>
+</div>
+<p>If you’re familiar with CSS (or happier tinkering to get the look of something exactly right) then <code>xaringan</code> is probably what you want to go with, but any option is fine. The nice feature of reveal.js presentations (my favorite option before <code>xaringan</code>) is that you have 2D slide layouts, so you can have multiple sections in your presentation, and move horizontally and vertically through the slides.</p>
 </div>
 </div>
 <div id="posters" class="section level2">
 <h2><span class="header-section-number">10.4</span> Posters</h2>
-<div id="beamer-latex-and-knitr-1" class="section level3">
-<h3><span class="header-section-number">10.4.1</span> Beamer (LaTeX) and knitr</h3>
+<div id="latex" class="section level3">
+<h3><span class="header-section-number">10.4.1</span> LaTeX</h3>
+<p><a href="https://www.overleaf.com/gallery/tagged/poster">Overleaf has a fantastic gallery of posters made in LaTeX</a>.</p>
 </div>
 <div id="pagedown" class="section level3">
 <h3><span class="header-section-number">10.4.2</span> Pagedown</h3>
 </div>
-<div id="xaringan-1" class="section level3">
+<div id="xaringan" class="section level3">
 <h3><span class="header-section-number">10.4.3</span> xaringan</h3>
 </div>
 <div id="pagedown-1" class="section level3">
@@ -536,6 +551,12 @@ You can see the compiled pdf <a href="other/test.pdf">here</a>.
 </ul>
 
 </div>
+</div>
+<div class="footnotes">
+<hr />
+<ol start="35">
+<li id="fn35"><p>I have a repository for all of the presentations I’ve given, and I use github pages to render the html presentations. Very easy, convenient, and I never have to carry a flash drive around<a href="docs-reports.html#fnref35" class="footnote-back">↩</a></p></li>
+</ol>
 </div>
             </section>
 
