@@ -65,7 +65,7 @@ There are other graphics systems in R (namely, `lattice`, plus some web-based re
 Before we delve into the grammar of graphics, let's motivate the philosophy using a simple task. Suppose we want to create a pie chart using some data. [Pie charts are terrible, and we've known it for 100 years](http://www.jstor.org/stable/2276829), so in the interests of showing that we know that pie charts are awful, we'll also create a stacked bar chart, which is the most commonly promoted alternative to a pie chart. We'll talk about what makes pie charts terrible at the end of this module. 
 
 <details><summary>R base graphics example</summary>
-```{r, message = F}
+```{r r-example-data-08, message = F}
 # Setup the data
 library(tidyverse)
 poke <- read_csv("data/pokemon_ascii.csv", na = '.') %>%
@@ -76,7 +76,7 @@ Let's start with what we want: for each generation, we want the total number of 
 
 To get a pie chart, we want that information mapped to a circle, with each generation represented by an angle whose size is proportional to the number of pokemon in that generation.
 
-```{r}
+```{r base-pie-08}
 # Create summary of pokemon by type
 tmp <- poke %>%
   group_by(generation) %>%
@@ -91,7 +91,7 @@ pie(tmp$n, labels = tmp$generation)
 
 We could alternately make a bar chart and stack the bars on top of each other. This also shows proportion (section vs. total) but does so in a linear fashion.
 
-```{r}
+```{r base-barplot-08}
 # Create summary of pokemon by type
 tmp <- poke %>%
   group_by(generation) %>%
@@ -110,14 +110,14 @@ In a pie or stacked bar chart, we don't care about the x coordinate - the whole 
 
 Then, we want to summarize our data by the number of objects in each category - this is basically a stacked bar chart. Any variables specified in the plot statement are used to implicitly calculate the statistical summary we want -- that is, to count the rows (so if we had multiple x variables, the summary would be computed for both the x and fill variables). ggplot is smart enough to know that when we use `geom_bar`, we generally want the y variable to be the count, so we can get away with leaving that part out. We just have to specify that we want the bars to be stacked on top of one another (instead of next to each other, "dodge").
 
-```{r}
+```{r gg-bar-08}
 ggplot(aes(x = "", fill = generation), data = poke) + 
   geom_bar(position = "stack") 
 ```
 
 If we want a pie chart, we can get one very easily - we transform the coordinate plane from Cartesian coordinates to polar coordinates. We specify that we want angle to correspond to the "y" coordinate, and that we want to start at $\theta = 0$. 
 
-```{r, message = F}
+```{r gg-pie-08, message = F}
 ggplot(aes(x = "", fill = generation), data = poke) + 
   geom_bar(position = "stack") + 
   coord_polar("y", start = 0)
@@ -141,11 +141,11 @@ RUN;
 PROC GCHART data=poketmp;
 pie generation / other = 0;
 RUN;
+QUIT; 
   
 PROC GCHART data=poketmp;
 VBAR i / SUBGROUP = generation;
 RUN;
-
 QUIT; 
 /* Note that if you forget the quit statement using SASMarkdown, things dont work well */
 ```
@@ -175,11 +175,13 @@ RUN;
 /* Make the pie chart */ 
 PROC SGRENDER data=classdat.poke template=WORK.simplepie;
 RUN;
+QUIT; 
 
 /* Use SGPLOT to make a stacked bar chart */
 PROC SGPLOT data=poketmp;
 VBAR i / GROUP = generation;
 RUN;
+QUIT; 
 ```
 As in base R, the syntax between the two types of charts is different, even though the underlying operations required to make the plots are very similar.  This is one example of why I don't agree with the assertion that ODS graphics is like ggplot2 syntax - the functionality may be similar, but the structure is not. 
 </details>
@@ -208,12 +210,14 @@ We can contrast this with other plotting systems (e.g. Base R), where transforma
 Functionally, the biggest difference between the two systems is that in the grammar of graphics system (as implemented in ggplot2), we work with a full tabular data set. So like the rest of the tidyverse, ggplot2 will allow you to reference bare column names as if they were variables, so long as you've passed in the data set to the `data =` argument.^[This can sometimes be a pain, though, depending on the set up, because you may end up with labels that are repeated many, many times. As with any system, you just have to make sure you're formatting your data consistent with the underlying philosophy.] 
 
 <details><summary>Let's get the data set up in both SAS and R</summary>
-```{r}
+```{r r-data-setup-08, cache = F}
 if (!"classdata" %in% installed.packages()) devtools::install_github("heike/classdata") 
 # A package of data sets which are useful for class demonstrations
 library(classdata)
 data(happy) # you'll use this for try it out sections
 data(fbi)
+
+library(tidyverse)
 
 fbiwide <- fbi %>%
   select(-Violent.crime) %>%
@@ -226,12 +230,12 @@ fbiwide <- fbi %>%
   mutate(Rape = as.numeric(Rape))
 
 # Write a csv out to a file to read into sas
-write_csv(happy, "data/happy.csv", na = ".")
-write_csv(fbi, "data/fbi.csv", na = ".")
-write_csv(fbiwide, "data/fbiwide.csv", na = ".")
+if(!file.exists("data/happy.csv")) write_csv(happy, "data/happy.csv", na = ".")
+if(!file.exists("data/fbi.csv")) write_csv(fbi, "data/fbi.csv", na = ".")
+if(!file.exists("data/fbiwide.csv")) write_csv(fbiwide, "data/fbiwide.csv", na = ".")
 ```
 
-```{sas happydata, error = T, collectcode = T}
+```{sas sas-data-setup-08, error = T, collectcode = T}
 libname classdat "/home/susan/Projects/Class/unl-stat850/2020-stat850/sas/";
 
 PROC IMPORT datafile = "data/happy.csv" out=classdat.happy
@@ -262,12 +266,12 @@ RUN;
 
 <details><summary>Basic Scatter plots</summary>
 A basic scatter plot is a combination of an aesthetic mapping for x and y (position), combined with the specification that the geometric object to be displayed is a point. Without any of the components (x, y, geom_point) you don't have a scatter plot. 
-```{r}
+```{r aes-basic-08}
 ggplot(fbiwide, aes(x = Burglary, y = Murder)) + geom_point()
 ```
 
 <details><summary>Base R</summary>
-```{r, error = T}
+```{r aes-baseR-08, error = T}
 plot(x = Burglary, y = Murder, data = fbiwide) # this doesn't work
 
 plot(x = fbiwide$Burglary, y = fbiwide$Murder) # you can use numeric vector arguments
@@ -288,38 +292,40 @@ libname classdat "/home/susan/Projects/Class/unl-stat850/2020-stat850/sas/";
 PROC SGPLOT data=classdat.fbiwide;
 SCATTER x = Burglary y = Murder;
 RUN;
+QUIT; 
 ```
 </details>
 </details>
 <details><summary>Adding labels and titles</summary>
 We can add a title to the plot
-```{r}
+```{r gg-add-title-08}
 ggplot(fbiwide, aes(x = Murder, y = Assault)) + geom_point() + 
   ggtitle("Murders and Assaults")
 ```
 You can also add labels using `xlab()` and `ylab()`. We'll talk more about how to make fine-grained modifications of axis scales later, but the shorthand commands for changing the title and labels are convenient.
 
 <details><summary>Base R</summary>
-```{r}
+```{r base-add-title-08}
 plot(Murder ~ Assault, data = fbiwide) 
 title("Murders and Assaults")
 ```
 </details>
 <details><summary>SAS ODS Graphics</summary>
-```{sashtml, error = T, collectcode = T}
+```{sashtml sas-add-title-08, error = T, collectcode = T}
 libname classdat "/home/susan/Projects/Class/unl-stat850/2020-stat850/sas/";
 
 PROC SGPLOT data=classdat.fbiwide;
 TITLE "Murders and Assaults";
 SCATTER x = Assault y = Murder;
 RUN;
+QUIT; 
 ```
 </details>
 </details>
 
 <details><summary>Changing characteristics of plotted objects</summary>
 We can also modify the appearance of the plotted objects
-```{r}
+```{r gg-adjust-aes-const-08}
 ggplot(fbiwide, aes(x = Population, y = Assault)) +
   geom_point(color = "blue", alpha = .5)
 ```
@@ -329,7 +335,7 @@ Another point to note: inside the `aes()` function, variables are mapped to geom
 
 <details><summary>Base R</summary>
 Base R doesn't support alpha blending by default, so we have to load the `scales` package in order to get that functionality.
-```{r}
+```{r base-adj-aes-const-08}
 library(scales)
 # Using constant alpha:
 plot(Assault ~ Population, 
@@ -339,7 +345,7 @@ plot(Assault ~ Population,
 ```
 </details>
 <details><summary>SAS ODS Graphics</summary>
-```{sashtml, error = T, collectcode = T}
+```{sashtml sas-adj-aes-const-08, error = T, collectcode = T}
 libname classdat "/home/susan/Projects/Class/unl-stat850/2020-stat850/sas/";
 
 PROC SGPLOT data=classdat.fbiwide;
@@ -347,6 +353,7 @@ SCATTER x = Population y = Assault /
   markerattrs=(size=8pt symbol=circlefilled color="blue") 
   transparency=0.5;
 RUN;
+QUIT; 
 ```
 </details>
 </details>
@@ -354,13 +361,13 @@ RUN;
 <details><summary>Mapping categorical variables to aesthetics like color</summary>
 If we want to get fancy, we can map other **variables** to aesthetics like color, size, etc. We could explore the relationship between Population and Assault, but we'd expect that over time, observations from each state would be closely related. We could explore that by coloring each point by state (note, this doesn't allow us to really see which states belong to which points so much as it visually associates connected points.)
 
-```{r}
+```{r gg-cat-aes-map-08}
 ggplot(fbiwide, aes(x = Population, y = Assault, color = Abb)) + geom_point()
 ```
 
 <details><summary>Base R variable mapping</summary>
 In base R, you can also create scatter plots that have different plot aesthetics, but we have to get a bit more hands-on than we did with ggplot2.
-```{r, error = T}
+```{r base-cat-aes-map-08-err, error = T}
 # This doesn't work because the values in Abb aren't actually colors
 # and plot() doesn't handle the mapping between color and abbreviation for us
 plot(Assault ~ Population, col = Abb, data = fbiwide) 
@@ -368,7 +375,7 @@ plot(Assault ~ Population, col = Abb, data = fbiwide)
 
 We have to specify the values of color manually for each point that we want to plot - essentially, where ggplot2 handled the scale for us, now we have to manually specify it ourselves. We could specify a legend, but in this particular case it's unlikely to be that useful to us because the colors aren't allowing us to identify the lines, they're just differentiating the lines from other lines.
 
-```{r}
+```{r base-cat-aes-map-08}
 # We need a vector of colors equal to the number of abbreviations we have
 state_colors <- rainbow(length(unique(fbiwide$Abb)))
 
@@ -381,7 +388,7 @@ plot(Assault ~ Population, col = state_color, data = fbiwide)
 You can use `?points` to get information on all of the graphical parameters for points.
 </details>
 <details><summary>SAS ODS Graphics variable mapping</summary>
-```{sashtml, error = T, collectcode = T}
+```{sashtml sas-cat-aes-map-08, error = T, collectcode = T}
 libname classdat "/home/susan/Projects/Class/unl-stat850/2020-stat850/sas/";
 
 PROC SGPLOT data=classdat.fbiwide;
@@ -389,6 +396,7 @@ SCATTER x = Population y = Assault /
   markerattrs=(size=8pt symbol=circlefilled) 
   group = Abb; /* maps to point color by default */
 RUN;
+QUIT; 
   
 PROC SGPLOT data=classdat.fbiwide NOAUTOLEGEND; /* dont generate a legend */
 SCATTER x = Population y = Assault /
@@ -397,7 +405,7 @@ SCATTER x = Population y = Assault /
     group = Abb
   ; 
 RUN;
-  
+QUIT; 
 ```
 </details>
 </details>
@@ -405,13 +413,13 @@ RUN;
 <details><summary>Line plots</summary>
 A better way to graphically examine this hypothesis (the patterns in the data are clusters of each state's points) might be to change the geometric object - we could use lines instead of points to show this data. In that case, we'd want to show separate lines (groups) for each state.
 
-```{r}
+```{r gg-line-plot-group-08}
 ggplot(fbiwide, aes(x = Population, y = Assault, group = Abb)) + geom_line()
 ```
 
 Or, we could be lazy and leave color specified; which will have the same effect. Color and most other aesthetics implicitly group the data.
 
-```{r}
+```{r gg-line-plot-color-08}
 ggplot(fbiwide, aes(x = Population, y = Assault, color = Abb)) + geom_line()
 ```
 
@@ -422,7 +430,7 @@ One of the best parts of ggplot is that you can get away with only changing one 
 
 If we want to make a line plot, we can do it one of two ways: we can use a for loop to plot each state's line separately, subsetting the data each time, or, we can transform the data to wide format and plot that using the `matplot` function
 
-```{r}
+```{r base-line-plot-loop-08}
 # For loop method
 plot(Assault ~ Population, pch = NA, data = fbiwide) # generate a blank plot
 for (i in unique(fbiwide$Abb)) {
@@ -431,7 +439,7 @@ for (i in unique(fbiwide$Abb)) {
 }
 ```
 
-```{r}
+```{r base-line-plot-matrix-08}
 # ggplot2 code
 # ggplot(fbiwide, aes(x = Population, y = Assault, group = Abb)) + geom_line()
 
@@ -455,7 +463,7 @@ matplot(popdat, assaultdat, type = "l")
 
 If we want to add color in and have it mean something specific, it's relatively straightforward because we already defined a new column in fbiwide that has state colors.
 
-```{r}
+```{r base-line-plot-color-08}
 plot(Assault ~ Population, pch = NA, data = fbiwide) # generate a blank plot
 for (i in unique(fbiwide$Abb)) {
   subdata <- filter(fbiwide, Abb == i)
@@ -464,7 +472,7 @@ for (i in unique(fbiwide$Abb)) {
 ```
 </details>
 <details><summary>SAS ODS line plots</summary>
-```{sashtml, error = T, collectcode = T}
+```{sashtml sas-line-plot-color-08, error = T, collectcode = T}
 
 libname classdat "/home/susan/Projects/Class/unl-stat850/2020-stat850/sas/";
 PROC SGPLOT data=classdat.fbiwide NOAUTOLEGEND;
@@ -472,6 +480,7 @@ SERIES x = Population y = Assault /
   lineattrs=(pattern=solid)
   group = Abb; /* maps to color by default */
 RUN;
+QUIT; 
 
 ```
 [SAS Line attributes and patterns options](https://documentation.sas.com/?docsetId=grstatproc&docsetTarget=p0er4dg9tojp05n1sf7maeqdz1d8.htm&docsetVersion=9.4&locale=en)
@@ -483,7 +492,7 @@ So we can color our points (or lines) by a categorical variable, but that's not 
 
 There are perhaps too many data points in the FBI data to effectively show size variation, so let's temporarily switch to pokemon and examine the relationship between attack and special attack points. Let's also map alpha to weight, so that lighter points correspond to lighter pokemon.
 
-```{r}
+```{r gg-numeric-aes-alpha-08}
 poke %>% 
   ggplot(aes(x = attack, y = sp_attack, alpha = weight_kg)) + 
   geom_point()
@@ -492,14 +501,14 @@ poke %>%
 <details><summary>See more numeric scales</summary>
 We could get fancier still and map the Pokemon's height to size. 
 
-```{r}
+```{r gg-numeric-aes-alpha-size-08}
 poke %>% 
   ggplot(aes(x = attack, y = sp_attack, size = height_m, alpha = weight_kg)) + 
   geom_point()
 ```
 Note that ggplot2 will create separate legends for size and height by default. If we map size and alpha to the same variable, however, it will automatically combine the legends. 
 
-```{r}
+```{r gg-numeric-aes-legend-combine-08}
 poke %>% 
   ggplot(aes(x = attack, y = sp_attack, size = weight_kg, alpha = weight_kg)) + 
   geom_point()
@@ -508,7 +517,7 @@ poke %>%
 
 <details><summary>Base R legends, numeric variables, and aesthetics</summary>
 If we use `?points` and find out that the size parameter is `cex` in base R, we might think something like this would work:
-```{r}
+```{r base-numeric-aes-size-08}
 plot(sp_attack ~ attack, cex = weight_kg, data = poke) 
 # cex controls the point size argument
 # note the lack of a legend
@@ -516,7 +525,7 @@ plot(sp_attack ~ attack, cex = weight_kg, data = poke)
 ```
 
 But, remember, in base graphics, we have to do the transformations ourselves. After some tinkering, I came up with this.
-```{r}
+```{r base-numeric-aes-size-scale-08}
 plot(sp_attack ~ attack, cex = 0.5 + weight_kg/1000*3, data = poke) 
 # we have to do the scale transformation ourselves
 # but there's no legend...
@@ -524,7 +533,7 @@ plot(sp_attack ~ attack, cex = 0.5 + weight_kg/1000*3, data = poke)
 
 We also have to make the legend ourselves. Sigh.
 
-```{r}
+```{r base-numeric-aes-size-scale-legend-08}
 plot(sp_attack ~ attack, cex = 0.5 + weight_kg/1000*3, data = poke) 
 legend("topleft", 
        legend = c(250, 500, 750, 1000), # labels
@@ -535,7 +544,7 @@ legend("topleft",
 
 
 If we want to map a value to alpha, we have to make our own scale again... but it may be easier to just make a transformation function that we can pass stuff into. That way we can create the legend and the data transformation using the same function (and if we want to change the transformation, it will be much easier to do so if we only have to change things in one place). 
-```{r}
+```{r base-numeric-aes-alpha-trans-fcn-08}
 library(scales)
 
 # Define the transformation
@@ -574,7 +583,7 @@ legend("topleft",
 
 If we want to do color and size simultaneously, we have to define another transformation, but we can re-use the same legend.
 
-```{r}
+```{r base-numeric-aes-general-trans-fcn-08}
 wt_trans_size <- function(x) {
   trans_x <- rescale(
     x = x, 
@@ -612,7 +621,7 @@ legend("topleft",
 <details><summary>SAS ODS graphics and numeric variable transformations</summary>
 In order to change point size to show a different variable value, we have to use BUBBLE instead of SCATTER.
 
-```{sashtml, error = T, collectcode = T}
+```{sashtml sas-numeric-aes-bubble-08, error = T, collectcode = T}
 
 libname classdat "/home/susan/Projects/Class/unl-stat850/2020-stat850/sas/";
 PROC SGPLOT data=classdat.poke;
@@ -621,6 +630,7 @@ BUBBLE x = attack y = sp_attack size = weight_kg /
   transparency=0.5;
 RUN;
 
+QUIT; 
 ```
 
 As best as I can tell, there's no similar plot option that would let us map a variable to transparency. There are attribute maps, but the options are discrete (which weight is not) or range (which would let us define ranges to map to a single value), and they don't appear to support transparency. In theory, I think we could go to SAS Template graph language, but ... ugh. To be honest, at this point, I'd move the data into R and graph things there.
@@ -647,13 +657,13 @@ worship <- read_csv("data/All_Places_Of_Worship.csv", guess_max = 5000) %>%
 
 write_csv(worship, "data/Places_of_Worship.csv", na = '.')
 ```
-```{r, eval = F}
+```{r install-ggthemes-map-pkgs-08, eval = F}
 pkgs <- installed.packages()
 # Install any of the packages that you don't have
 install.packages(setdiff(c("ggthemes", "mapdata", "maps"), pkgs))
 ```
 <details><summary>Initial data set up and exploration of the data sets</summary>
-```{r}
+```{r setup-map-data-08}
 library(ggplot2)
 library(maps)
 library(mapdata)
@@ -668,22 +678,22 @@ worship <- read_csv("data/Places_of_Worship.csv", guess_max = 5000)
 ```
 
 Let's look at the map data first:
-```{r}
+```{r examine-map-data-08}
 head(us_map)
 ```
 It looks like we have longitude and latitude, group, and point order. What does group mean? 
-```{r}
+```{r examine-group-08}
 select(us_map, group, region) %>% unique()
 ```
 The regions are all islands, and group is a number that corresponds to each region. This is important because if we plot polygons, we have to worry about what to do when we jump from one "island" to another (sometimes, regions might be contiguous areas, such as states or zip codes). As long as we pass in a group argument (so `group = group`) we should avoid most of the complications of plotting spatial data. 
 
 The state data is similarly structured:
-```{r}
+```{r examine-states-08}
 head(states)
 ```
 
 Now, let's look at our worship place data. The full data set was more extensive (and much larger), so I've reduced the number of columns so that I'm able to put it on GitHub. 
-```{r}
+```{r examine-worship-08}
 head(worship)
 ```
 
@@ -694,19 +704,19 @@ While I'm tempted to play around with the names of the organizations a bit (for 
 
 <details><summary>Basic map geoms - `geom_path` and `geom_polygon`</summary>
 Let's try plotting this out. Maybe we can start with just plotting the outline using `geom_line`?
-```{r}
+```{r gg-line-map-08}
 ggplot() + 
   geom_line(aes(x = long, y = lat, group = group), data = us_map)
 ```
 
 A line geom is plotted sequentially with respect to the magnitude of x. That doesn't really work for us - we want x and y to be plotted in order of the observations. To do that, we need `geom_path`. 
-```{r}
+```{r gg-path-map-08}
 ggplot() + 
   geom_path(aes(x = long, y = lat, group = group), data = us_map)
 ```
 Not too bad. What if we want to fill in the country, so that it looks different from the background? To do that, we'll need `geom_polygon`
 
-```{r}
+```{r gg-polygon-map-08}
 ggplot() + geom_polygon(aes(x = long, y = lat, group = group), data = us_map)
 
 # Let's make the fill white.
@@ -724,13 +734,13 @@ Generally, your base map layer will be plotted with `geom_polygon`, and you will
 <details><summary>Let's add more layers!</summary>
 Let's plot points for the location of every place of worship (according to the IRS) in the US. First, we can plot the points by themselves:
 
-```{r}
+```{r gg-point-map-08}
 ggplot() + geom_point(aes(x = long, y = lat), data = worship)
 ```
 
 Wow. One problem we're going to have is Alaska -- it isn't on our base map of the contiguous states. Let's go ahead and remove those points for now - we could make the map more complicated, but it won't add much to the overall value of the example. 
 
-```{r}
+```{r gg-point-map-noak-08}
 worship_full <- worship
 worship <- filter(worship, STATE != "AK")
 
@@ -740,7 +750,7 @@ ggplot() + geom_point(aes(x = long, y = lat), data = worship, size = .1, alpha =
 At this point it's worth remembering the [population density issue](https://xkcd.com/1138/). With that said, we have quite a lot of churches here, and while some of the darker areas are dense populations, not all of the church clusters are in areas I'd call "dense". 
 
 Suppose we want to add our church data to our national map. We can plot our US map first, then add the points on top of it. 
-```{r}
+```{r gg-layer-map-08}
 ggplot()  + 
   geom_polygon(aes(x = long, y = lat, group = group), data = us_map,
                fill = "white", color = "grey") + 
@@ -750,7 +760,7 @@ The order of the geom statements determines the plotting order.
 
 It might help to add some state information in too. We could plot states on top of the full US map, but (hopefully) the states tile the national map, so it's better just to plot the states. 
 
-```{r}
+```{r gg-layer-map-states-08}
 ggplot()  + 
   geom_polygon(aes(x = long, y = lat, group = group), data = states,
                fill = "white", color = "grey") + 
@@ -761,7 +771,7 @@ It might be helpful to figure out where there are major cities - some of them ar
 
 The `us.cities` database has all US cities over 40k people, plus state capitals of any size. Let's add major US cities as open circles (so that we don't obscure the church data too much). 
 
-```{r}
+```{r gg-layer-map-cities-08}
 large_cities <- us.cities %>%
   filter(country.etc != "AK") %>%
   filter(country.etc != "HI") %>%
@@ -781,7 +791,7 @@ layer_map
 ```
 
 Just to examine the South in a little more depth, because there's an extremely dark area northeast of Atlanta, GA and southwest of Charlotte, NC that doesn't correspond to any major cities.
-```{r}
+```{r gg-layer-map-zoom-08}
 layer_map + 
   # coord_fixed maintains the proper aspect ratio
   coord_fixed(xlim = c(-86.5, -78.5), ylim = c(31, 36))
@@ -798,7 +808,7 @@ Pick a few denominations or religious organizations (or even just a more generic
 
 <details><summary>One solution</summary>
 First, let's do a bit of string processing.
-```{r}
+```{r worship-tryitout-words-08}
 common_words <- worship %>% 
   pull(NAME) %>%
   str_split("[- &/%]", simplify = T) %>% 
@@ -809,7 +819,7 @@ common_words[1:40]
 ```
 Let's work with the following denominations: BAPTIST, LUTHERAN, METHODIST, PRESBYTERIAN, EPISCOPAL - I've left out CHRISTIAN, ASSEMBLY (because it could be ASSEMBLY OF GOD or a more generic term for a congregation), and TEMPLE because it could refer to any number of religions - Jewish, Hindu, etc. This will give us a very rough categorization (e.g. there are Methodist Episcopal churches which will be counted as one and not the other, and UMC is a common abbreviation for United Methodist Church but won't be counted as one this way). 
 
-```{r}
+```{r worship-many-denom-map-08}
 worship <- worship %>%
   mutate(type = str_extract(NAME, "(BAPTIST|LUTHERAN|METHODIST|PRESBYTERIAN|EPISCOPAL)"))
 
@@ -828,7 +838,7 @@ ggplot()  +
 ```
 
 We could also look for other keywords: 
-```{r}
+```{r worship-bahai-map-08}
 bahai <- worship %>% filter(str_detect(NAME, "BAHAI"))
 
 ggplot()  + 
@@ -840,7 +850,7 @@ ggplot()  +
   ggtitle("Baha'i Organizations")
 ```
 
-```{r}
+```{r worship-zen-map-08}
 zen <- worship %>% filter(str_detect(NAME, "ZEN"))
 
 ggplot()  + 
@@ -853,7 +863,7 @@ ggplot()  +
 ```
 
 
-```{r}
+```{r worship-quaker-map-08}
 friends <- worship %>% filter(str_detect(NAME, "(MEETING OF FRIENDS)|(FRIENDS MEETING)"))
 
 ggplot()  + 
@@ -865,7 +875,7 @@ ggplot()  +
   ggtitle("Quaker Religious Organizations")
 ```
 
-```{r, include = F}
+```{r worship-umc-map-08, include = F}
 umc <- worship %>% filter(str_detect(NAME, "( UMC )|(UNITED METHODIST)|(WESLEY FOUNDATION)"))
 
 ggplot()  + 
@@ -880,7 +890,7 @@ ggplot()  +
 <details>
 
 
-```{r, include = F, message = F, error = T}
+```{r clean-up-worship-data, include = F, message = F, error = T}
 # Clean up a bit
 objs <- ls()
 rm_objs <- setdiff(objs, c("fbi", "fbiwide", "happy", "poke", "worship_full"))
@@ -899,8 +909,8 @@ The `sf` package in R contains a special geom, `geom_sf`, which will plot map ob
 
 I've provided some code to get you started, but there are many other shapefiles in the dataset. Pick some layers which you think are interesting, and plot them with appropriate geoms to make a map of Middle Earth. 
 
-Unfortunately, in this map there is not an underlying polygon (the coastline is a series of shorter segments), so I have provided a theme statement that should provide a white background upon which you can build. 
-```{r}
+Unfortunately, in this map there is not an underlying polygon (the coastline is a series of shorter segments). To resolve this, I have provided a theme statement that will have a white background, so that you can add useful layers without the grey grid background. 
+```{r middle-earth-map}
 library(ggplot2)
 library(ggthemes)
 library(tidyverse)
@@ -929,6 +939,11 @@ ggplot() +
 ```
 </details>
 
+```{r reset-again, include = F}
+.reset()
+```
+```{r r-data-setup-08, include = F, cache = F}
+```
 
 ### Statistics and Different Types of Plots
 
@@ -943,7 +958,7 @@ In ggplot2, you can formally specify a statistic by using `stat_xxx` functions, 
 
 Let's look at the relative frequency of different types of crimes, putting all states on an equal scale of 100k residents so that the numbers are comparable and also meaningful. 
 
-```{r}
+```{r gg-boxplot-08}
 fbi %>%
   filter(Year == max(Year)) %>%
   mutate(per_100k = Count/Population*100000) %>%
@@ -960,7 +975,7 @@ fbi %>%
 
 We might want to sort crimes by incidence level, because it makes the plot prettier and also gives us an ordered list of crimes in descending frequency.
 
-```{r}
+```{r gg-boxplot-sort-08}
 tmp <- fbi %>%
   filter(Year == max(Year)) %>%
   mutate(per_100k = Count/Population*100000) %>%
@@ -988,7 +1003,7 @@ tmp %>%
 
 <details><summary>Box plots implicitly call `stat_fivenumber()`, which computes the five-number summary used to construct the box plot lines and box.</summary> 
 You could, in theory, create a box plot by calling something like this (I stopped at the boxes, but you get the idea)
-```{r, echo = -1}
+```{r gg-boxplot-fromscratch-08, echo = -1}
 has_groups <- ggplot2:::has_groups
 tibble(x = rep(1:2, each = 50),
        y = rnorm(100)) %>%
@@ -1008,12 +1023,12 @@ ggplot(aes(x = x, y = y, group = x)) +
 </details>
 
 <details><summary>Box plots in base R</summary>
-```{r}
+```{r base-boxplot-08}
 boxplot(per_100k~crime, data = tmp)
 ```
 </details>
 <details><summary>Box plots in SAS</summary>
-```{sashtml error = T, collectcode = T}
+```{sashtml sas-boxplot-08, error = T, collectcode = T}
 libname classdat "/home/susan/Projects/Class/unl-stat850/2020-stat850/sas/";
 
 DATA WORK.fbitmp;
@@ -1024,12 +1039,13 @@ RUN;
 PROC SGPLOT data=fbitmp;
 hbox per_100k / group = Type;
 RUN;
+QUIT; 
 ```
 </details>
 
 There are other variants of box plots (and similar concepts). Here is a violin plot, which attempts to show some more information about the distribution of the continuous variable (instead of hiding it all in the summary statistics). 
 
-```{r}
+```{r gg-violin-08}
 tmp %>%
   ggplot(aes(x = crime, y = per_100k, color = Violent.crime)) + 
   geom_violin(scale = "width", # This ensures all plots have the same max width
@@ -1044,7 +1060,7 @@ tmp %>%
 <details><summary>
 Box plots aren't the only way to show distributions, though. If we want to, we can show distributions using histograms or density plots. A **histogram** is created by binning the variable, then counting the number of observations that fall within each specified range.</summary>
 Usually, these ranges have constant width (but not always). 
-```{r}
+```{r gg-hist-08}
 poke %>%
   ggplot(aes(x = hp)) + 
   geom_histogram(color = "black", fill = "grey")
@@ -1058,7 +1074,7 @@ You should always look at  a histogram under multiple bin widths, because that p
 
 <details><summary>In a histogram, the statistic that is computed is `stat_bin` - we break the x range up into intervals and then count how many points lie in each interval. </summary>
 
-```{r}
+```{r gg-hist-stat-08}
 tibble(x = rnorm(100)) %>%
   ggplot(aes(x = x)) + 
   stat_bin(geom = "bar") # this is equivalent to geom_histogram
@@ -1068,7 +1084,7 @@ tibble(x = rnorm(100)) %>%
 In base R, you can get histograms with the `hist()` function. 
 
 <details><summary>Histograms in SAS</summary>
-```{sashtml}
+```{sashtml sas-hist-08}
 libname classdat "/home/susan/Projects/Class/unl-stat850/2020-stat850/sas/";
 
 DATA WORK.fbitmp;
@@ -1079,6 +1095,7 @@ RUN;
 PROC SGPLOT data=fbitmp(WHERE=(Type = "Robbery"));
 histogram per_100k;
 RUN;
+QUIT; 
 ```
 </details>
 </details>
@@ -1086,7 +1103,7 @@ RUN;
 <details><summary>
 A **kernel density** is an empirical method of estimating the probability density function of a variable. In a density plot, instead of count, the y axis is labeled "density" and the continuous curve will be scaled so that the distribution integrates to 1.</summary> Density plots can be quite useful for continuous variables, but are also dependent on parameter selection - instead of a bin width, you may need to adjust a kernel width (though there are algorithms that will select this by default, so usually you only have to tweak it a bit). 
 
-```{r}
+```{r gg-kernel-dens-08}
 
 poke %>%
   ggplot(aes(x = hp)) + 
@@ -1095,7 +1112,7 @@ poke %>%
 
 If you try to create a density plot for a variable which has only a limited number of values, you'll often get an extremely spiky distribution. If your variable is e.g. measured in imprecise intervals, even though it's continuous, you can adjust the bandwidth, but you may be better off using a histogram and choosing your bin width to be a multiple of your measurement precision. A spiky density curve can alert you to other problems in your data - for instance, the presence of a large number of 0s might tell you a mixture distribution would be a more appropriate distribution when you're modeling the data. 
 
-```{r}
+```{r gg-kernel-dens-cat-08}
 poke %>%
   ggplot(aes(x = catch_rate)) + 
   geom_density(color = "black", fill = "grey")
@@ -1104,7 +1121,7 @@ poke %>%
 In base R, you can get a density plot of a single variable with `plot(density(...))`. 
 
 <details><summary>Density plots in SAS</summary>
-```{sashtml}
+```{sashtml sas-kernel-dens-08}
 libname classdat "/home/susan/Projects/Class/unl-stat850/2020-stat850/sas/";
 
 DATA WORK.fbitmp;
@@ -1115,6 +1132,7 @@ RUN;
 PROC SGPLOT data=fbitmp(WHERE=(Type = "Robbery"));
 density per_100k / type = kernel;
 RUN;
+QUIT; 
 ```
 </details>
 </details>
@@ -1129,7 +1147,7 @@ Since both geoms compute statistics, you have to read the help files to see that
 
 `geom_histogram` lists computed variables count, density, ncount, and ndensity. It will be easiest just to use the computed variable density, which we access by putting `y = ..density..` in the aesthetic statement for the histogram geom. This moves the histogram to the same scale as the density - both will be scaled to integrate/sum to 1. 
 
-```{r}
+```{r gg-hist-dens-08}
 poke %>%
   ggplot(aes(x = catch_rate)) + 
   geom_histogram(aes(y = ..density..)) + 
@@ -1137,7 +1155,7 @@ poke %>%
 ```
 
 We could similarly tell the density function we want a plot on the count scale, but this is harder to read and compare. Personally, I prefer the first version. 
-```{r}
+```{r gg-hist-dens-alt-08}
 poke %>%
   ggplot(aes(x = catch_rate)) + 
   geom_histogram() + 
@@ -1146,7 +1164,7 @@ poke %>%
 
 In SAS, this is actually easier than it is in ggplot2: As long as you put the histogram first in the SGPLOT statement, you'll get the right scale. 
 
-```{sashtml}
+```{sashtml sas-hist-dens-08}
 libname classdat "/home/susan/Projects/Class/unl-stat850/2020-stat850/sas/";
 
 DATA WORK.fbitmp;
@@ -1158,6 +1176,7 @@ PROC SGPLOT data=fbitmp(WHERE=(Type = "Robbery"));
 histogram per_100k;
 density per_100k / type = kernel;
 RUN;
+QUIT; 
 ```
 </details>
 
@@ -1165,7 +1184,7 @@ RUN;
 You can use density plots and histograms in two dimensions to show the bivariate relationship between two variables, but at that point we have to represent the height of the density or number of points in the bin using another aesthetic (as x and y are taken by the two variables you're computing a density for). 
 
 One common aesthetic choice is to map density (or counts) to the fill color, leaving you to imagine a "height" associated with the color.  
-```{r}
+```{r gg-2d-bin-08}
 poke %>%
   ggplot(aes(x = height_m, y = weight_kg)) + 
   geom_bin2d(aes(fill = ..count..), bins = 18, drop = F) + 
@@ -1186,7 +1205,7 @@ poke %>%
 ```
 
 Alternately, it may be preferable to plot only the contour outlines.
-```{r}
+```{r gg-contour-08}
 poke %>%
   ggplot(aes(x = height_m, y = weight_kg)) + 
   geom_density2d(bins = 15) + 
@@ -1204,12 +1223,12 @@ Of course, joint distributions can also be shown using a scatterplot. Another us
 <details><summary>
 A bar chart is a plot with a categorical variable on one axis and a summary statistic on the other (usually, this is a count).</summary> Note that a bar chart is NOT the same as a histogram (a histogram looks very similar, but has a binned numeric variable on one axis and counts on the other). Geometrically, bar charts are rectangles; typically each rectangle will have equal width and variable height.
 
-```{r}
+```{r gg-bar-detail-08}
 ggplot(poke, aes(x = generation)) + geom_bar()
 ```
 
 As with other types of charts, we can add more information by adding aesthetic mappings:
-```{r}
+```{r gg-bar-aes-08}
 poke %>%
   mutate(status = factor(
     status, 
@@ -1225,7 +1244,7 @@ ggplot(aes(x = generation, fill = status)) +
 
 We can get different visual information from the same data, if we switch which variable is on the axis and which is the fill variable.
 
-```{r}
+```{r gg-bar-aes-alt-08}
 poke %>%
   mutate(status = factor(
     status, 
@@ -1239,7 +1258,7 @@ ggplot(aes(x = status, fill = generation)) +
 
 We can also get useful information by changing the statistic: what if we use the proportion of responses in each category instead of the raw count? To do this, as far as I know, we have to do at least a little bit of pre-processing, because we need a nested order of grouping factors, and ggplot doesn't do that very well. 
 
-```{r}
+```{r gg-stat-bar-08}
 poke %>%
   mutate(status = factor(
     status, 
@@ -1276,17 +1295,19 @@ ggplot(aes(x = generation, fill = status, weight = prop)) +
 ```
 
 <details><summary>Bar Charts in SAS</summary>
-```{sashtml}
+```{sashtml sas-bar-08}
 libname classdat "/home/susan/Projects/Class/unl-stat850/2020-stat850/sas/";
 
 
 PROC SGPLOT data=classdat.poke;
 VBAR status;
 RUN;
+QUIT; 
 
 PROC SGPLOT data=classdat.poke;
 HBAR type_1;
 RUN;
+QUIT; 
 ```
 </details>
 </details>
@@ -1309,7 +1330,7 @@ Sometimes, you want to show separate plots for each level of a factor (or a comb
 <details><summary>
 These sub-plots within a plot are called small multiples, or facets, or panel plots, depending on the software or discipline. </summary>
 
-```{r}
+```{r gg-facet-08}
 fbi %>%
   filter(Abb == "NE") %>%
   ggplot(aes(x = Year, y = Count/Population)) + 
@@ -1322,7 +1343,7 @@ The options to make panel plots in ggplot2 are `facet_wrap`, which wraps the spe
 We can control the scales on the panels - in some cases, it is advantageous to have the same scale for all panels, while at other times, such as in the example above, varying the scales at the panel level may allow you to see more detail. 
 
 
-```{r}
+```{r gg-facet-scale-08}
 fbi %>%
   filter(Abb == "NE") %>%
   ggplot(aes(x = Year, y = Count/Population)) + 
@@ -1332,7 +1353,7 @@ fbi %>%
 
 Using a grid-style facet, we can make it easy to compare the relative trends in sub-populations. 
 
-```{r}
+```{r gg-facet-grid-08}
 fbi %>%
   filter(Abb %in% c("D.C.", "NY"),
          Type %in% c("Burglary", "Robbery")) %>%
@@ -1343,13 +1364,14 @@ fbi %>%
 
 <details><summary>Panel plots in SAS</summary>
 Basically the same syntax as SGPLOT, but using SGPANEL and a PANELBY statement. This is very similar to ggplot2's `facet_` addition. 
-```{sashtml}
+```{sashtml sas-facet-08}
 libname classdat "/home/susan/Projects/Class/unl-stat850/2020-stat850/sas/";
 
 PROC SGPANEL data=classdat.poke;
 PANELBY status;
 HBAR type_1;
 RUN;
+QUIT; 
 ```
 </details>
 
@@ -1360,7 +1382,7 @@ RUN;
 The classdata package contains the `box` dataset, which has weekly box office numbers. Conduct an exploratory data analysis of the dataset, using different types of plots appropriately. What is the most interesting aspect of the data you found in your exploration?
 
 <details><summary>One possible solution</summary>
-```{r}
+```{r gg-tryitout-boxoffice-08}
 library(classdata)
 library(lubridate) # Work with dates and times
 data(box)
@@ -1384,7 +1406,7 @@ box %>%
 ```
 To me, this looks like there are two main groups of movies - the less common movies that are hugely grossing initially, but decline relatively quickly in weekly gross, and the more common movies that show a gradual decline until they are removed from theaters. Most movies don't seem to go beyond 25 weeks. 
 
-```{r}
+```{r gg-tryitout-boxoffice-2-08}
 # Still kind of a mess. Let's facet by year of initial release
 movie_summary <- box %>%
   group_by(Movie) %>%
@@ -1405,7 +1427,7 @@ box %>%
 This pattern is relatively consistent year after year, but some years have many more high-grossing movies. 
 
 Let's look at the relationship between last week's rank and this week's rank.
-```{r}
+```{r gg-tryitout-boxoffice-rank-08}
 box %>%
   left_join(select(movie_summary, Movie, release_year))  %>%
   filter(Week < 25, Week > 1) %>%
@@ -1416,7 +1438,7 @@ box %>%
 ```
 It's very strong, as expected, but this is extremely overplotted, so we might be missing some details. Let's look at the 2d density to see if we get anything interesting.
 
-```{r}
+```{r gg-tryitout-boxoffice-rank-dens-08}
 box %>%
   filter(Week < 15, Week > 1) %>%
   ggplot(aes(x = Rank.Last.Week, y = Rank)) + 
@@ -1428,7 +1450,7 @@ box %>%
 As we go week by week, we see the mode of the distribution shift down in rank. By week 9, it's extremely uncommon for a movie to be in the top 10. 
 
 Next, lets look at the relationship between the number of theaters showing a movie and the weekly gross receipts. 
-```{r}
+```{r gg-theater-receipts-08}
 box %>%
   left_join(select(movie_summary, Movie, release_year))  %>%
   filter(Rank <= 25) %>%
@@ -1438,7 +1460,7 @@ box %>%
 ```
 
 It would be interesting to see if this relationship is the same for all distributors. 
-```{r}
+```{r gg-theater-distributors-08}
 distributors <- box %>% group_by(Distributor, Movie) %>%
   filter(Week == max(Week)) %>%
   group_by(Distributor) %>%
@@ -1496,7 +1518,7 @@ In reality, I know that I have issues with perceiving some shades of red, green,
 
 In addition to colorblindness, there are other factors than the actual color value which are important in how we experience color. 
 
-```{r, fig.cap = "The color constancy illusion. The squares marked A and B are actually the same color", out.width = "45%"}
+```{r checker-shadow-fig, fig.cap = "The color constancy illusion. The squares marked A and B are actually the same color", out.width = "45%"}
 knitr::include_graphics("image/CheckerShadow.png")
 knitr::include_graphics("image/CheckerShadow2.png")
 ```
@@ -1579,7 +1601,7 @@ In graphics, we can leverage the gestalt principles of grouping to create order 
 <details><summary>Example: Suppose I want to emphasize the change in the murder rate between 1980 and 2010. </summary>
 
 <details><summary>I could use a bar chart</summary>
-```{r, fig.height = 8, fig.width = 6}
+```{r chart-emphasis-bar-08, fig.height = 8, fig.width = 6}
 fbiwide %>% 
   filter(Year %in% c(1980, 2010)) %>%
   ggplot(aes(x = State, y = Murder/Population*100000, fill = factor(Year))) + 
@@ -1589,7 +1611,7 @@ fbiwide %>%
 ```
 </details>
 <details><summary>Or, I could use a line chart</summary>
-```{r}
+```{r chart-emphasis-line-08}
 fbiwide %>% 
   filter(Year %in% c(1980, 2010)) %>%
   ggplot(aes(x = Year, y = Murder/Population*100000, group = State)) + 
@@ -1598,7 +1620,7 @@ fbiwide %>%
 ```
 </details>
 <details><summary>Or, I could use a box plot</summary>
-```{r}
+```{r chart-emphasis-box-08}
 fbiwide %>% 
   filter(Year %in% c(1980, 2010)) %>%
   ggplot(aes(x = factor(Year), y = Murder/Population*100000)) + 
@@ -1618,7 +1640,7 @@ The aesthetic mappings and choices you make when creating plots have a huge impa
 
 There are certain tasks which are easier for us relative to other, similar tasks. 
 
-```{r, echo = F, fig.cap = "Which of the lines is the longest? Shortest? It is much easier to determine the relative length of the line when the ends are aligned. In fact, the line lengths are the same in both panels."}
+```{r accuracy-guidelines-08, echo = F, fig.cap = "Which of the lines is the longest? Shortest? It is much easier to determine the relative length of the line when the ends are aligned. In fact, the line lengths are the same in both panels."}
 segs <- bind_rows(
   tibble(x = 1:3, y1 = 0, y2 = c(2.5, 2.75, 2.25), type = "Aligned scale"),
   tibble(x = 1:3, y1 = c(1, 0, .5), y2 = c(1, 0, .5) + c(2.5, 2.75, 2.25), type = "Unaligned scale")
@@ -1643,7 +1665,7 @@ When creating a chart, it is helpful to consider which variables you want to sho
 
 There is also a general increase in dimensionality from 1-3 to 4 (2d) to 5 (3d). In general, showing information in 3 dimensions when 2 will suffice is misleading - the addition of that extra dimension causes an increase in chart area allocated to the item that is disproportionate to the actual area. 
 
-```{r include = F}
+```{r disproportionate-pixels, include = F}
 imgs <- list.files("image", "3d_pie", full.names = T)
 tmp <- tibble(portfolio = c("Cash", "Bond", "Stocks"), 
               pct = c(.05, .35, .5),
