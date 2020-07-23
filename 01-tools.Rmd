@@ -89,9 +89,27 @@ SAS is another extensively used statistical programming language. It is primaril
 For SAS installation, see Steve Westerholt. He manages UNL SAS installations. 
 
 ### Note {- .note}
-SAS looks different on different machines. On Linux, SAS looks like you took a time machine back to the early 1990s. Screenshots from SAS will likely look *very* different on your machine than on mine. I will try to integrate screenshots from other OS's where it matters.
+SAS looks different on different machines. On Linux, SAS looks like you took a time machine back to the early 1990s. Screenshots from SAS will likely look *very* different on your machine than on mine. I will try to integrate screenshots from other OS's where it matters^[As I write this in late July 2020, I do not yet have access to a Windows or Mac machine. Sigh. XXX TODO: Get Windows/Mac screenshots XXX].
 
-XXX TODO: Get Windows/Mac screenshots XXX
+### SAS Windows/Panes
+
+![The SAS toolbox has options to create new files, submit code, and more (but I mostly use keyboard shortcuts in the individual windows). This is probably one of the biggest things that's different on Linux...](image/sas_toolbox.png)
+
+![The SAS Log gives you lots of detailed information about how your code ran -- look here for errors and warnings.](image/sas_log_window.png)
+![The SAS program editor is where you'll be writing your code. If you want, you can write code in a more advanced text editor and copy/paste it into the log when you're ready to run it.](image/sas_program_editor.png)
+There are two different places your output may end up: if you're using the old output system, you'll get text output in the output pane.
+![The old output system output pane.](image/sas_output_old.png)
+
+![The new output system uses HTML and will output to your browser.](image/sas_modern_output.png)
+
+![You can navigate through your results using the results window](image/sas_results_window.png)
+
+![The explorer window lets you access documentation, data, and more](image/sas_explorer_1.png)
+If you click on libraries, you get to this list:
+![This area of the SAS explorer shows all of the libraries you have access to.](image/sas_explorer_2.png)
+![Clicking on any one library will show you a list of datasets in that library](image/sas_explorer_3.png)
+
+You can then click on a dataset and you will get a spreadsheet-like view. 
 
 ## Version Control with Git
 
