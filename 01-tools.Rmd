@@ -140,16 +140,17 @@ There is a [troubleshooting guide](https://happygitwithr.com/troubleshooting.htm
 
 You need to tell git what your name and email address are, because every "commit" you make will be signed. 
 
-You can follow the instructions [here](https://happygitwithr.com/hello-git.html), or just wait and run the R script to install and configure R, LaTeX, and packages.
+Follow the instructions [here](https://happygitwithr.com/hello-git.html), or just wait and run the R script to install and configure R, LaTeX, and packages.
 
 ### Optional: Install a git client
 
 [Instructions](https://happygitwithr.com/git-client.html)
 
+I don't personally use a git client other than RStudio, but you may prefer to have a client, especially if you anticipate doing lots of work in SAS.
+
 ### Git and Github
 
-Slightly crude (but memorable) analogy:
-<details>
+<details><summary>Slightly crude (but memorable) analogy (don't click if you're offended by PG13/R rated stuff)</summary>
 Git is to GitHub what Porn is to PornHub
 </details>
 
@@ -157,17 +158,21 @@ Git is a program that runs on your machine and keeps track of changes to files t
 
 If you want, you can hook Git up to GitHub, and make a copy of your local git repository that lives in the cloud. Then, if you configure things correctly, your local repository will talk to GitHub without too much trouble. 
 
-Using Github with Git allows you to easily make a cloud backup of your important code, so that even if your  computer suddenly catches on fire, all of your important code files exist somewhere else. Remember: any data you don't have in 3 different places is data you don't care about.^[Yes, I'm aware that this sounds paranoid. It's been a very rare occasion that I've needed to restore something from another backup. You don't want to take chances. I knew a guy who had to retype his entire masters thesis from the printed out version the night before it was due because he had stored it on a network drive that was decommissioned. You don't want to be that guy.]
+Using Github with Git allows you to easily make a cloud backup of your important code, so that even if your  computer suddenly catches on fire, all of your important code files exist somewhere else. 
+
+Remember: any data you don't have in 3 different places is data you don't care about.^[Yes, I'm aware that this sounds paranoid. It's been a very rare occasion that I've needed to restore something from another backup. You don't want to take chances. I knew a guy who had to retype his entire masters thesis from the printed out version the night before it was due because he had stored it on a network drive that was decommissioned. You don't want to be that person.]
 
 ## Easy Extra Setup Script
 
-Run [this script](code/01_setup_install.R) on your machine. It will ask you for some input - your name, email address, etc. Then it's going to run for a while, installing some packages (read the code file if you want to know what it's doing - I've provided short explanations of what each package does). 
+Copy [this script](code/01_setup_install.R) into a text editor in RStudio on your machine. It will ask you for some input - your name, email address, etc. -- Make those changes in the text document, and then source the document. 
+
+It will run for a while, installing most of the packages you'll need for this course. Read the code file if you want to know what it's doing - I've provided short explanations of what each package does (and anyways, you shouldn't run code on your machine if you don't understand what it does). 
 
 ```{r eval = F}
-source("srvanderplas.github.io/unl-stat850/code/01_setup_install.R")
+source("code/01_setup_install.R")
 ```
 
-This script will set up git for you (e.g. the introduce yourself to git section above) and then will install `tinytex`, which is a version of LaTeX that is very simple and easy to install. 
+This script will set up git for you (e.g. the introduce yourself to git section above) and then will install `tinytex`, which is a version of LaTeX that is very simple and easy to install. If you want to install a different version of LaTeX instead (like MikTex or TexLive) feel free to do so. 
 
 ## LaTeX
 
