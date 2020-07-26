@@ -49,6 +49,20 @@
 
 
 
+<script src="libs/htmlwidgets-1.5.1.9001/htmlwidgets.js"></script>
+<script src="libs/plotly-binding-4.9.2.9000/plotly.js"></script>
+<script src="libs/typedarray-0.1/typedarray.min.js"></script>
+<link href="libs/crosstalk-1.1.0.1/css/crosstalk.css" rel="stylesheet" />
+<script src="libs/crosstalk-1.1.0.1/js/crosstalk.min.js"></script>
+<link href="libs/plotly-htmlwidgets-css-1.54.1/plotly-htmlwidgets.css" rel="stylesheet" />
+<script src="libs/plotly-main-1.54.1/plotly-latest.min.js"></script>
+<link href="libs/leaflet-1.3.1/leaflet.css" rel="stylesheet" />
+<script src="libs/leaflet-1.3.1/leaflet.js"></script>
+<link href="libs/leafletfix-1.0.0/leafletfix.css" rel="stylesheet" />
+<script src="libs/Proj4Leaflet-1.0.1/proj4-compressed.js"></script>
+<script src="libs/Proj4Leaflet-1.0.1/proj4leaflet.js"></script>
+<link href="libs/rstudio_leaflet-1.3.1/rstudio_leaflet.css" rel="stylesheet" />
+<script src="libs/leaflet-binding-2.0.3/leaflet.js"></script>
 <script>
 
 (function() {
@@ -159,6 +173,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="1.2" data-path="tools.html"><a href="tools.html#sas"><i class="fa fa-check"></i><b>1.2</b> SAS</a><ul>
 <li class="chapter" data-level="" data-path="tools.html"><a href="tools.html#note"><i class="fa fa-check"></i>Note</a></li>
+<li class="chapter" data-level="1.2.1" data-path="tools.html"><a href="tools.html#sas-windowspanes"><i class="fa fa-check"></i><b>1.2.1</b> SAS Windows/Panes</a></li>
 </ul></li>
 <li class="chapter" data-level="1.3" data-path="tools.html"><a href="tools.html#version-control-with-git"><i class="fa fa-check"></i><b>1.3</b> Version Control with Git</a><ul>
 <li class="chapter" data-level="1.3.1" data-path="tools.html"><a href="tools.html#getting-set-up-github"><i class="fa fa-check"></i><b>1.3.1</b> Getting set up: github</a></li>
@@ -309,10 +324,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="8.4.3" data-path="data-vis-intro.html"><a href="data-vis-intro.html#how-do-we-know"><i class="fa fa-check"></i><b>8.4.3</b> How do we know?</a></li>
 </ul></li>
 <li class="chapter" data-level="8.5" data-path="tools.html"><a href="tools.html#references"><i class="fa fa-check"></i><b>8.5</b> References</a><ul>
-<li class="chapter" data-level="8.5.1" data-path="data-vis-intro.html"><a href="data-vis-intro.html#r-graphics"><i class="fa fa-check"></i><b>8.5.1</b> R graphics</a></li>
-<li class="chapter" data-level="8.5.2" data-path="data-vis-intro.html"><a href="data-vis-intro.html#sas-graphics"><i class="fa fa-check"></i><b>8.5.2</b> SAS graphics</a></li>
-<li class="chapter" data-level="8.5.3" data-path="data-vis-intro.html"><a href="data-vis-intro.html#types-of-charts-and-chart-styling"><i class="fa fa-check"></i><b>8.5.3</b> Types of Charts and Chart Styling</a></li>
-<li class="chapter" data-level="8.5.4" data-path="data-vis-intro.html"><a href="data-vis-intro.html#other-graphics-packages"><i class="fa fa-check"></i><b>8.5.4</b> Other Graphics packages</a></li>
+<li class="chapter" data-level="8.5.1" data-path="data-vis-intro.html"><a href="data-vis-intro.html#motivation"><i class="fa fa-check"></i><b>8.5.1</b> Motivation</a></li>
+<li class="chapter" data-level="8.5.2" data-path="data-vis-intro.html"><a href="data-vis-intro.html#r-graphics"><i class="fa fa-check"></i><b>8.5.2</b> R graphics</a></li>
+<li class="chapter" data-level="8.5.3" data-path="data-vis-intro.html"><a href="data-vis-intro.html#sas-graphics"><i class="fa fa-check"></i><b>8.5.3</b> SAS graphics</a></li>
+<li class="chapter" data-level="8.5.4" data-path="data-vis-intro.html"><a href="data-vis-intro.html#types-of-charts-and-chart-styling"><i class="fa fa-check"></i><b>8.5.4</b> Types of Charts and Chart Styling</a></li>
+<li class="chapter" data-level="8.5.5" data-path="data-vis-intro.html"><a href="data-vis-intro.html#other-graphics-packages"><i class="fa fa-check"></i><b>8.5.5</b> Other Graphics packages</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="9" data-path="simulation.html"><a href="simulation.html"><i class="fa fa-check"></i><b>9</b> Simulation and Reproducibility</a><ul>
@@ -349,10 +365,18 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="10.6" data-path="docs-reports.html"><a href="docs-reports.html#using-github-pages"><i class="fa fa-check"></i><b>10.6</b> Using Github Pages</a></li>
 <li class="chapter" data-level="10.7" data-path="tools.html"><a href="tools.html#references"><i class="fa fa-check"></i><b>10.7</b> References</a></li>
 </ul></li>
-<li class="chapter" data-level="11" data-path="interactive-graphics.html"><a href="interactive-graphics.html"><i class="fa fa-check"></i><b>11</b> Interactive Graphics</a><ul>
+<li class="chapter" data-level="11" data-path="animated-and-interactive-graphics.html"><a href="animated-and-interactive-graphics.html"><i class="fa fa-check"></i><b>11</b> Animated and Interactive Graphics</a><ul>
 <li class="chapter" data-level="" data-path="tools.html"><a href="tools.html#module-objectives"><i class="fa fa-check"></i>Module Objectives</a></li>
-<li class="chapter" data-level="11.1" data-path="interactive-graphics.html"><a href="interactive-graphics.html#plotly"><i class="fa fa-check"></i><b>11.1</b> Plotly</a></li>
-<li class="chapter" data-level="11.2" data-path="interactive-graphics.html"><a href="interactive-graphics.html#shiny"><i class="fa fa-check"></i><b>11.2</b> Shiny</a></li>
+<li class="chapter" data-level="11.1" data-path="animated-and-interactive-graphics.html"><a href="animated-and-interactive-graphics.html#plotly"><i class="fa fa-check"></i><b>11.1</b> Plotly</a><ul>
+<li class="chapter" data-level="11.1.1" data-path="animated-and-interactive-graphics.html"><a href="animated-and-interactive-graphics.html#ggplotly-ggplot2-to-plotly-conversions"><i class="fa fa-check"></i><b>11.1.1</b> <code>ggplotly</code>: ggplot2 to plotly conversions</a></li>
+<li class="chapter" data-level="11.1.2" data-path="animated-and-interactive-graphics.html"><a href="animated-and-interactive-graphics.html#plot_ly-like-base-plotting-but-interactive"><i class="fa fa-check"></i><b>11.1.2</b> <code>plot_ly</code>: Like base plotting, but interactive!</a></li>
+<li class="chapter" data-level="11.1.3" data-path="animated-and-interactive-graphics.html"><a href="animated-and-interactive-graphics.html#animation"><i class="fa fa-check"></i><b>11.1.3</b> Animation</a></li>
+</ul></li>
+<li class="chapter" data-level="11.2" data-path="animated-and-interactive-graphics.html"><a href="animated-and-interactive-graphics.html#leaflet-maps"><i class="fa fa-check"></i><b>11.2</b> Leaflet maps</a><ul>
+<li class="chapter" data-level="" data-path="intro-prog.html"><a href="intro-prog.html#try-it-out-1"><i class="fa fa-check"></i>Try it out</a></li>
+</ul></li>
+<li class="chapter" data-level="11.3" data-path="animated-and-interactive-graphics.html"><a href="animated-and-interactive-graphics.html#shiny"><i class="fa fa-check"></i><b>11.3</b> Shiny</a></li>
+<li class="chapter" data-level="11.4" data-path="animated-and-interactive-graphics.html"><a href="animated-and-interactive-graphics.html#general-references"><i class="fa fa-check"></i><b>11.4</b> General References</a></li>
 </ul></li>
 <li class="chapter" data-level="12" data-path="other-resources-articles-and-food-for-thought.html"><a href="other-resources-articles-and-food-for-thought.html"><i class="fa fa-check"></i><b>12</b> Other Resources, Articles, and Food for Thought</a><ul>
 <li class="chapter" data-level="12.1" data-path="other-resources-articles-and-food-for-thought.html"><a href="other-resources-articles-and-food-for-thought.html#comparing-languages"><i class="fa fa-check"></i><b>12.1</b> Comparing Languages</a></li>
@@ -382,6 +406,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h1>References</h1>
 
 </div>
+
+
 
 
 

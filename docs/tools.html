@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Module 1 Tools for Statistical Computing | Stat 850: Computing Tools for Statisticians</title>
   <meta name="description" content="Introductions to statistical computing packages and document preparation software. Topics include: graphical techniques, data management, Monte Carlo simulation, dynamic document preparation, presentation software." />
-  <meta name="generator" content="bookdown 0.19 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.20.1 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Module 1 Tools for Statistical Computing | Stat 850: Computing Tools for Statisticians" />
   <meta property="og:type" content="book" />
@@ -49,14 +49,20 @@
 
 
 
-<script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
-<script src="libs/htmlwidgets-1.5.1/htmlwidgets.js"></script>
-<script src="libs/plotly-binding-4.9.2.1/plotly.js"></script>
+<script src="libs/htmlwidgets-1.5.1.9001/htmlwidgets.js"></script>
+<script src="libs/plotly-binding-4.9.2.9000/plotly.js"></script>
 <script src="libs/typedarray-0.1/typedarray.min.js"></script>
 <link href="libs/crosstalk-1.1.0.1/css/crosstalk.css" rel="stylesheet" />
 <script src="libs/crosstalk-1.1.0.1/js/crosstalk.min.js"></script>
-<link href="libs/plotly-htmlwidgets-css-1.52.2/plotly-htmlwidgets.css" rel="stylesheet" />
-<script src="libs/plotly-main-1.52.2/plotly-latest.min.js"></script>
+<link href="libs/plotly-htmlwidgets-css-1.54.1/plotly-htmlwidgets.css" rel="stylesheet" />
+<script src="libs/plotly-main-1.54.1/plotly-latest.min.js"></script>
+<link href="libs/leaflet-1.3.1/leaflet.css" rel="stylesheet" />
+<script src="libs/leaflet-1.3.1/leaflet.js"></script>
+<link href="libs/leafletfix-1.0.0/leafletfix.css" rel="stylesheet" />
+<script src="libs/Proj4Leaflet-1.0.1/proj4-compressed.js"></script>
+<script src="libs/Proj4Leaflet-1.0.1/proj4leaflet.js"></script>
+<link href="libs/rstudio_leaflet-1.3.1/rstudio_leaflet.css" rel="stylesheet" />
+<script src="libs/leaflet-binding-2.0.3/leaflet.js"></script>
 <script>
 
 (function() {
@@ -79,9 +85,9 @@
 
 
 <style type="text/css">
-code.sourceCode > span { display: inline-block; line-height: 1.25; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-code.sourceCode > span:empty { height: 1.2em; }
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode { white-space: pre; position: relative; }
 pre.sourceCode { margin: 0; }
@@ -90,16 +96,14 @@ div.sourceCode { overflow: auto; }
 }
 @media print {
 code.sourceCode { white-space: pre-wrap; }
-code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
 }
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
+pre.numberSource a.sourceLine
+  { position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+  { content: attr(data-line-number);
     position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
+    border: none; pointer-events: all; display: inline-block;
     -webkit-touch-callout: none; -webkit-user-select: none;
     -khtml-user-select: none; -moz-user-select: none;
     -ms-user-select: none; user-select: none;
@@ -108,9 +112,9 @@ pre.numberSource code > span > a:first-child::before
   }
 pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
 div.sourceCode
-  {   }
+  {  }
 @media screen {
-code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+a.sourceLine::before { text-decoration: underline; }
 }
 code span.al { color: #ff0000; font-weight: bold; } /* Alert */
 code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
@@ -191,12 +195,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="1.8" data-path="tools.html"><a href="tools.html#references"><i class="fa fa-check"></i><b>1.8</b> References</a></li>
 </ul></li>
 <li class="chapter" data-level="2" data-path="intro-prog.html"><a href="intro-prog.html"><i class="fa fa-check"></i><b>2</b> Introduction to Statistical Programming</a><ul>
-<li class="chapter" data-level="" data-path="intro-prog.html"><a href="intro-prog.html#module-objectives-1"><i class="fa fa-check"></i>Module Objectives</a></li>
+<li class="chapter" data-level="" data-path="tools.html"><a href="tools.html#module-objectives"><i class="fa fa-check"></i>Module Objectives</a></li>
 <li class="chapter" data-level="" data-path="intro-prog.html"><a href="intro-prog.html#definitions"><i class="fa fa-check"></i>Definitions</a></li>
 <li class="chapter" data-level="" data-path="intro-prog.html"><a href="intro-prog.html#statistical-programming-languages"><i class="fa fa-check"></i>Statistical Programming Languages</a></li>
 <li class="chapter" data-level="2.1" data-path="intro-prog.html"><a href="intro-prog.html#variable-types"><i class="fa fa-check"></i><b>2.1</b> Variable types</a><ul>
 <li class="chapter" data-level="2.1.1" data-path="intro-prog.html"><a href="intro-prog.html#r"><i class="fa fa-check"></i><b>2.1.1</b> R</a></li>
-<li class="chapter" data-level="2.1.2" data-path="intro-prog.html"><a href="intro-prog.html#sas-1"><i class="fa fa-check"></i><b>2.1.2</b> SAS</a></li>
+<li class="chapter" data-level="2.1.2" data-path="tools.html"><a href="tools.html#sas"><i class="fa fa-check"></i><b>2.1.2</b> SAS</a></li>
 </ul></li>
 <li class="chapter" data-level="2.2" data-path="intro-prog.html"><a href="intro-prog.html#data-structures"><i class="fa fa-check"></i><b>2.2</b> Data structures</a><ul>
 <li class="chapter" data-level="2.2.1" data-path="intro-prog.html"><a href="intro-prog.html#homogeneous-data-structures-r-and-sas"><i class="fa fa-check"></i><b>2.2.1</b> Homogeneous data structures (R and SAS)</a></li>
@@ -211,7 +215,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="intro-prog.html"><a href="intro-prog.html#references-and-links"><i class="fa fa-check"></i>References and Links</a></li>
 </ul></li>
 <li class="chapter" data-level="3" data-path="organization.html"><a href="organization.html"><i class="fa fa-check"></i><b>3</b> Organization: Packages, Functions, Scripts, and Documents</a><ul>
-<li class="chapter" data-level="" data-path="organization.html"><a href="organization.html#module-objectives-2"><i class="fa fa-check"></i>Module Objectives</a></li>
+<li class="chapter" data-level="" data-path="tools.html"><a href="tools.html#module-objectives"><i class="fa fa-check"></i>Module Objectives</a></li>
 <li class="chapter" data-level="3.1" data-path="organization.html"><a href="organization.html#reproducibility"><i class="fa fa-check"></i><b>3.1</b> Reproducibility</a><ul>
 <li class="chapter" data-level="" data-path="organization.html"><a href="organization.html#reproducibility-references-and-reading"><i class="fa fa-check"></i>Reproducibility References and Reading</a></li>
 </ul></li>
@@ -219,46 +223,46 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="3.2.1" data-path="organization.html"><a href="organization.html#rmarkdown-with-sas"><i class="fa fa-check"></i><b>3.2.1</b> Rmarkdown with… SAS?</a></li>
 </ul></li>
 <li class="chapter" data-level="3.3" data-path="organization.html"><a href="organization.html#functions-and-modules"><i class="fa fa-check"></i><b>3.3</b> Functions and Modules</a><ul>
-<li class="chapter" data-level="" data-path="organization.html"><a href="organization.html#try-it-out-6"><i class="fa fa-check"></i>Try it out</a></li>
+<li class="chapter" data-level="" data-path="intro-prog.html"><a href="intro-prog.html#try-it-out"><i class="fa fa-check"></i>Try it out</a></li>
 <li class="chapter" data-level="3.3.1" data-path="organization.html"><a href="organization.html#scope"><i class="fa fa-check"></i><b>3.3.1</b> Scope</a></li>
 <li class="chapter" data-level="3.3.2" data-path="organization.html"><a href="organization.html#the-pipe"><i class="fa fa-check"></i><b>3.3.2</b> The Pipe</a></li>
 </ul></li>
 <li class="chapter" data-level="3.4" data-path="organization.html"><a href="organization.html#procs-and-data-steps"><i class="fa fa-check"></i><b>3.4</b> Procs and Data steps</a></li>
 <li class="chapter" data-level="3.5" data-path="organization.html"><a href="organization.html#scripts"><i class="fa fa-check"></i><b>3.5</b> Scripts</a><ul>
-<li class="chapter" data-level="" data-path="organization.html"><a href="organization.html#try-it-out-9"><i class="fa fa-check"></i>Try it out</a></li>
+<li class="chapter" data-level="" data-path="intro-prog.html"><a href="intro-prog.html#try-it-out-3"><i class="fa fa-check"></i>Try it out</a></li>
 </ul></li>
 <li class="chapter" data-level="3.6" data-path="organization.html"><a href="organization.html#packages"><i class="fa fa-check"></i><b>3.6</b> Packages</a><ul>
-<li class="chapter" data-level="" data-path="organization.html"><a href="organization.html#try-it-out-10"><i class="fa fa-check"></i>Try it out</a></li>
+<li class="chapter" data-level="" data-path="intro-prog.html"><a href="intro-prog.html#try-it-out-4"><i class="fa fa-check"></i>Try it out</a></li>
 </ul></li>
-<li class="chapter" data-level="" data-path="organization.html"><a href="organization.html#references-and-links-1"><i class="fa fa-check"></i>References and Links</a></li>
+<li class="chapter" data-level="" data-path="intro-prog.html"><a href="intro-prog.html#references-and-links"><i class="fa fa-check"></i>References and Links</a></li>
 </ul></li>
 <li class="chapter" data-level="4" data-path="reading-data.html"><a href="reading-data.html"><i class="fa fa-check"></i><b>4</b> External Data</a><ul>
-<li class="chapter" data-level="" data-path="reading-data.html"><a href="reading-data.html#module-objectives-3"><i class="fa fa-check"></i>Module Objectives</a></li>
+<li class="chapter" data-level="" data-path="tools.html"><a href="tools.html#module-objectives"><i class="fa fa-check"></i>Module Objectives</a></li>
 <li class="chapter" data-level="4.1" data-path="reading-data.html"><a href="reading-data.html#external-data-formats"><i class="fa fa-check"></i><b>4.1</b> External Data Formats</a></li>
 <li class="chapter" data-level="4.2" data-path="reading-data.html"><a href="reading-data.html#text-files"><i class="fa fa-check"></i><b>4.2</b> Text Files</a><ul>
 <li class="chapter" data-level="4.2.1" data-path="reading-data.html"><a href="reading-data.html#fixed-width-files"><i class="fa fa-check"></i><b>4.2.1</b> Fixed-width files</a></li>
 <li class="chapter" data-level="4.2.2" data-path="reading-data.html"><a href="reading-data.html#delimited-text-files"><i class="fa fa-check"></i><b>4.2.2</b> Delimited Text Files</a></li>
-<li class="chapter" data-level="" data-path="reading-data.html"><a href="reading-data.html#try-it-out-11"><i class="fa fa-check"></i>Try it out</a></li>
+<li class="chapter" data-level="" data-path="intro-prog.html"><a href="intro-prog.html#try-it-out"><i class="fa fa-check"></i>Try it out</a></li>
 </ul></li>
 <li class="chapter" data-level="4.3" data-path="reading-data.html"><a href="reading-data.html#spreadsheets"><i class="fa fa-check"></i><b>4.3</b> Spreadsheets</a><ul>
-<li class="chapter" data-level="" data-path="reading-data.html"><a href="reading-data.html#try-it-out-12"><i class="fa fa-check"></i>Try it out</a></li>
+<li class="chapter" data-level="" data-path="intro-prog.html"><a href="intro-prog.html#try-it-out-1"><i class="fa fa-check"></i>Try it out</a></li>
 </ul></li>
 <li class="chapter" data-level="4.4" data-path="reading-data.html"><a href="reading-data.html#binary-files"><i class="fa fa-check"></i><b>4.4</b> Binary Files</a><ul>
-<li class="chapter" data-level="" data-path="reading-data.html"><a href="reading-data.html#try-it-out-13"><i class="fa fa-check"></i>Try it out</a></li>
+<li class="chapter" data-level="" data-path="intro-prog.html"><a href="intro-prog.html#try-it-out-2"><i class="fa fa-check"></i>Try it out</a></li>
 </ul></li>
 <li class="chapter" data-level="4.5" data-path="reading-data.html"><a href="reading-data.html#databases"><i class="fa fa-check"></i><b>4.5</b> Databases</a><ul>
 <li class="chapter" data-level="4.5.1" data-path="reading-data.html"><a href="reading-data.html#microsoft-access"><i class="fa fa-check"></i><b>4.5.1</b> Microsoft Access</a></li>
 <li class="chapter" data-level="4.5.2" data-path="reading-data.html"><a href="reading-data.html#sqlite"><i class="fa fa-check"></i><b>4.5.2</b> SQLite</a></li>
 </ul></li>
 <li class="chapter" data-level="4.6" data-path="reading-data.html"><a href="reading-data.html#exploratory-data-analysis"><i class="fa fa-check"></i><b>4.6</b> Exploratory Data Analysis</a><ul>
-<li class="chapter" data-level="4.6.1" data-path="reading-data.html"><a href="reading-data.html#sas-2"><i class="fa fa-check"></i><b>4.6.1</b> SAS</a></li>
-<li class="chapter" data-level="4.6.2" data-path="reading-data.html"><a href="reading-data.html#r-1"><i class="fa fa-check"></i><b>4.6.2</b> R</a></li>
+<li class="chapter" data-level="4.6.1" data-path="tools.html"><a href="tools.html#sas"><i class="fa fa-check"></i><b>4.6.1</b> SAS</a></li>
+<li class="chapter" data-level="4.6.2" data-path="intro-prog.html"><a href="intro-prog.html#r"><i class="fa fa-check"></i><b>4.6.2</b> R</a></li>
 <li class="chapter" data-level="4.6.3" data-path="reading-data.html"><a href="reading-data.html#comparison"><i class="fa fa-check"></i><b>4.6.3</b> Comparison</a></li>
 </ul></li>
-<li class="chapter" data-level="4.7" data-path="reading-data.html"><a href="reading-data.html#references-1"><i class="fa fa-check"></i><b>4.7</b> References</a></li>
+<li class="chapter" data-level="4.7" data-path="tools.html"><a href="tools.html#references"><i class="fa fa-check"></i><b>4.7</b> References</a></li>
 </ul></li>
 <li class="chapter" data-level="5" data-path="manipulating-data.html"><a href="manipulating-data.html"><i class="fa fa-check"></i><b>5</b> Manipulating Data</a><ul>
-<li class="chapter" data-level="" data-path="manipulating-data.html"><a href="manipulating-data.html#module-objectives-4"><i class="fa fa-check"></i>Module Objectives</a></li>
+<li class="chapter" data-level="" data-path="tools.html"><a href="tools.html#module-objectives"><i class="fa fa-check"></i>Module Objectives</a></li>
 <li class="chapter" data-level="5.1" data-path="manipulating-data.html"><a href="manipulating-data.html#tidy-data"><i class="fa fa-check"></i><b>5.1</b> Tidy Data</a></li>
 <li class="chapter" data-level="5.2" data-path="manipulating-data.html"><a href="manipulating-data.html#filter-pick-cases-rows-based-on-their-values"><i class="fa fa-check"></i><b>5.2</b> Filter: Pick cases (rows) based on their values</a><ul>
 <li class="chapter" data-level="5.2.1" data-path="manipulating-data.html"><a href="manipulating-data.html#common-filter-tasks"><i class="fa fa-check"></i><b>5.2.1</b> Common Filter() Tasks</a></li>
@@ -267,11 +271,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="5.4" data-path="manipulating-data.html"><a href="manipulating-data.html#mutate-add-and-transform-variables"><i class="fa fa-check"></i><b>5.4</b> Mutate: Add and transform variables</a></li>
 <li class="chapter" data-level="5.5" data-path="manipulating-data.html"><a href="manipulating-data.html#summarize"><i class="fa fa-check"></i><b>5.5</b> Summarize</a></li>
 <li class="chapter" data-level="5.6" data-path="manipulating-data.html"><a href="manipulating-data.html#group-by-power"><i class="fa fa-check"></i><b>5.6</b> Group By + (?) = Power!</a></li>
-<li class="chapter" data-level="" data-path="manipulating-data.html"><a href="manipulating-data.html#try-it-out-15"><i class="fa fa-check"></i>Try it out</a></li>
-<li class="chapter" data-level="" data-path="manipulating-data.html"><a href="manipulating-data.html#references-2"><i class="fa fa-check"></i>References</a></li>
+<li class="chapter" data-level="" data-path="intro-prog.html"><a href="intro-prog.html#try-it-out-1"><i class="fa fa-check"></i>Try it out</a></li>
+<li class="chapter" data-level="" data-path="tools.html"><a href="tools.html#references"><i class="fa fa-check"></i>References</a></li>
 </ul></li>
 <li class="chapter" data-level="6" data-path="transforming-data.html"><a href="transforming-data.html"><i class="fa fa-check"></i><b>6</b> Transforming Data</a><ul>
-<li class="chapter" data-level="" data-path="transforming-data.html"><a href="transforming-data.html#module-objectives-5"><i class="fa fa-check"></i>Module Objectives</a></li>
+<li class="chapter" data-level="" data-path="tools.html"><a href="tools.html#module-objectives"><i class="fa fa-check"></i>Module Objectives</a></li>
 <li class="chapter" data-level="6.1" data-path="transforming-data.html"><a href="transforming-data.html#identifying-the-problem-messy-data"><i class="fa fa-check"></i><b>6.1</b> Identifying the problem: Messy data</a></li>
 <li class="chapter" data-level="6.2" data-path="transforming-data.html"><a href="transforming-data.html#string-operations-creating-new-variables-and-separating-multi-variable-columns"><i class="fa fa-check"></i><b>6.2</b> String operations: Creating new variables and separating multi-variable columns</a><ul>
 <li class="chapter" data-level="6.2.1" data-path="transforming-data.html"><a href="transforming-data.html#basic-string-operations"><i class="fa fa-check"></i><b>6.2.1</b> Basic String Operations</a></li>
@@ -286,10 +290,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="6.4.1" data-path="transforming-data.html"><a href="transforming-data.html#demonstration-dataset-setup"><i class="fa fa-check"></i><b>6.4.1</b> Demonstration dataset setup</a></li>
 <li class="chapter" data-level="6.4.2" data-path="transforming-data.html"><a href="transforming-data.html#mutating-joins"><i class="fa fa-check"></i><b>6.4.2</b> Mutating joins</a></li>
 </ul></li>
-<li class="chapter" data-level="" data-path="transforming-data.html"><a href="transforming-data.html#references-3"><i class="fa fa-check"></i>References</a></li>
+<li class="chapter" data-level="" data-path="tools.html"><a href="tools.html#references"><i class="fa fa-check"></i>References</a></li>
 </ul></li>
 <li class="chapter" data-level="7" data-path="debugging.html"><a href="debugging.html"><i class="fa fa-check"></i><b>7</b> Principles of Debugging</a><ul>
-<li class="chapter" data-level="" data-path="debugging.html"><a href="debugging.html#module-objectives-6"><i class="fa fa-check"></i>Module Objectives</a></li>
+<li class="chapter" data-level="" data-path="tools.html"><a href="tools.html#module-objectives"><i class="fa fa-check"></i>Module Objectives</a></li>
 <li class="chapter" data-level="7.1" data-path="debugging.html"><a href="debugging.html#defensive-programming"><i class="fa fa-check"></i><b>7.1</b> Defensive Programming</a></li>
 <li class="chapter" data-level="7.2" data-path="debugging.html"><a href="debugging.html#general-debugging-strategies"><i class="fa fa-check"></i><b>7.2</b> General Debugging Strategies</a></li>
 <li class="chapter" data-level="7.3" data-path="debugging.html"><a href="debugging.html#debugging-tools-in-r"><i class="fa fa-check"></i><b>7.3</b> Debugging Tools in R</a><ul>
@@ -297,14 +301,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="7.3.2" data-path="debugging.html"><a href="debugging.html#after-an-error-has-occurred---traceback"><i class="fa fa-check"></i><b>7.3.2</b> After an error has occurred - <code>traceback()</code></a></li>
 <li class="chapter" data-level="7.3.3" data-path="debugging.html"><a href="debugging.html#browser---debugging-your-own-code-interactively"><i class="fa fa-check"></i><b>7.3.3</b> <code>browser()</code> - debugging your own code, interactively</a></li>
 <li class="chapter" data-level="7.3.4" data-path="debugging.html"><a href="debugging.html#debug---the-general-debugging-workhorse"><i class="fa fa-check"></i><b>7.3.4</b> <code>debug()</code> - the general debugging workhorse</a></li>
-<li class="chapter" data-level="" data-path="debugging.html"><a href="debugging.html#try-it-out-23"><i class="fa fa-check"></i>Try it out</a></li>
+<li class="chapter" data-level="" data-path="intro-prog.html"><a href="intro-prog.html#try-it-out-2"><i class="fa fa-check"></i>Try it out</a></li>
 </ul></li>
 <li class="chapter" data-level="7.4" data-path="debugging.html"><a href="debugging.html#debugging-tools-in-sas"><i class="fa fa-check"></i><b>7.4</b> Debugging Tools in SAS</a></li>
 <li class="chapter" data-level="7.5" data-path="debugging.html"><a href="debugging.html#minimal-working-examples"><i class="fa fa-check"></i><b>7.5</b> Minimal Working Examples</a></li>
-<li class="chapter" data-level="" data-path="debugging.html"><a href="debugging.html#references-4"><i class="fa fa-check"></i>References</a></li>
+<li class="chapter" data-level="" data-path="tools.html"><a href="tools.html#references"><i class="fa fa-check"></i>References</a></li>
 </ul></li>
 <li class="chapter" data-level="8" data-path="data-vis-intro.html"><a href="data-vis-intro.html"><i class="fa fa-check"></i><b>8</b> Introduction to Data Visualization</a><ul>
-<li class="chapter" data-level="" data-path="data-vis-intro.html"><a href="data-vis-intro.html#module-objectives-7"><i class="fa fa-check"></i>Module Objectives</a></li>
+<li class="chapter" data-level="" data-path="tools.html"><a href="tools.html#module-objectives"><i class="fa fa-check"></i>Module Objectives</a></li>
 <li class="chapter" data-level="8.1" data-path="data-vis-intro.html"><a href="data-vis-intro.html#why-do-we-create-graphics"><i class="fa fa-check"></i><b>8.1</b> Why do we create graphics?</a></li>
 <li class="chapter" data-level="8.2" data-path="data-vis-intro.html"><a href="data-vis-intro.html#general-approaches-to-creating-graphics"><i class="fa fa-check"></i><b>8.2</b> General approaches to creating graphics</a></li>
 <li class="chapter" data-level="8.3" data-path="data-vis-intro.html"><a href="data-vis-intro.html#the-grammar-of-graphics"><i class="fa fa-check"></i><b>8.3</b> The Grammar of Graphics</a><ul>
@@ -312,14 +316,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="8.3.2" data-path="data-vis-intro.html"><a href="data-vis-intro.html#syntax-and-general-structure-layers"><i class="fa fa-check"></i><b>8.3.2</b> Syntax and General Structure: Layers</a></li>
 <li class="chapter" data-level="8.3.3" data-path="data-vis-intro.html"><a href="data-vis-intro.html#statistics-and-different-types-of-plots"><i class="fa fa-check"></i><b>8.3.3</b> Statistics and Different Types of Plots</a></li>
 <li class="chapter" data-level="8.3.4" data-path="data-vis-intro.html"><a href="data-vis-intro.html#small-multiples"><i class="fa fa-check"></i><b>8.3.4</b> Small Multiples</a></li>
-<li class="chapter" data-level="" data-path="data-vis-intro.html"><a href="data-vis-intro.html#try-it-out-26"><i class="fa fa-check"></i>Try it out</a></li>
+<li class="chapter" data-level="" data-path="intro-prog.html"><a href="intro-prog.html#try-it-out-2"><i class="fa fa-check"></i>Try it out</a></li>
 </ul></li>
 <li class="chapter" data-level="8.4" data-path="data-vis-intro.html"><a href="data-vis-intro.html#good-charts"><i class="fa fa-check"></i><b>8.4</b> Good charts</a><ul>
 <li class="chapter" data-level="8.4.1" data-path="data-vis-intro.html"><a href="data-vis-intro.html#perceptual-and-cognitive-factors"><i class="fa fa-check"></i><b>8.4.1</b> Perceptual and Cognitive Factors</a></li>
 <li class="chapter" data-level="8.4.2" data-path="data-vis-intro.html"><a href="data-vis-intro.html#general-guidelines-for-accuracy"><i class="fa fa-check"></i><b>8.4.2</b> General guidelines for accuracy</a></li>
 <li class="chapter" data-level="8.4.3" data-path="data-vis-intro.html"><a href="data-vis-intro.html#how-do-we-know"><i class="fa fa-check"></i><b>8.4.3</b> How do we know?</a></li>
 </ul></li>
-<li class="chapter" data-level="8.5" data-path="data-vis-intro.html"><a href="data-vis-intro.html#references-5"><i class="fa fa-check"></i><b>8.5</b> References</a><ul>
+<li class="chapter" data-level="8.5" data-path="tools.html"><a href="tools.html#references"><i class="fa fa-check"></i><b>8.5</b> References</a><ul>
 <li class="chapter" data-level="8.5.1" data-path="data-vis-intro.html"><a href="data-vis-intro.html#motivation"><i class="fa fa-check"></i><b>8.5.1</b> Motivation</a></li>
 <li class="chapter" data-level="8.5.2" data-path="data-vis-intro.html"><a href="data-vis-intro.html#r-graphics"><i class="fa fa-check"></i><b>8.5.2</b> R graphics</a></li>
 <li class="chapter" data-level="8.5.3" data-path="data-vis-intro.html"><a href="data-vis-intro.html#sas-graphics"><i class="fa fa-check"></i><b>8.5.3</b> SAS graphics</a></li>
@@ -328,24 +332,24 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="9" data-path="simulation.html"><a href="simulation.html"><i class="fa fa-check"></i><b>9</b> Simulation and Reproducibility</a><ul>
-<li class="chapter" data-level="" data-path="simulation.html"><a href="simulation.html#module-objectives-8"><i class="fa fa-check"></i>Module Objectives</a></li>
+<li class="chapter" data-level="" data-path="tools.html"><a href="tools.html#module-objectives"><i class="fa fa-check"></i>Module Objectives</a></li>
 <li class="chapter" data-level="9.1" data-path="simulation.html"><a href="simulation.html#pseudorandom-number-generation"><i class="fa fa-check"></i><b>9.1</b> Pseudorandom Number Generation</a></li>
 <li class="chapter" data-level="9.2" data-path="simulation.html"><a href="simulation.html#built-in-simulations-from-distributions"><i class="fa fa-check"></i><b>9.2</b> Built-in simulations from distributions</a><ul>
-<li class="chapter" data-level="" data-path="simulation.html"><a href="simulation.html#try-it-out-27"><i class="fa fa-check"></i>Try it out</a></li>
+<li class="chapter" data-level="" data-path="intro-prog.html"><a href="intro-prog.html#try-it-out"><i class="fa fa-check"></i>Try it out</a></li>
 </ul></li>
 <li class="chapter" data-level="9.3" data-path="simulation.html"><a href="simulation.html#simulation-to-test-model-assumptions"><i class="fa fa-check"></i><b>9.3</b> Simulation to test model assumptions</a><ul>
-<li class="chapter" data-level="" data-path="simulation.html"><a href="simulation.html#try-it-out-28"><i class="fa fa-check"></i>Try it out</a></li>
+<li class="chapter" data-level="" data-path="intro-prog.html"><a href="intro-prog.html#try-it-out-1"><i class="fa fa-check"></i>Try it out</a></li>
 </ul></li>
 <li class="chapter" data-level="9.4" data-path="simulation.html"><a href="simulation.html#monte-carlo-methods"><i class="fa fa-check"></i><b>9.4</b> Monte Carlo methods</a><ul>
-<li class="chapter" data-level="" data-path="simulation.html"><a href="simulation.html#try-it-out-29"><i class="fa fa-check"></i>Try it out</a></li>
+<li class="chapter" data-level="" data-path="intro-prog.html"><a href="intro-prog.html#try-it-out-2"><i class="fa fa-check"></i>Try it out</a></li>
 </ul></li>
-<li class="chapter" data-level="9.5" data-path="simulation.html"><a href="simulation.html#references-6"><i class="fa fa-check"></i><b>9.5</b> References</a></li>
+<li class="chapter" data-level="9.5" data-path="tools.html"><a href="tools.html#references"><i class="fa fa-check"></i><b>9.5</b> References</a></li>
 </ul></li>
 <li class="chapter" data-level="10" data-path="docs-reports.html"><a href="docs-reports.html"><i class="fa fa-check"></i><b>10</b> Documents and Reports</a><ul>
-<li class="chapter" data-level="" data-path="docs-reports.html"><a href="docs-reports.html#module-objectives-9"><i class="fa fa-check"></i>Module Objectives</a></li>
+<li class="chapter" data-level="" data-path="tools.html"><a href="tools.html#module-objectives"><i class="fa fa-check"></i>Module Objectives</a></li>
 <li class="chapter" data-level="10.1" data-path="docs-reports.html"><a href="docs-reports.html#literate-programming-knitr-and-rmarkdown"><i class="fa fa-check"></i><b>10.1</b> Literate Programming, <code>knitr</code>, and <code>rmarkdown</code></a></li>
 <li class="chapter" data-level="10.2" data-path="docs-reports.html"><a href="docs-reports.html#a-very-brief-introduction-to-latex"><i class="fa fa-check"></i><b>10.2</b> A Very Brief Introduction to LaTeX</a><ul>
-<li class="chapter" data-level="" data-path="docs-reports.html"><a href="docs-reports.html#try-it-out-30"><i class="fa fa-check"></i>Try it out</a></li>
+<li class="chapter" data-level="" data-path="intro-prog.html"><a href="intro-prog.html#try-it-out"><i class="fa fa-check"></i>Try it out</a></li>
 <li class="chapter" data-level="10.2.1" data-path="docs-reports.html"><a href="docs-reports.html#knitr"><i class="fa fa-check"></i><b>10.2.1</b> Knitr</a></li>
 </ul></li>
 <li class="chapter" data-level="10.3" data-path="docs-reports.html"><a href="docs-reports.html#slides"><i class="fa fa-check"></i><b>10.3</b> Slides</a><ul>
@@ -353,28 +357,31 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="10.3.2" data-path="docs-reports.html"><a href="docs-reports.html#html-slides"><i class="fa fa-check"></i><b>10.3.2</b> HTML slides</a></li>
 </ul></li>
 <li class="chapter" data-level="10.4" data-path="docs-reports.html"><a href="docs-reports.html#posters"><i class="fa fa-check"></i><b>10.4</b> Posters</a><ul>
-<li class="chapter" data-level="10.4.1" data-path="docs-reports.html"><a href="docs-reports.html#latex-1"><i class="fa fa-check"></i><b>10.4.1</b> LaTeX</a></li>
+<li class="chapter" data-level="10.4.1" data-path="tools.html"><a href="tools.html#latex"><i class="fa fa-check"></i><b>10.4.1</b> LaTeX</a></li>
 <li class="chapter" data-level="10.4.2" data-path="docs-reports.html"><a href="docs-reports.html#posterdown"><i class="fa fa-check"></i><b>10.4.2</b> Posterdown</a></li>
 <li class="chapter" data-level="10.4.3" data-path="docs-reports.html"><a href="docs-reports.html#pagedown"><i class="fa fa-check"></i><b>10.4.3</b> Pagedown</a></li>
 </ul></li>
 <li class="chapter" data-level="10.5" data-path="docs-reports.html"><a href="docs-reports.html#resumecv"><i class="fa fa-check"></i><b>10.5</b> Resume/CV</a></li>
 <li class="chapter" data-level="10.6" data-path="docs-reports.html"><a href="docs-reports.html#using-github-pages"><i class="fa fa-check"></i><b>10.6</b> Using Github Pages</a></li>
-<li class="chapter" data-level="10.7" data-path="docs-reports.html"><a href="docs-reports.html#references-7"><i class="fa fa-check"></i><b>10.7</b> References</a></li>
+<li class="chapter" data-level="10.7" data-path="tools.html"><a href="tools.html#references"><i class="fa fa-check"></i><b>10.7</b> References</a></li>
 </ul></li>
 <li class="chapter" data-level="11" data-path="animated-and-interactive-graphics.html"><a href="animated-and-interactive-graphics.html"><i class="fa fa-check"></i><b>11</b> Animated and Interactive Graphics</a><ul>
-<li class="chapter" data-level="" data-path="animated-and-interactive-graphics.html"><a href="animated-and-interactive-graphics.html#module-objectives-10"><i class="fa fa-check"></i>Module Objectives</a></li>
+<li class="chapter" data-level="" data-path="tools.html"><a href="tools.html#module-objectives"><i class="fa fa-check"></i>Module Objectives</a></li>
 <li class="chapter" data-level="11.1" data-path="animated-and-interactive-graphics.html"><a href="animated-and-interactive-graphics.html#plotly"><i class="fa fa-check"></i><b>11.1</b> Plotly</a><ul>
 <li class="chapter" data-level="11.1.1" data-path="animated-and-interactive-graphics.html"><a href="animated-and-interactive-graphics.html#ggplotly-ggplot2-to-plotly-conversions"><i class="fa fa-check"></i><b>11.1.1</b> <code>ggplotly</code>: ggplot2 to plotly conversions</a></li>
 <li class="chapter" data-level="11.1.2" data-path="animated-and-interactive-graphics.html"><a href="animated-and-interactive-graphics.html#plot_ly-like-base-plotting-but-interactive"><i class="fa fa-check"></i><b>11.1.2</b> <code>plot_ly</code>: Like base plotting, but interactive!</a></li>
-<li class="chapter" data-level="11.1.3" data-path="animated-and-interactive-graphics.html"><a href="animated-and-interactive-graphics.html#references-8"><i class="fa fa-check"></i><b>11.1.3</b> References</a></li>
+<li class="chapter" data-level="11.1.3" data-path="animated-and-interactive-graphics.html"><a href="animated-and-interactive-graphics.html#animation"><i class="fa fa-check"></i><b>11.1.3</b> Animation</a></li>
 </ul></li>
-<li class="chapter" data-level="11.2" data-path="animated-and-interactive-graphics.html"><a href="animated-and-interactive-graphics.html#shiny"><i class="fa fa-check"></i><b>11.2</b> Shiny</a></li>
-<li class="chapter" data-level="11.3" data-path="animated-and-interactive-graphics.html"><a href="animated-and-interactive-graphics.html#general-references"><i class="fa fa-check"></i><b>11.3</b> General References</a></li>
+<li class="chapter" data-level="11.2" data-path="animated-and-interactive-graphics.html"><a href="animated-and-interactive-graphics.html#leaflet-maps"><i class="fa fa-check"></i><b>11.2</b> Leaflet maps</a><ul>
+<li class="chapter" data-level="" data-path="intro-prog.html"><a href="intro-prog.html#try-it-out-1"><i class="fa fa-check"></i>Try it out</a></li>
+</ul></li>
+<li class="chapter" data-level="11.3" data-path="animated-and-interactive-graphics.html"><a href="animated-and-interactive-graphics.html#shiny"><i class="fa fa-check"></i><b>11.3</b> Shiny</a></li>
+<li class="chapter" data-level="11.4" data-path="animated-and-interactive-graphics.html"><a href="animated-and-interactive-graphics.html#general-references"><i class="fa fa-check"></i><b>11.4</b> General References</a></li>
 </ul></li>
 <li class="chapter" data-level="12" data-path="other-resources-articles-and-food-for-thought.html"><a href="other-resources-articles-and-food-for-thought.html"><i class="fa fa-check"></i><b>12</b> Other Resources, Articles, and Food for Thought</a><ul>
 <li class="chapter" data-level="12.1" data-path="other-resources-articles-and-food-for-thought.html"><a href="other-resources-articles-and-food-for-thought.html#comparing-languages"><i class="fa fa-check"></i><b>12.1</b> Comparing Languages</a></li>
 </ul></li>
-<li class="chapter" data-level="" data-path="references-9.html"><a href="references-9.html"><i class="fa fa-check"></i>References</a></li>
+<li class="chapter" data-level="" data-path="tools.html"><a href="tools.html#references"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
 
@@ -441,7 +448,7 @@ On Linux, instead of a youtube video, you get a text-based <a href="https://gith
 <div id="exploring-rstudio" class="section level3">
 <h3><span class="header-section-number">1.1.3</span> Exploring RStudio</h3>
 <div class="figure">
-<img src="image/Rstudio_env.png" alt="" />
+<img src="image/Rstudio_env.png" alt="The RStudio window will look something like this." />
 <p class="caption">The RStudio window will look something like this.</p>
 </div>
 <p>In the top-left pane is the text editor. This is where you’ll do most of your work.</p>
@@ -457,9 +464,9 @@ On Linux, instead of a youtube video, you get a text-based <a href="https://gith
 <p>Now, type 2+2 into the text editor and press the run button that is on the pane’s shortcut bar (or, you can hit Ctrl-Enter/CMD-Enter to send a single line to the console).</p>
 <p>If both of those things worked, you’re probably set up correctly!</p>
 <p>Next, try typing this into the text editor, then run the line. Look in the environment and see if you can see what has changed.</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="tools.html#cb1-1"></a>a &lt;-<span class="st"> </span><span class="dv">3</span> <span class="co"># store 3 in the variable a</span></span></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1">a &lt;-<span class="st"> </span><span class="dv">3</span> <span class="co"># store 3 in the variable a</span></a></code></pre></div>
 <div class="figure">
-<img src="image/Rstudio_env_var.png" alt="" />
+<img src="image/Rstudio_env_var.png" alt="Your environment window should now look something like this (the .Last.value entry may not be there, and that’s ok)" />
 <p class="caption">Your environment window should now look something like this (the .Last.value entry may not be there, and that’s ok)</p>
 </div>
 <p>You can use the environment window to preview your data, check on the status of variables, and more. Note that while R is running, the window doesn’t update (so you can’t check on the status of a loop while the loop is running using the window).</p>
@@ -476,7 +483,7 @@ On Linux, instead of a youtube video, you get a text-based <a href="https://gith
 <div id="sas-windowspanes" class="section level3">
 <h3><span class="header-section-number">1.2.1</span> SAS Windows/Panes</h3>
 <div class="figure">
-<img src="image/sas_toolbox.png" alt="" />
+<img src="image/sas_toolbox.png" alt="The SAS toolbox has options to create new files, submit code, and more (but I mostly use keyboard shortcuts in the individual windows). This is probably one of the biggest things that’s different on Linux…" />
 <p class="caption">The SAS toolbox has options to create new files, submit code, and more (but I mostly use keyboard shortcuts in the individual windows). This is probably one of the biggest things that’s different on Linux…</p>
 </div>
 <p><img src="image/sas_log_window.png" alt="The SAS Log gives you lots of detailed information about how your code ran – look here for errors and warnings." />
@@ -484,11 +491,11 @@ On Linux, instead of a youtube video, you get a text-based <a href="https://gith
 There are two different places your output may end up: if you’re using the old output system, you’ll get text output in the output pane.
 <img src="image/sas_output_old.png" alt="The old output system output pane." /></p>
 <div class="figure">
-<img src="image/sas_modern_output.png" alt="" />
+<img src="image/sas_modern_output.png" alt="The new output system uses HTML and will output to your browser." />
 <p class="caption">The new output system uses HTML and will output to your browser.</p>
 </div>
 <div class="figure">
-<img src="image/sas_results_window.png" alt="" />
+<img src="image/sas_results_window.png" alt="You can navigate through your results using the results window" />
 <p class="caption">You can navigate through your results using the results window</p>
 </div>
 <p><img src="image/sas_explorer_1.png" alt="The explorer window lets you access documentation, data, and more" />
@@ -501,7 +508,7 @@ If you click on libraries, you get to this list:
 <div id="version-control-with-git" class="section level2">
 <h2><span class="header-section-number">1.3</span> Version Control with Git</h2>
 <div class="figure">
-<img src="http://www.phdcomics.com/comics/archive/phd101212s.gif" alt="" />
+<img src="http://www.phdcomics.com/comics/archive/phd101212s.gif" alt="You don’t want to end up here. Version control is the answer to this problem." />
 <p class="caption">You don’t want to end up here. Version control is the answer to this problem.</p>
 </div>
 <p>Git is a program whose primary purpose is version control. Git tracks changes to each file that it is told to monitor, and as the files change, you provide short labels describing what the changes were and why they exist (called “commits”). The log of these changes (along with the file history) is called your git commit history.</p>
@@ -544,7 +551,7 @@ Git is to GitHub what Porn is to PornHub
 <h2><span class="header-section-number">1.4</span> Easy Extra Setup Script</h2>
 <p>Copy <a href="code/01_setup_install.R">this script</a> into a text editor in RStudio on your machine. It will ask you for some input - your name, email address, etc. – Make those changes in the text document, and then source the document.</p>
 <p>It will run for a while, installing most of the packages you’ll need for this course. Read the code file if you want to know what it’s doing - I’ve provided short explanations of what each package does (and anyways, you shouldn’t run code on your machine if you don’t understand what it does).</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="tools.html#cb2-1"></a><span class="kw">source</span>(<span class="st">&quot;code/01_setup_install.R&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="kw">source</span>(<span class="st">&quot;code/01_setup_install.R&quot;</span>)</a></code></pre></div>
 <p>This script will set up git for you (e.g. the introduce yourself to git section above) and then will install <code>tinytex</code>, which is a version of LaTeX that is very simple and easy to install. If you want to install a different version of LaTeX instead (like MikTex or TexLive) feel free to do so.</p>
 </div>
 <div id="latex" class="section level2">
@@ -570,7 +577,7 @@ Git is to GitHub what Porn is to PornHub
 <h2><span class="header-section-number">1.7</span> Using Version Control</h2>
 <p>I’ve set this class up so that you’ll be using version control from the very beginning. Not only will this help you to learn good habits, it will also give you a platform for collaboration, hosting your work online, and more.</p>
 <div class="figure">
-<img src="https://imgs.xkcd.com/comics/git.png" alt="" />
+<img src="https://imgs.xkcd.com/comics/git.png" alt="If that doesn’t fix it, git.txt contains the phone number of a friend of mine who understands git. Just wait through a few minutes of ‘It’s really pretty simple, just think of branches as…’ and eventually you’ll learn the commands that will fix everything." />
 <p class="caption">If that doesn’t fix it, git.txt contains the phone number of a friend of mine who understands git. Just wait through a few minutes of ‘It’s really pretty simple, just think of branches as…’ and eventually you’ll learn the commands that will fix everything.</p>
 </div>
 <p>In this class, we’ll be using Github Classroom. Basically, this allows me to set up a template repository for each assignment. You’ll accept the assignment, which will create a copy of the repository on your GitHub account, and then your work will be saved to your repository using a fairly standard workflow which will be discussed below. When you submit your assignment, you’ll copy the link to the commit you want to be graded, and upload that to Canvas. I will clone your repository, compile your files (I’ll change the SAS path if necessary), and grade the compiled result.</p>
@@ -586,14 +593,14 @@ Git is to GitHub what Porn is to PornHub
 <h4><span class="header-section-number">1.7.1.1</span> Local repository first</h4>
 <p>Let’s suppose you already have a folder on your machine named <code>hello-world-1</code> (you may want to create this folder now). You’ve created a starter document, say, a text file named README with “hello world” written in it.</p>
 <p>If you want, you can use the following R code to set this up:</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="tools.html#cb3-1"></a>dir &lt;-<span class="st"> &quot;./hello-world-1&quot;</span></span>
-<span id="cb3-2"><a href="tools.html#cb3-2"></a><span class="cf">if</span> (<span class="op">!</span><span class="kw">dir.exists</span>(dir)) {</span>
-<span id="cb3-3"><a href="tools.html#cb3-3"></a>  <span class="kw">dir.create</span>(dir)</span>
-<span id="cb3-4"><a href="tools.html#cb3-4"></a>}</span>
-<span id="cb3-5"><a href="tools.html#cb3-5"></a>file &lt;-<span class="st"> </span><span class="kw">file.path</span>(dir, <span class="st">&quot;README&quot;</span>)</span>
-<span id="cb3-6"><a href="tools.html#cb3-6"></a><span class="cf">if</span> (<span class="op">!</span><span class="kw">file.exists</span>(file)) {</span>
-<span id="cb3-7"><a href="tools.html#cb3-7"></a>  <span class="kw">writeLines</span>(<span class="st">&quot;hello world&quot;</span>, <span class="dt">con =</span> file)</span>
-<span id="cb3-8"><a href="tools.html#cb3-8"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1">dir &lt;-<span class="st"> &quot;./hello-world-1&quot;</span></a>
+<a class="sourceLine" id="cb3-2" data-line-number="2"><span class="cf">if</span> (<span class="op">!</span><span class="kw">dir.exists</span>(dir)) {</a>
+<a class="sourceLine" id="cb3-3" data-line-number="3">  <span class="kw">dir.create</span>(dir)</a>
+<a class="sourceLine" id="cb3-4" data-line-number="4">}</a>
+<a class="sourceLine" id="cb3-5" data-line-number="5">file &lt;-<span class="st"> </span><span class="kw">file.path</span>(dir, <span class="st">&quot;README&quot;</span>)</a>
+<a class="sourceLine" id="cb3-6" data-line-number="6"><span class="cf">if</span> (<span class="op">!</span><span class="kw">file.exists</span>(file)) {</a>
+<a class="sourceLine" id="cb3-7" data-line-number="7">  <span class="kw">writeLines</span>(<span class="st">&quot;hello world&quot;</span>, <span class="dt">con =</span> file)</a>
+<a class="sourceLine" id="cb3-8" data-line-number="8">}</a></code></pre></div>
 <p>To create a local git repository, we can go to the terminal (in Mac/Linux) or the git bash shell (in Windows), navigate to our repository folder (not shown, will be different on each computer), and type in</p>
 <pre><code>git init</code></pre>
 <p>Alternately, if you prefer a GUI (graphical user interface) approach, that will work too:</p>
@@ -605,13 +612,13 @@ Git is to GitHub what Porn is to PornHub
 </ol>
 <p><img src="video/Rstudio-existing-git.gif" alt="Screen capture video of the steps described above to create a git repository in RStudio" />
 The next step is to add our file to the repository.</p>
-<p>Using the command line, you can type in <code>git add README</code> (this tells git to track the file) and then commit your changes (enter them into the record) using <code>git commit -m "Add readme file"</code>.</p>
+<p>Using the command line, you can type in <code>git add README</code> (this tells git to track the file) and then commit your changes (enter them into the record) using <code>git commit -m &quot;Add readme file&quot;</code>.</p>
 <p>Using the GUI, you navigate to the git pane, check the box next to the README file, click the Commit button, write a message (“Add readme file”), and click the commit button.</p>
 <p><img src="video/Rstudio-git-commit.gif" alt="Screen capture video of the steps described above to add and commit a file in RStudio" />
 The final step is to create a corresponding repository on GitHub. Navigate to your github profile and make sure you’re logged in. Create a new repository using the “New” button. Name your repository whatever you want, fill in the description if you want (this can help you later, if you forget what exactly a certain repo was <em>for</em>), and DO NOT add a README, license file, or anything else (if you do, you will have a bad time).</p>
 <p>You’ll be taken to your empty repository, and git will provide you the lines to paste into your git shell (or terminal) – you can access this within RStudio, as shown below. Paste those lines in, and you’ll be good to go.</p>
 <div class="figure">
-<img src="video/Rstudio-github-remote.gif" alt="" />
+<img src="video/Rstudio-github-remote.gif" alt="Connect your local git repository to GitHub" />
 <p class="caption">Connect your local git repository to GitHub</p>
 </div>
 </div>
@@ -629,7 +636,7 @@ The final step is to create a corresponding repository on GitHub. Navigate to yo
 <li>Check that the remote repository (Github) updated</li>
 </ol>
 <div class="figure">
-<img src="video/Rstudio-github-first-method.gif" alt="" />
+<img src="video/Rstudio-github-first-method.gif" alt="Video of the GUI method for creating a repository starting with GitHub" />
 <p class="caption">Video of the GUI method for creating a repository starting with GitHub</p>
 </div>
 <p>Command line method:</p>
@@ -640,7 +647,7 @@ The final step is to create a corresponding repository on GitHub. Navigate to yo
 <li>Navigate to the location you want your repository to live on your machine.</li>
 <li>Clone the repository by using the git shell or terminal: <code>git clone &lt;your repo url here&gt;</code>. In my case, this looks like <code>git clone git@github.com:stat850-unl/hello-world-2.git</code></li>
 <li>Make a change to your README file and save the change</li>
-<li>Commit your changes: <code>git commit -a -m "change readme"</code> (-a = all, that is, any changed file git is already tracking).</li>
+<li>Commit your changes: <code>git commit -a -m &quot;change readme&quot;</code> (-a = all, that is, any changed file git is already tracking).</li>
 <li>Push your changes to the remote (GitHub) repository and check that the repo has updated: <code>git push</code></li>
 </ol>
 </div>
@@ -649,7 +656,7 @@ The final step is to create a corresponding repository on GitHub. Navigate to yo
 <h3><span class="header-section-number">1.7.2</span> Adding files</h3>
 <p><code>git add</code> tells git that you want it to track a particular file.</p>
 <div class="figure">
-<img src="image/git-add.png" alt="" />
+<img src="image/git-add.png" alt="git add diagram: add tells git to add the file to the index of files git monitors." />
 <p class="caption">git add diagram: add tells git to add the file to the index of files git monitors.</p>
 </div>
 <p>You don’t need to understand exactly what git is doing on the backend, but it is important to know that the actual <strong>contents</strong> of the file aren’t logged by <code>git add</code> - you have to <strong>commit</strong> your changes for the contents to change. <code>git add</code> deals solely with the index of files that git “knows about”, and what it thinks belongs in each commit.</p>
@@ -672,7 +679,7 @@ The final step is to create a corresponding repository on GitHub. Navigate to yo
 <h3><span class="header-section-number">1.7.4</span> Committing your changes</h3>
 <p>A git <strong>commit</strong> is the equivalent of a log entry - it tells git to record the state of the file, along with a message about what that state means. On the back end, git will save a copy of the file in its current state to its cache.</p>
 <div class="figure">
-<img src="image/git-commit.png" alt="" />
+<img src="image/git-commit.png" alt="Here, we commit the red line as a change to our file." />
 <p class="caption">Here, we commit the red line as a change to our file.</p>
 </div>
 <p>In general, you want your commit message to be relatively short, but also informative. The best way to do this is to commit <strong>small</strong> blocks of changes. Work to commit every time you’ve accomplished a small task. This will do two things:</p>
@@ -718,9 +725,9 @@ In general, your workflow will be</p>
 <div class="footnotes">
 <hr />
 <ol start="1">
-<li id="fn1"><p>As I write this in late July 2020, I do not yet have access to a Windows or Mac machine. Sigh. XXX TODO: Get Windows/Mac screenshots XXX<a href="tools.html#fnref1" class="footnote-back">↩︎</a></p></li>
-<li id="fn2"><p>Yes, I’m aware that this sounds paranoid. It’s been a very rare occasion that I’ve needed to restore something from another backup. You don’t want to take chances. I knew a guy who had to retype his entire masters thesis from the printed out version the night before it was due because he had stored it on a network drive that was decommissioned. You don’t want to be that person.<a href="tools.html#fnref2" class="footnote-back">↩︎</a></p></li>
-<li id="fn3"><p>Yes, I’m seriously pushing it with this book; several of the datasets are ~30 MB<a href="tools.html#fnref3" class="footnote-back">↩︎</a></p></li>
+<li id="fn1"><p>As I write this in late July 2020, I do not yet have access to a Windows or Mac machine. Sigh. XXX TODO: Get Windows/Mac screenshots XXX<a href="tools.html#fnref1" class="footnote-back">↩</a></p></li>
+<li id="fn2"><p>Yes, I’m aware that this sounds paranoid. It’s been a very rare occasion that I’ve needed to restore something from another backup. You don’t want to take chances. I knew a guy who had to retype his entire masters thesis from the printed out version the night before it was due because he had stored it on a network drive that was decommissioned. You don’t want to be that person.<a href="tools.html#fnref2" class="footnote-back">↩</a></p></li>
+<li id="fn3"><p>Yes, I’m seriously pushing it with this book; several of the datasets are ~30 MB<a href="tools.html#fnref3" class="footnote-back">↩</a></p></li>
 </ol>
 </div>
             </section>
