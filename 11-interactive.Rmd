@@ -31,7 +31,7 @@ Plotly is a graphing library that uses javascript to add interactivity to graphi
 ### `ggplotly`: ggplot2 to plotly conversions
 
 <details><summary>Set up the data</summary>
-```{r volcano-data-setup, eval = F}
+```{r volcano-data-setup, include = F}
 if (!"plotly" %in% installed.packages()) install.packages("plotly")
 
 if (!"tidytuesdayR" %in% installed.packages()) {
@@ -53,7 +53,7 @@ sulfur <- full_data$sulfur
 trees <- full_data$tree_rings
 ```
 
-```{r volcano-data-setup, include = F}
+```{r volcano-data-setup, eval = F}
 ```
 </details>
 
@@ -216,11 +216,12 @@ It seems that the really big eruptions might be less likely to last for a long t
 </details>
 
 ### `plot_ly`: Like base plotting, but interactive!
+
 You can also create plotly charts that aren't limited by what you can do in ggplot2, using the `plot_ly` function. 
 
 [Plotly cheat sheet](https://images.plot.ly/plotly-documentation/images/r_cheat_sheet.pdf)
 
-We can start with a scatterplot of volcanos along the Earth's surface:
+<details><summary>We can start with a scatterplot of volcanoes along the Earth's surface:</summary>
 ```{r}
 plot_ly(type = "scattergeo", lon = volcano$longitude, lat = volcano$latitude)
 ```
@@ -236,8 +237,9 @@ plot_ly(type = "scattergeo", lon = volcano$longitude, lat = volcano$latitude,
         marker = list(color = "#d00000", opacity = 0.25)
         )
 ```
+</details>
 
-The `plot_ly` function is also pipe friendly, but you have to put `~` in front of your variable names.
+<details><summary>The `plot_ly` function is also pipe friendly. Variable mappings are preceded with `~` to indicate that the visual appearance changes with the value of the variable. </summary>
 
 ```{r}
 # Load RColorBrewer for palettes
@@ -260,7 +262,7 @@ plot_ly(type = "scattergeo", lon = ~longitude, lat = ~latitude,
 ```
 
 Plotly will handle some variable mappings for you, depending on which "trace" type (plot/geom) you're using. 
-
+</details>
 
 ::: watchout
 The plotly documentation often uses `plyr` -- which is an older version of `dplyr`. If you load `plyr`, it will seriously mess up your day -- a lot of the function names are the same. So, instead, here's a shortcut: `spread` is `pivot_wider` and `gather` is `pivot_longer`. That should at least help with understanding what the code is doing. 
@@ -268,12 +270,84 @@ The plotly documentation often uses `plyr` -- which is an older version of `dply
 If you do accidentally load `plyr`, that's fine: just restart your R session so that your loaded packages are cleared and you can start over. Or, if you must, you can reference a `plyr` function using `plyr::spread` without loading the package -- that's a safe way to use the plotly demo code as-is.
 :::
 
+<details><summary>Let's explore traces a bit.</summary> 
+According to the plotly documentation, 
+
+> A trace is just the name we give a collection of data and the specifications of which we want that data plotted. Notice that a trace will also be an object itself, and these will be named according to how you want the data displayed on the plotting surface
+
+In ggplot2 terms, it seems that a trace is somewhat akin to a geom. 
+```{r}
+trace0 <- rnorm(100, mean = 5)
+trace1 <- rnorm(100, mean = 0)
+trace2 <- rnorm(100, mean = -5)
+
+data <- tibble(x = 1:100, trace0, trace1, trace2)
+
+# Let's see how this goes with one trace
+plot_ly(data, x = ~x) %>%
+  add_trace(y = ~trace0, name = 'trace0', mode = 'lines')
+
+# Adding some more traces
+plot_ly(data, x = ~x) %>%
+  add_trace(y = ~trace0, name = 'trace0', mode = 'lines') %>%
+  add_trace(y = ~trace1, name = "trace1", mode = 'lines+markers') %>%
+  add_trace(y = ~trace2, name = "trace2", mode = 'markers')
+```
+
+But, if you want all of the variables to be shown with the same trace type, it's probably easier to get to long form:
+
+```{r}
+data %>%
+  pivot_longer(matches("trace"), names_to = "trace", names_prefix = "trace", values_to = "y") %>%
+  plot_ly(x = ~x, y = ~y, color = ~trace, mode = "lines+markers")
+```
+</details>
+There are many different trace types in plotly, but your best bet is to check the [documentation](plotly.com/r/) to see what is available.
+
+### Animation
+
+<details><summary>Plotly can also animate your plots for you. </summary>
+
+```{r}
+library(classdata)
+data(fbi)
+
+fbi %>%
+  mutate(State = factor(State),
+         Rate_100k = Count/Population*100000) %>%
+  filter(Type == "Aggravated.assault") %>%
+  arrange(Year, State, Type) %>%
+  plot_ly(
+    x = ~State,
+    y = ~Rate_100k,
+    color = ~Type,
+    frame = ~Year,
+    type = "scatter",
+    mode = "markers"
+  ) 
+
+```
+Sometimes the animations get a bit trippy, don't they?
+
+You can even animate by something other than time, if you're so inclined...
+```{r}
+fbi %>%
+  mutate(State = factor(State),
+         Rate_100k = Count/Population*100000) %>%
+  arrange(Year, State, Type) %>%
+  plot_ly(
+    x = ~Year,
+    y = ~Rate_100k,
+    color = ~Type,
+    frame = ~State,
+    type = "scatter",
+    mode = "lines"
+  ) 
+```
+</details>
+There are [other types of animations as well](https://plotly.com/r/animations/), including the ability to change plot formats, trace types, and more. 
 
 
-
-### References
-
-- [Plotly R figure reference](https://plotly.com/r/reference/)
 
 ## Shiny
 
