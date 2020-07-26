@@ -349,8 +349,92 @@ There are [other types of animations as well](https://plotly.com/r/animations/),
 
 
 
-## Shiny
 
+## Leaflet maps
+Leaflet is another javascript library that allows for interactive data visualization. We're only going to briefly talk about it here, but there is [extensive documentation](https://rstudio.github.io/leaflet/) that includes details of how to work with different types of geographical data, chloropleth maps, plugins, and more.
+
+
+To explore the leaflet package, we'll start out playing with a [dataset of Bigfoot sightings](https://data.world/timothyrenner/bfro-sightings-data) assembled from the Bigfoot Field Researchers Organization's [Google earth tool](http://www.bfro.net/news/google_earth.asp)
+
+```{r leaflet-setup, echo = F}
+if (!"leaflet" %in% installed.packages()) install.packages("leaflet")
+
+library(leaflet)
+library(tidyverse)
+
+bigfoot_data <- read_csv("https://query.data.world/s/egnaxxvegdkzzrhfhdh4izb6etmlms")
+```
+
+We can start out by plotting a map with the location of each sighting. I've colored the points in a seasonal color scheme, and added the description of each incident as a mouseover label. 
+```{r}
+bigfoot_data %>%
+  filter(classification == "Class A") %>%
+  mutate(seasoncolor = str_replace_all(season, c("Fall" = "orange", 
+                                                 "Winter" = "skyblue", 
+                                                 "Spring" = "green", 
+                                                 "Summer" = "yellow")),
+         # This code just wraps the description to the width of the R terminal
+         # and inserts HTML for a line break into the text at appropriate points
+         desc_wrap = purrr::map(observed, ~strwrap(.) %>% 
+                                  paste(collapse = "<br/>") %>%
+                                  htmltools::HTML())) %>%
+leaflet() %>%
+  addTiles() %>%
+  addCircleMarkers(~longitude, ~latitude, color = ~seasoncolor, label = ~desc_wrap)
+```
+
+Of course, because this is an interactive map library, we aren't limited to any one scale. We can also plot data at the city level:
+
+```{r}
+if(!"nycsquirrels18" %in% installed.packages()) {
+  devtools::install_github("mine-cetinkaya-rundel/nycsquirrels18")
+}
+  
+library(nycsquirrels18)
+
+data(squirrels)
+
+head(squirrels)
+
+squirrels %>%
+  mutate(color = tolower(primary_fur_color)) %>%
+  leaflet() %>%
+  addTiles() %>%
+  addCircleMarkers(~long, ~lat, color = ~color)
+```
+
+We can also plot regions, instead of just points. I downloaded a dataset released by the US Forest Service, [Bailey's Ecoregions and Subregions](https://catalog.data.gov/dataset/baileys-ecoregions-and-subregions-dataset) dataset, which categorizes the US into different climate and ecological zones. 
+
+To map colors to variables, we have to define a color palette and variable mapping ourselves, and pass that function into the leaflet object we're adding. 
+```{r}
+library(rgdal)
+ecoregions <- readOGR("data/Bailey_s_Ecoregions_and_Subregions_Dataset.geojson")
+
+# Define a palette
+region_pal <- colorFactor(c("#E67E22", "#0B5345", "#229954", "#B3B6B7"), ecoregions$DOMAIN)
+
+ecoregions %>%
+leaflet() %>%
+  addTiles() %>%
+  addPolygons(stroke = TRUE, fillOpacity = 0.25, 
+              fillColor = ~region_pal(DOMAIN), color = ~region_pal(DOMAIN), label = ~SECTION)
+```
+
+### Try it out {- .tryitout}
+
+Download the Shapefiles for the [116th Congress Congressional Districts](https://www2.census.gov/geo/tiger/GENZ2018/shp/cb_2018_us_cd116_5m.zip). Unzip the file and read it in using the code below (you'll have to change the file path). 
+
+Use the [MIT Election Data and Science Lab's US House election results](https://dataverse.harvard.edu/dataset.xhtml?persistentId=doi:10.7910/DVN/IG0UN2), and merge this data with the shapefiles to plot the results of the 2018 midterms in a way that you think is useful (you can use any of the available data). 
+
+```{r}
+library(rgdal)
+congress_districts <- readOGR("data/116_congress/cb_2018_us_cd116_5m.shp")
+
+```
+
+
+## Shiny
+https://github.com/rfordatascience/tidytuesday/blob/master/data/2020/2020-05-26/readme.md
 
 
 ## General References
