@@ -1,10 +1,273 @@
-# Interactive Graphics
+# Animated and Interactive Graphics
+
+Interactive and animated graphics are one of the major advantages of using the Rmarkdown ecosystem - because you can easily create web pages in markdown (without the pain of HTML), you aren't limited by paper any more. We'll cover two different technologies that allow you to create different types of interactive charts, graphs, and interfaces. 
+
+It is helpful to think about interactivity in a couple of different ways: 
+
+1. What does it require? Do you need to be doing statistical calculations in the background, or can you precompute all of the data ahead of time?
+
+2. What type of activity or interactivity do you need? 
+    - Zoom in/out?
+    - Provide additional information in response to user actions (mouseover, click)
+    - Provide information over time (animation)
+    - Keep track of a data point over multiple plots? (linked plots)
+    - Keep track of one or more data points and change their appearance based on user interaction (brushing)
+    - Allow the user to change the underlying statistical model or data?
+    
+(This is not a full list of all of the types of interactivity, just a few of the more common options)
+
+In this section, we'll cover two ways to easily create interactive graphics or applets in R. There are, of course, many others -- many javascript libraries have R extensions of one form or another. 
 
 ## Module Objectives {-}
 
 - Create interactive charts with plotly
 - Use Shiny to create interactive web applets
 
+
 ## Plotly
 
+Plotly is a graphing library that uses javascript to add interactivity to graphics. There are several different ways to create plotly graphs in R, but by far the easiest is `ggplotly`, which converts a ggplot to a plotly plot automatically (so you don't have to specify most of the details).
+
+### `ggplotly`: ggplot2 to plotly conversions
+
+```{r volcano-data-setup}
+if (!"plotly" %in% installed.packages()) install.packages("plotly")
+
+if (!"tidytuesdayR" %in% installed.packages()) {
+  devtools::install_github("thebioengineer/tidytuesdayR")
+}
+
+library(lubridate) # dates and times
+library(plotly)
+library(tidytuesdayR) # get interesting data
+library(tidyverse)
+
+# Load the data from TidyTuesday on May 12
+full_data <- tt_load('2020-05-12')
+
+volcano <- full_data$volcano
+eruptions <- full_data$eruptions
+events <- full_data$events
+sulfur <- full_data$sulfur
+trees <- full_data$tree_rings
+```
+Let's try out plotly while doing a bit of exploratory data analysis on this dataset. 
+
+<details><summary>Cleaning up `volcano`</summary>
+```{r}
+volcano <- volcano %>%
+  filter(tectonic_settings != "Unknown") %>%
+  separate(tectonic_settings, into = c("zone", "crust"), sep = "/", remove = F) %>%
+  # Remove anything past the first punctuation character - that will catch (xx) and ?
+  mutate(volcano_type = str_remove(primary_volcano_type, "[[:punct:]].*$"))
+```
+</details>
+
+Let's start by seeing whether the elevation of a volcano changes based on the type of zone it's on - we might expect that Rift zone volcanos (where plates are pulling away from each other) might not be as high. 
+
+```{r}
+p <- volcano %>%
+  ggplot(aes(x = zone, y = elevation)) + 
+  geom_boxplot() + 
+  coord_flip()
+ggplotly(p)
+```
+But it doesn't really look like there's much difference. 
+
+Let's see if volcano type makes a difference?
+
+```{r}
+p <- volcano %>%
+  ggplot(aes(x = elevation, color = volcano_type)) + 
+  geom_density() + 
+  # Rug plots show each observation as a tick just below the x axis
+  geom_rug()
+ggplotly(p)
+```
+
+Here, the interactivity actually helps a bit: we don't need to use the legend to see what each curve corresponds to. We can see that submarine volcanoes are typically much lower in elevation (ok, duh), but also that subglacial volcanoes are found in a very limited range. If we double-click on a legend entry, we can get rid of all other curves and examine each curve one by one. 
+
+I added the rug layer after the initial bout because I was curious how much data each of these curves were based on. If we want only curves with n > 10 observations, we can do that:
+
+```{r}
+p <- volcano %>%
+  group_by(volcano_type) %>% mutate(n = n()) %>%
+  filter(n > 10) %>%
+  ggplot(aes(x = elevation, color = volcano_type)) + 
+  geom_density() + 
+  # Rug plots show each observation as a tick just below the x axis
+  geom_rug(aes(text = paste0(volcano_name, ", ", country)))
+ggplotly(p)
+```
+
+If we want to specify additional information that should show up in the tooltip, we can do that
+So there isn't nearly as much variation as I was expecting in the elevation of different types of volcanoes. 
+
+You may notice that ggplot2 complains about the unknown aesthetic I've added to geom_rug: That allows us to mouse over each data point in the rug plot and see what volcano it belongs to. So we can tell from the rug plot that the tallest volcano is Ojas de Salvado, in Chile/Argentina (I believe that translates to Eyes of Salvation?).
+
+#### Try it out {- .tryitout}
+
+Conduct an exploratory data analysis of the eruptions dataset. What do you find?
+
+<details><summary>My solution</summary>
+```{r}
+
+head(eruptions)
+
+summary(eruptions %>% mutate(eruption_category = factor(eruption_category)))
+
+
+# Historical (very historical) dates are a bit of a pain to work with, so I 
+# wrote a helper function which takes year, month, and day arguments and formats
+# them properly
+
+fix_date <- function(yyyy, mm, dd) {
+  # First, negative years (BCE) are a bit of a problem.
+  neg <- yyyy < 0
+  subtract_years <- pmax(-yyyy, 0) # Years to subtract off later
+  # for now, set to 0
+  year_fixed <- pmax(yyyy, 0) # this will set anything negative to 0
+  
+  # sometimes the day or month isn't known, so just use 1 for both. 
+  # recorded value may be NA or 0.
+  day_fixed <- ifelse(is.na(dd), 1, pmax(dd, 1))
+  month_fixed <- ifelse(is.na(mm), 1, pmax(mm, 1))
+  
+  # Need to format things precisely, so use sprintf
+  # %0xd ensures that you have at least x digits, padding the left side with 0s
+  # lubridate doesn't love having 3-digit years. 
+  date_str <- sprintf("%04d/%02d/%02d", year_fixed, month_fixed, day_fixed)
+  # Then we can convert the dates and subtract off the years for pre-CE dates
+  date <- ymd(date_str) - years(subtract_years)
+}
+
+erupt <- eruptions %>% 
+  # Don't work with discredited eruptions
+  filter(eruption_category == "Confirmed Eruption") %>%
+  # Create start and end dates
+  mutate(
+    start_date = fix_date(start_year, start_month, start_day),
+    end_date = fix_date(end_year, end_month, end_day),
+    # To get duration, we have to start with a time interval, 
+    # convert to duration, then convert to a numeric value
+    duration = interval(start = start_date, end = end_date) %>% 
+      as.duration() %>% 
+      as.numeric("days"))
+```
+
+Let's start out seeing what month most eruptions occur in...
+```{r}
+# Note, I'm using the original month, so 0 = unknown
+p <- ggplot(erupt, aes(x = factor(start_month))) + geom_bar()
+ggplotly(p)
+# I could rename some of the factors to make this pretty, but... nah
+```
+
+Another numerical variable is VEI, [volcano explosivity index](https://volcanoes.usgs.gov/vsc/glossary/vei.html#:~:text=Volcanic%20Explosivity%20Index%20(VEI)%20is,to%20determine%20the%20explosivity%20value.). A VEI of 0 is non-explosive, a VEI of 4 is about what Mt. St. Helens hit in 1980, and a VEI of 5 is equivalent to the Krakatau explosion in 1883. A VEI of 8 would correspond to a major Yellowstone caldera eruption (which hasn't happened for 600,000 years). Basically, VEI increase of 1 is an order of magnitude change in the amount of material the eruption released.
+```{r}
+# VEI is volcano explosivity index, 
+p <- ggplot(erupt, aes(x = vei)) + geom_bar()
+ggplotly(p)
+```
+
+We can also look at the frequency of eruptions over time. We'll expect some historical bias - we don't have exact dates for some of these eruptions, and if no one was around to write the eruption down (or the records were destroyed) there's not going to be a date listed here. 
+```{r}
+p <- erupt %>%
+  filter(!is.na(end_date)) %>%
+  filter(start_year > 0) %>%
+
+ggplot(aes(x = start_date, xend = start_date, 
+                  y = 0, yend = duration, 
+                  color = evidence_method_dating)) + 
+  geom_segment() + 
+  geom_point(size = .5, aes(text = volcano_name)) + 
+  xlab("Eruption Start") + 
+  ylab("Eruption Duration (days)") + 
+  facet_wrap(~vei, scales = "free_y")
+ggplotly(p)
+
+```
+As expected, it's pretty rare to see many eruptions before ~1800 AD, which is about when we have reliable historical records^[There are obviously exceptions - we can figure out the exact date and approximate time that there was an earthquake along the Cascadia subduction zone based on a combination of oral histories of the indigenous people and records of a massive tsunami in Japan [Excellent read, if you're interested](https://www.newyorker.com/magazine/2015/07/20/the-really-big-one), and the [Nature paper](https://www.nature.com/articles/379246a0).] for most of the world (exceptions include e.g. Vestuvius, which we have extensive written information about). 
+
+```{r}
+p <- erupt %>%
+  filter(!is.na(end_date)) %>%
+  # Account for recency bias (sort of)
+  filter(start_year > 1800) %>%
+ggplot(aes(x = factor(vei), y = duration)) + 
+  geom_violin() + 
+  xlab("VEI") + 
+  ylab("Eruption Duration (days)") + 
+  scale_y_sqrt()
+ggplotly(p)
+```
+It seems that the really big eruptions might be less likely to last for a long time, but it is hard to tell because there aren't that many of them (thankfully). 
+</details>
+
+### `plot_ly`: Like base plotting, but interactive!
+You can also create plotly charts that aren't limited by what you can do in ggplot2, using the `plot_ly` function. 
+
+[Plotly cheat sheet](https://images.plot.ly/plotly-documentation/images/r_cheat_sheet.pdf)
+
+We can start with a scatterplot of volcanos along the Earth's surface:
+```{r}
+plot_ly(type = "scattergeo", lon = volcano$longitude, lat = volcano$latitude)
+```
+And then we can start customizing:
+
+```{r}
+plot_ly(type = "scattergeo", lon = volcano$longitude, lat = volcano$latitude,
+        mode = "markers",
+        # Add information to mouseover
+        text = ~paste(volcano$volcano_name, "\n", 
+                      "Last Erupted: ", volcano$last_eruption_year),
+        # Change the markers because why not?
+        marker = list(color = "#d00000", opacity = 0.25)
+        )
+```
+
+The `plot_ly` function is also pipe friendly, but you have to put `~` in front of your variable names.
+
+```{r}
+# Load RColorBrewer for palettes
+library(RColorBrewer)
+
+volcano %>% 
+  group_by(volcano_type) %>% mutate(n = n()) %>%
+  filter(n > 15) %>%
+plot_ly(type = "scattergeo", lon = ~longitude, lat = ~latitude,
+        mode = "markers",
+        # Add information to mouseover
+        text = ~paste(volcano_name, "\n", 
+                      "Last Erupted: ", last_eruption_year),
+        color = ~ volcano_type,
+        # Specify a palette
+        colors = brewer.pal(length(unique(.$volcano_type)), "Paired"),
+        # Change the markers because why not?
+        marker = list(opacity = 0.5)
+        )
+```
+
+Plotly will handle some variable mappings for you, depending on which "trace" type (plot/geom) you're using. 
+
+
+::: watch-out
+The plotly documentation often uses `plyr` -- which is an older version of `dplyr`. If you load `plyr`, it will seriously mess up your day -- a lot of the function names are the same. So, instead, here's a shortcut: `spread` is `pivot_wider` and `gather` is `pivot_longer`. That should at least help with understanding what the code is doing. 
+
+If you do accidentally load `plyr`, that's fine: just restart your R session so that your loaded packages are cleared and you can start over. Or, if you must, you can reference a `plyr` function using `plyr::spread` without loading the package -- that's a safe way to use the plotly demo code as-is.
+:::
+
+
+
+
+### References
+
+- [Plotly R figure reference](https://plotly.com/r/reference/)
+
 ## Shiny
+
+
+
+## General References
+
+- [R graph gallery interactive charts](https://www.r-graph-gallery.com/interactive-charts.html) points you in the right direction for which package to use for different tasks.
