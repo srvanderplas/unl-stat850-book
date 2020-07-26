@@ -128,7 +128,9 @@ Notice how the syntax and arguments to the functions didn't change much between 
 
 <details><summary>SAS Examples</summary>
 Original SAS graphics engine
-```{sashtml gchart-pie, collectcode = T}
+
+Note: This code runs, but it causes every other sas chunk in this document to go haywire... so you'll have to copy the code and run it on your own to see what it looks like. 
+```
 libname classdat "/home/susan/Projects/Class/unl-stat850/2020-stat850/sas/";
 
 /* This step creates a constant variable in the data frame, 
@@ -153,7 +155,7 @@ QUIT;
 ODS Graphics    
 Note: This is a terrible example in SAS because there isn't an easy way to create a pie chart^[It's not often you'll find me approving of SAS graphics, but making it hard to make pie charts is definitely a point in SAS's favor]. We have to resort to using SAS Graph Template Language. 
 
-```{sashtml ods-pie, error = T, collectcode = T}
+```{sashtml ods-pie, error = T}
 libname classdat "/home/susan/Projects/Class/unl-stat850/2020-stat850/sas/";
 
 DATA poketmp;
@@ -235,7 +237,7 @@ if(!file.exists("data/fbi.csv")) write_csv(fbi, "data/fbi.csv", na = ".")
 if(!file.exists("data/fbiwide.csv")) write_csv(fbiwide, "data/fbiwide.csv", na = ".")
 ```
 
-```{sas sas-data-setup-08, error = T, collectcode = T}
+```{sas sas-data-setup-08, error = T}
 libname classdat "/home/susan/Projects/Class/unl-stat850/2020-stat850/sas/";
 
 PROC IMPORT datafile = "data/happy.csv" out=classdat.happy
@@ -286,7 +288,7 @@ plot(Murder ~ Assault, data = fbiwide)
 
 <details><summary>SAS ODS Graphics</summary>
 The workhorse of the ODS graphics engine is SGPLOT. 
-```{sashtml basic-sgplot-scatterplot, error = T, collectcode = T}
+```{sashtml basic-sgplot-scatterplot, error = T}
 libname classdat "/home/susan/Projects/Class/unl-stat850/2020-stat850/sas/";
 
 PROC SGPLOT data=classdat.fbiwide;
@@ -942,6 +944,7 @@ ggplot() +
 ```{r reset-again, include = F}
 .reset()
 ```
+
 ```{r r-data-setup-08, include = F, cache = F}
 ```
 
@@ -1084,7 +1087,7 @@ tibble(x = rnorm(100)) %>%
 In base R, you can get histograms with the `hist()` function. 
 
 <details><summary>Histograms in SAS</summary>
-```{sashtml sas-hist-08}
+```{sashtml sas-hist-08, error = T}
 libname classdat "/home/susan/Projects/Class/unl-stat850/2020-stat850/sas/";
 
 DATA WORK.fbitmp;
@@ -1093,7 +1096,7 @@ per_100k = Count/Population*100000;
 RUN;
 
 PROC SGPLOT data=fbitmp(WHERE=(Type = "Robbery"));
-histogram per_100k;
+HISTOGRAM per_100k;
 RUN;
 QUIT; 
 ```
@@ -1121,7 +1124,7 @@ poke %>%
 In base R, you can get a density plot of a single variable with `plot(density(...))`. 
 
 <details><summary>Density plots in SAS</summary>
-```{sashtml sas-kernel-dens-08}
+```{sashtml sas-kernel-dens-08, error = T}
 libname classdat "/home/susan/Projects/Class/unl-stat850/2020-stat850/sas/";
 
 DATA WORK.fbitmp;
@@ -1164,7 +1167,7 @@ poke %>%
 
 In SAS, this is actually easier than it is in ggplot2: As long as you put the histogram first in the SGPLOT statement, you'll get the right scale. 
 
-```{sashtml sas-hist-dens-08}
+```{sashtml sas-hist-dens-08, error = T}
 libname classdat "/home/susan/Projects/Class/unl-stat850/2020-stat850/sas/";
 
 DATA WORK.fbitmp;
@@ -1295,7 +1298,7 @@ ggplot(aes(x = generation, fill = status, weight = prop)) +
 ```
 
 <details><summary>Bar Charts in SAS</summary>
-```{sashtml sas-bar-08}
+```{sashtml sas-bar-08, error = T}
 libname classdat "/home/susan/Projects/Class/unl-stat850/2020-stat850/sas/";
 
 
@@ -1364,7 +1367,7 @@ fbi %>%
 
 <details><summary>Panel plots in SAS</summary>
 Basically the same syntax as SGPLOT, but using SGPANEL and a PANELBY statement. This is very similar to ggplot2's `facet_` addition. 
-```{sashtml sas-facet-08}
+```{sashtml sas-facet-08, error = T}
 libname classdat "/home/susan/Projects/Class/unl-stat850/2020-stat850/sas/";
 
 PROC SGPANEL data=classdat.poke;
@@ -1688,6 +1691,9 @@ We do experiments on people (*evil cackle*)! No, seriously, we do. See [this pap
 If you're still curious after reading those, set up an appointment and let's talk!. 
 
 ## References
+
+### Motivation
+- [If you think this all sounds complicated, read this blog post about saving graphics from Excel.](https://policyviz.com/2020/07/21/high-resolution-excel-images/)
 
 ### R graphics
 
