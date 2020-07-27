@@ -506,7 +506,28 @@ leaflet() %>%
 ## Shiny
 https://github.com/rfordatascience/tidytuesday/blob/master/data/2020/2020-05-26/readme.md
 
+Before we get started on Shiny, take a few minutes and poke around the [RStudio Shiny user showcase](https://shiny.rstudio.com/gallery/#user-showcase). Sometimes, it helps to have some motivation, and to get a sense of what is possible before you start learning something. One of the more amusing ones I found was [an exploration of lego demographics](https://kaplanas.shinyapps.io/living_in_the_lego_world/). 
+
+All done? 
+
+Shiny is a framework for building interactive web applications in R. Unlike plotly and other graphics engines, Shiny depends on an R instance on a server to do computations. This means Shiny is much more powerful and has more capabilities, but also that it's harder to share and deploy - you have to have access to a web server with R installed on it. If you happen to have a server like that, though, Shiny is pretty awesome. RStudio runs a service called shinyapps.io that will provide some limited free hosting, as well as paid plans for apps that have more web traffic, but you can also create Shiny apps for local use - I often do this for model debugging when I'm using neural networks, because they're so complicated.
+
+RStudio has a set of well produced video tutorials to introduce Shiny. I'd recommend you at least listen to the [introduction](https://shiny.rstudio.com/tutorial/) if you're a visual/audio learner (the whole tutorial is about 2 hours long). There is also a [written tutorial](https://shiny.rstudio.com/tutorial/written-tutorial/lesson1/) if you prefer to learn in written form (7 lessons, each is about 20 minutes long). 
+
+I generally think it's better to send you to the source when there are well-produced resources, rather than trying to rehash something to put my own spin on it. 
+
+One other interesting feature to keep in mind when using Shiny - you can integrate Shiny reactivity into Rmarkdown by adding `runtime: shiny` to the markdown header. 
 
 ## General References
 
 - [R graph gallery interactive charts](https://www.r-graph-gallery.com/interactive-charts.html) points you in the right direction for which package to use for different tasks.
+
+- [Shiny articles](https://shiny.rstudio.com/articles/)
+
+- [Leaflet introduction for R](https://rstudio.github.io/leaflet/)
+
+### Other interactive tools
+
+- [htmlwidgets](https://www.htmlwidgets.org/) - a generic wrapper for any Javascript library (htmlwidgets is used under the hood in both Leaflet and Plotly R integration)
+
+- [dash](https://dashr.plotly.com/) - Another dashboard program supported by plotly. `dash` is the python equivalent of `shiny`, but also has R integration (though I'm not sure how well it's supported). 
