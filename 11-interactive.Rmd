@@ -424,13 +424,83 @@ leaflet() %>%
 
 Download the Shapefiles for the [116th Congress Congressional Districts](https://www2.census.gov/geo/tiger/GENZ2018/shp/cb_2018_us_cd116_5m.zip). Unzip the file and read it in using the code below (you'll have to change the file path). 
 
-Use the [MIT Election Data and Science Lab's US House election results](https://dataverse.harvard.edu/dataset.xhtml?persistentId=doi:10.7910/DVN/IG0UN2), and merge this data with the shapefiles to plot the results of the 2018 midterms in a way that you think is useful (you can use any of the available data). 
+Use the [MIT Election Data and Science Lab's US House election results](https://dataverse.harvard.edu/dataset.xhtml?persistentId=doi:10.7910/DVN/IG0UN2)^[Alternately, you can find the rehosted file [here](data/1976-2018-house2.csv).], and merge this data with the shapefiles to plot the results of the 2018 midterms in a way that you think is useful (you can use any of the available data). 
+
+Some notes: 
+- FIPS codes are used to identify the state and district, with [00 indicating at-large districts (one district for the state) and 98 indicating non-voting districts](https://www.census.gov/geographies/mapping-files/2019/dec/rdo/116-congressional-district-bef.html). 
+- If you would like to add in the number of citizens of voting age, you can get that information [here](https://www.census.gov/data/tables/time-series/demo/voting-and-registration/congressional-voting-tables.html) but you will have to do some cleaning in order to join the table with the others.
+- Minnesota's Democratic-farmer-labor party caucuses with the Democrats but maintains its name for historical reasons. You can safely recode this if you want to.
+
 
 ```{r}
-library(rgdal)
-congress_districts <- readOGR("data/116_congress/cb_2018_us_cd116_5m.shp")
+library(sf)
+# Read in the districts
+congress_districts <- st_read("data/116_congress/cb_2018_us_cd116_5m.shp")
 
+# Read in the results
+election_results <- read_csv("data/1976-2018-house2.csv") %>%
+  filter(year == 2018) %>%
+  mutate(state_fips = sprintf("%02d", state_fips), 
+         district = sprintf("%02d", district))
+
+# Clean up congress districts
+congress_districts <- congress_districts %>%
+  # Convert factors to characters
+  mutate(across(where(is.factor), as.character)) %>%
+  # Handle at-large districts
+  mutate(district = ifelse(CD116FP == "00", "01", CD116FP))
 ```
+
+<details><summary>One solution</summary>
+```{r}
+library(sf)
+library(htmltools) # to mark labels as html code
+
+# Read in the results
+election_results <- read_csv("data/1976-2018-house2.csv") %>%
+  filter(year == 2018) %>%
+  mutate(state_fips = sprintf("%02d", state_fips), 
+         district = sprintf("%02d", district)) %>%
+  group_by(state, state_fips, state_po, district, stage) %>%
+  arrange(candidatevotes) %>%
+  mutate(pct = candidatevotes/totalvotes) %>%
+  # Keep the winner only
+  filter(pct == max(pct)) %>%
+  # Fix Minnesota
+  mutate(party = ifelse(party == "democratic-farmer-labor", "democrat", party))
+
+# Read in the districts
+congress_districts <- st_read("data/116_congress/cb_2018_us_cd116_5m.shp")
+
+# Clean up congress districts
+congress_districts <- congress_districts %>%
+  # Convert factors to characters
+  mutate(across(where(is.factor), as.character)) %>%
+  # Handle at-large districts
+  mutate(district = ifelse(CD116FP == "00", "01", CD116FP))
+
+# Merge
+congress_districts <- congress_districts %>% 
+  left_join(election_results, by = c("STATEFP" = "state_fips", "CD116FP" = "district")) %>%
+  mutate(party = factor(party, levels = c("republican", "democrat")),
+         short_party = ifelse(party == "republican", "R", "D"),
+         label = paste0(state_po, "-", district, "<br/>", candidate, " (", short_party, ")")) %>%
+  # Use map to prevent HTML() function from pasting all rows together
+  mutate(label = map(label, HTML))
+
+# Define a palette
+region_pal <- colorFactor(c("#e9141d", "#0015bc"), congress_districts$party)
+
+congress_districts %>%
+leaflet() %>%
+  addTiles() %>%
+  addPolygons(stroke = TRUE, fillOpacity = ~pct/2, 
+              # still want to see what's underneath, even in safe districts
+              fillColor = ~region_pal(party), color = ~region_pal(party), 
+              label = ~label)
+```
+</details>
+
 
 
 ## Shiny
