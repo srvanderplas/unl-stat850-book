@@ -364,6 +364,8 @@ library(tidyverse)
 
 bigfoot_data <- read_csv("https://query.data.world/s/egnaxxvegdkzzrhfhdh4izb6etmlms")
 ```
+```{r leaflet-setup, eval = F}
+```
 
 We can start out by plotting a map with the location of each sighting. I've colored the points in a seasonal color scheme, and added the description of each incident as a mouseover label. 
 ```{r}
@@ -484,9 +486,7 @@ congress_districts <- congress_districts %>%
   left_join(election_results, by = c("STATEFP" = "state_fips", "CD116FP" = "district")) %>%
   mutate(party = factor(party, levels = c("republican", "democrat")),
          short_party = ifelse(party == "republican", "R", "D"),
-         label = paste0(state_po, "-", district, "<br/>", candidate, " (", short_party, ")")) %>%
-  # Use map to prevent HTML() function from pasting all rows together
-  mutate(label = map(label, HTML))
+         label = paste0(state_po, "-", district, candidate, " (", short_party, ")"))
 
 # Define a palette
 region_pal <- colorFactor(c("#e9141d", "#0015bc"), congress_districts$party)

@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Module 1 Tools for Statistical Computing | Stat 850: Computing Tools for Statisticians</title>
   <meta name="description" content="Introductions to statistical computing packages and document preparation software. Topics include: graphical techniques, data management, Monte Carlo simulation, dynamic document preparation, presentation software." />
-  <meta name="generator" content="bookdown 0.20.1 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.20 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Module 1 Tools for Statistical Computing | Stat 850: Computing Tools for Statisticians" />
   <meta property="og:type" content="book" />
@@ -49,13 +49,14 @@
 
 
 
-<script src="libs/htmlwidgets-1.5.1.9001/htmlwidgets.js"></script>
-<script src="libs/plotly-binding-4.9.2.9000/plotly.js"></script>
+<script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
+<script src="libs/htmlwidgets-1.5.1/htmlwidgets.js"></script>
+<script src="libs/plotly-binding-4.9.2.1/plotly.js"></script>
 <script src="libs/typedarray-0.1/typedarray.min.js"></script>
 <link href="libs/crosstalk-1.1.0.1/css/crosstalk.css" rel="stylesheet" />
 <script src="libs/crosstalk-1.1.0.1/js/crosstalk.min.js"></script>
-<link href="libs/plotly-htmlwidgets-css-1.54.1/plotly-htmlwidgets.css" rel="stylesheet" />
-<script src="libs/plotly-main-1.54.1/plotly-latest.min.js"></script>
+<link href="libs/plotly-htmlwidgets-css-1.52.2/plotly-htmlwidgets.css" rel="stylesheet" />
+<script src="libs/plotly-main-1.52.2/plotly-latest.min.js"></script>
 <link href="libs/leaflet-1.3.1/leaflet.css" rel="stylesheet" />
 <script src="libs/leaflet-1.3.1/leaflet.js"></script>
 <link href="libs/leafletfix-1.0.0/leafletfix.css" rel="stylesheet" />
@@ -85,9 +86,9 @@
 
 
 <style type="text/css">
-a.sourceLine { display: inline-block; line-height: 1.25; }
-a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
-a.sourceLine:empty { height: 1.2em; }
+code.sourceCode > span { display: inline-block; line-height: 1.25; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode { white-space: pre; position: relative; }
 pre.sourceCode { margin: 0; }
@@ -96,14 +97,16 @@ div.sourceCode { overflow: auto; }
 }
 @media print {
 code.sourceCode { white-space: pre-wrap; }
-a.sourceLine { text-indent: -1em; padding-left: 1em; }
+code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
-pre.numberSource a.sourceLine
-  { position: relative; left: -4em; }
-pre.numberSource a.sourceLine::before
-  { content: attr(data-line-number);
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
     position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; pointer-events: all; display: inline-block;
+    border: none; display: inline-block;
     -webkit-touch-callout: none; -webkit-user-select: none;
     -khtml-user-select: none; -moz-user-select: none;
     -ms-user-select: none; user-select: none;
@@ -112,9 +115,9 @@ pre.numberSource a.sourceLine::before
   }
 pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
 div.sourceCode
-  {  }
+  {   }
 @media screen {
-a.sourceLine::before { text-decoration: underline; }
+code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 code span.al { color: #ff0000; font-weight: bold; } /* Alert */
 code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
@@ -376,7 +379,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="intro-prog.html"><a href="intro-prog.html#try-it-out-1"><i class="fa fa-check"></i>Try it out</a></li>
 </ul></li>
 <li class="chapter" data-level="11.3" data-path="animated-and-interactive-graphics.html"><a href="animated-and-interactive-graphics.html#shiny"><i class="fa fa-check"></i><b>11.3</b> Shiny</a></li>
-<li class="chapter" data-level="11.4" data-path="animated-and-interactive-graphics.html"><a href="animated-and-interactive-graphics.html#general-references"><i class="fa fa-check"></i><b>11.4</b> General References</a></li>
+<li class="chapter" data-level="11.4" data-path="animated-and-interactive-graphics.html"><a href="animated-and-interactive-graphics.html#general-references"><i class="fa fa-check"></i><b>11.4</b> General References</a><ul>
+<li class="chapter" data-level="11.4.1" data-path="animated-and-interactive-graphics.html"><a href="animated-and-interactive-graphics.html#other-interactive-tools"><i class="fa fa-check"></i><b>11.4.1</b> Other interactive tools</a></li>
+</ul></li>
 </ul></li>
 <li class="chapter" data-level="12" data-path="other-resources-articles-and-food-for-thought.html"><a href="other-resources-articles-and-food-for-thought.html"><i class="fa fa-check"></i><b>12</b> Other Resources, Articles, and Food for Thought</a><ul>
 <li class="chapter" data-level="12.1" data-path="other-resources-articles-and-food-for-thought.html"><a href="other-resources-articles-and-food-for-thought.html#comparing-languages"><i class="fa fa-check"></i><b>12.1</b> Comparing Languages</a></li>
@@ -448,7 +453,7 @@ On Linux, instead of a youtube video, you get a text-based <a href="https://gith
 <div id="exploring-rstudio" class="section level3">
 <h3><span class="header-section-number">1.1.3</span> Exploring RStudio</h3>
 <div class="figure">
-<img src="image/Rstudio_env.png" alt="The RStudio window will look something like this." />
+<img src="image/Rstudio_env.png" alt="" />
 <p class="caption">The RStudio window will look something like this.</p>
 </div>
 <p>In the top-left pane is the text editor. This is where you’ll do most of your work.</p>
@@ -464,9 +469,9 @@ On Linux, instead of a youtube video, you get a text-based <a href="https://gith
 <p>Now, type 2+2 into the text editor and press the run button that is on the pane’s shortcut bar (or, you can hit Ctrl-Enter/CMD-Enter to send a single line to the console).</p>
 <p>If both of those things worked, you’re probably set up correctly!</p>
 <p>Next, try typing this into the text editor, then run the line. Look in the environment and see if you can see what has changed.</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1">a &lt;-<span class="st"> </span><span class="dv">3</span> <span class="co"># store 3 in the variable a</span></a></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="tools.html#cb1-1"></a>a &lt;-<span class="st"> </span><span class="dv">3</span> <span class="co"># store 3 in the variable a</span></span></code></pre></div>
 <div class="figure">
-<img src="image/Rstudio_env_var.png" alt="Your environment window should now look something like this (the .Last.value entry may not be there, and that’s ok)" />
+<img src="image/Rstudio_env_var.png" alt="" />
 <p class="caption">Your environment window should now look something like this (the .Last.value entry may not be there, and that’s ok)</p>
 </div>
 <p>You can use the environment window to preview your data, check on the status of variables, and more. Note that while R is running, the window doesn’t update (so you can’t check on the status of a loop while the loop is running using the window).</p>
@@ -483,7 +488,7 @@ On Linux, instead of a youtube video, you get a text-based <a href="https://gith
 <div id="sas-windowspanes" class="section level3">
 <h3><span class="header-section-number">1.2.1</span> SAS Windows/Panes</h3>
 <div class="figure">
-<img src="image/sas_toolbox.png" alt="The SAS toolbox has options to create new files, submit code, and more (but I mostly use keyboard shortcuts in the individual windows). This is probably one of the biggest things that’s different on Linux…" />
+<img src="image/sas_toolbox.png" alt="" />
 <p class="caption">The SAS toolbox has options to create new files, submit code, and more (but I mostly use keyboard shortcuts in the individual windows). This is probably one of the biggest things that’s different on Linux…</p>
 </div>
 <p><img src="image/sas_log_window.png" alt="The SAS Log gives you lots of detailed information about how your code ran – look here for errors and warnings." />
@@ -491,11 +496,11 @@ On Linux, instead of a youtube video, you get a text-based <a href="https://gith
 There are two different places your output may end up: if you’re using the old output system, you’ll get text output in the output pane.
 <img src="image/sas_output_old.png" alt="The old output system output pane." /></p>
 <div class="figure">
-<img src="image/sas_modern_output.png" alt="The new output system uses HTML and will output to your browser." />
+<img src="image/sas_modern_output.png" alt="" />
 <p class="caption">The new output system uses HTML and will output to your browser.</p>
 </div>
 <div class="figure">
-<img src="image/sas_results_window.png" alt="You can navigate through your results using the results window" />
+<img src="image/sas_results_window.png" alt="" />
 <p class="caption">You can navigate through your results using the results window</p>
 </div>
 <p><img src="image/sas_explorer_1.png" alt="The explorer window lets you access documentation, data, and more" />
@@ -508,7 +513,7 @@ If you click on libraries, you get to this list:
 <div id="version-control-with-git" class="section level2">
 <h2><span class="header-section-number">1.3</span> Version Control with Git</h2>
 <div class="figure">
-<img src="http://www.phdcomics.com/comics/archive/phd101212s.gif" alt="You don’t want to end up here. Version control is the answer to this problem." />
+<img src="http://www.phdcomics.com/comics/archive/phd101212s.gif" alt="" />
 <p class="caption">You don’t want to end up here. Version control is the answer to this problem.</p>
 </div>
 <p>Git is a program whose primary purpose is version control. Git tracks changes to each file that it is told to monitor, and as the files change, you provide short labels describing what the changes were and why they exist (called “commits”). The log of these changes (along with the file history) is called your git commit history.</p>
@@ -551,7 +556,7 @@ Git is to GitHub what Porn is to PornHub
 <h2><span class="header-section-number">1.4</span> Easy Extra Setup Script</h2>
 <p>Copy <a href="code/01_setup_install.R">this script</a> into a text editor in RStudio on your machine. It will ask you for some input - your name, email address, etc. – Make those changes in the text document, and then source the document.</p>
 <p>It will run for a while, installing most of the packages you’ll need for this course. Read the code file if you want to know what it’s doing - I’ve provided short explanations of what each package does (and anyways, you shouldn’t run code on your machine if you don’t understand what it does).</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="kw">source</span>(<span class="st">&quot;code/01_setup_install.R&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="tools.html#cb2-1"></a><span class="kw">source</span>(<span class="st">&quot;code/01_setup_install.R&quot;</span>)</span></code></pre></div>
 <p>This script will set up git for you (e.g. the introduce yourself to git section above) and then will install <code>tinytex</code>, which is a version of LaTeX that is very simple and easy to install. If you want to install a different version of LaTeX instead (like MikTex or TexLive) feel free to do so.</p>
 </div>
 <div id="latex" class="section level2">
@@ -577,7 +582,7 @@ Git is to GitHub what Porn is to PornHub
 <h2><span class="header-section-number">1.7</span> Using Version Control</h2>
 <p>I’ve set this class up so that you’ll be using version control from the very beginning. Not only will this help you to learn good habits, it will also give you a platform for collaboration, hosting your work online, and more.</p>
 <div class="figure">
-<img src="https://imgs.xkcd.com/comics/git.png" alt="If that doesn’t fix it, git.txt contains the phone number of a friend of mine who understands git. Just wait through a few minutes of ‘It’s really pretty simple, just think of branches as…’ and eventually you’ll learn the commands that will fix everything." />
+<img src="https://imgs.xkcd.com/comics/git.png" alt="" />
 <p class="caption">If that doesn’t fix it, git.txt contains the phone number of a friend of mine who understands git. Just wait through a few minutes of ‘It’s really pretty simple, just think of branches as…’ and eventually you’ll learn the commands that will fix everything.</p>
 </div>
 <p>In this class, we’ll be using Github Classroom. Basically, this allows me to set up a template repository for each assignment. You’ll accept the assignment, which will create a copy of the repository on your GitHub account, and then your work will be saved to your repository using a fairly standard workflow which will be discussed below. When you submit your assignment, you’ll copy the link to the commit you want to be graded, and upload that to Canvas. I will clone your repository, compile your files (I’ll change the SAS path if necessary), and grade the compiled result.</p>
@@ -593,14 +598,14 @@ Git is to GitHub what Porn is to PornHub
 <h4><span class="header-section-number">1.7.1.1</span> Local repository first</h4>
 <p>Let’s suppose you already have a folder on your machine named <code>hello-world-1</code> (you may want to create this folder now). You’ve created a starter document, say, a text file named README with “hello world” written in it.</p>
 <p>If you want, you can use the following R code to set this up:</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1">dir &lt;-<span class="st"> &quot;./hello-world-1&quot;</span></a>
-<a class="sourceLine" id="cb3-2" data-line-number="2"><span class="cf">if</span> (<span class="op">!</span><span class="kw">dir.exists</span>(dir)) {</a>
-<a class="sourceLine" id="cb3-3" data-line-number="3">  <span class="kw">dir.create</span>(dir)</a>
-<a class="sourceLine" id="cb3-4" data-line-number="4">}</a>
-<a class="sourceLine" id="cb3-5" data-line-number="5">file &lt;-<span class="st"> </span><span class="kw">file.path</span>(dir, <span class="st">&quot;README&quot;</span>)</a>
-<a class="sourceLine" id="cb3-6" data-line-number="6"><span class="cf">if</span> (<span class="op">!</span><span class="kw">file.exists</span>(file)) {</a>
-<a class="sourceLine" id="cb3-7" data-line-number="7">  <span class="kw">writeLines</span>(<span class="st">&quot;hello world&quot;</span>, <span class="dt">con =</span> file)</a>
-<a class="sourceLine" id="cb3-8" data-line-number="8">}</a></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="tools.html#cb3-1"></a>dir &lt;-<span class="st"> &quot;./hello-world-1&quot;</span></span>
+<span id="cb3-2"><a href="tools.html#cb3-2"></a><span class="cf">if</span> (<span class="op">!</span><span class="kw">dir.exists</span>(dir)) {</span>
+<span id="cb3-3"><a href="tools.html#cb3-3"></a>  <span class="kw">dir.create</span>(dir)</span>
+<span id="cb3-4"><a href="tools.html#cb3-4"></a>}</span>
+<span id="cb3-5"><a href="tools.html#cb3-5"></a>file &lt;-<span class="st"> </span><span class="kw">file.path</span>(dir, <span class="st">&quot;README&quot;</span>)</span>
+<span id="cb3-6"><a href="tools.html#cb3-6"></a><span class="cf">if</span> (<span class="op">!</span><span class="kw">file.exists</span>(file)) {</span>
+<span id="cb3-7"><a href="tools.html#cb3-7"></a>  <span class="kw">writeLines</span>(<span class="st">&quot;hello world&quot;</span>, <span class="dt">con =</span> file)</span>
+<span id="cb3-8"><a href="tools.html#cb3-8"></a>}</span></code></pre></div>
 <p>To create a local git repository, we can go to the terminal (in Mac/Linux) or the git bash shell (in Windows), navigate to our repository folder (not shown, will be different on each computer), and type in</p>
 <pre><code>git init</code></pre>
 <p>Alternately, if you prefer a GUI (graphical user interface) approach, that will work too:</p>
@@ -612,13 +617,13 @@ Git is to GitHub what Porn is to PornHub
 </ol>
 <p><img src="video/Rstudio-existing-git.gif" alt="Screen capture video of the steps described above to create a git repository in RStudio" />
 The next step is to add our file to the repository.</p>
-<p>Using the command line, you can type in <code>git add README</code> (this tells git to track the file) and then commit your changes (enter them into the record) using <code>git commit -m &quot;Add readme file&quot;</code>.</p>
+<p>Using the command line, you can type in <code>git add README</code> (this tells git to track the file) and then commit your changes (enter them into the record) using <code>git commit -m "Add readme file"</code>.</p>
 <p>Using the GUI, you navigate to the git pane, check the box next to the README file, click the Commit button, write a message (“Add readme file”), and click the commit button.</p>
 <p><img src="video/Rstudio-git-commit.gif" alt="Screen capture video of the steps described above to add and commit a file in RStudio" />
 The final step is to create a corresponding repository on GitHub. Navigate to your github profile and make sure you’re logged in. Create a new repository using the “New” button. Name your repository whatever you want, fill in the description if you want (this can help you later, if you forget what exactly a certain repo was <em>for</em>), and DO NOT add a README, license file, or anything else (if you do, you will have a bad time).</p>
 <p>You’ll be taken to your empty repository, and git will provide you the lines to paste into your git shell (or terminal) – you can access this within RStudio, as shown below. Paste those lines in, and you’ll be good to go.</p>
 <div class="figure">
-<img src="video/Rstudio-github-remote.gif" alt="Connect your local git repository to GitHub" />
+<img src="video/Rstudio-github-remote.gif" alt="" />
 <p class="caption">Connect your local git repository to GitHub</p>
 </div>
 </div>
@@ -636,7 +641,7 @@ The final step is to create a corresponding repository on GitHub. Navigate to yo
 <li>Check that the remote repository (Github) updated</li>
 </ol>
 <div class="figure">
-<img src="video/Rstudio-github-first-method.gif" alt="Video of the GUI method for creating a repository starting with GitHub" />
+<img src="video/Rstudio-github-first-method.gif" alt="" />
 <p class="caption">Video of the GUI method for creating a repository starting with GitHub</p>
 </div>
 <p>Command line method:</p>
@@ -647,7 +652,7 @@ The final step is to create a corresponding repository on GitHub. Navigate to yo
 <li>Navigate to the location you want your repository to live on your machine.</li>
 <li>Clone the repository by using the git shell or terminal: <code>git clone &lt;your repo url here&gt;</code>. In my case, this looks like <code>git clone git@github.com:stat850-unl/hello-world-2.git</code></li>
 <li>Make a change to your README file and save the change</li>
-<li>Commit your changes: <code>git commit -a -m &quot;change readme&quot;</code> (-a = all, that is, any changed file git is already tracking).</li>
+<li>Commit your changes: <code>git commit -a -m "change readme"</code> (-a = all, that is, any changed file git is already tracking).</li>
 <li>Push your changes to the remote (GitHub) repository and check that the repo has updated: <code>git push</code></li>
 </ol>
 </div>
@@ -656,7 +661,7 @@ The final step is to create a corresponding repository on GitHub. Navigate to yo
 <h3><span class="header-section-number">1.7.2</span> Adding files</h3>
 <p><code>git add</code> tells git that you want it to track a particular file.</p>
 <div class="figure">
-<img src="image/git-add.png" alt="git add diagram: add tells git to add the file to the index of files git monitors." />
+<img src="image/git-add.png" alt="" />
 <p class="caption">git add diagram: add tells git to add the file to the index of files git monitors.</p>
 </div>
 <p>You don’t need to understand exactly what git is doing on the backend, but it is important to know that the actual <strong>contents</strong> of the file aren’t logged by <code>git add</code> - you have to <strong>commit</strong> your changes for the contents to change. <code>git add</code> deals solely with the index of files that git “knows about”, and what it thinks belongs in each commit.</p>
@@ -679,7 +684,7 @@ The final step is to create a corresponding repository on GitHub. Navigate to yo
 <h3><span class="header-section-number">1.7.4</span> Committing your changes</h3>
 <p>A git <strong>commit</strong> is the equivalent of a log entry - it tells git to record the state of the file, along with a message about what that state means. On the back end, git will save a copy of the file in its current state to its cache.</p>
 <div class="figure">
-<img src="image/git-commit.png" alt="Here, we commit the red line as a change to our file." />
+<img src="image/git-commit.png" alt="" />
 <p class="caption">Here, we commit the red line as a change to our file.</p>
 </div>
 <p>In general, you want your commit message to be relatively short, but also informative. The best way to do this is to commit <strong>small</strong> blocks of changes. Work to commit every time you’ve accomplished a small task. This will do two things:</p>
@@ -725,9 +730,9 @@ In general, your workflow will be</p>
 <div class="footnotes">
 <hr />
 <ol start="1">
-<li id="fn1"><p>As I write this in late July 2020, I do not yet have access to a Windows or Mac machine. Sigh. XXX TODO: Get Windows/Mac screenshots XXX<a href="tools.html#fnref1" class="footnote-back">↩</a></p></li>
-<li id="fn2"><p>Yes, I’m aware that this sounds paranoid. It’s been a very rare occasion that I’ve needed to restore something from another backup. You don’t want to take chances. I knew a guy who had to retype his entire masters thesis from the printed out version the night before it was due because he had stored it on a network drive that was decommissioned. You don’t want to be that person.<a href="tools.html#fnref2" class="footnote-back">↩</a></p></li>
-<li id="fn3"><p>Yes, I’m seriously pushing it with this book; several of the datasets are ~30 MB<a href="tools.html#fnref3" class="footnote-back">↩</a></p></li>
+<li id="fn1"><p>As I write this in late July 2020, I do not yet have access to a Windows or Mac machine. Sigh. XXX TODO: Get Windows/Mac screenshots XXX<a href="tools.html#fnref1" class="footnote-back">↩︎</a></p></li>
+<li id="fn2"><p>Yes, I’m aware that this sounds paranoid. It’s been a very rare occasion that I’ve needed to restore something from another backup. You don’t want to take chances. I knew a guy who had to retype his entire masters thesis from the printed out version the night before it was due because he had stored it on a network drive that was decommissioned. You don’t want to be that person.<a href="tools.html#fnref2" class="footnote-back">↩︎</a></p></li>
+<li id="fn3"><p>Yes, I’m seriously pushing it with this book; several of the datasets are ~30 MB<a href="tools.html#fnref3" class="footnote-back">↩︎</a></p></li>
 </ol>
 </div>
             </section>
