@@ -2,7 +2,7 @@
 
 The goal of this class is to expose you to basic computing skills in R and SAS, which are two of the more common languages for statistical computing (python is the 3rd most common, and is particularly popular in data science and machine learning, but will not be explicitly taught in this class.)
 
-Since we'll be learning how to use a bunch of different software, the first step is to get everythign set up on your machine:
+Since we'll be learning how to use a bunch of different software, the first step is to get everything set up on your machine:
 
 - [git](https://help.github.com/en/github/getting-started-with-github/set-up-git)
 - [SAS 9.4](https://statistics.unl.edu/how-obtain-sas-or-jmp-license) (or later)
@@ -23,7 +23,7 @@ You will also need to sign up for a [GitHub account](https://help.github.com/en/
 For an explanation of the differences between the R and RStudio and a short history lesson, see the expandable section below.
 <!-- Differences between R and RStudio -->
 <details>
-R is a statistical computing language which originated as an open-source clone of Bell labs S computing language. S was inspired by Scheme, but also has features which are similar to Lisp. It is a scripting language (you don't have to compile the code before it runs) and is natively accessed using a command-line prompt. One feature of R that is relatively unique is that it uses vector-based math, which means that mathematical operations on vectors occur for the entire vector without having to use loops to iterate through the vector line-by-line (this feature is common in languages designed for data manipulation, like SAS, Matlab, and julia; it is rare in more general computing languages). R is optimized for working on data: unlike more general-purpose programming languages such as Python, R was built with the idea of facilitating data analysis. As a result, data structures in R tend to be more natural for statistical work than similar structures in Python or C, which can feel unwieldly. From a computer science perspective, though, R seems like an extremely odd language because the design choices that make data analysis easier are unconventional for more general-purpose languages.
+R is a statistical computing language which originated as an open-source clone of Bell labs S computing language. S was inspired by Scheme, but also has features which are similar to Lisp. It is a scripting language (you don't have to compile the code before it runs) and is natively accessed using a command-line prompt. One feature of R that is relatively unique is that it uses vector-based math, which means that mathematical operations on vectors occur for the entire vector without having to use loops to iterate through the vector line-by-line (this feature is common in languages designed for data manipulation, like SAS, Matlab, and Julia; it is rare in more general computing languages). R is optimized for working on data: unlike more general-purpose programming languages such as Python, R was built with the idea of facilitating data analysis. As a result, data structures in R tend to be more natural for statistical work than similar structures in Python or C, which can feel unwieldy. From a computer science perspective, though, R seems like an extremely odd language because the design choices that make data analysis easier are unconventional for more general-purpose languages.
 
 RStudio is an integrated development environment for R. Basically, it adds a pretty graphical layer on top of R, providing an easy way to develop R code, evaluate that code, and keep track of all of the variables which are available in the computing environment. RStudio contains integrations which provide syntax highlighting, code folding, basic checks (missing parentheses, etc.), debugging tools, and many other features. RStudio was designed around the idea of making R easier to use and making it easy to develop statistical software reproducibly. RStudio (the company) is responsible for adding many features to the R ecosystem which facilitate running statistical analyses and presenting the results in user-friendly ways.
 
@@ -40,12 +40,12 @@ Note that the tutorial videos use versions of R that are *old*. You should be in
 
 <details><summary>R on Linux installation</summary>
 
-On Linux, instead of a youtube video, you get a text-based  [tutorial](https://github.com/swirldev/swirl/wiki/Installing-swirl-on-Linux). One of the Debian maintainers, Dirk Eddelbuettel, is also on R core, which means that R tends to work extremely well with Debian-based distributions, like Ubuntu and Linux Mint. R does work on RPM based distros, and you can of course also compile it from source for Arch/Gentoo, but I've stuck with Deb-based distributions for approximately 7 years because it seems to be a bit less hassle. Additional troubleshooting can be found [here](https://pages.github.nceas.ucsb.edu/NCEAS/help/installing_r_on_ubuntu.html).
+On Linux, instead of a YouTube video, you get a text-based  [tutorial](https://github.com/swirldev/swirl/wiki/Installing-swirl-on-Linux). One of the Debian maintainers, Dirk Eddelbuettel, is also on R core, which means that R tends to work extremely well with Debian-based distributions, like Ubuntu and Linux Mint. R does work on RPM based distros, and you can of course also compile it from source for Arch/Gentoo, but I've stuck with Deb-based distributions for approximately 7 years because it seems to be a bit less hassle. Additional troubleshooting can be found [here](https://pages.github.nceas.ucsb.edu/NCEAS/help/installing_r_on_ubuntu.html).
 </details>
 
 ### Getting Set up: RStudio
 
-You can find RStudio at https://rstudio.com/products/rstudio/download/. You want the open source edition of RStudio Desktop. If you're feeling brave, you can install the [preview release](https://rstudio.com/products/rstudio/download/preview/#download) - this may have a few bugs, but tends to be relatively stable and has the latest features. Please install RStudio 1.3.9+ for this class. 
+You can find RStudio at https://RStudio.com/products/RStudio/download/. You want the open source edition of RStudio Desktop. If you're feeling brave, you can install the [preview release](https://rstudio.com/products/rstudio/download/preview/#download) - this may have a few bugs, but tends to be relatively stable and has the latest features. Please install RStudio 1.3.9+ for this class. 
 
 If you're on Linux, go ahead and [import RStudio's public key](https://rstudio.com/code-signing/) so that software validation works. (All of the commands are provided in the linked page)
 
@@ -124,7 +124,7 @@ The git material in this chapter is just going to link directly to the book "Hap
 [Go read Chapter 1.](https://happygitwithr.com/big-picture.html)
 
 
-### Getting set up: github
+### Getting set up: GitHub
 
 See the instructions [here](https://happygitwithr.com/github-acct.html)
 
@@ -256,7 +256,7 @@ Using the command line, you can type in `git add README` (this tells git to trac
 Using the GUI, you navigate to the git pane, check the box next to the README file, click the Commit button, write a message ("Add readme file"), and click the commit button. 
 
 ![Screen capture video of the steps described above to add and commit a file in RStudio](video/Rstudio-git-commit.gif)
-The final step is to create a corresponding repository on GitHub. Navigate to your github profile and make sure you're logged in. Create a new repository using the "New" button. Name your  repository whatever you want, fill in the description if you want (this can help you later, if you forget what exactly a certain repo was *for*), and DO NOT add a README, license file, or anything else (if you do, you will have a bad  time). 
+The final step is to create a corresponding repository on GitHub. Navigate to your GitHub profile and make sure you're logged in. Create a new repository using the "New" button. Name your  repository whatever you want, fill in the description if you want (this can help you later, if you forget what exactly a certain repo was *for*), and DO NOT add a README, license file, or anything else (if you do, you will have a bad  time). 
 
 You'll be taken to your empty repository, and git will provide you the lines to paste into your git shell (or terminal) -- you can access this within RStudio, as shown below. Paste those lines in, and you'll be good to  go.
 
@@ -264,11 +264,11 @@ You'll be taken to your empty repository, and git will provide you the lines to 
 
 ####  GitHub repository first
 
-In the github-first method, you'll create a repository in GitHub and then clone it to your local machine (clone = create an exact copy locally). 
+In the GitHub-first method, you'll create a repository in GitHub and then clone it to your local machine (clone = create an exact copy locally). 
 
 GUI method:
 
-1. Log into github and create a new repository
+1. Log into GitHub and create a new repository
 2. Initialize your repository with a README
 3. Copy the repository location by clicking on the "Code" button on the repo homepage
 4. Open RStudio -> Project -> New Project -> From version control. Paste your repository URL into the box. Hit enter.
@@ -280,7 +280,7 @@ GUI method:
 
 Command line method:
 
-1. Log into github and create a new repository
+1. Log into GitHub and create a new repository
 2. Initialize your repository with a README
 3. Copy the repository location by clicking on the "Code" button on the repo homepage
 4. Navigate to the location you want your repository to live on your machine.
@@ -303,7 +303,7 @@ If you use the RStudio GUI for your git interface, you generally won't have to d
 
 Git is built for tracking text files. It  will (begrudgingly) deal with small binary files (e.g. images, PDFs) without complaining too much, but it is NOT meant for storing large files, and GitHub will not allow you to push anything that has a file larger than 100MB^[Yes, I'm seriously pushing it with this book; several of the datasets are ~30 MB]. Larger files can be handled with git-lfs (large file storage), but storing large files online is not something you can get for free.
 
-In general, you should only add a file to git if you created it by hand. If you compiled the result, that should  not be in the git repository under normal conditions (there are exceptions to this rule -- this book is hosted on github, which means I've pushed the compiled book to the github repository). 
+In general, you should only add a file to git if you created it by hand. If you compiled the result, that should  not be in the git repository under normal conditions (there are exceptions to this rule -- this book is hosted on GitHub, which means I've pushed the compiled book to the GitHub repository). 
 
 You should also be  cautious about adding files like .Rprog, .directory, .DS_Store, etc. These files are used by your operating system or by RStudio, and pushing them may cause problems for your collaborators (if you're collaborating). Tracking changes to  these files also doesn't really do much good.
 
