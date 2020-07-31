@@ -7,7 +7,7 @@
 
 The only way to learn how to program effectively is to take something that works, break it, and then fix it again. There's plenty of theory and you should definitely learn that, but fundamentally, if you are not regularly breaking code, you're probably not programming. 
 
-```{r out.width = "50%", fig.cap = "This is basically the class summarized, in meme format. ", echo = F}
+```{r out.width = "50%", fig.cap = "This is basically the class summarized. ", echo = F}
 knitr::include_graphics('image/learning_to_code_Orly.jpeg')
 ```
 
