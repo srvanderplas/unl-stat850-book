@@ -264,8 +264,8 @@ When converting factors with numeric labels, you need to first convert the facto
 </details>
 :::
 
-::: tryitout
-#### Try It Out
+
+#### Try It Out {- .tryitout}
 
 1. Create variables `string`, `integer`, `decimal`, and `logical`, with types that match the relevant variable names.
 
@@ -304,7 +304,6 @@ TRUE + TRUE
 
 In R, adding a string to a string creates an error ("non-numeric argument to binary operator"). Adding a logical to a logical, e.g. TRUE + TRUE, results in `r TRUE + TRUE`, which is a numeric value.
 </summary>
-:::
 
 ### SAS
 
@@ -842,9 +841,11 @@ If you have trouble distinguishing between `$`, `[`, and `[[`, you're not alone.
 
 <details>
 <summary>R4DS indexing illustration</summary>
+
 `x` | `x[1]` | `x[[1]]` | `x[[1]][[1]]`
 --- | ------ | -------- | -------------
-![](image/02_pepper.jpg) | ![](image/pepper-1.jpg) | ![](image/pepper-2.jpg) | ![](image/pepper-3.jpg)
+![](image/02_pepper.jpg) | ![](image/02_pepper-1.jpg) | ![](image/02_pepper-2.jpg) | ![](image/02_pepper-3.jpg)
+
 </details>
 
 
