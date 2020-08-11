@@ -421,7 +421,6 @@ Here's the final function
 ```{r}
 library(png)
 library(xml2)
-library(tidyverse)
 
 # get the most current xkcd
 get_xkcd <- function(id = NULL) {

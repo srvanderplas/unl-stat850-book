@@ -59,7 +59,10 @@ Often, we can get away with just simulating data from a known distribution. As b
 You can see the various distribution options using `?Distributions`. In general, `dxxx` is the PDF/PMF, `pxxx` is the CDF, `qxxx` is the quantile function, and `rxxx` gives you random nubmers generated from the distribution. (`xxx`, obviously, is whatever distribution you're looking to use.)
 
 ```{r}
-library(tidyverse)
+library(tibble)
+library(dplyr)
+library(tidyr)
+library(gglot2)
 set.seed(109025879)
 
 tibble(
