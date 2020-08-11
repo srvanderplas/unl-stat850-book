@@ -23,6 +23,15 @@ This is going to be a fairly extensive chapter (in terms of content) because I w
 
 Visualization and statistical graphics are also my research area, so I'm probably going to be a bit more passionate about this chapter, which means there's probably going to be more to read. Sorry about that in advance. I'll do my best to indicate which content is actually mission-critical and which content you can skip if you're not that interested.
 
+<details><summary>R package setup</summary>
+```{r, message = F}
+library(readr)
+library(dplyr)
+library(tidyr)
+library(ggplot2)
+```
+</details>
+
 ## Why do we create graphics?
 
 > The greatest possibilities of visual display lie in vividness and inescapability of the intended message. A visual display can stop your mental flow in its tracks and make you think. A visual display can force you to notice what you never expected to see. ("Why, that scatter diagram has a hole in the middle!") -- John Tukey, [Data Based Graphics: Visual Display in the Decades to Come](https://projecteuclid.org/euclid.ss/1177012101)
@@ -67,7 +76,6 @@ Before we delve into the grammar of graphics, let's motivate the philosophy usin
 <details><summary>R base graphics example</summary>
 ```{r r-example-data-08, message = F}
 # Setup the data
-library(tidyverse)
 poke <- read_csv("data/pokemon_ascii.csv", na = '.') %>%
   mutate(generation = factor(generation))
 ```
@@ -216,10 +224,11 @@ Functionally, the biggest difference between the two systems is that in the gram
 if (!"classdata" %in% installed.packages()) devtools::install_github("heike/classdata") 
 # A package of data sets which are useful for class demonstrations
 library(classdata)
+library(tidyr)
+library(dplyr)
 data(happy) # you'll use this for try it out sections
 data(fbi)
 
-library(tidyverse)
 
 fbiwide <- fbi %>%
   select(-Violent.crime) %>%
@@ -915,7 +924,6 @@ Unfortunately, in this map there is not an underlying polygon (the coastline is 
 ```{r middle-earth-map}
 library(ggplot2)
 library(ggthemes)
-library(tidyverse)
 library(sf)
 
 if (!file.exists("data/MiddleEarthMap.zip")) {

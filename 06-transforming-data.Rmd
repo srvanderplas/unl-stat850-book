@@ -24,12 +24,18 @@ This section is going to seem like it drags on forever. It covers a lot of mater
 For now, you need to know this material well enough to 1) identify what operation needs to happen, and 2) know where to find the sample code for that operation. It will get easier to remember the specific syntax with practice. 
 :::
 
+<details><summary>Load initial packages</summary>
+```{r, message = F}
+library(dplyr) # Data wrangling
+library(tidyr) # Data rearranging
+library(tibble) # data table
+
+```
+</details>
+
 ## Identifying the problem: Messy data
 
 These datasets all display the same data: TB cases documented by the WHO in Afghanistan, Brazil, and China, between 1999 and 2000. There are 4 variables: country, year, cases, and population, but each table has a different layout.
-```{r, message = F}
-library(tidyverse)
-```
 
 ```{r, echo = F}
 knitr::kable(table1, caption = "Table 1")
@@ -107,6 +113,7 @@ Nearly always, when multiple variables are stored in a single column, they are s
 The tidyverse package to deal with strings is [`stringr`](https://stringr.tidyverse.org/). The functions in stringr take the form of `str_XXX` where XXX is a verb. So `str_split()`, `str_replace()`, `str_remove()`, `str_to_lower()` all should make some sense.
 
 ```{r, eval = F, include = F}
+library(readr)
 college_data <- read_csv("https://ed-public-download.app.cloud.gov/downloads/Most-Recent-Cohorts-All-Data-Elements.csv") 
 college_data2 <- college_data %>%
   select(UNITID, INSTNM, CITY, STABBR, ZIP, ACCREDAGENCY, INSTURL, PREDDEG, MAIN, NUMBRANCH, HIGHDEG, CONTROL, ST_FIPS, LOCALE, LATITUDE, LONGITUDE) %>%
@@ -114,7 +121,7 @@ college_data2 <- college_data %>%
          MAIN = factor(MAIN, levels = 0:1, labels = c("Not main campus", "main campus")),
          HIGHDEG = factor(HIGHDEG, levels = 0:4, labels = c("Non-degree granting", "Certificate", "Associate", "Bachelors", "Graduate")),
          CONTROL = factor(CONTROL, levels = 1:3, labels = c("Public", "Private Non Profit", "Private For Profit")))
-readr::write_csv(college_data2, "data/College_Data_Abbrev.csv")
+write_csv(college_data2, "data/College_Data_Abbrev.csv")
 
 
 college_fips <- read_csv("data/CollegeFips.csv", col_names = F) %>%
@@ -128,7 +135,7 @@ college_data2 %>% select(STABBR, ST_FIPS) %>%
   write_csv("data/College_FIPS_Abbr.csv")
 
 college_data2 <- left_join(college_data2, college_fips)
-readr::write_csv(college_data2, "data/College_Data_Abbrev.csv", na = '.')
+write_csv(college_data2, "data/College_Data_Abbrev.csv", na = '.')
 ```
 
 For this example, we'll use a subset of the US Department of Education College Scorecard data. [Documentation](https://collegescorecard.ed.gov/data/documentation/), [Data](https://collegescorecard.ed.gov/data/). I've selected a few columns from the institution-level data available on the College Scorecard site. 
@@ -160,6 +167,8 @@ RUN;
 
 We'll use `str_detect()` to look for the state name in the college name. 
 ```{r, fig.width = 4, fig.height = 8, out.width = 4}
+library(stringr) # string processing
+
 # Outside the pipe
 str_detect(college$INSTNM, pattern = college$State)
 
@@ -167,6 +176,7 @@ str_detect(college$INSTNM, pattern = college$State)
 college <- college %>%
   mutate(uses_st_name = str_detect(INSTNM, State))
 
+library(ggplot2) # graphs and charts
 # By state - percentage of institution names
 college %>%
   group_by(State) %>%
@@ -221,6 +231,8 @@ unnest(tmp) # Unnest duplicates rows so that the expanded data frame has the
 ```
 List columns are one way to maintain tidy data. They allow you to have several "sub-observations" for each observation and are useful for precisely cases like this, where there are uneven numbers of words in each university's name. We're not going to focus on list columns, but if you're interested, check out `purrr` and this [excellent tutorial](https://jennybc.github.io/purrr-tutorial/). 
 ```{r}
+library(purrr) # List columns
+
 unnest(tmp) %>% 
   pull(name_words) %>% # this pulls out a single column
   table() %>% 
@@ -633,7 +645,10 @@ squirrels_colorfix <- squirrels %>%
   # Make it easier to join things back together...
   mutate(id = 1:n()) %>% 
   # keep the stuff we need for this
-  select(id, primary = `Primary Fur Color`, highlight = `Highlight Fur Color`, combo = `Combination of Primary and Highlight Color`) %>%
+  select(id, 
+         primary = `Primary Fur Color`, 
+         highlight = `Highlight Fur Color`, 
+         combo = `Combination of Primary and Highlight Color`) %>%
   
   # Remove all single character strings. 
   # ^ means "front of string", $ means "end of string", and . is a wildcard
@@ -1192,6 +1207,15 @@ sheets <- sheets[-c(1, length(sheets))] # get rid of 1st and last sheet name
 # This command says "for each sheet, read in the excel file with that sheet name"
 # map_df means paste them all together into a single data frame
 disease_incidence <- map_df(sheets, ~read_xls(path ="data/incidence_series.xls", sheet = .))
+
+# Alternately, we could write a loop:
+disease_incidence2 <- tibble() # Blank data frame
+for(i in 1:length(sheets)) {
+  disease_incidence2 <- bind_rows(
+    disease_incidence2, 
+    read_xls(path = "data/incidence_series.xls", sheet = sheets[i])
+  )
+}
 
 # export for SAS (and R, if you want)
 write_csv(disease_incidence, path = "data/who_disease_incidence.csv", na = ".")
