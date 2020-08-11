@@ -31,7 +31,7 @@ One of the best debugging strategies (that isn't a debugging strategy at all, re
 - **Don't duplicate code**. If you have the same code (or essentially the same code) in two or three different places, put that code in a function and call the function instead. This will save you trouble when updating the code in the future, but also makes narrowing down the source of the bug less complex.
 
 - **Reduce the number of dependencies** you have on outside software packages. Often bugs are introduced when a dependency is updated and the functionality changes slightly. The `tidyverse` is *notorious* for this.     
-It's ok to write code using lots of dependencies, but as you transition from "experimental" code to "production" code (you're using the code without tinkering with it) you should work to reduce the dependencies. 
+It's ok to write code using lots of dependencies, but as you transition from "experimental" code to "production" code (you're using the code without tinkering with it) you should work to reduce the dependencies, where possible. In addition, if you do need packages with lots of dependencies, try to make sure those packages are relatively popular, used by a lot of people, and currently maintained. (The tidyverse is a bit better from this perspective, because the constitutent packages are some of the most installed R packages on CRAN.)
 
 - **Add safeguards against unexpected inputs**. Check to make sure inputs to the function are valid. Check to make sure intermediate results are reasonable (e.g. you don't compute the derivative of a function and come up with "a".)
 
