@@ -571,10 +571,9 @@ quit;
 ```
 </details>
 
-::: tryitout
-##### Try it out {-}
+
+##### Try it out {- .tryitout}
 Using the list of pizza toppings above as a starting point, make your own list of pizza toppings organized by grocery store section (approximately). Create your own vectors of yummy, essential, and ick toppings, using R and SAS.
-:::
 
 
 #### Data frames (R only) 
@@ -632,8 +631,7 @@ math_and_lsd
 ```
 </details>
 
-::: tryitout
-##### Try it out {-}
+##### Try it out {- .tryitout}
 
 The dataset `state.x77` contains information on US state statistics in the 1970s. By default, it is a matrix, but we can easily convert it to a data frame, as shown below. 
 
@@ -674,7 +672,7 @@ state_facts$PopDensity <- state_facts$Population * 1e3/state_facts$Area
 state_facts$state[which.min(state_facts$PopDensity)]
 ```
 </details>
-:::
+
 
 ##### Advanced Data Frames: Tibbles and List-columns {-}
 
@@ -1381,8 +1379,7 @@ unlink("saslog.log")
 </details>
 
 
-::: tryitout
-##### Try it out (in R) {-}
+##### Try it out (in R) {- .tryitout}
 
 The `beepr` package plays sounds in R to alert you when your code has finished running (or just to annoy your friends and classmates). ([Documentation](https://www.r-project.org/nosvn/pandoc/beepr.html))
 You can install the package using the following command:
@@ -1411,10 +1408,8 @@ for (i in 1:10) {
 
 ```
 </details>
-:::
 
-::: tryitout
-##### Try it out (in SAS) {-}
+##### Try it out (in SAS) {- .tryitout}
 
 Write a for loop which will output the first 30 [fibbonacci numbers](https://en.wikipedia.org/wiki/Fibonacci_number). You can use the following code as a starting point:
 
@@ -1446,7 +1441,6 @@ quit;
 
 ```
 </details>
-:::
 
 #### Condition-controlled loops (WHILE, DO WHILE)
 
@@ -1519,8 +1513,7 @@ quit;
 
 Another explanation of while loops is available at [Khan Academy](https://www.khanacademy.org/computing/ap-computer-science-principles/programming-101/repetition-with-loops/a/conditional-repetition-of-instructions?modal=1).
 
-::: tryitout
-##### Try it out {-}
+##### Try it out {- .tryitout}
 
 Write a while loop in R and in SAS to calculate $\displaystyle \lim_{x \rightarrow 4} \frac{2 - \sqrt{x}}{4-x}$ by starting at 3 and halving the distance to 4 with each iteration. Exit the loop when you are within 1e-6 of the value computed on the previous iteration, or when you are within 1e-6 from 4. Which exit condition did you hit first? How do you know?
 
@@ -1562,7 +1555,6 @@ quit;
 
 ```
 </details>
-:::
 
 #### Other Loops and Interative Structures
 
