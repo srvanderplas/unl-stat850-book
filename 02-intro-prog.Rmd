@@ -1381,7 +1381,12 @@ unlink("saslog.log")
 
 ##### Try it out (in R) {- .tryitout}
 
-The `beepr` package plays sounds in R to alert you when your code has finished running (or just to annoy your friends and classmates). ([Documentation](https://www.r-project.org/nosvn/pandoc/beepr.html))
+The `beepr` package plays sounds in R to alert you when your code has finished running (or just to annoy your friends and classmates). ([Documentation](https://www.r-project.org/nosvn/pandoc/beepr.html)) 
+
+::: note
+We'll learn more about packages in the next chapter, but for now, just go with it. 
+:::
+
 You can install the package using the following command:
 ```{r, eval = F}
 install.packages("beepr")
