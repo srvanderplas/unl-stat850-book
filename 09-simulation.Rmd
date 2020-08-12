@@ -62,7 +62,7 @@ You can see the various distribution options using `?Distributions`. In general,
 library(tibble)
 library(dplyr)
 library(tidyr)
-library(gglot2)
+library(ggplot2)
 set.seed(109025879)
 
 tibble(
