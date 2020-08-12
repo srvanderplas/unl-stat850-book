@@ -48,3 +48,8 @@ library(SASmarkdown)
   rm(list = obj.list)
 }
 ```
+
+```{r, include = F, cache = F}
+# update package list
+source("code/collect_packages.R")
+```
