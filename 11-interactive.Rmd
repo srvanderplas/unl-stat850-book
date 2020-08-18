@@ -38,10 +38,13 @@ if (!"tidytuesdayR" %in% installed.packages()) {
   devtools::install_github("thebioengineer/tidytuesdayR")
 }
 
+library(dplyr)
+library(tidyr)
+library(ggplot2)
+library(tibble)
 library(lubridate) # dates and times
-library(plotly)
 library(tidytuesdayR) # get interesting data
-library(tidyverse)
+library(plotly)
 
 # Load the data from TidyTuesday on May 12
 full_data <- tt_load('2020-05-12')
@@ -360,7 +363,7 @@ To explore the leaflet package, we'll start out playing with a [dataset of Bigfo
 if (!"leaflet" %in% installed.packages()) install.packages("leaflet")
 
 library(leaflet)
-library(tidyverse)
+library(readr)
 
 bigfoot_data <- read_csv("https://query.data.world/s/egnaxxvegdkzzrhfhdh4izb6etmlms")
 ```
