@@ -49,6 +49,20 @@
 
 
 
+<script src="libs/htmlwidgets-1.5.1.9001/htmlwidgets.js"></script>
+<script src="libs/plotly-binding-4.9.2.9000/plotly.js"></script>
+<script src="libs/typedarray-0.1/typedarray.min.js"></script>
+<link href="libs/crosstalk-1.1.0.1/css/crosstalk.css" rel="stylesheet" />
+<script src="libs/crosstalk-1.1.0.1/js/crosstalk.min.js"></script>
+<link href="libs/plotly-htmlwidgets-css-1.54.1/plotly-htmlwidgets.css" rel="stylesheet" />
+<script src="libs/plotly-main-1.54.1/plotly-latest.min.js"></script>
+<link href="libs/leaflet-1.3.1/leaflet.css" rel="stylesheet" />
+<script src="libs/leaflet-1.3.1/leaflet.js"></script>
+<link href="libs/leafletfix-1.0.0/leafletfix.css" rel="stylesheet" />
+<script src="libs/Proj4Leaflet-1.0.1/proj4-compressed.js"></script>
+<script src="libs/Proj4Leaflet-1.0.1/proj4leaflet.js"></script>
+<link href="libs/rstudio_leaflet-1.3.1/rstudio_leaflet.css" rel="stylesheet" />
+<script src="libs/leaflet-binding-2.0.3/leaflet.js"></script>
 <script>
 
 (function() {
@@ -213,9 +227,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="3.3.1" data-path="organization.html"><a href="organization.html#scope"><i class="fa fa-check"></i><b>3.3.1</b> Scope</a></li>
 <li class="chapter" data-level="3.3.2" data-path="organization.html"><a href="organization.html#the-pipe"><i class="fa fa-check"></i><b>3.3.2</b> The Pipe</a></li>
 </ul></li>
-<li class="chapter" data-level="3.4" data-path="organization.html"><a href="organization.html#procs-and-data-steps"><i class="fa fa-check"></i><b>3.4</b> Procs and Data steps</a><ul>
-<li class="chapter" data-level="" data-path="intro-prog.html"><a href="intro-prog.html#try-it-out-2"><i class="fa fa-check"></i>Try It Out</a></li>
-</ul></li>
+<li class="chapter" data-level="3.4" data-path="organization.html"><a href="organization.html#procs-and-data-steps"><i class="fa fa-check"></i><b>3.4</b> Procs and Data steps</a></li>
 <li class="chapter" data-level="3.5" data-path="organization.html"><a href="organization.html#scripts"><i class="fa fa-check"></i><b>3.5</b> Scripts</a><ul>
 <li class="chapter" data-level="" data-path="intro-prog.html"><a href="intro-prog.html#try-it-out-3"><i class="fa fa-check"></i>Try it out</a></li>
 </ul></li>
@@ -254,7 +266,6 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="5.1" data-path="manipulating-data.html"><a href="manipulating-data.html#tidy-data"><i class="fa fa-check"></i><b>5.1</b> Tidy Data</a></li>
 <li class="chapter" data-level="5.2" data-path="manipulating-data.html"><a href="manipulating-data.html#filter-pick-cases-rows-based-on-their-values"><i class="fa fa-check"></i><b>5.2</b> Filter: Pick cases (rows) based on their values</a><ul>
 <li class="chapter" data-level="5.2.1" data-path="manipulating-data.html"><a href="manipulating-data.html#common-filter-tasks"><i class="fa fa-check"></i><b>5.2.1</b> Common Filter() Tasks</a></li>
-<li class="chapter" data-level="" data-path="intro-prog.html"><a href="intro-prog.html#try-it-out"><i class="fa fa-check"></i>Try it out</a></li>
 </ul></li>
 <li class="chapter" data-level="5.3" data-path="manipulating-data.html"><a href="manipulating-data.html#select-pick-columns"><i class="fa fa-check"></i><b>5.3</b> Select: Pick columns</a></li>
 <li class="chapter" data-level="5.4" data-path="manipulating-data.html"><a href="manipulating-data.html#mutate-add-and-transform-variables"><i class="fa fa-check"></i><b>5.4</b> Mutate: Add and transform variables</a></li>
@@ -265,9 +276,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="6" data-path="transforming-data.html"><a href="transforming-data.html"><i class="fa fa-check"></i><b>6</b> Transforming Data</a><ul>
 <li class="chapter" data-level="" data-path="tools.html"><a href="tools.html#module-objectives"><i class="fa fa-check"></i>Module Objectives</a></li>
-<li class="chapter" data-level="6.1" data-path="transforming-data.html"><a href="transforming-data.html#identifying-the-problem-messy-data"><i class="fa fa-check"></i><b>6.1</b> Identifying the problem: Messy data</a><ul>
-<li class="chapter" data-level="" data-path="intro-prog.html"><a href="intro-prog.html#try-it-out"><i class="fa fa-check"></i>Try it out</a></li>
-</ul></li>
+<li class="chapter" data-level="6.1" data-path="transforming-data.html"><a href="transforming-data.html#identifying-the-problem-messy-data"><i class="fa fa-check"></i><b>6.1</b> Identifying the problem: Messy data</a></li>
 <li class="chapter" data-level="6.2" data-path="transforming-data.html"><a href="transforming-data.html#string-operations-creating-new-variables-and-separating-multi-variable-columns"><i class="fa fa-check"></i><b>6.2</b> String operations: Creating new variables and separating multi-variable columns</a><ul>
 <li class="chapter" data-level="6.2.1" data-path="transforming-data.html"><a href="transforming-data.html#basic-string-operations"><i class="fa fa-check"></i><b>6.2.1</b> Basic String Operations</a></li>
 <li class="chapter" data-level="6.2.2" data-path="transforming-data.html"><a href="transforming-data.html#regular-expressions"><i class="fa fa-check"></i><b>6.2.2</b> Regular Expressions</a></li>
@@ -433,6 +442,30 @@ R is a statistical computing language which originated as an open-source clone o
 <p><summary>R on Linux installation</summary></p>
 On Linux, instead of a YouTube video, you get a text-based <a href="https://github.com/swirldev/swirl/wiki/Installing-swirl-on-Linux">tutorial</a>. One of the Debian maintainers, Dirk Eddelbuettel, is also on R core, which means that R tends to work extremely well with Debian-based distributions, like Ubuntu and Linux Mint. R does work on RPM based distros, and you can of course also compile it from source for Arch/Gentoo, but I’ve stuck with Deb-based distributions for approximately 7 years because it seems to be a bit less hassle. Additional troubleshooting can be found <a href="https://pages.github.nceas.ucsb.edu/NCEAS/help/installing_r_on_ubuntu.html">here</a>.
 </details>
+<p>Once you have R installed, try to run the following code, which will install the packages you need to run the code in this book.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="co"># Read in a list of all packages that are required</span></a>
+<a class="sourceLine" id="cb1-2" data-line-number="2">pkgs &lt;-<span class="st"> </span><span class="kw">readLines</span>(<span class="st">&quot;https://raw.githubusercontent.com/srvanderplas/unl-stat850/master/data/packages&quot;</span>)</a>
+<a class="sourceLine" id="cb1-3" data-line-number="3"><span class="co"># Remove any already installed packages from the list</span></a>
+<a class="sourceLine" id="cb1-4" data-line-number="4">pkgs &lt;-<span class="st"> </span><span class="kw">setdiff</span>(pkgs, <span class="kw">installed.packages</span>())</a>
+<a class="sourceLine" id="cb1-5" data-line-number="5"></a>
+<a class="sourceLine" id="cb1-6" data-line-number="6"><span class="co"># The following code will not make a lot of sense... yet. Come back to it in a </span></a>
+<a class="sourceLine" id="cb1-7" data-line-number="7"><span class="co"># few weeks and see how much you understand (or can decode)</span></a>
+<a class="sourceLine" id="cb1-8" data-line-number="8"></a>
+<a class="sourceLine" id="cb1-9" data-line-number="9"><span class="co"># This ensures that if the installation fails, the code will keep running</span></a>
+<a class="sourceLine" id="cb1-10" data-line-number="10">try_install_pkg &lt;-<span class="st"> </span><span class="cf">function</span>(...) <span class="kw">try</span>(<span class="kw">install.packages</span>(..., <span class="dt">dependencies =</span> T))</a>
+<a class="sourceLine" id="cb1-11" data-line-number="11"><span class="kw">lapply</span>(pkgs, try_install_pkg)</a>
+<a class="sourceLine" id="cb1-12" data-line-number="12">Installing package into <span class="st">&#39;/home/susan/R/x86_64-pc-linux-gnu-library/3.6&#39;</span></a>
+<a class="sourceLine" id="cb1-13" data-line-number="13">(as <span class="st">&#39;lib&#39;</span> is unspecified)</a>
+<a class="sourceLine" id="cb1-14" data-line-number="14">Warning<span class="op">:</span><span class="st"> </span>package <span class="st">&#39;emo&#39;</span> is not <span class="kw">available</span> (<span class="cf">for</span> R version <span class="dv">3</span>.<span class="fl">6.3</span>)</a>
+<a class="sourceLine" id="cb1-15" data-line-number="15">[[<span class="dv">1</span>]]</a>
+<a class="sourceLine" id="cb1-16" data-line-number="16"><span class="ot">NULL</span></a>
+<a class="sourceLine" id="cb1-17" data-line-number="17">pkgs &lt;-<span class="st"> </span><span class="kw">setdiff</span>(pkgs, <span class="kw">installed.packages</span>())</a>
+<a class="sourceLine" id="cb1-18" data-line-number="18"></a>
+<a class="sourceLine" id="cb1-19" data-line-number="19"><span class="cf">if</span> (<span class="kw">length</span>(pkgs) <span class="op">&gt;</span><span class="st"> </span><span class="dv">0</span>) {</a>
+<a class="sourceLine" id="cb1-20" data-line-number="20">  <span class="kw">paste</span>(<span class="st">&quot;The following packages did not install: </span><span class="ch">\n</span><span class="st">&quot;</span>, <span class="kw">paste</span>(pkgs, <span class="dt">collapse =</span> <span class="st">&quot;</span><span class="ch">\n</span><span class="st">&quot;</span>))</a>
+<a class="sourceLine" id="cb1-21" data-line-number="21">}</a>
+<a class="sourceLine" id="cb1-22" data-line-number="22">[<span class="dv">1</span>] <span class="st">&quot;The following packages did not install: </span><span class="ch">\n</span><span class="st"> emo&quot;</span></a></code></pre></div>
+<p>If some packages did not install, feel free to post in Yellowdig with the error message(s) received and the list of packages you’re having trouble installing (or contact me and we’ll set up a time to debug).</p>
 </div>
 <div id="getting-set-up-rstudio" class="section level3">
 <h3><span class="header-section-number">1.1.2</span> Getting Set up: RStudio</h3>
@@ -458,7 +491,7 @@ On Linux, instead of a YouTube video, you get a text-based <a href="https://gith
 <p>Now, type 2+2 into the text editor and press the run button that is on the pane’s shortcut bar (or, you can hit Ctrl-Enter/CMD-Enter to send a single line to the console).</p>
 <p>If both of those things worked, you’re probably set up correctly!</p>
 <p>Next, try typing this into the text editor, then run the line. Look in the environment and see if you can see what has changed.</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1">a &lt;-<span class="st"> </span><span class="dv">3</span> <span class="co"># store 3 in the variable a</span></a></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1">a &lt;-<span class="st"> </span><span class="dv">3</span> <span class="co"># store 3 in the variable a</span></a></code></pre></div>
 <div class="figure">
 <img src="image/Rstudio_env_var.png" alt="Your environment window should now look something like this (the .Last.value entry may not be there, and that’s ok)" />
 <p class="caption">Your environment window should now look something like this (the .Last.value entry may not be there, and that’s ok)</p>
@@ -559,7 +592,7 @@ Git is to GitHub what Porn is to PornHub
 <h2><span class="header-section-number">1.4</span> Easy Extra Setup Script</h2>
 <p>Copy <a href="code/01_setup_install.R">this script</a> into a text editor in RStudio on your machine. It will ask you for some input - your name, email address, etc. – Make those changes in the text document, and then source the document.</p>
 <p>It will run for a while, installing most of the packages you’ll need for this course. Read the code file if you want to know what it’s doing - I’ve provided short explanations of what each package does (and anyways, you shouldn’t run code on your machine if you don’t understand what it does).</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="kw">source</span>(<span class="st">&quot;code/01_setup_install.R&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1"><span class="kw">source</span>(<span class="st">&quot;code/01_setup_install.R&quot;</span>)</a></code></pre></div>
 <p>This script will set up git for you (e.g. the introduce yourself to git section above) and then will install <code>tinytex</code>, which is a version of LaTeX that is very simple and easy to install. If you want to install a different version of LaTeX instead (like MikTex or TexLive) feel free to do so.</p>
 </div>
 <div id="latex" class="section level2">
@@ -601,14 +634,14 @@ Git is to GitHub what Porn is to PornHub
 <h4><span class="header-section-number">1.7.1.1</span> Local repository first</h4>
 <p>Let’s suppose you already have a folder on your machine named <code>hello-world-1</code> (you may want to create this folder now). You’ve created a starter document, say, a text file named README with “hello world” written in it.</p>
 <p>If you want, you can use the following R code to set this up:</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1">dir &lt;-<span class="st"> &quot;./hello-world-1&quot;</span></a>
-<a class="sourceLine" id="cb3-2" data-line-number="2"><span class="cf">if</span> (<span class="op">!</span><span class="kw">dir.exists</span>(dir)) {</a>
-<a class="sourceLine" id="cb3-3" data-line-number="3">  <span class="kw">dir.create</span>(dir)</a>
-<a class="sourceLine" id="cb3-4" data-line-number="4">}</a>
-<a class="sourceLine" id="cb3-5" data-line-number="5">file &lt;-<span class="st"> </span><span class="kw">file.path</span>(dir, <span class="st">&quot;README&quot;</span>)</a>
-<a class="sourceLine" id="cb3-6" data-line-number="6"><span class="cf">if</span> (<span class="op">!</span><span class="kw">file.exists</span>(file)) {</a>
-<a class="sourceLine" id="cb3-7" data-line-number="7">  <span class="kw">writeLines</span>(<span class="st">&quot;hello world&quot;</span>, <span class="dt">con =</span> file)</a>
-<a class="sourceLine" id="cb3-8" data-line-number="8">}</a></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1">dir &lt;-<span class="st"> &quot;./hello-world-1&quot;</span></a>
+<a class="sourceLine" id="cb4-2" data-line-number="2"><span class="cf">if</span> (<span class="op">!</span><span class="kw">dir.exists</span>(dir)) {</a>
+<a class="sourceLine" id="cb4-3" data-line-number="3">  <span class="kw">dir.create</span>(dir)</a>
+<a class="sourceLine" id="cb4-4" data-line-number="4">}</a>
+<a class="sourceLine" id="cb4-5" data-line-number="5">file &lt;-<span class="st"> </span><span class="kw">file.path</span>(dir, <span class="st">&quot;README&quot;</span>)</a>
+<a class="sourceLine" id="cb4-6" data-line-number="6"><span class="cf">if</span> (<span class="op">!</span><span class="kw">file.exists</span>(file)) {</a>
+<a class="sourceLine" id="cb4-7" data-line-number="7">  <span class="kw">writeLines</span>(<span class="st">&quot;hello world&quot;</span>, <span class="dt">con =</span> file)</a>
+<a class="sourceLine" id="cb4-8" data-line-number="8">}</a></code></pre></div>
 <p>To create a local git repository, we can go to the terminal (in Mac/Linux) or the git bash shell (in Windows), navigate to our repository folder (not shown, will be different on each computer), and type in</p>
 <pre><code>git init</code></pre>
 <p>Alternately, if you prefer a GUI (graphical user interface) approach, that will work too:</p>
@@ -710,7 +743,8 @@ Git is to GitHub what Porn is to PornHub
 <p>For this reason, I find it makes my life easier to put each sentence on a separate line, so that I can tweak things with fewer merge conflicts. Merge conflicts aren’t a huge deal, but they slow the workflow down, and are best avoided where possible.</p>
 </div>
 <p><strong>Pulling</strong> describes the process of updating your local copy of the repository (the copy on your computer) with the files that are “in the cloud” (on GitHub). <code>git pull</code> (or using the Pull button in RStudio) will perform this update for you. If you are working with collaborators in real time, it is good practice to pull, commit, and push often, because this vastly reduces the merge conflict potential (and the scope of any conflicts that do pop up).</p>
-<p><img alt="git pull copies the version of the project on GitHub to your computer" src="image/git_pull_diagram.png" width = "45%"/> <img alt="git push copies the version of the project on your computer to GitHub" src="image/git_push_diagram.png" width = "45%"/></p>
+<p><strong>Pushing</strong> describes the process of updating the copy of the repository on another machine (e.g. on GitHub) so that it has the most recent changes you’ve made to your machine.</p>
+<p><img alt="git push copies the version of the project on your computer to GitHub" src="image/git_push_diagram.png" width = "45%"/> <img alt="git pull copies the version of the project on GitHub to your computer" src="image/git_pull_diagram.png" width = "45%"/></p>
 <p>In general, your workflow will be</p>
 <ol style="list-style-type: decimal">
 <li>Clone the project or create a new repository</li>
@@ -799,6 +833,20 @@ gitbook.start({
 });
 </script>
 
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
 </body>
 
 </html>
