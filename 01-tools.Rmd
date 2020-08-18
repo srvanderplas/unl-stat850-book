@@ -96,8 +96,11 @@ SAS looks different on different machines. On Linux, SAS looks like you took a t
 ![The SAS toolbox has options to create new files, submit code, and more (but I mostly use keyboard shortcuts in the individual windows). This is probably one of the biggest things that's different on Linux...](image/sas_toolbox.png)
 
 ![The SAS Log gives you lots of detailed information about how your code ran -- look here for errors and warnings.](image/sas_log_window.png)
+
 ![The SAS program editor is where you'll be writing your code. If you want, you can write code in a more advanced text editor and copy/paste it into the log when you're ready to run it.](image/sas_program_editor.png)
+
 There are two different places your output may end up: if you're using the old output system, you'll get text output in the output pane.
+
 ![The old output system output pane.](image/sas_output_old.png)
 
 ![The new output system uses HTML and will output to your browser.](image/sas_modern_output.png)
@@ -105,15 +108,19 @@ There are two different places your output may end up: if you're using the old o
 ![You can navigate through your results using the results window](image/sas_results_window.png)
 
 ![The explorer window lets you access documentation, data, and more](image/sas_explorer_1.png)
+
 If you click on libraries, you get to this list:
+
 ![This area of the SAS explorer shows all of the libraries you have access to.](image/sas_explorer_2.png)
+
 ![Clicking on any one library will show you a list of datasets in that library](image/sas_explorer_3.png)
+
 
 You can then click on a dataset and you will get a spreadsheet-like view. 
 
 ## Version Control with Git
 
-![You don't want to end up here. Version control is the answer to this problem.](http://www.phdcomics.com/comics/archive/phd101212s.gif)
+<img alt="You don't want to end up here. Version control is the answer to this problem." src="http://www.phdcomics.com/comics/archive/phd101212s.gif)" width = "50%"/>
 
 Git is a program whose primary purpose is version control. Git tracks changes to each file that it is told to monitor, and as the files change, you provide short labels describing what the changes were and why they exist (called "commits"). The log of these changes (along with the file history) is called your git commit history. 
 
@@ -154,11 +161,9 @@ I don't personally use a git client other than RStudio, but you may prefer to ha
 Git is to GitHub what Porn is to PornHub
 </details>
 
-Git is a program that runs on your machine and keeps track of changes to files that you tell it to monitor. 
+Git is a program that runs on your machine and keeps track of changes to files that you tell it to monitor. GitHub is a website that hosts people's git repositories. You can use git without GitHub, but you can't use GitHub without git. 
 
-If you want, you can hook Git up to GitHub, and make a copy of your local git repository that lives in the cloud. Then, if you configure things correctly, your local repository will talk to GitHub without too much trouble. 
-
-Using Github with Git allows you to easily make a cloud backup of your important code, so that even if your  computer suddenly catches on fire, all of your important code files exist somewhere else. 
+If you want, you can hook Git up to GitHub, and make a copy of your local git repository that lives in the cloud. Then, if you configure things correctly, your local repository will talk to GitHub without too much trouble. Using Github with Git allows you to easily make a cloud backup of your important code, so that even if your  computer suddenly catches on fire, all of your important code files exist somewhere else. 
 
 Remember: any data you don't have in 3 different places is data you don't care about.^[Yes, I'm aware that this sounds paranoid. It's been a very rare occasion that I've needed to restore something from another backup. You don't want to take chances. I knew a guy who had to retype his entire masters thesis from the printed out version the night before it was due because he had stored it on a network drive that was decommissioned. You don't want to be that person.]
 
@@ -224,6 +229,7 @@ Both methods are relatively simple, but the options you choose depend on which m
 Let's suppose you already have a folder on your machine named `hello-world-1` (you may want to create this folder now). You've created a starter document, say, a text file named README with "hello world" written in it. 
 
 If you want, you can use the following R code to set this up:
+
 ```{r, eval = F}
 dir <- "./hello-world-1"
 if (!dir.exists(dir)) {
@@ -249,6 +255,7 @@ Alternately, if you prefer a GUI (graphical user interface) approach, that will 
 4. Navigate to your new Git tab on the top right.
 
 ![Screen capture video of the steps described above to create a git repository in RStudio](video/Rstudio-existing-git.gif)
+
 The next step is to add our file to the repository. 
 
 Using the command line, you can type in `git add README` (this tells git to track the file) and then commit your changes (enter them into the record) using `git commit -m "Add readme file"`.
@@ -256,6 +263,7 @@ Using the command line, you can type in `git add README` (this tells git to trac
 Using the GUI, you navigate to the git pane, check the box next to the README file, click the Commit button, write a message ("Add readme file"), and click the commit button. 
 
 ![Screen capture video of the steps described above to add and commit a file in RStudio](video/Rstudio-git-commit.gif)
+
 The final step is to create a corresponding repository on GitHub. Navigate to your GitHub profile and make sure you're logged in. Create a new repository using the "New" button. Name your  repository whatever you want, fill in the description if you want (this can help you later, if you forget what exactly a certain repo was *for*), and DO NOT add a README, license file, or anything else (if you do, you will have a bad  time). 
 
 You'll be taken to your empty repository, and git will provide you the lines to paste into your git shell (or terminal) -- you can access this within RStudio, as shown below. Paste those lines in, and you'll be good to  go.
@@ -342,8 +350,10 @@ For this reason, I find it makes my life easier to put each sentence on a separa
 
 **Pulling** describes the process of updating your local copy of the repository (the copy on your computer) with the files that are "in the cloud" (on GitHub). `git pull` (or using the Pull button in RStudio) will perform this update for you. If you are working with collaborators in real time, it is good practice to pull, commit, and push often, because  this vastly reduces the merge conflict potential (and the scope of any conflicts that do pop up). 
 
-![git pull copies the version of the project on GitHub to your computer](image/git_pull_diagram.png)
-![git push copies the version of the project on your computer to GitHub](image/git_push_diagram.png)
+**Pushing** describes the process of updating the copy of the repository on another machine (e.g. on GitHub) so that it has the most recent changes you've made to your machine. 
+
+<img alt="git push copies the version of the project on your computer to GitHub" src="image/git_push_diagram.png" width = "45%"/> <img alt="git pull copies the version of the project on GitHub to your computer" src="image/git_pull_diagram.png" width = "45%"/>
+
 In general, your workflow will be 
 
 1. Clone the project or create a new repository
