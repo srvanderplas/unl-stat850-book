@@ -609,25 +609,30 @@ As in base R, the syntax between the two types of charts is different, even thou
 <a class="sourceLine" id="cb354-2" data-line-number="2"><span class="co"># A package of data sets which are useful for class demonstrations</span></a>
 <a class="sourceLine" id="cb354-3" data-line-number="3"><span class="kw">library</span>(classdata)</a>
 <a class="sourceLine" id="cb354-4" data-line-number="4"><span class="kw">library</span>(tidyr)</a>
-<a class="sourceLine" id="cb354-5" data-line-number="5"><span class="kw">library</span>(dplyr)</a>
-<a class="sourceLine" id="cb354-6" data-line-number="6"><span class="kw">data</span>(happy) <span class="co"># you&#39;ll use this for try it out sections</span></a>
-<a class="sourceLine" id="cb354-7" data-line-number="7"><span class="kw">data</span>(fbi)</a>
+<a class="sourceLine" id="cb354-5" data-line-number="5"></a>
+<a class="sourceLine" id="cb354-6" data-line-number="6">Attaching package<span class="op">:</span><span class="st"> &#39;tidyr&#39;</span></a>
+<a class="sourceLine" id="cb354-7" data-line-number="7">The following object is masked from <span class="st">&#39;package:magrittr&#39;</span><span class="op">:</span></a>
 <a class="sourceLine" id="cb354-8" data-line-number="8"></a>
-<a class="sourceLine" id="cb354-9" data-line-number="9"></a>
-<a class="sourceLine" id="cb354-10" data-line-number="10">fbiwide &lt;-<span class="st"> </span>fbi <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb354-11" data-line-number="11"><span class="st">  </span><span class="kw">select</span>(<span class="op">-</span>Violent.crime) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb354-12" data-line-number="12"><span class="st">  </span><span class="kw">pivot_wider</span>(<span class="dt">names_from =</span> Type, <span class="dt">values_from =</span> Count) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb354-13" data-line-number="13"><span class="st">  </span><span class="co"># Rename variables</span></a>
-<a class="sourceLine" id="cb354-14" data-line-number="14"><span class="st">  </span><span class="kw">rename</span>(<span class="dt">Murder =</span> Murder.and.nonnegligent.Manslaughter, </a>
-<a class="sourceLine" id="cb354-15" data-line-number="15">         <span class="dt">Assault =</span> Aggravated.assault, </a>
-<a class="sourceLine" id="cb354-16" data-line-number="16">         <span class="dt">Larceny =</span> Larceny.theft, </a>
-<a class="sourceLine" id="cb354-17" data-line-number="17">         <span class="dt">Auto.theft =</span> Motor.vehicle.theft) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb354-18" data-line-number="18"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">Rape =</span> <span class="kw">as.numeric</span>(Rape))</a>
-<a class="sourceLine" id="cb354-19" data-line-number="19"></a>
-<a class="sourceLine" id="cb354-20" data-line-number="20"><span class="co"># Write a csv out to a file to read into sas</span></a>
-<a class="sourceLine" id="cb354-21" data-line-number="21"><span class="cf">if</span>(<span class="op">!</span><span class="kw">file.exists</span>(<span class="st">&quot;data/happy.csv&quot;</span>)) <span class="kw">write_csv</span>(happy, <span class="st">&quot;data/happy.csv&quot;</span>, <span class="dt">na =</span> <span class="st">&quot;.&quot;</span>)</a>
-<a class="sourceLine" id="cb354-22" data-line-number="22"><span class="cf">if</span>(<span class="op">!</span><span class="kw">file.exists</span>(<span class="st">&quot;data/fbi.csv&quot;</span>)) <span class="kw">write_csv</span>(fbi, <span class="st">&quot;data/fbi.csv&quot;</span>, <span class="dt">na =</span> <span class="st">&quot;.&quot;</span>)</a>
-<a class="sourceLine" id="cb354-23" data-line-number="23"><span class="cf">if</span>(<span class="op">!</span><span class="kw">file.exists</span>(<span class="st">&quot;data/fbiwide.csv&quot;</span>)) <span class="kw">write_csv</span>(fbiwide, <span class="st">&quot;data/fbiwide.csv&quot;</span>, <span class="dt">na =</span> <span class="st">&quot;.&quot;</span>)</a></code></pre></div>
+<a class="sourceLine" id="cb354-9" data-line-number="9"><span class="st">    </span>extract</a>
+<a class="sourceLine" id="cb354-10" data-line-number="10"><span class="kw">library</span>(dplyr)</a>
+<a class="sourceLine" id="cb354-11" data-line-number="11"><span class="kw">data</span>(happy) <span class="co"># you&#39;ll use this for try it out sections</span></a>
+<a class="sourceLine" id="cb354-12" data-line-number="12"><span class="kw">data</span>(fbi)</a>
+<a class="sourceLine" id="cb354-13" data-line-number="13"></a>
+<a class="sourceLine" id="cb354-14" data-line-number="14"></a>
+<a class="sourceLine" id="cb354-15" data-line-number="15">fbiwide &lt;-<span class="st"> </span>fbi <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb354-16" data-line-number="16"><span class="st">  </span><span class="kw">select</span>(<span class="op">-</span>Violent.crime) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb354-17" data-line-number="17"><span class="st">  </span><span class="kw">pivot_wider</span>(<span class="dt">names_from =</span> Type, <span class="dt">values_from =</span> Count) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb354-18" data-line-number="18"><span class="st">  </span><span class="co"># Rename variables</span></a>
+<a class="sourceLine" id="cb354-19" data-line-number="19"><span class="st">  </span><span class="kw">rename</span>(<span class="dt">Murder =</span> Murder.and.nonnegligent.Manslaughter, </a>
+<a class="sourceLine" id="cb354-20" data-line-number="20">         <span class="dt">Assault =</span> Aggravated.assault, </a>
+<a class="sourceLine" id="cb354-21" data-line-number="21">         <span class="dt">Larceny =</span> Larceny.theft, </a>
+<a class="sourceLine" id="cb354-22" data-line-number="22">         <span class="dt">Auto.theft =</span> Motor.vehicle.theft) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb354-23" data-line-number="23"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">Rape =</span> <span class="kw">as.numeric</span>(Rape))</a>
+<a class="sourceLine" id="cb354-24" data-line-number="24"></a>
+<a class="sourceLine" id="cb354-25" data-line-number="25"><span class="co"># Write a csv out to a file to read into sas</span></a>
+<a class="sourceLine" id="cb354-26" data-line-number="26"><span class="cf">if</span>(<span class="op">!</span><span class="kw">file.exists</span>(<span class="st">&quot;data/happy.csv&quot;</span>)) <span class="kw">write_csv</span>(happy, <span class="st">&quot;data/happy.csv&quot;</span>, <span class="dt">na =</span> <span class="st">&quot;.&quot;</span>)</a>
+<a class="sourceLine" id="cb354-27" data-line-number="27"><span class="cf">if</span>(<span class="op">!</span><span class="kw">file.exists</span>(<span class="st">&quot;data/fbi.csv&quot;</span>)) <span class="kw">write_csv</span>(fbi, <span class="st">&quot;data/fbi.csv&quot;</span>, <span class="dt">na =</span> <span class="st">&quot;.&quot;</span>)</a>
+<a class="sourceLine" id="cb354-28" data-line-number="28"><span class="cf">if</span>(<span class="op">!</span><span class="kw">file.exists</span>(<span class="st">&quot;data/fbiwide.csv&quot;</span>)) <span class="kw">write_csv</span>(fbiwide, <span class="st">&quot;data/fbiwide.csv&quot;</span>, <span class="dt">na =</span> <span class="st">&quot;.&quot;</span>)</a></code></pre></div>
 <pre class="sas"><code>libname classdat &quot;/home/susan/Projects/Class/unl-stat850/2020-stat850/sas/&quot;;
 
 PROC IMPORT datafile = &quot;data/happy.csv&quot; out=classdat.happy
