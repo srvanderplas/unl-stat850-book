@@ -213,18 +213,34 @@ Factors are the default way to store characters for most base R functions. Or ra
 
 
 <details class="example"><summary>Factors example</summary>
+
+::: note
+In this example, we'll use a data.frame, which you can think of as a spreadsheet-type table. We'll work with data frames later in much more detail, but for now, I'm mostly trying to show you a real-life situation that happens ALL the time, with the hopes that you'll recognize the error when you encounter it. The data frame isn't the important part. 
+:::
+
 Let's look at the names of the months:
 ```{r}
 month.name
 
 df <- data.frame(num = 1:12, name = month.name, stringsAsFactors = T)
-# I'm putting the argument in so that this is still relevant when everyone switches to R 4.0
-# Even with stringsAsFactors = F, factors are still useful and we still need to work with them.
+# I'm putting the argument in so that this is still relevant when everyone 
+# switches to R 4.0. Even with stringsAsFactors = F, factors are still useful 
+# and we still need to work with them.
+# 
+# Any time you create a data frame in base R, you should be watchful for errors
+# that are based on strings being converted to factors.
 
 str(df)
 ```
 
 Notice that as soon as we make that data.frame, the months are converted into a factor variable? The other big problem is that the order of the factor levels is ... not what we'd normally want. We don't want alphabetical ordering of month names - they have a different, implicit, and natural order.
+
+<details><summary>We could get this same behavior without the data.frame, but this is where it shows up most often</summary>
+
+```{r}
+month_fct <- factor(month.name) # the order is still not exactly what we'd want it to be
+```
+</details>
 
 To fix this, we can explicitly specify that we're dealing with a factor, and what we want the levels to be. If you specify the levels manually (instead of letting R do the work for you) then you get to determine the order. 
 ```{r}
