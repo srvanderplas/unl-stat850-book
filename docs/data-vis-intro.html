@@ -295,17 +295,18 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="7" data-path="debugging.html"><a href="debugging.html"><i class="fa fa-check"></i><b>7</b> Principles of Debugging</a><ul>
 <li class="chapter" data-level="" data-path="tools.html"><a href="tools.html#module-objectives"><i class="fa fa-check"></i>Module Objectives</a></li>
-<li class="chapter" data-level="7.1" data-path="debugging.html"><a href="debugging.html#defensive-programming"><i class="fa fa-check"></i><b>7.1</b> Defensive Programming</a></li>
-<li class="chapter" data-level="7.2" data-path="debugging.html"><a href="debugging.html#general-debugging-strategies"><i class="fa fa-check"></i><b>7.2</b> General Debugging Strategies</a></li>
-<li class="chapter" data-level="7.3" data-path="debugging.html"><a href="debugging.html#debugging-tools-in-r"><i class="fa fa-check"></i><b>7.3</b> Debugging Tools in R</a><ul>
-<li class="chapter" data-level="7.3.1" data-path="debugging.html"><a href="debugging.html#low-tech-debugging-with-print-and-other-tools"><i class="fa fa-check"></i><b>7.3.1</b> Low tech debugging with print() and other tools</a></li>
-<li class="chapter" data-level="7.3.2" data-path="debugging.html"><a href="debugging.html#after-an-error-has-occurred---traceback"><i class="fa fa-check"></i><b>7.3.2</b> After an error has occurred - <code>traceback()</code></a></li>
-<li class="chapter" data-level="7.3.3" data-path="debugging.html"><a href="debugging.html#browser---debugging-your-own-code-interactively"><i class="fa fa-check"></i><b>7.3.3</b> <code>browser()</code> - debugging your own code, interactively</a></li>
-<li class="chapter" data-level="7.3.4" data-path="debugging.html"><a href="debugging.html#debug---the-general-debugging-workhorse"><i class="fa fa-check"></i><b>7.3.4</b> <code>debug()</code> - the general debugging workhorse</a></li>
+<li class="chapter" data-level="7.1" data-path="debugging.html"><a href="debugging.html#step-1-check-your-spelling."><i class="fa fa-check"></i><b>7.1</b> Step 1: Check your spelling.</a></li>
+<li class="chapter" data-level="7.2" data-path="debugging.html"><a href="debugging.html#defensive-programming"><i class="fa fa-check"></i><b>7.2</b> Defensive Programming</a></li>
+<li class="chapter" data-level="7.3" data-path="debugging.html"><a href="debugging.html#general-debugging-strategies"><i class="fa fa-check"></i><b>7.3</b> General Debugging Strategies</a></li>
+<li class="chapter" data-level="7.4" data-path="debugging.html"><a href="debugging.html#debugging-tools-in-r"><i class="fa fa-check"></i><b>7.4</b> Debugging Tools in R</a><ul>
+<li class="chapter" data-level="7.4.1" data-path="debugging.html"><a href="debugging.html#low-tech-debugging-with-print-and-other-tools"><i class="fa fa-check"></i><b>7.4.1</b> Low tech debugging with print() and other tools</a></li>
+<li class="chapter" data-level="7.4.2" data-path="debugging.html"><a href="debugging.html#after-an-error-has-occurred---traceback"><i class="fa fa-check"></i><b>7.4.2</b> After an error has occurred - <code>traceback()</code></a></li>
+<li class="chapter" data-level="7.4.3" data-path="debugging.html"><a href="debugging.html#browser---debugging-your-own-code-interactively"><i class="fa fa-check"></i><b>7.4.3</b> <code>browser()</code> - debugging your own code, interactively</a></li>
+<li class="chapter" data-level="7.4.4" data-path="debugging.html"><a href="debugging.html#debug---the-general-debugging-workhorse"><i class="fa fa-check"></i><b>7.4.4</b> <code>debug()</code> - the general debugging workhorse</a></li>
 <li class="chapter" data-level="" data-path="intro-prog.html"><a href="intro-prog.html#try-it-out-2"><i class="fa fa-check"></i>Try it out</a></li>
 </ul></li>
-<li class="chapter" data-level="7.4" data-path="debugging.html"><a href="debugging.html#debugging-tools-in-sas"><i class="fa fa-check"></i><b>7.4</b> Debugging Tools in SAS</a></li>
-<li class="chapter" data-level="7.5" data-path="debugging.html"><a href="debugging.html#minimal-working-examples"><i class="fa fa-check"></i><b>7.5</b> Minimal Working Examples</a></li>
+<li class="chapter" data-level="7.5" data-path="debugging.html"><a href="debugging.html#debugging-tools-in-sas"><i class="fa fa-check"></i><b>7.5</b> Debugging Tools in SAS</a></li>
+<li class="chapter" data-level="7.6" data-path="debugging.html"><a href="debugging.html#minimal-working-examples"><i class="fa fa-check"></i><b>7.6</b> Minimal Working Examples</a></li>
 <li class="chapter" data-level="" data-path="tools.html"><a href="tools.html#references"><i class="fa fa-check"></i>References</a></li>
 </ul></li>
 <li class="chapter" data-level="8" data-path="data-vis-intro.html"><a href="data-vis-intro.html"><i class="fa fa-check"></i><b>8</b> Introduction to Data Visualization</a><ul>
@@ -610,30 +611,25 @@ As in base R, the syntax between the two types of charts is different, even thou
 <a class="sourceLine" id="cb355-2" data-line-number="2"><span class="co"># A package of data sets which are useful for class demonstrations</span></a>
 <a class="sourceLine" id="cb355-3" data-line-number="3"><span class="kw">library</span>(classdata)</a>
 <a class="sourceLine" id="cb355-4" data-line-number="4"><span class="kw">library</span>(tidyr)</a>
-<a class="sourceLine" id="cb355-5" data-line-number="5"></a>
-<a class="sourceLine" id="cb355-6" data-line-number="6">Attaching package<span class="op">:</span><span class="st"> &#39;tidyr&#39;</span></a>
-<a class="sourceLine" id="cb355-7" data-line-number="7">The following object is masked from <span class="st">&#39;package:magrittr&#39;</span><span class="op">:</span></a>
+<a class="sourceLine" id="cb355-5" data-line-number="5"><span class="kw">library</span>(dplyr)</a>
+<a class="sourceLine" id="cb355-6" data-line-number="6"><span class="kw">data</span>(happy) <span class="co"># you&#39;ll use this for try it out sections</span></a>
+<a class="sourceLine" id="cb355-7" data-line-number="7"><span class="kw">data</span>(fbi)</a>
 <a class="sourceLine" id="cb355-8" data-line-number="8"></a>
-<a class="sourceLine" id="cb355-9" data-line-number="9"><span class="st">    </span>extract</a>
-<a class="sourceLine" id="cb355-10" data-line-number="10"><span class="kw">library</span>(dplyr)</a>
-<a class="sourceLine" id="cb355-11" data-line-number="11"><span class="kw">data</span>(happy) <span class="co"># you&#39;ll use this for try it out sections</span></a>
-<a class="sourceLine" id="cb355-12" data-line-number="12"><span class="kw">data</span>(fbi)</a>
-<a class="sourceLine" id="cb355-13" data-line-number="13"></a>
-<a class="sourceLine" id="cb355-14" data-line-number="14"></a>
-<a class="sourceLine" id="cb355-15" data-line-number="15">fbiwide &lt;-<span class="st"> </span>fbi <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb355-16" data-line-number="16"><span class="st">  </span><span class="kw">select</span>(<span class="op">-</span>Violent.crime) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb355-17" data-line-number="17"><span class="st">  </span><span class="kw">pivot_wider</span>(<span class="dt">names_from =</span> Type, <span class="dt">values_from =</span> Count) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb355-18" data-line-number="18"><span class="st">  </span><span class="co"># Rename variables</span></a>
-<a class="sourceLine" id="cb355-19" data-line-number="19"><span class="st">  </span><span class="kw">rename</span>(<span class="dt">Murder =</span> Murder.and.nonnegligent.Manslaughter, </a>
-<a class="sourceLine" id="cb355-20" data-line-number="20">         <span class="dt">Assault =</span> Aggravated.assault, </a>
-<a class="sourceLine" id="cb355-21" data-line-number="21">         <span class="dt">Larceny =</span> Larceny.theft, </a>
-<a class="sourceLine" id="cb355-22" data-line-number="22">         <span class="dt">Auto.theft =</span> Motor.vehicle.theft) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb355-23" data-line-number="23"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">Rape =</span> <span class="kw">as.numeric</span>(Rape))</a>
-<a class="sourceLine" id="cb355-24" data-line-number="24"></a>
-<a class="sourceLine" id="cb355-25" data-line-number="25"><span class="co"># Write a csv out to a file to read into sas</span></a>
-<a class="sourceLine" id="cb355-26" data-line-number="26"><span class="cf">if</span>(<span class="op">!</span><span class="kw">file.exists</span>(<span class="st">&quot;data/happy.csv&quot;</span>)) <span class="kw">write_csv</span>(happy, <span class="st">&quot;data/happy.csv&quot;</span>, <span class="dt">na =</span> <span class="st">&quot;.&quot;</span>)</a>
-<a class="sourceLine" id="cb355-27" data-line-number="27"><span class="cf">if</span>(<span class="op">!</span><span class="kw">file.exists</span>(<span class="st">&quot;data/fbi.csv&quot;</span>)) <span class="kw">write_csv</span>(fbi, <span class="st">&quot;data/fbi.csv&quot;</span>, <span class="dt">na =</span> <span class="st">&quot;.&quot;</span>)</a>
-<a class="sourceLine" id="cb355-28" data-line-number="28"><span class="cf">if</span>(<span class="op">!</span><span class="kw">file.exists</span>(<span class="st">&quot;data/fbiwide.csv&quot;</span>)) <span class="kw">write_csv</span>(fbiwide, <span class="st">&quot;data/fbiwide.csv&quot;</span>, <span class="dt">na =</span> <span class="st">&quot;.&quot;</span>)</a></code></pre></div>
+<a class="sourceLine" id="cb355-9" data-line-number="9"></a>
+<a class="sourceLine" id="cb355-10" data-line-number="10">fbiwide &lt;-<span class="st"> </span>fbi <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb355-11" data-line-number="11"><span class="st">  </span><span class="kw">select</span>(<span class="op">-</span>Violent.crime) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb355-12" data-line-number="12"><span class="st">  </span><span class="kw">pivot_wider</span>(<span class="dt">names_from =</span> Type, <span class="dt">values_from =</span> Count) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb355-13" data-line-number="13"><span class="st">  </span><span class="co"># Rename variables</span></a>
+<a class="sourceLine" id="cb355-14" data-line-number="14"><span class="st">  </span><span class="kw">rename</span>(<span class="dt">Murder =</span> Murder.and.nonnegligent.Manslaughter, </a>
+<a class="sourceLine" id="cb355-15" data-line-number="15">         <span class="dt">Assault =</span> Aggravated.assault, </a>
+<a class="sourceLine" id="cb355-16" data-line-number="16">         <span class="dt">Larceny =</span> Larceny.theft, </a>
+<a class="sourceLine" id="cb355-17" data-line-number="17">         <span class="dt">Auto.theft =</span> Motor.vehicle.theft) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb355-18" data-line-number="18"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">Rape =</span> <span class="kw">as.numeric</span>(Rape))</a>
+<a class="sourceLine" id="cb355-19" data-line-number="19"></a>
+<a class="sourceLine" id="cb355-20" data-line-number="20"><span class="co"># Write a csv out to a file to read into sas</span></a>
+<a class="sourceLine" id="cb355-21" data-line-number="21"><span class="cf">if</span>(<span class="op">!</span><span class="kw">file.exists</span>(<span class="st">&quot;data/happy.csv&quot;</span>)) <span class="kw">write_csv</span>(happy, <span class="st">&quot;data/happy.csv&quot;</span>, <span class="dt">na =</span> <span class="st">&quot;.&quot;</span>)</a>
+<a class="sourceLine" id="cb355-22" data-line-number="22"><span class="cf">if</span>(<span class="op">!</span><span class="kw">file.exists</span>(<span class="st">&quot;data/fbi.csv&quot;</span>)) <span class="kw">write_csv</span>(fbi, <span class="st">&quot;data/fbi.csv&quot;</span>, <span class="dt">na =</span> <span class="st">&quot;.&quot;</span>)</a>
+<a class="sourceLine" id="cb355-23" data-line-number="23"><span class="cf">if</span>(<span class="op">!</span><span class="kw">file.exists</span>(<span class="st">&quot;data/fbiwide.csv&quot;</span>)) <span class="kw">write_csv</span>(fbiwide, <span class="st">&quot;data/fbiwide.csv&quot;</span>, <span class="dt">na =</span> <span class="st">&quot;.&quot;</span>)</a></code></pre></div>
 <pre class="sas"><code>libname classdat &quot;/home/susan/Projects/Class/unl-stat850/2020-stat850/sas/&quot;;
 
 PROC IMPORT datafile = &quot;data/happy.csv&quot; out=classdat.happy
