@@ -295,17 +295,18 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="7" data-path="debugging.html"><a href="debugging.html"><i class="fa fa-check"></i><b>7</b> Principles of Debugging</a><ul>
 <li class="chapter" data-level="" data-path="tools.html"><a href="tools.html#module-objectives"><i class="fa fa-check"></i>Module Objectives</a></li>
-<li class="chapter" data-level="7.1" data-path="debugging.html"><a href="debugging.html#defensive-programming"><i class="fa fa-check"></i><b>7.1</b> Defensive Programming</a></li>
-<li class="chapter" data-level="7.2" data-path="debugging.html"><a href="debugging.html#general-debugging-strategies"><i class="fa fa-check"></i><b>7.2</b> General Debugging Strategies</a></li>
-<li class="chapter" data-level="7.3" data-path="debugging.html"><a href="debugging.html#debugging-tools-in-r"><i class="fa fa-check"></i><b>7.3</b> Debugging Tools in R</a><ul>
-<li class="chapter" data-level="7.3.1" data-path="debugging.html"><a href="debugging.html#low-tech-debugging-with-print-and-other-tools"><i class="fa fa-check"></i><b>7.3.1</b> Low tech debugging with print() and other tools</a></li>
-<li class="chapter" data-level="7.3.2" data-path="debugging.html"><a href="debugging.html#after-an-error-has-occurred---traceback"><i class="fa fa-check"></i><b>7.3.2</b> After an error has occurred - <code>traceback()</code></a></li>
-<li class="chapter" data-level="7.3.3" data-path="debugging.html"><a href="debugging.html#browser---debugging-your-own-code-interactively"><i class="fa fa-check"></i><b>7.3.3</b> <code>browser()</code> - debugging your own code, interactively</a></li>
-<li class="chapter" data-level="7.3.4" data-path="debugging.html"><a href="debugging.html#debug---the-general-debugging-workhorse"><i class="fa fa-check"></i><b>7.3.4</b> <code>debug()</code> - the general debugging workhorse</a></li>
+<li class="chapter" data-level="7.1" data-path="debugging.html"><a href="debugging.html#step-1-check-your-spelling."><i class="fa fa-check"></i><b>7.1</b> Step 1: Check your spelling.</a></li>
+<li class="chapter" data-level="7.2" data-path="debugging.html"><a href="debugging.html#defensive-programming"><i class="fa fa-check"></i><b>7.2</b> Defensive Programming</a></li>
+<li class="chapter" data-level="7.3" data-path="debugging.html"><a href="debugging.html#general-debugging-strategies"><i class="fa fa-check"></i><b>7.3</b> General Debugging Strategies</a></li>
+<li class="chapter" data-level="7.4" data-path="debugging.html"><a href="debugging.html#debugging-tools-in-r"><i class="fa fa-check"></i><b>7.4</b> Debugging Tools in R</a><ul>
+<li class="chapter" data-level="7.4.1" data-path="debugging.html"><a href="debugging.html#low-tech-debugging-with-print-and-other-tools"><i class="fa fa-check"></i><b>7.4.1</b> Low tech debugging with print() and other tools</a></li>
+<li class="chapter" data-level="7.4.2" data-path="debugging.html"><a href="debugging.html#after-an-error-has-occurred---traceback"><i class="fa fa-check"></i><b>7.4.2</b> After an error has occurred - <code>traceback()</code></a></li>
+<li class="chapter" data-level="7.4.3" data-path="debugging.html"><a href="debugging.html#browser---debugging-your-own-code-interactively"><i class="fa fa-check"></i><b>7.4.3</b> <code>browser()</code> - debugging your own code, interactively</a></li>
+<li class="chapter" data-level="7.4.4" data-path="debugging.html"><a href="debugging.html#debug---the-general-debugging-workhorse"><i class="fa fa-check"></i><b>7.4.4</b> <code>debug()</code> - the general debugging workhorse</a></li>
 <li class="chapter" data-level="" data-path="intro-prog.html"><a href="intro-prog.html#try-it-out-2"><i class="fa fa-check"></i>Try it out</a></li>
 </ul></li>
-<li class="chapter" data-level="7.4" data-path="debugging.html"><a href="debugging.html#debugging-tools-in-sas"><i class="fa fa-check"></i><b>7.4</b> Debugging Tools in SAS</a></li>
-<li class="chapter" data-level="7.5" data-path="debugging.html"><a href="debugging.html#minimal-working-examples"><i class="fa fa-check"></i><b>7.5</b> Minimal Working Examples</a></li>
+<li class="chapter" data-level="7.5" data-path="debugging.html"><a href="debugging.html#debugging-tools-in-sas"><i class="fa fa-check"></i><b>7.5</b> Debugging Tools in SAS</a></li>
+<li class="chapter" data-level="7.6" data-path="debugging.html"><a href="debugging.html#minimal-working-examples"><i class="fa fa-check"></i><b>7.6</b> Minimal Working Examples</a></li>
 <li class="chapter" data-level="" data-path="tools.html"><a href="tools.html#references"><i class="fa fa-check"></i>References</a></li>
 </ul></li>
 <li class="chapter" data-level="8" data-path="data-vis-intro.html"><a href="data-vis-intro.html"><i class="fa fa-check"></i><b>8</b> Introduction to Data Visualization</a><ul>
@@ -421,8 +422,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p class="caption">“It has a ghost in it. Take it back.” “No.” (xkcd #1316)</p>
 </div>
 </div>
+<div id="step-1-check-your-spelling." class="section level2">
+<h2><span class="header-section-number">7.1</span> Step 1: Check your spelling.</h2>
+<p>I’ll guess that 80% of my personal debugging comes down to spelling errors and misplaced punctuation.</p>
+<p><img src="unl-stat850_files/figure-html/unnamed-chunk-232-1.png" width="672" /></p>
+</div>
 <div id="defensive-programming" class="section level2">
-<h2><span class="header-section-number">7.1</span> Defensive Programming</h2>
+<h2><span class="header-section-number">7.2</span> Defensive Programming</h2>
 <p>One of the best debugging strategies (that isn’t a debugging strategy at all, really) is to code defensively. By that, I mean, code in a way that you will make debugging things easier later.</p>
 <ul>
 <li><p><strong>Modularize your code</strong>. Each function should do only one task, ideally in the least-complex way possible.</p></li>
@@ -441,7 +447,7 @@ It’s ok to write code using lots of dependencies, but as you transition from �
 </div>
 </div>
 <div id="general-debugging-strategies" class="section level2">
-<h2><span class="header-section-number">7.2</span> General Debugging Strategies</h2>
+<h2><span class="header-section-number">7.3</span> General Debugging Strategies</h2>
 <blockquote>
 <p>Debugging: Being the detective in a crime movie where you are also the murderer. - some t-shirt I saw once</p>
 </blockquote>
@@ -473,10 +479,10 @@ Figure 7.1: You may find it helpful to procure a rubber duck expert for each lan
 <p>Do not be surprised if, in the process of debugging, you encounter new bugs. This is a problem that’s well-known enough that it has its <a href="image/99bugs_shirt.png">own t-shirt</a>, in addition to an <a href="https://xkcd.com/1739/">xkcd comic</a>. At some point, getting up and going for a walk may help. Redesigning your code to be more modular and more organized is also a good idea.</p>
 </div>
 <div id="debugging-tools-in-r" class="section level2">
-<h2><span class="header-section-number">7.3</span> Debugging Tools in R</h2>
+<h2><span class="header-section-number">7.4</span> Debugging Tools in R</h2>
 <p>Now that we’ve discussed general strategies for debugging that will work in any language, lets get down to the dirty details of debugging in R.</p>
 <div id="low-tech-debugging-with-print-and-other-tools" class="section level3">
-<h3><span class="header-section-number">7.3.1</span> Low tech debugging with print() and other tools</h3>
+<h3><span class="header-section-number">7.4.1</span> Low tech debugging with print() and other tools</h3>
 <p>Sometimes called “tracing” techniques, the most common, universal, and low tech strategy for debugging involves scattering messages throughout your code. When the code is executed, you get a window into what the variables look like during execution.</p>
 <details>
 <p><summary>Simple example</summary>
@@ -590,7 +596,7 @@ By printing out all of the tags that contain <code>node</code>, I could see the 
 <a class="sourceLine" id="cb322-21" data-line-number="21"><span class="st">    </span><span class="kw">ggtitle</span>(<span class="kw">paste0</span>(<span class="st">&quot;Category &quot;</span>, i, <span class="st">&quot; storms in 2013&quot;</span>))</a>
 <a class="sourceLine" id="cb322-22" data-line-number="22">  <span class="kw">print</span>(plot)</a>
 <a class="sourceLine" id="cb322-23" data-line-number="23">}</a></code></pre></div>
-<p><img src="unl-stat850_files/figure-html/unnamed-chunk-235-1.png" width="18%" /><img src="unl-stat850_files/figure-html/unnamed-chunk-235-2.png" width="18%" /><img src="unl-stat850_files/figure-html/unnamed-chunk-235-3.png" width="18%" /><img src="unl-stat850_files/figure-html/unnamed-chunk-235-4.png" width="18%" /><img src="unl-stat850_files/figure-html/unnamed-chunk-235-5.png" width="18%" /></p>
+<p><img src="unl-stat850_files/figure-html/unnamed-chunk-236-1.png" width="18%" /><img src="unl-stat850_files/figure-html/unnamed-chunk-236-2.png" width="18%" /><img src="unl-stat850_files/figure-html/unnamed-chunk-236-3.png" width="18%" /><img src="unl-stat850_files/figure-html/unnamed-chunk-236-4.png" width="18%" /><img src="unl-stat850_files/figure-html/unnamed-chunk-236-5.png" width="18%" /></p>
 <details>
 <p><summary>Solution</summary>
 First, lets split the setup from the loop.</p>
@@ -605,7 +611,7 @@ First, lets split the setup from the loop.</p>
 <a class="sourceLine" id="cb323-9" data-line-number="9"><span class="st">  </span><span class="kw">theme_map</span>()</a>
 <a class="sourceLine" id="cb323-10" data-line-number="10"></a>
 <a class="sourceLine" id="cb323-11" data-line-number="11"><span class="kw">print</span>(basemap) <span class="co"># make sure the basemap is fine</span></a></code></pre></div>
-<p><img src="unl-stat850_files/figure-html/unnamed-chunk-236-1.png" width="672" /></p>
+<p><img src="unl-stat850_files/figure-html/unnamed-chunk-237-1.png" width="672" /></p>
 <div class="sourceCode" id="cb324"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb324-1" data-line-number="1"></a>
 <a class="sourceLine" id="cb324-2" data-line-number="2"><span class="co"># Load the data</span></a>
 <a class="sourceLine" id="cb324-3" data-line-number="3"><span class="kw">data</span>(storms, <span class="dt">package =</span> <span class="st">&quot;dplyr&quot;</span>)</a>
@@ -743,19 +749,19 @@ First, lets split the setup from the loop.</p>
 <a class="sourceLine" id="cb329-18" data-line-number="18">}</a>
 <a class="sourceLine" id="cb329-19" data-line-number="19">[<span class="dv">1</span>] <span class="st">&quot;Category 1 storms&quot;</span></a>
 <a class="sourceLine" id="cb329-20" data-line-number="20">[<span class="dv">1</span>] <span class="st">&quot;subdata dims: nrow 45 ncol 13&quot;</span></a></code></pre></div>
-<p><img src="unl-stat850_files/figure-html/unnamed-chunk-241-1.png" width="672" /></p>
+<p><img src="unl-stat850_files/figure-html/unnamed-chunk-242-1.png" width="672" /></p>
 <pre><code>[1] &quot;Category 2 storms&quot;
 [1] &quot;subdata dims: nrow 39 ncol 13&quot;</code></pre>
-<p><img src="unl-stat850_files/figure-html/unnamed-chunk-241-2.png" width="672" /></p>
+<p><img src="unl-stat850_files/figure-html/unnamed-chunk-242-2.png" width="672" /></p>
 <pre><code>[1] &quot;Category 3 storms&quot;
 [1] &quot;subdata dims: nrow 29 ncol 13&quot;</code></pre>
-<p><img src="unl-stat850_files/figure-html/unnamed-chunk-241-3.png" width="672" /></p>
+<p><img src="unl-stat850_files/figure-html/unnamed-chunk-242-3.png" width="672" /></p>
 <pre><code>[1] &quot;Category 4 storms&quot;
 [1] &quot;subdata dims: nrow 32 ncol 13&quot;</code></pre>
-<p><img src="unl-stat850_files/figure-html/unnamed-chunk-241-4.png" width="672" /></p>
+<p><img src="unl-stat850_files/figure-html/unnamed-chunk-242-4.png" width="672" /></p>
 <pre><code>[1] &quot;Category 5 storms&quot;
 [1] &quot;subdata dims: nrow 12 ncol 13&quot;</code></pre>
-<p><img src="unl-stat850_files/figure-html/unnamed-chunk-241-5.png" width="672" /></p>
+<p><img src="unl-stat850_files/figure-html/unnamed-chunk-242-5.png" width="672" /></p>
 <p>If we want to only print informative plots, we could add an if statement. Now that the code works, we can also comment out our print() statements (we could delete them, too, depending on whether we anticipate future problems with the code).</p>
 <div class="sourceCode" id="cb334"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb334-1" data-line-number="1"><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="dv">5</span>) {</a>
 <a class="sourceLine" id="cb334-2" data-line-number="2">  <span class="co"># print(paste0(&quot;Category &quot;, i, &quot; storms&quot;))</span></a>
@@ -777,12 +783,12 @@ First, lets split the setup from the loop.</p>
 <a class="sourceLine" id="cb334-18" data-line-number="18">  </a>
 <a class="sourceLine" id="cb334-19" data-line-number="19">  <span class="cf">if</span> (<span class="kw">nrow</span>(subdata) <span class="op">&gt;</span><span class="st"> </span><span class="dv">0</span>) <span class="kw">print</span>(plot) </a>
 <a class="sourceLine" id="cb334-20" data-line-number="20">}</a></code></pre></div>
-<img src="unl-stat850_files/figure-html/unnamed-chunk-242-1.png" width="672" />
+<img src="unl-stat850_files/figure-html/unnamed-chunk-243-1.png" width="672" />
 </details>
 </div>
 </div>
 <div id="after-an-error-has-occurred---traceback" class="section level3">
-<h3><span class="header-section-number">7.3.2</span> After an error has occurred - <code>traceback()</code></h3>
+<h3><span class="header-section-number">7.4.2</span> After an error has occurred - <code>traceback()</code></h3>
 <p><code>traceback()</code> can help you narrow down where an error occurs by taking you through the series of function calls that led up to the error. This can help, but it can also be pretty arcane.</p>
 <details>
 <p><summary><code>traceback()</code> example</summary></p>
@@ -807,7 +813,7 @@ First, lets split the setup from the loop.</p>
 1: a()</code></pre>
 <p>Reading through this, we see that a() was called, b() was called, c() was called, and then there was an error. It’s even kind enough to tell us that the error occurred at line 4 of the code.</p>
 <p>If you are running this code interactively in RStudio, it’s even easier to run <code>traceback()</code> by clicking on the “Show Traceback” option that appears when there is an error.</p>
-<div class="figure"><span id="fig:unnamed-chunk-245"></span>
+<div class="figure"><span id="fig:unnamed-chunk-246"></span>
 <img src="image/Rstudio_rerun_traceback.png" alt="Both Show Traceback and Rerun with Debug are useful tools" width="50%" />
 <p class="caption">
 Figure 7.2: Both Show Traceback and Rerun with Debug are useful tools
@@ -818,7 +824,7 @@ If you are using <code>source()</code> to run the code in Rstudio, it will even 
 </details>
 </div>
 <div id="browser---debugging-your-own-code-interactively" class="section level3">
-<h3><span class="header-section-number">7.3.3</span> <code>browser()</code> - debugging your own code, interactively</h3>
+<h3><span class="header-section-number">7.4.3</span> <code>browser()</code> - debugging your own code, interactively</h3>
 <p>The <code>browser()</code> function is useful for debugging your own code. If you’re writing a function and something isn’t working quite right, you can insert a call to <code>browser()</code> in that function, and examine what’s going on.</p>
 <details>
 <p><summary>Example of using browser()</summary>
@@ -867,7 +873,7 @@ Suppose that I want to write a function that will plot an xkcd comic in R.</p>
 <a class="sourceLine" id="cb339-24" data-line-number="24"><span class="kw">get_xkcd</span>() <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb339-25" data-line-number="25"><span class="st">  </span><span class="kw">as.raster</span>() <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb339-26" data-line-number="26"><span class="st">  </span><span class="kw">plot</span>()</a></code></pre></div>
-<img src="unl-stat850_files/figure-html/unnamed-chunk-247-1.png" width="672" />
+<img src="unl-stat850_files/figure-html/unnamed-chunk-248-1.png" width="672" />
 </details>
 <div id="try-it-out-1" class="section level4 unnumbered tryitout">
 <h4>Try it out</h4>
@@ -911,12 +917,12 @@ What things might you add to make this function “defensive programming” comp
 <a class="sourceLine" id="cb340-34" data-line-number="34"><span class="kw">get_xkcd</span>(<span class="dv">2259</span>) <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb340-35" data-line-number="35"><span class="st">  </span><span class="kw">as.raster</span>() <span class="op">%&gt;%</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb340-36" data-line-number="36"><span class="st">  </span><span class="kw">plot</span>()</a></code></pre></div>
-<img src="unl-stat850_files/figure-html/unnamed-chunk-248-1.png" width="672" />
+<img src="unl-stat850_files/figure-html/unnamed-chunk-249-1.png" width="672" />
 </details>
 </div>
 </div>
 <div id="debug---the-general-debugging-workhorse" class="section level3">
-<h3><span class="header-section-number">7.3.4</span> <code>debug()</code> - the general debugging workhorse</h3>
+<h3><span class="header-section-number">7.4.4</span> <code>debug()</code> - the general debugging workhorse</h3>
 <p>In the <code>traceback()</code> Rstudio output, the other option is “rerun with debug”. In short, debug mode opens up a new interactive session inside the function evaluation environment. This lets you observe what’s going on in the function, pinpoint the error (and what causes it), and potentially fix the error, all in one neat workflow.</p>
 <p><code>debug()</code> is most useful when you’re working with code that you didn’t write yourself. So, if you can’t change the code in the function causing the error, <code>debug()</code> is the way to go. Otherwise, using <code>browser()</code> is generally easier. Essentially, <code>debug()</code> places a <code>browser()</code> statement at the first line of a function, but without having to actually alter the function’s source code.</p>
 <details>
@@ -1002,7 +1008,7 @@ I’ll replicate “debug” in non-interactive mode by setting up an environmen
 </div>
 </div>
 <div id="debugging-tools-in-sas" class="section level2">
-<h2><span class="header-section-number">7.4</span> Debugging Tools in SAS</h2>
+<h2><span class="header-section-number">7.5</span> Debugging Tools in SAS</h2>
 <p>In SAS, there are two stages that occur after you submit lines to the console.
 - The Compilation Phase: code is parsed. In this step, SAS will catch the logic errors, misspellings, missing key words, etc.
 - The Execution Phase: program is run. In this step, SAS will catch any wrong assignments, loop issues, etc.</p>
@@ -1016,7 +1022,7 @@ I’ll replicate “debug” in non-interactive mode by setting up an environmen
 <p>There are certainly other errors which can occur in SAS – logic errors are not something SAS can protect you from . These errors can have dramatic consequences, as demonstrated in <a href="https://twitter.com/eric_weinhandl/status/1253127109830156289">this twitter thread</a> about a <a href="https://twitter.com/hswapnil/status/1252783448055517185">JAMA retraction due to a coding error</a>. To debug these types of errors, you can use the same print() techniques demonstrated in R. For these types of errors, there’s nothing special about what language you’re using (outside of the usual quirks of every language) - the error is in the logic, not the encoding of that logic.</p>
 </div>
 <div id="minimal-working-examples" class="section level2">
-<h2><span class="header-section-number">7.5</span> Minimal Working Examples</h2>
+<h2><span class="header-section-number">7.6</span> Minimal Working Examples</h2>
 <p>If all else has failed, and you can’t figure out what is causing your error, it’s probably time to ask for help. If you have a friend or buddy that knows the language you’re working in, by all means ask for help sooner - use them as a rubber duck if you have to. But when you ask for help online, often you’re asking people who are much more knowledgeable about the topic - members of R core and SAS browse stackoverflow and may drop in and help you out. Under those circumstances, it’s better to make the task of helping you as easy as possible because it shows respect for their time. The same thing goes for your supervisors and professors.</p>
 <p>So, with that said, there are numerous resources for writing what’s called a “minimal working example”, “reproducible example” (commonly abbreviated reprex), or MCVE (minimal complete verifiable example). Much of this is lifted directly from the StackOverflow post describing a <a href="https://stackoverflow.com/help/minimal-reproducible-example">minimal reproducible example</a>.</p>
 <p>The goal is to reproduce the error message with information that is

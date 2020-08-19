@@ -295,17 +295,18 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="7" data-path="debugging.html"><a href="debugging.html"><i class="fa fa-check"></i><b>7</b> Principles of Debugging</a><ul>
 <li class="chapter" data-level="" data-path="tools.html"><a href="tools.html#module-objectives"><i class="fa fa-check"></i>Module Objectives</a></li>
-<li class="chapter" data-level="7.1" data-path="debugging.html"><a href="debugging.html#defensive-programming"><i class="fa fa-check"></i><b>7.1</b> Defensive Programming</a></li>
-<li class="chapter" data-level="7.2" data-path="debugging.html"><a href="debugging.html#general-debugging-strategies"><i class="fa fa-check"></i><b>7.2</b> General Debugging Strategies</a></li>
-<li class="chapter" data-level="7.3" data-path="debugging.html"><a href="debugging.html#debugging-tools-in-r"><i class="fa fa-check"></i><b>7.3</b> Debugging Tools in R</a><ul>
-<li class="chapter" data-level="7.3.1" data-path="debugging.html"><a href="debugging.html#low-tech-debugging-with-print-and-other-tools"><i class="fa fa-check"></i><b>7.3.1</b> Low tech debugging with print() and other tools</a></li>
-<li class="chapter" data-level="7.3.2" data-path="debugging.html"><a href="debugging.html#after-an-error-has-occurred---traceback"><i class="fa fa-check"></i><b>7.3.2</b> After an error has occurred - <code>traceback()</code></a></li>
-<li class="chapter" data-level="7.3.3" data-path="debugging.html"><a href="debugging.html#browser---debugging-your-own-code-interactively"><i class="fa fa-check"></i><b>7.3.3</b> <code>browser()</code> - debugging your own code, interactively</a></li>
-<li class="chapter" data-level="7.3.4" data-path="debugging.html"><a href="debugging.html#debug---the-general-debugging-workhorse"><i class="fa fa-check"></i><b>7.3.4</b> <code>debug()</code> - the general debugging workhorse</a></li>
+<li class="chapter" data-level="7.1" data-path="debugging.html"><a href="debugging.html#step-1-check-your-spelling."><i class="fa fa-check"></i><b>7.1</b> Step 1: Check your spelling.</a></li>
+<li class="chapter" data-level="7.2" data-path="debugging.html"><a href="debugging.html#defensive-programming"><i class="fa fa-check"></i><b>7.2</b> Defensive Programming</a></li>
+<li class="chapter" data-level="7.3" data-path="debugging.html"><a href="debugging.html#general-debugging-strategies"><i class="fa fa-check"></i><b>7.3</b> General Debugging Strategies</a></li>
+<li class="chapter" data-level="7.4" data-path="debugging.html"><a href="debugging.html#debugging-tools-in-r"><i class="fa fa-check"></i><b>7.4</b> Debugging Tools in R</a><ul>
+<li class="chapter" data-level="7.4.1" data-path="debugging.html"><a href="debugging.html#low-tech-debugging-with-print-and-other-tools"><i class="fa fa-check"></i><b>7.4.1</b> Low tech debugging with print() and other tools</a></li>
+<li class="chapter" data-level="7.4.2" data-path="debugging.html"><a href="debugging.html#after-an-error-has-occurred---traceback"><i class="fa fa-check"></i><b>7.4.2</b> After an error has occurred - <code>traceback()</code></a></li>
+<li class="chapter" data-level="7.4.3" data-path="debugging.html"><a href="debugging.html#browser---debugging-your-own-code-interactively"><i class="fa fa-check"></i><b>7.4.3</b> <code>browser()</code> - debugging your own code, interactively</a></li>
+<li class="chapter" data-level="7.4.4" data-path="debugging.html"><a href="debugging.html#debug---the-general-debugging-workhorse"><i class="fa fa-check"></i><b>7.4.4</b> <code>debug()</code> - the general debugging workhorse</a></li>
 <li class="chapter" data-level="" data-path="intro-prog.html"><a href="intro-prog.html#try-it-out-2"><i class="fa fa-check"></i>Try it out</a></li>
 </ul></li>
-<li class="chapter" data-level="7.4" data-path="debugging.html"><a href="debugging.html#debugging-tools-in-sas"><i class="fa fa-check"></i><b>7.4</b> Debugging Tools in SAS</a></li>
-<li class="chapter" data-level="7.5" data-path="debugging.html"><a href="debugging.html#minimal-working-examples"><i class="fa fa-check"></i><b>7.5</b> Minimal Working Examples</a></li>
+<li class="chapter" data-level="7.5" data-path="debugging.html"><a href="debugging.html#debugging-tools-in-sas"><i class="fa fa-check"></i><b>7.5</b> Debugging Tools in SAS</a></li>
+<li class="chapter" data-level="7.6" data-path="debugging.html"><a href="debugging.html#minimal-working-examples"><i class="fa fa-check"></i><b>7.6</b> Minimal Working Examples</a></li>
 <li class="chapter" data-level="" data-path="tools.html"><a href="tools.html#references"><i class="fa fa-check"></i>References</a></li>
 </ul></li>
 <li class="chapter" data-level="8" data-path="data-vis-intro.html"><a href="data-vis-intro.html"><i class="fa fa-check"></i><b>8</b> Introduction to Data Visualization</a><ul>
@@ -5874,11 +5875,14 @@ Figure 5.1: Apologies for the noninclusive language, but the sentiment is real, 
 <a class="sourceLine" id="cb224-3" data-line-number="3"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">age =</span> <span class="kw">as.numeric</span>(<span class="st">`</span><span class="dt">Victim&#39;s age</span><span class="st">`</span>),</a>
 <a class="sourceLine" id="cb224-4" data-line-number="4">         <span class="dt">name_length =</span> <span class="kw">nchar</span>(<span class="st">`</span><span class="dt">Victim&#39;s name</span><span class="st">`</span>)) <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb224-5" data-line-number="5"><span class="st">  </span><span class="kw">summarize</span>(<span class="dt">age =</span> <span class="kw">mean</span>(age, <span class="dt">na.rm =</span> T), <span class="dt">name_length =</span> <span class="kw">mean</span>(name_length))</a>
-<a class="sourceLine" id="cb224-6" data-line-number="6">Warning <span class="cf">in</span> mask<span class="op">$</span><span class="kw">eval_all_mutate</span>(dots[[i]])<span class="op">:</span><span class="st"> </span>NAs introduced by coercion</a>
-<a class="sourceLine" id="cb224-7" data-line-number="7"><span class="co"># A tibble: 1 x 2</span></a>
-<a class="sourceLine" id="cb224-8" data-line-number="8">    age name_length</a>
-<a class="sourceLine" id="cb224-9" data-line-number="9">  <span class="op">&lt;</span>dbl<span class="op">&gt;</span><span class="st">       </span><span class="er">&lt;</span>dbl<span class="op">&gt;</span></a>
-<a class="sourceLine" id="cb224-10" data-line-number="10"><span class="dv">1</span>  <span class="fl">36.8</span>        <span class="fl">16.6</span></a></code></pre></div>
+<a class="sourceLine" id="cb224-6" data-line-number="6">Warning<span class="op">:</span><span class="st"> </span>Problem with <span class="st">`</span><span class="dt">mutate()</span><span class="st">`</span> input <span class="st">`</span><span class="dt">age</span><span class="st">`</span>.</a>
+<a class="sourceLine" id="cb224-7" data-line-number="7">ℹ NAs introduced by coercion</a>
+<a class="sourceLine" id="cb224-8" data-line-number="8">ℹ Input <span class="st">`</span><span class="dt">age</span><span class="st">`</span> is <span class="st">`</span><span class="dt">as.numeric(</span><span class="st">`</span>Victim<span class="st">&#39;s age`)`.</span></a>
+<a class="sourceLine" id="cb224-9" data-line-number="9"><span class="st">Warning in mask$eval_all_mutate(dots[[i]]): NAs introduced by coercion</span></a>
+<a class="sourceLine" id="cb224-10" data-line-number="10"><span class="st"># A tibble: 1 x 2</span></a>
+<a class="sourceLine" id="cb224-11" data-line-number="11"><span class="st">    age name_length</span></a>
+<a class="sourceLine" id="cb224-12" data-line-number="12"><span class="st">  &lt;dbl&gt;       &lt;dbl&gt;</span></a>
+<a class="sourceLine" id="cb224-13" data-line-number="13"><span class="st">1  36.8        16.6</span></a></code></pre></div>
 <p>In SAS, we can do something similar:</p>
 <pre class="sashtml"><code>libname classdat &quot;/home/susan/Projects/Class/unl-stat850/2020-stat850/sas/&quot;;
 
