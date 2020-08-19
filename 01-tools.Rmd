@@ -143,7 +143,7 @@ You can then click on a dataset and you will get a spreadsheet-like view.
 
 ## Version Control with Git
 
-<img alt="You don't want to end up here. Version control is the answer to this problem." src="http://www.phdcomics.com/comics/archive/phd101212s.gif)" width = "50%"/>
+<img alt="You don't want to end up here. Version control is the answer to this problem." src="http://www.phdcomics.com/comics/archive/phd101212s.gif" width = "50%"/>
 
 Git is a program whose primary purpose is version control. Git tracks changes to each file that it is told to monitor, and as the files change, you provide short labels describing what the changes were and why they exist (called "commits"). The log of these changes (along with the file history) is called your git commit history. 
 
