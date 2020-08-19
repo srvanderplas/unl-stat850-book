@@ -18,6 +18,22 @@ Note: The skills in this chapter take a lifetime to truly master. The real goal 
 
 !["It has a ghost in it. Take it back."  "No." (xkcd #1316)](https://imgs.xkcd.com/comics/inexplicable.png)
 
+## Step 1: Check your spelling.
+
+I'll guess that 80% of my personal debugging comes down to spelling errors and misplaced punctuation. 
+
+```{r, echo = F}
+if(!"tweetrmd"%in%installed.packages()) devtools::install_github("gadenbuie/tweetrmd")
+if(!"webshot2"%in%installed.packages()) devtools::install_github("rstudio/webshot2")
+# library(tweetrmd) # github.com/gadenbuie/tweetrmd
+# library(memoise) # cache screenshots
+tweet_cached <- memoise::memoise(tweetrmd::tweet_embed, cache = cache_filesystem('.tweets'))
+tweet_shot_cached <- memoise::memoise(tweetrmd::tweet_screenshot, cache = cache_filesystem('.tweets'))
+
+tweetrmd::tweet_screenshot(tweetrmd::tweet_url("Nasser_Junior", "1295805928315531264"))
+```
+
+
 ## Defensive Programming
 
 One of the best debugging strategies (that isn't a debugging strategy at all, really) is to code defensively. By that, I mean, code in a way that you will make debugging things easier later. 
