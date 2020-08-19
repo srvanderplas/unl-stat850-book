@@ -141,6 +141,13 @@ If you click on libraries, you get to this list:
 
 You can then click on a dataset and you will get a spreadsheet-like view. 
 
+
+### SAS Modules
+
+SAS is a very large set of programs. In this class, we're primarily working with base SAS (the underlying language and interpreter), SAS/STAT (the statistical procedures, like PROC GLM), and SAS/IML, which is SAS's version of a scripting language. IML allows you to implement your own procedures "from scratch". 
+
+Initially, we'll primarily focus on SAS/IML, because it contains information parallel to what you need to know to start programming in R. It's easier to teach general programming concepts at the same time, even if your typical SAS course would probably introduce you to the DATA step and simple PROC statements first. 
+
 ## Version Control with Git
 
 <img alt="You don't want to end up here. Version control is the answer to this problem." src="http://www.phdcomics.com/comics/archive/phd101212s.gif" width = "50%"/>
