@@ -447,7 +447,7 @@ Figure 2.1: This is basically the class summarized.
 <details>
 <p><summary>I’m teaching SAS very differently</summary>
 I’m definitely teaching SAS differently than it is normally taught. This is so that we don’t have to do half the semester in SAS and half in R - I’d rather teach the concepts and show you how they’re implemented than split them up by language. BUT, this means that some of the things we’re doing first in SAS are things you wouldn’t normally do until you were already proficient in SAS. It also means that SAS is probably going to seem even more oddly organized when taught this way than it actually is (and it is oddly organized, in my opinion).</p>
-We’re going to start with SAS IML (programming concepts) and then talk about the DATA step. Then, we’ll start in on the PROCs - SQL, Transpose, and Graphing, mostly.
+We’re going to start with SAS IML (programming concepts) and then talk about the DATA step. We’ll use some procedures implicitly along the way, but hopefully that will make sense in context. Then, we’ll work on the PROCs (SQL, Transpose, and graphing) - in greater detail.
 </details>
 <details>
 <p><summary>If you’ve used R or SAS a lot in the past</summary>
@@ -907,6 +907,7 @@ NOTE: DATA statement used (Total process time):
       real time           0.00 seconds
       cpu time            0.00 seconds
       </code></pre>
+<p>The <code>.</code> in SAS is a missing value (like <code>NA</code> in R). So SAS is behaving basically like R does: it complains about the fact that you asked it to add a string to a number, and then it stores the result as a missing value.</p>
 </details>
 </div>
 </div>
@@ -1759,16 +1760,15 @@ A tibble is a fancy data frame that is optimized to work with the <code>tidyvers
 <div id="data-sets-sas" class="section level4 unnumbered">
 <h4>Data Sets (SAS)</h4>
 <p>The SAS data set structure is similar to a R data frame.</p>
-<div class="figure">
-<img src="https://documentation.sas.com/api/docsets/basess/9.4/content/images/data-fit.png" alt="This is a schematic of a data set as taken from the SAS documentation" />
-<p class="caption">This is a schematic of a data set as taken from the SAS documentation</p>
-</div>
-<p>In SAS, missing values are indicated with <code>.</code>.</p>
+<p><img src="image/02_sas_dataset.png" alt="This is a schematic of a data set as taken from the SAS documentation" />
+<!-- https://documentation.sas.com/api/docsets/basess/9.4/content/images/data-fit.png original source for the image --></p>
+<p>In SAS, missing values are indicated with <code>.</code></p>
 <p>SAS datasets also come with a description which is attached to the table. The descriptor portion of the data set records names of variables (and attributes), numbers of observations, and date/time stamps of creation and updates.</p>
 <details>
 <p><summary>Creating a SAS data set</summary>
 In the next code chunk, we’ll create a data set using a SAS Data step. We’ll talk more about the anatomy of a SAS command later, but for now, notice that I’m specifying some metadata (the title), telling SAS what the variable names are (Drugs, Score), and then providing some data (indicated by the datalines statement).</p>
 <pre class="sashtml"><code>/* Data source: http://blog.yhat.com/posts/7-funny-datasets.html */
+  
 data mathMJ;
 title &#39;Average math test scores under the influence of LSD&#39;;
 input Drugs	Score;
@@ -1836,7 +1836,7 @@ V9
 Physical Name
 </th>
 <td class="l data">
-/tmp/SAS_workBB7500003248_silicon
+/tmp/SAS_workE23B0000715B_silicon
 </td>
 </tr>
 <tr>
@@ -1844,7 +1844,7 @@ Physical Name
 Filename
 </th>
 <td class="l data">
-/tmp/SAS_workBB7500003248_silicon
+/tmp/SAS_workE23B0000715B_silicon
 </td>
 </tr>
 <tr>
@@ -1852,7 +1852,7 @@ Filename
 Inode Number
 </th>
 <td class="l data">
-11538215
+12855666
 </td>
 </tr>
 <tr>
@@ -1941,46 +1941,12 @@ DATA
 128KB
 </td>
 <td class="l data">
-06/24/2020 17:51:27
+08/23/2020 09:24:16
 </td>
 </tr>
 <tr>
 <th class="r rowheader" scope="row">
 2
-</th>
-<td class="l data">
-PROFILE
-</td>
-<td class="l data">
-CATALOG
-</td>
-<td class="r data">
-12KB
-</td>
-<td class="l data">
-06/24/2020 17:51:27
-</td>
-</tr>
-<tr>
-<th class="r rowheader" scope="row">
-3
-</th>
-<td class="l data">
-REGSTRY
-</td>
-<td class="l data">
-ITEMSTOR
-</td>
-<td class="r data">
-32KB
-</td>
-<td class="l data">
-06/24/2020 17:51:27
-</td>
-</tr>
-<tr>
-<th class="r rowheader" scope="row">
-4
 </th>
 <td class="l data">
 SASMAC3
@@ -1992,7 +1958,7 @@ CATALOG
 20KB
 </td>
 <td class="l data">
-06/24/2020 17:51:27
+08/23/2020 09:24:16
 </td>
 </tr>
 </tbody>
@@ -2072,7 +2038,7 @@ Indexes
 Created
 </th>
 <td class="l data">
-06/24/2020 17:51:27
+08/23/2020 09:24:16
 </td>
 <th class="l rowheader" scope="row">
 Observation Length
@@ -2086,7 +2052,7 @@ Observation Length
 Last Modified
 </th>
 <td class="l data">
-06/24/2020 17:51:27
+08/23/2020 09:24:16
 </td>
 <th class="l rowheader" scope="row">
 Deleted Observations
@@ -2232,7 +2198,7 @@ Number of Data Set Repairs
 Filename
 </th>
 <td class="l data">
-/tmp/SAS_workBB7500003248_silicon/mathmj.sas7bdat
+/tmp/SAS_workE23B0000715B_silicon/mathmj.sas7bdat
 </td>
 </tr>
 <tr>
@@ -2256,7 +2222,7 @@ Linux
 Inode Number
 </th>
 <td class="l data">
-11538332
+12855669
 </td>
 </tr>
 <tr>
@@ -2490,7 +2456,7 @@ Score
 </div>
 <br>
 </div>
-<p>The last two blocks are SAS procedures (PROCs). In the first block, I’m asking SAS to describe the contents of the mathMJ dataset. In the second block, I’m telling SAS to print the whole mathMJ dataset out.</p>
+The last two blocks are SAS procedures (PROCs). In the first block, I’m asking SAS to describe the contents of the mathMJ dataset. In the second block, I’m telling SAS to print the whole mathMJ dataset out.
 </details>
 </div>
 </div>
@@ -2636,6 +2602,7 @@ x
 </div>
 <br>
 </div>
+Note on the SAS code: where statements allow you to select part of the data for further processing. There was a note earlier about the fact that type conversion doesn’t happen in where clauses… this is one of those clauses. We’ll get into where clauses in more detail later, in module 5.
 </details>
 </div>
 </div>
