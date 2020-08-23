@@ -28,14 +28,28 @@ If all else fails, while you're waiting for someone to help you figure out what 
 - Use control structures (loops and conditionals) effectively
 - Use matrix algebra functionality in R and SAS to perform basic calculations
 
-More informally, the goal is to get familiar with the basics of each programming language.
+More informally, the goal is to get familiar with the basics of each programming language, and to show you where to find references for how to use each command -- because (at least) half of programming is knowing where to look something up. 
 
+::: note
+<details><summary>I'm teaching SAS very differently</summary>
+I'm definitely teaching SAS differently than it is normally taught. This is so that we don't have to do half the semester in SAS and half in R - I'd rather teach the concepts and show you how they're implemented than split them up by language. BUT, this means that some of the things we're doing first in SAS are things you wouldn't normally do until you were already proficient in SAS. It also means that SAS is probably going to seem even more oddly organized when taught this way than it actually is (and it is oddly organized, in my opinion).
+
+We're going to start with SAS IML (programming concepts) and then talk about the DATA step. We'll use some procedures implicitly along the way, but hopefully that will make sense in context. Then, we'll work on the PROCs (SQL, Transpose, and graphing) - in greater detail. 
+</details>
+
+<details><summary>If you've used R or SAS a lot in the past</summary>
+Note: If you've programmed before, this chapter is going to seem very ... boring. Sorry, there's no help for that. Some of your classmates haven't ever so much as written "Hello World", and we have to get them up to speed. 
+
+If you're bored, or feel like you know this material, skim through it anyways just to confirm (and if I'm doing something that's really out there, or there's an easier way to do it, tell me!). Then you can either find something in the references that you don't know already (the book Advanced R is always a great place to start if you want to be quickly confused), or help your classmates that are less experienced. 
+</details>
+:::
 
 ## Definitions {-}
 
 Many programming resources talk about 3, or 5, or 10 core concepts in any programming language. In this module, we're going to discuss the generic concepts, and then how these concepts are implemented in R and SAS.
 
-Interestingly, the "core concepts" aren't necessarily the same across lists. So, here is a consensus list of concepts which are generic across languages and usually important:
+Interestingly, the "core concepts" aren't necessarily the same across lists. 
+<details><summary>So, here is a consensus list of concepts which are generic across languages and usually important</summary>
 
 1. **Variables** - a symbolic name or reference to some kind of information. In the expression `a + b > a`, both `a` and `b` are variables. Variables may have a specific type (what data can be stored in the variable), scope (where the variable can be accessed), location (in memory). [Here](https://dev.to/lucpattyn/basic-programming-concepts-for-beginners-2o73) is a nice explanation of the difference between variables in programming and variables in math.
 
@@ -52,15 +66,17 @@ Interestingly, the "core concepts" aren't necessarily the same across lists. So,
 7. **Tools**, the set of external programs which may help with development and writing code. Some common tools are IDEs (Integrated Development Environments), which may correct syntax and typos, organize files for you, allow you to keep track of which variables you have defined, and assist you with code organization and navigation. Other tools include compilers (which take human-written code and translate it into efficient machine code), version control systems (which help you track changes to code over time), debuggers, and documentation generators. Not all of these tools are necessary for all languages - scripting languages such as python and R do not require compilers by default, for instance.  
 
 8. **Sequence of commands**: It's important to have the right commands in the right order. Some recipes, like bread dough, are flexible, and you can add the ingredients in almost any order, but in other recipes, the order matters as much as the correct quantity of ingredients (try putting the cheese powder in before the noodles are boiled when making macaroni and cheese. Yuck.). Programming tends to be like these less flexible recipes. 
-
+</details>
 
 ## Statistical Programming Languages {-}
 
-Having established the generic definitions of the concepts which apply to almost any programming language, we now must examine how R and SAS implement these concepts. R and SAS are both statistical programming languages - they are specifically designed to work with data, which means that they make compromises that other languages do not in order to make it easier to write code where the data (rather than the functions, classes, methods, or objects) are the primary concern.
+Having established the generic definitions of the concepts which apply to almost any programming language, we now must examine how R and SAS implement these concepts. R and SAS are both *statistical* programming languages - they are specifically designed to work with data, which means that they make compromises that other languages do not in order to make it easier to write code where the data (rather than the functions, classes, methods, or objects) are the primary concern.
 
-Both [R](https://bookdown.org/rdpeng/rprogdatascience/history-and-overview-of-r.html) and [SAS](https://en.wikipedia.org/wiki/SAS_(software)#History) have long histories. SAS in particular dates back to the 1960s, and has syntax which is unique compared to more modern languages such as C, python, Java, and R. R's predecessor, S, dates back to 1976 and was designed for internal use at Bell Labs. The histories of both languages are useful in understanding why they are useful for their respective tasks, but are not essential for this course (so read them at your leisure).
+Both [R](https://bookdown.org/rdpeng/rprogdatascience/history-and-overview-of-r.html) and [SAS](https://en.wikipedia.org/wiki/SAS_(software)#History) have long histories. SAS in particular dates back to the 1960s, and has syntax which is unique compared to more modern languages such as C, python, Java, and R. R's predecessor, S, dates back to 1976 and was designed for internal use at Bell Labs. The histories of both languages are useful in understanding why they are optimized for their respective tasks, but are not essential for this course (so read them at your leisure).
 
-The biggest difference between R and SAS (at a fundamental level) is that R is a [**functional** language](http://adv-r.had.co.nz/Functional-programming.html) - it consists mainly of functions, which can (and do) manipulate objects, including other functions. SAS, on the other hand, is a procedural language - most SAS programs follow a specific series of steps, known as "proc"s. Procs are essentially functions (or compositions of multiple functions), but in SAS, it is simpler to think of an analysis as a series of procedural steps; in R, there are steps, but they may be implemented in a more flexible way (depending on the analysis). Another interesting feature of SAS is that it's really several languages - some commands work in PROC IML (interactive matrix language) but not in a DATA step. When looking for help in SAS, make sure you're referencing the correct part of the language documentation.
+The biggest difference between R and SAS (at a fundamental level) is that R is a [**functional** language](http://adv-r.had.co.nz/Functional-programming.html) - it consists mainly of functions, which can (and do) manipulate objects, including other functions. SAS, on the other hand, is a procedural language - most SAS programs follow a specific series of steps, known as "proc"s. Procs are essentially functions (or compositions of multiple functions), but in SAS, it is simpler to think of an analysis as a series of procedural steps; in R, there are steps, but they may be implemented in a more flexible way (depending on the analysis). 
+
+Another interesting feature of SAS is that it's really several languages - some commands work in PROC IML (interactive matrix language) but not in a DATA step. When looking for help in SAS, make sure you're referencing the correct part of the language documentation.
 
 ::: learn-more
 **Basic Syntax and Cheatsheets**
@@ -72,7 +88,6 @@ The biggest difference between R and SAS (at a fundamental level) is that R is a
 - [SAS Programming for R Users (free book)](https://support.sas.com/content/dam/SAS/support/en/books/free-books/sas-programming-for-r-users.pdf)
 
 I kept the classic R reference card by my computer for about 5 years, and referenced it at least once or twice a day for that entire period. There will be other cheat sheets and reference cards scattered through this book because if you can't remember something's name, you might be able to remember where it is on the reference card (or at least, that's how I learned R).
-
 :::
 
 
@@ -160,7 +175,9 @@ is.numeric(x)
 </details>
 
 <details><summary>Numeric Variables</summary>
-A fifth common "type"^[`numeric` is not really a type, it's a mode. Run `?mode` for more information.], `numeric` is really the union of two types: integer and double, and you may come across it when using `str()` or `mode()`, which are similar to `typeof()` but do not quite do the same thing. The `numeric` category exists because when doing math, we can add an integer and a double, but adding an integer and a string is ... trickier. Testing for numeric variables guarantees that we'll be able to do math with those variables. `is.numeric()` and `as.numeric()` work as you would expect them to work.
+A fifth common "type"^[`numeric` is not really a type, it's a mode. Run `?mode` for more information.], `numeric` is really the union of two types: integer and double, and you may come across it when using `str()` or `mode()`, which are similar to `typeof()` but do not quite do the same thing.
+
+The `numeric` category exists because when doing math, we can add an integer and a double, but adding an integer and a string is ... trickier. Testing for numeric variables guarantees that we'll be able to do math with those variables. `is.numeric()` and `as.numeric()` work as you would expect them to work.
 
 The general case of this property of a language is called **implicit type conversion** - that is, R will implicitly (behind the scenes) convert your integer to a double and then add the other double, so that the result is unambiguously a double. 
 </details>
@@ -187,7 +204,7 @@ as.double(2L) + 3.1415
 as.numeric("abcd") + 3
 ```
 
-When we make our intent explicit (convert "abcd" to a numeric variable) we get an NA - a missing value. There's still no easy way to figure out where "abcd" is on a number line, but our math will still have a result - NA + 3 is NA.
+When we make our intent explicit (convert "abcd" to a numeric variable) we get an NA - a missing value. There's still no easy way to figure out where "abcd" is on a number line, but our math will still have a result - `NA + 3` is `NA`.
 
 If you are unsure what the type of a variable is, use the `typeof()` function to find out. 
 
@@ -207,15 +224,23 @@ typeof(z)
 
 #### Factors {#introfactors}
 
-In R, there is one other type of variable to know about, and that is a factor. Factors are basically labeled integers. Instead of storing the data as a string or character, R instead stores the data as a series of integers, and then stores a separate table mapping the integers to labels. This is technically more efficient, but it is also (and this is the technical term) a pain in the ass. 
+In R, there is one other type of variable to know about, and that is a factor. Factors are basically labeled integers. Instead of storing the data as a string or character, R instead stores the data as a series of integers, and then stores a separate table mapping the integers to labels. This is technically more efficient (which was important when computers had extremely limited memory), but it is also a pain in the rear (that's a technical term). 
 
-Factors are the default way to store characters for most base R functions. Or rather, they were. In R 4.0, the default way to read data in will change from `stringsAsFactors = T` to `stringsAsFactors = F`.^[You can read about why factors aren't ideal [here](https://developer.r-project.org/Blog/public/2020/02/16/stringsasfactors/index.html)]
+Factors are the default way to store characters for most base R functions. Or rather, they were. In R 4.0, the default way to read data in will change from `stringsAsFactors = T` to `stringsAsFactors = F`. You can read about why factors aren't ideal [here](https://developer.r-project.org/Blog/public/2020/02/16/stringsasfactors/index.html), which helps explain why this change was made. 
+
+Depending on what version of R you have installed, you may run into errors related to factors, or not. Because R 4.0 is so new (released in May 2020) <!-- time-specific XXX fix later --> most of the tutorials online will probably have behavior that isn't matched by your R installation. I'm new enough to R 4.0 that I'm not sure when factor related errors will pop up.
+
+Other reasons to learn factors besides for debugging purposes:
+
+- They allow you to control the order of things in graphs, tables, and models
+- They allow you to easily change category labels without having to sort through an entire data table
+- ... I'm sure there are more, but I'm drawing a blank at the moment
 
 
 <details class="example"><summary>Factors example</summary>
 
 ::: note
-In this example, we'll use a data.frame, which you can think of as a spreadsheet-type table. We'll work with data frames later in much more detail, but for now, I'm mostly trying to show you a real-life situation that happens ALL the time, with the hopes that you'll recognize the error when you encounter it. The data frame isn't the important part. 
+In this example, we'll use a data.frame, which you can think of as a spreadsheet-type table. We'll work with data frames later in much more detail, but for now, I'm mostly trying to show you a real-life situation that happens ALL the time, with the hopes that you'll recognize the error when/if you encounter it. The data frame isn't the important part. 
 :::
 
 Let's look at the names of the months:
@@ -322,7 +347,7 @@ In R, adding a string to a string creates an error ("non-numeric argument to bin
 
 ### SAS
 
-In SAS, there are two basic variable types: numeric and character variables. Thus, SAS does not differentiate between integers and floats or doubles. Functionally, though, the same basic operations can be performed in SAS. As with R, SAS does attempt to implicitly convert variable types, and will notify you that the conversion has taken place in the log file.
+In SAS, there are two basic variable types: numeric and character variables. SAS does not differentiate between integers and floats and doubles. Functionally, though, the same basic operations can be performed in SAS. As with R, SAS does attempt to implicitly convert variable types, and will notify you that the conversion has taken place in the log file.
 
 #### Type Conversions
 SAS will attempt to implicitly convert variables when:
@@ -337,7 +362,7 @@ Implicit conversion does not occur in WHERE statements. (This will make more sen
 :::
 
 <details><summary>Manual type conversions</summary>
-If you want to manually convert a value, the INPUT statement can be used. Unlike in R, the INPUT statement has the ability to read numbers which are formatted differently. For instance
+If you want to manually convert a value, use the INPUT statement. Unlike in R, the INPUT statement has the ability to read numbers which are formatted differently. For instance
 
 ```{sashtml sas-ex}
 proc printto log="saslog.log" new;
@@ -414,6 +439,8 @@ cat(readLines("saslog.log"), sep="\n")
 # Do not forget to remove the log file when you are done!
 unlink("saslog.log")
 ```
+
+The `.` in SAS is a missing value (like `NA` in R). So SAS is behaving basically like R does: it complains about the fact that you asked it to add a string to a number, and then it stores the result as a missing value. 
 
 </details>
 
@@ -721,9 +748,10 @@ You can see a couple of examples [here](https://jennybc.github.io/purrr-tutorial
 
 The SAS data set structure is similar to a R data frame.
 
-![This is a schematic of a data set as taken from the SAS documentation](https://documentation.sas.com/api/docsets/basess/9.4/content/images/data-fit.png)
+![This is a schematic of a data set as taken from the SAS documentation](image/02_sas_dataset.png)
+<!-- https://documentation.sas.com/api/docsets/basess/9.4/content/images/data-fit.png original source for the image -->
 
-In SAS, missing values are indicated with `.`.
+In SAS, missing values are indicated with `.`
 
 SAS datasets also come with a description which is attached to the table. The descriptor portion of the data set records names of variables (and attributes), numbers of observations, and date/time stamps of creation and updates.
 
@@ -731,6 +759,7 @@ SAS datasets also come with a description which is attached to the table. The de
 In the next code chunk, we'll create a data set using a SAS Data step. We'll talk more about the anatomy of a SAS command later, but for now, notice that I'm specifying some metadata (the title), telling SAS what the variable names are (Drugs, Score), and then providing some data (indicated by the datalines statement). 
 ```{sashtml mj-data-step}
 /* Data source: http://blog.yhat.com/posts/7-funny-datasets.html */
+  
 data mathMJ;
 title 'Average math test scores under the influence of LSD';
 input Drugs	Score;
@@ -752,8 +781,8 @@ run;
 proc print data = mathMJ;
 run;
 ```
-The last two blocks are SAS procedures (PROCs). In the first block, I'm asking SAS to describe the contents of the mathMJ dataset. In the second block, I'm telling SAS to print the whole mathMJ dataset out. 
 
+The last two blocks are SAS procedures (PROCs). In the first block, I'm asking SAS to describe the contents of the mathMJ dataset. In the second block, I'm telling SAS to print the whole mathMJ dataset out. 
 </details>
 
 ### Indexing
@@ -842,6 +871,8 @@ run;
 proc print data = sum_x; /* print our sum_x dataset */
 run;
 ```
+
+Note on the SAS code: where statements allow you to select part of the data for further processing. There was a note earlier about the fact that type conversion doesn't happen in where clauses... this is one of those clauses. We'll get into where clauses in more detail later, in module 5. 
 </details>
 </div>
 </div>
@@ -1696,21 +1727,44 @@ quit;
 ## References and Links {- .learn-more}
 Non-exhaustive list of general R and SAS references used in this chapter:
 
-- SAS Matrix reference: http://www.math.wpi.edu/saspdf/iml/chap4.pdf
-- Data structures in Advanced R: http://adv-r.had.co.nz/Data-structures.html
+- [SAS Matrix reference](http://www.math.wpi.edu/saspdf/iml/chap4.pdf)
 - [SAS Data set documentation](https://documentation.sas.com/?docsetId=basess&docsetTarget=p1f5xhmkdfhyjcn1n6k9wdcacba0.htm&docsetVersion=9.4&locale=en)
-- [Loops in SAS](https://blogs.sas.com/content/iml/2011/09/07/loops-in-sas.html) and [SAS documentation for DO WHILE](https://support.sas.com/documentation/cdl/en/lestmtsref/63323/HTML/default/viewer.htm#p1awxgleif5wlen1pja0nrn6yi6i.htm) loops
-- [Random number generation in SAS](https://www.sas.com/content/dam/SAS/support/en/sas-global-forum-proceedings/2018/1810-2018.pdf)
-- [Repeatable random number generation in R](http://www.cookbook-r.com/Numbers/Generating_repeatable_sequences_of_random_numbers/)
 - [Creating SAS Data Sets from IML](https://support.sas.com/content/dam/SAS/support/en/books/simulating-data-with-sas/65378_Appendix_A_A_SAS_IML_Primer.pdf) (also [this](https://education.illinois.edu/docs/default-source/carolyn-anderson/edpsy584/SAS_iml.pdf) friendly guide and [this](https://blogs.sas.com/content/iml/2019/07/17/write-numeric-character-matrices-data-set.html) blog post)
 - [SAS Data Step options](https://libguides.library.kent.edu/SAS/DataStep)
 - [SAS Mathematical Operators](https://www.tutorialspoint.com/sas/sas_operators.htm)
-- [SAS and R compared (by SAS)](https://blogs.sas.com/content/sgf/2020/03/19/free-e-book-sas-programming-for-r-users/)
 - [Lists and Data Structures in SAS](https://documentation.sas.com/?docsetId=imlug&docsetTarget=imlug_lists_gettingstarted03.htm&docsetVersion=14.3&locale=en)
+- [Loops in SAS](https://blogs.sas.com/content/iml/2011/09/07/loops-in-sas.html) and [SAS documentation for DO WHILE](https://support.sas.com/documentation/cdl/en/lestmtsref/63323/HTML/default/viewer.htm#p1awxgleif5wlen1pja0nrn6yi6i.htm) loops
+- [Random number generation in SAS](https://www.sas.com/content/dam/SAS/support/en/sas-global-forum-proceedings/2018/1810-2018.pdf)
+
+- [SAS and R compared (by SAS)](https://blogs.sas.com/content/sgf/2020/03/19/free-e-book-sas-programming-for-r-users/)
+- [Repeatable random number generation in R](http://www.cookbook-r.com/Numbers/Generating_repeatable_sequences_of_random_numbers/)
+- [Data structures in Advanced R](http://adv-r.had.co.nz/Data-structures.html)
+
+### Cheat Sheets and Reference Cards
+
+- [SAS Cheatsheet (from another class like this)](https://sites.ualberta.ca/~ahamann/teaching/renr480/SAS-Cheat.pdf)
+- [SAS Cheatsheet (by SAS)](https://support.sas.com/content/dam/SAS/support/en/books/data/base-syntax-ref.pdf)
+- [R Cheatsheet](https://rstudio.com/wp-content/uploads/2016/10/r-cheat-sheet-3.pdf) - this is a simplified cheat sheet offered by RStudio. 
+- [R Cheatsheet (classic)](https://cran.r-project.org/doc/contrib/Short-refcard.pdf)
+- [SAS Programming for R Users (free book)](https://support.sas.com/content/dam/SAS/support/en/books/free-books/sas-programming-for-r-users.pdf) and [github site with training materials](https://github.com/sassoftware/sas-prog-for-r-users)
+- [R programming for SAS users](http://r4stats.com/books/free-version/) - site for the book, plus link to a free early version of the book (the book is now published)
+
+### SAS (as taught in other places)
+- [Introduction to SAS](https://online.stat.psu.edu/statprogram/stat480) - Undergraduate course at Penn State
+- [Intermediate SAS](https://online.stat.psu.edu/statprogram/stat481) - Undergraduate course at Penn State
+- [Advanced SAS](https://online.stat.psu.edu/statprogram/stat482) - Undergraduate course at Penn State
+
+### R courses (as taught elsewhere) and Textbooks
+- [Stat 579 at Iowa State](https://stat579-at-isu.github.io/schedule.html) (as taught by Heike Hofmann)
+- [Stat 545 at Univ. British Columbia](https://stat545.com/) (developed by Jenny Bryan)
+- [R for Data Science](https://r4ds.had.co.nz/) - R textbook (free) by Hadley Wickham and Garret Grolemund
+- [Advanced R](http://adv-r.had.co.nz/Introduction.html) by Hadley Wickham
+
+### Combination of R and SAS courses
+- [Stat 850](https://www.chrisbilder.com/stat850/) as taught by Chris Bilder at UNL
 
 
-
-Non-Exhaustive List of Sources used to aggregate "core programming concepts": 
+### Non-Exhaustive List of Sources used to aggregate "core programming concepts": 
 
 - https://blog.upperlinecode.com/computer-language-fundamentals-five-core-concepts-1aa43e929f40
 - https://howtoprogramwithjava.com/programming-101-the-5-basic-concepts-of-any-programming-language/
