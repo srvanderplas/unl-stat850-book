@@ -197,6 +197,19 @@ If you want, you can hook Git up to GitHub, and make a copy of your local git re
 
 Remember: any data you don't have in 3 different places is data you don't care about.^[Yes, I'm aware that this sounds paranoid. It's been a very rare occasion that I've needed to restore something from another backup. You don't want to take chances. I knew a guy who had to retype his entire masters thesis from the printed out version the night before it was due because he had stored it on a network drive that was decommissioned. You don't want to be that person.]
 
+## LaTeX
+
+LaTeX is a typesetting program, which makes it different from most other document creation software, such as MS Word, which is "WYSIWYG" - what you see is what you get. In LaTeX, you'll type in code to create a document, and LaTeX will compile the document into something pretty. The goal is that you have to think less about formatting and what goes on which page - LaTeX will handle that part for you - so that you can think more about the content.
+
+In practice, it doesn't usually work out like that, so there are programs like markdown which aim to simplify document creation even more to free you from the formatting that LaTeX requires. 
+
+LaTeX is often used for typesetting statistical and mathematical papers because its equation editor is top notch. (It was actually written by Donald Knuth because he got so annoyed trying to write his dissertation that he took some time off to write TeX first, and then used it to write his dissertation).^[Amusingly, `knitr` was written in much the same manner. Yihui Xie had to substitute-teach ISU's version of 850 on the day we covered Sweave (a predecessor to knitr). He got so frustrated teaching the class that he went home and started writing `knitr`. Later, he developed Rmarkdown, bookdown, blogdown, and several other packages aimed at making writing documents + code easier to handle.    
+Moral of the story - if you get frustrated with the tools you have, you're in good company. Use it as fuel to make better tools.] 
+
+If you want to install LaTeX so that you can use it outside of R/RStudio, go [here](https://www.latex-project.org/get/) for operating system specific instructions. If you don't care about being able to access it outside of R, then you can put it off until you run the code in the next section - one of the packages that is installed is `tinytex`, which will make it easy to install LaTeX within R. 
+
+We'll work with LaTeX later in the semester, but for now, we'll be primarily working with Markdown, which is much simpler. [Here's a quick cheatsheet](https://rmarkdown.rstudio.com/authoring_basics.html). 
+
 ## Easy Extra Setup Script
 
 Copy [this script](code/01_setup_install.R) into a text editor in RStudio on your machine. It will ask you for some input - your name, email address, etc. -- Make those changes in the text document, and then source the document. 
@@ -208,18 +221,6 @@ source("code/01_setup_install.R")
 ```
 
 This script will set up git for you (e.g. the introduce yourself to git section above) and then will install `tinytex`, which is a version of LaTeX that is very simple and easy to install. If you want to install a different version of LaTeX instead (like MikTex or TexLive) feel free to do so. 
-
-## LaTeX
-
-LaTeX is a typesetting program, which makes it different from most other document creation software, such as MS Word, which is "WYSIWYG" - what you see is what you get. In LaTeX, you'll type in code to create a document, and LaTeX will compile the document into something pretty. The goal is that you have to think less about formatting and what goes on which page - LaTeX will handle that part for you - so that you can think more about the content.
-
-In practice, it doesn't usually work out like that, so there are programs like markdown which aim to simplify document creation even more to free you from the formatting that LaTeX requires. 
-
-LaTeX is often used for typesetting statistical and mathematical papers because its equation editor is top notch. (It was actually written by Donald Knuth because he got so annoyed trying to write his dissertation that he took some time off to write TeX first, and then used it to write his dissertation).^[Amusingly, `knitr` was written in much the same manner. Yihui Xie had to substitute-teach ISU's version of 850 on the day we covered Sweave (a predecessor to knitr). He got so frustrated teaching the class that he went home and started writing `knitr`. Later, he developed Rmarkdown, bookdown, blogdown, and several other packages aimed at making writing documents + code easier to handle.
-
-Moral of the story - if you get frustrated with the tools you have, you're in good company. Use it as fuel to make better tools.] 
-
-We'll work with LaTeX later in the semester, but for now, we'll be primarily working with Markdown, which is much simpler. [Here's a quick cheatsheet](https://rmarkdown.rstudio.com/authoring_basics.html). 
 
 ## Topic Sequencing
 
