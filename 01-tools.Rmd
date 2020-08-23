@@ -201,6 +201,14 @@ Remember: any data you don't have in 3 different places is data you don't care a
 
 LaTeX is a typesetting program, which makes it different from most other document creation software, such as MS Word, which is "WYSIWYG" - what you see is what you get. In LaTeX, you'll type in code to create a document, and LaTeX will compile the document into something pretty. The goal is that you have to think less about formatting and what goes on which page - LaTeX will handle that part for you - so that you can think more about the content.
 
+<details><summary>Why use LaTeX?</summary>
+<img src="image/02_word_formatting.png" alt="using microsoft word: moves an image one mm to the left. all text and images shift. four new pages appear. paragraph breaks form a union. a swarm of commas buzzes at the window. In the distance, sirens." width="50%"/>
+
+(shamelessly stolen from FB, which apparently stole it from Tumblr)
+
+Latex is meant for you to focus on the content and not worry about the formatting - the computer optimizes figure placement according to directives you've given. 
+</details>
+
 In practice, it doesn't usually work out like that, so there are programs like markdown which aim to simplify document creation even more to free you from the formatting that LaTeX requires. 
 
 LaTeX is often used for typesetting statistical and mathematical papers because its equation editor is top notch. (It was actually written by Donald Knuth because he got so annoyed trying to write his dissertation that he took some time off to write TeX first, and then used it to write his dissertation).^[Amusingly, `knitr` was written in much the same manner. Yihui Xie had to substitute-teach ISU's version of 850 on the day we covered Sweave (a predecessor to knitr). He got so frustrated teaching the class that he went home and started writing `knitr`. Later, he developed Rmarkdown, bookdown, blogdown, and several other packages aimed at making writing documents + code easier to handle.    
