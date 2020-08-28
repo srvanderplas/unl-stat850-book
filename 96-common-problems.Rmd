@@ -26,7 +26,7 @@ If you are using a UNIX-like environment (Linux, macOS), you have an additional 
 
 ### Working Directory
 
-When you start a program on a computer, it starts with a **working directory**. In many cases, this may be the user's home directory, but that's not always the case. For instance, if you are working in an RStudio project, your working directory is the folder containing the .Rproj file. If you are compiling an Rmarkdown document, your working directory is the folder where the document is saved.
+When you start a program on a computer, it starts with a [**working directory**](https://en.wikipedia.org/wiki/Working_directory). In many cases, this may be the user's home directory, but that's not always the case. For instance, if you are working in an RStudio project, your working directory is the folder containing the .Rproj file. If you are compiling an Rmarkdown document, your working directory is the folder where the document is saved.
 
 Your working directory determines what relative file path you should be using. 
 
