@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Stat 850: Computing Tools for Statisticians</title>
+  <title>Module 12 Common Problems and General Computing Topics | Stat 850: Computing Tools for Statisticians</title>
   <meta name="description" content="Introductions to statistical computing packages and document preparation software. Topics include: graphical techniques, data management, Monte Carlo simulation, dynamic document preparation, presentation software." />
   <meta name="generator" content="bookdown 0.20.1 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Stat 850: Computing Tools for Statisticians" />
+  <meta property="og:title" content="Module 12 Common Problems and General Computing Topics | Stat 850: Computing Tools for Statisticians" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Stat 850: Computing Tools for Statisticians" />
+  <meta name="twitter:title" content="Module 12 Common Problems and General Computing Topics | Stat 850: Computing Tools for Statisticians" />
   
   <meta name="twitter:description" content="Introductions to statistical computing packages and document preparation software. Topics include: graphical techniques, data management, Monte Carlo simulation, dynamic document preparation, presentation software." />
   
@@ -30,8 +30,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-
-<link rel="next" href="tools.html"/>
+<link rel="prev" href="animated-and-interactive-graphics.html"/>
+<link rel="next" href="other-resources-articles-and-food-for-thought.html"/>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -424,67 +424,53 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="header">
-<h1 class="title">Stat 850: Computing Tools for Statisticians</h1>
-<p class="author"><em>Susan Vanderplas</em></p>
-<p class="date"><em>Last Updated: 2020-08-28</em></p>
+<div id="common-problems-and-general-computing-topics" class="section level1">
+<h1><span class="header-section-number">Module 12</span> Common Problems and General Computing Topics</h1>
+<div id="file-paths-working-directories-and-reproducibility" class="section level2">
+<h2><span class="header-section-number">12.1</span> File Paths, Working Directories, and Reproducibility</h2>
+<div id="file-paths" class="section level3">
+<h3><span class="header-section-number">12.1.1</span> File paths</h3>
+<p>A <a href="https://en.wikipedia.org/wiki/Path_(computing)">file path</a> is how you tell the computer where to find a file. You might be familiar with the “C:\Program Files\” structure - that’s a file path telling Windows to look at the C: drive, in the Program Files folder.</p>
+<p>There are two types of file paths: absolute and relative.
+- An <strong>absolute file path</strong> is a file path that tells the computer the location of the file, regardless of where the computer is currently working from (regardless of the current working directory). An absolute file path is something like an address - no matter where you’re currently located, an address will give you the information necessary to get to the correct house.<br />
+Examples:
+- <code>C:\USER\DOCS\LETTER.TXT</code> (Windows)
+- <code>\\SERVER01\USER\DOCS\LETTER.TXT</code> (Windows, for e.g. remote file servers)
+- <code>/home/user/docs/Letter.txt</code> (UNIX/macOS)</p>
+<ul>
+<li>A <strong>relative file path</strong> is a file path that tells the computer how to get to a file from its current location. To continue the analogy, a relative file path is like “Go down the hallway, turn left, take a right at the next hallway, and go to the third door on the right.” - it gives you information on how to get from your current location to the destination, but that information wouldn’t necessarily work for someone who’s in a different location.<br />
+Examples:
+<ul>
+<li><code>../../Letter.txt</code>&quot;` (this says go up two directories and look for Letter.txt)</li>
+<li><code>./Letter.txt</code> (this says look for Letter.txt in your current directory)</li>
+<li><code>./data/Letter.txt</code> (this says look for Letter.txt in the data folder in the current directory)</li>
+</ul></li>
+</ul>
+<p>If you are using a UNIX-like environment (Linux, macOS), you have an additional shortcut available: <code>~/</code> is the shortcut for the user’s home directory. So <code>~/</code> is equivalent to <code>/home/ted/</code> as long as you’re logged in as ted. If you’re logged in as theodora, though, <code>~/</code> is equivalent to <code>/home/theodora/</code>.</p>
+<p><a href="https://youtu.be/BMT3JUWmqYY">This YouTube video</a> has a good explanation as well.</p>
 </div>
-<div id="introduction" class="section level1 unnumbered">
-<h1>Introduction</h1>
-<div id="forward" class="section level2 unnumbered">
-<h2>Forward</h2>
-<p>This textbook is intended to be a substitute for hours and hours of video lectures wherein I read code to you. That’s awful, and boring<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a>, and honestly, as painful for me to have to listen to myself while editing the things as it is for you to watch them.</p>
-<p>Instead, I hope that you’ll be able to work through this book, week by week, over the course of Stat 850. I’ve included comics, snark, gifs, YouTube videos, and more, with the goal of making this a collection of the best information I could find on learning R and SAS and statistical programming.</p>
+<div id="working-directory" class="section level3">
+<h3><span class="header-section-number">12.1.2</span> Working Directory</h3>
+<p>When you start a program on a computer, it starts with a <strong>working directory</strong>. In many cases, this may be the user’s home directory, but that’s not always the case. For instance, if you are working in an RStudio project, your working directory is the folder containing the .Rproj file. If you are compiling an Rmarkdown document, your working directory is the folder where the document is saved.</p>
+<p>Your working directory determines what relative file path you should be using.</p>
+<p><a href="https://use.vg/GiINjB">Here</a> is a video showing how to change your working directory in SAS, and in R.</p>
 </div>
-<div id="course-description" class="section level2 unnumbered">
-<h2>Course Description</h2>
-<p>Introductions to statistical computing packages and document preparation software. Topics include: graphical techniques, data management, Monte Carlo simulation, dynamic document preparation, presentation software.</p>
-</div>
-<div id="course-goals" class="section level2 unnumbered">
-<h2>Course Goals</h2>
-<p>(Broad, amorphous conceptual things that are hard to measure)</p>
-<ol style="list-style-type: decimal">
-<li><p>Learn how to use R and SAS for data analysis, data processing, and data visualization.</p></li>
-<li><p>Become familiar with the process, techniques, and goals of exploratory data analysis.</p></li>
-<li><p>Create, assess, and debug code effectively.</p>
-<ol style="list-style-type: lower-roman">
-<li><p>Use online resources to find software to perform a task, comparing approaches taken by competing programs.</p></li>
-<li><p>Read error messages, find related problems in online forums, and isolate the conditions necessary to generate the error.</p></li>
-<li><p>Generate minimum working examples or reproducible examples of errors in order to ask for help effectively.</p></li>
-</ol></li>
-<li><p>Communicate statistical results using reproducible, dynamic tools. Understand the importance of reproducibility in scientific computation.</p></li>
-</ol>
-</div>
-<div id="course-objectives" class="section level2 unnumbered">
-<h2>Course Objectives</h2>
-<p>(what you should be able to do at the end of this course)</p>
-<p>A. Clean and format the data appropriately for the intended analysis or visualization method. (Goals: 1)</p>
-<p>B. Explore a data set using numerical and visual summaries, developing questions which can be answered using statistics. (Goals: 1, 2)</p>
-<p>C. Evaluate methods or software to assess relevance to a problem. Compare similar options to determine which are more appropriate for a given application (Goals: 1, 3)</p>
-<p>D. Test and debug software, using the following sequence: (Goals: 3, 4)</p>
-<ol style="list-style-type: decimal">
-<li><p>Reproduce the error in a new environment,</p></li>
-<li><p>Create a minimal reproducible example,</p></li>
-<li><p>Research the error message and evaluate online resources for relevance,</p></li>
-<li><p>Ask for help, describing the error or problem appropriately.</p></li>
-</ol>
-<p>E. Document the data, methods, and results of an analysis using reproducible methods. (Goals: 1, 2, 4)</p>
+<div id="reproducibility" class="section level3">
+<h3><span class="header-section-number">12.1.3</span> Reproducibility</h3>
+<p>Reproducibility is the idea that I should be able to run your code and get the same results you got. Ideally, to do this, I wouldn’t have to configure my computer in exactly the same way your computer is set up. Instead, ideally, your code will use relative file paths, with a working directory that is appropriate to the project set-up.</p>
+<p>Since we’re storing everything on GitHub for this class, a natural file setup is to have the project working directory be the same directory the git repository is based in (the directory should contain a <code>.git</code> folder, but you may have to view hidden files to see it). You can store your data in a data/ subfolder, your extra scripts in a code/ folder, etc., but all of the files you need to run the code should be included in the git repository unless they are too large for git. Then, when someone else clones your repository, they will have access to the data they need to run the code, and the code will be written with relative file paths that match the file structure.</p>
+<p>This also has the advantage of saving you tons of time trying to help your PI figure out how to run your code… you can direct them to GitHub, have them download the folder (or clone the repo, if they’re tech-savvy), and everything should just work.</p>
 
 </div>
 </div>
-<div class="footnotes">
-<hr />
-<ol start="1">
-<li id="fn1"><p>If you want boring, or have insomnia, check out <a href="https://www.youtube.com/watch?v=Jk71bPz5VLo">this Microsoft Word tutorial from 1989</a>. Youtube says it’s the most boring video ever made.<a href="index.html#fnref1" class="footnote-back">↩</a></p></li>
-</ol>
 </div>
             </section>
 
           </div>
         </div>
       </div>
-
-<a href="tools.html" class="navigation navigation-next navigation-unique" aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="animated-and-interactive-graphics.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="other-resources-articles-and-food-for-thought.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
