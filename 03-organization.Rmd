@@ -72,7 +72,9 @@ Rmarkdown, despite the name, also allows you to integrate the results from code 
 
 [There is a full set of [Rmarkdown tutorials](https://rmarkdown.rstudio.com/lesson-1.html) from RStudio. There is also a handy [cheatsheet](https://rmarkdown.rstudio.com/lesson-15.html). ]{.learn-more}
 
-[**Try it out!** Or, you can take the "jump right in" approach - open RStudio, File -> New -> Rmarkdown document. To compile it, click the knit button in the bar at the top of the text editor window. Make changes to the text and the R code, compile it, and see what happens. Voila! You're a markdow expert!]{.tryitout}
+::: tryitout
+Or, you can take the "jump right in" approach - open RStudio, File -> New -> Rmarkdown document. To compile it, click the knit button in the bar at the top of the text editor window. Make changes to the text and the R code, compile it, and see what happens. Voila! You're a markdow expert!
+:::
 
 Rmarkdown documents may contain code used to support an analysis, but they are usually not the best way to develop an analysis method - they are better for documentation, writing tutorials, and other scenarios where you need both text explanations and code/analysis/results. There are other "containers" for code, though, including functions, scripts, and packages. Each has their own advantages and disadvantages, and can be used together. 
 
