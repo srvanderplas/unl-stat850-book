@@ -139,7 +139,7 @@ Original SAS graphics engine
 
 Note: This code runs, but it causes every other sas chunk in this document to go haywire... so you'll have to copy the code and run it on your own to see what it looks like. 
 ```
-libname classdat "/home/susan/Projects/Class/unl-stat850/2020-stat850/sas/";
+libname classdat "sas/";
 
 /* This step creates a constant variable in the data frame, 
 so that all generations can be stacked in one bar */
@@ -164,7 +164,7 @@ ODS Graphics
 Note: This is a terrible example in SAS because there isn't an easy way to create a pie chart^[It's not often you'll find me approving of SAS graphics, but making it hard to make pie charts is definitely a point in SAS's favor]. We have to resort to using SAS Graph Template Language. 
 
 ```{sashtml ods-pie, error = T}
-libname classdat "/home/susan/Projects/Class/unl-stat850/2020-stat850/sas/";
+libname classdat "sas/";
 
 DATA poketmp;
 SET classdat.poke;
@@ -247,7 +247,7 @@ if(!file.exists("data/fbiwide.csv")) write_csv(fbiwide, "data/fbiwide.csv", na =
 ```
 
 ```{sas sas-data-setup-08, error = T}
-libname classdat "/home/susan/Projects/Class/unl-stat850/2020-stat850/sas/";
+libname classdat "sas/";
 
 PROC IMPORT datafile = "data/happy.csv" out=classdat.happy
     DBMS = CSV 
@@ -298,7 +298,7 @@ plot(Murder ~ Assault, data = fbiwide)
 <details><summary>SAS ODS Graphics</summary>
 The workhorse of the ODS graphics engine is SGPLOT. 
 ```{sashtml basic-sgplot-scatterplot, error = T}
-libname classdat "/home/susan/Projects/Class/unl-stat850/2020-stat850/sas/";
+libname classdat "sas/";
 
 PROC SGPLOT data=classdat.fbiwide;
 SCATTER x = Burglary y = Murder;
@@ -323,7 +323,7 @@ title("Murders and Assaults")
 </details>
 <details><summary>SAS ODS Graphics</summary>
 ```{sashtml sas-add-title-08, error = T, collectcode = T}
-libname classdat "/home/susan/Projects/Class/unl-stat850/2020-stat850/sas/";
+libname classdat "sas/";
 
 PROC SGPLOT data=classdat.fbiwide;
 TITLE "Murders and Assaults";
@@ -357,7 +357,7 @@ plot(Assault ~ Population,
 </details>
 <details><summary>SAS ODS Graphics</summary>
 ```{sashtml sas-adj-aes-const-08, error = T, collectcode = T}
-libname classdat "/home/susan/Projects/Class/unl-stat850/2020-stat850/sas/";
+libname classdat "sas/";
 
 PROC SGPLOT data=classdat.fbiwide;
 SCATTER x = Population y = Assault /
@@ -400,7 +400,7 @@ You can use `?points` to get information on all of the graphical parameters for 
 </details>
 <details><summary>SAS ODS Graphics variable mapping</summary>
 ```{sashtml sas-cat-aes-map-08, error = T, collectcode = T}
-libname classdat "/home/susan/Projects/Class/unl-stat850/2020-stat850/sas/";
+libname classdat "sas/";
 
 PROC SGPLOT data=classdat.fbiwide;
 SCATTER x = Population y = Assault /
@@ -485,7 +485,7 @@ for (i in unique(fbiwide$Abb)) {
 <details><summary>SAS ODS line plots</summary>
 ```{sashtml sas-line-plot-color-08, error = T, collectcode = T}
 
-libname classdat "/home/susan/Projects/Class/unl-stat850/2020-stat850/sas/";
+libname classdat "sas/";
 PROC SGPLOT data=classdat.fbiwide NOAUTOLEGEND;
 SERIES x = Population y = Assault /
   lineattrs=(pattern=solid)
@@ -634,7 +634,7 @@ In order to change point size to show a different variable value, we have to use
 
 ```{sashtml sas-numeric-aes-bubble-08, error = T, collectcode = T}
 
-libname classdat "/home/susan/Projects/Class/unl-stat850/2020-stat850/sas/";
+libname classdat "sas/";
 PROC SGPLOT data=classdat.poke;
 BUBBLE x = attack y = sp_attack size = weight_kg /
   BRADIUSMAX=10 BRADIUSMIN =2
@@ -1040,7 +1040,7 @@ boxplot(per_100k~crime, data = tmp)
 </details>
 <details><summary>Box plots in SAS</summary>
 ```{sashtml sas-boxplot-08, error = T, collectcode = T}
-libname classdat "/home/susan/Projects/Class/unl-stat850/2020-stat850/sas/";
+libname classdat "sas/";
 
 DATA WORK.fbitmp;
 SET classdat.fbi;
@@ -1096,7 +1096,7 @@ In base R, you can get histograms with the `hist()` function.
 
 <details><summary>Histograms in SAS</summary>
 ```{sashtml sas-hist-08, error = T}
-libname classdat "/home/susan/Projects/Class/unl-stat850/2020-stat850/sas/";
+libname classdat "sas/";
 
 DATA WORK.fbitmp;
 SET classdat.fbi;
@@ -1133,7 +1133,7 @@ In base R, you can get a density plot of a single variable with `plot(density(..
 
 <details><summary>Density plots in SAS</summary>
 ```{sashtml sas-kernel-dens-08, error = T}
-libname classdat "/home/susan/Projects/Class/unl-stat850/2020-stat850/sas/";
+libname classdat "sas/";
 
 DATA WORK.fbitmp;
 SET classdat.fbi;
@@ -1176,7 +1176,7 @@ poke %>%
 In SAS, this is actually easier than it is in ggplot2: As long as you put the histogram first in the SGPLOT statement, you'll get the right scale. 
 
 ```{sashtml sas-hist-dens-08, error = T}
-libname classdat "/home/susan/Projects/Class/unl-stat850/2020-stat850/sas/";
+libname classdat "sas/";
 
 DATA WORK.fbitmp;
 SET classdat.fbi;
@@ -1307,7 +1307,7 @@ ggplot(aes(x = generation, fill = status, weight = prop)) +
 
 <details><summary>Bar Charts in SAS</summary>
 ```{sashtml sas-bar-08, error = T}
-libname classdat "/home/susan/Projects/Class/unl-stat850/2020-stat850/sas/";
+libname classdat "sas/";
 
 
 PROC SGPLOT data=classdat.poke;
@@ -1376,7 +1376,7 @@ fbi %>%
 <details><summary>Panel plots in SAS</summary>
 Basically the same syntax as SGPLOT, but using SGPANEL and a PANELBY statement. This is very similar to ggplot2's `facet_` addition. 
 ```{sashtml sas-facet-08, error = T}
-libname classdat "/home/susan/Projects/Class/unl-stat850/2020-stat850/sas/";
+libname classdat "sas/";
 
 PROC SGPANEL data=classdat.poke;
 PANELBY status;

@@ -27,8 +27,8 @@ if(!"tweetrmd"%in%installed.packages()) devtools::install_github("gadenbuie/twee
 if(!"webshot2"%in%installed.packages()) devtools::install_github("rstudio/webshot2")
 # library(tweetrmd) # github.com/gadenbuie/tweetrmd
 # library(memoise) # cache screenshots
-tweet_cached <- memoise::memoise(tweetrmd::tweet_embed, cache = cache_filesystem('.tweets'))
-tweet_shot_cached <- memoise::memoise(tweetrmd::tweet_screenshot, cache = cache_filesystem('.tweets'))
+tweet_cached <- memoise::memoise(tweetrmd::tweet_embed, cache = memoise::cache_filesystem('.tweets'))
+tweet_shot_cached <- memoise::memoise(tweetrmd::tweet_screenshot, cache = memoise::cache_filesystem('.tweets'))
 
 tweetrmd::tweet_screenshot(tweetrmd::tweet_url("Nasser_Junior", "1295805928315531264"))
 ```
