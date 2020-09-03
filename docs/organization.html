@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Module 3 Organization: Packages, Functions, Scripts, and Documents | Stat 850: Computing Tools for Statisticians</title>
   <meta name="description" content="Introductions to statistical computing packages and document preparation software. Topics include: graphical techniques, data management, Monte Carlo simulation, dynamic document preparation, presentation software." />
-  <meta name="generator" content="bookdown 0.20.1 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.20 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Module 3 Organization: Packages, Functions, Scripts, and Documents | Stat 850: Computing Tools for Statisticians" />
   <meta property="og:type" content="book" />
@@ -49,13 +49,13 @@
 
 
 
-<script src="libs/htmlwidgets-1.5.1.9001/htmlwidgets.js"></script>
-<script src="libs/plotly-binding-4.9.2.9000/plotly.js"></script>
+<script src="libs/htmlwidgets-1.5.1/htmlwidgets.js"></script>
+<script src="libs/plotly-binding-4.9.2.1/plotly.js"></script>
 <script src="libs/typedarray-0.1/typedarray.min.js"></script>
 <link href="libs/crosstalk-1.1.0.1/css/crosstalk.css" rel="stylesheet" />
 <script src="libs/crosstalk-1.1.0.1/js/crosstalk.min.js"></script>
-<link href="libs/plotly-htmlwidgets-css-1.54.1/plotly-htmlwidgets.css" rel="stylesheet" />
-<script src="libs/plotly-main-1.54.1/plotly-latest.min.js"></script>
+<link href="libs/plotly-htmlwidgets-css-1.52.2/plotly-htmlwidgets.css" rel="stylesheet" />
+<script src="libs/plotly-main-1.52.2/plotly-latest.min.js"></script>
 <link href="libs/leaflet-1.3.1/leaflet.css" rel="stylesheet" />
 <script src="libs/leaflet-1.3.1/leaflet.js"></script>
 <link href="libs/leafletfix-1.0.0/leafletfix.css" rel="stylesheet" />
@@ -485,7 +485,9 @@ By sharing your code and raw data, you provide the wider scientific community wi
 <p>Markdown documents must be <em>compiled</em> - a computer program runs and transforms the text file into a full document. RStudio has markdown functionality built-in, and also supports <code>rmarkdown</code>, which is a markdown variant designed to make it easy to integrate R code with document creation (so-called literate programming). There are other markdown programs which extend markdown’s functionality so that you can write a book (like this one), create presentations or posters, or maintain a blog in markdown.</p>
 <p>Rmarkdown, despite the name, also allows you to integrate the results from code in other languages. As you saw in <a href="intro-prog.html#intro-prog">the last chapter</a>, SAS code can be integrated into markdown as well. Other languages commonly used include python, julia, SQL, Bash, C++, and Stan.</p>
 <p><span class="learn-more">There is a full set of <a href="https://rmarkdown.rstudio.com/lesson-1.html">Rmarkdown tutorials</a> from RStudio. There is also a handy <a href="https://rmarkdown.rstudio.com/lesson-15.html">cheatsheet</a>.</span></p>
-<p><span class="tryitout"><strong>Try it out!</strong> Or, you can take the “jump right in” approach - open RStudio, File -&gt; New -&gt; Rmarkdown document. To compile it, click the knit button in the bar at the top of the text editor window. Make changes to the text and the R code, compile it, and see what happens. Voila! You’re a markdow expert!</span></p>
+<div class="tryitout">
+<p>Or, you can take the “jump right in” approach - open RStudio, File -&gt; New -&gt; Rmarkdown document. To compile it, click the knit button in the bar at the top of the text editor window. Make changes to the text and the R code, compile it, and see what happens. Voila! You’re a markdow expert!</p>
+</div>
 <p>Rmarkdown documents may contain code used to support an analysis, but they are usually not the best way to develop an analysis method - they are better for documentation, writing tutorials, and other scenarios where you need both text explanations and code/analysis/results. There are other “containers” for code, though, including functions, scripts, and packages. Each has their own advantages and disadvantages, and can be used together.</p>
 <div id="rmarkdown-with-sas" class="section level3">
 <h3><span class="header-section-number">3.2.1</span> Rmarkdown with… SAS?</h3>
@@ -608,7 +610,7 @@ c
 <a class="sourceLine" id="cb97-20" data-line-number="20">    <span class="cf">else</span> <span class="kw">names</span>(z) &lt;-<span class="st"> </span><span class="kw">dimnames</span>(x)[[dims <span class="op">+</span><span class="st"> </span>1L]]</a>
 <a class="sourceLine" id="cb97-21" data-line-number="21">    z</a>
 <a class="sourceLine" id="cb97-22" data-line-number="22">}</a>
-<a class="sourceLine" id="cb97-23" data-line-number="23"><span class="op">&lt;</span>bytecode<span class="op">:</span><span class="st"> </span><span class="dv">0x55c4b6605c00</span><span class="op">&gt;</span></a>
+<a class="sourceLine" id="cb97-23" data-line-number="23"><span class="op">&lt;</span>bytecode<span class="op">:</span><span class="st"> </span><span class="dv">0x55d30216ebc8</span><span class="op">&gt;</span></a>
 <a class="sourceLine" id="cb97-24" data-line-number="24"><span class="er">&lt;</span>environment<span class="op">:</span><span class="st"> </span>namespace<span class="op">:</span>base<span class="op">&gt;</span></a></code></pre></div>
 <p>You can see that the first 3 steps in the function are if statements to test whether the inputs are acceptable - x must be a data frame, a matrix, or an array (with 2+ dimensions).</p>
 <p>The next couple of lines test to see whether there are additional “column” dimensions (don’t worry if you don’t understand what’s going on in this code - it’s highly optimized and a bit arcane).</p>
@@ -3228,12 +3230,18 @@ A more common way of distributing code in SAS seems to be through the use of sin
 In R, there are two main sources for packages: CRAN (the Comprehensive R Archive Network) (and related archives, such as MRAN, which is Microsoft’s version of CRAN) and github. R packages published on CRAN go through a basic verification process that makes sure that the package meets certain <a href="https://cran.r-project.org/">standards</a> (for instance, packages must have proper dependencies specified, cannot conflict with previous package names, must have a software license, and cannot contain malicious code). Note that CRAN does not check the packages for statistical correctness!</p>
 <p>On github, packages go through less verification. Many packages use a system where the version in development is on github and available for installation, but the version on CRAN is considered “stable”. Sometimes, packages are never put on CRAN: I contribute to several packages which are too large for CRAN, and it’s not worth the hassle to get an exception or figure out a workaround.</p>
 <div class="sourceCode" id="cb126"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb126-1" data-line-number="1"><span class="kw">library</span>(rvest)</a>
-<a class="sourceLine" id="cb126-2" data-line-number="2">txt &lt;-<span class="st"> </span><span class="kw">read_xml</span>(<span class="st">&quot;https://cran.r-project.org/web/packages/&quot;</span>) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb126-3" data-line-number="3"><span class="st">  </span><span class="kw">html_node</span>(<span class="dt">css =</span> <span class="st">&quot;#pkgs&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb126-4" data-line-number="4"><span class="st">  </span><span class="kw">xml_parent</span>() <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb126-5" data-line-number="5"><span class="st">  </span><span class="kw">html_text</span>()</a>
-<a class="sourceLine" id="cb126-6" data-line-number="6">npkgs &lt;-<span class="st"> </span>stringr<span class="op">::</span><span class="kw">str_extract</span>(txt, <span class="st">&quot;features </span><span class="ch">\\</span><span class="st">d{1,}&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span>stringr<span class="op">::</span><span class="kw">str_remove</span>(<span class="st">&quot;features &quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">as.numeric</span>()</a></code></pre></div>
-<p>Currently, the CRAN package repository features 1.615310^{4} available packages. How do you navigate them to find the one you need? Sometimes, the <a href="https://cran.r-project.org/web/views/">CRAN Task Views</a> may be helpful - for instance, if you want to see all of the packages which are useful for Meta-Analysis, Finance, Bayesian statistics, etc. Other times, it’s useful to let Google help you navigate: searching for “R CRAN” + “what you want the package to do” can often narrow things down (I recommend adding CRAN in because Google results for “R” are not particularly useful.)</p>
+<a class="sourceLine" id="cb126-2" data-line-number="2">Loading required package<span class="op">:</span><span class="st"> </span>xml2</a>
+<a class="sourceLine" id="cb126-3" data-line-number="3"></a>
+<a class="sourceLine" id="cb126-4" data-line-number="4">Attaching package<span class="op">:</span><span class="st"> &#39;rvest&#39;</span></a>
+<a class="sourceLine" id="cb126-5" data-line-number="5">The following object is masked from <span class="st">&#39;package:purrr&#39;</span><span class="op">:</span></a>
+<a class="sourceLine" id="cb126-6" data-line-number="6"></a>
+<a class="sourceLine" id="cb126-7" data-line-number="7"><span class="st">    </span>pluck</a>
+<a class="sourceLine" id="cb126-8" data-line-number="8">txt &lt;-<span class="st"> </span><span class="kw">read_xml</span>(<span class="st">&quot;https://cran.r-project.org/web/packages/&quot;</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb126-9" data-line-number="9"><span class="st">  </span><span class="kw">html_node</span>(<span class="dt">css =</span> <span class="st">&quot;#pkgs&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb126-10" data-line-number="10"><span class="st">  </span><span class="kw">xml_parent</span>() <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb126-11" data-line-number="11"><span class="st">  </span><span class="kw">html_text</span>()</a>
+<a class="sourceLine" id="cb126-12" data-line-number="12">npkgs &lt;-<span class="st"> </span>stringr<span class="op">::</span><span class="kw">str_extract</span>(txt, <span class="st">&quot;features </span><span class="ch">\\</span><span class="st">d{1,}&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span>stringr<span class="op">::</span><span class="kw">str_remove</span>(<span class="st">&quot;features &quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">as.numeric</span>()</a></code></pre></div>
+<p>Currently, the CRAN package repository features 1.620210^{4} available packages. How do you navigate them to find the one you need? Sometimes, the <a href="https://cran.r-project.org/web/views/">CRAN Task Views</a> may be helpful - for instance, if you want to see all of the packages which are useful for Meta-Analysis, Finance, Bayesian statistics, etc. Other times, it’s useful to let Google help you navigate: searching for “R CRAN” + “what you want the package to do” can often narrow things down (I recommend adding CRAN in because Google results for “R” are not particularly useful.)</p>
 <p>Once you find and install a package (<code>install.packages()</code> for CRAN packages, <code>devtools::install_github()</code> for GitHub packages), you have to figure out how to use it. Many R packages come with <strong>vignettes</strong>, which are short articles that demonstrate how a package is used.
 You can browse the available vignettes using <code>browseVignettes()</code> (if you provide a package name as an argument, you will get only vignettes from that package).</p>
 Another way to get help on a package is to use <code>?&lt;package name&gt;</code>, e.g. <code>?ggplot2</code>. That will take you to the main package description page, and there are often links to documentation. At the bottom of the description page, you can click on a link to get to the Index, which is a list of all functions that are provided in that package. From there, you can find the documentation for each function in the package.
