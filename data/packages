@@ -1,14 +1,12 @@
-SASmarkdown
-magrittr
-dplyr
-lubridate
-sas7bdat
 beepr
+magrittr
 rvest
 tibble
 readr
 gdata
+dplyr
 readxl
+sas7bdat
 Hmisc
 RSQLite
 DBI
@@ -16,6 +14,7 @@ ggplot2
 nycflights13
 tweetrmd
 memoise
+lubridate
 gapminder
 tidyr
 stringr
@@ -37,6 +36,7 @@ leaflet
 nycsquirrels18
 rgdal
 htmltools
+SASmarkdown
 knitr
 usethis
 tinytex
