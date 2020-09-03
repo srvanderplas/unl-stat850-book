@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Module 6 Transforming Data | Stat 850: Computing Tools for Statisticians</title>
   <meta name="description" content="Introductions to statistical computing packages and document preparation software. Topics include: graphical techniques, data management, Monte Carlo simulation, dynamic document preparation, presentation software." />
-  <meta name="generator" content="bookdown 0.20.1 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.20 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Module 6 Transforming Data | Stat 850: Computing Tools for Statisticians" />
   <meta property="og:type" content="book" />
@@ -49,13 +49,13 @@
 
 
 
-<script src="libs/htmlwidgets-1.5.1.9001/htmlwidgets.js"></script>
-<script src="libs/plotly-binding-4.9.2.9000/plotly.js"></script>
+<script src="libs/htmlwidgets-1.5.1/htmlwidgets.js"></script>
+<script src="libs/plotly-binding-4.9.2.1/plotly.js"></script>
 <script src="libs/typedarray-0.1/typedarray.min.js"></script>
 <link href="libs/crosstalk-1.1.0.1/css/crosstalk.css" rel="stylesheet" />
 <script src="libs/crosstalk-1.1.0.1/js/crosstalk.min.js"></script>
-<link href="libs/plotly-htmlwidgets-css-1.54.1/plotly-htmlwidgets.css" rel="stylesheet" />
-<script src="libs/plotly-main-1.54.1/plotly-latest.min.js"></script>
+<link href="libs/plotly-htmlwidgets-css-1.52.2/plotly-htmlwidgets.css" rel="stylesheet" />
+<script src="libs/plotly-main-1.52.2/plotly-latest.min.js"></script>
 <link href="libs/leaflet-1.3.1/leaflet.css" rel="stylesheet" />
 <script src="libs/leaflet-1.3.1/leaflet.js"></script>
 <link href="libs/leafletfix-1.0.0/leafletfix.css" rel="stylesheet" />
@@ -838,9 +838,9 @@ Go back through the 5 tables and determine whether each table is tidy, and if it
 <a class="sourceLine" id="cb252-58" data-line-number="58">  ..   <span class="dt">LONGITUDE =</span> <span class="kw">col_double</span>(),</a>
 <a class="sourceLine" id="cb252-59" data-line-number="59">  ..   <span class="dt">State =</span> <span class="kw">col_character</span>()</a>
 <a class="sourceLine" id="cb252-60" data-line-number="60">  .. )</a></code></pre></div>
-<pre class="sashtml"><code>libname classdat &quot;/home/susan/Projects/Class/unl-stat850/2020-stat850/sas/&quot;;
+<pre class="sashtml"><code>libname classdat &quot;sas/&quot;;
 
-filename fileloc &#39;~/Projects/Class/unl-stat850/2020-stat850/data/College_Data_Abbrev.csv&#39;;
+filename fileloc &#39;data/College_Data_Abbrev.csv&#39;;
 PROC IMPORT  datafile = fileloc out=classdat.college REPLACE
 DBMS = csv; /* comma delimited file */
 GUESSINGROWS=500;
@@ -1821,7 +1821,7 @@ Alabama
 <p><img src="unl-stat850_files/figure-html/unnamed-chunk-175-1.png" width="4" /></p>
 <p>In SAS, we use <code>find(x, pattern, 't')</code> to find the location of the pattern, which is 0 if the pattern is not found. To get something equivalent to <code>str_detect</code>, we just test whether this quantity is greater than 0. (The R equivalent of <code>find</code> is <code>str_locate()</code>).</p>
 <p>Note that SAS pads character fields with spaces so that they are all the same length. So if we want to test for “Alabama” we could omit the ‘t’ option in the command, but since we usually don’t want that, we need to tell SAS to trim the fields before searching for the pattern.</p>
-<pre class="sashtml"><code>libname classdat &quot;/home/susan/Projects/Class/unl-stat850/2020-stat850/sas/&quot;;
+<pre class="sashtml"><code>libname classdat &quot;sas/&quot;;
 
 DATA collegetmp;
 set classdat.college;
@@ -2340,7 +2340,7 @@ For this, we’ll start with working with the single column <code>INSTNM</code>.
 <a class="sourceLine" id="cb258-30" data-line-number="30">           <span class="dv">79</span>            <span class="dv">76</span>            <span class="dv">76</span>            <span class="dv">76</span>            <span class="dv">75</span> </a></code></pre></div>
 <p>In SAS, this is a bit more tricky. Most people I know that use both SAS and R will do the data cleaning in R once things get complicated, and then read the clean data in to SAS. That’s a valid approach, but it’s worth seeing what has to be done in SAS this once. As we get further into this class, I’ll probably be more willing to say “we’re just going to use R for this” for two reasons - 1. I know R better, and 2. R is generally better at handling the weird stuff; SAS is built to quickly handle things that are already formatted in a reasonable way. SAS seems to be highly preferred for e.g. fitting mixed/linear models, but it isn’t the easiest tool to use for data cleaning.</p>
 <p>But, in this particular case, there is <a href="https://blogs.sas.com/content/iml/2016/07/11/break-sentence-into-words-sas.html">documentation about how to break a sentence into words</a> in SAS.</p>
-<pre class="sashtml"><code>libname classdat &quot;/home/susan/Projects/Class/unl-stat850/2020-stat850/sas/&quot;;
+<pre class="sashtml"><code>libname classdat &quot;sas/&quot;;
 DATA collegename;
 SET classdat.college;
 numWords = countw(INSTNM, &quot; &quot;);
@@ -4189,9 +4189,9 @@ In both SAS and R, read in the data (<a href="data/2018_Central_Park_Squirrel_Ce
 </details>
 <details>
 <p><summary>SAS solution</summary></p>
-<pre class="sashtml"><code>libname classdat &quot;/home/susan/Projects/Class/unl-stat850/2020-stat850/sas/&quot;;
+<pre class="sashtml"><code>libname classdat &quot;sas/&quot;;
 
-filename fileloc &#39;~/Projects/Class/unl-stat850/2020-stat850/data/2018_Central_Park_Squirrel_Census_-_Squirrel_Data.csv&#39;;
+filename fileloc &#39;data/2018_Central_Park_Squirrel_Census_-_Squirrel_Data.csv&#39;;
 PROC IMPORT  datafile = fileloc out=classdat.squirrel REPLACE
 DBMS = csv; /* comma delimited file */
 GUESSINGROWS=500;
@@ -4269,7 +4269,7 @@ Indexes
 Created
 </th>
 <td class="l data">
-08/19/2020 10:11:12
+09/01/2020 15:16:57
 </td>
 <th class="l rowheader" scope="row">
 Observation Length
@@ -4283,7 +4283,7 @@ Observation Length
 Last Modified
 </th>
 <td class="l data">
-08/19/2020 10:11:12
+09/01/2020 15:16:57
 </td>
 <th class="l rowheader" scope="row">
 Deleted Observations
@@ -4429,7 +4429,7 @@ Number of Data Set Repairs
 Filename
 </th>
 <td class="l data">
-/home/susan/Projects/Class/unl-stat850/2020-stat850/sas/squirrel.sas7bdat
+/home/srvander/Projects/Teaching/2020-stat850-book/sas/squirrel.sas7bdat
 </td>
 </tr>
 <tr>
@@ -4453,7 +4453,7 @@ Linux
 Inode Number
 </th>
 <td class="l data">
-39067082
+209978052
 </td>
 </tr>
 <tr>
@@ -4461,7 +4461,7 @@ Inode Number
 Access Permission
 </th>
 <td class="l data">
-rw-rw-r–
+rw-r–r–
 </td>
 </tr>
 <tr>
@@ -4469,7 +4469,7 @@ rw-rw-r–
 Owner Name
 </th>
 <td class="l data">
-susan
+srvander
 </td>
 </tr>
 <tr>
@@ -5328,7 +5328,7 @@ B. Where two highlight colors exist, add the primary color to both of them (so <
 </details>
 <details>
 <p><summary>SAS solution</summary></p>
-<pre class="sashtml"><code>libname classdat &quot;/home/susan/Projects/Class/unl-stat850/2020-stat850/sas/&quot;;
+<pre class="sashtml"><code>libname classdat &quot;sas/&quot;;
 
 DATA squirrelcolor;
 SET classdat.cleanSquirrel;
@@ -6634,9 +6634,9 @@ Now, let’s look at a “real data” example using HIV case data from the Worl
 <a class="sourceLine" id="cb287-20" data-line-number="20"></a>
 <a class="sourceLine" id="cb287-21" data-line-number="21"><span class="kw">write_csv</span>(hiv, <span class="dt">path =</span> <span class="st">&quot;data/who_hiv.csv&quot;</span>, <span class="dt">na =</span> <span class="st">&#39;.&#39;</span>) <span class="co"># make it easy for SAS</span></a></code></pre></div>
 <p>Since I’ve cheated a bit to make this easier to read in using SAS… hopefully that will be uneventful.</p>
-<pre class="sashtml"><code>libname classdat &quot;/home/susan/Projects/Class/unl-stat850/2020-stat850/sas/&quot;;
+<pre class="sashtml"><code>libname classdat &quot;sas/&quot;;
 
-filename fileloc &#39;~/Projects/Class/unl-stat850/2020-stat850/data/who_hiv.csv&#39;;
+filename fileloc &#39;data/who_hiv.csv&#39;;
 PROC IMPORT  datafile = fileloc out=classdat.hiv REPLACE
 DBMS = csv; /* comma delimited file */
 GUESSINGROWS=500;
@@ -6651,15 +6651,15 @@ RUN;
 <a class="sourceLine" id="cb289-3" data-line-number="3"><span class="st">  </span><span class="kw">select</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">6</span>) <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb289-4" data-line-number="4"><span class="st">  </span><span class="kw">head</span>()</a>
 <a class="sourceLine" id="cb289-5" data-line-number="5"><span class="co"># A tibble: 6 x 6</span></a>
-<a class="sourceLine" id="cb289-6" data-line-number="6">  Country Rate_<span class="dv">2018</span>_Both Rate_<span class="dv">2018</span>_Male Rate_<span class="dv">2018</span>_Female Rate_<span class="dv">2017</span>_Both</a>
-<a class="sourceLine" id="cb289-7" data-line-number="7">  <span class="op">&lt;</span>chr<span class="op">&gt;</span><span class="st">   </span><span class="er">&lt;</span>chr<span class="op">&gt;</span><span class="st">          </span><span class="er">&lt;</span>chr<span class="op">&gt;</span><span class="st">          </span><span class="er">&lt;</span>chr<span class="op">&gt;</span><span class="st">            </span><span class="er">&lt;</span>chr<span class="op">&gt;</span><span class="st">         </span></a>
-<a class="sourceLine" id="cb289-8" data-line-number="8"><span class="dv">1</span> Afghan… <span class="fl">0.02</span> [<span class="fl">0.01</span> <span class="op">-</span><span class="st"> </span>… <span class="fl">0.03</span> [<span class="fl">0.02</span> <span class="op">-</span><span class="st"> </span>… <span class="fl">0.01</span> [<span class="op">&amp;</span>lt;<span class="fl">0.01</span> … <span class="fl">0.02</span> [<span class="fl">0.01</span> <span class="op">-</span><span class="st"> </span>…</a>
-<a class="sourceLine" id="cb289-9" data-line-number="9"><span class="dv">2</span> Albania <span class="op">&lt;</span><span class="ot">NA</span><span class="op">&gt;</span><span class="st">           </span><span class="er">&lt;</span><span class="ot">NA</span><span class="op">&gt;</span><span class="st">           </span><span class="er">&lt;</span><span class="ot">NA</span><span class="op">&gt;</span><span class="st">             </span><span class="er">&lt;</span><span class="ot">NA</span><span class="op">&gt;</span><span class="st">          </span></a>
-<a class="sourceLine" id="cb289-10" data-line-number="10"><span class="dv">3</span> Algeria <span class="fl">0.03</span> [<span class="fl">0.03</span> <span class="op">-</span><span class="st"> </span>… <span class="fl">0.03</span> [<span class="fl">0.03</span> <span class="op">-</span><span class="st"> </span>… <span class="fl">0.03</span> [<span class="fl">0.02</span> <span class="op">-</span><span class="st"> </span><span class="fl">0.</span>… <span class="fl">0.03</span> [<span class="fl">0.03</span> <span class="op">-</span><span class="st"> </span>…</a>
-<a class="sourceLine" id="cb289-11" data-line-number="11"><span class="dv">4</span> Angola  <span class="fl">1.01</span> [<span class="fl">0.75</span> <span class="op">-</span><span class="st"> </span>… <span class="fl">0.74</span> [<span class="fl">0.55</span> <span class="op">-</span><span class="st"> </span>… <span class="fl">1.27</span> [<span class="fl">0.96</span> <span class="op">-</span><span class="st"> </span><span class="fl">1.</span>… <span class="fl">1.06</span> [<span class="fl">0.82</span> <span class="op">-</span><span class="st"> </span>…</a>
-<a class="sourceLine" id="cb289-12" data-line-number="12"><span class="dv">5</span> Argent… <span class="fl">0.15</span> [<span class="fl">0.13</span> <span class="op">-</span><span class="st"> </span>… <span class="fl">0.21</span> [<span class="fl">0.18</span> <span class="op">-</span><span class="st"> </span>… <span class="fl">0.09</span> [<span class="fl">0.08</span> <span class="op">-</span><span class="st"> </span><span class="fl">0.</span>… <span class="fl">0.15</span> [<span class="fl">0.13</span> <span class="op">-</span><span class="st"> </span>…</a>
-<a class="sourceLine" id="cb289-13" data-line-number="13"><span class="dv">6</span> Armenia <span class="fl">0.06</span> [<span class="fl">0.04</span> <span class="op">-</span><span class="st"> </span>… <span class="fl">0.09</span> [<span class="fl">0.06</span> <span class="op">-</span><span class="st"> </span>… <span class="fl">0.04</span> [<span class="fl">0.02</span> <span class="op">-</span><span class="st"> </span><span class="fl">0.</span>… <span class="fl">0.06</span> [<span class="fl">0.04</span> <span class="op">-</span><span class="st"> </span>…</a>
-<a class="sourceLine" id="cb289-14" data-line-number="14"><span class="co"># … with 1 more variable: Rate_2017_Male &lt;chr&gt;</span></a></code></pre></div>
+<a class="sourceLine" id="cb289-6" data-line-number="6">  Country <span class="st">`</span><span class="dt">Number of new … </span><span class="st">`</span>Number of new … <span class="st">`</span><span class="dt">Number of new … </span><span class="st">`</span>Number of new …</a>
+<a class="sourceLine" id="cb289-7" data-line-number="7">  <span class="op">&lt;</span>chr<span class="op">&gt;</span><span class="st">   </span><span class="er">&lt;</span>chr<span class="op">&gt;</span><span class="st">            </span><span class="er">&lt;</span>chr<span class="op">&gt;</span><span class="st">            </span><span class="er">&lt;</span>chr<span class="op">&gt;</span><span class="st">            </span><span class="er">&lt;</span>chr<span class="op">&gt;</span><span class="st">           </span></a>
+<a class="sourceLine" id="cb289-8" data-line-number="8"><span class="dv">1</span> Afghan… <span class="dv">1400</span> [<span class="op">&amp;</span>lt;500–5… <span class="dv">1300</span> [<span class="op">&amp;</span>lt;500–4… <span class="dv">1200</span> [<span class="op">&amp;</span>lt;500–4… <span class="dv">1100</span> [<span class="op">&amp;</span>lt;500–3…</a>
+<a class="sourceLine" id="cb289-9" data-line-number="9"><span class="dv">2</span> Albania <span class="op">&amp;</span>lt;<span class="dv">100</span> [<span class="op">&amp;</span>lt;10… <span class="op">&amp;</span>lt;<span class="dv">100</span> [<span class="op">&amp;</span>lt;10… <span class="op">&amp;</span>lt;<span class="dv">200</span> [<span class="op">&amp;</span>lt;10… <span class="op">&amp;</span>lt;<span class="dv">200</span> [<span class="op">&amp;</span>lt;10…</a>
+<a class="sourceLine" id="cb289-10" data-line-number="10"><span class="dv">3</span> Algeria <span class="dv">2000</span> [<span class="op">&amp;</span>lt;500–3… <span class="dv">1900</span> [510–<span class="dv">3300</span>]  <span class="dv">1900</span> [610–<span class="dv">3000</span>]  <span class="dv">1800</span> [780–<span class="dv">2800</span>] </a>
+<a class="sourceLine" id="cb289-11" data-line-number="11"><span class="dv">4</span> Angola  <span class="dv">27</span> <span class="dv">000</span> [<span class="dv">20</span> 000–… <span class="dv">27</span> <span class="dv">000</span> [<span class="dv">21</span> 000–… <span class="dv">26</span> <span class="dv">000</span> [<span class="dv">20</span> 000–… <span class="dv">26</span> <span class="dv">000</span> [<span class="dv">20</span> 000–…</a>
+<a class="sourceLine" id="cb289-12" data-line-number="12"><span class="dv">5</span> Argent… <span class="dv">5700</span> [4100–<span class="dv">8100</span>] <span class="dv">6100</span> [4400–<span class="dv">8200</span>] <span class="dv">5900</span> [4400–<span class="dv">8200</span>] <span class="dv">6100</span> [4700–<span class="dv">8300</span>]</a>
+<a class="sourceLine" id="cb289-13" data-line-number="13"><span class="dv">6</span> Armenia <span class="op">&amp;</span>lt;<span class="dv">200</span> [<span class="op">&amp;</span>lt;20… <span class="op">&amp;</span>lt;<span class="dv">200</span> [<span class="op">&amp;</span>lt;20… <span class="op">&amp;</span>lt;<span class="dv">200</span> [<span class="op">&amp;</span>lt;20… <span class="op">&amp;</span>lt;<span class="dv">200</span> [<span class="op">&amp;</span>lt;20…</a>
+<a class="sourceLine" id="cb289-14" data-line-number="14"><span class="co"># … with 1 more variable: `Number of new HIV infections; 2014;` &lt;chr&gt;</span></a></code></pre></div>
 Here, the column names (except for the first column) contain information about both group (Male, Female, total) and year. If we want to plot values over time, we’re not going to have much fun.
 </details>
 <p>Thinking through the logical steps before writing the code can be helpful - even sketching out what you expect the data to (roughly) look like at each stage.</p>
@@ -6717,20 +6717,20 @@ Here, the column names (except for the first column) contain information about b
 <div class="sourceCode" id="cb290"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb290-1" data-line-number="1">hiv_tidier &lt;-<span class="st"> </span>hiv <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb290-2" data-line-number="2"><span class="st">  </span><span class="kw">pivot_longer</span>(<span class="op">-</span>Country, <span class="dt">names_to =</span> <span class="st">&quot;key&quot;</span>, <span class="dt">values_to =</span> <span class="st">&quot;rate&quot;</span>)</a>
 <a class="sourceLine" id="cb290-3" data-line-number="3">hiv_tidier</a>
-<a class="sourceLine" id="cb290-4" data-line-number="4"><span class="co"># A tibble: 14,790 x 3</span></a>
-<a class="sourceLine" id="cb290-5" data-line-number="5">   Country     key              rate                  </a>
-<a class="sourceLine" id="cb290-6" data-line-number="6">   <span class="op">&lt;</span>chr<span class="op">&gt;</span><span class="st">       </span><span class="er">&lt;</span>chr<span class="op">&gt;</span><span class="st">            </span><span class="er">&lt;</span>chr<span class="op">&gt;</span><span class="st">                 </span></a>
-<a class="sourceLine" id="cb290-7" data-line-number="7"><span class="st"> </span><span class="dv">1</span> Afghanistan Rate_<span class="dv">2018</span>_Both   <span class="fl">0.02</span> [<span class="fl">0.01</span> <span class="op">-</span><span class="st"> </span><span class="fl">0.04</span>]    </a>
-<a class="sourceLine" id="cb290-8" data-line-number="8"> <span class="dv">2</span> Afghanistan Rate_<span class="dv">2018</span>_Male   <span class="fl">0.03</span> [<span class="fl">0.02</span> <span class="op">-</span><span class="st"> </span><span class="fl">0.06</span>]    </a>
-<a class="sourceLine" id="cb290-9" data-line-number="9"> <span class="dv">3</span> Afghanistan Rate_<span class="dv">2018</span>_Female <span class="fl">0.01</span> [<span class="op">&amp;</span>lt;<span class="fl">0.01</span> <span class="op">-</span><span class="st"> </span><span class="fl">0.03</span>]</a>
-<a class="sourceLine" id="cb290-10" data-line-number="10"> <span class="dv">4</span> Afghanistan Rate_<span class="dv">2017</span>_Both   <span class="fl">0.02</span> [<span class="fl">0.01</span> <span class="op">-</span><span class="st"> </span><span class="fl">0.04</span>]    </a>
-<a class="sourceLine" id="cb290-11" data-line-number="11"> <span class="dv">5</span> Afghanistan Rate_<span class="dv">2017</span>_Male   <span class="fl">0.03</span> [<span class="fl">0.02</span> <span class="op">-</span><span class="st"> </span><span class="fl">0.06</span>]    </a>
-<a class="sourceLine" id="cb290-12" data-line-number="12"> <span class="dv">6</span> Afghanistan Rate_<span class="dv">2017</span>_Female <span class="fl">0.01</span> [<span class="op">&amp;</span>lt;<span class="fl">0.01</span> <span class="op">-</span><span class="st"> </span><span class="fl">0.03</span>]</a>
-<a class="sourceLine" id="cb290-13" data-line-number="13"> <span class="dv">7</span> Afghanistan Rate_<span class="dv">2016</span>_Both   <span class="fl">0.02</span> [<span class="fl">0.01</span> <span class="op">-</span><span class="st"> </span><span class="fl">0.04</span>]    </a>
-<a class="sourceLine" id="cb290-14" data-line-number="14"> <span class="dv">8</span> Afghanistan Rate_<span class="dv">2016</span>_Male   <span class="fl">0.03</span> [<span class="fl">0.02</span> <span class="op">-</span><span class="st"> </span><span class="fl">0.06</span>]    </a>
-<a class="sourceLine" id="cb290-15" data-line-number="15"> <span class="dv">9</span> Afghanistan Rate_<span class="dv">2016</span>_Female <span class="fl">0.01</span> [<span class="op">&amp;</span>lt;<span class="fl">0.01</span> <span class="op">-</span><span class="st"> </span><span class="fl">0.02</span>]</a>
-<a class="sourceLine" id="cb290-16" data-line-number="16"><span class="dv">10</span> Afghanistan Rate_<span class="dv">2015</span>_Both   <span class="fl">0.02</span> [<span class="fl">0.01</span> <span class="op">-</span><span class="st"> </span><span class="fl">0.04</span>]    </a>
-<a class="sourceLine" id="cb290-17" data-line-number="17"><span class="co"># … with 14,780 more rows</span></a></code></pre></div>
+<a class="sourceLine" id="cb290-4" data-line-number="4"><span class="co"># A tibble: 18,530 x 3</span></a>
+<a class="sourceLine" id="cb290-5" data-line-number="5">   Country     key                                 rate               </a>
+<a class="sourceLine" id="cb290-6" data-line-number="6">   <span class="op">&lt;</span>chr<span class="op">&gt;</span><span class="st">       </span><span class="er">&lt;</span>chr<span class="op">&gt;</span><span class="st">                               </span><span class="er">&lt;</span>chr<span class="op">&gt;</span><span class="st">              </span></a>
+<a class="sourceLine" id="cb290-7" data-line-number="7"><span class="st"> </span><span class="dv">1</span> Afghanistan Number of new HIV infections; <span class="dv">2018</span>; <span class="dv">1400</span> [<span class="op">&amp;</span>lt;500–<span class="dv">5100</span>]</a>
+<a class="sourceLine" id="cb290-8" data-line-number="8"> <span class="dv">2</span> Afghanistan Number of new HIV infections; <span class="dv">2017</span>; <span class="dv">1300</span> [<span class="op">&amp;</span>lt;500–<span class="dv">4800</span>]</a>
+<a class="sourceLine" id="cb290-9" data-line-number="9"> <span class="dv">3</span> Afghanistan Number of new HIV infections; <span class="dv">2016</span>; <span class="dv">1200</span> [<span class="op">&amp;</span>lt;500–<span class="dv">4200</span>]</a>
+<a class="sourceLine" id="cb290-10" data-line-number="10"> <span class="dv">4</span> Afghanistan Number of new HIV infections; <span class="dv">2015</span>; <span class="dv">1100</span> [<span class="op">&amp;</span>lt;500–<span class="dv">3700</span>]</a>
+<a class="sourceLine" id="cb290-11" data-line-number="11"> <span class="dv">5</span> Afghanistan Number of new HIV infections; <span class="dv">2014</span>; <span class="dv">1000</span> [<span class="op">&amp;</span>lt;500–<span class="dv">3200</span>]</a>
+<a class="sourceLine" id="cb290-12" data-line-number="12"> <span class="dv">6</span> Afghanistan Number of new HIV infections; <span class="dv">2013</span>; <span class="dv">920</span> [<span class="op">&amp;</span>lt;500–<span class="dv">2700</span>] </a>
+<a class="sourceLine" id="cb290-13" data-line-number="13"> <span class="dv">7</span> Afghanistan Number of new HIV infections; <span class="dv">2012</span>; <span class="dv">840</span> [<span class="op">&amp;</span>lt;500–<span class="dv">2300</span>] </a>
+<a class="sourceLine" id="cb290-14" data-line-number="14"> <span class="dv">8</span> Afghanistan Number of new HIV infections; <span class="dv">2011</span>; <span class="dv">760</span> [<span class="op">&amp;</span>lt;500–<span class="dv">2000</span>] </a>
+<a class="sourceLine" id="cb290-15" data-line-number="15"> <span class="dv">9</span> Afghanistan Number of new HIV infections; <span class="dv">2010</span>; <span class="dv">700</span> [<span class="op">&amp;</span>lt;500–<span class="dv">1800</span>] </a>
+<a class="sourceLine" id="cb290-16" data-line-number="16"><span class="dv">10</span> Afghanistan Number of new HIV infections; <span class="dv">2009</span>; <span class="dv">640</span> [<span class="op">&amp;</span>lt;500–<span class="dv">1600</span>] </a>
+<a class="sourceLine" id="cb290-17" data-line-number="17"><span class="co"># … with 18,520 more rows</span></a></code></pre></div>
 <p>From this point, it’s pretty easy to use things we’ve used in the past (regular expressions, separate, extract)</p>
 <div class="sourceCode" id="cb291"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb291-1" data-line-number="1"> hiv_tidy &lt;-<span class="st"> </span>hiv_tidier <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb291-2" data-line-number="2"><span class="st">  </span><span class="co"># Split the key into Rate (don&#39;t keep), year, and group (F, M, Both)</span></a>
@@ -6739,31 +6739,31 @@ Here, the column names (except for the first column) contain information about b
 <a class="sourceLine" id="cb291-5" data-line-number="5"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">rate =</span> <span class="kw">str_replace_all</span>(rate, <span class="st">&quot;&amp;lt;&quot;</span>, <span class="st">&quot;&lt;&quot;</span>)) <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb291-6" data-line-number="6"><span class="st">  </span><span class="co"># Split the rate into estimate, lower bound, and upper bound</span></a>
 <a class="sourceLine" id="cb291-7" data-line-number="7"><span class="st">  </span><span class="kw">extract</span>(rate, <span class="dt">into =</span> <span class="kw">c</span>(<span class="st">&quot;est&quot;</span>, <span class="st">&quot;lb&quot;</span>, <span class="st">&quot;ub&quot;</span>), <span class="dt">regex =</span> <span class="st">&quot;([</span><span class="ch">\\</span><span class="st">d</span><span class="ch">\\</span><span class="st">.]{1,}) .([&lt;</span><span class="ch">\\</span><span class="st">d</span><span class="ch">\\</span><span class="st">.]{1,}) - ([&lt;</span><span class="ch">\\</span><span class="st">d</span><span class="ch">\\</span><span class="st">.]{1,}).&quot;</span>, <span class="dt">remove =</span> T)</a>
-<a class="sourceLine" id="cb291-8" data-line-number="8">hiv_tidy</a>
-<a class="sourceLine" id="cb291-9" data-line-number="9"><span class="co"># A tibble: 14,790 x 6</span></a>
-<a class="sourceLine" id="cb291-10" data-line-number="10">   Country      year group  est   lb    ub   </a>
-<a class="sourceLine" id="cb291-11" data-line-number="11">   <span class="op">&lt;</span>chr<span class="op">&gt;</span><span class="st">       </span><span class="er">&lt;</span>int<span class="op">&gt;</span><span class="st"> </span><span class="er">&lt;</span>chr<span class="op">&gt;</span><span class="st">  </span><span class="er">&lt;</span>chr<span class="op">&gt;</span><span class="st"> </span><span class="er">&lt;</span>chr<span class="op">&gt;</span><span class="st"> </span><span class="er">&lt;</span>chr<span class="op">&gt;</span></a>
-<a class="sourceLine" id="cb291-12" data-line-number="12"><span class="st"> </span><span class="dv">1</span> Afghanistan  <span class="dv">2018</span> Both   <span class="fl">0.02</span>  <span class="fl">0.01</span>  <span class="fl">0.04</span> </a>
-<a class="sourceLine" id="cb291-13" data-line-number="13"> <span class="dv">2</span> Afghanistan  <span class="dv">2018</span> Male   <span class="fl">0.03</span>  <span class="fl">0.02</span>  <span class="fl">0.06</span> </a>
-<a class="sourceLine" id="cb291-14" data-line-number="14"> <span class="dv">3</span> Afghanistan  <span class="dv">2018</span> Female <span class="fl">0.01</span>  <span class="op">&lt;</span><span class="fl">0.01</span> <span class="fl">0.03</span> </a>
-<a class="sourceLine" id="cb291-15" data-line-number="15"> <span class="dv">4</span> Afghanistan  <span class="dv">2017</span> Both   <span class="fl">0.02</span>  <span class="fl">0.01</span>  <span class="fl">0.04</span> </a>
-<a class="sourceLine" id="cb291-16" data-line-number="16"> <span class="dv">5</span> Afghanistan  <span class="dv">2017</span> Male   <span class="fl">0.03</span>  <span class="fl">0.02</span>  <span class="fl">0.06</span> </a>
-<a class="sourceLine" id="cb291-17" data-line-number="17"> <span class="dv">6</span> Afghanistan  <span class="dv">2017</span> Female <span class="fl">0.01</span>  <span class="op">&lt;</span><span class="fl">0.01</span> <span class="fl">0.03</span> </a>
-<a class="sourceLine" id="cb291-18" data-line-number="18"> <span class="dv">7</span> Afghanistan  <span class="dv">2016</span> Both   <span class="fl">0.02</span>  <span class="fl">0.01</span>  <span class="fl">0.04</span> </a>
-<a class="sourceLine" id="cb291-19" data-line-number="19"> <span class="dv">8</span> Afghanistan  <span class="dv">2016</span> Male   <span class="fl">0.03</span>  <span class="fl">0.02</span>  <span class="fl">0.06</span> </a>
-<a class="sourceLine" id="cb291-20" data-line-number="20"> <span class="dv">9</span> Afghanistan  <span class="dv">2016</span> Female <span class="fl">0.01</span>  <span class="op">&lt;</span><span class="fl">0.01</span> <span class="fl">0.02</span> </a>
-<a class="sourceLine" id="cb291-21" data-line-number="21"><span class="dv">10</span> Afghanistan  <span class="dv">2015</span> Both   <span class="fl">0.02</span>  <span class="fl">0.01</span>  <span class="fl">0.04</span> </a>
-<a class="sourceLine" id="cb291-22" data-line-number="22"><span class="co"># … with 14,780 more rows</span></a></code></pre></div>
+<a class="sourceLine" id="cb291-8" data-line-number="8">Warning<span class="op">:</span><span class="st"> </span>Expected <span class="dv">3</span> pieces. Missing pieces filled with <span class="st">`</span><span class="dt">NA</span><span class="st">`</span> <span class="cf">in</span> <span class="dv">3230</span> rows [<span class="dv">1</span>, <span class="dv">2</span>,</a>
+<a class="sourceLine" id="cb291-9" data-line-number="9"><span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">6</span>, <span class="dv">7</span>, <span class="dv">8</span>, <span class="dv">9</span>, <span class="dv">10</span>, <span class="dv">11</span>, <span class="dv">12</span>, <span class="dv">13</span>, <span class="dv">14</span>, <span class="dv">15</span>, <span class="dv">16</span>, <span class="dv">17</span>, <span class="dv">18</span>, <span class="dv">19</span>, <span class="dv">110</span>, ...].</a>
+<a class="sourceLine" id="cb291-10" data-line-number="10">hiv_tidy</a>
+<a class="sourceLine" id="cb291-11" data-line-number="11"><span class="co"># A tibble: 18,530 x 6</span></a>
+<a class="sourceLine" id="cb291-12" data-line-number="12">   Country      year group est   lb    ub   </a>
+<a class="sourceLine" id="cb291-13" data-line-number="13">   <span class="op">&lt;</span>chr<span class="op">&gt;</span><span class="st">       </span><span class="er">&lt;</span>int<span class="op">&gt;</span><span class="st"> </span><span class="er">&lt;</span>chr<span class="op">&gt;</span><span class="st"> </span><span class="er">&lt;</span>chr<span class="op">&gt;</span><span class="st"> </span><span class="er">&lt;</span>chr<span class="op">&gt;</span><span class="st"> </span><span class="er">&lt;</span>chr<span class="op">&gt;</span></a>
+<a class="sourceLine" id="cb291-14" data-line-number="14"><span class="st"> </span><span class="dv">1</span> Afghanistan    <span class="ot">NA</span> <span class="op">&lt;</span><span class="ot">NA</span><span class="op">&gt;</span><span class="st">  </span><span class="er">&lt;</span><span class="ot">NA</span><span class="op">&gt;</span><span class="st">  </span><span class="er">&lt;</span><span class="ot">NA</span><span class="op">&gt;</span><span class="st">  </span><span class="er">&lt;</span><span class="ot">NA</span><span class="op">&gt;</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb291-15" data-line-number="15"><span class="st"> </span><span class="dv">2</span> Afghanistan    <span class="ot">NA</span> <span class="op">&lt;</span><span class="ot">NA</span><span class="op">&gt;</span><span class="st">  </span><span class="er">&lt;</span><span class="ot">NA</span><span class="op">&gt;</span><span class="st">  </span><span class="er">&lt;</span><span class="ot">NA</span><span class="op">&gt;</span><span class="st">  </span><span class="er">&lt;</span><span class="ot">NA</span><span class="op">&gt;</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb291-16" data-line-number="16"><span class="st"> </span><span class="dv">3</span> Afghanistan    <span class="ot">NA</span> <span class="op">&lt;</span><span class="ot">NA</span><span class="op">&gt;</span><span class="st">  </span><span class="er">&lt;</span><span class="ot">NA</span><span class="op">&gt;</span><span class="st">  </span><span class="er">&lt;</span><span class="ot">NA</span><span class="op">&gt;</span><span class="st">  </span><span class="er">&lt;</span><span class="ot">NA</span><span class="op">&gt;</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb291-17" data-line-number="17"><span class="st"> </span><span class="dv">4</span> Afghanistan    <span class="ot">NA</span> <span class="op">&lt;</span><span class="ot">NA</span><span class="op">&gt;</span><span class="st">  </span><span class="er">&lt;</span><span class="ot">NA</span><span class="op">&gt;</span><span class="st">  </span><span class="er">&lt;</span><span class="ot">NA</span><span class="op">&gt;</span><span class="st">  </span><span class="er">&lt;</span><span class="ot">NA</span><span class="op">&gt;</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb291-18" data-line-number="18"><span class="st"> </span><span class="dv">5</span> Afghanistan    <span class="ot">NA</span> <span class="op">&lt;</span><span class="ot">NA</span><span class="op">&gt;</span><span class="st">  </span><span class="er">&lt;</span><span class="ot">NA</span><span class="op">&gt;</span><span class="st">  </span><span class="er">&lt;</span><span class="ot">NA</span><span class="op">&gt;</span><span class="st">  </span><span class="er">&lt;</span><span class="ot">NA</span><span class="op">&gt;</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb291-19" data-line-number="19"><span class="st"> </span><span class="dv">6</span> Afghanistan    <span class="ot">NA</span> <span class="op">&lt;</span><span class="ot">NA</span><span class="op">&gt;</span><span class="st">  </span><span class="er">&lt;</span><span class="ot">NA</span><span class="op">&gt;</span><span class="st">  </span><span class="er">&lt;</span><span class="ot">NA</span><span class="op">&gt;</span><span class="st">  </span><span class="er">&lt;</span><span class="ot">NA</span><span class="op">&gt;</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb291-20" data-line-number="20"><span class="st"> </span><span class="dv">7</span> Afghanistan    <span class="ot">NA</span> <span class="op">&lt;</span><span class="ot">NA</span><span class="op">&gt;</span><span class="st">  </span><span class="er">&lt;</span><span class="ot">NA</span><span class="op">&gt;</span><span class="st">  </span><span class="er">&lt;</span><span class="ot">NA</span><span class="op">&gt;</span><span class="st">  </span><span class="er">&lt;</span><span class="ot">NA</span><span class="op">&gt;</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb291-21" data-line-number="21"><span class="st"> </span><span class="dv">8</span> Afghanistan    <span class="ot">NA</span> <span class="op">&lt;</span><span class="ot">NA</span><span class="op">&gt;</span><span class="st">  </span><span class="er">&lt;</span><span class="ot">NA</span><span class="op">&gt;</span><span class="st">  </span><span class="er">&lt;</span><span class="ot">NA</span><span class="op">&gt;</span><span class="st">  </span><span class="er">&lt;</span><span class="ot">NA</span><span class="op">&gt;</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb291-22" data-line-number="22"><span class="st"> </span><span class="dv">9</span> Afghanistan    <span class="ot">NA</span> <span class="op">&lt;</span><span class="ot">NA</span><span class="op">&gt;</span><span class="st">  </span><span class="er">&lt;</span><span class="ot">NA</span><span class="op">&gt;</span><span class="st">  </span><span class="er">&lt;</span><span class="ot">NA</span><span class="op">&gt;</span><span class="st">  </span><span class="er">&lt;</span><span class="ot">NA</span><span class="op">&gt;</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb291-23" data-line-number="23"><span class="dv">10</span> Afghanistan    <span class="ot">NA</span> <span class="op">&lt;</span><span class="ot">NA</span><span class="op">&gt;</span><span class="st">  </span><span class="er">&lt;</span><span class="ot">NA</span><span class="op">&gt;</span><span class="st">  </span><span class="er">&lt;</span><span class="ot">NA</span><span class="op">&gt;</span><span class="st">  </span><span class="er">&lt;</span><span class="ot">NA</span><span class="op">&gt;</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb291-24" data-line-number="24"><span class="co"># … with 18,520 more rows</span></a></code></pre></div>
 </details>
 <details>
 <p><summary>Wide-to-long transformation in SAS (WHO HIV data) </summary>
 I’ve thoroughly commented the code below to hopefully make the logical steps clear.</p>
-<pre class="sashtml"><code>6          libname classdat
-6        ! &quot;/home/susan/Projects/Class/unl-stat850/2020-stat850/sas/&quot;;
+<pre class="sashtml"><code>6          libname classdat &quot;sas/&quot;;
 NOTE: Libref CLASSDAT was successfully assigned as follows: 
       Engine:        V9 
-      Physical Name: 
-      /home/susan/Projects/Class/unl-stat850/2020-stat850/sas
+      Physical Name: /home/srvander/Projects/Teaching/2020-stat850-book/sas
 7          
 8          PROC TRANSPOSE DATA=classdat.hiv OUT = classdat.hivtidy
 9          (rename=(col1=rate)) /* &quot;values_to&quot; in tidyr speak */
@@ -6778,8 +6778,8 @@ NOTE: Libref CLASSDAT was successfully assigned as follows:
 NOTE: There were 170 observations read from the data set CLASSDAT.HIV.
 NOTE: The data set CLASSDAT.HIVTIDY has 14790 observations and 3 variables.
 NOTE: PROCEDURE TRANSPOSE used (Total process time):
-      real time           0.02 seconds
-      cpu time            0.02 seconds
+      real time           0.06 seconds
+      cpu time            0.04 seconds
       
 
 16         
@@ -6789,7 +6789,7 @@ NOTE: PROCEDURE TRANSPOSE used (Total process time):
 NOTE: There were 5 observations read from the data set CLASSDAT.HIVTIDY.
 NOTE: PROCEDURE PRINT used (Total process time):
       real time           0.00 seconds
-      cpu time            0.00 seconds
+      cpu time            0.01 seconds
       
 
 19         
@@ -6825,12 +6825,74 @@ NOTE: Character values have been converted to numeric
       35:5   
 WARNING: The variable _name_ in the DROP, KEEP, or RENAME list has never 
          been referenced.
+NOTE: Invalid numeric data, &#39;0.01&lt;e2&gt;..0.14&#39; , at line 35 column 10.
+Country=Afghanistan key=Rate_2018_Both rate=0.04 0.01–0.14 group=Both
+year=2018 v1=0.04 v2=. v3=. i=4 _ERROR_=1 _N_=1
+NOTE: Invalid numeric data, &#39;0.02&lt;e2&gt;..0.19&#39; , at line 35 column 10.
+Country=Afghanistan key=Rate_2018_Male rate=0.05 0.02–0.19 group=Male
+year=2018 v1=0.05 v2=. v3=. i=4 _ERROR_=1 _N_=2
+NOTE: Invalid numeric data, &#39;0.01&lt;e2&gt;..0.09&#39; , at line 35 column 10.
+Country=Afghanistan key=Rate_2018_Female rate=0.02 0.01–0.09 group=Female
+year=2018 v1=0.02 v2=. v3=. i=4 _ERROR_=1 _N_=3
+NOTE: Invalid numeric data, &#39;0.01&lt;e2&gt;..0.14&#39; , at line 35 column 10.
+Country=Afghanistan key=Rate_2017_Both rate=0.04 0.01–0.14 group=Both
+year=2017 v1=0.04 v2=. v3=. i=4 _ERROR_=1 _N_=4
+NOTE: Invalid numeric data, &#39;0.02&lt;e2&gt;..0.19&#39; , at line 35 column 10.
+Country=Afghanistan key=Rate_2017_Male rate=0.05 0.02–0.19 group=Male
+year=2017 v1=0.05 v2=. v3=. i=4 _ERROR_=1 _N_=5
+NOTE: Invalid numeric data, &#39;0.01&lt;e2&gt;..0.08&#39; , at line 35 column 10.
+Country=Afghanistan key=Rate_2017_Female rate=0.02 0.01–0.08 group=Female
+year=2017 v1=0.02 v2=. v3=. i=4 _ERROR_=1 _N_=6
+NOTE: Invalid numeric data, &#39;0.01&lt;e2&gt;..0.13&#39; , at line 35 column 10.
+Country=Afghanistan key=Rate_2016_Both rate=0.04 0.01–0.13 group=Both
+year=2016 v1=0.04 v2=. v3=. i=4 _ERROR_=1 _N_=7
+NOTE: Invalid numeric data, &#39;0.02&lt;e2&gt;..0.17&#39; , at line 35 column 10.
+Country=Afghanistan key=Rate_2016_Male rate=0.05 0.02–0.17 group=Male
+year=2016 v1=0.05 v2=. v3=. i=4 _ERROR_=1 _N_=8
+NOTE: Invalid numeric data, &#39;0.01&lt;e2&gt;..0.08&#39; , at line 35 column 10.
+Country=Afghanistan key=Rate_2016_Female rate=0.02 0.01–0.08 group=Female
+year=2016 v1=0.02 v2=. v3=. i=4 _ERROR_=1 _N_=9
+NOTE: Invalid numeric data, &#39;0.01&lt;e2&gt;..0.11&#39; , at line 35 column 10.
+Country=Afghanistan key=Rate_2015_Both rate=0.03 0.01–0.11 group=Both
+year=2015 v1=0.03 v2=. v3=. i=4 _ERROR_=1 _N_=10
+NOTE: Invalid numeric data, &#39;0.02&lt;e2&gt;..0.16&#39; , at line 35 column 10.
+Country=Afghanistan key=Rate_2015_Male rate=0.05 0.02–0.16 group=Male
+year=2015 v1=0.05 v2=. v3=. i=4 _ERROR_=1 _N_=11
+NOTE: Invalid numeric data, &#39;0.01&lt;e2&gt;..0.07&#39; , at line 35 column 10.
+Country=Afghanistan key=Rate_2015_Female rate=0.02 0.01–0.07 group=Female
+year=2015 v1=0.02 v2=. v3=. i=4 _ERROR_=1 _N_=12
+NOTE: Invalid numeric data, &#39;0.01&lt;e2&gt;..0.1&#39; , at line 35 column 10.
+Country=Afghanistan key=Rate_2014_Both rate=0.03 0.01–0.1 group=Both
+year=2014 v1=0.03 v2=. v3=. i=4 _ERROR_=1 _N_=13
+NOTE: Invalid numeric data, &#39;0.02&lt;e2&gt;..0.14&#39; , at line 35 column 10.
+Country=Afghanistan key=Rate_2014_Male rate=0.04 0.02–0.14 group=Male
+year=2014 v1=0.04 v2=. v3=. i=4 _ERROR_=1 _N_=14
+NOTE: Invalid numeric data, &#39;0.01&lt;e2&gt;..0.06&#39; , at line 35 column 10.
+Country=Afghanistan key=Rate_2014_Female rate=0.02 0.01–0.06 group=Female
+year=2014 v1=0.02 v2=. v3=. i=4 _ERROR_=1 _N_=15
+NOTE: Invalid numeric data, &#39;0.01&lt;e2&gt;..0.09&#39; , at line 35 column 10.
+Country=Afghanistan key=Rate_2013_Both rate=0.03 0.01–0.09 group=Both
+year=2013 v1=0.03 v2=. v3=. i=4 _ERROR_=1 _N_=16
+NOTE: Invalid numeric data, &#39;0.02&lt;e2&gt;..0.12&#39; , at line 35 column 10.
+Country=Afghanistan key=Rate_2013_Male rate=0.04 0.02–0.12 group=Male
+year=2013 v1=0.04 v2=. v3=. i=4 _ERROR_=1 _N_=17
+NOTE: Invalid numeric data, &#39;0.01&lt;e2&gt;..0.05&#39; , at line 35 column 10.
+Country=Afghanistan key=Rate_2013_Female rate=0.02 0.01–0.05 group=Female
+year=2013 v1=0.02 v2=. v3=. i=4 _ERROR_=1 _N_=18
+NOTE: Invalid numeric data, &#39;0.01&lt;e2&gt;..0.08&#39; , at line 35 column 10.
+Country=Afghanistan key=Rate_2012_Both rate=0.03 0.01–0.08 group=Both
+year=2012 v1=0.03 v2=. v3=. i=4 _ERROR_=1 _N_=19
+NOTE: Invalid numeric data, &#39;0.02&lt;e2&gt;..0.11&#39; , at line 35 column 10.
+WARNING: Limit set by ERRORS= option reached.  Further errors of this type 
+         will not be printed.
+Country=Afghanistan key=Rate_2012_Male rate=0.04 0.02–0.11 group=Male
+year=2012 v1=0.04 v2=. v3=. i=4 _ERROR_=1 _N_=20
 NOTE: There were 14790 observations read from the data set 
       CLASSDAT.HIVTIDY.
 NOTE: The data set CLASSDAT.HIVTIDY has 14790 observations and 6 variables.
 NOTE: DATA statement used (Total process time):
-      real time           0.04 seconds
-      cpu time            0.04 seconds
+      real time           0.29 seconds
+      cpu time            0.08 seconds
       
 
 43         
@@ -6894,7 +6956,7 @@ Afghanistan
 Rate_2018_Both
 </td>
 <td class="l data">
-0.02 [0.01 - 0.04]
+0.04 [0.01–0.14]
 </td>
 </tr>
 <tr>
@@ -6908,7 +6970,7 @@ Afghanistan
 Rate_2018_Male
 </td>
 <td class="l data">
-0.03 [0.02 - 0.06]
+0.05 [0.02–0.19]
 </td>
 </tr>
 <tr>
@@ -6922,7 +6984,7 @@ Afghanistan
 Rate_2018_Female
 </td>
 <td class="l data">
-0.01 [&amp;lt;0.01 - 0.03]
+0.02 [&amp;lt;0.01–0.09]
 </td>
 </tr>
 <tr>
@@ -6936,7 +6998,7 @@ Afghanistan
 Rate_2017_Both
 </td>
 <td class="l data">
-0.02 [0.01 - 0.04]
+0.04 [0.01–0.14]
 </td>
 </tr>
 <tr>
@@ -6950,7 +7012,7 @@ Afghanistan
 Rate_2017_Male
 </td>
 <td class="l data">
-0.03 [0.02 - 0.06]
+0.05 [0.02–0.19]
 </td>
 </tr>
 </tbody>
@@ -7029,13 +7091,13 @@ Both
 2018
 </td>
 <td class="r data">
-0.020000
-</td>
-<td class="r data">
-0.010000
-</td>
-<td class="r data">
 0.040000
+</td>
+<td class="r data">
+.
+</td>
+<td class="r data">
+.
 </td>
 </tr>
 <tr>
@@ -7052,13 +7114,13 @@ Male
 2018
 </td>
 <td class="r data">
-0.030000
+0.050000
 </td>
 <td class="r data">
-0.020000
+.
 </td>
 <td class="r data">
-0.060000
+.
 </td>
 </tr>
 <tr>
@@ -7075,13 +7137,13 @@ Female
 2018
 </td>
 <td class="r data">
-0.010000
+0.020000
 </td>
 <td class="r data">
-0.010000
+.
 </td>
 <td class="r data">
-0.030000
+.
 </td>
 </tr>
 <tr>
@@ -7098,13 +7160,13 @@ Both
 2017
 </td>
 <td class="r data">
-0.020000
-</td>
-<td class="r data">
-0.010000
-</td>
-<td class="r data">
 0.040000
+</td>
+<td class="r data">
+.
+</td>
+<td class="r data">
+.
 </td>
 </tr>
 <tr>
@@ -7121,13 +7183,13 @@ Male
 2017
 </td>
 <td class="r data">
-0.030000
+0.050000
 </td>
 <td class="r data">
-0.020000
+.
 </td>
 <td class="r data">
-0.060000
+.
 </td>
 </tr>
 </tbody>
@@ -7191,9 +7253,9 @@ Male
 </details>
 <details>
 <p><summary>SAS solution</summary></p>
-<pre class="sashtml"><code>libname classdat &quot;/home/susan/Projects/Class/unl-stat850/2020-stat850/sas/&quot;;
+<pre class="sashtml"><code>libname classdat &quot;sas/&quot;;
 
-filename fileloc &#39;~/Projects/Class/unl-stat850/2020-stat850/data/who_disease_incidence.csv&#39;;
+filename fileloc &#39;data/who_disease_incidence.csv&#39;;
 PROC IMPORT  datafile = fileloc out=classdat.who_disease REPLACE
 DBMS = csv; /* comma delimited file */
 GUESSINGROWS=500;
@@ -7785,20 +7847,20 @@ count
 </table>
 <p>As a reminder, the data currently looks like this:</p>
 <div class="sourceCode" id="cb298"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb298-1" data-line-number="1">hiv_tidy</a>
-<a class="sourceLine" id="cb298-2" data-line-number="2"><span class="co"># A tibble: 14,790 x 6</span></a>
-<a class="sourceLine" id="cb298-3" data-line-number="3">   Country      year group  est   lb    ub   </a>
-<a class="sourceLine" id="cb298-4" data-line-number="4">   <span class="op">&lt;</span>chr<span class="op">&gt;</span><span class="st">       </span><span class="er">&lt;</span>int<span class="op">&gt;</span><span class="st"> </span><span class="er">&lt;</span>chr<span class="op">&gt;</span><span class="st">  </span><span class="er">&lt;</span>chr<span class="op">&gt;</span><span class="st"> </span><span class="er">&lt;</span>chr<span class="op">&gt;</span><span class="st"> </span><span class="er">&lt;</span>chr<span class="op">&gt;</span></a>
-<a class="sourceLine" id="cb298-5" data-line-number="5"><span class="st"> </span><span class="dv">1</span> Afghanistan  <span class="dv">2018</span> Both   <span class="fl">0.02</span>  <span class="fl">0.01</span>  <span class="fl">0.04</span> </a>
-<a class="sourceLine" id="cb298-6" data-line-number="6"> <span class="dv">2</span> Afghanistan  <span class="dv">2018</span> Male   <span class="fl">0.03</span>  <span class="fl">0.02</span>  <span class="fl">0.06</span> </a>
-<a class="sourceLine" id="cb298-7" data-line-number="7"> <span class="dv">3</span> Afghanistan  <span class="dv">2018</span> Female <span class="fl">0.01</span>  <span class="op">&lt;</span><span class="fl">0.01</span> <span class="fl">0.03</span> </a>
-<a class="sourceLine" id="cb298-8" data-line-number="8"> <span class="dv">4</span> Afghanistan  <span class="dv">2017</span> Both   <span class="fl">0.02</span>  <span class="fl">0.01</span>  <span class="fl">0.04</span> </a>
-<a class="sourceLine" id="cb298-9" data-line-number="9"> <span class="dv">5</span> Afghanistan  <span class="dv">2017</span> Male   <span class="fl">0.03</span>  <span class="fl">0.02</span>  <span class="fl">0.06</span> </a>
-<a class="sourceLine" id="cb298-10" data-line-number="10"> <span class="dv">6</span> Afghanistan  <span class="dv">2017</span> Female <span class="fl">0.01</span>  <span class="op">&lt;</span><span class="fl">0.01</span> <span class="fl">0.03</span> </a>
-<a class="sourceLine" id="cb298-11" data-line-number="11"> <span class="dv">7</span> Afghanistan  <span class="dv">2016</span> Both   <span class="fl">0.02</span>  <span class="fl">0.01</span>  <span class="fl">0.04</span> </a>
-<a class="sourceLine" id="cb298-12" data-line-number="12"> <span class="dv">8</span> Afghanistan  <span class="dv">2016</span> Male   <span class="fl">0.03</span>  <span class="fl">0.02</span>  <span class="fl">0.06</span> </a>
-<a class="sourceLine" id="cb298-13" data-line-number="13"> <span class="dv">9</span> Afghanistan  <span class="dv">2016</span> Female <span class="fl">0.01</span>  <span class="op">&lt;</span><span class="fl">0.01</span> <span class="fl">0.02</span> </a>
-<a class="sourceLine" id="cb298-14" data-line-number="14"><span class="dv">10</span> Afghanistan  <span class="dv">2015</span> Both   <span class="fl">0.02</span>  <span class="fl">0.01</span>  <span class="fl">0.04</span> </a>
-<a class="sourceLine" id="cb298-15" data-line-number="15"><span class="co"># … with 14,780 more rows</span></a></code></pre></div>
+<a class="sourceLine" id="cb298-2" data-line-number="2"><span class="co"># A tibble: 18,530 x 6</span></a>
+<a class="sourceLine" id="cb298-3" data-line-number="3">   Country      year group est   lb    ub   </a>
+<a class="sourceLine" id="cb298-4" data-line-number="4">   <span class="op">&lt;</span>chr<span class="op">&gt;</span><span class="st">       </span><span class="er">&lt;</span>int<span class="op">&gt;</span><span class="st"> </span><span class="er">&lt;</span>chr<span class="op">&gt;</span><span class="st"> </span><span class="er">&lt;</span>chr<span class="op">&gt;</span><span class="st"> </span><span class="er">&lt;</span>chr<span class="op">&gt;</span><span class="st"> </span><span class="er">&lt;</span>chr<span class="op">&gt;</span></a>
+<a class="sourceLine" id="cb298-5" data-line-number="5"><span class="st"> </span><span class="dv">1</span> Afghanistan    <span class="ot">NA</span> <span class="op">&lt;</span><span class="ot">NA</span><span class="op">&gt;</span><span class="st">  </span><span class="er">&lt;</span><span class="ot">NA</span><span class="op">&gt;</span><span class="st">  </span><span class="er">&lt;</span><span class="ot">NA</span><span class="op">&gt;</span><span class="st">  </span><span class="er">&lt;</span><span class="ot">NA</span><span class="op">&gt;</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb298-6" data-line-number="6"><span class="st"> </span><span class="dv">2</span> Afghanistan    <span class="ot">NA</span> <span class="op">&lt;</span><span class="ot">NA</span><span class="op">&gt;</span><span class="st">  </span><span class="er">&lt;</span><span class="ot">NA</span><span class="op">&gt;</span><span class="st">  </span><span class="er">&lt;</span><span class="ot">NA</span><span class="op">&gt;</span><span class="st">  </span><span class="er">&lt;</span><span class="ot">NA</span><span class="op">&gt;</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb298-7" data-line-number="7"><span class="st"> </span><span class="dv">3</span> Afghanistan    <span class="ot">NA</span> <span class="op">&lt;</span><span class="ot">NA</span><span class="op">&gt;</span><span class="st">  </span><span class="er">&lt;</span><span class="ot">NA</span><span class="op">&gt;</span><span class="st">  </span><span class="er">&lt;</span><span class="ot">NA</span><span class="op">&gt;</span><span class="st">  </span><span class="er">&lt;</span><span class="ot">NA</span><span class="op">&gt;</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb298-8" data-line-number="8"><span class="st"> </span><span class="dv">4</span> Afghanistan    <span class="ot">NA</span> <span class="op">&lt;</span><span class="ot">NA</span><span class="op">&gt;</span><span class="st">  </span><span class="er">&lt;</span><span class="ot">NA</span><span class="op">&gt;</span><span class="st">  </span><span class="er">&lt;</span><span class="ot">NA</span><span class="op">&gt;</span><span class="st">  </span><span class="er">&lt;</span><span class="ot">NA</span><span class="op">&gt;</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb298-9" data-line-number="9"><span class="st"> </span><span class="dv">5</span> Afghanistan    <span class="ot">NA</span> <span class="op">&lt;</span><span class="ot">NA</span><span class="op">&gt;</span><span class="st">  </span><span class="er">&lt;</span><span class="ot">NA</span><span class="op">&gt;</span><span class="st">  </span><span class="er">&lt;</span><span class="ot">NA</span><span class="op">&gt;</span><span class="st">  </span><span class="er">&lt;</span><span class="ot">NA</span><span class="op">&gt;</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb298-10" data-line-number="10"><span class="st"> </span><span class="dv">6</span> Afghanistan    <span class="ot">NA</span> <span class="op">&lt;</span><span class="ot">NA</span><span class="op">&gt;</span><span class="st">  </span><span class="er">&lt;</span><span class="ot">NA</span><span class="op">&gt;</span><span class="st">  </span><span class="er">&lt;</span><span class="ot">NA</span><span class="op">&gt;</span><span class="st">  </span><span class="er">&lt;</span><span class="ot">NA</span><span class="op">&gt;</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb298-11" data-line-number="11"><span class="st"> </span><span class="dv">7</span> Afghanistan    <span class="ot">NA</span> <span class="op">&lt;</span><span class="ot">NA</span><span class="op">&gt;</span><span class="st">  </span><span class="er">&lt;</span><span class="ot">NA</span><span class="op">&gt;</span><span class="st">  </span><span class="er">&lt;</span><span class="ot">NA</span><span class="op">&gt;</span><span class="st">  </span><span class="er">&lt;</span><span class="ot">NA</span><span class="op">&gt;</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb298-12" data-line-number="12"><span class="st"> </span><span class="dv">8</span> Afghanistan    <span class="ot">NA</span> <span class="op">&lt;</span><span class="ot">NA</span><span class="op">&gt;</span><span class="st">  </span><span class="er">&lt;</span><span class="ot">NA</span><span class="op">&gt;</span><span class="st">  </span><span class="er">&lt;</span><span class="ot">NA</span><span class="op">&gt;</span><span class="st">  </span><span class="er">&lt;</span><span class="ot">NA</span><span class="op">&gt;</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb298-13" data-line-number="13"><span class="st"> </span><span class="dv">9</span> Afghanistan    <span class="ot">NA</span> <span class="op">&lt;</span><span class="ot">NA</span><span class="op">&gt;</span><span class="st">  </span><span class="er">&lt;</span><span class="ot">NA</span><span class="op">&gt;</span><span class="st">  </span><span class="er">&lt;</span><span class="ot">NA</span><span class="op">&gt;</span><span class="st">  </span><span class="er">&lt;</span><span class="ot">NA</span><span class="op">&gt;</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb298-14" data-line-number="14"><span class="dv">10</span> Afghanistan    <span class="ot">NA</span> <span class="op">&lt;</span><span class="ot">NA</span><span class="op">&gt;</span><span class="st">  </span><span class="er">&lt;</span><span class="ot">NA</span><span class="op">&gt;</span><span class="st">  </span><span class="er">&lt;</span><span class="ot">NA</span><span class="op">&gt;</span><span class="st">  </span><span class="er">&lt;</span><span class="ot">NA</span><span class="op">&gt;</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb298-15" data-line-number="15"><span class="co"># … with 18,520 more rows</span></a></code></pre></div>
 <div class="tryitout">
 <p>Think through the steps you’d need to take to get the data into this form. Sketch out any intermediate state your data will need to go through.</p>
 </div>
@@ -7867,25 +7929,29 @@ count
 <a class="sourceLine" id="cb299-3" data-line-number="3"><span class="st">  </span><span class="co"># Take the opportunity to transform everything to numeric at once...</span></a>
 <a class="sourceLine" id="cb299-4" data-line-number="4"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">value =</span> <span class="kw">parse_number</span>(value)) <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb299-5" data-line-number="5"><span class="st">  </span><span class="kw">pivot_wider</span>(<span class="dt">names_from =</span> group, <span class="dt">values_from =</span> value)</a>
-<a class="sourceLine" id="cb299-6" data-line-number="6"><span class="co"># A tibble: 14,790 x 6</span></a>
-<a class="sourceLine" id="cb299-7" data-line-number="7">   Country      year measure  Both  Male Female</a>
-<a class="sourceLine" id="cb299-8" data-line-number="8">   <span class="op">&lt;</span>chr<span class="op">&gt;</span><span class="st">       </span><span class="er">&lt;</span>int<span class="op">&gt;</span><span class="st"> </span><span class="er">&lt;</span>chr<span class="op">&gt;</span><span class="st">   </span><span class="er">&lt;</span>dbl<span class="op">&gt;</span><span class="st"> </span><span class="er">&lt;</span>dbl<span class="op">&gt;</span><span class="st">  </span><span class="er">&lt;</span>dbl<span class="op">&gt;</span></a>
-<a class="sourceLine" id="cb299-9" data-line-number="9"><span class="st"> </span><span class="dv">1</span> Afghanistan  <span class="dv">2018</span> est      <span class="fl">0.02</span>  <span class="fl">0.03</span>   <span class="fl">0.01</span></a>
-<a class="sourceLine" id="cb299-10" data-line-number="10"> <span class="dv">2</span> Afghanistan  <span class="dv">2018</span> lb       <span class="fl">0.01</span>  <span class="fl">0.02</span>   <span class="fl">0.01</span></a>
-<a class="sourceLine" id="cb299-11" data-line-number="11"> <span class="dv">3</span> Afghanistan  <span class="dv">2018</span> ub       <span class="fl">0.04</span>  <span class="fl">0.06</span>   <span class="fl">0.03</span></a>
-<a class="sourceLine" id="cb299-12" data-line-number="12"> <span class="dv">4</span> Afghanistan  <span class="dv">2017</span> est      <span class="fl">0.02</span>  <span class="fl">0.03</span>   <span class="fl">0.01</span></a>
-<a class="sourceLine" id="cb299-13" data-line-number="13"> <span class="dv">5</span> Afghanistan  <span class="dv">2017</span> lb       <span class="fl">0.01</span>  <span class="fl">0.02</span>   <span class="fl">0.01</span></a>
-<a class="sourceLine" id="cb299-14" data-line-number="14"> <span class="dv">6</span> Afghanistan  <span class="dv">2017</span> ub       <span class="fl">0.04</span>  <span class="fl">0.06</span>   <span class="fl">0.03</span></a>
-<a class="sourceLine" id="cb299-15" data-line-number="15"> <span class="dv">7</span> Afghanistan  <span class="dv">2016</span> est      <span class="fl">0.02</span>  <span class="fl">0.03</span>   <span class="fl">0.01</span></a>
-<a class="sourceLine" id="cb299-16" data-line-number="16"> <span class="dv">8</span> Afghanistan  <span class="dv">2016</span> lb       <span class="fl">0.01</span>  <span class="fl">0.02</span>   <span class="fl">0.01</span></a>
-<a class="sourceLine" id="cb299-17" data-line-number="17"> <span class="dv">9</span> Afghanistan  <span class="dv">2016</span> ub       <span class="fl">0.04</span>  <span class="fl">0.06</span>   <span class="fl">0.02</span></a>
-<a class="sourceLine" id="cb299-18" data-line-number="18"><span class="dv">10</span> Afghanistan  <span class="dv">2015</span> est      <span class="fl">0.02</span>  <span class="fl">0.03</span>   <span class="fl">0.01</span></a>
-<a class="sourceLine" id="cb299-19" data-line-number="19"><span class="co"># … with 14,780 more rows</span></a></code></pre></div>
+<a class="sourceLine" id="cb299-6" data-line-number="6">Warning<span class="op">:</span><span class="st"> </span>Values are not uniquely identified; output will contain list<span class="op">-</span>cols.</a>
+<a class="sourceLine" id="cb299-7" data-line-number="7"><span class="op">*</span><span class="st"> </span>Use <span class="st">`</span><span class="dt">values_fn = list</span><span class="st">`</span> to suppress this warning.</a>
+<a class="sourceLine" id="cb299-8" data-line-number="8"><span class="op">*</span><span class="st"> </span>Use <span class="st">`</span><span class="dt">values_fn = length</span><span class="st">`</span> to identify where the duplicates arise</a>
+<a class="sourceLine" id="cb299-9" data-line-number="9"><span class="op">*</span><span class="st"> </span>Use <span class="st">`</span><span class="dt">values_fn = {summary_fun}</span><span class="st">`</span> to summarise duplicates</a>
+<a class="sourceLine" id="cb299-10" data-line-number="10"><span class="co"># A tibble: 15,810 x 7</span></a>
+<a class="sourceLine" id="cb299-11" data-line-number="11">   Country      year measure <span class="st">`</span><span class="dt">NA</span><span class="st">`</span>       Both      Male      Female   </a>
+<a class="sourceLine" id="cb299-12" data-line-number="12">   <span class="op">&lt;</span>chr<span class="op">&gt;</span><span class="st">       </span><span class="er">&lt;</span>int<span class="op">&gt;</span><span class="st"> </span><span class="er">&lt;</span>chr<span class="op">&gt;</span><span class="st">   </span><span class="er">&lt;</span>list<span class="op">&gt;</span><span class="st">     </span><span class="er">&lt;</span>list<span class="op">&gt;</span><span class="st">    </span><span class="er">&lt;</span>list<span class="op">&gt;</span><span class="st">    </span><span class="er">&lt;</span>list<span class="op">&gt;</span><span class="st">   </span></a>
+<a class="sourceLine" id="cb299-13" data-line-number="13"><span class="st"> </span><span class="dv">1</span> Afghanistan    <span class="ot">NA</span> est     <span class="op">&lt;</span>dbl [<span class="dv">19</span>]<span class="op">&gt;</span><span class="st"> </span><span class="er">&lt;</span><span class="ot">NULL</span><span class="op">&gt;</span><span class="st">    </span><span class="er">&lt;</span><span class="ot">NULL</span><span class="op">&gt;</span><span class="st">    </span><span class="er">&lt;</span><span class="ot">NULL</span><span class="op">&gt;</span><span class="st">   </span></a>
+<a class="sourceLine" id="cb299-14" data-line-number="14"><span class="st"> </span><span class="dv">2</span> Afghanistan    <span class="ot">NA</span> lb      <span class="op">&lt;</span>dbl [<span class="dv">19</span>]<span class="op">&gt;</span><span class="st"> </span><span class="er">&lt;</span><span class="ot">NULL</span><span class="op">&gt;</span><span class="st">    </span><span class="er">&lt;</span><span class="ot">NULL</span><span class="op">&gt;</span><span class="st">    </span><span class="er">&lt;</span><span class="ot">NULL</span><span class="op">&gt;</span><span class="st">   </span></a>
+<a class="sourceLine" id="cb299-15" data-line-number="15"><span class="st"> </span><span class="dv">3</span> Afghanistan    <span class="ot">NA</span> ub      <span class="op">&lt;</span>dbl [<span class="dv">19</span>]<span class="op">&gt;</span><span class="st"> </span><span class="er">&lt;</span><span class="ot">NULL</span><span class="op">&gt;</span><span class="st">    </span><span class="er">&lt;</span><span class="ot">NULL</span><span class="op">&gt;</span><span class="st">    </span><span class="er">&lt;</span><span class="ot">NULL</span><span class="op">&gt;</span><span class="st">   </span></a>
+<a class="sourceLine" id="cb299-16" data-line-number="16"><span class="st"> </span><span class="dv">4</span> Afghanistan  <span class="dv">2019</span> est     <span class="op">&lt;</span><span class="ot">NULL</span><span class="op">&gt;</span><span class="st">     </span><span class="er">&lt;</span>dbl [<span class="dv">1</span>]<span class="op">&gt;</span><span class="st"> </span><span class="er">&lt;</span>dbl [<span class="dv">1</span>]<span class="op">&gt;</span><span class="st"> </span><span class="er">&lt;</span>dbl [<span class="dv">1</span>]<span class="op">&gt;</span></a>
+<a class="sourceLine" id="cb299-17" data-line-number="17"><span class="st"> </span><span class="dv">5</span> Afghanistan  <span class="dv">2019</span> lb      <span class="op">&lt;</span><span class="ot">NULL</span><span class="op">&gt;</span><span class="st">     </span><span class="er">&lt;</span>dbl [<span class="dv">1</span>]<span class="op">&gt;</span><span class="st"> </span><span class="er">&lt;</span>dbl [<span class="dv">1</span>]<span class="op">&gt;</span><span class="st"> </span><span class="er">&lt;</span>dbl [<span class="dv">1</span>]<span class="op">&gt;</span></a>
+<a class="sourceLine" id="cb299-18" data-line-number="18"><span class="st"> </span><span class="dv">6</span> Afghanistan  <span class="dv">2019</span> ub      <span class="op">&lt;</span><span class="ot">NULL</span><span class="op">&gt;</span><span class="st">     </span><span class="er">&lt;</span>dbl [<span class="dv">1</span>]<span class="op">&gt;</span><span class="st"> </span><span class="er">&lt;</span>dbl [<span class="dv">1</span>]<span class="op">&gt;</span><span class="st"> </span><span class="er">&lt;</span>dbl [<span class="dv">1</span>]<span class="op">&gt;</span></a>
+<a class="sourceLine" id="cb299-19" data-line-number="19"><span class="st"> </span><span class="dv">7</span> Afghanistan  <span class="dv">2018</span> est     <span class="op">&lt;</span><span class="ot">NULL</span><span class="op">&gt;</span><span class="st">     </span><span class="er">&lt;</span>dbl [<span class="dv">1</span>]<span class="op">&gt;</span><span class="st"> </span><span class="er">&lt;</span>dbl [<span class="dv">1</span>]<span class="op">&gt;</span><span class="st"> </span><span class="er">&lt;</span>dbl [<span class="dv">1</span>]<span class="op">&gt;</span></a>
+<a class="sourceLine" id="cb299-20" data-line-number="20"><span class="st"> </span><span class="dv">8</span> Afghanistan  <span class="dv">2018</span> lb      <span class="op">&lt;</span><span class="ot">NULL</span><span class="op">&gt;</span><span class="st">     </span><span class="er">&lt;</span>dbl [<span class="dv">1</span>]<span class="op">&gt;</span><span class="st"> </span><span class="er">&lt;</span>dbl [<span class="dv">1</span>]<span class="op">&gt;</span><span class="st"> </span><span class="er">&lt;</span>dbl [<span class="dv">1</span>]<span class="op">&gt;</span></a>
+<a class="sourceLine" id="cb299-21" data-line-number="21"><span class="st"> </span><span class="dv">9</span> Afghanistan  <span class="dv">2018</span> ub      <span class="op">&lt;</span><span class="ot">NULL</span><span class="op">&gt;</span><span class="st">     </span><span class="er">&lt;</span>dbl [<span class="dv">1</span>]<span class="op">&gt;</span><span class="st"> </span><span class="er">&lt;</span>dbl [<span class="dv">1</span>]<span class="op">&gt;</span><span class="st"> </span><span class="er">&lt;</span>dbl [<span class="dv">1</span>]<span class="op">&gt;</span></a>
+<a class="sourceLine" id="cb299-22" data-line-number="22"><span class="dv">10</span> Afghanistan  <span class="dv">2017</span> est     <span class="op">&lt;</span><span class="ot">NULL</span><span class="op">&gt;</span><span class="st">     </span><span class="er">&lt;</span>dbl [<span class="dv">1</span>]<span class="op">&gt;</span><span class="st"> </span><span class="er">&lt;</span>dbl [<span class="dv">1</span>]<span class="op">&gt;</span><span class="st"> </span><span class="er">&lt;</span>dbl [<span class="dv">1</span>]<span class="op">&gt;</span></a>
+<a class="sourceLine" id="cb299-23" data-line-number="23"><span class="co"># … with 15,800 more rows</span></a></code></pre></div>
 </details>
 <details>
 <p><summary>WHO HIV Data: long-to-wide in SAS</summary>
 In SAS, we can do the pivot operations in one step, but we have to sort everything first.</p>
-<pre class="sashtml"><code>libname classdat &quot;/home/susan/Projects/Class/unl-stat850/2020-stat850/sas/&quot;;
+<pre class="sashtml"><code>libname classdat &quot;sas/&quot;;
 
 PROC SORT DATA = classdat.hivtidy;
 BY Country year group;
@@ -7956,13 +8022,13 @@ Afghanistan
 est
 </td>
 <td class="r data">
-0.010000
+.009999998
 </td>
 <td class="r data">
 .009999998
 </td>
 <td class="r data">
-0.010000
+.009999998
 </td>
 </tr>
 <tr>
@@ -7979,13 +8045,13 @@ Afghanistan
 lb
 </td>
 <td class="r data">
-0.010000
+.
 </td>
 <td class="r data">
-.009999998
+.
 </td>
 <td class="r data">
-0.010000
+.
 </td>
 </tr>
 <tr>
@@ -8002,13 +8068,13 @@ Afghanistan
 ub
 </td>
 <td class="r data">
-0.020000
+.
 </td>
 <td class="r data">
-.009999998
+.
 </td>
 <td class="r data">
-0.030000
+.
 </td>
 </tr>
 <tr>
@@ -8025,13 +8091,13 @@ Afghanistan
 est
 </td>
 <td class="r data">
-0.010000
+.009999998
 </td>
 <td class="r data">
 .009999998
 </td>
 <td class="r data">
-0.010000
+.009999998
 </td>
 </tr>
 <tr>
@@ -8048,13 +8114,13 @@ Afghanistan
 lb
 </td>
 <td class="r data">
-0.010000
+.
 </td>
 <td class="r data">
-.009999998
+.
 </td>
 <td class="r data">
-0.010000
+.
 </td>
 </tr>
 </tbody>
@@ -8085,7 +8151,7 @@ lb
 </details>
 <details>
 <p><summary>SAS solution</summary></p>
-<pre class="sashtml"><code>libname classdat &quot;/home/susan/Projects/Class/unl-stat850/2020-stat850/sas/&quot;;
+<pre class="sashtml"><code>libname classdat &quot;sas/&quot;;
 
 PROC SORT DATA = classdat.disease_long OUT = dis_long;
 BY Cname year; /* Variables we want to define rows of data */
@@ -8213,19 +8279,25 @@ We’ll use a function in the <code>dbplyr</code> package to do that.<a href="#f
 <a class="sourceLine" id="cb303-2" data-line-number="2"><span class="cf">if</span> (<span class="op">!</span><span class="st">&quot;dbplyr&quot;</span> <span class="op">%in%</span><span class="st"> </span><span class="kw">installed.packages</span>()) <span class="kw">install.packages</span>(<span class="st">&quot;dbplyr&quot;</span>)</a>
 <a class="sourceLine" id="cb303-3" data-line-number="3"><span class="kw">library</span>(nycflights13)</a>
 <a class="sourceLine" id="cb303-4" data-line-number="4"><span class="kw">library</span>(dbplyr)</a>
-<a class="sourceLine" id="cb303-5" data-line-number="5"><span class="kw">nycflights13_sqlite</span>(<span class="dt">path =</span> <span class="st">&quot;data/&quot;</span>)</a>
-<a class="sourceLine" id="cb303-6" data-line-number="6">Caching nycflights db at data<span class="op">/</span><span class="er">/</span>nycflights13.sqlite</a>
-<a class="sourceLine" id="cb303-7" data-line-number="7">Warning<span class="op">:</span><span class="st"> `</span><span class="dt">src_sqlite()</span><span class="st">`</span> is deprecated as of dplyr <span class="dv">1</span>.<span class="dv">0</span>.<span class="fl">0.</span></a>
-<a class="sourceLine" id="cb303-8" data-line-number="8">Please use <span class="st">`</span><span class="dt">tbl()</span><span class="st">`</span> directly with a database connection</a>
-<a class="sourceLine" id="cb303-9" data-line-number="9">This warning is displayed once every <span class="dv">8</span> hours.</a>
-<a class="sourceLine" id="cb303-10" data-line-number="10">Call <span class="st">`</span><span class="dt">lifecycle::last_warnings()</span><span class="st">`</span> to see where this warning was generated.</a>
-<a class="sourceLine" id="cb303-11" data-line-number="11">src<span class="op">:</span><span class="st">  </span>sqlite <span class="dv">3</span>.<span class="fl">30.1</span> [<span class="op">/</span>home<span class="op">/</span>susan<span class="op">/</span>Projects<span class="op">/</span>Class<span class="op">/</span>unl<span class="op">-</span>stat850<span class="op">/</span><span class="dv">2020</span><span class="op">-</span>stat850<span class="op">/</span>data<span class="op">/</span>nycflights13.sqlite]</a>
-<a class="sourceLine" id="cb303-12" data-line-number="12">tbls<span class="op">:</span><span class="st"> </span>airlines, airports, flights, planes, sqlite_stat1, sqlite_stat4, weather</a></code></pre></div>
+<a class="sourceLine" id="cb303-5" data-line-number="5"></a>
+<a class="sourceLine" id="cb303-6" data-line-number="6">Attaching package<span class="op">:</span><span class="st"> &#39;dbplyr&#39;</span></a>
+<a class="sourceLine" id="cb303-7" data-line-number="7">The following objects are masked from <span class="st">&#39;package:dplyr&#39;</span><span class="op">:</span></a>
+<a class="sourceLine" id="cb303-8" data-line-number="8"></a>
+<a class="sourceLine" id="cb303-9" data-line-number="9"><span class="st">    </span>ident, sql</a>
+<a class="sourceLine" id="cb303-10" data-line-number="10"><span class="kw">nycflights13_sqlite</span>(<span class="dt">path =</span> <span class="st">&quot;data/&quot;</span>)</a>
+<a class="sourceLine" id="cb303-11" data-line-number="11">Caching nycflights db at data<span class="op">/</span><span class="er">/</span>nycflights13.sqlite</a>
+<a class="sourceLine" id="cb303-12" data-line-number="12">Creating table<span class="op">:</span><span class="st"> </span>airlines</a>
+<a class="sourceLine" id="cb303-13" data-line-number="13">Creating table<span class="op">:</span><span class="st"> </span>airports</a>
+<a class="sourceLine" id="cb303-14" data-line-number="14">Creating table<span class="op">:</span><span class="st"> </span>flights</a>
+<a class="sourceLine" id="cb303-15" data-line-number="15">Creating table<span class="op">:</span><span class="st"> </span>planes</a>
+<a class="sourceLine" id="cb303-16" data-line-number="16">Creating table<span class="op">:</span><span class="st"> </span>weather</a>
+<a class="sourceLine" id="cb303-17" data-line-number="17">src<span class="op">:</span><span class="st">  </span>sqlite <span class="dv">3</span>.<span class="fl">30.1</span> [data<span class="op">/</span><span class="er">/</span>nycflights13.sqlite]</a>
+<a class="sourceLine" id="cb303-18" data-line-number="18">tbls<span class="op">:</span><span class="st"> </span>airlines, airports, flights, planes, sqlite_stat1, sqlite_stat4, weather</a></code></pre></div>
 <p>Then, you’ll have to figure out where on your system database locations (DSNs) are stored. On Unix systems, it’s /etc/odbc.ini (for system-wide access) and ~/.odbc.ini. On windows, you’ll need to use the ODBC Data Source Administrator to set this up.</p>
 <pre><code>[nycflight]
 Description = NYC flights database
 Driver = SQLite3
-Database = /home/susan/Projects/Class/unl-stat850/2020-stat850/data/nycflights13.sqlite
+Database = data/nycflights13.sqlite
 </code></pre>
 </details>
 <div class="branch">
@@ -10492,7 +10564,7 @@ It doesn’t look like there’s much of a relationship to me. If anything, olde
 </details>
 <details>
 <p><summary>In SAS</summary></p>
-<pre class="sashtml"><code>libname nycair odbc complete = &quot;dsn=nycflight; Database=~/Projects/Class/unl-stat850/2020-stat850/data/nycflights13.sqlite&quot;;
+<pre class="sashtml"><code>libname nycair odbc complete = &quot;dsn=nycflight; Database=data/nycflights13.sqlite&quot;;
 
 PROC SQL;
 CREATE TABLE tmp1 AS 
