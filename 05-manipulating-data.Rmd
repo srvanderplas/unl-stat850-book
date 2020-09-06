@@ -59,8 +59,8 @@ write_csv(starwars[,1:11], "data/starwars.csv", na = '.')
 
 Let's set that data up first: 
 ```{sashtml sas-setup-data}
-libname classdat "/home/susan/Projects/Class/unl-stat850/2020-stat850/sas/";
-filename swdat "/home/susan/Projects/Class/unl-stat850/2020-stat850/data/starwars.csv";
+libname classdat "sas/";
+filename swdat "data/starwars.csv";
 
 PROC IMPORT DATAFILE = swdat OUT = classdat.starwars 
     DBMS = CSV 
@@ -92,7 +92,7 @@ In SAS, as in SQL, the `filter()` operation is accomplished using a `where` clau
 Rather than output the whole data table (which would take up a lot of space), I've linked the log file from each chunk below the chunk. 
 
 ```{sashtml sas-filter1}
-libname classdat "/home/susan/Projects/Class/unl-stat850/2020-stat850/sas/";
+libname classdat "sas/";
 
 /* SAS limits dataset names to 8 characters, which is super annoying. */
 /* Sorry the names aren't descriptive... */
@@ -108,7 +108,7 @@ DATA tmp1; /* this is the out dataset */
 See the log file [here](other/05-filter-1.log)
 
 ```{sashtml sas-filter2}
-libname classdat "/home/susan/Projects/Class/unl-stat850/2020-stat850/sas/";
+libname classdat "sas/";
 
 proc printto log="other/05-filter-2.log" new; /* shows output log in bookdown */
 DATA tmp2; 
@@ -126,7 +126,7 @@ In SQL, as in the SAS DATA step, `filter()` operations are performed using the k
 
 To limit the output I'm going to cheat a bit and use SELECT statements before I officially teach them to you - this is mostly so you don't get a table with all 49 variables in it. Similarly, I'm limiting the dataset to the first 5 observations that meet the condition so that we don't have to see *all* the water type pokemon.
 ```{sashtml sas-filter-sql-intro, warn = T, error = T}
-libname classdat "/home/susan/Projects/Class/unl-stat850/2020-stat850/sas/";
+libname classdat "sas/";
 
 PROC SQL;
 SELECT pokedex_number, name, type_1, type_number FROM classdat.poke (obs=5)
@@ -136,7 +136,7 @@ WHERE type_1 = "Water";
 If we want to store the output of our query to a new table, we can do that by starting our query with CREATE TABLE \<table name\> AS - this creates a table with our results.
 
 ```{sashtml sas-filter-sql-intro2}
-libname classdat "/home/susan/Projects/Class/unl-stat850/2020-stat850/sas/";
+libname classdat "sas/";
 
 PROC SQL;
 CREATE TABLE aquapoke AS
@@ -189,7 +189,7 @@ In SAS, these same tasks can sometimes require a bit more code.
 
 In SAS, to use a variable, you have to define it in one data step, then make another data step in order to use that variable. But, like `dplyr`, SAS has a row number counter that we can use for this purpose.
 ```{sashtml rownumbers}
-libname classdat "/home/susan/Projects/Class/unl-stat850/2020-stat850/sas/";
+libname classdat "sas/";
 
 DATA tmp;
 SET classdat.poke;
@@ -208,7 +208,7 @@ RUN;
 We're going to want to use PROC SORT to get the data arranged before we take the top N values.
 According to [this](https://communities.sas.com/t5/General-SAS-Programming/if-and-where-statement-for-n/td-p/237647), we can't use `_n_` in a where statement, and the proposed solution isn't reliable. So we'll do it the long way.
 ```{sashtml topnvalues, error = T}
-libname classdat "/home/susan/Projects/Class/unl-stat850/2020-stat850/sas/";
+libname classdat "sas/";
 
 PROC SORT DATA = classdat.poke
   OUT = pokesort;
@@ -241,7 +241,7 @@ The thing that makes the `tidyverse` philosophy so addictive is that it makes th
 <details><summary>PROC SQL filter statements </summary>
 SQL doesn't have an intrinsic notion of ordered rows, so in order to select even rows, we need to create a temporary dataset with `_n_` copied into a variable (just like last time).
 ```{sashtml filter-sql-1}
-libname classdat "/home/susan/Projects/Class/unl-stat850/2020-stat850/sas/";
+libname classdat "sas/";
 
 DATA poke;
   SET classdat.poke;
@@ -258,7 +258,7 @@ SELECT \* says to select all variables. We'll talk about SELECT in the next sect
 If we want the 5 pokemon with the highest total points, we can use ORDER BY to sort the table, and then specify that we only want 5 rows.
 
 ```{sashtml sas-filter-sql-2, error = F, warn = F, warning = F}
-libname classdat "/home/susan/Projects/Class/unl-stat850/2020-stat850/sas/";
+libname classdat "sas/";
 
 PROC SQL;
 SELECT pokedex_number, name, status, species, type_1, total_points
@@ -269,7 +269,7 @@ ORDER BY total_points DESC;
 As a reminder, if we want to store this new data into a new dataset, we have to start our statement with CREATE TABLE <tablename> AS, and then follow the statement with our query.
 
 ```{sashtml sas-filter-sql-3}
-libname classdat "/home/susan/Projects/Class/unl-stat850/2020-stat850/sas/";
+libname classdat "sas/";
 
 PROC SQL;
 CREATE TABLE poketmp AS
@@ -299,7 +299,7 @@ filter(poke, type_1 == "Water" | type_2 == "Water")
 
 <details><summary>SAS DATA Step</summary>
 ```{sashtml sas-filter-datastep}
-libname classdat "/home/susan/Projects/Class/unl-stat850/2020-stat850/sas/";
+libname classdat "sas/";
 
 DATA water1;
 SET classdat.poke;
@@ -440,7 +440,7 @@ write_csv("data/flights.csv", na = ".")
 
 ```
 /* Read in data */
-libname classdat "/home/susan/Projects/Class/unl-stat850/2020-stat850/sas/";
+libname classdat "sas/";
 filename fileloc '~/Projects/Class/unl-stat850/2020-stat850/data/flights.csv';
 PROC IMPORT  datafile = fileloc out=classdat.flights
 DBMS = csv; /* comma delimited file */
@@ -454,7 +454,7 @@ Ranges of variables can be specified with two dashes, e.g. `var3 -- var5`.
 Unfortunately, the wildcard doesn't work on both ends, so to get the equivalent of `matches("dep")`, we have to use two different options in our KEEP statement (plus the extra variables that don't have dep in them).
 
 ```{sashtml}
-libname classdat "/home/susan/Projects/Class/unl-stat850/2020-stat850/sas/";
+libname classdat "sas/";
 
 DATA tmpfly;
   KEEP flight year--day tailnum origin dep: sched_dep:;
@@ -472,7 +472,7 @@ If we'd prefer to carve out columns (rather than assembling a new dataset with t
 
 <details><summary>SAS DROP statement</summary>
 ```{sashtml sas-select-drop}
-libname classdat "/home/susan/Projects/Class/unl-stat850/2020-stat850/sas/";
+libname classdat "sas/";
 
 DATA tmpfly;
   DROP flight year--day tailnum origin dep: sched_dep:;
@@ -488,7 +488,7 @@ RUN;
 
 <details><summary>SAS PROC SQL SELECT statement </summary>
   ```{sashtml sas-select-sql}
-libname classdat "/home/susan/Projects/Class/unl-stat850/2020-stat850/sas/";
+libname classdat "sas/";
 
 PROC SQL;
 CREATE TABLE tmpfly
@@ -503,7 +503,7 @@ Note that PROC SQL doesn't have a RUN statement - it is executed immediately. Bu
 
 Luckily, PROC SQL will also let us use some of the DATA step options, if we're careful about it:
 ```{sashtml sas-select-sql-data}
-libname classdat "/home/susan/Projects/Class/unl-stat850/2020-stat850/sas/";
+libname classdat "sas/";
 
 PROC SQL;
 CREATE TABLE tmpfly
@@ -556,7 +556,7 @@ We can create our variable a couple of different ways in SAS:
 
 Both are demonstrated below:
 ```{sas sas-make-new-vars}
-libname classdat "/home/susan/Projects/Class/unl-stat850/2020-stat850/sas/";
+libname classdat "sas/";
 
 DATA pvtmp;
   SET classdat.police;
@@ -582,7 +582,7 @@ In SQL, you define new variables using AS. In SELECT statements, this definition
 CASE WHEN is the if-else statement in SQL. When (`victim_s_race` = 'Unknown Race'), our variable value will be "Unknown race", otherwise it will be what ever value is in `victim_s_race`.
 
 ```{sashtml sas-make-new-vars-sql}
-libname classdat "/home/susan/Projects/Class/unl-stat850/2020-stat850/sas/";
+libname classdat "sas/";
 
 PROC SQL;
 CREATE TABLE WORK.pvtmp AS
@@ -631,8 +631,8 @@ if(!"tweetrmd"%in%installed.packages()) devtools::install_github("gadenbuie/twee
 if(!"webshot2"%in%installed.packages()) devtools::install_github("rstudio/webshot2")
 # library(tweetrmd) # github.com/gadenbuie/tweetrmd
 # library(memoise) # cache screenshots
-tweet_cached <- memoise::memoise(tweetrmd::tweet_embed, cache = cache_filesystem('.tweets'))
-tweet_shot_cached <- memoise::memoise(tweetrmd::tweet_screenshot, cache = cache_filesystem('.tweets'))
+tweet_cached <- memoise::memoise(tweetrmd::tweet_embed, cache = memoise::cache_filesystem('.tweets'))
+tweet_shot_cached <- memoise::memoise(tweetrmd::tweet_screenshot, cache = memoise::cache_filesystem('.tweets'))
 
 tweetrmd::tweet_screenshot(tweetrmd::tweet_url("cszhu", "1230954186520461312"))
 tweetrmd::tweet_screenshot(tweetrmd::tweet_url("grubes14", "1168946210868269057"))
@@ -680,7 +680,7 @@ police_violence %>%
 
 In SAS, we can do something similar:
 ```{sashtml}
-libname classdat "/home/susan/Projects/Class/unl-stat850/2020-stat850/sas/";
+libname classdat "sas/";
 
 DATA pv;
   SET classdat.police;
@@ -699,7 +699,7 @@ Another option is to use PROC SQL in SAS, which will have a logical flow similar
 
 ```{sashtml}
 
-libname classdat "/home/susan/Projects/Class/unl-stat850/2020-stat850/sas/";
+libname classdat "sas/";
 
 DATA pv;
   SET classdat.police;
@@ -778,7 +778,7 @@ We grouped pv by gender and race, then ran summarize, which created one row for 
 
 <details><summary>Replicating PROC FREQ using PROC SQL</summary>
 ```{sashtml}
-libname classdat "/home/susan/Projects/Class/unl-stat850/2020-stat850/sas/";
+libname classdat "sas/";
 
 DATA pv;
   SET classdat.police;
@@ -815,7 +815,7 @@ storms <- storms %>%
 ```
 
 ````
-libname classdat "/home/susan/Projects/Class/unl-stat850/2020-stat850/sas/";
+libname classdat "sas/";
 filename fileloc '~/Projects/Class/unl-stat850/2020-stat850/data/storms.csv';
 PROC IMPORT  datafile = fileloc out=classdat.storms REPLACE
 DBMS = csv; /* comma delimited file */
@@ -883,7 +883,7 @@ We can think through the steps we need to take:
 (Note also that we can format values inline in proc SQL Select statements. That forces SAS to treat time as a date-time variable, which will force it to format correctly in e.g. plots.)
 
 ```{sashtml sas-group-by-storms-1}
-libname classdat "/home/susan/Projects/Class/unl-stat850/2020-stat850/sas/";
+libname classdat "sas/";
 
 
 PROC SQL;
@@ -946,7 +946,7 @@ You don't need to know how to create these plots yet, but I find it much easier 
 In SAS, we have to know that [datetimes are stored in seconds](https://documentation.sas.com/?docsetId=ds2pg&docsetTarget=n02zpqz4j5u3j9n1t0i95ncqep5g.htm&docsetVersion=3.1&locale=en).  So if we subtract two date time values, and we want our answer in days, then we need to divide by the number of seconds in a day: 24\*60\*60 = 86400. R has helper functions to do this for us, but it's not that much harder to just do the computuation ourselves. 
 
 ```{sashtml storms-duration-category-sas}
-libname classdat "/home/susan/Projects/Class/unl-stat850/2020-stat850/sas/";
+libname classdat "sas/";
 PROC SQL;
 CREATE TABLE stormlencat AS
 SELECT name, year, (max(time) - min(time))/86400 AS duration, max(category) AS max_strength
@@ -984,7 +984,7 @@ For this plot, I've added `facet_wrap(~year)` to produce sub-plots for each year
 We can do something similar in SAS; this time, I decided to get rid of any storm which never had hurricane-force winds - that will get rid of a lot of lines that never leave the x-axis.
 
 ```{sashtml storm-evolution-sas}
-libname classdat "/home/susan/Projects/Class/unl-stat850/2020-stat850/sas/";
+libname classdat "sas/";
 PROC SQL;
 CREATE TABLE stormevo AS
 SELECT name, year, (time - min(time))/86400 AS time_since_start, category, status, hu_diameter, ts_diameter, max(hu_diameter) AS max_hu_diameter
@@ -1019,7 +1019,7 @@ storm_evolution %>% filter(name == "Ike") %>%
 The SAS code for this is fairly similar (though I'll admit to not having the finesse with SAS to get a truly nice looking plot). At this point, we're going for quick-and-dirty graphics that show us what we want to know - we can figure out how to customize things later. 
 
 ```{sashtml ike-evolution-sas}
-libname classdat "/home/susan/Projects/Class/unl-stat850/2020-stat850/sas/";
+libname classdat "sas/";
 
 PROC SQL;
 CREATE TABLE ike AS
@@ -1055,7 +1055,7 @@ readr::write_csv(gapminder_unfiltered, "data/gapminder.csv", na = '.')
 ```
 
 ````
-libname classdat "/home/susan/Projects/Class/unl-stat850/2020-stat850/sas/";
+libname classdat "sas/";
 
 filename fileloc '~/Projects/Class/unl-stat850/2020-stat850/data/gapminder.csv';
 PROC IMPORT  datafile = fileloc out=classdat.gapminder REPLACE
@@ -1085,7 +1085,7 @@ gapminder_unfiltered %>%
 
 <details><summary>SAS</summary>
 ```{sashtml}
-libname classdat "/home/susan/Projects/Class/unl-stat850/2020-stat850/sas/";
+libname classdat "sas/";
 
 PROC SQL;
 CREATE TABLE gapsummary AS
@@ -1116,7 +1116,7 @@ gapminder_unfiltered %>%
 
 <details><summary>SAS</summary>
 ```{sashtml}
-libname classdat "/home/susan/Projects/Class/unl-stat850/2020-stat850/sas/";
+libname classdat "sas/";
 
 PROC SQL;
 CREATE TABLE gap5 AS
@@ -1146,7 +1146,7 @@ gapminder_unfiltered %>%
 
 <details><summary>SAS</summary>
 ```{sashtml}
-libname classdat "/home/susan/Projects/Class/unl-stat850/2020-stat850/sas/";
+libname classdat "sas/";
 
 PROC SQL;
 CREATE TABLE gap5 AS

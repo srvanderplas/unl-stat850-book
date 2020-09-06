@@ -147,9 +147,9 @@ str(college)
 ```
 
 ```{sashtml sas-college-read-data}
-libname classdat "/home/susan/Projects/Class/unl-stat850/2020-stat850/sas/";
+libname classdat "sas/";
 
-filename fileloc '~/Projects/Class/unl-stat850/2020-stat850/data/College_Data_Abbrev.csv';
+filename fileloc 'data/College_Data_Abbrev.csv';
 PROC IMPORT  datafile = fileloc out=classdat.college REPLACE
 DBMS = csv; /* comma delimited file */
 GUESSINGROWS=500;
@@ -194,7 +194,7 @@ In SAS, we use `find(x, pattern, 't')` to find the location of the pattern, whic
 Note that SAS pads character fields with spaces so that they are all the same length. So if we want to test for "Alabama    " we could omit the 't' option in the command, but since we usually don't want that, we need to tell SAS to trim the fields before searching for the pattern. 
 
 ```{sashtml sas-college-find}
-libname classdat "/home/susan/Projects/Class/unl-stat850/2020-stat850/sas/";
+libname classdat "sas/";
 
 DATA collegetmp;
 set classdat.college;
@@ -244,7 +244,7 @@ In SAS, this is a bit more tricky. Most people I know that use both SAS and R wi
 
 But, in this particular case, there is [documentation about how to break a sentence into words](https://blogs.sas.com/content/iml/2016/07/11/break-sentence-into-words-sas.html) in SAS. 
 ```{sashtml sas-college-split-string-words}
-libname classdat "/home/susan/Projects/Class/unl-stat850/2020-stat850/sas/";
+libname classdat "sas/";
 DATA collegename;
 SET classdat.college;
 numWords = countw(INSTNM, " ");
@@ -609,9 +609,9 @@ squirrels <- read_csv("data/2018_Central_Park_Squirrel_Census_-_Squirrel_Data.cs
 
 <details><summary>SAS solution</summary>
 ```{sashtml}
-libname classdat "/home/susan/Projects/Class/unl-stat850/2020-stat850/sas/";
+libname classdat "sas/";
 
-filename fileloc '~/Projects/Class/unl-stat850/2020-stat850/data/2018_Central_Park_Squirrel_Census_-_Squirrel_Data.csv';
+filename fileloc 'data/2018_Central_Park_Squirrel_Census_-_Squirrel_Data.csv';
 PROC IMPORT  datafile = fileloc out=classdat.squirrel REPLACE
 DBMS = csv; /* comma delimited file */
 GUESSINGROWS=500;
@@ -675,7 +675,7 @@ table(squirrels_colorfix$combo)
 
 <details><summary>SAS solution</summary>
 ```{sashtml}
-libname classdat "/home/susan/Projects/Class/unl-stat850/2020-stat850/sas/";
+libname classdat "sas/";
 
 DATA squirrelcolor;
 SET classdat.cleanSquirrel;
@@ -1066,9 +1066,9 @@ write_csv(hiv, path = "data/who_hiv.csv", na = '.') # make it easy for SAS
 ```
 Since I've cheated a bit to make this easier to read in using SAS... hopefully that will be uneventful. 
 ```{sashtml read-hiv-data-sas}
-libname classdat "/home/susan/Projects/Class/unl-stat850/2020-stat850/sas/";
+libname classdat "sas/";
 
-filename fileloc '~/Projects/Class/unl-stat850/2020-stat850/data/who_hiv.csv';
+filename fileloc 'data/who_hiv.csv';
 PROC IMPORT  datafile = fileloc out=classdat.hiv REPLACE
 DBMS = csv; /* comma delimited file */
 GUESSINGROWS=500;
@@ -1144,7 +1144,7 @@ hiv_tidy
 I've thoroughly commented the code below to hopefully make the logical steps clear. 
 
 ```{sashtml sas-transpose-hiv-clean, error = T, warning = T}
-libname classdat "/home/susan/Projects/Class/unl-stat850/2020-stat850/sas/";
+libname classdat "sas/";
 
 PROC TRANSPOSE DATA=classdat.hiv OUT = classdat.hivtidy
 (rename=(col1=rate)) /* "values_to" in tidyr speak */
@@ -1241,9 +1241,9 @@ filter(who_disease_long, Country == "Bangladesh", Disease == "measles") %>%
 
 <details><summary>SAS solution</summary>
 ```{sashtml}
-libname classdat "/home/susan/Projects/Class/unl-stat850/2020-stat850/sas/";
+libname classdat "sas/";
 
-filename fileloc '~/Projects/Class/unl-stat850/2020-stat850/data/who_disease_incidence.csv';
+filename fileloc 'data/who_disease_incidence.csv';
 PROC IMPORT  datafile = fileloc out=classdat.who_disease REPLACE
 DBMS = csv; /* comma delimited file */
 GUESSINGROWS=500;
@@ -1391,7 +1391,7 @@ hiv_tidy %>%
 <details><summary>WHO HIV Data: long-to-wide in SAS</summary>
 In SAS, we can do the pivot operations in one step, but we have to sort everything first. 
 ```{sashtml}
-libname classdat "/home/susan/Projects/Class/unl-stat850/2020-stat850/sas/";
+libname classdat "sas/";
 
 PROC SORT DATA = classdat.hivtidy;
 BY Country year group;
@@ -1431,7 +1431,7 @@ who_disease_wide %>%
 
 <details><summary>SAS solution</summary>
 ```{sashtml}
-libname classdat "/home/susan/Projects/Class/unl-stat850/2020-stat850/sas/";
+libname classdat "sas/";
 
 PROC SORT DATA = classdat.disease_long OUT = dis_long;
 BY Cname year; /* Variables we want to define rows of data */
@@ -1576,7 +1576,7 @@ Then, you'll have to figure out where on your system database locations (DSNs) a
 [nycflight]
 Description = NYC flights database
 Driver = SQLite3
-Database = /home/susan/Projects/Class/unl-stat850/2020-stat850/data/nycflights13.sqlite
+Database = data/nycflights13.sqlite
 
 ````
 
@@ -1587,7 +1587,7 @@ Database = /home/susan/Projects/Class/unl-stat850/2020-stat850/data/nycflights13
 /* a specific driver on my computer. You'll have to set up your machine to */
 /* have a configuration that is appropriate for your setup */
   
-libname nycair odbc complete = "dsn=nycflight; Database=~/Projects/Class/unl-stat850/2020-stat850/data/nycflights13.sqlite";
+libname nycair odbc complete = "dsn=nycflight; Database=data/nycflights13.sqlite";
 
 proc print data=nycair.flights (obs=3);
 title 'Flights table';
@@ -1824,7 +1824,7 @@ It doesn't look like there's much of a relationship to me. If anything, older pl
 
 <details><summary>In SAS</summary>
 ```{sashtml flights-delay-age-sas-prep, collectcode=T}
-libname nycair odbc complete = "dsn=nycflight; Database=~/Projects/Class/unl-stat850/2020-stat850/data/nycflights13.sqlite";
+libname nycair odbc complete = "dsn=nycflight; Database=data/nycflights13.sqlite";
 
 PROC SQL;
 CREATE TABLE tmp1 AS 
