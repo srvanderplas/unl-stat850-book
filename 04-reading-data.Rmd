@@ -60,10 +60,12 @@ In base R (no extra packages), you can read fwf files in using `read.fwf`, but y
 ```{r, error = T, eval = -1, echo = -2}
 url <- "https://www.mesonet.org/index.php/dataMdfMts/dataController/getFile/202006070000/mdf/TEXT/"
 url <- "data/mesodata.txt"
-read.fwf(url, 
+data <- read.fwf(url, 
          skip = 3, # Skip the first 2 lines (useless) + header line
          widths = c(5, 6, 6, 7, 7, 7, 7, 6, 7, 7, 7, 8, 9, 6, 7, 7, 7, 7, 7, 7, 
 7, 8, 8, 8)) # There is a row with the column names specified
+
+data[1:6,] # first 6 rows
 ```
 </details>
 
@@ -104,7 +106,7 @@ mesodata_names <- read.fwf(url, skip = 2, n = 1, widths = widths, header = F,
                            stringsAsFactors = F)
 names(mesodata) <- as.character(mesodata_names)
 
-mesodata
+mesodata[1:6,] # first 6 rows
 ```
 </details>
 
