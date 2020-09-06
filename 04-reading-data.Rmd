@@ -134,15 +134,16 @@ write.fwf(mtcars, file = "data/04_mtcars-fixed-width.txt")
 In SAS, it's a bit more complicated, but not that much - the biggest difference is that you generally have to specify the column names for SAS. For complicated data, as in R, you may also have to specify the column widths. 
 
 <details>  
-```{sashtml}
+```{sashtml, error = T}
 /* This downloads the file to my machine */
 /* x "curl https://www.mesonet.org/index.php/dataMdfMts/dataController/getFile/202006070000/mdf/TEXT/ 
-> ~/Projects/Class/unl-stat850/2020-stat850/data/mesodata.txt" */
+> data/mesodata.txt" */
 /* only run this once */
 
 /* Specifying WORK.mesodata means the dataset will cease to exist after this chunk exits */
-data WORK.mesodata; 
-infile  "~/Projects/Class/unl-stat850/2020-stat850/data/mesodata.txt" firstobs = 4; 
+data WORK.mesodata;
+
+infile  "data/mesodata.txt" firstobs = 4; 
 /* Skip the first 3 rows */
   length STID $ 4; /* define ID length */
   input STID $ STNM TIME RELH TAIR 
@@ -161,7 +162,7 @@ In SAS data statements, you generally need to specify the data names explicitly.
 
 <!-- ```{sashtml} -->
 
-<!-- proc import datafile = "~/Projects/Class/unl-stat850/2020-stat850/data/mesodata.txt" out=mesodata  -->
+<!-- proc import datafile = "data/mesodata.txt" out=mesodata  -->
 <!--   DBMS = DLM; /* delimited file */ -->
 <!--     datarow = 4; -->
 <!--     GETNAMES = YES; -->
@@ -222,9 +223,9 @@ Note: Due to UTF-8 issues, this code chunk runs (with complaints) when I paste i
 #### {-}
 
 ````
-/* x "curl https://raw.githubusercontent.com/shahinrostami/pokemon_dataset/master/pokemon_gen_1_to_8.csv > ~/Projects/Class/unl-stat850/2020-stat850/data/pokemon.csv";
+/* x "curl https://raw.githubusercontent.com/shahinrostami/pokemon_dataset/master/pokemon_gen_1_to_8.csv > data/pokemon.csv";
 only run this once to download the file... */
-filename pokeloc '~/Projects/Class/unl-stat850/2020-stat850/data/pokemon.csv' encoding="utf-8";
+filename pokeloc 'data/pokemon.csv' encoding="utf-8";
 
 
 proc import datafile = pokeloc out=poke
@@ -246,7 +247,7 @@ If I fix the file in R (because I know how to fix it there... another option is 
 ```{r}
 library(readr)
 library(dplyr)
-tmp <- read_csv("~/Projects/Class/unl-stat850/2020-stat850/data/pokemon.csv")[,-1]
+tmp <- read_csv("data/pokemon.csv")[,-1]
 # You'll learn how to do this later
 tmp <- select(tmp, -japanese_name) %>%
   mutate_all(iconv, from="UTF-8", to = "ASCII//TRANSLIT")
@@ -255,10 +256,10 @@ write_csv(tmp, "data/pokemon_ascii.csv", na='.')
 
 Then, reading in the new file allows us to actually see the output.
 ```{sashtml pokemon}
-libname classdat "/home/susan/Projects/Class/unl-stat850/2020-stat850/sas/";
+libname classdat "sas/";
 /* Create a library of class data */
 
-filename pokeloc  "~/Projects/Class/unl-stat850/2020-stat850/data/pokemon_ascii.csv";
+filename pokeloc  "data/pokemon_ascii.csv";
 
 proc import datafile = pokeloc out=classdat.poke
   DBMS = csv /* comma delimited file */
@@ -286,7 +287,7 @@ writeLines(tmp_ascii, "data/NE_Features_ascii.txt")
 
 ```{sashtml}
 /* Without specifying the library to store the data in, it is stored in WORK */
-proc import datafile = "~/Projects/Class/unl-stat850/2020-stat850/data/NE_Features_ascii.txt" out=nefeatures
+proc import datafile = "data/NE_Features_ascii.txt" out=nefeatures
   DBMS = DLM /* delimited file */
   replace;
   GETNAMES = YES;
@@ -302,12 +303,12 @@ proc print data=nefeatures (obs=10); /* print the first 10 observations */
 Under the hood, proc import is just writing code for a data step. So when proc import doesn't work, we can just write the code ourselves. It requires a bit more work (specifying column names, for example) but it also doesn't fail nearly as often. 
 ```{sashtml, warning = T, error = T}
 /* x "curl https://raw.githubusercontent.com/srvanderplas/unl-stat850/master/data/NE_Features_20200501.txt
-> ~/Projects/Class/unl-stat850/2020-stat850/data/NE_Features_20200501.txt";
+> data/NE_Features_20200501.txt";
 only run this once... */
 
 data nefeatures;
-/*infile "~/Projects/Class/unl-stat850/2020-stat850/data/NE_Features_20200501.txt"*/
-infile "~/Projects/Class/unl-stat850/2020-stat850/data/NE_Features_ascii.txt"
+/*infile "data/NE_Features_20200501.txt"*/
+infile "data/NE_Features_ascii.txt"
 dlm='|' /* specify delimiter */
   encoding="utf-8" /* specify encoding */
   DSD /* delimiter sensitive data */
@@ -362,11 +363,11 @@ Can you write two different statements (one using proc import on the unzipped fi
 
 ```
 /* x "curl https://cdn.rebrickable.com/media/downloads/sets.csv.gz > \ 
-~/Projects/Class/unl-stat850/2020-stat850/data/lego_sets.csv.gz";
+data/lego_sets.csv.gz";
 only run this once... */
 
-filename legofile ZIP "~/Projects/Class/unl-stat850/2020-stat850/data/lego_sets.csv.gz" GZIP;
-filename target "~/Projects/Class/unl-stat850/2020-stat850/data/lego_sets.csv";
+filename legofile ZIP "data/lego_sets.csv.gz" GZIP;
+filename target "data/lego_sets.csv";
 
 data _null_;
   infile legofile;
@@ -377,11 +378,11 @@ run;
 ```
 <details>
 ```{sashtml legosets}
-libname classdat "/home/susan/Projects/Class/unl-stat850/2020-stat850/sas/";
+libname classdat "sas/";
 /* Work with the library of class data */
 
-filename legofile ZIP "~/Projects/Class/unl-stat850/2020-stat850/data/lego_sets.csv.gz" GZIP;
-filename target "~/Projects/Class/unl-stat850/2020-stat850/data/lego_sets.csv";
+filename legofile ZIP "data/lego_sets.csv.gz" GZIP;
+filename target "data/lego_sets.csv";
 
 data _null_;
   infile legofile;
@@ -420,7 +421,7 @@ In R, the easiest way to read Excel data in is to use the `readxl` package. Ther
 ```{r, warning = F}
 if (!"readxl" %in% installed.packages()) install.packages("readxl")
 library(readxl)
-path <- "~/Projects/Class/unl-stat850/2020-stat850/data/police_violence.xlsx"
+path <- "data/police_violence.xlsx"
 if (!file.exists(path)) download.file("https://mappingpoliceviolence.org/s/MPVDatasetDownload.xlsx", path, mode = "wb")
 
 police_violence <- read_xlsx("data/police_violence.xlsx", sheet = 1)
@@ -430,11 +431,11 @@ police_violence[1:10, 1:6]
 
 In SAS, PROC IMPORT is one easy way to read in xlsx files. In this code chunk, we have to handle the fact that one of the columns in the spreadsheet contains dates. [SAS and Excel handle dates a bit differently](https://support.sas.com/resources/papers/proceedings/proceedings/sugi29/068-29.pdf), so we have to transform the date variable -- and we may as well relabel it at the same time. To do this, we use a DATA statement that outputs to the same dataset it references. We define a new variable date, adjust the Excel dates so that they conform to SAS's standard, and tell SAS how to format the date. (We'll talk more about dates and times later)
 
-```{sashtml}
-libname classdat "/home/susan/Projects/Class/unl-stat850/2020-stat850/sas/";
+```{sashtml, error = T}
+libname classdat "sas/";
 
 PROC IMPORT OUT=classdat.police 
-    DATAFILE="~/Projects/Class/unl-stat850/2020-stat850/data/police_violence.xlsx" 
+    DATAFILE="data/police_violence.xlsx" 
     DBMS=xlsx /* Tell SAS what type of file it's reading */ 
     REPLACE; /* replace the dataset if it already exists */
   SHEET="2013-2019 Police Killings"; /* SAS reads the first sheet by default */
@@ -484,7 +485,7 @@ ne_plates[1:10,1:6]
 
 ```{sashtml}
 PROC IMPORT OUT=WORK.licplate 
-    DATAFILE="~/Projects/Class/unl-stat850/2020-stat850/data/2019_Vehicle_Registration_Plates_NE.xlsx" 
+    DATAFILE="data/2019_Vehicle_Registration_Plates_NE.xlsx" 
     DBMS=xlsx /* Tell SAS what type of file it's reading */ 
     REPLACE; /* replace the dataset if it already exists */
     RANGE="'Reg By Plate Type'$A2:0"
@@ -506,7 +507,7 @@ Luckily, it is possible to read the binary data files in both programs.
 
 Let's read in the data from the 2009 National Household Travel Survey:
 ```{sashtml}
-libname classdat "~/Projects/Class/unl-stat850/2020-stat850/data";
+libname classdat "data";
 /* this tells SAS where to look for (a bunch of) data files */
 
 proc contents data=classdat.cen10pub; /* This tells sas to access the specific file */
@@ -634,7 +635,7 @@ head(babyname, 10) # show the first 10 obs
 
 You can of course write formal queries using the DBI package, but for many databases, it's easier to do the querying in R. We'll cover both options later - the R version will be in the next module.
 
-In SAS, you can theoretically connect to SQLite databases, but there are very specific instructions for how to do that for each operating system. You'll need to acquire the [SQLite ODBC Driver](http://www.ch-werner.de/sqliteodbc/) for your operating system. You may also need to set up a DSN (Data Source Name) ([Windows](https://support.exagoinc.com/hc/en-us/articles/115005848908-Using-SQLite-Data-Sources), [Mac and Linux](https://db.rstudio.com/best-prsactices/drivers/#setting-up-database-connections-1)).^[On one of my machines, I also had to make sure the file libodbc.so existed - it was named libodbc.so.1 on my laptop, so a symbolic link fixed the issue.] 
+In SAS, you can theoretically connect to SQLite databases, but there are very specific instructions for how to do that for each operating system. You'll need to acquire the [SQLite ODBC Driver](http://www.ch-werner.de/sqliteodbc/) for your operating system. You may also need to set up a DSN (Data Source Name) ([Windows](https://support.exagoinc.com/hc/en-us/articles/115005848908-Using-SQLite-Data-Sources), [Mac and Linux](https://db.rstudio.com/best-prsactices/rdivers/#setting-up-database-connections-1)).^[On one of my machines, I also had to make sure the file libodbc.so existed - it was named libodbc.so.1 on my laptop, so a symbolic link fixed the issue.] 
 
 Here is my .odbc.ini file as I've configured it for my Ubuntu 18.04 machine. A similar file should work for any Mac or Linux machine. In windows, you'll need to use the ODBC Data Source Administrator to set this up. 
 
@@ -643,7 +644,7 @@ Here is my .odbc.ini file as I've configured it for my Ubuntu 18.04 machine. A s
 [babyname]
 Description = 2015 SSA baby names
 Driver = SQLite3
-Database = /home/susan/Projects/Class/unl-stat850/2020-stat850/data/ssa-babynames-for-2015.sqlite
+Database = data/ssa-babynames-for-2015.sqlite
 
 ````
 
@@ -652,7 +653,7 @@ Database = /home/susan/Projects/Class/unl-stat850/2020-stat850/data/ssa-babyname
 /* a specific driver on my computer. You'll have to set up your machine to */
 /* have a configuration that is appropriate for your setup */
   
-libname mydata odbc complete = "dsn=babyname; Database=~/Projects/Class/unl-stat850/2020-stat850/data/ssa-babynames-for-2015.sqlite";
+libname mydata odbc complete = "dsn=babyname; Database=data/ssa-babynames-for-2015.sqlite";
 
 proc print data=mydata.babynames (obs=10);
 run;
@@ -678,7 +679,7 @@ Both R and SAS make it relatively easy to get summary statistics from a dataset,
 [Proc Freq](https://go.documentation.sas.com/?docsetId=procstat&docsetTarget=procstat_freq_toc.htm&docsetVersion=9.4&locale=en) generates frequency tables for variables or interactions of variables. This can help you to see whether there is missing information. Using those frequency tables, you can create frequency plots and set up chi squared tests.
 <details>
 ```{sashtml proc-freq-demo}
-libname classdat "/home/susan/Projects/Class/unl-stat850/2020-stat850/sas/";
+libname classdat "sas/";
 
 ODS GRAPHICS ON;
 PROC FREQ DATA=classdat.poke ORDER=FORMATTED;
@@ -695,7 +696,7 @@ Proc Means can be used to get more useful summary statistics for numeric variabl
 
 <details>
 ```{sashtml proc-means-demo}
-libname classdat "/home/susan/Projects/Class/unl-stat850/2020-stat850/sas/";
+libname classdat "sas/";
 
 PROC MEANS DATA = classdat.poke;
 run;
@@ -709,7 +710,7 @@ run;
 For even higher levels of detail, [Proc Univariate](https://go.documentation.sas.com/?docsetId=procstat&docsetTarget=procstat_univariate_toc.htm&docsetVersion=9.4&locale=en) will provide variability, tests for location, quantiles, skewness, and will identify the extreme observations for you. You can also get histograms for variables, even specifying distributions you'd like to be fit to the data (if that's something you want). 
 <details>
 ```{sashtml proc-univariate-demo}
-libname classdat "/home/susan/Projects/Class/unl-stat850/2020-stat850/sas/";
+libname classdat "sas/";
 
 ODS GRAPHICS ON;
 PROC UNIVARIATE DATA = classdat.poke;
@@ -723,7 +724,7 @@ ODS GRAPHICS OFF;
 Proc Corr allows you to examine the relationship between two quantitative variables. 
 
 ```{sashtml proc-corr-demo}
-libname classdat "/home/susan/Projects/Class/unl-stat850/2020-stat850/sas/";
+libname classdat "sas/";
 
 ODS GRAPHICS ON;
 PROC CORR DATA = classdat.poke PLOTS( MAXPOINTS=200000)=MATRIX(HISTOGRAM);
@@ -742,7 +743,7 @@ It is useful to memorize the SAS PROC options you use most frequently, but it's 
 
 <details>
 ```{sashtml}
-libname classdat "/home/susan/Projects/Class/unl-stat850/2020-stat850/sas/";
+libname classdat "sas/";
 
 ODS GRAPHICS ON;
 PROC CONTENTS DATA = classdat.police; /* see what's in the dataset */
