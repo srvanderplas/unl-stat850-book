@@ -19,7 +19,7 @@ Most of the time, data does not come in a format suitable for analysis. Spreadsh
 Unfortunately, this type of data structure is not usually useful to us when we analyze or visualize the data. 
 
 ::: note
-This section is going to seem like it drags on forever. It covers a lot of material, and a few different concepts. I highly recommend separating it out into 3 different "sessions" - Strings, Pivot operations, and Table Joins. 
+This section is going to seem like it drags on forever. It covers a lot of material, and a few different concepts. I highly recommend separating it out into 3-4 different "sessions" - Tidy data, Strings, Pivot operations, and Table Joins. 
 
 For now, you need to know this material well enough to 1) identify what operation needs to happen, and 2) know where to find the sample code for that operation. It will get easier to remember the specific syntax with practice. 
 :::
