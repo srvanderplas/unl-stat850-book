@@ -242,12 +242,14 @@ Github will host HTML content for you using Github pages (case in point: this te
 4. Go to https://username.github.io 
 
 ![How to set up github pages to host your own content](video/Github-pages-setup.gif)
+([YouTube Link](https://youtu.be/L8AWVUs817k))
 
 Github will render any README.md file as actual HTML; it will also allow you to host straight HTML pages. By default, the README file is rendered first, but in subsequent directories, a file named index.html will be rendered as the "home page" for the subdirectory, if you have such a file. Otherwise you'll have to know the file name.
 
 I tend to separate things out into separate repositories, but you can host HTML content on other repositories too, by enabling github pages in the repository settings. On my personal page, I have repositories for my CV, Presentations^[I've been putting my presentations on Github since 2014, so it has a pretty good record of every set of slides I've created for anything important (and many not-so-important things as well). I highly recommend this strategy - by storing everything online, you make it very easy to share your work with others, very easy to reference later, and more importantly, easy for you to find in 3 years when you need that one specific picture.], etc. Each repository that has pages enabled can be accessed via srvanderplas.github.io/\<repository name\>/\<repository file path\>. So, to see my unl-stat850 repository, you'd go to https://srvanderplas.github.io/unl-stat850/ (but you're already there!). 
 
 ![Enable github pages in a separate repository](video/Github-pages-repo.gif)
+([YouTube Link](https://youtu.be/A1Gu7vqZqeg))
 
 This mechanism provides a very convenient way to showcase your work, share information with collaborators, and more - instead of sending files, you can send a URL and no one has to download anything overtly. 
 
