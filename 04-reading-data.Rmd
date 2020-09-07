@@ -835,13 +835,13 @@ There are better options for examining this data, but they are easier to get in 
 ```{r}
 library(ggplot2)
 
+# define the x and y axis variables first
 ggplot(data = poke, aes(x = type_1, y = type_2)) + 
-  # define the x and y axis variables first
-  geom_point(aes(size = ..count.., color = ..count..), stat = "bin2d")
   # define what will be plotted (points)
   # and what aesthetics will be used (size, color)
   # and how those aesthetics will be mapped to values 
   # (proportional to the count in a 2d bin)
+  geom_point(aes(size = ..count.., color = ..count..), stat = "bin2d")
 
 ```
 </details>
