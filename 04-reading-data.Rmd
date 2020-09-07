@@ -999,7 +999,7 @@ police_violence %>%
 ```
 This summary allows us to see very quickly that there is a difference in the age distribution of unarmed individuals who died during an encounter with police - unarmed individuals are likely to be significantly older on average. 
 
-If you are using `skimr` in knitr/rmarkdown, your data frame will automatically render as a custom-printed table if the last line in the code chunk is a `skim_df` object. 
+If you are using `skimr` in knitr/rmarkdown, your data frame will automatically render as a custom-printed table if the last line in the code chunk is a `skim_df` object. There are many ways to customize the summary statistics detailed in the package that I'm not going to go into here, but you are free to investigate if you like the way these summaries look. 
 
 I mention this package now because it is appropriate for EDA, but it may not be intuitive or easy to use in the way you might want to use it until after we cover the `dplyr` package in the [manipulating data module](#manipulating-data) and the `tidyr` package in the [transforming data module](#transforming-data). 
 
