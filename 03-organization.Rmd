@@ -362,7 +362,7 @@ When values are passed into the function as arguments, the behavior in SAS devia
 An argument that is passed **by value** makes a copy of the value (to a new memory location) for the local function scope (this is what R does). 
 
 When an argument is passed **by reference**, the *address* of the argument is passed in instead^[if you're familiar with C, the argument passed in is just a pointer to the original memory]. 
-This is faster and more efficient (because you aren't making a new copy of the data), but it does mean that changes inside the function persist outside that function. 
+This is faster and more efficient (because you aren't making a new copy of the data), but it does mean that changes inside the function persist outside that function. [This can cause problems when reusing modules](https://blogs.sas.com/content/iml/2011/02/07/passing-arguments-by-reference-an-efficient-choice.html). 
 
 <details><summary>Argument passing in SAS</summary>
 If we make a slight modification to `myfun(a, b)`, though, we see some interesting behavior in SAS that we wouldn't see in the equivalent R program.
@@ -389,6 +389,12 @@ print b[label="a before r1"] r1 c[label="a after r1"] r2 d[label="a after r2"];
 quit;
 ```
 </details>
+
+::: note
+In SAS, be sure that if you are using a logical operator AND, `&`, you put spaces around it (e.g. ` & `) - `&var2` is a way to specify that you are passing an argument (`var2`) by reference, and SAS can get confused and issue weird warnings if you actually intended this to be a logical statement of `var1 &var2`. 
+
+I ran across this once and it thoroughly confused me until I remembered that &var can mean "pass by reference" in some languages. 
+:::
 
 <details><summary>Argument passing in R</summary>
 In R, variables inside a function don't modify variables which are outside a function (generally speaking). In SAS, this is not necessarily the case. In the first call to myfun(), we pass in two numerical arguments, and we see that even though the value of a changes inside the function, that change doesn't affect the variable defined outside of the function. In the second call to myfun(), we pass a variable in as an argument, and we see that the variable changes after the function's execution! In the R chunk (below), you can see that the behavior of what is essentially the same code is different.
@@ -792,7 +798,6 @@ tribble(~var1, ~var2,
         5, 6)
 ```
 </details>
-
 
 ## References and Links {.learn-more -}
 
