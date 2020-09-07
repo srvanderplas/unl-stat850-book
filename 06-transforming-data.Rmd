@@ -146,7 +146,7 @@ college <- read_csv("data/College_Data_Abbrev.csv", guess_max = 5000, na = '.')
 str(college)
 ```
 
-```{sashtml sas-college-read-data}
+```{sashtml sas-college-read-data, fig.path = "image/"}
 libname classdat "sas/";
 
 filename fileloc 'data/College_Data_Abbrev.csv';
@@ -193,7 +193,7 @@ In SAS, we use `find(x, pattern, 't')` to find the location of the pattern, whic
 
 Note that SAS pads character fields with spaces so that they are all the same length. So if we want to test for "Alabama    " we could omit the 't' option in the command, but since we usually don't want that, we need to tell SAS to trim the fields before searching for the pattern. 
 
-```{sashtml sas-college-find}
+```{sashtml sas-college-find, fig.path = "image/"}
 libname classdat "sas/";
 
 DATA collegetmp;
@@ -243,7 +243,7 @@ unnest(tmp) %>%
 In SAS, this is a bit more tricky. Most people I know that use both SAS and R will do the data cleaning in R once things get complicated, and then read the clean data in to SAS. That's a valid approach, but it's worth seeing what has to be done in SAS this once. As we get further into this class, I'll probably be more willing to say "we're just going to use R for this" for two reasons - 1. I know R better, and 2. R is generally better at handling the weird stuff; SAS is built to quickly handle things that are already formatted in a reasonable way. SAS seems to be highly preferred for e.g. fitting mixed/linear models, but it isn't the easiest tool to use for data cleaning. 
 
 But, in this particular case, there is [documentation about how to break a sentence into words](https://blogs.sas.com/content/iml/2016/07/11/break-sentence-into-words-sas.html) in SAS. 
-```{sashtml sas-college-split-string-words}
+```{sashtml sas-college-split-string-words, fig.path = "image/"}
 libname classdat "sas/";
 DATA collegename;
 SET classdat.college;
@@ -376,7 +376,7 @@ In PCRE regular expressions, '/' are used as delimiters. SAS assigns each sequen
 
 In this example, however, lets just test to see whether PRXMATCH finds a match or not
 
-```{sashtml}
+```{sashtml, fig.path = "image/"}
 DATA strings;
   INFILE DATALINES DSD; /* This allows quoted strings */
   INPUT string ~ $150.; /* ~ says deal with quoted strings */
@@ -435,7 +435,7 @@ When doing various operations with regular expressions, it can be useful to save
 - SUBSTR extracts the string given the starting location and length
 
 <details><summary>PRXPARSE, PRXSUBSTR, SUBSTR</summary>
-```{sashtml}
+```{sashtml, fig.path = "image/"}
 DATA strings;
   INFILE DATALINES DSD; /* This allows quoted strings */
   INPUT string ~ $150.; /* ~ says deal with quoted strings */
@@ -523,7 +523,7 @@ tibble(
 <details><summary>Find and Replace with PRXCHANGE</summary>
 The next major task is find and replace, where we get to see another feature of perl-style regular expressions. 's/xxx/yyy/' is the general form of a find-and-replace regular expression. Think "substitue yyy for xxx". 
 
-```{sashtml}
+```{sashtml, fig.path = "image/"}
 DATA ducks;
 INFILE DATALINES DSD;
 INPUT line ~ $50.;
@@ -608,7 +608,7 @@ squirrels <- read_csv("data/2018_Central_Park_Squirrel_Census_-_Squirrel_Data.cs
 </details>
 
 <details><summary>SAS solution</summary>
-```{sashtml}
+```{sashtml, fig.path = "image/"}
 libname classdat "sas/";
 
 filename fileloc 'data/2018_Central_Park_Squirrel_Census_-_Squirrel_Data.csv';
@@ -723,7 +723,7 @@ I've left the rate column in the original data frame just to make it easy to com
 `separate()` will also take a full on regular expression if you want to capture only parts of a string to put into new columns. 
 
 [The `scan()` function in SAS can be used similarly](https://communities.sas.com/t5/SAS-Procedures/Splitting-a-delimited-column-into-multiple-columns/td-p/351130), though it doesn't have quite the simplicity and convenience of `separate`.
-```{sashtml sas-table3-scan}
+```{sashtml sas-table3-scan, fig.path = "image/"}
 data table3;
 length country $12 rate $20;
 input country $ year rate $;
@@ -774,7 +774,7 @@ table5 %>%
 
 Similarly, it is possible to do this operation in SAS as well (by string concatenation or using the numeric approach), as shown below:
 
-```{sashtml sas-table5-concatenate}
+```{sashtml sas-table5-concatenate, fig.path = "image/"}
 /* read in the data */
 DATA table5;
 LENGTH country $12 century year rate $20;
@@ -893,7 +893,7 @@ SAS will let you do a single transpose operation, where tidyr requires two separ
 
 [[Friendly guide to PROC TRANSPOSE](https://libguides.library.kent.edu/SAS/TransposeData)]{.learn-more}
 
-```{sashtml}
+```{sashtml, fig.path = "image/"}
 DATA table4a;
 input country $12. _1999 _2000;
 datalines;
@@ -941,7 +941,7 @@ RUN;
 In the above code, we let SAS name our output variable COL1, and then renamed it at the end by modifying the output statement. Another option would be to create an ID variable when inputting each data set, and use the ID statement to indicate that variable. 
 
 
-```{sashtml}
+```{sashtml, fig.path = "image/"}
 DATA table4a;
 input country $12. _1999 _2000;
 id = "cases";
@@ -992,7 +992,7 @@ RUN;
 This seems a bit odd, as we're defining constant variables, but it works -- and provides some insight into how the reverse operation (long to wide) might work (e.g. nonconstant variables). 
 Imagine instead of transposing each dataset and then merging them, we just stack the two wide-format datasets on top of each other. Then we can do the same transpose operation, but we'll end up with two columns: cases, and population. 
 
-```{sashtml}
+```{sashtml, fig.path = "image/"}
 DATA table4a;
 input country $12. _1999 _2000;
 id = "cases";
@@ -1143,7 +1143,7 @@ hiv_tidy
 <details><summary>Wide-to-long transformation in SAS (WHO HIV data) </summary>
 I've thoroughly commented the code below to hopefully make the logical steps clear. 
 
-```{sashtml sas-transpose-hiv-clean, error = T, warning = T}
+```{sashtml sas-transpose-hiv-clean, error = T, warning = T, fig.path = "image/"}
 libname classdat "sas/";
 
 PROC TRANSPOSE DATA=classdat.hiv OUT = classdat.hivtidy
@@ -1240,7 +1240,7 @@ filter(who_disease_long, Country == "Bangladesh", Disease == "measles") %>%
 </details>
 
 <details><summary>SAS solution</summary>
-```{sashtml}
+```{sashtml, fig.path = "image/"}
 libname classdat "sas/";
 
 filename fileloc 'data/who_disease_incidence.csv';
@@ -1304,7 +1304,7 @@ table2 %>%
 ```
 </details>
 <details><summary>In SAS, we use PROC TRANSPOSE again</summary>
-```{sashtml}
+```{sashtml, fig.path = "image/"}
 DATA table2;
 input country $12. year  type$12. count 12.;
 datalines;
@@ -1390,7 +1390,7 @@ hiv_tidy %>%
 </details>
 <details><summary>WHO HIV Data: long-to-wide in SAS</summary>
 In SAS, we can do the pivot operations in one step, but we have to sort everything first. 
-```{sashtml}
+```{sashtml, fig.path = "image/"}
 libname classdat "sas/";
 
 PROC SORT DATA = classdat.hivtidy;
@@ -1430,7 +1430,7 @@ who_disease_wide %>%
 </details>
 
 <details><summary>SAS solution</summary>
-```{sashtml}
+```{sashtml, fig.path = "image/"}
 libname classdat "sas/";
 
 PROC SORT DATA = classdat.disease_long OUT = dis_long;
@@ -1582,7 +1582,7 @@ Database = data/nycflights13.sqlite
 
 </details>
 
-```{sashtml sqlite3-nycflights, echo = F}
+```{sashtml sqlite3-nycflights, echo = F, fig.path = "image/"}
 /* This code requires that I've set up a DSN connecting the sqlite file to */
 /* a specific driver on my computer. You'll have to set up your machine to */
 /* have a configuration that is appropriate for your setup */
@@ -1669,7 +1669,7 @@ In SAS, you can do joins using a data step or PROC SQL. To do a join with data s
 [This guide shows the syntax for PROC SQL and DATA step joins side-by-side.](https://support.sas.com/resources/papers/proceedings/pdfs/sgf2008/178-2008.pdf)
 
 <details><summary>PROC SQL Mutating joins</summary>
-```{sashtml}
+```{sashtml, fig.path = "image/"}
 data t1;
 input x $ y;
 datalines;
@@ -1741,7 +1741,7 @@ title;
 </details>
 
 <details><summary>Data Step Mutating joins</summary>
-```{sashtml}
+```{sashtml, fig.path = "image/"}
 data t1;
 input x $ y;
 datalines;
@@ -1823,7 +1823,7 @@ It doesn't look like there's much of a relationship to me. If anything, older pl
 </details>
 
 <details><summary>In SAS</summary>
-```{sashtml flights-delay-age-sas-prep, collectcode=T}
+```{sashtml flights-delay-age-sas-prep, collectcode=T, fig.path = "image/"}
 libname nycair odbc complete = "dsn=nycflight; Database=data/nycflights13.sqlite";
 
 PROC SQL;
@@ -1836,7 +1836,7 @@ SELECT tailnum, dep_delay, arr_delay, air_time, distance, hour, carrier, origin
 FROM nycair.flights;
 ```
 Now that the prep work is done, we can get on with answering the question.
-```{sashtml flights-delay-age-sas-res, collectcode=T}
+```{sashtml flights-delay-age-sas-res, collectcode=T, fig.path = "image/"}
 
 PROC SQL;
 CREATE TABLE agedelay AS
@@ -1862,7 +1862,7 @@ ID _STAT_;
 RUN;
 ```
 In theory, we could use some sort of linear model, but lets start with a simple plot of age * average delay and see where that takes us. 
-```{sashtml flights-delay-age-sas-plot1, collectcode=T}
+```{sashtml flights-delay-age-sas-plot1, collectcode=T, fig.path = "image/"}
 PROC SGPANEL DATA = agemeanst;
 PANELBY VAR;
 SCATTER X = age Y = MEAN;
@@ -1870,7 +1870,7 @@ RUN;
 ```
 I started wondering about that pattern - to me, it doesn't look like there's any particular trend so much as there's just low - high - low clusters. So I decided to plot frequency as well, and, lo and behold, the frequency count is similarly distributed. So my current working hypothesis is that there are a lot more observations in the middle group of planes that are 5-15 years old.
 
-```{sashtml flights-delay-age-sas-plot2, collectcode=T}
+```{sashtml flights-delay-age-sas-plot2, collectcode=T, fig.path = "image/"}
 
 PROC SGPLOT DATA = agemeanst;
 SCATTER X = age Y = _FREQ_;
