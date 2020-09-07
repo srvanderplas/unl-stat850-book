@@ -6,6 +6,6 @@
 
 
 
-```{r clean-up-homedir-imgs, include = F}
+```{r clean-up-homedir-imgs, include = F, cache = F}
 file.remove(list.files(".", ".png"))
 ```
