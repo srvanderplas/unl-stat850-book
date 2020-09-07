@@ -973,6 +973,36 @@ The thing I'm honestly most surprised at with this plot is that there are so man
 My analysis in R was a bit more free-form than in SAS - in SAS, I proceeded fairly directly through each procedure, while in R, I could investigate things that caught my eye along the way more easily. I didn't focus as much on what we'd need to clean up in R (because the same problems exist that we identified when using SAS). 
 </details>
 
+#### `skimr` package
+
+::: note
+I discovered this package while looking over the material in this chapter a second time (so this is new as of 2020/09/07). 
+:::
+
+```{r}
+if (!"skimr" %in% installed.packages()) install.packages("skimr")
+library(skimr)
+skim(police_violence)
+```
+
+You may find the summary tables given by the `skimr` package to be more appealing - it separates the variables out by type, provides histograms of numeric variables, and is compatible with rmarkdown/knitr. 
+
+If you want summary statistics by group, you can get that using the `dplyr` package functions `select` and `group_by`, which we will learn more about in the next section. (I'm cheating a bit by mentioning it now, but it's just so useful!)
+
+```{r skimr2}
+library(dplyr)
+police_violence %>%
+  # get variables which are important
+  select(matches("age$|race|gender|Cause|Symptoms|Unarmed")) %>% 
+  group_by(Unarmed) %>%
+  skim()
+```
+This summary allows us to see very quickly that there is a difference in the age distribution of unarmed individuals who died during an encounter with police - unarmed individuals are likely to be significantly older on average. 
+
+If you are using `skimr` in knitr/rmarkdown, your data frame will automatically render as a custom-printed table if the last line in the code chunk is a `skim_df` object. 
+
+I mention this package now because it is appropriate for EDA, but it may not be intuitive or easy to use in the way you might want to use it until after we cover the `dplyr` package in the [manipulating data module](#manipulating-data) and the `tidyr` package in the [transforming data module](#transforming-data). 
+
 
 ### Comparison
 
