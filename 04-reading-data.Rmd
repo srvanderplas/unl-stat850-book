@@ -850,7 +850,7 @@ ggplot(data = poke, aes(x = type_1, y = type_2)) +
 
 We can also generate histograms or bar charts^[A histogram is a chart which breaks up a continuous variable into ranges, where the height of the bar is proportional to the number of items in the range. A bar chart is similar, but shows the number of occurrences of a discrete variable.] By default, R uses ranges of $(a, b]$ in histograms, so we specify which breaks will give us a desireable result. If we do not specify breaks, R will pick them for us.
 
-```{r}
+```{r, out.width = "48%", fig.show = "hold"}
 hist(poke$generation) # This isn't really optimal... we only have whole numbers.
 hist(poke$generation, breaks = 0:8) # Much better.
 ```
@@ -861,7 +861,7 @@ For continuous variables, we can use histograms, or we can examine kernel densit
 Remember that `%>%` is the "pipe" and takes the left side of the pipe to pass as an argument to the right side. This makes code easier to read because it becomes a step-wise "recipe". 
 :::
 
-```{r, out.width = "48%"}
+```{r, out.width = "48%", fig.show = "hold"}
 library(magrittr) # This provides the pipe command, %>%
 
 hist(poke$weight_kg)
@@ -869,7 +869,6 @@ hist(poke$weight_kg)
 poke$weight_kg %>%
   log10() %>% # Take the log - will transformation be useful w/ modeling?
   hist() # create a histogram
-
 
 poke$weight_kg %>%
   density(na.rm = T) %>% # First, we compute the kernel density 
@@ -886,7 +885,7 @@ poke$weight_kg %>%
 We may also want to look at correlations between variables. In R, most models are specified as `y ~ x1 + x2 + x3`, where the information on the left side of the tilde is the dependent variable, and the information on the right side are any explanatory variables. Interactions are specified using `x1*x2` to get all combinations of x1 and x2 (x1, x2, x1\*x2); single interaction terms are specified as e.g. `x1:x2` and do not include any component terms.
 
 To examine the relationship between a categorical variable and a continuous variable, we might look at boxplots: 
-```{r}
+```{r, out.width = "48%", fig.show = "hold"}
 
 boxplot(log10(height_m) ~ status, data = poke)
 
@@ -896,7 +895,7 @@ In the second boxplot, there are far too many categories to be able to resolve t
 
 To look at the relationship between numeric variables, we could compute a numeric correlation, but a plot is more useful:
 
-```{r}
+```{r, out.width = "48%", fig.show = "hold"}
 plot(defense ~ attack, data = poke, type = "p")
 
 cor(poke$defense, poke$attack)
