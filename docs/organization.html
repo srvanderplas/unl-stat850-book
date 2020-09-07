@@ -909,7 +909,7 @@ y outside function
 When values are passed into the function as arguments, the behavior in SAS deviates from the equivalent behavior in R. In SAS, arguments to functions are passed by <strong>reference</strong>.</p>
 <p>An argument that is passed <strong>by value</strong> makes a copy of the value (to a new memory location) for the local function scope (this is what R does).</p>
 <p>When an argument is passed <strong>by reference</strong>, the <em>address</em> of the argument is passed in instead<a href="#fn12" class="footnote-ref" id="fnref12"><sup>12</sup></a>.
-This is faster and more efficient (because you aren’t making a new copy of the data), but it does mean that changes inside the function persist outside that function.</p>
+This is faster and more efficient (because you aren’t making a new copy of the data), but it does mean that changes inside the function persist outside that function. <a href="https://blogs.sas.com/content/iml/2011/02/07/passing-arguments-by-reference-an-efficient-choice.html">This can cause problems when reusing modules</a>.</p>
 <details>
 <p><summary>Argument passing in SAS</summary>
 If we make a slight modification to <code>myfun(a, b)</code>, though, we see some interesting behavior in SAS that we wouldn’t see in the equivalent R program.</p>
@@ -937,6 +937,10 @@ quit;
 
                      3        13          3         8          5</code></pre>
 </details>
+<div class="note">
+<p>In SAS, be sure that if you are using a logical operator AND, <code>&amp;</code>, you put spaces around it (e.g. <code>&amp;</code>) - <code>&amp;var2</code> is a way to specify that you are passing an argument (<code>var2</code>) by reference, and SAS can get confused and issue weird warnings if you actually intended this to be a logical statement of <code>var1 &amp;var2</code>.</p>
+<p>I ran across this once and it thoroughly confused me until I remembered that &amp;var can mean “pass by reference” in some languages.</p>
+</div>
 <details>
 <p><summary>Argument passing in R</summary>
 In R, variables inside a function don’t modify variables which are outside a function (generally speaking). In SAS, this is not necessarily the case. In the first call to myfun(), we pass in two numerical arguments, and we see that even though the value of a changes inside the function, that change doesn’t affect the variable defined outside of the function. In the second call to myfun(), we pass a variable in as an argument, and we see that the variable changes after the function’s execution! In the R chunk (below), you can see that the behavior of what is essentially the same code is different.</p>

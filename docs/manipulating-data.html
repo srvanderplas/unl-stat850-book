@@ -983,7 +983,7 @@ If you want to directly load the SAS datafile, you can find it <a href="sas/star
 In SAS, as in SQL, the <code>filter()</code> operation is accomplished using a <code>where</code> clause. Multiple clauses can be connected using <code>and</code>, and compound statements can be grouped with parentheses.
 <details>
 <p><summary>Demonstration of <code>where</code> in SAS</summary>
-Rather than output the whole data table (which would take up a lot of space), I’ve linked the log file from each chunk below the chunk.</p>
+Rather than output the whole data table (which would take up a lot of space), I’ve linked the log file from each chunk below the chunk. If you are running this code in SAS, you should NOT copy the <code>proc printto</code> line.</p>
 <pre class="sashtml"><code>libname classdat &quot;sas/&quot;;
 
 /* SAS limits dataset names to 8 characters, which is super annoying. */
@@ -91354,7 +91354,7 @@ tropical depression
 <a name="IDX1"></a>
 <div>
 <div class="c">
-<p><img alt="Histogram for pressure" src="sas-group-by-storms-1.png" style=" height: 480px; width: 640px;" border="0" class="c"></p>
+<p><img alt="Histogram for pressure" src=" image/sas-group-by-storms-1.png" style=" height: 480px; width: 640px;" border="0" class="c"></p>
 </div>
 </div>
 <br>
@@ -91367,7 +91367,7 @@ tropical depression
 <a name="IDX2"></a>
 <div>
 <div class="c">
-<p><img alt="The SGPlot Procedure" src="sas-group-by-storms-11.png" style=" height: 480px; width: 640px;" border="0" class="c"></p>
+<p><img alt="The SGPlot Procedure" src=" image/sas-group-by-storms-11.png" style=" height: 480px; width: 640px;" border="0" class="c"></p>
 </div>
 </div>
 <br>
@@ -91397,16 +91397,14 @@ FROM classdat.storms
 GROUP BY year, name
 ORDER BY max_strength;
 
-ODS GRAPHICS ON;
 PROC BOXPLOT DATA=stormlencat;
   PLOT duration * max_strength;
-RUN;
-ODS GRAPHICS OFF;</code></pre>
+RUN;</code></pre>
 <div class="branch">
 <a name="IDX"></a>
 <div>
 <div class="c">
-<p><img alt="Box Plot for duration" src="storms-duration-category-sas.png" style=" height: 480px; width: 640px;" border="0" class="c"></p>
+<p><img alt="Box Plot for duration" src=" image/storms-duration-category-sas.png" style=" height: 480px; width: 640px;" border="0" class="c"></p>
 </div>
 </div>
 <p><br></p>
@@ -91440,17 +91438,15 @@ GROUP BY year, name
 HAVING max_hu_diameter &gt; 0
 ORDER BY year, name, time_since_start;
 
-ODS GRAPHICS ON;
 PROC SGPANEL DATA=stormevo;
 PANELBY year / COLUMNS = 4 ROWS = 3;
 SERIES X = time_since_start Y = hu_diameter / GROUP = name;
-RUN;
-ODS GRAPHICS OFF;</code></pre>
+RUN;</code></pre>
 <div class="branch">
 <a name="IDX"></a>
 <div>
 <div class="c">
-<p><img alt="The SGPanel Procedure" src="storm-evolution-sas.png" style=" height: 480px; width: 640px;" border="0" class="c"></p>
+<p><img alt="The SGPanel Procedure" src=" image/storm-evolution-sas.png" style=" height: 480px; width: 640px;" border="0" class="c"></p>
 </div>
 </div>
 <p><br></p>
@@ -91487,19 +91483,17 @@ CREATE TABLE ike AS
 SELECT * FROM classdat.storms WHERE name = &quot;Ike&quot;
 ORDER BY time;
 
-ODS GRAPHICS ON;
 PROC SGPLOT DATA=ike;
 SCATTER X = time Y = hu_diameter / 
   COLORRESPONSE=category /* color by another variable */
   MARKERATTRS=(symbol=CircleFilled) /* use circles for points */
   DATALABEL=category; /* label the circles with the value */
-RUN;
-ODS GRAPHICS OFF;</code></pre>
+RUN;</code></pre>
 <div class="branch">
 <a name="IDX"></a>
 <div>
 <div class="c">
-<p><img alt="The SGPlot Procedure" src="ike-evolution-sas.png" style=" height: 480px; width: 640px;" border="0" class="c"></p>
+<p><img alt="The SGPlot Procedure" src=" image/ike-evolution-sas.png" style=" height: 480px; width: 640px;" border="0" class="c"></p>
 </div>
 </div>
 <p><br></p>
