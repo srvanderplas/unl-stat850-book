@@ -829,6 +829,7 @@ plot(table(poke$generation)) # bar plot
 table(poke$type_1, poke$type_2)
 plot(table(poke$type_1, poke$type_2)) # mosaic plot - hard to read b/c too many categories
 ```
+
 There are better options for examining this data, but they are easier to get in ggplot2. 
 <details>
 ```{r}
