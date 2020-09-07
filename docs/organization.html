@@ -201,6 +201,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="1.8" data-path="tools.html"><a href="tools.html#references"><i class="fa fa-check"></i><b>1.8</b> References</a></li>
 </ul></li>
 <li class="chapter" data-level="2" data-path="intro-prog.html"><a href="intro-prog.html"><i class="fa fa-check"></i><b>2</b> Introduction to Statistical Programming</a><ul>
+<li class="chapter" data-level="" data-path="intro-prog.html"><a href="intro-prog.html#a-quick-note-on-rmarkdown"><i class="fa fa-check"></i>A quick note on Rmarkdown</a></li>
 <li class="chapter" data-level="" data-path="tools.html"><a href="tools.html#module-objectives"><i class="fa fa-check"></i>Module Objectives</a></li>
 <li class="chapter" data-level="" data-path="intro-prog.html"><a href="intro-prog.html#definitions"><i class="fa fa-check"></i>Definitions</a></li>
 <li class="chapter" data-level="" data-path="intro-prog.html"><a href="intro-prog.html#statistical-programming-languages"><i class="fa fa-check"></i>Statistical Programming Languages</a></li>
@@ -231,7 +232,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="3.1" data-path="organization.html"><a href="organization.html#reproducibility"><i class="fa fa-check"></i><b>3.1</b> Reproducibility</a><ul>
 <li class="chapter" data-level="" data-path="organization.html"><a href="organization.html#reproducibility-references-and-reading"><i class="fa fa-check"></i>Reproducibility References and Reading</a></li>
 </ul></li>
-<li class="chapter" data-level="3.2" data-path="organization.html"><a href="organization.html#markdown"><i class="fa fa-check"></i><b>3.2</b> Markdown</a><ul>
+<li class="chapter" data-level="3.2" data-path="organization.html"><a href="organization.html#rmarkdown"><i class="fa fa-check"></i><b>3.2</b> Markdown and R</a><ul>
 <li class="chapter" data-level="3.2.1" data-path="organization.html"><a href="organization.html#rmarkdown-with-sas"><i class="fa fa-check"></i><b>3.2.1</b> Rmarkdown with… SAS?</a></li>
 </ul></li>
 <li class="chapter" data-level="3.3" data-path="organization.html"><a href="organization.html#functions-and-modules"><i class="fa fa-check"></i><b>3.3</b> Functions and Modules</a><ul>
@@ -479,13 +480,15 @@ By sharing your code and raw data, you provide the wider scientific community wi
 </ul>
 </div>
 </div>
-<div id="markdown" class="section level2">
-<h2><span class="header-section-number">3.2</span> Markdown</h2>
+<div id="rmarkdown" class="section level2">
+<h2><span class="header-section-number">3.2</span> Markdown and R</h2>
 <p>In this class, we’re primarily going to use rmarkdown to create dynamic documents. Markdown itself is a special style of text that is intended to allow you to do basic formatting without having to pause to actually click the buttons (if you were writing in word). It integrates equation functionality (so you can type mathematical equations using LaTeX syntax) and also allows for the use of templates (so you can write whole journal articles in a text editor). Markdown is also program agnostic - it will allow you to compile your work into HTML, word, or PDF form.</p>
 <p>Markdown documents must be <em>compiled</em> - a computer program runs and transforms the text file into a full document. RStudio has markdown functionality built-in, and also supports <code>rmarkdown</code>, which is a markdown variant designed to make it easy to integrate R code with document creation (so-called literate programming). There are other markdown programs which extend markdown’s functionality so that you can write a book (like this one), create presentations or posters, or maintain a blog in markdown.</p>
 <p>Rmarkdown, despite the name, also allows you to integrate the results from code in other languages. As you saw in <a href="intro-prog.html#intro-prog">the last chapter</a>, SAS code can be integrated into markdown as well. Other languages commonly used include python, julia, SQL, Bash, C++, and Stan.</p>
 <p><span class="learn-more">There is a full set of <a href="https://rmarkdown.rstudio.com/lesson-1.html">Rmarkdown tutorials</a> from RStudio. There is also a handy <a href="https://rmarkdown.rstudio.com/lesson-15.html">cheatsheet</a>.</span></p>
-<p><span class="tryitout"><strong>Try it out!</strong> Or, you can take the “jump right in” approach - open RStudio, File -&gt; New -&gt; Rmarkdown document. To compile it, click the knit button in the bar at the top of the text editor window. Make changes to the text and the R code, compile it, and see what happens. Voila! You’re a markdow expert!</span></p>
+<div class="tryitout">
+<p>Or, you can take the “jump right in” approach - open RStudio, File -&gt; New -&gt; Rmarkdown document. To compile it, click the knit button in the bar at the top of the text editor window. Make changes to the text and the R code, compile it, and see what happens. Voila! You’re a markdow expert!</p>
+</div>
 <p>Rmarkdown documents may contain code used to support an analysis, but they are usually not the best way to develop an analysis method - they are better for documentation, writing tutorials, and other scenarios where you need both text explanations and code/analysis/results. There are other “containers” for code, though, including functions, scripts, and packages. Each has their own advantages and disadvantages, and can be used together.</p>
 <div id="rmarkdown-with-sas" class="section level3">
 <h3><span class="header-section-number">3.2.1</span> Rmarkdown with… SAS?</h3>
