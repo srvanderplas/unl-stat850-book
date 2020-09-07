@@ -22,6 +22,13 @@ If you do not hopelessly break code during this chapter, then please do your bes
 
 If all else fails, while you're waiting for someone to help you figure out what an error message means... [try this approach](https://xkcd.com/1024/).
 
+## A quick note on Rmarkdown {-}
+
+In this module, you'll be submitting homework in Rmarkdown using SASmarkdown chunks. I've structured the assignment so that you shouldn't have to do much configuring of the markdown document itself, aside from providing the location of the SAS executable file on your hard drive (look for the SASHome directory). However, if you find yourself having issues with SASmarkdown, feel free to check out [the section on markdown](#rmarkdown) in next week's module. 
+
+The use of markdown for this week's assignment is a "trust me, and you'll get comfortable with this eventually" sort of thing. 
+
+
 ## Module Objectives {-}
 
 - Identify variable types, data structures, and common reserved words in R and SAS
@@ -89,7 +96,6 @@ Another interesting feature of SAS is that it's really several languages - some 
 
 I kept the classic R reference card by my computer for about 5 years, and referenced it at least once or twice a day for that entire period. There will be other cheat sheets and reference cards scattered through this book because if you can't remember something's name, you might be able to remember where it is on the reference card (or at least, that's how I learned R).
 :::
-
 
 
 ## Variable types
