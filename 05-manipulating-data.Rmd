@@ -89,7 +89,7 @@ filter(starwars, species == "Human", homeworld == "Tatooine")
 
 In SAS, as in SQL, the `filter()` operation is accomplished using a `where` clause. Multiple clauses can be connected using `and`, and compound statements can be grouped with parentheses. 
 <details><summary>Demonstration of `where` in SAS</summary>
-Rather than output the whole data table (which would take up a lot of space), I've linked the log file from each chunk below the chunk. 
+Rather than output the whole data table (which would take up a lot of space), I've linked the log file from each chunk below the chunk. If you are running this code in SAS, you should NOT copy the `proc printto` line. 
 
 ```{sashtml sas-filter1}
 libname classdat "sas/";
