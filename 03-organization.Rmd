@@ -62,7 +62,7 @@ I highly recommend scanning these resources to get a good sense of the different
 - [The Biostatistics reproducibility issue w/ responses to the editorial and associated commentary](https://academic.oup.com/biostatistics/issue/11/3)
 
 
-## Markdown
+## Markdown and R {#rmarkdown}
 
 In this class, we're primarily going to use rmarkdown to create dynamic documents. Markdown itself is a special style of text that is intended to allow you to do basic formatting without having to pause to actually click the buttons (if you were writing in word). It integrates equation functionality (so you can type mathematical equations using LaTeX syntax) and also allows for the use of templates (so you can write whole journal articles in a text editor). Markdown is also program agnostic - it will allow you to compile your work into HTML, word, or PDF form. 
 
