@@ -303,8 +303,8 @@ proc print data=nefeatures (obs=10); /* print the first 10 observations */
 Under the hood, proc import is just writing code for a data step. So when proc import doesn't work, we can just write the code ourselves. It requires a bit more work (specifying column names, for example) but it also doesn't fail nearly as often. 
 ```{sashtml, warning = T, error = T}
 /* x "curl https://raw.githubusercontent.com/srvanderplas/unl-stat850/master/data/NE_Features_20200501.txt
-> data/NE_Features_20200501.txt";
-only run this once... */
+> data/NE_Features_20200501.txt"; */
+/* only run this once... */
 
 data nefeatures;
 /*infile "data/NE_Features_20200501.txt"*/
