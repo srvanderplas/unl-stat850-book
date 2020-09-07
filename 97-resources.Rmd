@@ -7,5 +7,10 @@
 
 
 ```{r clean-up-homedir-imgs, include = F, cache = F}
+# Copy png files to docs
+file.copy(list.files(".", ".png"), to = "docs/")
 file.remove(list.files(".", ".png"))
+
+# Copy image/ files to docs/image
+file.copy(list.files("image/", ".png", full.names = T), to = "docs/image/", overwrite = T)
 ```
