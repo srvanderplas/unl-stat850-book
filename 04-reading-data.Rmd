@@ -609,8 +609,8 @@ library(Hmisc)
 db_loc <- "data/Witchcraftsurvey_download.mdb"
 
 mdb.get(db_loc, tables = TRUE) # get table list
-mdb.get(db_loc, tables = "WDB_Trial") # get table of trials
-
+mdb.get(db_loc, tables = "WDB_Trial")[1:6,1:10] # get table of trials, print first 6 rows and 10 cols
+  
 ```
 Many databases have multiple tables with **keys** that connect information in each table. We'll spend more time on databases later in the semester - for now, it's enough to be able to get data out of one. 
 
