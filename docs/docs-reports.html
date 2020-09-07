@@ -201,6 +201,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="1.8" data-path="tools.html"><a href="tools.html#references"><i class="fa fa-check"></i><b>1.8</b> References</a></li>
 </ul></li>
 <li class="chapter" data-level="2" data-path="intro-prog.html"><a href="intro-prog.html"><i class="fa fa-check"></i><b>2</b> Introduction to Statistical Programming</a><ul>
+<li class="chapter" data-level="" data-path="intro-prog.html"><a href="intro-prog.html#a-quick-note-on-rmarkdown"><i class="fa fa-check"></i>A quick note on Rmarkdown</a></li>
 <li class="chapter" data-level="" data-path="tools.html"><a href="tools.html#module-objectives"><i class="fa fa-check"></i>Module Objectives</a></li>
 <li class="chapter" data-level="" data-path="intro-prog.html"><a href="intro-prog.html#definitions"><i class="fa fa-check"></i>Definitions</a></li>
 <li class="chapter" data-level="" data-path="intro-prog.html"><a href="intro-prog.html#statistical-programming-languages"><i class="fa fa-check"></i>Statistical Programming Languages</a></li>
@@ -231,7 +232,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="3.1" data-path="organization.html"><a href="organization.html#reproducibility"><i class="fa fa-check"></i><b>3.1</b> Reproducibility</a><ul>
 <li class="chapter" data-level="" data-path="organization.html"><a href="organization.html#reproducibility-references-and-reading"><i class="fa fa-check"></i>Reproducibility References and Reading</a></li>
 </ul></li>
-<li class="chapter" data-level="3.2" data-path="organization.html"><a href="organization.html#markdown"><i class="fa fa-check"></i><b>3.2</b> Markdown</a><ul>
+<li class="chapter" data-level="3.2" data-path="organization.html"><a href="organization.html#rmarkdown"><i class="fa fa-check"></i><b>3.2</b> Markdown and R</a><ul>
 <li class="chapter" data-level="3.2.1" data-path="organization.html"><a href="organization.html#rmarkdown-with-sas"><i class="fa fa-check"></i><b>3.2.1</b> Rmarkdown with… SAS?</a></li>
 </ul></li>
 <li class="chapter" data-level="3.3" data-path="organization.html"><a href="organization.html#functions-and-modules"><i class="fa fa-check"></i><b>3.3</b> Functions and Modules</a><ul>
@@ -539,7 +540,7 @@ You can see the compiled pdf <a href="other/test.pdf">here</a>.
 <p>What happens when you remove the <code>[fragile]</code> from each frame declaration?</p>
 <p>Can you change the theme of the presentation?</p>
 <p>Add another slide, and on that slide, show an appropriate style ggplot2 graph of the distribution of board game ratings, reading in the board game ratings using the following code:</p>
-<div class="sourceCode" id="cb478"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb478-1" data-line-number="1">board_games &lt;-<span class="st"> </span>readr<span class="op">::</span><span class="kw">read_csv</span>(<span class="st">&quot;https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2019/2019-03-12/board_games.csv&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb480"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb480-1" data-line-number="1">board_games &lt;-<span class="st"> </span>readr<span class="op">::</span><span class="kw">read_csv</span>(<span class="st">&quot;https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2019/2019-03-12/board_games.csv&quot;</span>)</a></code></pre></div>
 <p><a href="https://kbroman.org/Tools4RR/assets/lectures/12_talks_posters_withnotes.pdf">Karl Broman has a set of slides that show how to use beamer + knitr to make reproducible slides with notes.</a></p>
 <p>You can also create Beamer slides using Rmarkdown, if you want, but you’ll probably have more control over the fine details if you go straight to the Rnw file without going through Rmd first. It’s a trade-off – the file will probably be simpler in Rmarkdown, but you won’t have nearly as much control.</p>
 </div>
