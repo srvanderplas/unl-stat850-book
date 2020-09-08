@@ -70,7 +70,9 @@ Markdown documents must be *compiled* - a computer program runs and transforms t
 
 Rmarkdown, despite the name, also allows you to integrate the results from code in other languages. As you saw in [the last chapter](#intro-prog), SAS code can be integrated into markdown as well. Other languages commonly used include python, julia, SQL, Bash, C++, and Stan.
 
-[There is a full set of [Rmarkdown tutorials](https://rmarkdown.rstudio.com/lesson-1.html) from RStudio. There is also a handy [cheatsheet](https://rmarkdown.rstudio.com/lesson-15.html). ]{.learn-more}
+::: learn-more
+There is a full set of [Rmarkdown tutorials](https://rmarkdown.rstudio.com/lesson-1.html) from RStudio. There is also a handy [cheatsheet](https://rmarkdown.rstudio.com/lesson-15.html). If you run into trouble or want to do something more complicated, [there is an Rmarkdown cookbook](https://bookdown.org/yihui/rmarkdown-cookbook/) which contains a number of useful tricks.
+:::
 
 ::: tryitout
 Or, you can take the "jump right in" approach - open RStudio, File -> New -> Rmarkdown document. To compile it, click the knit button in the bar at the top of the text editor window. Make changes to the text and the R code, compile it, and see what happens. Voila! You're a markdow expert!
