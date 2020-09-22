@@ -1912,6 +1912,8 @@ An excel spreadsheet of the data as downloaded in Sept 2020 is available [here](
 ### Option 2: R
 This section shows you how to clean the data up without any sort of database merges, but with 2 pivot operations. The SAS section shows how to clean the data up with database merges and a single pivot operation. You can, of course, use either approach in either language. 
 
+If you want to try this for yourself first, there is a skeleton file [here](code/06_gas_prices_start.R) that you can fill in. Use the intermediate datasets shown to guide you through the steps, then click on the expandable sections to see the code that was used. 
+
 <details><summary>Reading in the data from the web</summary>
 
 ```{r}
@@ -2032,17 +2034,24 @@ head(gas_prices)
 ggplot(gas_prices, aes(x = Date, y = Value)) + geom_line()
 ```
 
+The full code file for this analysis is [here](code/06_gas_prices.R).
+
 ### Option 3: SAS
 
-<details><summary>Read in the data</summary>
-```{sashtml gasprices-sas-read-in-data, collectcode=T, error = T, fig.path = "image/"}
-libname classdat "sas/";
+If you want to try this for yourself first, there is a skeleton file [here](code/06_gas_prices_start.sas) that you can fill in. Use the intermediate datasets shown to guide you through the steps, then click on the expandable sections to see the code that was used. 
 
+::: note
+I spent quite a while trying to get collectcode = T to run so that I could put the SAS code in in smaller bites, but couldn't get it to work. Please forgive the screenshots, but ugh, I'm tired of fooling with SAS at the moment. 
+:::
+
+
+<details><summary>Read in the data</summary>
+```
 /*********************************************************/
 /* Step 1: Read in the data and drop missing rows/cols   */
 /*********************************************************/
 options missing=' ';
-data classdat.gas_raw    ;
+data gas_raw;
 infile 'data/gas_prices_raw.csv' firstobs=3 delimiter = ',' MISSOVER DSD;
 informat ym $10. ;
 informat date1 $8. ; informat value1 4.3 ;
@@ -2073,26 +2082,16 @@ Dates are formated as 8-character strings, values as numbers with 3 decimal plac
 The options missing piece allows us to test for whether information is missing or not. 
 </details>
 
-```{sashtml gasprices-sas-showdata1, collectcode=T, echo = F, error = T, fig.path = "image/"}
-libname classdat "sas/";
-
-PROC PRINT data = classdat.gas_raw(obs=10);
-RUN;
-```
+![SAS output - gas_raw](image/06-transforming-data_insertimage_1.png)
 
 <details><summary>Split up year and month, format month properly</summary>
 
-```{sashtml gasprices-sas-split-ym, collectcode=T, error = T, fig.path = "image/"}
-libname classdat "sas/";
-
-/*********************************************************/
-/* Step 2: Split up year-month and format month properly */
-/*********************************************************/
+```
 proc format;
 value $ mon 'Jan' = 1 'Feb' = 2 'Mar' = 3 'Apr' = 4 'May' = 5 'Jun' = 6 'Jul' = 7 'Aug' = 8 'Sep' = 9 'Oct' = 10 'Nov' = 11 'Dec' = 12;
 run;
 
-data classdat.gas_split;
+data gas_raw;
    set gas_raw;
    length var1-var2 $4.;
    array var(2) $;
@@ -2101,36 +2100,30 @@ data classdat.gas_split;
    end;
 rename var1 = year var2 = month;
 drop i ym; 
-if date1 = "NA" then delete; /* get rid of 
+if date1 = "NA" then delete; /* get rid of NA stuff */
 run;
 
 /* format month as a number */
-data classdat.gas_split;
-set classdat.gas_split;
+data gas_raw;
+set gas_raw;
 format month $ mon.;
 run;
 ```
+
 </details>
-
-```{sashtml gasprices-sas-showdata2, collectcode=T, error = T, fig.path = "image/"}
-libname classdat "sas/";
-PROC PRINT data = classdat.gas_split (obs=10);
-RUN;
-```
-
+![SAS output - gas_raw ](image/06-transforming-data_insertimage_2.png)
 
 <details><summary>Get long data with just the dates</summary>
 
-```{sashtml gasprices-sas-wide-to-long, collectcode=T, error = T, fig.path = "image/"}
-PROC TRANSPOSE DATA=classdat.gas_split OUT =classdat.split_long1
-(rename=(col1=date)) /* "values_to" in tidyr speak */
-NAME = week;         /* "names_to" in tidyr speak */;
+```
+PROC TRANSPOSE DATA = gas_raw OUT = split_long1
+(rename=(col1=date)) NAME = week;
 BY year month NOTSORTED;
 VAR date1 date2 date3 date4 date5;
 RUN;
 
-data classdat.split_long1;
-set classdat.split_long1;
+data split_long1;
+set split_long1;
 IF _N_ = 1 THEN DO;
     REGEXname = PRXPARSE("s/date//");
 END;
@@ -2141,29 +2134,24 @@ DROP REGEXname;
 IF missing(date) THEN delete;
 RUN;
 
-PROC SORT data = classdat.split_long1 out = classdat.split_long1;
+PROC SORT data = split_long1 out = split_long1;
 BY year month week;
 RUN;
 ```
 </details>
 
-```{sashtml gasprices-sas-showdata3, collectcode=T, error = T, fig.path = "image/"}
-PROC PRINT data = classdat.split_long1 (obs=10);
-RUN;
+![SAS output - split_long1](image/06-transforming-data_insertimage_3.png)
+
+<details><summary>Get long data with just the prices</summary>
 ```
-
-<details><summary>Get long data with just the dates</summary>
-```{sashtml gasprices-sas-wide-to-long2, collectcode=T, error = T, fig.path = "image/"}
-
-PROC TRANSPOSE DATA=classdat.split OUT =classdat.split_long2
-(rename=(col1=price)) /* "values_to" in tidyr speak */
-NAME = week;         /* "names_to" in tidyr speak */;
+PROC TRANSPOSE DATA=gas_split OUT =split_long2
+(rename=(col1=price)) NAME = week;
 BY year month NOTSORTED;
 VAR value1 value2 value3 value4 value5;
 RUN;
 
-data classdat.split_long2;
-set classdat.split_long2;
+data split_long2;
+set split_long2;
 IF _N_ = 1 THEN DO;
     REGEXname = PRXPARSE("s/value//");
 END;
@@ -2174,42 +2162,34 @@ DROP REGEXname;
 IF missing(price) THEN delete;
 RUN;
 
-PROC SORT data = classdat.split_long2 out = classdat.split_long2;
+PROC SORT data = split_long2 out = split_long2;
 BY year month week;
 RUN;
 
 ```
 </details>
 
-```{sashtml gasprices-sas-showdata4, collectcode=T, error = T, fig.path = "image/"}
-PROC PRINT data = classdat.split_long2 (obs=10);
-RUN;
-```
+![SAS output - split_long2](image/06-transforming-data_insertimage_4.png)
 
 <details><summary>Merge the two long datasets together</summary>
-```{sashtml gasprices-sas-wide-to-long-merge, collectcode=T, error = T, fig.path = "image/"}
+```
 PROC SQL;
-CREATE TABLE classdat.gas_prices AS
+CREATE TABLE gas_prices AS
 SELECT COALESCE(p1.year, p2.year) AS year,
        COALESCE(p1.month, p2.month) AS month,
        COALESCE(p1.week, p2.week) AS week,
        date, price
-FROM classdat.split_long1 as p1
-RIGHT JOIN classdat.split_long2 as p2
+FROM split_long1 as p1
+RIGHT JOIN split_long2 as p2
 ON p1.year = p2.year AND p1.month = p2.month AND p1.week = p2.week;
 ```
 </details>
 
-
-```{sashtml gasprices-sas-showdata5, collectcode=T, error = T, fig.path = "image/"}
-PROC PRINT data = classdat.gas_prices (obs=10);
-RUN;
-```
+![SAS output - gas prices ](image/06-transforming-data_insertimage_5.png)
 
 <details><summary>Format dates</summary>
-```{sashtml gasprices-sas-date-format, collectcode=T, error = T, fig.path = "image/"}
-
-DATA classdat.split2;
+```
+DATA split2;
    SET gas_prices;
    length var1-var2 3;
    array var(2);
@@ -2220,32 +2200,31 @@ RENAME var1 = monthnum var2 = day;
 DROP i date; /* month is also in numeric form */
 RUN;
 
-DATA classdat.gas_prices;
-SET classdat.split2;
+DATA gas_prices;
+SET split2;
 date = MDY(monthnum, day, year);
 FORMAT date yymmdd10.;
 KEEP date price;
 RUN;
 
-PROC SORT DATA=classdat.gas_prices OUT = classdat.gas_prices;
+PROC SORT DATA=gas_prices OUT = gas_prices;
 BY date;
 RUN;
 ```
 </details>
 
-
-```{sashtml gasprices-sas-showdata6, collectcode=T, error = T, fig.path = "image/"}
-PROC PRINT data = classdat.gas_prices(obs=10);
-RUN;
+![SAS output - gas prices, final version ](image/06-transforming-data_insertimage_6.png)
 ```
-
-```{sashtml gas-prices-sas-plot, collectcode = T, error = T, fig.path = "image/"}
-
-PROC SGPLOT DATA = classdat.gas_prices;
+PROC SGPLOT DATA = gas_prices;
 SERIES X = date Y = price;
 TITLE 'Gas Prices';
 RUN;
 ```
+
+![](image/06_sas_gas_prices_plot.png)
+
+You can see the full script [here](code/06_gas_prices.sas).
+
 
 ## References {- .learn-more}
 
