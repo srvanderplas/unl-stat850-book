@@ -9,6 +9,9 @@ gas_prices_raw <- html_table(htmldoc, fill = T, trim = T) [[5]]
 
 head(gas_prices_raw)
 
+# write data out for SAS...
+write_csv(gas_prices_raw, "data/gas_prices_raw.csv")
+
 # Your task is to get this data into tidy form. At the end of the exercise,
 # your data should look like this:
 #
