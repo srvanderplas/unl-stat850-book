@@ -4,12 +4,6 @@
 
 # Manipulating Data {#manipulating-data}
 
-## Module Objectives {-}
-
-- Filter, subset, and clean data to prepare a dataset for analysis
-- Describe and document operations performed on a data set transparently, and implement the operations using reproducible steps.
-- Create summaries of data appropriate for additional analysis or display
-
 In this section, we're going start learning how to work with data. Generally speaking, data doesn't come in a form suitable for analysis^[See [this twitter thread](https://twitter.com/JennyBryan/status/722954354198597632) for some horror stories. [This tweet](https://twitter.com/jengolbeck/status/1153064308483510272?s=20) is also pretty good at showing one type of messiness.] - you have to clean it up, create the variables you care about, get rid of those you don't care about, and so on. 
 
 In R, we'll be using the `tidyverse` for this. It's a meta-package (a package that just loads other packages) that collects packages designed with the same philosophy^[The philosophy includes a preference for pipes, but this preference stems from the belief that code should be readable in the same way that text is readable.] and interface (basically, the commands will use predictable argument names and structure). You've already been introduced to the tidyverse - specifically, `readr`. 
@@ -20,6 +14,12 @@ In SAS, there is no tidyverse, but there is a relatively consistent structure fo
 
 <div class="learn-more">
 [There is an excellent dplyr cheatsheet available from RStudio](https://github.com/rstudio/cheatsheets/blob/master/data-transformation.pdf). You may want to print it out to have a copy to reference as you work through this chapter. </div>
+
+## Manipulating Data: Module Objectives  {-}
+
+- Filter, subset, and clean data to prepare a dataset for analysis
+- Describe and document operations performed on a data set transparently, and implement the operations using reproducible steps.
+- Create summaries of data appropriate for additional analysis or display
 
 ## Tidy Data
 

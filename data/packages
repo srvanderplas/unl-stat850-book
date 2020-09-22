@@ -23,6 +23,7 @@ stringr
 purrr
 dbplyr
 xml2
+tidyverse
 maps
 ggthemes
 png
@@ -42,7 +43,6 @@ knitr
 usethis
 tinytex
 devtools
-tidyverse
 mapproj
 here
 emo
