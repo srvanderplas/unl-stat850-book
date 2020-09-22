@@ -1521,8 +1521,9 @@ Each location might also have some logistical information attached:
 - number of seats
 - AV equipment
 
-<iframe width="560" height="315" src='https://dbdiagram.io/embed/5ef387179ea313663b3b048e' alt = "A diagram representation of the described database"> </iframe>
 
+![Primary School Database Schema](image/PrimarySchoolExample.png)
+<!-- <a href="https://dbdiagram.io/embed/5ef387179ea313663b3b048e">Link to diagram of the database</a> -->
 
 We could go on, but you can see that this data is hierarchical, but also relational: 
 - each class has both a teacher and a set of students
