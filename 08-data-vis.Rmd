@@ -914,7 +914,7 @@ rm(list = c("objs", "rm_objs"))
 #### Try it out -- Middle Earth edition {- .tryitout}
 <details><summary>Dedicated fans have re-created middle earth in digital format using ArcGIS files. These map file formats, called shape files, can be read into R and plotted. </summary>
 
-You may need to install a few spatial packages first ([Mac and Windows](http://www.nickeubank.com/wp-content/uploads/2015/10/RGIS1_SpatialDataTypes_part0_setup.html), [Linux](https://philmikejones.me/tutorials/2014-07-14-installing-rgdal-in-r-on-linux/)
+You may need to install a few spatial packages first ([Mac and Windows](http://www.nickeubank.com/wp-content/uploads/2015/10/RGIS1_SpatialDataTypes_part0_setup.html), [Linux](https://philmikejones.me/tutorials/2014-07-14-installing-rgdal-in-r-on-linux/))
 
 The `sf` package in R contains a special geom, `geom_sf`, which will plot map objects with an appropriate geom, whether they are points, lines, or polygons. In complicated maps with many layers, this is a really awesome feature. 
 
