@@ -47,7 +47,7 @@ data split;
       var[i]=scan(ym,i,'-');
    end;
 rename var1 = year var2 = month;
-drop i ym; /* month is also in numeric form */
+drop i ym;
 if date1 = "NA" then delete;
 run;
 
@@ -114,10 +114,10 @@ RUN;
 /*********************************************************/
 PROC SQL;
 CREATE TABLE gas_prices AS
-SELECT COALESCE(p1.year, p2.year) AS year, 
-       COALESCE(p1.month, p2.month) AS month, 
+SELECT COALESCE(p1.year, p2.year) AS year,
+       COALESCE(p1.month, p2.month) AS month,
        COALESCE(p1.week, p2.week) AS week,
-       date, price 
+       date, price
 FROM split_long1 as p1
 RIGHT JOIN split_long2 as p2
 ON p1.year = p2.year AND p1.month = p2.month AND p1.week = p2.week;

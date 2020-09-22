@@ -8,7 +8,7 @@
 
 > Tidy datasets are all alike, but every messy dataset is messy in its own way. - Hadley Wickham
 
-## Module Objectives {-}
+## Transforming Data: Module Objectives  {-}
 
 - Reshape data
 - Transform variables to support analysis and visualization of data
@@ -1878,6 +1878,374 @@ RUN;
 ```
 It's also entirely possible that planes between 5-15 years of age have more mechanical issues, but I suspect most delays are due to airport, weather, etc. rather than mechanical malfunctions.  
 </details>
+
+
+## Example: Gas Prices Data {.tryitout .tabset}
+The US Energy Information Administration tracks gasoline prices, with data available on a weekly level since late 1994. You can go to [this site](https://www.eia.gov/dnav/pet/hist/LeafHandler.ashx?n=pet&s=emm_epm0u_pte_nus_dpg&f=w) to see a nice graph of gas prices, along with a corresponding table (or you can look at the screenshot below, as I don't really trust that the site design will stay the same...)
+
+![Gas prices at US EIA site](image/06_gas_prices_screenshot.png)
+
+The data in the table is structured in a fairly easy to read form: each row is a month; each week in the month is a set of two columns: one for the date, one for the average gas price. While this data is definitely not tidy, it is readable.
+
+But looking at the chart at the top of the page, it's not clear how we might get that chart from the data in the format it's presented here: to get a chart like that, we would need a table where each row was a single date, and there were columns for date and price. That would be tidy form data, and so we have to get from the wide, human-readable form into the long, tidier form that we can graph.
+
+### Option 1: Manual formatting in Excel
+
+An excel spreadsheet of the data as downloaded in Sept 2020 is available [here](data/gas_prices.xlsx). Can you manually format the data (or even just the first year or two of data) into a long, skinny format?
+
+<details><summary>What steps are involved?</summary>
+
+1. Copy the year-month column, creating one vertical copy for every set of columns
+
+2. Move each block of two columns down to the corresponding vertical copy
+
+3. Delete empty rows
+
+4. Format dates
+
+5. Delete empty columns
+
+[Here is a video of me doing most of these steps](https://youtu.be/n70eAKJmzRo). I skipped out on the data cleaning stage because Excel is miserable for working with dates. 
+</details>
+
+
+### Option 2: R
+This section shows you how to clean the data up without any sort of database merges, but with 2 pivot operations. The SAS section shows how to clean the data up with database merges and a single pivot operation. You can, of course, use either approach in either language. 
+
+<details><summary>Reading in the data from the web</summary>
+
+```{r}
+library(rvest) # scrape data from the web
+library(xml2) # parse xml data
+url <- "https://www.eia.gov/dnav/pet/hist/LeafHandler.ashx?n=pet&s=emm_epm0u_pte_nus_dpg&f=w"
+
+htmldoc <- read_html(url)
+gas_prices_raw <- html_table(htmldoc, fill = T, trim = T) [[5]]
+```
+</details>
+```{r}
+head(gas_prices_raw)
+```
+
+<details><summary>Initial data cleaning - fix up column names, get rid of empty rows</summary>
+```{r}
+library(tidyverse)
+library(magrittr) # pipe friendly operations
+# Function to clean up column names
+# Written as an extra function because it makes the code a lot cleaner
+fix_gas_names <- function(x) {
+  # Add extra header row information
+  paste(x, c("", rep(c("Date", "Value"), times = 5))) %>%
+    # trim leading/trailing spaces
+    str_trim() %>%
+    # replace characters in names that aren't ok for variables in R
+    make.names()
+}
+
+# Clean up the table a bit
+gas_prices_raw <- gas_prices_raw %>%
+  set_names(fix_gas_names(names(.))) %>%
+  # remove first row that is really an extra header row
+  filter(Year.Month != "Year-Month") %>%
+  # get rid of empty rows
+  filter(Year.Month != "")
+```
+</details>
+```{r}
+head(gas_prices_raw)
+```
+
+<details><summary>Separate year and month into different columns</summary>
+```{r}
+gas_prices_raw <- gas_prices_raw %>%
+  separate(Year.Month, into = c("year", "month"), sep = "-")
+```
+</details>
+```{r}
+head(gas_prices_raw)
+```
+
+<details><summary>Move from wide to long format (part 1: extra-long format)</summary>
+```{r}
+gas_prices_long <- pivot_longer(gas_prices_raw, -c(year, month),
+                                names_to = "variable", values_to = "value")
+
+```
+</details>
+```{r}
+head(gas_prices_long)
+```
+
+<details><summary>Move from wide to long format (part 2: data cleaning and pivot long-to-wide)</summary>
+We need to get our variables into two columns: one for what the value contains, and one indicating which week the value is from.
+```{r}
+gas_prices_long <- gas_prices_long %>%
+  # First, take "Week." off of the front
+  mutate(variable = str_remove(variable, "Week\\.")) %>%
+  # Then separate the two values
+  separate(variable, into = c("week", "variable"), sep = "\\.")
+```
+
+```{r}
+head(gas_prices_long)
+```
+
+Now we're ready to move back into wide-er form
+```{r}
+# 
+gas_prices <- gas_prices_long %>%
+  # filter out empty values
+  filter(value != "") %>%
+  pivot_wider(
+    names_from = variable,
+    values_from = value
+  )
+```
+</details>
+```{r}
+head(gas_prices)
+```
+
+
+<details><summary>Clean up dates and format variables properly</summary>
+We can read the date in as MDY format if we just add the year to the end of the month/day column. 
+```{r}
+
+library(lubridate) # dates and times
+gas_prices <- gas_prices %>%
+  mutate(Date = paste(Date, year, sep = "/")) %>%
+  mutate(Date = mdy(Date))
+
+# And now we can get rid of redundant columns
+gas_prices <- gas_prices %>%
+  select(Date, Value)
+
+# Finally, our value variable is a character variable, so lets fix that quick
+gas_prices <- gas_prices %>%
+  mutate(Value = as.numeric(Value))
+```
+</details>
+```{r}
+head(gas_prices)
+
+# Lets look at our data:
+ggplot(gas_prices, aes(x = Date, y = Value)) + geom_line()
+```
+
+### Option 3: SAS
+
+<details><summary>Read in the data</summary>
+```{sashtml gasprices-sas-read-in-data, collectcode=T, error = T, fig.path = "image/"}
+libname classdat "sas/";
+
+/*********************************************************/
+/* Step 1: Read in the data and drop missing rows/cols   */
+/*********************************************************/
+options missing=' ';
+data classdat.gas_raw    ;
+infile 'data/gas_prices_raw.csv' firstobs=3 delimiter = ',' MISSOVER DSD;
+informat ym $10. ;
+informat date1 $8. ; informat value1 4.3 ;
+informat date2 $8. ; informat value2 4.3 ;
+informat date3 $8. ; informat value3 4.3 ;
+informat date4 $8. ; informat value4 4.3 ;
+informat date5 $8. ; informat value5 4.3 ;
+informat blank $2. ; informat blank $2. ;
+format ym $10. ;
+format date1 $8. ; format value1 4.3 ;
+format date2 $8. ; format value2 4.3 ;
+format date3 $8. ; format value3 4.3 ;
+format date4 $8. ; format value4 4.3 ;
+format date5 $8. ; format value5 4.3 ;
+format blank $2. ; format blank $2. ;
+input ym $ date1 $ value1 date2 $ value2 date3 $ value3 date4 $ value4 date5 $ value5 blank $ blank $;
+/* drop extra columns */
+drop blank;
+
+/* delete any rows where ym is not there */
+if missing(ym) then delete;
+run;
+
+```
+
+Dates are formated as 8-character strings, values as numbers with 3 decimal places.
+
+The options missing piece allows us to test for whether information is missing or not. 
+</details>
+
+```{sashtml gasprices-sas-showdata1, collectcode=T, echo = F, error = T, fig.path = "image/"}
+libname classdat "sas/";
+
+PROC PRINT data = classdat.gas_raw(obs=10);
+RUN;
+```
+
+<details><summary>Split up year and month, format month properly</summary>
+
+```{sashtml gasprices-sas-split-ym, collectcode=T, error = T, fig.path = "image/"}
+libname classdat "sas/";
+
+/*********************************************************/
+/* Step 2: Split up year-month and format month properly */
+/*********************************************************/
+proc format;
+value $ mon 'Jan' = 1 'Feb' = 2 'Mar' = 3 'Apr' = 4 'May' = 5 'Jun' = 6 'Jul' = 7 'Aug' = 8 'Sep' = 9 'Oct' = 10 'Nov' = 11 'Dec' = 12;
+run;
+
+data classdat.gas_split;
+   set gas_raw;
+   length var1-var2 $4.;
+   array var(2) $;
+   do i = 1 to dim(var);
+      var[i]=scan(ym,i,'-');
+   end;
+rename var1 = year var2 = month;
+drop i ym; 
+if date1 = "NA" then delete; /* get rid of 
+run;
+
+/* format month as a number */
+data classdat.gas_split;
+set classdat.gas_split;
+format month $ mon.;
+run;
+```
+</details>
+
+```{sashtml gasprices-sas-showdata2, collectcode=T, error = T, fig.path = "image/"}
+libname classdat "sas/";
+PROC PRINT data = classdat.gas_split (obs=10);
+RUN;
+```
+
+
+<details><summary>Get long data with just the dates</summary>
+
+```{sashtml gasprices-sas-wide-to-long, collectcode=T, error = T, fig.path = "image/"}
+PROC TRANSPOSE DATA=classdat.gas_split OUT =classdat.split_long1
+(rename=(col1=date)) /* "values_to" in tidyr speak */
+NAME = week;         /* "names_to" in tidyr speak */;
+BY year month NOTSORTED;
+VAR date1 date2 date3 date4 date5;
+RUN;
+
+data classdat.split_long1;
+set classdat.split_long1;
+IF _N_ = 1 THEN DO;
+    REGEXname = PRXPARSE("s/date//");
+END;
+RETAIN REGEXname;
+
+CALL PRXCHANGE(REGEXname, -1, week, week);
+DROP REGEXname;
+IF missing(date) THEN delete;
+RUN;
+
+PROC SORT data = classdat.split_long1 out = classdat.split_long1;
+BY year month week;
+RUN;
+```
+</details>
+
+```{sashtml gasprices-sas-showdata3, collectcode=T, error = T, fig.path = "image/"}
+PROC PRINT data = classdat.split_long1 (obs=10);
+RUN;
+```
+
+<details><summary>Get long data with just the dates</summary>
+```{sashtml gasprices-sas-wide-to-long2, collectcode=T, error = T, fig.path = "image/"}
+
+PROC TRANSPOSE DATA=classdat.split OUT =classdat.split_long2
+(rename=(col1=price)) /* "values_to" in tidyr speak */
+NAME = week;         /* "names_to" in tidyr speak */;
+BY year month NOTSORTED;
+VAR value1 value2 value3 value4 value5;
+RUN;
+
+data classdat.split_long2;
+set classdat.split_long2;
+IF _N_ = 1 THEN DO;
+    REGEXname = PRXPARSE("s/value//");
+END;
+RETAIN REGEXname;
+
+CALL PRXCHANGE(REGEXname, -1, week, week);
+DROP REGEXname;
+IF missing(price) THEN delete;
+RUN;
+
+PROC SORT data = classdat.split_long2 out = classdat.split_long2;
+BY year month week;
+RUN;
+
+```
+</details>
+
+```{sashtml gasprices-sas-showdata4, collectcode=T, error = T, fig.path = "image/"}
+PROC PRINT data = classdat.split_long2 (obs=10);
+RUN;
+```
+
+<details><summary>Merge the two long datasets together</summary>
+```{sashtml gasprices-sas-wide-to-long-merge, collectcode=T, error = T, fig.path = "image/"}
+PROC SQL;
+CREATE TABLE classdat.gas_prices AS
+SELECT COALESCE(p1.year, p2.year) AS year,
+       COALESCE(p1.month, p2.month) AS month,
+       COALESCE(p1.week, p2.week) AS week,
+       date, price
+FROM classdat.split_long1 as p1
+RIGHT JOIN classdat.split_long2 as p2
+ON p1.year = p2.year AND p1.month = p2.month AND p1.week = p2.week;
+```
+</details>
+
+
+```{sashtml gasprices-sas-showdata5, collectcode=T, error = T, fig.path = "image/"}
+PROC PRINT data = classdat.gas_prices (obs=10);
+RUN;
+```
+
+<details><summary>Format dates</summary>
+```{sashtml gasprices-sas-date-format, collectcode=T, error = T, fig.path = "image/"}
+
+DATA classdat.split2;
+   SET gas_prices;
+   length var1-var2 3;
+   array var(2);
+   do i = 1 to dim(var);
+      var[i]=scan(date,i,'/');
+   end;
+RENAME var1 = monthnum var2 = day;
+DROP i date; /* month is also in numeric form */
+RUN;
+
+DATA classdat.gas_prices;
+SET classdat.split2;
+date = MDY(monthnum, day, year);
+FORMAT date yymmdd10.;
+KEEP date price;
+RUN;
+
+PROC SORT DATA=classdat.gas_prices OUT = classdat.gas_prices;
+BY date;
+RUN;
+```
+</details>
+
+
+```{sashtml gasprices-sas-showdata6, collectcode=T, error = T, fig.path = "image/"}
+PROC PRINT data = classdat.gas_prices(obs=10);
+RUN;
+```
+
+```{sashtml gas-prices-sas-plot, collectcode = T, error = T, fig.path = "image/"}
+
+PROC SGPLOT DATA = classdat.gas_prices;
+SERIES X = date Y = price;
+TITLE 'Gas Prices';
+RUN;
+```
 
 ## References {- .learn-more}
 
