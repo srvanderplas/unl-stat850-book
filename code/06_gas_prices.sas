@@ -31,6 +31,8 @@ drop blank;
 if missing(ym) then delete;
 run;
 
+proc print data = gas_raw (obs=10);
+run;
 
 /*********************************************************/
 /* Step 2: Split up year-month and format month properly */
@@ -54,6 +56,9 @@ run;
 data split;
 set split;
 format month $ mon.;
+run;
+
+proc print data = split (obs=10);
 run;
 
 /*********************************************************/
@@ -82,6 +87,9 @@ PROC SORT data = split_long1 out = split_long1;
 BY year month week;
 RUN;
 
+proc print data = split_long1 (obs=10);
+run;
+
 /*********************************************************/
 /* Step 4: Get long dataset of weeks and prices          */
 /*********************************************************/
@@ -109,6 +117,9 @@ PROC SORT data = split_long2 out = split_long2;
 BY year month week;
 RUN;
 
+proc print data = split_long2 (obs=10);
+run;
+
 /*********************************************************/
 /* Step 5: Merge                                         */
 /*********************************************************/
@@ -122,11 +133,14 @@ FROM split_long1 as p1
 RIGHT JOIN split_long2 as p2
 ON p1.year = p2.year AND p1.month = p2.month AND p1.week = p2.week;
 
+proc print data = gas_prices (obs=10);
+run;
+
 /*********************************************************/
 /* Step 6: Format dates properly                         */
 /*********************************************************/
 
-data split2;
+data gas_prices;
    set gas_prices;
    length var1-var2 3;
    array var(2);
@@ -138,7 +152,7 @@ drop i date; /* month is also in numeric form */
 run;
 
 data gas_prices;
-set split2;
+set gas_prices;
 date = MDY(monthnum, day, year);
 format date yymmdd10.;
 keep date price;
@@ -148,6 +162,9 @@ PROC SORT DATA=gas_prices OUT = gas_prices;
 BY date;
 RUN;
 
+
+proc print data = gas_prices (obs=10);
+run;
 
 /*********************************************************/
 /* Step 7: Plot and clean up                             */
