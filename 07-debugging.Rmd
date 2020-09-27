@@ -83,7 +83,7 @@ While defensive programming is a nice idea, if you're already at the point where
 There are several other general strategies for debugging:
 
 - Retype (from scratch) your code    
-This works well if it's a short function, but it's less useful if you have a big script full of code to debug. However, it does sometimes fix really silly typos that are hard to spot, like having typed `<--` instead of `<-` in R and then wondering why your answers are negative. 
+This works well if it's a short function or a couple of lines of code, but it's less useful if you have a big script full of code to debug. However, it does sometimes fix really silly typos that are hard to spot, like having typed `<--` instead of `<-` in R and then wondering why your answers are negative. 
 
 - Visualize your data as it moves through the program. This may be done using `print()` statements, or the debugger, or some other strategy depending on your application.
 

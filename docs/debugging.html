@@ -490,6 +490,8 @@ It’s ok to write code using lots of dependencies, but as you transition from �
 </ol>
 <p>There are several other general strategies for debugging:</p>
 <ul>
+<li><p>Retype (from scratch) your code<br />
+This works well if it’s a short function or a couple of lines of code, but it’s less useful if you have a big script full of code to debug. However, it does sometimes fix really silly typos that are hard to spot, like having typed <code>&lt;--</code> instead of <code>&lt;-</code> in R and then wondering why your answers are negative.</p></li>
 <li><p>Visualize your data as it moves through the program. This may be done using <code>print()</code> statements, or the debugger, or some other strategy depending on your application.</p></li>
 <li><p>Tracing statements. Again, this is part of <code>print()</code> debugging, but these messages indicate progress - “got into function x”, “returning from function y”, and so on.</p></li>
 <li><p>Rubber ducking. Have you ever tried to explain a problem you’re having to someone else, only to have a moment of insight and “oh, nevermind”? Rubber ducking outsources the problem to a nonjudgemental entity, such as a rubber duck<a href="#fn27" class="footnote-ref" id="fnref27"><sup>27</sup></a>. You simply explain, in terms simple enough for your rubber duck to understand, exactly what your code does, line by line, until you’ve found the problem. <a href="https://gitduck.com/blog/improve-how-to-code-with-rubber-duck-debugging/">A more thorough explanation can be found at gitduck.com</a>.</p></li>
@@ -1053,10 +1055,12 @@ I’ll replicate “debug” in non-interactive mode by setting up an environmen
 <h2><span class="header-section-number">7.6</span> Minimal Working Examples</h2>
 <p>If all else has failed, and you can’t figure out what is causing your error, it’s probably time to ask for help. If you have a friend or buddy that knows the language you’re working in, by all means ask for help sooner - use them as a rubber duck if you have to. But when you ask for help online, often you’re asking people who are much more knowledgeable about the topic - members of R core and SAS browse stackoverflow and may drop in and help you out. Under those circumstances, it’s better to make the task of helping you as easy as possible because it shows respect for their time. The same thing goes for your supervisors and professors.</p>
 <p>So, with that said, there are numerous resources for writing what’s called a “minimal working example”, “reproducible example” (commonly abbreviated reprex), or MCVE (minimal complete verifiable example). Much of this is lifted directly from the StackOverflow post describing a <a href="https://stackoverflow.com/help/minimal-reproducible-example">minimal reproducible example</a>.</p>
-<p>The goal is to reproduce the error message with information that is
-- <strong>minimal</strong> - as little code as possible to still reproduce the problem
-- <strong>complete</strong> - everything necessary to reproduce the issue is contained in the description/question
-- <strong>reproducible</strong> - test the code you provide to reproduce the problem.</p>
+<p>The goal is to reproduce the error message with information that is</p>
+<ul>
+<li><strong>minimal</strong> - as little code as possible to still reproduce the problem</li>
+<li><strong>complete</strong> - everything necessary to reproduce the issue is contained in the description/question</li>
+<li><strong>reproducible</strong> - test the code you provide to reproduce the problem.</li>
+</ul>
 <p>You should format your question to make it as easy as possible to help you. Make it so that code can be copied from your post directly and pasted into a terminal. Describe what you see and what you’d hope to see if the code were working.</p>
 </div>
 <div id="references" class="section level2 unnumbered learn-more">
