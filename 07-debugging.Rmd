@@ -597,10 +597,12 @@ larger <- function(x, y) {
 ## Debugging Tools in SAS
 
 In SAS, there are two stages that occur after you submit lines to the console. 
+
 - The Compilation Phase: code is parsed. In this step, SAS will catch the logic errors, misspellings, missing key words, etc.
 - The Execution Phase: program is run. In this step, SAS will catch any wrong assignments, loop issues, etc.
 
 Sas recognizes four types of errors:
+
 - Syntax errors - violations of the language structure
 - Semantic errors - structure of the statement is incorrect, but the syntax is correct. e.g. trying to reference an index that doesn't exist.
 - Execution-time errors - errors that occur when the compiled function is run on data values -- e.g. division by zero
@@ -620,6 +622,7 @@ If all else has failed, and you can't figure out what is causing your error, it'
 So, with that said, there are numerous resources for writing what's called a "minimal working example", "reproducible example" (commonly abbreviated reprex), or MCVE (minimal complete verifiable example). Much of this is lifted directly from the StackOverflow post describing a [minimal reproducible example](https://stackoverflow.com/help/minimal-reproducible-example).
 
 The goal is to reproduce the error message with information that is 
+
 - **minimal** - as little code as possible to still reproduce the problem
 - **complete** - everything necessary to reproduce the issue is contained in the description/question
 - **reproducible** - test the code you provide to reproduce the problem. 

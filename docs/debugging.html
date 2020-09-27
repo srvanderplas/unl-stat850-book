@@ -1033,14 +1033,18 @@ I’ll replicate “debug” in non-interactive mode by setting up an environmen
 </div>
 <div id="debugging-tools-in-sas" class="section level2">
 <h2><span class="header-section-number">7.5</span> Debugging Tools in SAS</h2>
-<p>In SAS, there are two stages that occur after you submit lines to the console.
-- The Compilation Phase: code is parsed. In this step, SAS will catch the logic errors, misspellings, missing key words, etc.
-- The Execution Phase: program is run. In this step, SAS will catch any wrong assignments, loop issues, etc.</p>
-<p>Sas recognizes four types of errors:
-- Syntax errors - violations of the language structure
-- Semantic errors - structure of the statement is incorrect, but the syntax is correct. e.g. trying to reference an index that doesn’t exist.
-- Execution-time errors - errors that occur when the compiled function is run on data values – e.g. division by zero
-- Data errors - errors that occur when statements are correct but data is invalid (taking the log of a negative number, etc.)</p>
+<p>In SAS, there are two stages that occur after you submit lines to the console.</p>
+<ul>
+<li>The Compilation Phase: code is parsed. In this step, SAS will catch the logic errors, misspellings, missing key words, etc.</li>
+<li>The Execution Phase: program is run. In this step, SAS will catch any wrong assignments, loop issues, etc.</li>
+</ul>
+<p>Sas recognizes four types of errors:</p>
+<ul>
+<li>Syntax errors - violations of the language structure</li>
+<li>Semantic errors - structure of the statement is incorrect, but the syntax is correct. e.g. trying to reference an index that doesn’t exist.</li>
+<li>Execution-time errors - errors that occur when the compiled function is run on data values – e.g. division by zero</li>
+<li>Data errors - errors that occur when statements are correct but data is invalid (taking the log of a negative number, etc.)</li>
+</ul>
 <p>SAS is built around enterprise users, as opposed to R’s open-source philosophy. SAS code also is more formulaic than R code, which means it is usually easier to figure out what is going wrong with the code. As a result, you may find that errors in your SAS code are much easier to diagnose than errors in your R code. Generally, it will tell you exactly where you are missing a semicolon, or exactly what word it thinks you’ve misspelled (and usually, it tries to correct that for you, but it doesn’t always succeed). In my experience with SAS (which is very limited and mostly contained in this book), SAS error messages are much easier to google and find solutions, right up until you’re working in Linux or some other not-well-supported system and the error is related to how the underlying OS handles some task. As a downside, though, trying to do a task SAS doesn’t think you need to do can be much more difficult than necessary.</p>
 <p>See the references section for a couple of good guides to SAS error statements and warnings. These guides are likely sufficient for most of your SAS debugging needs.</p>
 <p>There are certainly other errors which can occur in SAS – logic errors are not something SAS can protect you from . These errors can have dramatic consequences, as demonstrated in <a href="https://twitter.com/eric_weinhandl/status/1253127109830156289">this twitter thread</a> about a <a href="https://twitter.com/hswapnil/status/1252783448055517185">JAMA retraction due to a coding error</a>. To debug these types of errors, you can use the same print() techniques demonstrated in R. For these types of errors, there’s nothing special about what language you’re using (outside of the usual quirks of every language) - the error is in the logic, not the encoding of that logic.</p>
