@@ -219,6 +219,8 @@ We can contrast this with other plotting systems (e.g. Base R), where transforma
 
 Functionally, the biggest difference between the two systems is that in the grammar of graphics system (as implemented in ggplot2), we work with a full tabular data set. So like the rest of the tidyverse, ggplot2 will allow you to reference bare column names as if they were variables, so long as you've passed in the data set to the `data =` argument.^[This can sometimes be a pain, though, depending on the set up, because you may end up with labels that are repeated many, many times. As with any system, you just have to make sure you're formatting your data consistent with the underlying philosophy.] 
 
+![Building a masterpiece, by Allison Horst](https://raw.githubusercontent.com/allisonhorst/stats-illustrations/master/rstats-artwork/ggplot2_masterpiece.png)
+
 <details><summary>Let's get the data set up in both SAS and R</summary>
 ```{r r-data-setup-08, cache = F}
 if (!"classdata" %in% installed.packages()) devtools::install_github("heike/classdata") 
@@ -275,8 +277,9 @@ RUN;
 
 ### Demonstration: Aesthetic Mappings and Basic Plots
 
-<details><summary>Basic Scatter plots</summary>
+#### Basic Scatter plots
 A basic scatter plot is a combination of an aesthetic mapping for x and y (position), combined with the specification that the geometric object to be displayed is a point. Without any of the components (x, y, geom_point) you don't have a scatter plot. 
+
 ```{r aes-basic-08}
 ggplot(fbiwide, aes(x = Burglary, y = Murder)) + geom_point()
 ```
@@ -306,8 +309,8 @@ RUN;
 QUIT; 
 ```
 </details>
-</details>
-<details><summary>Adding labels and titles</summary>
+
+#### Adding labels and titles
 We can add a title to the plot
 ```{r gg-add-title-08}
 ggplot(fbiwide, aes(x = Murder, y = Assault)) + geom_point() + 
@@ -332,9 +335,8 @@ RUN;
 QUIT; 
 ```
 </details>
-</details>
 
-<details><summary>Changing characteristics of plotted objects</summary>
+#### Changing characteristics of plotted objects 
 We can also modify the appearance of the plotted objects
 ```{r gg-adjust-aes-const-08}
 ggplot(fbiwide, aes(x = Population, y = Assault)) +
@@ -367,9 +369,9 @@ RUN;
 QUIT; 
 ```
 </details>
-</details>
 
-<details><summary>Mapping categorical variables to aesthetics like color</summary>
+
+#### Mapping categorical variables to aesthetics like color 
 If we want to get fancy, we can map other **variables** to aesthetics like color, size, etc. We could explore the relationship between Population and Assault, but we'd expect that over time, observations from each state would be closely related. We could explore that by coloring each point by state (note, this doesn't allow us to really see which states belong to which points so much as it visually associates connected points.)
 
 ```{r gg-cat-aes-map-08}
@@ -378,7 +380,7 @@ ggplot(fbiwide, aes(x = Population, y = Assault, color = Abb)) + geom_point()
 
 <details><summary>Base R variable mapping</summary>
 In base R, you can also create scatter plots that have different plot aesthetics, but we have to get a bit more hands-on than we did with ggplot2.
-```{r base-cat-aes-map-08-err, error = T}
+```{r base-cat-aes-map-08-err, error = T, fig.show = 'none'}
 # This doesn't work because the values in Abb aren't actually colors
 # and plot() doesn't handle the mapping between color and abbreviation for us
 plot(Assault ~ Population, col = Abb, data = fbiwide) 
@@ -419,9 +421,9 @@ RUN;
 QUIT; 
 ```
 </details>
-</details>
 
-<details><summary>Line plots</summary>
+
+#### Line plots
 A better way to graphically examine this hypothesis (the patterns in the data are clusters of each state's points) might be to change the geometric object - we could use lines instead of points to show this data. In that case, we'd want to show separate lines (groups) for each state.
 
 ```{r gg-line-plot-group-08}
@@ -496,10 +498,11 @@ QUIT;
 ```
 [SAS Line attributes and patterns options](https://documentation.sas.com/?docsetId=grstatproc&docsetTarget=p0er4dg9tojp05n1sf7maeqdz1d8.htm&docsetVersion=9.4&locale=en)
 </details>
-</details>
 
-<details><summary>Mapping numeric variables to aesthetics</summary>
-So we can color our points (or lines) by a categorical variable, but that's not all! We can also map numeric variables to aesthetics!
+
+#### Mapping numeric variables to aesthetics
+
+We can color our points (or lines) by a categorical variable, but that's not all! We can also map numeric variables to aesthetics!
 
 There are perhaps too many data points in the FBI data to effectively show size variation, so let's temporarily switch to pokemon and examine the relationship between attack and special attack points. Let's also map alpha to weight, so that lighter points correspond to lighter pokemon.
 
@@ -646,7 +649,7 @@ QUIT;
 
 As best as I can tell, there's no similar plot option that would let us map a variable to transparency. There are attribute maps, but the options are discrete (which weight is not) or range (which would let us define ranges to map to a single value), and they don't appear to support transparency. In theory, I think we could go to SAS Template graph language, but ... ugh. To be honest, at this point, I'd move the data into R and graph things there.
 </details>
-</details>
+
 
 #### Try it out {.tryitout}
 
@@ -673,6 +676,8 @@ pkgs <- installed.packages()
 # Install any of the packages that you don't have
 install.packages(setdiff(c("ggthemes", "mapdata", "maps"), pkgs))
 ```
+
+#### Initial data set up and exploration of the data sets
 <details><summary>Initial data set up and exploration of the data sets</summary>
 ```{r setup-map-data-08}
 library(ggplot2)
@@ -1697,6 +1702,14 @@ Extra dimensions and other annotations are sometimes called "chartjunk" and shou
 We do experiments on people (*evil cackle*)! No, seriously, we do. See [this paper](https://www.annualreviews.org/doi/abs/10.1146/annurev-statistics-031219-041252) for a review of graphical testing in statistics, and [this paper](https://doi.org/10.1109/TVCG.2012.230) for one example of how we test competing designs to figure out that polar coordinates make everything harder. 
 
 If you're still curious after reading those, set up an appointment and let's talk!. 
+
+## Other things worth exploring
+
+![The patchwork package lets you arrange ggplots (image by Allison Horst)](https://github.com/allisonhorst/stats-illustrations/raw/master/rstats-artwork/patchwork_1.jpg)
+
+(so do the gridExtra and cowplot packages)
+
+![The rayshader package lets you create 3d maps and graphs (image by Allison Horst)](https://github.com/allisonhorst/stats-illustrations/raw/master/rstats-artwork/rayshader.png)
 
 ## References
 
