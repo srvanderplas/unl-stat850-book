@@ -37,7 +37,7 @@ library(ggplot2)
 > The greatest possibilities of visual display lie in vividness and inescapability of the intended message. A visual display can stop your mental flow in its tracks and make you think. A visual display can force you to notice what you never expected to see. ("Why, that scatter diagram has a hole in the middle!") -- John Tukey, [Data Based Graphics: Visual Display in the Decades to Come](https://projecteuclid.org/euclid.ss/1177012101)
 
 <details><summary>Charts are easier to understand than raw data. (more details inside) </summary>
-When you think about it, data is a pretty artificial thing. We exist in a world of tangible objects, but data are an abstraction - even when the data record information about the tangible world, the measurements are a way of removing the physical and transforming the "real world" into a virtual thing. As an artificial entity, it can be hard to wrap our heads around what our data contain. The solution to this is to transform our data back into something that is "tangible" in some way -- if not physical and literally touch-able, at least something we can view and "wrap our heads around". 
+When you think about it, data is a pretty artificial thing. We exist in a world of tangible objects, but data are an abstraction - even when the data record information about the tangible world, the measurements are a way of removing the physical and transforming the "real world" into a virtual thing. As a result, it can be hard to wrap our heads around what our data contain. The solution to this is to transform our data back into something that is "tangible" in some way -- if not physical and literally touch-able, at least something we can view and "wrap our heads around". 
 
 Consider this thought experiment: You have a simple data set - 2 variables, 500 observations. You want to get a sense of how the variables relate to each other. You can do one of the following options:
 
@@ -47,10 +47,11 @@ Consider this thought experiment: You have a simple data set - 2 variables, 500 
 
 Which one would you rather use? Why?
 
-Our brains are very good at processing large amounts of visual information quickly - it's important to be able to e.g. survey a field and pick out the tiger that might eat you. When we present information visually, in a format that can leverage our visual processing abilities, we offload some of the work of understanding the data to a chart that organizes it for us. You could argue that printing out the data is a visual presentation, but it requires that you read that data in as text, which we're not nearly as equipped to process quickly (and in parallel). 
-
-In addition, I've found that it's a lot easier to talk to non-experts about complicated statistics using visualizations. Moving the discussion from abstract concepts to concrete shapes and lines keeps people who are potentially already math or stat phobic from completely panicking and tuning out.
+Our brains are very good at processing large amounts of visual information quickly. Evolutionarily, it's important to be able to e.g. survey a field and pick out the tiger that might eat you. When we present information visually, in a format that can leverage our visual processing abilities, we offload some of the work of understanding the data to a chart that organizes it for us. You could argue that printing out the data is a visual presentation, but it requires that you read that data in as text, which we're not nearly as equipped to process quickly (and in parallel). 
 </details>
+
+It's a lot easier to talk to non-experts about complicated statistics using visualizations. Moving the discussion from abstract concepts to concrete shapes and lines keeps people who are potentially already math or stat phobic from completely tuning out.
+
 
 ## General approaches to creating graphics
 
@@ -60,9 +61,10 @@ There are two general approaches to generating statistical graphics computationa
 
 2. Describe the relationship between the plot and the data, using sensible defaults that can be customized for common operations.
 
-In the introduction to [The Grammar of Graphics](https://www.springer.com/gp/book/9780387245447), Leland Wilkinson suggests that the first approach is what we would call "charts" - pie charts, line charts, bar charts - objects that are "instances of much more general objects". He's arguing for the virtues of the 2nd approach -- the grammar of graphics, so his opinion is hardly unbiased, but it is an interesting distinction. His argument is that elegant graphical design means we have to think about an underlying theory of graphics, rather than how to create specific charts.
+In the introduction to [The Grammar of Graphics](https://www.springer.com/gp/book/9780387245447), Leland Wilkinson suggests that the first approach is what we would call "charts" - pie charts, line charts, bar charts - objects that are "instances of much more general objects". His argument is that elegant graphical design means we have to think about an underlying theory of graphics, rather than how to create specific charts. The 2nd approach is called the "grammar of graphics". 
 
-Base R graphics and the original SAS graphics engine fall firmly into the first camp. `ggplot2` was designed using the philosophy of the grammar of graphics, and is still the primary place that people learn about the grammar of graphics in statistics. The SAS ODS Graphics Engine^[I'll fully admit my bias here - I think ODS graphics are better than the default SAS graphics, but I still prefer the syntax and logic behind ggplot2. But, if you prefer SAS Graphics, you do you. Better you than me, is all I'm saying.] falls somewhere in between the two approaches - it provides some sensible defaults, but its design isn't rooted in the philosophy of the grammar of graphics, so if (as some SAS manuals have claimed) there is a similarity between the two, it's functional (in my opinion) and not because of an underlying similarity in the design strategy.
+Base R graphics and the original SAS graphics engine fall firmly into the first camp. `ggplot2` was designed using the philosophy of the grammar of graphics, and is still the primary place that people learn about the grammar of graphics in statistics.
+The SAS ODS Graphics Engine^[I'll fully admit my bias here - I think ODS graphics are better than the default SAS graphics, but I still prefer the syntax and logic behind ggplot2. But, if you prefer SAS Graphics, you do you. Better you than me, is all I'm saying.] falls somewhere in between the two approaches - it provides some sensible defaults, but its design isn't rooted in the philosophy of the grammar of graphics, so if (as some SAS manuals have claimed) there is a similarity between the two, it's functional and not philosophical or because of a similarity in the design strategy.
 
 ::: note
 In either case, you're going to learn how to make graphics by finding sample code, changing that code to match your data set, and tweaking things as you go. That's the best way to learn this, and while option 2 does have a structure and some syntax to learn, once you're familiar with the principles, you'll still want to learn graphics by doing it. 
