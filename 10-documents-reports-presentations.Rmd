@@ -11,6 +11,8 @@ This chapter will be shorter in length than many of the rest, but you should not
 
 At the end of this chapter there are a few extras -- for instance, how to use GitHub to host your documents, how to create a blog with `blogdown`, and more. You should feel free to investigate, but as long as you are able to create presentation slides, posters, and a CV, you're good to go. 
 
+![Reproducibility with Rmarkdown (by Allison Horst)](https://raw.githubusercontent.com/allisonhorst/stats-illustrations/master/rstats-artwork/reproducibility_court.png)
+
 ## Literate Programming, `knitr`, and `rmarkdown`
 
 [Literate programming](https://en.wikipedia.org/wiki/Literate_programming) is a programming method where you explain the code in natural language (e.g. English) in roughly the same space that you write the code (in a programming language). This solves two problems: code isn't always clear as to what its goals are, and natural language descriptions of algorithms aren't always clear enough to contain the details of  how something is actually implemented.

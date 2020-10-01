@@ -37,6 +37,8 @@ We'll get more into how to work with different "messy" data configurations in th
 
 Filter allows us to work with a subset of a larger data frame, keeping only the rows we're interested in. We provide one or more logical conditions, and only those rows which meet the logical conditions are returned from `filter()`. Note that unless we store the result from `filter()` in the original object, we don't change the original. 
 
+![dplyr filter() by Allison Horst](https://github.com/allisonhorst/stats-illustrations/raw/master/rstats-artwork/dplyr_filter.jpg)
+
 Let's explore how it works, using the `starwars` dataset, which contains a comprehensive list of the characters in the Star Wars movies. 
 <details><summary>Data set up</summary>
 
@@ -610,6 +612,8 @@ Personally, I find PROC SQL easier to work with, but I think the code is ugly. T
 
 The fundamentals of `mutate` are very similar to the approaches above; the power of the dplyr approach is only really evident when you are doing multiple operations in the same step. Once you're working at that level, the `dplyr` approach produces much more readable code.
 
+![Mutate (by Allison Horst)](https://github.com/allisonhorst/stats-illustrations/raw/master/rstats-artwork/dplyr_mutate.png)
+
 <details><summary>`mutate()` a new variable</summary>
 ```{r}
 # The data was read in above...
@@ -1035,6 +1039,16 @@ While I'm tempted to plot out the diameter and location on a map, it's a bit exc
 
 It looks like Ike went long-ways across Cuba, which weakened it. When hurricanes weaken, often their wind fields expand (as they no longer have the angular momentum to maintain a tight structure). Ike crossed into the Gulf of Mexico, restrengthened, and then hit Houston just about dead-on. (I was living just northwest of Houston when it hit (in College Station), and I can verify that it was not a fun time). 
 </details>
+
+## Other `dplyr` functions: across, relocate
+
+![dplyr's across() function lets you apply a mutate or summarize statement to many columns (by Allison Horst)](https://github.com/allisonhorst/stats-illustrations/raw/master/rstats-artwork/dplyr_across.png)
+
+XXX TODO: add more about across XXX
+
+
+![relocate lets you rearrange columns (by Allison Horst)](https://github.com/allisonhorst/stats-illustrations/raw/master/rstats-artwork/dplyr_relocate.png)
+
 
 ## Try it out {.tryitout -}
 <details><summary>Data Setup </summary>

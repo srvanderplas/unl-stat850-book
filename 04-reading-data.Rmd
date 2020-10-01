@@ -1004,6 +1004,12 @@ If you are using `skimr` in knitr/rmarkdown, your data frame will automatically 
 I mention this package now because it is appropriate for EDA, but it may not be intuitive or easy to use in the way you might want to use it until after we cover the `dplyr` package in the [manipulating data module](#manipulating-data) and the `tidyr` package in the [transforming data module](#transforming-data). 
 
 
+#### `janitor` package
+
+The janitor package has functions for cleaning up messy data. One of its best features is the `clean_names()` function, which creates names based on a capitalization/separation scheme of your choosing. 
+
+![janitor and clean_names() by Allison Horst](https://github.com/allisonhorst/stats-illustrations/raw/master/rstats-artwork/janitor_clean_names.png)
+
 ### Comparison
 
 > You must realize that R is written by experts in

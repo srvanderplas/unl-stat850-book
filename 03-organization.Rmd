@@ -66,6 +66,8 @@ I highly recommend scanning these resources to get a good sense of the different
 
 In this class, we're primarily going to use rmarkdown to create dynamic documents. Markdown itself is a special style of text that is intended to allow you to do basic formatting without having to pause to actually click the buttons (if you were writing in word). It integrates equation functionality (so you can type mathematical equations using LaTeX syntax) and also allows for the use of templates (so you can write whole journal articles in a text editor). Markdown is also program agnostic - it will allow you to compile your work into HTML, word, or PDF form. 
 
+![Rmarkdown is magic. (image by Allison Horst)](https://github.com/allisonhorst/stats-illustrations/raw/master/rstats-artwork/rmarkdown_wizards.png)
+
 Markdown documents must be *compiled* - a computer program runs and transforms the text file into a full document. RStudio has markdown functionality built-in, and also supports `rmarkdown`, which is a markdown variant designed to make it easy to integrate R code with document creation (so-called literate programming). There are other markdown programs which extend markdown's functionality so that you can write a book (like this one), create presentations or posters, or maintain a blog in markdown.
 
 Rmarkdown, despite the name, also allows you to integrate the results from code in other languages. As you saw in [the last chapter](#intro-prog), SAS code can be integrated into markdown as well. Other languages commonly used include python, julia, SQL, Bash, C++, and Stan.
