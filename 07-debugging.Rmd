@@ -434,7 +434,7 @@ get_xkcd <- function(id = NULL) {
 }
 ```
 
-Watch this live-coding video to see how I use browser() to figure out what's going on in the function and how to fix it.
+Watch this live-coding video to see how I use browser() to figure out what's going on in the function and how to fix it. [Vidgrid link](https://use.vg/j9CVIw). [Alternate YouTube Link](https://youtu.be/YlMAAjRA7rM)
 
 Here's the final function
 ```{r}
