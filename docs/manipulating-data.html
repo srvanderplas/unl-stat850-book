@@ -284,6 +284,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="5.4" data-path="manipulating-data.html"><a href="manipulating-data.html#mutate-add-and-transform-variables"><i class="fa fa-check"></i><b>5.4</b> Mutate: Add and transform variables</a></li>
 <li class="chapter" data-level="5.5" data-path="manipulating-data.html"><a href="manipulating-data.html#summarize"><i class="fa fa-check"></i><b>5.5</b> Summarize</a></li>
 <li class="chapter" data-level="5.6" data-path="manipulating-data.html"><a href="manipulating-data.html#group-by-power"><i class="fa fa-check"></i><b>5.6</b> Group By + (?) = Power!</a></li>
+<li class="chapter" data-level="5.7" data-path="manipulating-data.html"><a href="manipulating-data.html#other-dplyr-functions-across-relocate"><i class="fa fa-check"></i><b>5.7</b> Other <code>dplyr</code> functions: across, relocate</a></li>
 <li class="chapter" data-level="" data-path="intro-prog.html"><a href="intro-prog.html#try-it-out-1"><i class="fa fa-check"></i>Try it out</a></li>
 <li class="chapter" data-level="" data-path="tools.html"><a href="tools.html#references"><i class="fa fa-check"></i>References</a></li>
 </ul></li>
@@ -324,7 +325,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="7.5" data-path="debugging.html"><a href="debugging.html#debugging-tools-in-sas"><i class="fa fa-check"></i><b>7.5</b> Debugging Tools in SAS</a></li>
 <li class="chapter" data-level="7.6" data-path="debugging.html"><a href="debugging.html#minimal-working-examples"><i class="fa fa-check"></i><b>7.6</b> Minimal Working Examples</a><ul>
-<li class="chapter" data-level="7.6.1" data-path="intro-prog.html"><a href="intro-prog.html#try-it-out-3"><i class="fa fa-check"></i><b>7.6.1</b> Try It Out</a></li>
+<li class="chapter" data-level="7.6.1" data-path="debugging.html"><a href="debugging.html#example-mwes"><i class="fa fa-check"></i><b>7.6.1</b> Example: MWEs</a></li>
+<li class="chapter" data-level="7.6.2" data-path="intro-prog.html"><a href="intro-prog.html#try-it-out-3"><i class="fa fa-check"></i><b>7.6.2</b> Try It Out</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="tools.html"><a href="tools.html#references"><i class="fa fa-check"></i>References</a></li>
 </ul></li>
@@ -344,12 +346,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="8.4.2" data-path="data-vis-intro.html"><a href="data-vis-intro.html#general-guidelines-for-accuracy"><i class="fa fa-check"></i><b>8.4.2</b> General guidelines for accuracy</a></li>
 <li class="chapter" data-level="8.4.3" data-path="data-vis-intro.html"><a href="data-vis-intro.html#how-do-we-know"><i class="fa fa-check"></i><b>8.4.3</b> How do we know?</a></li>
 </ul></li>
-<li class="chapter" data-level="8.5" data-path="tools.html"><a href="tools.html#references"><i class="fa fa-check"></i><b>8.5</b> References</a><ul>
-<li class="chapter" data-level="8.5.1" data-path="data-vis-intro.html"><a href="data-vis-intro.html#motivation"><i class="fa fa-check"></i><b>8.5.1</b> Motivation</a></li>
-<li class="chapter" data-level="8.5.2" data-path="data-vis-intro.html"><a href="data-vis-intro.html#r-graphics"><i class="fa fa-check"></i><b>8.5.2</b> R graphics</a></li>
-<li class="chapter" data-level="8.5.3" data-path="data-vis-intro.html"><a href="data-vis-intro.html#sas-graphics"><i class="fa fa-check"></i><b>8.5.3</b> SAS graphics</a></li>
-<li class="chapter" data-level="8.5.4" data-path="data-vis-intro.html"><a href="data-vis-intro.html#types-of-charts-and-chart-styling"><i class="fa fa-check"></i><b>8.5.4</b> Types of Charts and Chart Styling</a></li>
-<li class="chapter" data-level="8.5.5" data-path="data-vis-intro.html"><a href="data-vis-intro.html#other-graphics-packages"><i class="fa fa-check"></i><b>8.5.5</b> Other Graphics packages</a></li>
+<li class="chapter" data-level="8.5" data-path="data-vis-intro.html"><a href="data-vis-intro.html#other-things-worth-exploring"><i class="fa fa-check"></i><b>8.5</b> Other things worth exploring</a></li>
+<li class="chapter" data-level="8.6" data-path="tools.html"><a href="tools.html#references"><i class="fa fa-check"></i><b>8.6</b> References</a><ul>
+<li class="chapter" data-level="8.6.1" data-path="data-vis-intro.html"><a href="data-vis-intro.html#motivation"><i class="fa fa-check"></i><b>8.6.1</b> Motivation</a></li>
+<li class="chapter" data-level="8.6.2" data-path="data-vis-intro.html"><a href="data-vis-intro.html#r-graphics"><i class="fa fa-check"></i><b>8.6.2</b> R graphics</a></li>
+<li class="chapter" data-level="8.6.3" data-path="data-vis-intro.html"><a href="data-vis-intro.html#sas-graphics"><i class="fa fa-check"></i><b>8.6.3</b> SAS graphics</a></li>
+<li class="chapter" data-level="8.6.4" data-path="data-vis-intro.html"><a href="data-vis-intro.html#types-of-charts-and-chart-styling"><i class="fa fa-check"></i><b>8.6.4</b> Types of Charts and Chart Styling</a></li>
+<li class="chapter" data-level="8.6.5" data-path="data-vis-intro.html"><a href="data-vis-intro.html#other-graphics-packages"><i class="fa fa-check"></i><b>8.6.5</b> Other Graphics packages</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="9" data-path="simulation.html"><a href="simulation.html"><i class="fa fa-check"></i><b>9</b> Simulation and Reproducibility</a><ul>
@@ -463,6 +466,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="filter-pick-cases-rows-based-on-their-values" class="section level2">
 <h2><span class="header-section-number">5.2</span> Filter: Pick cases (rows) based on their values</h2>
 <p>Filter allows us to work with a subset of a larger data frame, keeping only the rows we’re interested in. We provide one or more logical conditions, and only those rows which meet the logical conditions are returned from <code>filter()</code>. Note that unless we store the result from <code>filter()</code> in the original object, we don’t change the original.</p>
+<div class="figure">
+<img src="https://github.com/allisonhorst/stats-illustrations/raw/master/rstats-artwork/dplyr_filter.jpg" alt="dplyr filter() by Allison Horst" />
+<p class="caption">dplyr filter() by Allison Horst</p>
+</div>
 Let’s explore how it works, using the <code>starwars</code> dataset, which contains a comprehensive list of the characters in the Star Wars movies.
 <details>
 <p><summary>Data set up</summary></p>
@@ -5835,6 +5842,10 @@ Total
 <p>Personally, I find PROC SQL easier to work with, but I think the code is ugly. There are similar sql-syntax packages in R, but I don’t feel the need to use them, because (for me) dplyr code is much easier to read (and thus, easier to maintain). dplyr code is not as efficient as SQL (or other packages, like <code>data.table</code>) on big datasets, but there are variants such as <code>dbplyr</code> to handle some of those cases, and I find that they don’t come up very often in my work or research. If I were working at Google or Amazon, my opinion might be very different</p>
 </div>
 <p>The fundamentals of <code>mutate</code> are very similar to the approaches above; the power of the dplyr approach is only really evident when you are doing multiple operations in the same step. Once you’re working at that level, the <code>dplyr</code> approach produces much more readable code.</p>
+<div class="figure">
+<img src="https://github.com/allisonhorst/stats-illustrations/raw/master/rstats-artwork/dplyr_mutate.png" alt="Mutate (by Allison Horst)" />
+<p class="caption">Mutate (by Allison Horst)</p>
+</div>
 <details>
 <p><summary><code>mutate()</code> a new variable</summary></p>
 <div class="sourceCode" id="cb217"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb217-1" data-line-number="1"><span class="co"># The data was read in above...</span></a>
@@ -91509,6 +91520,18 @@ RUN;</code></pre>
 <img src="https://upload.wikimedia.org/wikipedia/commons/5/5f/Ike_2008_track.png" alt="Hurricane Ike’s path and strength over time" /></p>
 It looks like Ike went long-ways across Cuba, which weakened it. When hurricanes weaken, often their wind fields expand (as they no longer have the angular momentum to maintain a tight structure). Ike crossed into the Gulf of Mexico, restrengthened, and then hit Houston just about dead-on. (I was living just northwest of Houston when it hit (in College Station), and I can verify that it was not a fun time).
 </details>
+</div>
+<div id="other-dplyr-functions-across-relocate" class="section level2">
+<h2><span class="header-section-number">5.7</span> Other <code>dplyr</code> functions: across, relocate</h2>
+<div class="figure">
+<img src="https://github.com/allisonhorst/stats-illustrations/raw/master/rstats-artwork/dplyr_across.png" alt="dplyr’s across() function lets you apply a mutate or summarize statement to many columns (by Allison Horst)" />
+<p class="caption">dplyr’s across() function lets you apply a mutate or summarize statement to many columns (by Allison Horst)</p>
+</div>
+<p>XXX TODO: add more about across XXX</p>
+<div class="figure">
+<img src="https://github.com/allisonhorst/stats-illustrations/raw/master/rstats-artwork/dplyr_relocate.png" alt="relocate lets you rearrange columns (by Allison Horst)" />
+<p class="caption">relocate lets you rearrange columns (by Allison Horst)</p>
+</div>
 </div>
 <div id="try-it-out-1" class="section level2 tryitout unnumbered">
 <h2>Try it out</h2>

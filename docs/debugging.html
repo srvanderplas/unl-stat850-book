@@ -284,6 +284,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="5.4" data-path="manipulating-data.html"><a href="manipulating-data.html#mutate-add-and-transform-variables"><i class="fa fa-check"></i><b>5.4</b> Mutate: Add and transform variables</a></li>
 <li class="chapter" data-level="5.5" data-path="manipulating-data.html"><a href="manipulating-data.html#summarize"><i class="fa fa-check"></i><b>5.5</b> Summarize</a></li>
 <li class="chapter" data-level="5.6" data-path="manipulating-data.html"><a href="manipulating-data.html#group-by-power"><i class="fa fa-check"></i><b>5.6</b> Group By + (?) = Power!</a></li>
+<li class="chapter" data-level="5.7" data-path="manipulating-data.html"><a href="manipulating-data.html#other-dplyr-functions-across-relocate"><i class="fa fa-check"></i><b>5.7</b> Other <code>dplyr</code> functions: across, relocate</a></li>
 <li class="chapter" data-level="" data-path="intro-prog.html"><a href="intro-prog.html#try-it-out-1"><i class="fa fa-check"></i>Try it out</a></li>
 <li class="chapter" data-level="" data-path="tools.html"><a href="tools.html#references"><i class="fa fa-check"></i>References</a></li>
 </ul></li>
@@ -324,7 +325,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="7.5" data-path="debugging.html"><a href="debugging.html#debugging-tools-in-sas"><i class="fa fa-check"></i><b>7.5</b> Debugging Tools in SAS</a></li>
 <li class="chapter" data-level="7.6" data-path="debugging.html"><a href="debugging.html#minimal-working-examples"><i class="fa fa-check"></i><b>7.6</b> Minimal Working Examples</a><ul>
-<li class="chapter" data-level="7.6.1" data-path="intro-prog.html"><a href="intro-prog.html#try-it-out-3"><i class="fa fa-check"></i><b>7.6.1</b> Try It Out</a></li>
+<li class="chapter" data-level="7.6.1" data-path="debugging.html"><a href="debugging.html#example-mwes"><i class="fa fa-check"></i><b>7.6.1</b> Example: MWEs</a></li>
+<li class="chapter" data-level="7.6.2" data-path="intro-prog.html"><a href="intro-prog.html#try-it-out-3"><i class="fa fa-check"></i><b>7.6.2</b> Try It Out</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="tools.html"><a href="tools.html#references"><i class="fa fa-check"></i>References</a></li>
 </ul></li>
@@ -344,12 +346,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="8.4.2" data-path="data-vis-intro.html"><a href="data-vis-intro.html#general-guidelines-for-accuracy"><i class="fa fa-check"></i><b>8.4.2</b> General guidelines for accuracy</a></li>
 <li class="chapter" data-level="8.4.3" data-path="data-vis-intro.html"><a href="data-vis-intro.html#how-do-we-know"><i class="fa fa-check"></i><b>8.4.3</b> How do we know?</a></li>
 </ul></li>
-<li class="chapter" data-level="8.5" data-path="tools.html"><a href="tools.html#references"><i class="fa fa-check"></i><b>8.5</b> References</a><ul>
-<li class="chapter" data-level="8.5.1" data-path="data-vis-intro.html"><a href="data-vis-intro.html#motivation"><i class="fa fa-check"></i><b>8.5.1</b> Motivation</a></li>
-<li class="chapter" data-level="8.5.2" data-path="data-vis-intro.html"><a href="data-vis-intro.html#r-graphics"><i class="fa fa-check"></i><b>8.5.2</b> R graphics</a></li>
-<li class="chapter" data-level="8.5.3" data-path="data-vis-intro.html"><a href="data-vis-intro.html#sas-graphics"><i class="fa fa-check"></i><b>8.5.3</b> SAS graphics</a></li>
-<li class="chapter" data-level="8.5.4" data-path="data-vis-intro.html"><a href="data-vis-intro.html#types-of-charts-and-chart-styling"><i class="fa fa-check"></i><b>8.5.4</b> Types of Charts and Chart Styling</a></li>
-<li class="chapter" data-level="8.5.5" data-path="data-vis-intro.html"><a href="data-vis-intro.html#other-graphics-packages"><i class="fa fa-check"></i><b>8.5.5</b> Other Graphics packages</a></li>
+<li class="chapter" data-level="8.5" data-path="data-vis-intro.html"><a href="data-vis-intro.html#other-things-worth-exploring"><i class="fa fa-check"></i><b>8.5</b> Other things worth exploring</a></li>
+<li class="chapter" data-level="8.6" data-path="tools.html"><a href="tools.html#references"><i class="fa fa-check"></i><b>8.6</b> References</a><ul>
+<li class="chapter" data-level="8.6.1" data-path="data-vis-intro.html"><a href="data-vis-intro.html#motivation"><i class="fa fa-check"></i><b>8.6.1</b> Motivation</a></li>
+<li class="chapter" data-level="8.6.2" data-path="data-vis-intro.html"><a href="data-vis-intro.html#r-graphics"><i class="fa fa-check"></i><b>8.6.2</b> R graphics</a></li>
+<li class="chapter" data-level="8.6.3" data-path="data-vis-intro.html"><a href="data-vis-intro.html#sas-graphics"><i class="fa fa-check"></i><b>8.6.3</b> SAS graphics</a></li>
+<li class="chapter" data-level="8.6.4" data-path="data-vis-intro.html"><a href="data-vis-intro.html#types-of-charts-and-chart-styling"><i class="fa fa-check"></i><b>8.6.4</b> Types of Charts and Chart Styling</a></li>
+<li class="chapter" data-level="8.6.5" data-path="data-vis-intro.html"><a href="data-vis-intro.html#other-graphics-packages"><i class="fa fa-check"></i><b>8.6.5</b> Other Graphics packages</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="9" data-path="simulation.html"><a href="simulation.html"><i class="fa fa-check"></i><b>9</b> Simulation and Reproducibility</a><ul>
@@ -444,8 +447,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul>
 <p>Note: The skills in this chapter take a lifetime to truly master. The real goal here is that you know how to ask for help appropriately (and in a way that people will respond positively to) and that you know how to do the research to get help yourself.</p>
 <div class="figure">
-<img src="https://imgs.xkcd.com/comics/inexplicable.png" alt="“It has a ghost in it. Take it back.” “No.” (xkcd #1316)" />
-<p class="caption">“It has a ghost in it. Take it back.” “No.” (xkcd #1316)</p>
+<img src="https://github.com/allisonhorst/stats-illustrations/blob/master/other-stats-artwork/debugging.jpg?raw=true" alt="The faces of debugging (by Allison Horst)" />
+<p class="caption">The faces of debugging (by Allison Horst)</p>
 </div>
 </div>
 <div id="step-1-check-your-spelling." class="section level2">
@@ -1064,8 +1067,70 @@ I’ll replicate “debug” in non-interactive mode by setting up an environmen
 <li><strong>reproducible</strong> - test the code you provide to reproduce the problem.</li>
 </ul>
 <p>You should format your question to make it as easy as possible to help you. Make it so that code can be copied from your post directly and pasted into a terminal. Describe what you see and what you’d hope to see if the code were working.</p>
+<div id="example-mwes" class="section level3 example">
+<h3><span class="header-section-number">7.6.1</span> Example: MWEs</h3>
+<p>You haven’t gotten to module 8 yet, but at one point I had issues with SAS graphs rendering in black and white most of the time. (By the time you get there, I may still be having that issue, but it’s applicable now).</p>
+<p>I started debugging the issue with the following code chunk:</p>
+<pre><code>{r sas-cat-aes-map-07, engine=&quot;sashtml&quot;, engine.path=&quot;sas&quot;, fig.path = &quot;image/&quot;}
+libname classdat &quot;sas/&quot;;
+
+PROC SGPLOT data=classdat.fbiwide; 
+SCATTER x = Population y = Assault /
+  markerattrs=(size=8pt symbol=circlefilled) 
+  group = Abb; /* maps to point color by default */
+RUN;
+QUIT; 
+  
+PROC SGPLOT data=classdat.fbiwide NOAUTOLEGEND; /* dont generate a legend */
+SCATTER x = Population y = Assault /
+  markercharattrs=(size=8) 
+  markerchar = Abb /* specify marker character variable */
+    group = Abb
+  ; 
+RUN;
+QUIT; </code></pre>
+<p>(I moved the chunk header to the next line so that you can see the whole chunk)</p>
+<p>After running the code separately in SAS and getting a figure that looked like what I’d expected, I set out to construct a reproducible example so that I could post to the <a href="https://github.com/Hemken/SASmarkdown/issues/14">SASmarkdown github issues page</a> and ask for help.</p>
+<p>The first thing I did was strip out all of the extra stuff that didn’t need to be in the chunk - this chunk generates 2 pictures; I only need one. This chunk requires the fbiwide data; I replaced it with a dataset in the <code>sashelp</code> library.</p>
+<p>When I was done, the chunk looked like this:</p>
+<pre><code>PROC SGPLOT data=sashelp.snacks;
+SCATTER x = date y = QtySold /
+  markerattrs=(size=8pt symbol=circlefilled)
+  group = product; /* maps to point color by default */
+RUN;
+QUIT;</code></pre>
+<p>Then, I started constructing my reproducible example. I ran <code>?sas_enginesetup</code> to get to a SASmarkdown help page, because I remembered it had a nice way to generate and run markdown files from R directly (without saving the Rmd file).</p>
+<p>I copied the example from that page:</p>
+<pre><code>indoc &lt;- &#39;
+---
+title: &quot;Basic SASmarkdown Doc&quot;
+author: &quot;Doug Hemken&quot;
+output: html_document
+---
+
+# I&#39;ve deleted the intermediate chunks because they screw 
+# everything up when I print this chunk out
+&#39;
+knitr::knit(text=indoc, output=&quot;test.md&quot;)
+rmarkdown::render(&quot;test.md&quot;)</code></pre>
+<p>Then, I created several chunks which would do the following:
+1. Write the minimal example SAS code above to a file
+2. Call that file in a SASmarkdown chunk using the <code>%include</code> macro, which dumps the listed file into the SAS program
+3. Call the file using SAS batch mode</p>
+<p>Finally, I included the image generated from the batch mode call manually.</p>
+<p>You can see the resulting code <a href="https://github.com/Hemken/SASmarkdown/issues/14">here</a>.</p>
+<p>I pasted my example into the issues page, and then included some additional information:</p>
+<ol style="list-style-type: decimal">
+<li>A screenshot of the rendered page</li>
+<li>The image files themselves</li>
+<li>A description of what happened</li>
+<li>My suspicions (some obvious option I’m missing?)</li>
+<li>An additional line of R code that would delete any files created if someone ran my example. Because file clutter sucks.</li>
+</ol>
+<p>This process took me about 45 minutes, but that was still much shorter than the time I’d spent rerunning code trying to get it to work with no success.</p>
+</div>
 <div id="try-it-out-3" class="section level3 tryitout">
-<h3><span class="header-section-number">7.6.1</span> Try It Out</h3>
+<h3><span class="header-section-number">7.6.2</span> Try It Out</h3>
 <p>Use <a href="other/Debugging_exercise.html">this list of StackOverflow posts</a> to try out your new debugging techniques. Can you figure out what’s wrong? What information would you need from the poster in order to come up with a solution?</p>
 </div>
 </div>

@@ -284,6 +284,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="5.4" data-path="manipulating-data.html"><a href="manipulating-data.html#mutate-add-and-transform-variables"><i class="fa fa-check"></i><b>5.4</b> Mutate: Add and transform variables</a></li>
 <li class="chapter" data-level="5.5" data-path="manipulating-data.html"><a href="manipulating-data.html#summarize"><i class="fa fa-check"></i><b>5.5</b> Summarize</a></li>
 <li class="chapter" data-level="5.6" data-path="manipulating-data.html"><a href="manipulating-data.html#group-by-power"><i class="fa fa-check"></i><b>5.6</b> Group By + (?) = Power!</a></li>
+<li class="chapter" data-level="5.7" data-path="manipulating-data.html"><a href="manipulating-data.html#other-dplyr-functions-across-relocate"><i class="fa fa-check"></i><b>5.7</b> Other <code>dplyr</code> functions: across, relocate</a></li>
 <li class="chapter" data-level="" data-path="intro-prog.html"><a href="intro-prog.html#try-it-out-1"><i class="fa fa-check"></i>Try it out</a></li>
 <li class="chapter" data-level="" data-path="tools.html"><a href="tools.html#references"><i class="fa fa-check"></i>References</a></li>
 </ul></li>
@@ -324,7 +325,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="7.5" data-path="debugging.html"><a href="debugging.html#debugging-tools-in-sas"><i class="fa fa-check"></i><b>7.5</b> Debugging Tools in SAS</a></li>
 <li class="chapter" data-level="7.6" data-path="debugging.html"><a href="debugging.html#minimal-working-examples"><i class="fa fa-check"></i><b>7.6</b> Minimal Working Examples</a><ul>
-<li class="chapter" data-level="7.6.1" data-path="intro-prog.html"><a href="intro-prog.html#try-it-out-3"><i class="fa fa-check"></i><b>7.6.1</b> Try It Out</a></li>
+<li class="chapter" data-level="7.6.1" data-path="debugging.html"><a href="debugging.html#example-mwes"><i class="fa fa-check"></i><b>7.6.1</b> Example: MWEs</a></li>
+<li class="chapter" data-level="7.6.2" data-path="intro-prog.html"><a href="intro-prog.html#try-it-out-3"><i class="fa fa-check"></i><b>7.6.2</b> Try It Out</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="tools.html"><a href="tools.html#references"><i class="fa fa-check"></i>References</a></li>
 </ul></li>
@@ -344,12 +346,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="8.4.2" data-path="data-vis-intro.html"><a href="data-vis-intro.html#general-guidelines-for-accuracy"><i class="fa fa-check"></i><b>8.4.2</b> General guidelines for accuracy</a></li>
 <li class="chapter" data-level="8.4.3" data-path="data-vis-intro.html"><a href="data-vis-intro.html#how-do-we-know"><i class="fa fa-check"></i><b>8.4.3</b> How do we know?</a></li>
 </ul></li>
-<li class="chapter" data-level="8.5" data-path="tools.html"><a href="tools.html#references"><i class="fa fa-check"></i><b>8.5</b> References</a><ul>
-<li class="chapter" data-level="8.5.1" data-path="data-vis-intro.html"><a href="data-vis-intro.html#motivation"><i class="fa fa-check"></i><b>8.5.1</b> Motivation</a></li>
-<li class="chapter" data-level="8.5.2" data-path="data-vis-intro.html"><a href="data-vis-intro.html#r-graphics"><i class="fa fa-check"></i><b>8.5.2</b> R graphics</a></li>
-<li class="chapter" data-level="8.5.3" data-path="data-vis-intro.html"><a href="data-vis-intro.html#sas-graphics"><i class="fa fa-check"></i><b>8.5.3</b> SAS graphics</a></li>
-<li class="chapter" data-level="8.5.4" data-path="data-vis-intro.html"><a href="data-vis-intro.html#types-of-charts-and-chart-styling"><i class="fa fa-check"></i><b>8.5.4</b> Types of Charts and Chart Styling</a></li>
-<li class="chapter" data-level="8.5.5" data-path="data-vis-intro.html"><a href="data-vis-intro.html#other-graphics-packages"><i class="fa fa-check"></i><b>8.5.5</b> Other Graphics packages</a></li>
+<li class="chapter" data-level="8.5" data-path="data-vis-intro.html"><a href="data-vis-intro.html#other-things-worth-exploring"><i class="fa fa-check"></i><b>8.5</b> Other things worth exploring</a></li>
+<li class="chapter" data-level="8.6" data-path="tools.html"><a href="tools.html#references"><i class="fa fa-check"></i><b>8.6</b> References</a><ul>
+<li class="chapter" data-level="8.6.1" data-path="data-vis-intro.html"><a href="data-vis-intro.html#motivation"><i class="fa fa-check"></i><b>8.6.1</b> Motivation</a></li>
+<li class="chapter" data-level="8.6.2" data-path="data-vis-intro.html"><a href="data-vis-intro.html#r-graphics"><i class="fa fa-check"></i><b>8.6.2</b> R graphics</a></li>
+<li class="chapter" data-level="8.6.3" data-path="data-vis-intro.html"><a href="data-vis-intro.html#sas-graphics"><i class="fa fa-check"></i><b>8.6.3</b> SAS graphics</a></li>
+<li class="chapter" data-level="8.6.4" data-path="data-vis-intro.html"><a href="data-vis-intro.html#types-of-charts-and-chart-styling"><i class="fa fa-check"></i><b>8.6.4</b> Types of Charts and Chart Styling</a></li>
+<li class="chapter" data-level="8.6.5" data-path="data-vis-intro.html"><a href="data-vis-intro.html#other-graphics-packages"><i class="fa fa-check"></i><b>8.6.5</b> Other Graphics packages</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="9" data-path="simulation.html"><a href="simulation.html"><i class="fa fa-check"></i><b>9</b> Simulation and Reproducibility</a><ul>

@@ -284,6 +284,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="5.4" data-path="manipulating-data.html"><a href="manipulating-data.html#mutate-add-and-transform-variables"><i class="fa fa-check"></i><b>5.4</b> Mutate: Add and transform variables</a></li>
 <li class="chapter" data-level="5.5" data-path="manipulating-data.html"><a href="manipulating-data.html#summarize"><i class="fa fa-check"></i><b>5.5</b> Summarize</a></li>
 <li class="chapter" data-level="5.6" data-path="manipulating-data.html"><a href="manipulating-data.html#group-by-power"><i class="fa fa-check"></i><b>5.6</b> Group By + (?) = Power!</a></li>
+<li class="chapter" data-level="5.7" data-path="manipulating-data.html"><a href="manipulating-data.html#other-dplyr-functions-across-relocate"><i class="fa fa-check"></i><b>5.7</b> Other <code>dplyr</code> functions: across, relocate</a></li>
 <li class="chapter" data-level="" data-path="intro-prog.html"><a href="intro-prog.html#try-it-out-1"><i class="fa fa-check"></i>Try it out</a></li>
 <li class="chapter" data-level="" data-path="tools.html"><a href="tools.html#references"><i class="fa fa-check"></i>References</a></li>
 </ul></li>
@@ -324,7 +325,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="7.5" data-path="debugging.html"><a href="debugging.html#debugging-tools-in-sas"><i class="fa fa-check"></i><b>7.5</b> Debugging Tools in SAS</a></li>
 <li class="chapter" data-level="7.6" data-path="debugging.html"><a href="debugging.html#minimal-working-examples"><i class="fa fa-check"></i><b>7.6</b> Minimal Working Examples</a><ul>
-<li class="chapter" data-level="7.6.1" data-path="intro-prog.html"><a href="intro-prog.html#try-it-out-3"><i class="fa fa-check"></i><b>7.6.1</b> Try It Out</a></li>
+<li class="chapter" data-level="7.6.1" data-path="debugging.html"><a href="debugging.html#example-mwes"><i class="fa fa-check"></i><b>7.6.1</b> Example: MWEs</a></li>
+<li class="chapter" data-level="7.6.2" data-path="intro-prog.html"><a href="intro-prog.html#try-it-out-3"><i class="fa fa-check"></i><b>7.6.2</b> Try It Out</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="tools.html"><a href="tools.html#references"><i class="fa fa-check"></i>References</a></li>
 </ul></li>
@@ -344,12 +346,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="8.4.2" data-path="data-vis-intro.html"><a href="data-vis-intro.html#general-guidelines-for-accuracy"><i class="fa fa-check"></i><b>8.4.2</b> General guidelines for accuracy</a></li>
 <li class="chapter" data-level="8.4.3" data-path="data-vis-intro.html"><a href="data-vis-intro.html#how-do-we-know"><i class="fa fa-check"></i><b>8.4.3</b> How do we know?</a></li>
 </ul></li>
-<li class="chapter" data-level="8.5" data-path="tools.html"><a href="tools.html#references"><i class="fa fa-check"></i><b>8.5</b> References</a><ul>
-<li class="chapter" data-level="8.5.1" data-path="data-vis-intro.html"><a href="data-vis-intro.html#motivation"><i class="fa fa-check"></i><b>8.5.1</b> Motivation</a></li>
-<li class="chapter" data-level="8.5.2" data-path="data-vis-intro.html"><a href="data-vis-intro.html#r-graphics"><i class="fa fa-check"></i><b>8.5.2</b> R graphics</a></li>
-<li class="chapter" data-level="8.5.3" data-path="data-vis-intro.html"><a href="data-vis-intro.html#sas-graphics"><i class="fa fa-check"></i><b>8.5.3</b> SAS graphics</a></li>
-<li class="chapter" data-level="8.5.4" data-path="data-vis-intro.html"><a href="data-vis-intro.html#types-of-charts-and-chart-styling"><i class="fa fa-check"></i><b>8.5.4</b> Types of Charts and Chart Styling</a></li>
-<li class="chapter" data-level="8.5.5" data-path="data-vis-intro.html"><a href="data-vis-intro.html#other-graphics-packages"><i class="fa fa-check"></i><b>8.5.5</b> Other Graphics packages</a></li>
+<li class="chapter" data-level="8.5" data-path="data-vis-intro.html"><a href="data-vis-intro.html#other-things-worth-exploring"><i class="fa fa-check"></i><b>8.5</b> Other things worth exploring</a></li>
+<li class="chapter" data-level="8.6" data-path="tools.html"><a href="tools.html#references"><i class="fa fa-check"></i><b>8.6</b> References</a><ul>
+<li class="chapter" data-level="8.6.1" data-path="data-vis-intro.html"><a href="data-vis-intro.html#motivation"><i class="fa fa-check"></i><b>8.6.1</b> Motivation</a></li>
+<li class="chapter" data-level="8.6.2" data-path="data-vis-intro.html"><a href="data-vis-intro.html#r-graphics"><i class="fa fa-check"></i><b>8.6.2</b> R graphics</a></li>
+<li class="chapter" data-level="8.6.3" data-path="data-vis-intro.html"><a href="data-vis-intro.html#sas-graphics"><i class="fa fa-check"></i><b>8.6.3</b> SAS graphics</a></li>
+<li class="chapter" data-level="8.6.4" data-path="data-vis-intro.html"><a href="data-vis-intro.html#types-of-charts-and-chart-styling"><i class="fa fa-check"></i><b>8.6.4</b> Types of Charts and Chart Styling</a></li>
+<li class="chapter" data-level="8.6.5" data-path="data-vis-intro.html"><a href="data-vis-intro.html#other-graphics-packages"><i class="fa fa-check"></i><b>8.6.5</b> Other Graphics packages</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="9" data-path="simulation.html"><a href="simulation.html"><i class="fa fa-check"></i><b>9</b> Simulation and Reproducibility</a><ul>
@@ -24117,6 +24120,14 @@ My analysis in R was a bit more free-form than in SAS - in SAS, I proceeded fair
 <p>This summary allows us to see very quickly that there is a difference in the age distribution of unarmed individuals who died during an encounter with police - unarmed individuals are likely to be significantly older on average.</p>
 <p>If you are using <code>skimr</code> in knitr/rmarkdown, your data frame will automatically render as a custom-printed table if the last line in the code chunk is a <code>skim_df</code> object. There are many ways to customize the summary statistics detailed in the package that I’m not going to go into here, but you are free to investigate if you like the way these summaries look.</p>
 <p>I mention this package now because it is appropriate for EDA, but it may not be intuitive or easy to use in the way you might want to use it until after we cover the <code>dplyr</code> package in the <a href="manipulating-data.html#manipulating-data">manipulating data module</a> and the <code>tidyr</code> package in the <a href="transforming-data.html#transforming-data">transforming data module</a>.</p>
+</div>
+<div id="janitor-package" class="section level4">
+<h4><span class="header-section-number">4.6.2.2</span> <code>janitor</code> package</h4>
+<p>The janitor package has functions for cleaning up messy data. One of its best features is the <code>clean_names()</code> function, which creates names based on a capitalization/separation scheme of your choosing.</p>
+<div class="figure">
+<img src="https://github.com/allisonhorst/stats-illustrations/raw/master/rstats-artwork/janitor_clean_names.png" alt="janitor and clean_names() by Allison Horst" />
+<p class="caption">janitor and clean_names() by Allison Horst</p>
+</div>
 </div>
 </div>
 <div id="comparison" class="section level3">
