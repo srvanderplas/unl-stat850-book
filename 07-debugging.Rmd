@@ -632,6 +632,14 @@ The goal is to reproduce the error message with information that is
 
 You should format your question to make it as easy as possible to help you. Make it so that code can be copied from your post directly and pasted into a terminal. Describe what you see and what you'd hope to see if the code were working. 
 
+
+### Try It Out {.tryitout}
+
+Use [this list of StackOverflow posts](other/Debugging_exercise.html) to try out your new debugging techniques. Can you figure out what's wrong? What information would you need from the poster in order to come up with a solution?
+
+
+
+
 ## References {- .learn-more}
 
 - [Stalking the elusive computer bug](https://doi.org/10.1109/85.728224) - the etymology and historical use of the term "debugging", from Thomas Edison to Grace Hopper.
