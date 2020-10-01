@@ -633,6 +633,87 @@ The goal is to reproduce the error message with information that is
 You should format your question to make it as easy as possible to help you. Make it so that code can be copied from your post directly and pasted into a terminal. Describe what you see and what you'd hope to see if the code were working. 
 
 
+### Example: MWEs {.example}
+
+You haven't gotten to module 8 yet, but at one point I had issues with SAS graphs rendering in black and white most of the time. (By the time you get there, I may still be having that issue, but it's applicable now). 
+
+I started debugging the issue with the following code chunk: 
+
+```
+{r sas-cat-aes-map-07, engine="sashtml", engine.path="sas", fig.path = "image/"}
+libname classdat "sas/";
+
+PROC SGPLOT data=classdat.fbiwide; 
+SCATTER x = Population y = Assault /
+  markerattrs=(size=8pt symbol=circlefilled) 
+  group = Abb; /* maps to point color by default */
+RUN;
+QUIT; 
+  
+PROC SGPLOT data=classdat.fbiwide NOAUTOLEGEND; /* dont generate a legend */
+SCATTER x = Population y = Assault /
+  markercharattrs=(size=8) 
+  markerchar = Abb /* specify marker character variable */
+    group = Abb
+  ; 
+RUN;
+QUIT; 
+```
+
+(I moved the chunk header to the next line so that you can see the whole chunk)
+
+After running the code separately in SAS and getting a figure that looked like what I'd expected, I set out to construct a reproducible example so that I could post to the [SASmarkdown github issues page](https://github.com/Hemken/SASmarkdown/issues/14) and ask for help.
+
+The first thing I did was strip out all of the extra stuff that didn't need to be in the chunk - this chunk generates 2 pictures; I only need one. This chunk requires the fbiwide data; I replaced it with a dataset in the `sashelp` library.
+
+When I was done, the chunk looked like this:
+
+```
+PROC SGPLOT data=sashelp.snacks;
+SCATTER x = date y = QtySold /
+  markerattrs=(size=8pt symbol=circlefilled)
+  group = product; /* maps to point color by default */
+RUN;
+QUIT;
+```
+
+Then, I started constructing my reproducible example. I ran `?sas_enginesetup` to get to a SASmarkdown help page, because I remembered it had a nice way to generate and run markdown files from R directly (without saving the Rmd file). 
+
+I copied the example from that page:
+```
+indoc <- '
+---
+title: "Basic SASmarkdown Doc"
+author: "Doug Hemken"
+output: html_document
+---
+
+# I've deleted the intermediate chunks because they screw 
+# everything up when I print this chunk out
+'
+knitr::knit(text=indoc, output="test.md")
+rmarkdown::render("test.md")
+```
+
+Then, I created several chunks which would do the following:
+1. Write the minimal example SAS code above to a file
+2. Call that file in a SASmarkdown chunk using the `%include` macro, which dumps the listed file into the SAS program
+3. Call the file using SAS batch mode
+
+Finally, I included the image generated from the batch mode call manually.
+
+You can see the resulting code [here](https://github.com/Hemken/SASmarkdown/issues/14).
+
+I pasted my example into the issues page, and then included some additional information: 
+
+1. A screenshot of the rendered page
+2. The image files themselves
+3. A description of what happened
+4. My suspicions (some obvious option I'm missing?)
+5. An additional line of R code that would delete any files created if someone ran my example. Because file clutter sucks.
+
+This process took me about 45 minutes, but that was still much shorter than the time I'd spent rerunning code trying to get it to work with no success. 
+
 ### Try It Out {.tryitout}
 
 Use [this list of StackOverflow posts](other/Debugging_exercise.html) to try out your new debugging techniques. Can you figure out what's wrong? What information would you need from the poster in order to come up with a solution?
