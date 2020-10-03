@@ -1,6 +1,6 @@
 NOTE: PROCEDURE PRINTTO used (Total process time):
       real time           0.00 seconds
-      cpu time            0.02 seconds
+      cpu time            0.00 seconds
       
 
 12         DATA tmp1; /* this is the out dataset */
@@ -15,6 +15,6 @@ NOTE: There were 35 observations read from the data set CLASSDAT.STARWARS.
 NOTE: The data set WORK.TMP1 has 35 observations and 11 variables.
 NOTE: DATA statement used (Total process time):
       real time           0.00 seconds
-      cpu time            0.00 seconds
+      cpu time            0.01 seconds
       
 

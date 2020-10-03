@@ -1698,7 +1698,7 @@ proc print data=classdat.poke (obs=10); /* print the first 10 observations */
 <div>
 <div align="center">
 <!--BEGINTABLE-->
-<table class="table" cellspacing="0" cellpadding="7" rules="groups" frame="hsides" summary="Procedure Print: Data Set CLASSDAT.POKE">
+<table class="table" style=" border-left-width: 0px; border-right-width: 0px;" cellspacing="0" cellpadding="7" rules="groups" frame="hsides" bordercolor="#C1C1C1" summary="Procedure Print: Data Set CLASSDAT.POKE">
 <colgroup>
 <col>
 </colgroup>
@@ -5039,7 +5039,7 @@ proc print data=legoset2 (obs=10);
 <div>
 <div align="center">
 <!--BEGINTABLE-->
-<table class="table" cellspacing="0" cellpadding="7" rules="groups" frame="hsides" summary="Procedure Print: Data Set CLASSDAT.LEGOSET">
+<table class="table" style=" border-left-width: 0px; border-right-width: 0px;" cellspacing="0" cellpadding="7" rules="groups" frame="hsides" bordercolor="#C1C1C1" summary="Procedure Print: Data Set CLASSDAT.LEGOSET">
 <colgroup>
 <col>
 </colgroup>
@@ -5289,7 +5289,7 @@ Master Mechanic Set
 <div>
 <div align="center">
 <!--BEGINTABLE-->
-<table class="table" cellspacing="0" cellpadding="7" rules="groups" frame="hsides" summary="Procedure Print: Data Set WORK.LEGOSET2">
+<table class="table" style=" border-left-width: 0px; border-right-width: 0px;" cellspacing="0" cellpadding="7" rules="groups" frame="hsides" bordercolor="#C1C1C1" summary="Procedure Print: Data Set WORK.LEGOSET2">
 <colgroup>
 <col>
 </colgroup>
@@ -6985,22 +6985,32 @@ SQLite databases are contained in single files with the extension .SQLite. These
 <pre><code>[babyname]
 Description = 2015 SSA baby names
 Driver = SQLite3
-Database = data/ssa-babynames-for-2015.sqlite
-</code></pre>
-<pre class="sashtml"><code>/* This code requires that I&#39;ve set up a DSN connecting the sqlite file to */
-/* a specific driver on my computer. You&#39;ll have to set up your machine to */
-/* have a configuration that is appropriate for your setup */
-  
-libname mydata odbc complete = &quot;dsn=babyname; Database=data/ssa-babynames-for-2015.sqlite&quot;;
+Database = data/ssa-babynames-for-2015.sqlite</code></pre>
+<pre class="sashtml"><code>6          /* This code requires that I&#39;ve set up a DSN connecting the
+6        ! sqlite file to */
+7          /* a specific driver on my computer. You&#39;ll have to set up your
+7        ! machine to */
+8          /* have a configuration that is appropriate for your setup */
+9          
+10         libname mydata odbc complete =
+10       ! XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX;
+NOTE: Libref MYDATA was successfully assigned as follows: 
+      Engine:        ODBC 
+      Physical Name: babyname
+11         
+12         proc print data=mydata.babynames (obs=10);
+13         run;
 
-proc print data=mydata.babynames (obs=10);
-run;</code></pre>
+NOTE: PROCEDURE PRINT used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.01 seconds
+      </code></pre>
 <div class="branch">
-<a name="IDX"></a>
+<a name="IDX9"></a>
 <div>
 <div align="center">
 <!--BEGINTABLE-->
-<table class="table" cellspacing="0" cellpadding="7" rules="groups" frame="hsides" summary="Procedure Print: Data Set MYDATA.babynames">
+<table class="table" style=" border-left-width: 0px; border-right-width: 0px;" cellspacing="0" cellpadding="7" rules="groups" frame="hsides" bordercolor="#C1C1C1" summary="Procedure Print: Data Set MYDATA.babynames">
 <colgroup>
 <col>
 </colgroup>
@@ -7341,7 +7351,7 @@ ODS GRAPHICS OFF;</code></pre>
 <div>
 <div align="center">
 <!--BEGINTABLE-->
-<table class="table" cellspacing="0" cellpadding="7" rules="groups" frame="hsides" summary="Procedure Freq: One-Way Frequencies">
+<table class="table" style=" border-left-width: 0px; border-right-width: 0px;" cellspacing="0" cellpadding="7" rules="groups" frame="hsides" bordercolor="#C1C1C1" summary="Procedure Freq: One-Way Frequencies">
 <colgroup>
 <col>
 </colgroup>
@@ -7524,7 +7534,7 @@ Cumulative<br/> Percent
 <div>
 <div align="center">
 <!--BEGINTABLE-->
-<table class="table" cellspacing="0" cellpadding="7" rules="groups" frame="hsides" summary="Procedure Freq: One-Way Chi-Square Test">
+<table class="table" style=" border-left-width: 0px; border-right-width: 0px;" cellspacing="0" cellpadding="7" rules="groups" frame="hsides" bordercolor="#C1C1C1" summary="Procedure Freq: One-Way Chi-Square Test">
 <colgroup>
 <col>
 <col>
@@ -7596,7 +7606,7 @@ Sample Size = 1028
 <div>
 <div align="center">
 <!--BEGINTABLE-->
-<table class="table" cellspacing="0" cellpadding="7" rules="groups" frame="hsides" summary="Procedure Freq: One-Way Frequencies">
+<table class="table" style=" border-left-width: 0px; border-right-width: 0px;" cellspacing="0" cellpadding="7" rules="groups" frame="hsides" bordercolor="#C1C1C1" summary="Procedure Freq: One-Way Frequencies">
 <colgroup>
 <col>
 </colgroup>
@@ -7820,7 +7830,7 @@ The first 10 levels are displayed.
 <div>
 <div align="center">
 <!--BEGINTABLE-->
-<table class="table" cellspacing="0" cellpadding="7" rules="groups" frame="hsides" summary="Procedure Freq: One-Way Frequencies">
+<table class="table" style=" border-left-width: 0px; border-right-width: 0px;" cellspacing="0" cellpadding="7" rules="groups" frame="hsides" bordercolor="#C1C1C1" summary="Procedure Freq: One-Way Frequencies">
 <colgroup>
 <col>
 </colgroup>
@@ -7948,7 +7958,7 @@ run;</code></pre>
 <div>
 <div align="center">
 <!--BEGINTABLE-->
-<table class="table" cellspacing="0" cellpadding="7" rules="groups" frame="hsides" summary="Procedure Means: Summary statistics">
+<table class="table" style=" border-left-width: 0px; border-right-width: 0px;" cellspacing="0" cellpadding="7" rules="groups" frame="hsides" bordercolor="#C1C1C1" summary="Procedure Means: Summary statistics">
 <colgroup>
 <col>
 </colgroup>
@@ -9134,7 +9144,7 @@ against_fairy
 <div>
 <div align="center">
 <!--BEGINTABLE-->
-<table class="table" cellspacing="0" cellpadding="7" rules="groups" frame="hsides" summary="Procedure Means: Summary statistics">
+<table class="table" style=" border-left-width: 0px; border-right-width: 0px;" cellspacing="0" cellpadding="7" rules="groups" frame="hsides" bordercolor="#C1C1C1" summary="Procedure Means: Summary statistics">
 <colgroup>
 <col>
 <col>
@@ -13771,7 +13781,7 @@ Variable: attack
 <div>
 <div align="center">
 <!--BEGINTABLE-->
-<table class="table" cellspacing="0" cellpadding="7" rules="groups" frame="hsides" summary="Procedure Univariate: Moments">
+<table class="table" style=" border-left-width: 0px; border-right-width: 0px;" cellspacing="0" cellpadding="7" rules="groups" frame="hsides" bordercolor="#C1C1C1" summary="Procedure Univariate: Moments">
 <colgroup>
 <col>
 <col>
@@ -13880,7 +13890,7 @@ Std Error Mean
 <div>
 <div align="center">
 <!--BEGINTABLE-->
-<table class="table" cellspacing="0" cellpadding="7" rules="groups" frame="hsides" summary="Procedure Univariate: Basic Measures of Location and Variability">
+<table class="table" style=" border-left-width: 0px; border-right-width: 0px;" cellspacing="0" cellpadding="7" rules="groups" frame="hsides" bordercolor="#C1C1C1" summary="Procedure Univariate: Basic Measures of Location and Variability">
 <colgroup>
 <col>
 <col>
@@ -13967,7 +13977,7 @@ Interquartile Range
 <div>
 <div align="center">
 <!--BEGINTABLE-->
-<table class="table" cellspacing="0" cellpadding="7" rules="groups" frame="hsides" summary="Procedure Univariate: Tests For Location">
+<table class="table" style=" border-left-width: 0px; border-right-width: 0px;" cellspacing="0" cellpadding="7" rules="groups" frame="hsides" bordercolor="#C1C1C1" summary="Procedure Univariate: Tests For Location">
 <colgroup>
 <col>
 <col>
@@ -14055,7 +14065,7 @@ Pr &gt;= |S|
 <div>
 <div align="center">
 <!--BEGINTABLE-->
-<table class="table" cellspacing="0" cellpadding="7" rules="groups" frame="hsides" summary="Procedure Univariate: Quantiles">
+<table class="table" style=" border-left-width: 0px; border-right-width: 0px;" cellspacing="0" cellpadding="7" rules="groups" frame="hsides" bordercolor="#C1C1C1" summary="Procedure Univariate: Quantiles">
 <colgroup>
 <col>
 </colgroup>
@@ -14176,7 +14186,7 @@ Quantile
 <div>
 <div align="center">
 <!--BEGINTABLE-->
-<table class="table" cellspacing="0" cellpadding="7" rules="groups" frame="hsides" summary="Procedure Univariate: Extreme Observations">
+<table class="table" style=" border-left-width: 0px; border-right-width: 0px;" cellspacing="0" cellpadding="7" rules="groups" frame="hsides" bordercolor="#C1C1C1" summary="Procedure Univariate: Extreme Observations">
 <colgroup>
 <col>
 <col>
@@ -14312,7 +14322,7 @@ Variable: defense
 <div>
 <div align="center">
 <!--BEGINTABLE-->
-<table class="table" cellspacing="0" cellpadding="7" rules="groups" frame="hsides" summary="Procedure Univariate: Moments">
+<table class="table" style=" border-left-width: 0px; border-right-width: 0px;" cellspacing="0" cellpadding="7" rules="groups" frame="hsides" bordercolor="#C1C1C1" summary="Procedure Univariate: Moments">
 <colgroup>
 <col>
 <col>
@@ -14421,7 +14431,7 @@ Std Error Mean
 <div>
 <div align="center">
 <!--BEGINTABLE-->
-<table class="table" cellspacing="0" cellpadding="7" rules="groups" frame="hsides" summary="Procedure Univariate: Basic Measures of Location and Variability">
+<table class="table" style=" border-left-width: 0px; border-right-width: 0px;" cellspacing="0" cellpadding="7" rules="groups" frame="hsides" bordercolor="#C1C1C1" summary="Procedure Univariate: Basic Measures of Location and Variability">
 <colgroup>
 <col>
 <col>
@@ -14508,7 +14518,7 @@ Interquartile Range
 <div>
 <div align="center">
 <!--BEGINTABLE-->
-<table class="table" cellspacing="0" cellpadding="7" rules="groups" frame="hsides" summary="Procedure Univariate: Tests For Location">
+<table class="table" style=" border-left-width: 0px; border-right-width: 0px;" cellspacing="0" cellpadding="7" rules="groups" frame="hsides" bordercolor="#C1C1C1" summary="Procedure Univariate: Tests For Location">
 <colgroup>
 <col>
 <col>
@@ -14596,7 +14606,7 @@ Pr &gt;= |S|
 <div>
 <div align="center">
 <!--BEGINTABLE-->
-<table class="table" cellspacing="0" cellpadding="7" rules="groups" frame="hsides" summary="Procedure Univariate: Quantiles">
+<table class="table" style=" border-left-width: 0px; border-right-width: 0px;" cellspacing="0" cellpadding="7" rules="groups" frame="hsides" bordercolor="#C1C1C1" summary="Procedure Univariate: Quantiles">
 <colgroup>
 <col>
 </colgroup>
@@ -14717,7 +14727,7 @@ Quantile
 <div>
 <div align="center">
 <!--BEGINTABLE-->
-<table class="table" cellspacing="0" cellpadding="7" rules="groups" frame="hsides" summary="Procedure Univariate: Extreme Observations">
+<table class="table" style=" border-left-width: 0px; border-right-width: 0px;" cellspacing="0" cellpadding="7" rules="groups" frame="hsides" bordercolor="#C1C1C1" summary="Procedure Univariate: Extreme Observations">
 <colgroup>
 <col>
 <col>
@@ -14853,7 +14863,7 @@ Variable: sp_attack
 <div>
 <div align="center">
 <!--BEGINTABLE-->
-<table class="table" cellspacing="0" cellpadding="7" rules="groups" frame="hsides" summary="Procedure Univariate: Moments">
+<table class="table" style=" border-left-width: 0px; border-right-width: 0px;" cellspacing="0" cellpadding="7" rules="groups" frame="hsides" bordercolor="#C1C1C1" summary="Procedure Univariate: Moments">
 <colgroup>
 <col>
 <col>
@@ -14962,7 +14972,7 @@ Std Error Mean
 <div>
 <div align="center">
 <!--BEGINTABLE-->
-<table class="table" cellspacing="0" cellpadding="7" rules="groups" frame="hsides" summary="Procedure Univariate: Basic Measures of Location and Variability">
+<table class="table" style=" border-left-width: 0px; border-right-width: 0px;" cellspacing="0" cellpadding="7" rules="groups" frame="hsides" bordercolor="#C1C1C1" summary="Procedure Univariate: Basic Measures of Location and Variability">
 <colgroup>
 <col>
 <col>
@@ -15049,7 +15059,7 @@ Interquartile Range
 <div>
 <div align="center">
 <!--BEGINTABLE-->
-<table class="table" cellspacing="0" cellpadding="7" rules="groups" frame="hsides" summary="Procedure Univariate: Tests For Location">
+<table class="table" style=" border-left-width: 0px; border-right-width: 0px;" cellspacing="0" cellpadding="7" rules="groups" frame="hsides" bordercolor="#C1C1C1" summary="Procedure Univariate: Tests For Location">
 <colgroup>
 <col>
 <col>
@@ -15137,7 +15147,7 @@ Pr &gt;= |S|
 <div>
 <div align="center">
 <!--BEGINTABLE-->
-<table class="table" cellspacing="0" cellpadding="7" rules="groups" frame="hsides" summary="Procedure Univariate: Quantiles">
+<table class="table" style=" border-left-width: 0px; border-right-width: 0px;" cellspacing="0" cellpadding="7" rules="groups" frame="hsides" bordercolor="#C1C1C1" summary="Procedure Univariate: Quantiles">
 <colgroup>
 <col>
 </colgroup>
@@ -15258,7 +15268,7 @@ Quantile
 <div>
 <div align="center">
 <!--BEGINTABLE-->
-<table class="table" cellspacing="0" cellpadding="7" rules="groups" frame="hsides" summary="Procedure Univariate: Extreme Observations">
+<table class="table" style=" border-left-width: 0px; border-right-width: 0px;" cellspacing="0" cellpadding="7" rules="groups" frame="hsides" bordercolor="#C1C1C1" summary="Procedure Univariate: Extreme Observations">
 <colgroup>
 <col>
 <col>
@@ -15394,7 +15404,7 @@ Variable: sp_defense
 <div>
 <div align="center">
 <!--BEGINTABLE-->
-<table class="table" cellspacing="0" cellpadding="7" rules="groups" frame="hsides" summary="Procedure Univariate: Moments">
+<table class="table" style=" border-left-width: 0px; border-right-width: 0px;" cellspacing="0" cellpadding="7" rules="groups" frame="hsides" bordercolor="#C1C1C1" summary="Procedure Univariate: Moments">
 <colgroup>
 <col>
 <col>
@@ -15503,7 +15513,7 @@ Std Error Mean
 <div>
 <div align="center">
 <!--BEGINTABLE-->
-<table class="table" cellspacing="0" cellpadding="7" rules="groups" frame="hsides" summary="Procedure Univariate: Basic Measures of Location and Variability">
+<table class="table" style=" border-left-width: 0px; border-right-width: 0px;" cellspacing="0" cellpadding="7" rules="groups" frame="hsides" bordercolor="#C1C1C1" summary="Procedure Univariate: Basic Measures of Location and Variability">
 <colgroup>
 <col>
 <col>
@@ -15590,7 +15600,7 @@ Interquartile Range
 <div>
 <div align="center">
 <!--BEGINTABLE-->
-<table class="table" cellspacing="0" cellpadding="7" rules="groups" frame="hsides" summary="Procedure Univariate: Tests For Location">
+<table class="table" style=" border-left-width: 0px; border-right-width: 0px;" cellspacing="0" cellpadding="7" rules="groups" frame="hsides" bordercolor="#C1C1C1" summary="Procedure Univariate: Tests For Location">
 <colgroup>
 <col>
 <col>
@@ -15678,7 +15688,7 @@ Pr &gt;= |S|
 <div>
 <div align="center">
 <!--BEGINTABLE-->
-<table class="table" cellspacing="0" cellpadding="7" rules="groups" frame="hsides" summary="Procedure Univariate: Quantiles">
+<table class="table" style=" border-left-width: 0px; border-right-width: 0px;" cellspacing="0" cellpadding="7" rules="groups" frame="hsides" bordercolor="#C1C1C1" summary="Procedure Univariate: Quantiles">
 <colgroup>
 <col>
 </colgroup>
@@ -15799,7 +15809,7 @@ Quantile
 <div>
 <div align="center">
 <!--BEGINTABLE-->
-<table class="table" cellspacing="0" cellpadding="7" rules="groups" frame="hsides" summary="Procedure Univariate: Extreme Observations">
+<table class="table" style=" border-left-width: 0px; border-right-width: 0px;" cellspacing="0" cellpadding="7" rules="groups" frame="hsides" bordercolor="#C1C1C1" summary="Procedure Univariate: Extreme Observations">
 <colgroup>
 <col>
 <col>
@@ -15935,7 +15945,7 @@ Variable: speed
 <div>
 <div align="center">
 <!--BEGINTABLE-->
-<table class="table" cellspacing="0" cellpadding="7" rules="groups" frame="hsides" summary="Procedure Univariate: Moments">
+<table class="table" style=" border-left-width: 0px; border-right-width: 0px;" cellspacing="0" cellpadding="7" rules="groups" frame="hsides" bordercolor="#C1C1C1" summary="Procedure Univariate: Moments">
 <colgroup>
 <col>
 <col>
@@ -16044,7 +16054,7 @@ Std Error Mean
 <div>
 <div align="center">
 <!--BEGINTABLE-->
-<table class="table" cellspacing="0" cellpadding="7" rules="groups" frame="hsides" summary="Procedure Univariate: Basic Measures of Location and Variability">
+<table class="table" style=" border-left-width: 0px; border-right-width: 0px;" cellspacing="0" cellpadding="7" rules="groups" frame="hsides" bordercolor="#C1C1C1" summary="Procedure Univariate: Basic Measures of Location and Variability">
 <colgroup>
 <col>
 <col>
@@ -16131,7 +16141,7 @@ Interquartile Range
 <div>
 <div align="center">
 <!--BEGINTABLE-->
-<table class="table" cellspacing="0" cellpadding="7" rules="groups" frame="hsides" summary="Procedure Univariate: Tests For Location">
+<table class="table" style=" border-left-width: 0px; border-right-width: 0px;" cellspacing="0" cellpadding="7" rules="groups" frame="hsides" bordercolor="#C1C1C1" summary="Procedure Univariate: Tests For Location">
 <colgroup>
 <col>
 <col>
@@ -16219,7 +16229,7 @@ Pr &gt;= |S|
 <div>
 <div align="center">
 <!--BEGINTABLE-->
-<table class="table" cellspacing="0" cellpadding="7" rules="groups" frame="hsides" summary="Procedure Univariate: Quantiles">
+<table class="table" style=" border-left-width: 0px; border-right-width: 0px;" cellspacing="0" cellpadding="7" rules="groups" frame="hsides" bordercolor="#C1C1C1" summary="Procedure Univariate: Quantiles">
 <colgroup>
 <col>
 </colgroup>
@@ -16340,7 +16350,7 @@ Quantile
 <div>
 <div align="center">
 <!--BEGINTABLE-->
-<table class="table" cellspacing="0" cellpadding="7" rules="groups" frame="hsides" summary="Procedure Univariate: Extreme Observations">
+<table class="table" style=" border-left-width: 0px; border-right-width: 0px;" cellspacing="0" cellpadding="7" rules="groups" frame="hsides" bordercolor="#C1C1C1" summary="Procedure Univariate: Extreme Observations">
 <colgroup>
 <col>
 <col>
@@ -16475,11 +16485,11 @@ VAR attack defense sp_attack sp_defense speed ;
 RUN;
 ODS GRAPHICS OFF;</code></pre>
 <div class="branch">
-<a name="IDX"></a>
+<a name="IDX2"></a>
 <div>
 <div align="center">
 <!--BEGINTABLE-->
-<table class="table" cellspacing="0" cellpadding="7" rules="groups" frame="hsides" summary="Procedure Corr: Variables Information">
+<table class="table" style=" border-left-width: 0px; border-right-width: 0px;" cellspacing="0" cellpadding="7" rules="groups" frame="hsides" bordercolor="#C1C1C1" summary="Procedure Corr: Variables Information">
 <colgroup>
 <col>
 </colgroup>
@@ -16501,11 +16511,11 @@ attack defense sp_attack sp_defense speed
 </div>
 </div>
 <br>
-<a name="IDX1"></a>
+<a name="IDX3"></a>
 <div>
 <div align="center">
 <!--BEGINTABLE-->
-<table class="table" cellspacing="0" cellpadding="7" rules="groups" frame="hsides" summary="Procedure Corr: Simple Statistics">
+<table class="table" style=" border-left-width: 0px; border-right-width: 0px;" cellspacing="0" cellpadding="7" rules="groups" frame="hsides" bordercolor="#C1C1C1" summary="Procedure Corr: Simple Statistics">
 <colgroup>
 <col>
 </colgroup>
@@ -16669,11 +16679,11 @@ speed
 </div>
 </div>
 <br>
-<a name="IDX2"></a>
+<a name="IDX4"></a>
 <div>
 <div align="center">
 <!--BEGINTABLE-->
-<table class="table" cellspacing="0" cellpadding="7" rules="groups" frame="hsides" summary="Procedure Corr: Pearson Correlations">
+<table class="table" style=" border-left-width: 0px; border-right-width: 0px;" cellspacing="0" cellpadding="7" rules="groups" frame="hsides" bordercolor="#C1C1C1" summary="Procedure Corr: Pearson Correlations">
 <colgroup>
 <col>
 </colgroup>
@@ -17087,7 +17097,7 @@ speed
 </div>
 </div>
 <br>
-<a name="IDX3"></a>
+<a name="IDX5"></a>
 <div>
 <div class="c">
 <p><img alt="Scatter Plot Matrix" src=" image/proc-corr-demo.png" style=" height: 640px; width: 640px;" border="0" class="c"></p>
@@ -17125,11 +17135,11 @@ HISTOGRAM num_age date;
 RUN;
 ODS GRAPHICS OFF;</code></pre>
 <div class="branch">
-<a name="IDX"></a>
+<a name="IDX34"></a>
 <div>
 <div align="center">
 <!--BEGINTABLE-->
-<table class="table" cellspacing="0" cellpadding="7" rules="groups" frame="hsides" summary="Procedure Contents: Attributes">
+<table class="table" style=" border-left-width: 0px; border-right-width: 0px;" cellspacing="0" cellpadding="7" rules="groups" frame="hsides" bordercolor="#C1C1C1" summary="Procedure Contents: Attributes">
 <colgroup>
 <col>
 <col>
@@ -17184,7 +17194,7 @@ Indexes
 Created
 </th>
 <td class="l data">
-06/24/2020 17:51:56
+10/03/2020 11:05:04
 </td>
 <th class="l rowheader" scope="row">
 Observation Length
@@ -17198,7 +17208,7 @@ Observation Length
 Last Modified
 </th>
 <td class="l data">
-06/24/2020 17:51:56
+10/03/2020 11:05:04
 </td>
 <th class="l rowheader" scope="row">
 Deleted Observations
@@ -17274,11 +17284,11 @@ latin1 Western (ISO)
 </div>
 </div>
 <br>
-<a name="IDX1"></a>
+<a name="IDX35"></a>
 <div>
 <div align="center">
 <!--BEGINTABLE-->
-<table class="table" cellspacing="0" cellpadding="7" rules="groups" frame="hsides" summary="Procedure Contents: Engine/Host Information">
+<table class="table" style=" border-left-width: 0px; border-right-width: 0px;" cellspacing="0" cellpadding="7" rules="groups" frame="hsides" bordercolor="#C1C1C1" summary="Procedure Contents: Engine/Host Information">
 <colgroup>
 <col>
 <col>
@@ -17368,7 +17378,7 @@ Linux
 Inode Number
 </th>
 <td class="l data">
-39067216
+39068581
 </td>
 </tr>
 <tr>
@@ -17409,11 +17419,11 @@ File Size (bytes)
 </div>
 </div>
 <br>
-<a name="IDX2"></a>
+<a name="IDX36"></a>
 <div>
 <div align="center">
 <!--BEGINTABLE-->
-<table class="table" cellspacing="0" cellpadding="7" rules="groups" frame="hsides" summary="Procedure Contents: Variables">
+<table class="table" style=" border-left-width: 0px; border-right-width: 0px;" cellspacing="0" cellpadding="7" rules="groups" frame="hsides" bordercolor="#C1C1C1" summary="Procedure Contents: Variables">
 <colgroup>
 <col>
 </colgroup>
@@ -18036,11 +18046,11 @@ Num
 <br/>
 </p>
 <hr size="3"/>
-<a name="IDX3"></a>
+<a name="IDX37"></a>
 <div>
 <div align="center">
 <!--BEGINTABLE-->
-<table class="table" cellspacing="0" cellpadding="7" rules="groups" frame="hsides" summary="Procedure Freq: One-Way Frequencies">
+<table class="table" style=" border-left-width: 0px; border-right-width: 0px;" cellspacing="0" cellpadding="7" rules="groups" frame="hsides" bordercolor="#C1C1C1" summary="Procedure Freq: One-Way Frequencies">
 <colgroup>
 <col>
 </colgroup>
@@ -18156,11 +18166,11 @@ Frequency Missing = 8
 </div>
 </div>
 <br>
-<a name="IDX4"></a>
+<a name="IDX38"></a>
 <div>
 <div align="center">
 <!--BEGINTABLE-->
-<table class="table" cellspacing="0" cellpadding="7" rules="groups" frame="hsides" summary="Procedure Freq: One-Way Frequencies">
+<table class="table" style=" border-left-width: 0px; border-right-width: 0px;" cellspacing="0" cellpadding="7" rules="groups" frame="hsides" bordercolor="#C1C1C1" summary="Procedure Freq: One-Way Frequencies">
 <colgroup>
 <col>
 </colgroup>
@@ -18337,11 +18347,11 @@ Pacific Islander
 </div>
 </div>
 <br>
-<a name="IDX5"></a>
+<a name="IDX39"></a>
 <div>
 <div align="center">
 <!--BEGINTABLE-->
-<table class="table" cellspacing="0" cellpadding="7" rules="groups" frame="hsides" summary="Procedure Freq: One-Way Frequencies">
+<table class="table" style=" border-left-width: 0px; border-right-width: 0px;" cellspacing="0" cellpadding="7" rules="groups" frame="hsides" bordercolor="#C1C1C1" summary="Procedure Freq: One-Way Frequencies">
 <colgroup>
 <col>
 </colgroup>
@@ -18559,11 +18569,11 @@ The first 10 levels are displayed.
 </div>
 </div>
 <br>
-<a name="IDX6"></a>
+<a name="IDX40"></a>
 <div>
 <div align="center">
 <!--BEGINTABLE-->
-<table class="table" cellspacing="0" cellpadding="7" rules="groups" frame="hsides" summary="Procedure Freq: One-Way Frequencies">
+<table class="table" style=" border-left-width: 0px; border-right-width: 0px;" cellspacing="0" cellpadding="7" rules="groups" frame="hsides" bordercolor="#C1C1C1" summary="Procedure Freq: One-Way Frequencies">
 <colgroup>
 <col>
 </colgroup>
@@ -18781,11 +18791,11 @@ The first 10 levels are displayed.
 </div>
 </div>
 <br>
-<a name="IDX7"></a>
+<a name="IDX41"></a>
 <div>
 <div align="center">
 <!--BEGINTABLE-->
-<table class="table" cellspacing="0" cellpadding="7" rules="groups" frame="hsides" summary="Procedure Freq: One-Way Frequencies">
+<table class="table" style=" border-left-width: 0px; border-right-width: 0px;" cellspacing="0" cellpadding="7" rules="groups" frame="hsides" bordercolor="#C1C1C1" summary="Procedure Freq: One-Way Frequencies">
 <colgroup>
 <col>
 </colgroup>
@@ -18894,11 +18904,11 @@ Vehicle
 </div>
 </div>
 <br>
-<a name="IDX8"></a>
+<a name="IDX42"></a>
 <div>
 <div align="center">
 <!--BEGINTABLE-->
-<table class="table" cellspacing="0" cellpadding="7" rules="groups" frame="hsides" summary="Procedure Freq: One-Way Frequencies">
+<table class="table" style=" border-left-width: 0px; border-right-width: 0px;" cellspacing="0" cellpadding="7" rules="groups" frame="hsides" bordercolor="#C1C1C1" summary="Procedure Freq: One-Way Frequencies">
 <colgroup>
 <col>
 </colgroup>
@@ -19013,7 +19023,7 @@ Rural
 <br/>
 </p>
 <hr size="3"/>
-<a name="IDX9"></a>
+<a name="IDX43"></a>
 <div>
 <div align="center">
 <table  summary="Page Layout">
@@ -19021,7 +19031,7 @@ Rural
 <td class="c t">
 <div align="center">
 <!--BEGINTABLE-->
-<table class="table" cellspacing="0" cellpadding="7" rules="groups" frame="hsides" summary="Procedure Freq: Cross-Tabular Freq Table">
+<table class="table" style=" border-left-width: 0px; border-right-width: 0px;" cellspacing="0" cellpadding="7" rules="groups" frame="hsides" bordercolor="#C1C1C1" summary="Procedure Freq: Cross-Tabular Freq Table">
 <colgroup>
 <col>
 </colgroup>
@@ -19047,7 +19057,7 @@ Frequency
 <td>
 <div align="center">
 <!--BEGINTABLE-->
-<table class="table" cellspacing="0" cellpadding="7" rules="groups" frame="hsides" summary="Procedure Freq: Cross-Tabular Freq Table">
+<table class="table" style=" border-left-width: 0px; border-right-width: 0px;" cellspacing="0" cellpadding="7" rules="groups" frame="hsides" bordercolor="#C1C1C1" summary="Procedure Freq: Cross-Tabular Freq Table">
 <colgroup>
 <col>
 </colgroup>
@@ -20581,11 +20591,11 @@ Total
 <br/>
 </p>
 <hr size="3"/>
-<a name="IDX10"></a>
+<a name="IDX44"></a>
 <div>
 <div align="center">
 <!--BEGINTABLE-->
-<table class="table" cellspacing="0" cellpadding="7" rules="groups" frame="hsides" summary="Procedure Means: Summary statistics">
+<table class="table" style=" border-left-width: 0px; border-right-width: 0px;" cellspacing="0" cellpadding="7" rules="groups" frame="hsides" bordercolor="#C1C1C1" summary="Procedure Means: Summary statistics">
 <colgroup>
 <col>
 <col>
@@ -20647,7 +20657,7 @@ Maximum
 <br/>
 </p>
 <hr size="3"/>
-<a name="IDX11"></a>
+<a name="IDX45"></a>
 <div class="c proctitle">
 Variable: WaPo_ID__If_included_in_WaPo_dat (WaPo ID (If included in WaPo database))
 </div>
@@ -20655,7 +20665,7 @@ Variable: WaPo_ID__If_included_in_WaPo_dat (WaPo ID (If included in WaPo databas
 <div>
 <div align="center">
 <!--BEGINTABLE-->
-<table class="table" cellspacing="0" cellpadding="7" rules="groups" frame="hsides" summary="Procedure Univariate: Moments">
+<table class="table" style=" border-left-width: 0px; border-right-width: 0px;" cellspacing="0" cellpadding="7" rules="groups" frame="hsides" bordercolor="#C1C1C1" summary="Procedure Univariate: Moments">
 <colgroup>
 <col>
 <col>
@@ -20760,11 +20770,11 @@ Std Error Mean
 </div>
 </div>
 <br>
-<a name="IDX12"></a>
+<a name="IDX46"></a>
 <div>
 <div align="center">
 <!--BEGINTABLE-->
-<table class="table" cellspacing="0" cellpadding="7" rules="groups" frame="hsides" summary="Procedure Univariate: Basic Measures of Location and Variability">
+<table class="table" style=" border-left-width: 0px; border-right-width: 0px;" cellspacing="0" cellpadding="7" rules="groups" frame="hsides" bordercolor="#C1C1C1" summary="Procedure Univariate: Basic Measures of Location and Variability">
 <colgroup>
 <col>
 <col>
@@ -20859,11 +20869,11 @@ Note: The mode displayed is the smallest of 2 modes with a count of 2.
 <p>
 </div>
 <br>
-<a name="IDX13"></a>
+<a name="IDX47"></a>
 <div>
 <div align="center">
 <!--BEGINTABLE-->
-<table class="table" cellspacing="0" cellpadding="7" rules="groups" frame="hsides" summary="Procedure Univariate: Tests For Location">
+<table class="table" style=" border-left-width: 0px; border-right-width: 0px;" cellspacing="0" cellpadding="7" rules="groups" frame="hsides" bordercolor="#C1C1C1" summary="Procedure Univariate: Tests For Location">
 <colgroup>
 <col>
 <col>
@@ -20947,11 +20957,11 @@ Pr &gt;= |S|
 </div>
 </div>
 <br>
-<a name="IDX14"></a>
+<a name="IDX48"></a>
 <div>
 <div align="center">
 <!--BEGINTABLE-->
-<table class="table" cellspacing="0" cellpadding="7" rules="groups" frame="hsides" summary="Procedure Univariate: Quantiles">
+<table class="table" style=" border-left-width: 0px; border-right-width: 0px;" cellspacing="0" cellpadding="7" rules="groups" frame="hsides" bordercolor="#C1C1C1" summary="Procedure Univariate: Quantiles">
 <colgroup>
 <col>
 </colgroup>
@@ -21068,11 +21078,11 @@ Quantile
 </div>
 </div>
 <br>
-<a name="IDX15"></a>
+<a name="IDX49"></a>
 <div>
 <div align="center">
 <!--BEGINTABLE-->
-<table class="table" cellspacing="0" cellpadding="7" rules="groups" frame="hsides" summary="Procedure Univariate: Extreme Observations">
+<table class="table" style=" border-left-width: 0px; border-right-width: 0px;" cellspacing="0" cellpadding="7" rules="groups" frame="hsides" bordercolor="#C1C1C1" summary="Procedure Univariate: Extreme Observations">
 <colgroup>
 <col>
 <col>
@@ -21185,11 +21195,11 @@ Obs
 </div>
 </div>
 <br>
-<a name="IDX16"></a>
+<a name="IDX50"></a>
 <div>
 <div align="center">
 <!--BEGINTABLE-->
-<table class="table" cellspacing="0" cellpadding="7" rules="groups" frame="hsides" summary="Procedure Univariate: Missing Values">
+<table class="table" style=" border-left-width: 0px; border-right-width: 0px;" cellspacing="0" cellpadding="7" rules="groups" frame="hsides" bordercolor="#C1C1C1" summary="Procedure Univariate: Missing Values">
 <colgroup>
 <col>
 <col>
@@ -21247,7 +21257,7 @@ Missing Obs
 <br/>
 </p>
 <hr size="3"/>
-<a name="IDX17"></a>
+<a name="IDX51"></a>
 <div class="c proctitle">
 Variable: ID (ID)
 </div>
@@ -21255,7 +21265,7 @@ Variable: ID (ID)
 <div>
 <div align="center">
 <!--BEGINTABLE-->
-<table class="table" cellspacing="0" cellpadding="7" rules="groups" frame="hsides" summary="Procedure Univariate: Moments">
+<table class="table" style=" border-left-width: 0px; border-right-width: 0px;" cellspacing="0" cellpadding="7" rules="groups" frame="hsides" bordercolor="#C1C1C1" summary="Procedure Univariate: Moments">
 <colgroup>
 <col>
 <col>
@@ -21360,11 +21370,11 @@ Std Error Mean
 </div>
 </div>
 <br>
-<a name="IDX18"></a>
+<a name="IDX52"></a>
 <div>
 <div align="center">
 <!--BEGINTABLE-->
-<table class="table" cellspacing="0" cellpadding="7" rules="groups" frame="hsides" summary="Procedure Univariate: Basic Measures of Location and Variability">
+<table class="table" style=" border-left-width: 0px; border-right-width: 0px;" cellspacing="0" cellpadding="7" rules="groups" frame="hsides" bordercolor="#C1C1C1" summary="Procedure Univariate: Basic Measures of Location and Variability">
 <colgroup>
 <col>
 <col>
@@ -21447,11 +21457,11 @@ Interquartile Range
 </div>
 </div>
 <br>
-<a name="IDX19"></a>
+<a name="IDX53"></a>
 <div>
 <div align="center">
 <!--BEGINTABLE-->
-<table class="table" cellspacing="0" cellpadding="7" rules="groups" frame="hsides" summary="Procedure Univariate: Tests For Location">
+<table class="table" style=" border-left-width: 0px; border-right-width: 0px;" cellspacing="0" cellpadding="7" rules="groups" frame="hsides" bordercolor="#C1C1C1" summary="Procedure Univariate: Tests For Location">
 <colgroup>
 <col>
 <col>
@@ -21535,11 +21545,11 @@ Pr &gt;= |S|
 </div>
 </div>
 <br>
-<a name="IDX20"></a>
+<a name="IDX54"></a>
 <div>
 <div align="center">
 <!--BEGINTABLE-->
-<table class="table" cellspacing="0" cellpadding="7" rules="groups" frame="hsides" summary="Procedure Univariate: Quantiles">
+<table class="table" style=" border-left-width: 0px; border-right-width: 0px;" cellspacing="0" cellpadding="7" rules="groups" frame="hsides" bordercolor="#C1C1C1" summary="Procedure Univariate: Quantiles">
 <colgroup>
 <col>
 </colgroup>
@@ -21656,11 +21666,11 @@ Quantile
 </div>
 </div>
 <br>
-<a name="IDX21"></a>
+<a name="IDX55"></a>
 <div>
 <div align="center">
 <!--BEGINTABLE-->
-<table class="table" cellspacing="0" cellpadding="7" rules="groups" frame="hsides" summary="Procedure Univariate: Extreme Observations">
+<table class="table" style=" border-left-width: 0px; border-right-width: 0px;" cellspacing="0" cellpadding="7" rules="groups" frame="hsides" bordercolor="#C1C1C1" summary="Procedure Univariate: Extreme Observations">
 <colgroup>
 <col>
 <col>
@@ -21777,7 +21787,7 @@ Obs
 <br/>
 </p>
 <hr size="3"/>
-<a name="IDX22"></a>
+<a name="IDX56"></a>
 <div class="c proctitle">
 Variable: date
 </div>
@@ -21785,7 +21795,7 @@ Variable: date
 <div>
 <div align="center">
 <!--BEGINTABLE-->
-<table class="table" cellspacing="0" cellpadding="7" rules="groups" frame="hsides" summary="Procedure Univariate: Moments">
+<table class="table" style=" border-left-width: 0px; border-right-width: 0px;" cellspacing="0" cellpadding="7" rules="groups" frame="hsides" bordercolor="#C1C1C1" summary="Procedure Univariate: Moments">
 <colgroup>
 <col>
 <col>
@@ -21890,11 +21900,11 @@ Std Error Mean
 </div>
 </div>
 <br>
-<a name="IDX23"></a>
+<a name="IDX57"></a>
 <div>
 <div align="center">
 <!--BEGINTABLE-->
-<table class="table" cellspacing="0" cellpadding="7" rules="groups" frame="hsides" summary="Procedure Univariate: Basic Measures of Location and Variability">
+<table class="table" style=" border-left-width: 0px; border-right-width: 0px;" cellspacing="0" cellpadding="7" rules="groups" frame="hsides" bordercolor="#C1C1C1" summary="Procedure Univariate: Basic Measures of Location and Variability">
 <colgroup>
 <col>
 <col>
@@ -21977,11 +21987,11 @@ Interquartile Range
 </div>
 </div>
 <br>
-<a name="IDX24"></a>
+<a name="IDX58"></a>
 <div>
 <div align="center">
 <!--BEGINTABLE-->
-<table class="table" cellspacing="0" cellpadding="7" rules="groups" frame="hsides" summary="Procedure Univariate: Tests For Location">
+<table class="table" style=" border-left-width: 0px; border-right-width: 0px;" cellspacing="0" cellpadding="7" rules="groups" frame="hsides" bordercolor="#C1C1C1" summary="Procedure Univariate: Tests For Location">
 <colgroup>
 <col>
 <col>
@@ -22065,11 +22075,11 @@ Pr &gt;= |S|
 </div>
 </div>
 <br>
-<a name="IDX25"></a>
+<a name="IDX59"></a>
 <div>
 <div align="center">
 <!--BEGINTABLE-->
-<table class="table" cellspacing="0" cellpadding="7" rules="groups" frame="hsides" summary="Procedure Univariate: Quantiles">
+<table class="table" style=" border-left-width: 0px; border-right-width: 0px;" cellspacing="0" cellpadding="7" rules="groups" frame="hsides" bordercolor="#C1C1C1" summary="Procedure Univariate: Quantiles">
 <colgroup>
 <col>
 </colgroup>
@@ -22186,11 +22196,11 @@ Quantile
 </div>
 </div>
 <br>
-<a name="IDX26"></a>
+<a name="IDX60"></a>
 <div>
 <div align="center">
 <!--BEGINTABLE-->
-<table class="table" cellspacing="0" cellpadding="7" rules="groups" frame="hsides" summary="Procedure Univariate: Extreme Observations">
+<table class="table" style=" border-left-width: 0px; border-right-width: 0px;" cellspacing="0" cellpadding="7" rules="groups" frame="hsides" bordercolor="#C1C1C1" summary="Procedure Univariate: Extreme Observations">
 <colgroup>
 <col>
 <col>
@@ -22307,10 +22317,10 @@ Obs
 <br/>
 </p>
 <hr size="3"/>
-<a name="IDX27"></a>
+<a name="IDX61"></a>
 <div>
 <div class="c">
-<p><img alt="Histogram for date" src=" image/unnamed-chunk-113.png" style=" height: 480px; width: 640px;" border="0" class="c"></p>
+<p><img alt="Histogram for date" src=" image/police-violence-tryitout.png" style=" height: 480px; width: 640px;" border="0" class="c"></p>
 </div>
 </div>
 <br>
@@ -22318,7 +22328,7 @@ Obs
 <br/>
 </p>
 <hr size="3"/>
-<a name="IDX28"></a>
+<a name="IDX62"></a>
 <div class="c proctitle">
 Variable: num_age
 </div>
@@ -22326,7 +22336,7 @@ Variable: num_age
 <div>
 <div align="center">
 <!--BEGINTABLE-->
-<table class="table" cellspacing="0" cellpadding="7" rules="groups" frame="hsides" summary="Procedure Univariate: Moments">
+<table class="table" style=" border-left-width: 0px; border-right-width: 0px;" cellspacing="0" cellpadding="7" rules="groups" frame="hsides" bordercolor="#C1C1C1" summary="Procedure Univariate: Moments">
 <colgroup>
 <col>
 <col>
@@ -22431,11 +22441,11 @@ Std Error Mean
 </div>
 </div>
 <br>
-<a name="IDX29"></a>
+<a name="IDX63"></a>
 <div>
 <div align="center">
 <!--BEGINTABLE-->
-<table class="table" cellspacing="0" cellpadding="7" rules="groups" frame="hsides" summary="Procedure Univariate: Basic Measures of Location and Variability">
+<table class="table" style=" border-left-width: 0px; border-right-width: 0px;" cellspacing="0" cellpadding="7" rules="groups" frame="hsides" bordercolor="#C1C1C1" summary="Procedure Univariate: Basic Measures of Location and Variability">
 <colgroup>
 <col>
 <col>
@@ -22518,11 +22528,11 @@ Interquartile Range
 </div>
 </div>
 <br>
-<a name="IDX30"></a>
+<a name="IDX64"></a>
 <div>
 <div align="center">
 <!--BEGINTABLE-->
-<table class="table" cellspacing="0" cellpadding="7" rules="groups" frame="hsides" summary="Procedure Univariate: Tests For Location">
+<table class="table" style=" border-left-width: 0px; border-right-width: 0px;" cellspacing="0" cellpadding="7" rules="groups" frame="hsides" bordercolor="#C1C1C1" summary="Procedure Univariate: Tests For Location">
 <colgroup>
 <col>
 <col>
@@ -22606,11 +22616,11 @@ Pr &gt;= |S|
 </div>
 </div>
 <br>
-<a name="IDX31"></a>
+<a name="IDX65"></a>
 <div>
 <div align="center">
 <!--BEGINTABLE-->
-<table class="table" cellspacing="0" cellpadding="7" rules="groups" frame="hsides" summary="Procedure Univariate: Quantiles">
+<table class="table" style=" border-left-width: 0px; border-right-width: 0px;" cellspacing="0" cellpadding="7" rules="groups" frame="hsides" bordercolor="#C1C1C1" summary="Procedure Univariate: Quantiles">
 <colgroup>
 <col>
 </colgroup>
@@ -22727,11 +22737,11 @@ Quantile
 </div>
 </div>
 <br>
-<a name="IDX32"></a>
+<a name="IDX66"></a>
 <div>
 <div align="center">
 <!--BEGINTABLE-->
-<table class="table" cellspacing="0" cellpadding="7" rules="groups" frame="hsides" summary="Procedure Univariate: Extreme Observations">
+<table class="table" style=" border-left-width: 0px; border-right-width: 0px;" cellspacing="0" cellpadding="7" rules="groups" frame="hsides" bordercolor="#C1C1C1" summary="Procedure Univariate: Extreme Observations">
 <colgroup>
 <col>
 <col>
@@ -22844,11 +22854,11 @@ Obs
 </div>
 </div>
 <br>
-<a name="IDX33"></a>
+<a name="IDX67"></a>
 <div>
 <div align="center">
 <!--BEGINTABLE-->
-<table class="table" cellspacing="0" cellpadding="7" rules="groups" frame="hsides" summary="Procedure Univariate: Missing Values">
+<table class="table" style=" border-left-width: 0px; border-right-width: 0px;" cellspacing="0" cellpadding="7" rules="groups" frame="hsides" bordercolor="#C1C1C1" summary="Procedure Univariate: Missing Values">
 <colgroup>
 <col>
 <col>
@@ -22906,10 +22916,10 @@ Missing Obs
 <br/>
 </p>
 <hr size="3"/>
-<a name="IDX34"></a>
+<a name="IDX68"></a>
 <div>
 <div class="c">
-<p><img alt="Histogram for num_age" src=" image/unnamed-chunk-1131.png" style=" height: 480px; width: 640px;" border="0" class="c"></p>
+<p><img alt="Histogram for num_age" src=" image/police-violence-tryitout1.png" style=" height: 480px; width: 640px;" border="0" class="c"></p>
 </div>
 </div>
 <br>
@@ -23102,7 +23112,7 @@ Conclusions (ok, probably obvious before this analysis):
 <a class="sourceLine" id="cb166-3" data-line-number="3">  <span class="dv">1</span>   <span class="dv">2</span>   <span class="dv">3</span>   <span class="dv">4</span>   <span class="dv">5</span>   <span class="dv">6</span>   <span class="dv">7</span>   <span class="dv">8</span> </a>
 <a class="sourceLine" id="cb166-4" data-line-number="4"><span class="dv">192</span> <span class="dv">107</span> <span class="dv">165</span> <span class="dv">121</span> <span class="dv">171</span>  <span class="dv">85</span>  <span class="dv">99</span>  <span class="dv">88</span> </a>
 <a class="sourceLine" id="cb166-5" data-line-number="5"><span class="kw">plot</span>(<span class="kw">table</span>(poke<span class="op">$</span>generation)) <span class="co"># bar plot</span></a></code></pre></div>
-<p><img src="unl-stat850_files/figure-html/unnamed-chunk-116-1.png" width="672" /></p>
+<p><img src="unl-stat850_files/figure-html/unnamed-chunk-115-1.png" width="672" /></p>
 <div class="sourceCode" id="cb167"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb167-1" data-line-number="1"></a>
 <a class="sourceLine" id="cb167-2" data-line-number="2"></a>
 <a class="sourceLine" id="cb167-3" data-line-number="3"><span class="kw">table</span>(poke<span class="op">$</span>type_<span class="dv">1</span>, poke<span class="op">$</span>type_<span class="dv">2</span>)</a>
@@ -23147,7 +23157,7 @@ Conclusions (ok, probably obvious before this analysis):
 <a class="sourceLine" id="cb167-42" data-line-number="42">  Steel         <span class="dv">2</span>   <span class="dv">0</span>      <span class="dv">0</span>      <span class="dv">0</span>       <span class="dv">7</span>    <span class="dv">3</span>     <span class="dv">0</span>     <span class="dv">0</span></a>
 <a class="sourceLine" id="cb167-43" data-line-number="43">  Water        <span class="dv">10</span>   <span class="dv">4</span>      <span class="dv">0</span>      <span class="dv">3</span>       <span class="dv">6</span>    <span class="dv">5</span>     <span class="dv">1</span>     <span class="dv">0</span></a>
 <a class="sourceLine" id="cb167-44" data-line-number="44"><span class="kw">plot</span>(<span class="kw">table</span>(poke<span class="op">$</span>type_<span class="dv">1</span>, poke<span class="op">$</span>type_<span class="dv">2</span>)) <span class="co"># mosaic plot - hard to read b/c too many categories</span></a></code></pre></div>
-<p><img src="unl-stat850_files/figure-html/unnamed-chunk-116-2.png" width="672" /></p>
+<p><img src="unl-stat850_files/figure-html/unnamed-chunk-115-2.png" width="672" /></p>
 There are better options for examining this data, but they are easier to get in ggplot2.
 <details>
 <div class="sourceCode" id="cb168"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb168-1" data-line-number="1"><span class="kw">library</span>(ggplot2)</a>
@@ -23159,12 +23169,12 @@ There are better options for examining this data, but they are easier to get in 
 <a class="sourceLine" id="cb168-7" data-line-number="7"><span class="st">  </span><span class="co"># and how those aesthetics will be mapped to values </span></a>
 <a class="sourceLine" id="cb168-8" data-line-number="8"><span class="st">  </span><span class="co"># (proportional to the count in a 2d bin)</span></a>
 <a class="sourceLine" id="cb168-9" data-line-number="9"><span class="st">  </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(<span class="dt">size =</span> ..count.., <span class="dt">color =</span> ..count..), <span class="dt">stat =</span> <span class="st">&quot;bin2d&quot;</span>)</a></code></pre></div>
-<img src="unl-stat850_files/figure-html/unnamed-chunk-117-1.png" width="672" />
+<img src="unl-stat850_files/figure-html/unnamed-chunk-116-1.png" width="672" />
 </details>
 <p>We can also generate histograms or bar charts<a href="#fn19" class="footnote-ref" id="fnref19"><sup>19</sup></a> By default, R uses ranges of <span class="math inline">\((a, b]\)</span> in histograms, so we specify which breaks will give us a desireable result. If we do not specify breaks, R will pick them for us.</p>
 <div class="sourceCode" id="cb169"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb169-1" data-line-number="1"><span class="kw">hist</span>(poke<span class="op">$</span>generation) <span class="co"># This isn&#39;t really optimal... we only have whole numbers.</span></a>
 <a class="sourceLine" id="cb169-2" data-line-number="2"><span class="kw">hist</span>(poke<span class="op">$</span>generation, <span class="dt">breaks =</span> <span class="dv">0</span><span class="op">:</span><span class="dv">8</span>) <span class="co"># Much better.</span></a></code></pre></div>
-<p><img src="unl-stat850_files/figure-html/unnamed-chunk-118-1.png" width="48%" /><img src="unl-stat850_files/figure-html/unnamed-chunk-118-2.png" width="48%" /></p>
+<p><img src="unl-stat850_files/figure-html/unnamed-chunk-117-1.png" width="48%" /><img src="unl-stat850_files/figure-html/unnamed-chunk-117-2.png" width="48%" /></p>
 <p>For continuous variables, we can use histograms, or we can examine kernel density plots.</p>
 <div class=".note">
 <p>Remember that <code>%&gt;%</code> is the “pipe” and takes the left side of the pipe to pass as an argument to the right side. This makes code easier to read because it becomes a step-wise “recipe”.</p>
@@ -23187,27 +23197,27 @@ There are better options for examining this data, but they are easier to get in 
 <a class="sourceLine" id="cb170-16" data-line-number="16"><span class="st">  </span><span class="kw">density</span>(<span class="dt">na.rm =</span> T) <span class="op">%&gt;%</span><span class="st"> </span><span class="co"># Compute the density ignoring missing values</span></a>
 <a class="sourceLine" id="cb170-17" data-line-number="17"><span class="st">  </span><span class="kw">plot</span>(<span class="dt">main =</span> <span class="st">&quot;Density of Log10 pokemon weight in Kg&quot;</span>) <span class="co"># Plot the result, </span></a>
 <a class="sourceLine" id="cb170-18" data-line-number="18">    <span class="co"># changing the title of the plot to a meaningful value</span></a></code></pre></div>
-<p><img src="unl-stat850_files/figure-html/unnamed-chunk-119-1.png" width="48%" /><img src="unl-stat850_files/figure-html/unnamed-chunk-119-2.png" width="48%" /><img src="unl-stat850_files/figure-html/unnamed-chunk-119-3.png" width="48%" /><img src="unl-stat850_files/figure-html/unnamed-chunk-119-4.png" width="48%" /></p>
+<p><img src="unl-stat850_files/figure-html/unnamed-chunk-118-1.png" width="48%" /><img src="unl-stat850_files/figure-html/unnamed-chunk-118-2.png" width="48%" /><img src="unl-stat850_files/figure-html/unnamed-chunk-118-3.png" width="48%" /><img src="unl-stat850_files/figure-html/unnamed-chunk-118-4.png" width="48%" /></p>
 <p>We may also want to look at correlations between variables. In R, most models are specified as <code>y ~ x1 + x2 + x3</code>, where the information on the left side of the tilde is the dependent variable, and the information on the right side are any explanatory variables. Interactions are specified using <code>x1*x2</code> to get all combinations of x1 and x2 (x1, x2, x1*x2); single interaction terms are specified as e.g. <code>x1:x2</code> and do not include any component terms.</p>
 <p>To examine the relationship between a categorical variable and a continuous variable, we might look at boxplots:</p>
 <div class="sourceCode" id="cb171"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb171-1" data-line-number="1"></a>
 <a class="sourceLine" id="cb171-2" data-line-number="2"><span class="kw">boxplot</span>(<span class="kw">log10</span>(height_m) <span class="op">~</span><span class="st"> </span>status, <span class="dt">data =</span> poke)</a>
 <a class="sourceLine" id="cb171-3" data-line-number="3"></a>
 <a class="sourceLine" id="cb171-4" data-line-number="4"><span class="kw">boxplot</span>(total_points <span class="op">~</span><span class="st"> </span>species, <span class="dt">data =</span> poke)</a></code></pre></div>
-<p><img src="unl-stat850_files/figure-html/unnamed-chunk-120-1.png" width="48%" /><img src="unl-stat850_files/figure-html/unnamed-chunk-120-2.png" width="48%" />
+<p><img src="unl-stat850_files/figure-html/unnamed-chunk-119-1.png" width="48%" /><img src="unl-stat850_files/figure-html/unnamed-chunk-119-2.png" width="48%" />
 In the second boxplot, there are far too many categories to be able to resolve the relationship clearly, but the plot is still effective in that we can identify that there are one or two species which have a much higher point range than other species. EDA isn’t usually about creating pretty plots (or we’d be using <code>ggplot</code> right now) but rather about identifying things which may come up in the analysis later.</p>
 <p>To look at the relationship between numeric variables, we could compute a numeric correlation, but a plot is more useful:</p>
 <div class="sourceCode" id="cb172"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb172-1" data-line-number="1"><span class="kw">plot</span>(defense <span class="op">~</span><span class="st"> </span>attack, <span class="dt">data =</span> poke, <span class="dt">type =</span> <span class="st">&quot;p&quot;</span>)</a>
 <a class="sourceLine" id="cb172-2" data-line-number="2"></a>
 <a class="sourceLine" id="cb172-3" data-line-number="3"><span class="kw">cor</span>(poke<span class="op">$</span>defense, poke<span class="op">$</span>attack)</a>
 <a class="sourceLine" id="cb172-4" data-line-number="4">[<span class="dv">1</span>] <span class="fl">0.4507656</span></a></code></pre></div>
-<p><img src="unl-stat850_files/figure-html/unnamed-chunk-121-1.png" width="48%" />
+<p><img src="unl-stat850_files/figure-html/unnamed-chunk-120-1.png" width="48%" />
 Sometimes, we discover that a variable which appears to be continuous is actually relatively quantized - there are only a few values of base_friendship in the whole dataset.</p>
 <div class="sourceCode" id="cb173"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb173-1" data-line-number="1"><span class="kw">plot</span>(<span class="dt">x =</span> poke<span class="op">$</span>base_experience, <span class="dt">y =</span> poke<span class="op">$</span>base_friendship, <span class="dt">type =</span> <span class="st">&quot;p&quot;</span>)</a></code></pre></div>
-<p><img src="unl-stat850_files/figure-html/unnamed-chunk-122-1.png" width="672" /></p>
+<p><img src="unl-stat850_files/figure-html/unnamed-chunk-121-1.png" width="672" /></p>
 <p>A scatterplot matrix can also be a useful way to visualize relationships between several variables.</p>
 <div class="sourceCode" id="cb174"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb174-1" data-line-number="1"><span class="kw">pairs</span>(poke[,<span class="dv">19</span><span class="op">:</span><span class="dv">23</span>]) <span class="co"># hp - sp_defense columns</span></a></code></pre></div>
-<p><img src="unl-stat850_files/figure-html/unnamed-chunk-123-1.png" width="100%" /></p>
+<p><img src="unl-stat850_files/figure-html/unnamed-chunk-122-1.png" width="100%" /></p>
 <p><a href="http://www.sthda.com/english/wiki/scatter-plot-matrices-r-base-graphs">There’s more information on how to customize these plots here</a>.</p>
 <div id="police-violence-eda-r" class="section level4 unnumbered tryitout">
 <h4>Try it out</h4>
@@ -23336,7 +23346,7 @@ How does your analysis in R differ from the way that you approached the data in 
 <a class="sourceLine" id="cb175-120" data-line-number="120">               </a></code></pre></div>
 <p>Let’s examine the numeric and date variables first:</p>
 <div class="sourceCode" id="cb176"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb176-1" data-line-number="1"><span class="kw">hist</span>(police_violence<span class="op">$</span><span class="st">`</span><span class="dt">Victim&#39;s age</span><span class="st">`</span>)</a></code></pre></div>
-<p><img src="unl-stat850_files/figure-html/unnamed-chunk-125-1.png" width="672" /></p>
+<p><img src="unl-stat850_files/figure-html/unnamed-chunk-124-1.png" width="672" /></p>
 <div class="sourceCode" id="cb177"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb177-1" data-line-number="1"></a>
 <a class="sourceLine" id="cb177-2" data-line-number="2"><span class="co"># hist(police_violence$`Date of Incident (month/day/year)`) </span></a>
 <a class="sourceLine" id="cb177-3" data-line-number="3"><span class="co"># This didn&#39;t work - it wants me to specify breaks</span></a>
@@ -23346,10 +23356,10 @@ How does your analysis in R differ from the way that you approached the data in 
 <a class="sourceLine" id="cb177-7" data-line-number="7"><span class="kw">ggplot</span>(police_violence, <span class="kw">aes</span>(<span class="dt">x =</span> <span class="st">`</span><span class="dt">Date of Incident (month/day/year)</span><span class="st">`</span>)) <span class="op">+</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb177-8" data-line-number="8"><span class="st">  </span><span class="kw">geom_histogram</span>()</a>
 <a class="sourceLine" id="cb177-9" data-line-number="9"><span class="st">`</span><span class="dt">stat_bin()</span><span class="st">`</span> using <span class="st">`</span><span class="dt">bins = 30</span><span class="st">`</span>. Pick better value with <span class="st">`</span><span class="dt">binwidth</span><span class="st">`</span>.</a></code></pre></div>
-<p><img src="unl-stat850_files/figure-html/unnamed-chunk-125-2.png" width="672" /></p>
+<p><img src="unl-stat850_files/figure-html/unnamed-chunk-124-2.png" width="672" /></p>
 <div class="sourceCode" id="cb178"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb178-1" data-line-number="1"><span class="kw">ggplot</span>(police_violence, <span class="kw">aes</span>(<span class="dt">x =</span> <span class="st">`</span><span class="dt">Date of Incident (month/day/year)</span><span class="st">`</span>)) <span class="op">+</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb178-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_density</span>()</a></code></pre></div>
-<p><img src="unl-stat850_files/figure-html/unnamed-chunk-125-3.png" width="672" /></p>
+<p><img src="unl-stat850_files/figure-html/unnamed-chunk-124-3.png" width="672" /></p>
 <p>Let’s look at the victim’s gender and race:</p>
 <div class="sourceCode" id="cb179"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb179-1" data-line-number="1"><span class="kw">table</span>(police_violence<span class="op">$</span><span class="st">`</span><span class="dt">Victim&#39;s race</span><span class="st">`</span>, <span class="dt">useNA =</span> <span class="st">&#39;ifany&#39;</span>)</a>
 <a class="sourceLine" id="cb179-2" data-line-number="2"></a>
@@ -23375,17 +23385,17 @@ How does your analysis in R differ from the way that you approached the data in 
 <a class="sourceLine" id="cb179-22" data-line-number="22"></a>
 <a class="sourceLine" id="cb179-23" data-line-number="23"><span class="kw">plot</span>(<span class="kw">table</span>(police_violence<span class="op">$</span><span class="st">`</span><span class="dt">Victim&#39;s race</span><span class="st">`</span>, police_violence<span class="op">$</span><span class="st">`</span><span class="dt">Victim&#39;s gender</span><span class="st">`</span>),</a>
 <a class="sourceLine" id="cb179-24" data-line-number="24">     <span class="dt">main =</span> <span class="st">&quot;Police Killing by Race, Gender&quot;</span>)</a></code></pre></div>
-<p><img src="unl-stat850_files/figure-html/unnamed-chunk-126-1.png" width="672" /></p>
+<p><img src="unl-stat850_files/figure-html/unnamed-chunk-125-1.png" width="672" /></p>
 <p>We can also look at the age range for each race:</p>
 <div class="sourceCode" id="cb180"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb180-1" data-line-number="1">police_violence <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb180-2" data-line-number="2"><span class="st">  </span><span class="co"># get groups with at least 100 observations that aren&#39;t unknown</span></a>
 <a class="sourceLine" id="cb180-3" data-line-number="3"><span class="st">  </span><span class="kw">subset</span>(<span class="st">`</span><span class="dt">Victim&#39;s race</span><span class="st">`</span> <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Asian&quot;</span>, <span class="st">&quot;Black&quot;</span>, <span class="st">&quot;Native American&quot;</span>, <span class="st">&quot;Hispanic&quot;</span>, <span class="st">&quot;White&quot;</span>)) <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb180-4" data-line-number="4"><span class="st">  </span><span class="kw">boxplot</span>(<span class="st">`</span><span class="dt">Victim&#39;s age</span><span class="st">`</span> <span class="op">~</span><span class="st"> `</span><span class="dt">Victim&#39;s race</span><span class="st">`</span>, <span class="dt">data =</span> .)</a></code></pre></div>
-<p><img src="unl-stat850_files/figure-html/unnamed-chunk-127-1.png" width="672" /></p>
+<p><img src="unl-stat850_files/figure-html/unnamed-chunk-126-1.png" width="672" /></p>
 <p>And examine the age range for each gender as well:</p>
 <div class="sourceCode" id="cb181"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb181-1" data-line-number="1">police_violence <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb181-2" data-line-number="2"><span class="st">  </span><span class="kw">boxplot</span>(<span class="st">`</span><span class="dt">Victim&#39;s age</span><span class="st">`</span> <span class="op">~</span><span class="st"> `</span><span class="dt">Victim&#39;s gender</span><span class="st">`</span>, <span class="dt">data =</span> .)</a></code></pre></div>
-<p><img src="unl-stat850_files/figure-html/unnamed-chunk-128-1.png" width="672" />
+<p><img src="unl-stat850_files/figure-html/unnamed-chunk-127-1.png" width="672" />
 The thing I’m honestly most surprised at with this plot is that there are so many elderly individuals (of both genders) shot. That’s not a realization I’d normally construct this plot for, but the visual emphasis on the outliers in a boxplot makes it much easier to focus on that aspect of the data.</p>
 My analysis in R was a bit more free-form than in SAS - in SAS, I proceeded fairly directly through each procedure, while in R, I could investigate things that caught my eye along the way more easily. I didn’t focus as much on what we’d need to clean up in R (because the same problems exist that we identified when using SAS).
 </details>
@@ -23399,7 +23409,7 @@ My analysis in R was a bit more free-form than in SAS - in SAS, I proceeded fair
 <a class="sourceLine" id="cb182-2" data-line-number="2"><span class="kw">library</span>(skimr)</a>
 <a class="sourceLine" id="cb182-3" data-line-number="3"><span class="kw">skim</span>(police_violence)</a></code></pre></div>
 <table>
-<caption><span id="tab:unnamed-chunk-129">Table 4.1: </span>Data summary</caption>
+<caption><span id="tab:unnamed-chunk-128">Table 4.1: </span>Data summary</caption>
 <tbody>
 <tr class="odd">
 <td align="left">Name</td>
