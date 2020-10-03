@@ -489,7 +489,7 @@ RUN;
   As with the filter statements, we can also use PROC SQL instead of a SAS DATA step. There are even ways to (sort-of) use elements of both.
 
 <details><summary>SAS PROC SQL SELECT statement </summary>
-  ```{sashtml sas-select-sql}
+```{sashtml sas-select-sql}
 libname classdat "sas/";
 
 PROC SQL;
@@ -602,6 +602,7 @@ RUN;
 </details>
 
 The choice of which method to use (DATA step or PROC SQL) involves weighing these competing factors:
+
 - computational time
 - code readability
 - programmer time
@@ -626,7 +627,9 @@ police_violence %>%
 The last 2 rows are just to organize the output - we keep only the two variables we're working with, and get a crosstab like PROC FREQ gave us in SAS.
 </details>
 
-The learning curve here isn't actually knowing how to use mutate (though that's important). The challenge comes when you want to do something *new* and have to figure out how to e.g. use find and replace, or work with dates and times, or recode variables. I'm not going to be able to teach you how to handle every task you'll come across (people invent new ways to screw up data all the time!) but my goal is instead to teach you how to read documentation and google things intelligently, and to _understand what you're reading_ enough to actually implement it. This is something that comes with practice (and lots of googling, stack overflow searches, etc.).
+The learning curve here isn't actually knowing how to use mutate (though that's important). The challenge comes when you want to do something *new* and have to figure out how to e.g. use find and replace in a string, or work with dates and times, or recode variables. 
+
+I'm not going to be able to teach you how to handle every task you'll come across (people invent new ways to screw up data all the time!) but my goal is instead to teach you how to read documentation and google things intelligently, and to _understand what you're reading_ enough to actually implement it. This is something that comes with practice (and lots of googling, stack overflow searches, etc.).
 
 <details><summary>It's actually something of a common meme...</summary>
 
@@ -642,9 +645,10 @@ tweetrmd::tweet_screenshot(tweetrmd::tweet_url("cszhu", "1230954186520461312"))
 tweetrmd::tweet_screenshot(tweetrmd::tweet_url("grubes14", "1168946210868269057"))
 ```
 </details>
+
 I'm going to do my best to expose you to some of the solutions to common problems and even point you in the right direction, but I'm intentionally *not* formally teaching you some of these things, because part of learning how to program is learning how to read documentation and other resources to figure things out. It would be relatively easy to teach you how to do a set list of tasks, but you'll be better statisticians and programmers if you learn the skills to solve any niche problem on your own.
 
-```{r, echo = F, fig.cap = "Apologies for the noninclusive language, but the sentiment is real, even if not stated in an inclusive way."}
+```{r, echo = F, fig.cap = "Apologies for the noninclusive language, but the sentiment is real."}
 tweetrmd::tweet_screenshot(tweetrmd::tweet_url("abt_programming", "459414524303785984"))
 ```
 
@@ -818,9 +822,9 @@ storms <- storms %>%
   mutate(time = make_datetime(year, month, day, hour))
 ```
 
-````
+```{sashtml storms-data, fig.path = "image/"}
 libname classdat "sas/";
-filename fileloc '~/Projects/Class/unl-stat850/2020-stat850/data/storms.csv';
+filename fileloc 'data/storms.csv';
 PROC IMPORT  datafile = fileloc out=classdat.storms REPLACE
 DBMS = csv; /* comma delimited file */
 GUESSINGROWS=500;
@@ -833,7 +837,7 @@ date = MDY(month, day, year);
 time = DHMS(date, hour, 0, 0);
 FORMAT time DATETIME.;
 RUN;
-````
+```
 
 We have named storms, observation time, storm location, status, wind, pressure, and diameter (for tropical storms and hurricanes). 
 </details>
@@ -1045,12 +1049,46 @@ It looks like Ike went long-ways across Cuba, which weakened it. When hurricanes
 
 ## Other `dplyr` functions: across, relocate
 
+The dplyr package is filled with other handy functions for accomplishing common data-wrangling tasks. `across()` is particularly useful - it allows you to make a modification to several columns at the same time.
+
 ![dplyr's across() function lets you apply a mutate or summarize statement to many columns (by Allison Horst)](https://github.com/allisonhorst/stats-illustrations/raw/master/rstats-artwork/dplyr_across.png)
 
-XXX TODO: add more about across XXX
+Suppose we want to summarize the numerical columns of any storm which was a hurricane (over the entire period it was a hurricane). We don't want to write out all of the summarize statements individually, so we use across() instead. 
 
+```{r}
+library(lubridate) # for the make_datetime() function
+data(storms)
+
+storms <- storms %>%
+  # Construct a time variable that behaves like a number but is formatted as a date
+  mutate(time = make_datetime(year, month, day, hour))
+
+# Use across to get average of all numeric variables
+avg_hurricane_intensity <- storms %>%
+  filter(status == "hurricane") %>%
+  group_by(name) %>%
+  summarize(across(where(is.numeric), mean, na.rm = T), .groups = "drop") 
+
+avg_hurricane_intensity %>%
+  select(name, year, month, wind, pressure, ts_diameter, hu_diameter) %>%
+  arrange(desc(wind)) %>% 
+  # get top 10
+  filter(row_number() <= 10) %>%
+  knitr::kable() # Make into a pretty table
+```
+
+Another handy dplyr function is relocate; while you definitely can do this operation in many, many different ways, it may be simpler to do it using relocate. But, I'm covering relocate here if only because it also comes with this handy cartoon illustration.
 
 ![relocate lets you rearrange columns (by Allison Horst)](https://github.com/allisonhorst/stats-illustrations/raw/master/rstats-artwork/dplyr_relocate.png)
+
+```{r}
+avg_hurricane_intensity %>%
+relocate(c(wind, pressure), .after = month)
+
+# move numeric variables to the front
+avg_hurricane_intensity %>%
+relocate(where(is.numeric))
+```
 
 
 ## Try it out {.tryitout -}
@@ -1068,7 +1106,7 @@ readr::write_csv(gapminder_unfiltered, "data/gapminder.csv", na = '.')
 ````
 libname classdat "sas/";
 
-filename fileloc '~/Projects/Class/unl-stat850/2020-stat850/data/gapminder.csv';
+filename fileloc 'data/gapminder.csv';
 PROC IMPORT  datafile = fileloc out=classdat.gapminder REPLACE
 DBMS = csv; /* comma delimited file */
 GUESSINGROWS=500;
