@@ -742,6 +742,7 @@ A line geom is plotted sequentially with respect to the magnitude of x. That doe
 ggplot() + 
   geom_path(aes(x = long, y = lat, group = group), data = us_map)
 ```
+
 Not too bad. What if we want to fill in the country, so that it looks different from the background? To do that, we'll need `geom_polygon`
 
 ```{r gg-polygon-map-08}
@@ -756,7 +757,10 @@ ggplot() + geom_polygon(aes(x = long, y = lat), data = us_map,
                         fill = "white", color = "black")
 ```
 
-Generally, your base map layer will be plotted with `geom_polygon`, and you will use `geom_path` and `geom_polygon` to plot additional layers on top of the base map. 
+If we get rid of the group argument, then all of the little islands that we have in the dataset are connected to each other and to the mainland by lines that don't really belong on our map.
+
+
+Generally, your base map layer will be plotted with `geom_polygon`, and you will use `geom_path` and/or `geom_polygon` to plot additional layers on top of the base map. You may also add points or other geoms on top of those layers, depending on your application. 
 </details>
 
 <details><summary>Let's add more layers!</summary>
@@ -1732,6 +1736,14 @@ If you're still curious after reading those, set up an appointment and let's tal
 (so do the gridExtra and cowplot packages)
 
 ![The rayshader package lets you create 3d maps and graphs (image by Allison Horst)](https://github.com/allisonhorst/stats-illustrations/raw/master/rstats-artwork/rayshader.png)
+
+People have made some very cool visualizations using rayrender:
+
+- [bending space time](https://twitter.com/i/status/1311303749726601216)
+- [volcano topology](https://twitter.com/i/status/1310742481009598465) (with map overlay)
+- [A super suspenseful animation whose only purpose is demonstrating solid object rendering](https://twitter.com/i/status/1309472022943207430)
+- [3D maps](https://pbs.twimg.com/media/Eip98RJWkAMgZH6?format=jpg&name=large) (which you can create STL files from and 3D print...)
+- [Rendering a table, on a laptop, on a table](https://twitter.com/i/status/1306954065159610369)
 
 ## References
 
