@@ -141,10 +141,8 @@ Original SAS graphics engine
 
 Note: This code runs, but it causes every other sas chunk in this document to go haywire... so you'll have to copy the code and run it on your own to see what it looks like. 
 
-```{sashtml, collectcode=T}
-ODS HTML style= HTMLBlue;
-```
-```{sashtml gchartpie, collectcode=T, error = T, fig.path = "image/"}
+```{sashtml, fig.path = "image/"}
+ODS HTML style= HTMLBlue; /* needed for color graphs in bookdown */
 libname classdat "sas/";
 
 /* This step creates a constant variable in the data frame, 
@@ -158,19 +156,20 @@ PROC GCHART data=poketmp;
 pie generation / other = 0;
 RUN;
 QUIT; 
-  
+
 PROC GCHART data=poketmp;
 VBAR i / SUBGROUP = generation;
 RUN;
 QUIT; 
-/* Note that if you forget the quit statement using SASMarkdown, things dont work well */
 ```
+</details>
 
-ODS Graphics    
+<details><summary>ODS Graphics</summary>
 Note: This is a terrible example in SAS because there isn't an easy way to create a pie chart^[It's not often you'll find me approving of SAS graphics, but making it hard to make pie charts is definitely a point in SAS's favor]. We have to resort to using SAS Graph Template Language. 
 
 
 ```{sashtml ods-pie, collectcode=T, error = T, fig.path = "image/"}
+ODS HTML style= HTMLBlue; /* needed for color graphs in bookdown */
 libname classdat "sas/";
 
 DATA poketmp;
@@ -308,6 +307,7 @@ plot(Murder ~ Assault, data = fbiwide)
 <details><summary>SAS ODS Graphics</summary>
 The workhorse of the ODS graphics engine is SGPLOT. 
 ```{sashtml basic-sgplot-scatterplot, error = T, fig.path = "image/"}
+ODS HTML style= HTMLBlue; /* needed for color graphs in bookdown */
 libname classdat "sas/";
 
 PROC SGPLOT data=classdat.fbiwide;
@@ -333,6 +333,7 @@ title("Murders and Assaults")
 </details>
 <details><summary>SAS ODS Graphics</summary>
 ```{sashtml sas-add-title-08, error = T, collectcode = T, fig.path = "image/"}
+ODS HTML style= HTMLBlue; /* needed for color graphs in bookdown */
 libname classdat "sas/";
 
 PROC SGPLOT data=classdat.fbiwide;
@@ -366,6 +367,7 @@ plot(Assault ~ Population,
 </details>
 <details><summary>SAS ODS Graphics</summary>
 ```{sashtml sas-adj-aes-const-08, error = T, collectcode = T, fig.path = "image/"}
+ODS HTML style= HTMLBlue; /* needed for color graphs in bookdown */
 libname classdat "sas/";
 
 PROC SGPLOT data=classdat.fbiwide;
@@ -409,6 +411,7 @@ You can use `?points` to get information on all of the graphical parameters for 
 </details>
 <details><summary>SAS ODS Graphics variable mapping</summary>
 ```{sashtml sas-cat-aes-map-08, error = T, collectcode = T, fig.path = "image/"}
+ODS HTML style= HTMLBlue; /* needed for color graphs in bookdown */
 libname classdat "sas/";
 
 PROC SGPLOT data=classdat.fbiwide;
@@ -493,8 +496,9 @@ for (i in unique(fbiwide$Abb)) {
 </details>
 <details><summary>SAS ODS line plots</summary>
 ```{sashtml sas-line-plot-color-08, error = T, collectcode = T, fig.path = "image/"}
-
+ODS HTML style= HTMLBlue; /* needed for color graphs in bookdown */
 libname classdat "sas/";
+
 PROC SGPLOT data=classdat.fbiwide NOAUTOLEGEND;
 SERIES x = Population y = Assault /
   lineattrs=(pattern=solid)
@@ -643,8 +647,9 @@ legend("topleft",
 In order to change point size to show a different variable value, we have to use BUBBLE instead of SCATTER.
 
 ```{sashtml sas-numeric-aes-bubble-08, error = T, collectcode = T, fig.path = "image/"}
-
+ODS HTML style= HTMLBlue; /* needed for color graphs in bookdown */
 libname classdat "sas/";
+
 PROC SGPLOT data=classdat.poke;
 BUBBLE x = attack y = sp_attack size = weight_kg /
   BRADIUSMAX=10 BRADIUSMIN =2
@@ -997,6 +1002,9 @@ fbi %>%
 ```
 
 We might want to sort crimes by incidence level, because it makes the plot prettier and also gives us an ordered list of crimes in descending frequency.
+```{r, include = F}
+.reset()
+```
 
 ```{r gg-boxplot-sort-08}
 tmp <- fbi %>%
@@ -1009,6 +1017,7 @@ tmp <- fbi %>%
                                    ".*vehicle.theft" = "GTA",
                                    "Larceny.theft" = "Theft",
                                    ".*assault" = "Assault")))
+
 tmpsum <- tmp %>%
   group_by(crime) %>%
   summarize(ref = mean(per_100k, na.rm = T)) %>%
@@ -1052,6 +1061,7 @@ boxplot(per_100k~crime, data = tmp)
 </details>
 <details><summary>Box plots in SAS</summary>
 ```{sashtml sas-boxplot-08, error = T, collectcode = T, fig.path = "image/"}
+ODS HTML style= HTMLBlue; /* needed for color graphs in bookdown */
 libname classdat "sas/";
 
 DATA WORK.fbitmp;
@@ -1108,6 +1118,7 @@ In base R, you can get histograms with the `hist()` function.
 
 <details><summary>Histograms in SAS</summary>
 ```{sashtml sas-hist-08, error = T, fig.path = "image/"}
+ODS HTML style= HTMLBlue; /* needed for color graphs in bookdown */
 libname classdat "sas/";
 
 DATA WORK.fbitmp;
@@ -1145,6 +1156,7 @@ In base R, you can get a density plot of a single variable with `plot(density(..
 
 <details><summary>Density plots in SAS</summary>
 ```{sashtml sas-kernel-dens-08, error = T, fig.path = "image/"}
+ODS HTML style= HTMLBlue; /* needed for color graphs in bookdown */
 libname classdat "sas/";
 
 DATA WORK.fbitmp;
@@ -1188,6 +1200,7 @@ poke %>%
 In SAS, this is actually easier than it is in ggplot2: As long as you put the histogram first in the SGPLOT statement, you'll get the right scale. 
 
 ```{sashtml sas-hist-dens-08, error = T, fig.path = "image/"}
+ODS HTML style= HTMLBlue; /* needed for color graphs in bookdown */
 libname classdat "sas/";
 
 DATA WORK.fbitmp;
@@ -1319,8 +1332,9 @@ ggplot(aes(x = generation, fill = status, weight = prop)) +
 
 <details><summary>Bar Charts in SAS</summary>
 ```{sashtml sas-bar-08, error = T, fig.path = "image/"}
-libname classdat "sas/";
 
+ODS HTML style= HTMLBlue; /* needed for color graphs in bookdown */
+libname classdat "sas/";
 
 PROC SGPLOT data=classdat.poke;
 VBAR status;
@@ -1388,6 +1402,7 @@ fbi %>%
 <details><summary>Panel plots in SAS</summary>
 Basically the same syntax as SGPLOT, but using SGPANEL and a PANELBY statement. This is very similar to ggplot2's `facet_` addition. 
 ```{sashtml sas-facet-08, error = T, fig.path = "image/"}
+ODS HTML style= HTMLBlue; /* needed for color graphs in bookdown */
 libname classdat "sas/";
 
 PROC SGPANEL data=classdat.poke;

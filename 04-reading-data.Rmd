@@ -645,10 +645,9 @@ Here is my .odbc.ini file as I've configured it for my Ubuntu 18.04 machine. A s
 Description = 2015 SSA baby names
 Driver = SQLite3
 Database = data/ssa-babynames-for-2015.sqlite
-
 ````
 
-```{sashtml sqlite3}
+```{sashtml sqlite3, error = T}
 /* This code requires that I've set up a DSN connecting the sqlite file to */
 /* a specific driver on my computer. You'll have to set up your machine to */
 /* have a configuration that is appropriate for your setup */
@@ -678,7 +677,10 @@ Both R and SAS make it relatively easy to get summary statistics from a dataset,
 
 [Proc Freq](https://go.documentation.sas.com/?docsetId=procstat&docsetTarget=procstat_freq_toc.htm&docsetVersion=9.4&locale=en) generates frequency tables for variables or interactions of variables. This can help you to see whether there is missing information. Using those frequency tables, you can create frequency plots and set up chi squared tests.
 <details>
-```{sashtml proc-freq-demo, fig.path = "image/"}
+```{sashtml proc-freq-demo-setup, include = F, collectcode = T}
+ODS HTML style= HTMLBlue; 
+```
+```{sashtml proc-freq-demo, fig.path = "image/", collectcode = T}
 libname classdat "sas/";
 
 ODS GRAPHICS ON;
@@ -695,7 +697,10 @@ ODS GRAPHICS OFF;
 Proc Means can be used to get more useful summary statistics for numeric variables. Note that the Class statement identifies a categorical variable; the summary statistics are computed for each level of this variable. 
 
 <details>
-```{sashtml proc-means-demo, fig.path = "image/"}
+```{sashtml proc-means-demo-setup, include = F, collectcode = T}
+ODS HTML style= HTMLBlue; 
+```
+```{sashtml proc-means-demo, fig.path = "image/", collectcode = T}
 libname classdat "sas/";
 
 PROC MEANS DATA = classdat.poke;
@@ -709,7 +714,10 @@ run;
 
 For even higher levels of detail, [Proc Univariate](https://go.documentation.sas.com/?docsetId=procstat&docsetTarget=procstat_univariate_toc.htm&docsetVersion=9.4&locale=en) will provide variability, tests for location, quantiles, skewness, and will identify the extreme observations for you. You can also get histograms for variables, even specifying distributions you'd like to be fit to the data (if that's something you want). 
 <details>
-```{sashtml proc-univariate-demo, fig.path = "image/"}
+```{sashtml proc-univariate-demo-setup, include = F, collectcode = T}
+ODS HTML style= HTMLBlue; 
+```
+```{sashtml proc-univariate-demo, fig.path = "image/", collectcode = T}
 libname classdat "sas/";
 
 ODS GRAPHICS ON;
@@ -742,7 +750,10 @@ One of the datasets we read in above records incidents of police violence around
 It is useful to memorize the SAS PROC options you use most frequently, but it's also a good idea to reference the SAS documentation - it provides a list of all viable options for each procedure, and generally has decent examples to show how those options are used.
 
 <details>
-```{sashtml, fig.path = "image/"}
+```{sashtml police-violence-tryitout-setup, include = F, collectcode = T}
+ODS HTML style= HTMLBlue; 
+```
+```{sashtml police-violence-tryitout, fig.path = "image/", collectcode = T}
 libname classdat "sas/";
 
 ODS GRAPHICS ON;

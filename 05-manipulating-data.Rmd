@@ -1018,7 +1018,10 @@ storm_evolution %>% filter(name == "Ike") %>%
 
 The SAS code for this is fairly similar (though I'll admit to not having the finesse with SAS to get a truly nice looking plot). At this point, we're going for quick-and-dirty graphics that show us what we want to know - we can figure out how to customize things later. 
 
-```{sashtml ike-evolution-sas, fig.path = "image/"}
+```{sashtml ike-evolution-sas-demo, collectcode=T, include = F}
+ODS HTML style= HTMLBlue; /* needed for color graphs in bookdown */
+```
+```{sashtml ike-evolution-sas, collectcode=T, fig.path = "image/"}
 libname classdat "sas/";
 
 PROC SQL;
