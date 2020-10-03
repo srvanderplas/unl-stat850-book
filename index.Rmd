@@ -54,10 +54,6 @@ library(SASmarkdown)
 source("code/collect_packages.R")
 ```
 
-
-```{sashtml, collectcode=T}
-ODS HTML style= HTMLBlue;
-```
 ## Forward {-}
 
 This textbook is intended to be a substitute for hours and hours of video lectures wherein I read code to you. That's awful, and boring^[If you want boring, or have insomnia, check out [this Microsoft Word tutorial from 1989](https://www.youtube.com/watch?v=Jk71bPz5VLo). Youtube says it's the most boring video ever made.], and honestly, as painful for me to have to listen to myself while editing the things as it is for you to watch them.
