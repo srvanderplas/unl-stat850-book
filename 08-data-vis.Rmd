@@ -140,7 +140,11 @@ Notice how the syntax and arguments to the functions didn't change much between 
 Original SAS graphics engine
 
 Note: This code runs, but it causes every other sas chunk in this document to go haywire... so you'll have to copy the code and run it on your own to see what it looks like. 
+
+```{sashtml, collectcode=T}
+ODS HTML style= HTMLBlue;
 ```
+```{sashtml gchartpie, collectcode=T, error = T, fig.path = "image/"}
 libname classdat "sas/";
 
 /* This step creates a constant variable in the data frame, 
@@ -165,7 +169,8 @@ QUIT;
 ODS Graphics    
 Note: This is a terrible example in SAS because there isn't an easy way to create a pie chart^[It's not often you'll find me approving of SAS graphics, but making it hard to make pie charts is definitely a point in SAS's favor]. We have to resort to using SAS Graph Template Language. 
 
-```{sashtml ods-pie, error = T, fig.path = "image/"}
+
+```{sashtml ods-pie, collectcode=T, error = T, fig.path = "image/"}
 libname classdat "sas/";
 
 DATA poketmp;
