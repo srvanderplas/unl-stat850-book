@@ -670,25 +670,30 @@ As in base R, the syntax between the two types of charts is different, even thou
 <a class="sourceLine" id="cb375-2" data-line-number="2"><span class="co"># A package of data sets which are useful for class demonstrations</span></a>
 <a class="sourceLine" id="cb375-3" data-line-number="3"><span class="kw">library</span>(classdata)</a>
 <a class="sourceLine" id="cb375-4" data-line-number="4"><span class="kw">library</span>(tidyr)</a>
-<a class="sourceLine" id="cb375-5" data-line-number="5"><span class="kw">library</span>(dplyr)</a>
-<a class="sourceLine" id="cb375-6" data-line-number="6"><span class="kw">data</span>(happy) <span class="co"># you&#39;ll use this for try it out sections</span></a>
-<a class="sourceLine" id="cb375-7" data-line-number="7"><span class="kw">data</span>(fbi)</a>
+<a class="sourceLine" id="cb375-5" data-line-number="5"></a>
+<a class="sourceLine" id="cb375-6" data-line-number="6">Attaching package<span class="op">:</span><span class="st"> &#39;tidyr&#39;</span></a>
+<a class="sourceLine" id="cb375-7" data-line-number="7">The following object is masked from <span class="st">&#39;package:magrittr&#39;</span><span class="op">:</span></a>
 <a class="sourceLine" id="cb375-8" data-line-number="8"></a>
-<a class="sourceLine" id="cb375-9" data-line-number="9"></a>
-<a class="sourceLine" id="cb375-10" data-line-number="10">fbiwide &lt;-<span class="st"> </span>fbi <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb375-11" data-line-number="11"><span class="st">  </span><span class="kw">select</span>(<span class="op">-</span>Violent.crime) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb375-12" data-line-number="12"><span class="st">  </span><span class="kw">pivot_wider</span>(<span class="dt">names_from =</span> Type, <span class="dt">values_from =</span> Count) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb375-13" data-line-number="13"><span class="st">  </span><span class="co"># Rename variables</span></a>
-<a class="sourceLine" id="cb375-14" data-line-number="14"><span class="st">  </span><span class="kw">rename</span>(<span class="dt">Murder =</span> Murder.and.nonnegligent.Manslaughter, </a>
-<a class="sourceLine" id="cb375-15" data-line-number="15">         <span class="dt">Assault =</span> Aggravated.assault, </a>
-<a class="sourceLine" id="cb375-16" data-line-number="16">         <span class="dt">Larceny =</span> Larceny.theft, </a>
-<a class="sourceLine" id="cb375-17" data-line-number="17">         <span class="dt">Auto.theft =</span> Motor.vehicle.theft) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb375-18" data-line-number="18"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">Rape =</span> <span class="kw">as.numeric</span>(Rape))</a>
-<a class="sourceLine" id="cb375-19" data-line-number="19"></a>
-<a class="sourceLine" id="cb375-20" data-line-number="20"><span class="co"># Write a csv out to a file to read into sas</span></a>
-<a class="sourceLine" id="cb375-21" data-line-number="21"><span class="cf">if</span>(<span class="op">!</span><span class="kw">file.exists</span>(<span class="st">&quot;data/happy.csv&quot;</span>)) <span class="kw">write_csv</span>(happy, <span class="st">&quot;data/happy.csv&quot;</span>, <span class="dt">na =</span> <span class="st">&quot;.&quot;</span>)</a>
-<a class="sourceLine" id="cb375-22" data-line-number="22"><span class="cf">if</span>(<span class="op">!</span><span class="kw">file.exists</span>(<span class="st">&quot;data/fbi.csv&quot;</span>)) <span class="kw">write_csv</span>(fbi, <span class="st">&quot;data/fbi.csv&quot;</span>, <span class="dt">na =</span> <span class="st">&quot;.&quot;</span>)</a>
-<a class="sourceLine" id="cb375-23" data-line-number="23"><span class="cf">if</span>(<span class="op">!</span><span class="kw">file.exists</span>(<span class="st">&quot;data/fbiwide.csv&quot;</span>)) <span class="kw">write_csv</span>(fbiwide, <span class="st">&quot;data/fbiwide.csv&quot;</span>, <span class="dt">na =</span> <span class="st">&quot;.&quot;</span>)</a></code></pre></div>
+<a class="sourceLine" id="cb375-9" data-line-number="9"><span class="st">    </span>extract</a>
+<a class="sourceLine" id="cb375-10" data-line-number="10"><span class="kw">library</span>(dplyr)</a>
+<a class="sourceLine" id="cb375-11" data-line-number="11"><span class="kw">data</span>(happy) <span class="co"># you&#39;ll use this for try it out sections</span></a>
+<a class="sourceLine" id="cb375-12" data-line-number="12"><span class="kw">data</span>(fbi)</a>
+<a class="sourceLine" id="cb375-13" data-line-number="13"></a>
+<a class="sourceLine" id="cb375-14" data-line-number="14"></a>
+<a class="sourceLine" id="cb375-15" data-line-number="15">fbiwide &lt;-<span class="st"> </span>fbi <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb375-16" data-line-number="16"><span class="st">  </span><span class="kw">select</span>(<span class="op">-</span>Violent.crime) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb375-17" data-line-number="17"><span class="st">  </span><span class="kw">pivot_wider</span>(<span class="dt">names_from =</span> Type, <span class="dt">values_from =</span> Count) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb375-18" data-line-number="18"><span class="st">  </span><span class="co"># Rename variables</span></a>
+<a class="sourceLine" id="cb375-19" data-line-number="19"><span class="st">  </span><span class="kw">rename</span>(<span class="dt">Murder =</span> Murder.and.nonnegligent.Manslaughter, </a>
+<a class="sourceLine" id="cb375-20" data-line-number="20">         <span class="dt">Assault =</span> Aggravated.assault, </a>
+<a class="sourceLine" id="cb375-21" data-line-number="21">         <span class="dt">Larceny =</span> Larceny.theft, </a>
+<a class="sourceLine" id="cb375-22" data-line-number="22">         <span class="dt">Auto.theft =</span> Motor.vehicle.theft) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb375-23" data-line-number="23"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">Rape =</span> <span class="kw">as.numeric</span>(Rape))</a>
+<a class="sourceLine" id="cb375-24" data-line-number="24"></a>
+<a class="sourceLine" id="cb375-25" data-line-number="25"><span class="co"># Write a csv out to a file to read into sas</span></a>
+<a class="sourceLine" id="cb375-26" data-line-number="26"><span class="cf">if</span>(<span class="op">!</span><span class="kw">file.exists</span>(<span class="st">&quot;data/happy.csv&quot;</span>)) <span class="kw">write_csv</span>(happy, <span class="st">&quot;data/happy.csv&quot;</span>, <span class="dt">na =</span> <span class="st">&quot;.&quot;</span>)</a>
+<a class="sourceLine" id="cb375-27" data-line-number="27"><span class="cf">if</span>(<span class="op">!</span><span class="kw">file.exists</span>(<span class="st">&quot;data/fbi.csv&quot;</span>)) <span class="kw">write_csv</span>(fbi, <span class="st">&quot;data/fbi.csv&quot;</span>, <span class="dt">na =</span> <span class="st">&quot;.&quot;</span>)</a>
+<a class="sourceLine" id="cb375-28" data-line-number="28"><span class="cf">if</span>(<span class="op">!</span><span class="kw">file.exists</span>(<span class="st">&quot;data/fbiwide.csv&quot;</span>)) <span class="kw">write_csv</span>(fbiwide, <span class="st">&quot;data/fbiwide.csv&quot;</span>, <span class="dt">na =</span> <span class="st">&quot;.&quot;</span>)</a></code></pre></div>
 <pre class="sas"><code>2          libname classdat &quot;sas/&quot;;
 NOTE: Libref CLASSDAT was successfully assigned as follows: 
       Engine:        V9 
@@ -1462,8 +1467,8 @@ Let’s try plotting this out. Maybe we can start with just plotting the outline
 <p>A line geom is plotted sequentially with respect to the magnitude of x. That doesn’t really work for us - we want x and y to be plotted in order of the observations. To do that, we need <code>geom_path</code>.</p>
 <div class="sourceCode" id="cb417"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb417-1" data-line-number="1"><span class="kw">ggplot</span>() <span class="op">+</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb417-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_path</span>(<span class="kw">aes</span>(<span class="dt">x =</span> long, <span class="dt">y =</span> lat, <span class="dt">group =</span> group), <span class="dt">data =</span> us_map)</a></code></pre></div>
-<p><img src="unl-stat850_files/figure-html/gg-path-map-08-1.png" width="672" />
-Not too bad. What if we want to fill in the country, so that it looks different from the background? To do that, we’ll need <code>geom_polygon</code></p>
+<p><img src="unl-stat850_files/figure-html/gg-path-map-08-1.png" width="672" /></p>
+<p>Not too bad. What if we want to fill in the country, so that it looks different from the background? To do that, we’ll need <code>geom_polygon</code></p>
 <div class="sourceCode" id="cb418"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb418-1" data-line-number="1"><span class="kw">ggplot</span>() <span class="op">+</span><span class="st"> </span><span class="kw">geom_polygon</span>(<span class="kw">aes</span>(<span class="dt">x =</span> long, <span class="dt">y =</span> lat, <span class="dt">group =</span> group), <span class="dt">data =</span> us_map)</a></code></pre></div>
 <p><img src="unl-stat850_files/figure-html/gg-polygon-map-08-1.png" width="672" /></p>
 <div class="sourceCode" id="cb419"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb419-1" data-line-number="1"></a>
@@ -1476,7 +1481,8 @@ Not too bad. What if we want to fill in the country, so that it looks different 
 <a class="sourceLine" id="cb420-3" data-line-number="3"><span class="kw">ggplot</span>() <span class="op">+</span><span class="st"> </span><span class="kw">geom_polygon</span>(<span class="kw">aes</span>(<span class="dt">x =</span> long, <span class="dt">y =</span> lat), <span class="dt">data =</span> us_map,</a>
 <a class="sourceLine" id="cb420-4" data-line-number="4">                        <span class="dt">fill =</span> <span class="st">&quot;white&quot;</span>, <span class="dt">color =</span> <span class="st">&quot;black&quot;</span>)</a></code></pre></div>
 <p><img src="unl-stat850_files/figure-html/gg-polygon-map-08-3.png" width="672" /></p>
-Generally, your base map layer will be plotted with <code>geom_polygon</code>, and you will use <code>geom_path</code> and <code>geom_polygon</code> to plot additional layers on top of the base map.
+<p>If we get rid of the group argument, then all of the little islands that we have in the dataset are connected to each other and to the mainland by lines that don’t really belong on our map.</p>
+Generally, your base map layer will be plotted with <code>geom_polygon</code>, and you will use <code>geom_path</code> and/or <code>geom_polygon</code> to plot additional layers on top of the base map. You may also add points or other geoms on top of those layers, depending on your application.
 </details>
 <details>
 <p><summary>Let’s add more layers!</summary>
@@ -2477,6 +2483,14 @@ Figure 8.3: Which of the lines is the longest? Shortest? It is much easier to de
 <img src="https://github.com/allisonhorst/stats-illustrations/raw/master/rstats-artwork/rayshader.png" alt="The rayshader package lets you create 3d maps and graphs (image by Allison Horst)" />
 <p class="caption">The rayshader package lets you create 3d maps and graphs (image by Allison Horst)</p>
 </div>
+<p>People have made some very cool visualizations using rayrender:</p>
+<ul>
+<li><a href="https://twitter.com/i/status/1311303749726601216">bending space time</a></li>
+<li><a href="https://twitter.com/i/status/1310742481009598465">volcano topology</a> (with map overlay)</li>
+<li><a href="https://twitter.com/i/status/1309472022943207430">A super suspenseful animation whose only purpose is demonstrating solid object rendering</a></li>
+<li><a href="https://pbs.twimg.com/media/Eip98RJWkAMgZH6?format=jpg&amp;name=large">3D maps</a> (which you can create STL files from and 3D print…)</li>
+<li><a href="https://twitter.com/i/status/1306954065159610369">Rendering a table, on a laptop, on a table</a></li>
+</ul>
 </div>
 <div id="references" class="section level2">
 <h2><span class="header-section-number">8.6</span> References</h2>
