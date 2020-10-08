@@ -55,8 +55,8 @@ Col1    Col2    Col3
 27.3    -2.4    15.9
 ```
 
-In base R (no extra packages), you can read fwf files in using `read.fwf`, but you must specify the column breaks yourself.
-<details>
+
+<details> <summary>In base R (no extra packages), you can read fwf files in using `read.fwf`, but you must specify the column breaks yourself.</summary>
 ```{r, error = T, eval = -1, echo = -2}
 url <- "https://www.mesonet.org/index.php/dataMdfMts/dataController/getFile/202006070000/mdf/TEXT/"
 url <- "data/mesodata.txt"
@@ -69,8 +69,8 @@ data[1:6,] # first 6 rows
 ```
 </details>
 
-You can count all of those spaces by hand (not shown), you can use a different function, or you can write code to do it for you. 
-<details>
+
+<details><summary>You can count all of those spaces by hand (not shown), you can use a different function, or you can write code to do it for you. </summary>
 ```{r}
 
 # I like to cheat a bit....
@@ -131,9 +131,9 @@ write.fwf(mtcars, file = "data/04_mtcars-fixed-width.txt")
 ```
 
 
-In SAS, it's a bit more complicated, but not that much - the biggest difference is that you generally have to specify the column names for SAS. For complicated data, as in R, you may also have to specify the column widths. 
 
-<details>  
+
+<details> <summary>In SAS, it's a bit more complicated, but not that much - the biggest difference is that you generally have to specify the column names for SAS. For complicated data, as in R, you may also have to specify the column widths. </summary>
 ```{sashtml, error = T}
 /* This downloads the file to my machine */
 /* x "curl https://www.mesonet.org/index.php/dataMdfMts/dataController/getFile/202006070000/mdf/TEXT/ 
@@ -159,28 +159,14 @@ proc print data=mesodata (obs=10); /* print the first 10 observations */
 
 In SAS data statements, you generally need to specify the data names explicitly. 
 
-
-<!-- ```{sashtml} -->
-
-<!-- proc import datafile = "data/mesodata.txt" out=mesodata  -->
-<!--   DBMS = DLM; /* delimited file */ -->
-<!--     datarow = 4; -->
-<!--     GETNAMES = YES; -->
-<!-- run; -->
-
-<!-- proc print data=mesodata (obs=10); /* print the first 10 observations */ -->
-<!--   run; -->
-
-<!-- ``` -->
-
 In theory you can also get SAS to write out a fixed-width file, but it's much easier to just... not. You can generally use a CSV or format of your choice -- and you should definitely do that, because delimited files are much easier to work with. 
 
 ### Delimited Text Files
 
 Delimited text files are files where fields are separated by a specific character, such as " ", ",", tab, etc. Often, delimited text files will have the column names as the first row in the file. 
 
-As long as you know the delimiter, it's pretty easy to read in data from these files in R using the `readr` package. 
-<details>
+<details><summary>
+As long as you know the delimiter, it's pretty easy to read in data from these files in R using the `readr` package. </summary>
 ```{r}
 url <- "https://raw.githubusercontent.com/shahinrostami/pokemon_dataset/master/pokemon_gen_1_to_8.csv"
 
@@ -195,8 +181,8 @@ nebraska_locations[1:6, 1:6]
 ```
 </details>
 
-You can also read in the same files using read.csv and read.delim, which are the equivalent base R functions. 
-<details>
+<details><summary>
+You can also read in the same files using read.csv and read.delim, which are the equivalent base R functions. </summary>
 ```{r}
 url <- "https://raw.githubusercontent.com/shahinrostami/pokemon_dataset/master/pokemon_gen_1_to_8.csv"
 
@@ -216,13 +202,12 @@ SAS also has procs to accommodate CSV and other delimited files. PROC IMPORT may
 
 While writing this code, I got an error of "Invalid logical name" because originally the filename was pokemonloc. Let this be a friendly reminder that your dataset names in SAS are limited to 8 characters in SAS. 
 
-<details>
-#### Note {- .note}
-Note: Due to UTF-8 issues, this code chunk runs (with complaints) when I paste it into SAS, but does not run in bookdown. The complaints are because there are column names that are not valid SAS names (presumably, SAS doesn't allow UTF-8 characters as column names).
+<details><summary>CSV Import in SAS</summary>
+::: note
+Due to UTF-8 issues, this code chunk runs (with complaints) when I paste it into SAS, but does not run in bookdown. The complaints are because there are column names that are not valid SAS names (presumably, SAS doesn't allow UTF-8 characters as column names).
+:::
 
-#### {-}
-
-````
+```{sashtml,error=T}
 /* x "curl https://raw.githubusercontent.com/shahinrostami/pokemon_dataset/master/pokemon_gen_1_to_8.csv > data/pokemon.csv";
 only run this once to download the file... */
 filename pokeloc 'data/pokemon.csv' encoding="utf-8";
@@ -234,15 +219,16 @@ proc import datafile = pokeloc out=poke
   ;
 proc print data=poke (obs=10); /* print the first 10 observations */
   run;
-````
+```
 
 The only abnormal thing is that on my computer, the japanese characters don't render.
 [Here is the output from SAS running the above code interactively](other/04Pokemon_output.html)
 
+</details>
 
 Alternately (because UTF-8 is finicky depending on your OS and the OS the data file was created under), you can convert the UTF-8 file to ASCII or some other safer encoding before trying to read it in.
 
-<details>
+<details><summary>CSVs in SAS (via R)</summary>
 If I fix the file in R (because I know how to fix it there... another option is to fix it manually), 
 ```{r}
 library(readr)
@@ -271,19 +257,17 @@ proc print data=classdat.poke (obs=10); /* print the first 10 observations */
   run; 
 ```
 
-</details>
+This trick works in so many different situations. It's very common to read and do initial processing in one language, then do the modeling in another language, and even move to a different language for visualization. Each programming language has its strengths and weaknesses; if you know enough of each of them, you can use each tool where it is most appropriate. 
 </details>
 
-
+<details><summary>Non-comma delimited files in SAS (via R)</summary>
 To read in a pipe delimited file (the '|' character), we have to make some changes. Here is the proc import code. Note that I am reading in a version of the file that I've converted to ASCII (see details below) because while the import works with the original file, it causes the SAS -> R pipeline that the book is built on to break. 
-<details>
 
 ```{r}
 tmp <- readLines("data/NE_Features_20200501.txt")
 tmp_ascii <- iconv(tmp, to = "ASCII//TRANSLIT")
 writeLines(tmp_ascii, "data/NE_Features_ascii.txt")
 ```
-</details>
 
 ```{sashtml}
 /* Without specifying the library to store the data in, it is stored in WORK */
@@ -299,7 +283,7 @@ proc print data=nefeatures (obs=10); /* print the first 10 observations */
   run;
 
 ```
-<details>
+
 Under the hood, proc import is just writing code for a data step. So when proc import doesn't work, we can just write the code ourselves. It requires a bit more work (specifying column names, for example) but it also doesn't fail nearly as often. 
 ```{sashtml, warning = T, error = T}
 /* x "curl https://raw.githubusercontent.com/srvanderplas/unl-stat850/master/data/NE_Features_20200501.txt
@@ -349,7 +333,7 @@ Rebrickable.com contains tables of almost any information imaginable concerning 
 The `readr` package can handle .csv.gz files with no problems. Try reading in the data using the appropriate function from that package. Can you save the data as an uncompressed csv?
 
 
-<details>
+<details><summary>Solution</summary>
 ```{r, eval = F}
 library(readr)
 legosets <- read_csv("https://cdn.rebrickable.com/media/downloads/sets.csv.gz")
@@ -376,7 +360,7 @@ data _null_;
   put _infile_;
 run;
 ```
-<details>
+<details><summary>Solution</summary>
 ```{sashtml legosets}
 libname classdat "sas/";
 /* Work with the library of class data */
@@ -474,7 +458,7 @@ The Nebraska Department of Motor Vehicles publishes a database of vehicle regist
 
 Read that data in using both R and SAS. Be sure to look at the structure of the excel file, so that you can read the data in properly!
 
-<details>
+<details><summary>Solution</summary>
 ```{r}
 url <- "https://dmv.nebraska.gov/sites/dmv.nebraska.gov/files/doc/2019_Veh_Reg_by_Plate_Type.xlsx"
 download.file(url, destfile = "data/2019_Vehicle_Registration_Plates_NE.xlsx", mode = "wb")
@@ -526,18 +510,21 @@ If you are curious about what this data means, then by all means, take a look at
 
 There are [theoretically ways to read R data into SAS via the R subsystem](https://blogs.sas.com/content/iml/2011/05/13/calling-r-from-sasiml-software.html). Feel free to do that on your own machine.^[I tried, and it crashed SAS on my machine.]
 
-In R, there are a couple of different binary files. `.Rdata` is perhaps the most common, and can store several objects (along with their names) in the same file. 
+<details><summary>In R, there are a couple of different binary files. </summary>
+
+`.Rdata` is perhaps the most common, and can store several objects (along with their names) in the same file. 
 
 ```{r}
 legos <- read_csv("data/lego_sets.csv")
 my_var <- "This variable contains a string"
 save(legos, my_var, file = "data/R_binary.Rdata")
 ```
-
+</details>
 If we look at the file sizes of `lego_sets.csv` (619 KB) and `R_binary.Rdata`(227.8 KB), the size difference between binary and flat file formats is obvious. 
 
-We can load the R binary file back in using the `load()` function. 
-<details>
+
+
+<details><summary>We can load the R binary file back in using the `load()` function. </summary>
 ```{r}
 rm(legos, my_var) # clear the files out
 
@@ -549,6 +536,7 @@ ls() # all objects in the working environment
 ```
 </details>
 
+<details><summary>RDS format (another binary file format in R)</summary>
 Another (less common) binary format used in R is the RDS format. Unlike Rdata, the RDS format does not save the object name - it only saves its contents. As a result, when you read from an RDS file, you need to store the result of that function into a variable.
 
 ```{r}
@@ -558,6 +546,7 @@ other_lego <- readRDS("data/RDSlego.rds")
 ```
 
 Because RDS formats don't save the object name, you can be sure that you're not over-writing some object in your workspace by loading a different file. The downside to this is that you have to save each object to its own RDS file separately. 
+</details>
 
 ### Try it out {- .tryitout}
 
@@ -569,7 +558,7 @@ Now, using your RDS files, load the objects back into R with different names.
 
 Finally, load your Rdata file. Are the two objects the same? (You can actually test this with `all.equal()` if you're curious)
 
-<details>
+<details><summary>Solution</summary>
 
 ```{r}
 library(readxl)
@@ -597,6 +586,11 @@ all.equal(police_violence2, pv2)
 
 There are many different database formats. Some of the most common databases are SQL* related formats and Microsoft Access files. 
 
+::: note
+Strictly speaking you can get through this class without this section. Feel free to skip it and come back when/if you need it.
+:::
+
+
 [This excellent GitHub repo contains code to connect to multiple types of databases in R, python, PHP, Java, SAS, and VBA](https://github.com/ParfaitG/DATABASE_CONNECTIONS)
 
 ### Microsoft Access
@@ -619,8 +613,9 @@ Unfortunately, it appears that SAS on Linux doesn't allow you to read in Access 
 
 ### SQLite
 
-SQLite databases are contained in single files with the extension .SQLite. These files can still contain many different tables, though. Let's try working with a sqlite file that has only one table: 
-<details>
+
+<details><summary>SQLite databases are contained in single files with the extension .SQLite.</summary>
+These files can still contain many different tables, though. Let's try working with a sqlite file that has only one table: 
 ```{r}
 if (!"RSQLite" %in% installed.packages()) install.packages("RSQLite")
 if (!"DBI" %in% installed.packages()) install.packages("DBI")
@@ -635,7 +630,8 @@ head(babyname, 10) # show the first 10 obs
 
 You can of course write formal queries using the DBI package, but for many databases, it's easier to do the querying in R. We'll cover both options later - the R version will be in the next module.
 
-In SAS, you can theoretically connect to SQLite databases, but there are very specific instructions for how to do that for each operating system. You'll need to acquire the [SQLite ODBC Driver](http://www.ch-werner.de/sqliteodbc/) for your operating system. You may also need to set up a DSN (Data Source Name) ([Windows](https://support.exagoinc.com/hc/en-us/articles/115005848908-Using-SQLite-Data-Sources), [Mac and Linux](https://db.rstudio.com/best-prsactices/rdivers/#setting-up-database-connections-1)).^[On one of my machines, I also had to make sure the file libodbc.so existed - it was named libodbc.so.1 on my laptop, so a symbolic link fixed the issue.] 
+<details><summary>In SAS, you can theoretically connect to SQLite databases, but there are very specific instructions for how to do that for each operating system. </summary>
+You'll need to acquire the [SQLite ODBC Driver](http://www.ch-werner.de/sqliteodbc/) for your operating system. You may also need to set up a DSN (Data Source Name) ([Windows](https://support.exagoinc.com/hc/en-us/articles/115005848908-Using-SQLite-Data-Sources), [Mac and Linux](https://db.rstudio.com/best-prsactices/rdivers/#setting-up-database-connections-1)).^[On one of my machines, I also had to make sure the file libodbc.so existed - it was named libodbc.so.1 on my laptop, so a symbolic link fixed the issue.] 
 
 Here is my .odbc.ini file as I've configured it for my Ubuntu 18.04 machine. A similar file should work for any Mac or Linux machine. In windows, you'll need to use the ODBC Data Source Administrator to set this up. 
 
@@ -657,26 +653,29 @@ libname mydata odbc complete = "dsn=babyname; Database=data/ssa-babynames-for-20
 proc print data=mydata.babynames (obs=10);
 run;
 ```
+</details>
 
 
 ## Exploratory Data Analysis
-
-- tables
-- summary statistics
-- basic plots?
-- unique values
-
 Once your data has been read in, we can do some basic exploratory data analysis. EDA is important because it helps us to know what challenges a particular data set might bring. Real data is often messy, with large amounts of cleaning that must be done before statistical analysis can commence. While in many classes you'll be given cleaner data, you do need to know how to clean your own data up so that you can use more interesting datasets for projects (and for fun!).
 
 [The EDA chapter in R for Data Science is very good at explaining what the goals of EDA are, and what types of questions you will typically need to answer in EDA.](https://r4ds.had.co.nz/exploratory-data-analysis.html) It is so good that I am not going to try to completely reproduce it here. 
 
 Both R and SAS make it relatively easy to get summary statistics from a dataset, but the "flow" of EDA is somewhat different between the two programs, so this section will cover SAS first, and then R. 
 
+Major components of EDA:
+- tables
+- summary statistics
+- basic plots
+- unique values
+
+
 ### SAS 
 
 
-[Proc Freq](https://go.documentation.sas.com/?docsetId=procstat&docsetTarget=procstat_freq_toc.htm&docsetVersion=9.4&locale=en) generates frequency tables for variables or interactions of variables. This can help you to see whether there is missing information. Using those frequency tables, you can create frequency plots and set up chi squared tests.
-<details>
+<details><summary>
+[Proc Freq](https://go.documentation.sas.com/?docsetId=procstat&docsetTarget=procstat_freq_toc.htm&docsetVersion=9.4&locale=en) generates frequency tables for variables or interactions of variables. </summary>
+This can help you to see whether there is missing information. Using those frequency tables, you can create frequency plots and set up chi squared tests.
 ```{sashtml proc-freq-demo-setup, include = F, collectcode = T}
 ODS HTML style= HTMLBlue; 
 ```
@@ -694,9 +693,9 @@ ODS GRAPHICS OFF;
 ```
 </details>
 
-Proc Means can be used to get more useful summary statistics for numeric variables. Note that the Class statement identifies a categorical variable; the summary statistics are computed for each level of this variable. 
+<details><summary>
+Proc Means can be used to get more useful summary statistics for numeric variables. </summary>Note that the Class statement identifies a categorical variable; the summary statistics are computed for each level of this variable. 
 
-<details>
 ```{sashtml proc-means-demo-setup, include = F, collectcode = T}
 ODS HTML style= HTMLBlue; 
 ```
@@ -712,8 +711,9 @@ run;
 ```
 </details>
 
-For even higher levels of detail, [Proc Univariate](https://go.documentation.sas.com/?docsetId=procstat&docsetTarget=procstat_univariate_toc.htm&docsetVersion=9.4&locale=en) will provide variability, tests for location, quantiles, skewness, and will identify the extreme observations for you. You can also get histograms for variables, even specifying distributions you'd like to be fit to the data (if that's something you want). 
-<details>
+
+<details><summary>For even higher levels of detail, [Proc Univariate](https://go.documentation.sas.com/?docsetId=procstat&docsetTarget=procstat_univariate_toc.htm&docsetVersion=9.4&locale=en) will provide variability, tests for location, quantiles, skewness, and will identify the extreme observations for you. </summary>
+You can also get histograms for variables, even specifying distributions you'd like to be fit to the data (if that's something you want). 
 ```{sashtml proc-univariate-demo-setup, include = F, collectcode = T}
 ODS HTML style= HTMLBlue; 
 ```
@@ -729,7 +729,7 @@ ODS GRAPHICS OFF;
 ```
 </details>
 
-Proc Corr allows you to examine the relationship between two quantitative variables. 
+<details><summary>Proc Corr allows you to examine the relationship between two quantitative variables. </summary>
 
 ```{sashtml proc-corr-demo, fig.path = "image/"}
 libname classdat "sas/";
@@ -742,6 +742,7 @@ ODS GRAPHICS OFF;
 ```
 
 The plot here is called a scatterplot matrix. It contains histograms on the diagonal, and pairwise scatterplots on off-diagonals. It can be useful for spotting strong correlations among multiple variables which may affect the way you build a model. 
+</details>
 
 #### Try it out {- .tryitout #police-violence-eda-sas}
 
@@ -749,7 +750,7 @@ One of the datasets we read in above records incidents of police violence around
 
 It is useful to memorize the SAS PROC options you use most frequently, but it's also a good idea to reference the SAS documentation - it provides a list of all viable options for each procedure, and generally has decent examples to show how those options are used.
 
-<details>
+<details><summary>Solution</summary>
 ```{sashtml police-violence-tryitout-setup, include = F, collectcode = T}
 ODS HTML style= HTMLBlue; 
 ```
@@ -807,9 +808,10 @@ In R, you put your whole order together from the a la carte menu. That is, R wil
 In this section, I will mostly be using the plot commands that come with base R and require no extra packages. The R for Data Science book shows plot commands which use the `ggplot2` library. We will learn this library later in this class - it produces beautiful plots - and if you want to use it at this point, you may. It requires a bit more thought as to how to specify the plot, though, which may not be desireable.
 :::
 
-The first, and most basic EDA command in R is `summary()`. For numeric variables, `summary` provides 5-number summaries plus the mean. For categorical variables, `summary` provides the length of the variable and the Class and Mode. For factors, `summary` provides a table of the most common values, as well as a catch-all "other" category. 
 
-<details>
+<details><summary>
+The first, and most basic EDA command in R is `summary()`.</summary>
+For numeric variables, `summary` provides 5-number summaries plus the mean. For categorical variables, `summary` provides the length of the variable and the Class and Mode. For factors, `summary` provides a table of the most common values, as well as a catch-all "other" category. 
 ```{r}
 library(readr)
 url <- "https://raw.githubusercontent.com/shahinrostami/pokemon_dataset/master/pokemon_gen_1_to_8.csv"
@@ -823,15 +825,17 @@ summary(poke)
 ```
 </details>
 
-One common question in EDA is whether there are missing values or other inconsistencies that need to be handled. `summary()` provides you with the NA count for each variable, making it easy to identify what variables are likely to cause problems in an analysis. 
+<details><summary>One common question in EDA is whether there are missing values or other inconsistencies that need to be handled.</summary> `summary()` provides you with the NA count for each variable, making it easy to identify what variables are likely to cause problems in an analysis. 
 
 There is one pokemon who appears to not have a weight specified. Let's investigate further:
 ```{r}
 poke[is.na(poke$weight_kg),] # Show any rows where weight.kg is NA
 ```
 This is the last row of our data frame, and this pokemon appears to have many missing values. 
+</details>
 
-We are often also interested in the distribution of values. We can generate cross-tabs for variables that we know are discrete (such as generation, which will always be a whole number). 
+<details><summary>We are often also interested in the distribution of values. </summary>
+We can generate cross-tabs for variables that we know are discrete (such as generation, which will always be a whole number). 
 ```{r}
 table(poke$generation)
 plot(table(poke$generation)) # bar plot
@@ -840,9 +844,9 @@ plot(table(poke$generation)) # bar plot
 table(poke$type_1, poke$type_2)
 plot(table(poke$type_1, poke$type_2)) # mosaic plot - hard to read b/c too many categories
 ```
+</details>
 
-There are better options for examining this data, but they are easier to get in ggplot2. 
-<details>
+<details><summary>There are better options for examining this data, but they are easier to get in ggplot2. </summary>
 ```{r}
 library(ggplot2)
 
@@ -858,20 +862,22 @@ ggplot(data = poke, aes(x = type_1, y = type_2)) +
 </details>
 
 
-
-We can also generate histograms or bar charts^[A histogram is a chart which breaks up a continuous variable into ranges, where the height of the bar is proportional to the number of items in the range. A bar chart is similar, but shows the number of occurrences of a discrete variable.] By default, R uses ranges of $(a, b]$ in histograms, so we specify which breaks will give us a desireable result. If we do not specify breaks, R will pick them for us.
+<details><summary>
+We can also generate histograms or bar charts^[A histogram is a chart which breaks up a continuous variable into ranges, where the height of the bar is proportional to the number of items in the range. A bar chart is similar, but shows the number of occurrences of a discrete variable.] </summary>
+By default, R uses ranges of $(a, b]$ in histograms, so we specify which breaks will give us a desireable result. If we do not specify breaks, R will pick them for us.
 
 ```{r, out.width = "48%", fig.show = "hold"}
 hist(poke$generation) # This isn't really optimal... we only have whole numbers.
 hist(poke$generation, breaks = 0:8) # Much better.
 ```
 
-For continuous variables, we can use histograms, or we can examine kernel density plots. 
+</details>
 
+
+<details><summary>For continuous variables, we can use histograms, or we can examine kernel density plots. </summary>
 ::: .note
 Remember that `%>%` is the "pipe" and takes the left side of the pipe to pass as an argument to the right side. This makes code easier to read because it becomes a step-wise "recipe". 
 :::
-
 ```{r, out.width = "48%", fig.show = "hold"}
 library(magrittr) # This provides the pipe command, %>%
 
@@ -892,8 +898,10 @@ poke$weight_kg %>%
   plot(main = "Density of Log10 pokemon weight in Kg") # Plot the result, 
     # changing the title of the plot to a meaningful value
 ```
+</details>
 
-We may also want to look at correlations between variables. In R, most models are specified as `y ~ x1 + x2 + x3`, where the information on the left side of the tilde is the dependent variable, and the information on the right side are any explanatory variables. Interactions are specified using `x1*x2` to get all combinations of x1 and x2 (x1, x2, x1\*x2); single interaction terms are specified as e.g. `x1:x2` and do not include any component terms.
+<details><summary>We may also want to look at correlations between variables.</summary>
+In R, most models are specified as `y ~ x1 + x2 + x3`, where the information on the left side of the tilde is the dependent variable, and the information on the right side are any explanatory variables. Interactions are specified using `x1*x2` to get all combinations of x1 and x2 (x1, x2, x1\*x2); single interaction terms are specified as e.g. `x1:x2` and do not include any component terms.
 
 To examine the relationship between a categorical variable and a continuous variable, we might look at boxplots: 
 ```{r, out.width = "48%", fig.show = "hold"}
@@ -903,8 +911,9 @@ boxplot(log10(height_m) ~ status, data = poke)
 boxplot(total_points ~ species, data = poke)
 ```
 In the second boxplot, there are far too many categories to be able to resolve the relationship clearly, but the plot is still effective in that we can identify that there are one or two species which have a much higher point range than other species. EDA isn't usually about creating pretty plots (or we'd be using `ggplot` right now) but rather about identifying things which may come up in the analysis later.
+</details>
 
-To look at the relationship between numeric variables, we could compute a numeric correlation, but a plot is more useful:
+<details><summary>To look at the relationship between numeric variables, we could compute a numeric correlation, but a plot is more useful.</summary>
 
 ```{r, out.width = "48%", fig.show = "hold"}
 plot(defense ~ attack, data = poke, type = "p")
@@ -916,20 +925,21 @@ Sometimes, we discover that a variable which appears to be continuous is actuall
 ```{r}
 plot(x = poke$base_experience, y = poke$base_friendship, type = "p")
 ```
-
-A scatterplot matrix can also be a useful way to visualize relationships between several variables.
+</details>
+<details><summary>A scatterplot matrix can also be a useful way to visualize relationships between several variables.</summary>
 ```{r, fig.width = 8, fig.height = 8, out.width = "100%"}
 pairs(poke[,19:23]) # hp - sp_defense columns
 ```
 
 [There's more information on how to customize these plots here](http://www.sthda.com/english/wiki/scatter-plot-matrices-r-base-graphs). 
+</details>
 
 #### Try it out {- .tryitout #police-violence-eda-r}
 
 Explore the variables present in [the police violence data](data/police_violence.xlsx) (see code in the spreadsheets section to read it in). Note that some variables may be too messy to handle with the things that you have seen thus far - that is ok. As you find irregularities, document them - these are things you may need to clean up in the dataset before you conduct a formal analysis.
 
 How does your analysis in R differ from the way that you approached the data in SAS?
-<details>
+<details><summary>Solution</summary>
 ```{r}
 if (!"readxl" %in% installed.packages()) install.packages("readxl")
 library(readxl)
@@ -1038,7 +1048,7 @@ not it makes sense". The approach taken in R is
 different. The underlying assumption is that the
 useR is thinking about the analysis while doing it. – Douglas Bates
 
-## References
+## References and Links {.learn-more -}
 
 - [Reading JSON in SAS](https://support.sas.com/resources/papers/proceedings17/0856-2017.pdf) -- You know SAS documentation is getting weird when they advertise a method as "the sexiest way to import JSON data into SAS". 
 - [Reading Rdata files in SAS](http://proc-x.com/2015/05/import-rdata-to-sas-along-with-labels/)
