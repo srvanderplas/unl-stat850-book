@@ -13,45 +13,113 @@ pre code {
   white-space: inherit;
 }
 
-
-.note {
-  font-style:italic;
-  color:purple;
-  border:2px solid purple;
-  padding:2px;
-}
-
 .tryitout {
-  border:2px solid green;
+  border:2px solid #378b2e;
   padding:10px;
 }
+
+.tryitout h3:before,.tryitout h4:before,.tryitout h5:before,.tryitout h6:before{
+  font-size:1.5em;
+  font-family: 'FontAwesome';
+  content: "\f0c3";
+  color: #378b2e;
+  float:left;
+  font-weight: bold;
+  padding: 2;
+}
+
 .tryitout h3, .tryitout h4, .tryitout h5, .tryitout h6 {
-  color: green;
+  color: #378b2e;
 }
 
 .watchout {
-  border:2px solid orange;
+  background-image:url(image/warning.svg);
+  background-repeat: no-repeat;
+  background-size:10% auto;
+  padding:5px 5px 5px 11%;
+  border:2px solid #a7383d;
   padding:10px;
-}
-.watchout h3, .watchout h4, .watchout h5, .watchout h6 {
-  color: orange;
 }
 
 .learn-more{
-  border:2px solid lime;
+  background-image:url(image/learnmore.svg);
+  background-repeat: no-repeat;
+  background-size:10% auto;
+  padding:5px 5px 5px 11%;
+  border:2px solid #074600;
   padding:10px;
-
 }
 
 .example{
-  border:2px solid blue;
+  border:2px solid #aa9539;
   padding:10px;
 }
 
+.note {
+  background-image:url(image/notethat.svg);
+  background-repeat: no-repeat;
+  background-size:10% auto;
+  padding:5px 5px 5px 11%;
+  color:#12073b;
+  border:2px solid #12073b;
+}
+
+.note :before:first-child {
+
+  color: #12073b;
+  float:left;
+  font-weight: bold;
+  padding: 2;
+}
+
+
 .my-opinion{
-  border:1px solid deepskyblue;
-  padding:5px;
-  text-color: deepskyblue;
+  background-image:url(image/comment.svg);
+  background-repeat: no-repeat;
+  background-size:10% auto;
+  padding:5px 5px 5px 11%;
+  border:1px solid #3f3075;
+  color: #3f3075;
+}
+
+summary::-webkit-details-marker {
+  display: none
+}
+
+summary:before {
+  font-family: 'FontAwesome';
+  content: "\f05a\00a0\00a0";
+  color: lime;
+  font-size: 1em;
+  font-weight: bold;
+  width: 20px;
+  white-space: pre;
+  word-wrap: break-word;
+}
+
+details[open] summary:before {
+  font-family: 'FontAwesome';
+  content: "\f057\00a0\00a0";
+}
+
+details[open] {
+  border:2px;
+  background: #fcfcfc;
+}
+
+details:before {
+  content: " ";
+  padding-top:2em;
+}
+
+details:after {
+  content: " ";
+  padding-bottom:2em;
+}
+
+details img {
+  margin-left:auto;
+  margin-right:auto;
 }
 
 
