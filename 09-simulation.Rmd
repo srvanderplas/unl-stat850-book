@@ -388,7 +388,7 @@ The expected number of uniform RV draws required to sum to 1 is $e$!
 [Explanation of why this works](https://www.jstor.org/stable/2685243)
 </details>
 
-Monte Carlo methods are often used to approximate the value of integrals which do not have a closed-form (in particular, these integrals tend to pop up frequently in Bayesian methods). Suppose you want to integrate $$\int_0^1 e^{-x^3}dx$$. 
+Monte Carlo methods are often used to approximate the value of integrals which do not have a closed-form (in particular, these integrals tend to pop up frequently in Bayesian methods). Suppose you want to integrate $$\int_0^1 e^{-x^3}dx$$
 
 You could set up Riemann integration and evaluate the integral using a sum over $K$ points, but that approach only converges for smooth functions (and besides, that's boring calc 2 stuff, right?). 
 
