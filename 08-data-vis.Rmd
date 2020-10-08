@@ -919,7 +919,7 @@ ggplot()  +
   ggtitle("United Methodist Organizations")
 ```
 
-<details>
+</details>
 
 
 ```{r clean-up-worship-data, include = F, message = F, error = T}
@@ -986,10 +986,11 @@ In all of the plots which we discuss in this section, there is an implicit stati
 In ggplot2, you can formally specify a statistic by using `stat_xxx` functions, but many geoms implicitly call these same functions. 
 
 #### Box Plots {-}
-<details><summary>A box plot can show some summary information about the distribution of a single continuous variable, and usually is used to show differences in the level of a response variable at different levels of a categorical variable. </summary>
+A box plot can show some summary information about the distribution of a single continuous variable, and usually is used to show differences in the level of a response variable at different levels of a categorical variable. 
 
 Let's look at the relative frequency of different types of crimes, putting all states on an equal scale of 100k residents so that the numbers are comparable and also meaningful. 
 
+<details><summary>Box plots in ggplot2</summary>
 ```{r gg-boxplot-08}
 fbi %>%
   filter(Year == max(Year)) %>%
@@ -1037,7 +1038,12 @@ tmp %>%
   ggtitle(paste("Crimes per 100k people,", max(fbi$Year)))
 ```
 
-<details><summary>Box plots implicitly call `stat_fivenumber()`, which computes the five-number summary used to construct the box plot lines and box.</summary> 
+<details><summary>Additional ggplot2 details - `stat_fivenumber()`, geoms, and statistics</summary>
+
+Box plots implicitly call `stat_fivenumber()`, which computes the five-number summary used to construct the box plot lines and box. 
+
+A statistic is an aggregation function that exists between the data and the geom. Statistics output values which are then plotted directly by the geom. 
+
 You could, in theory, create a box plot by calling something like this (I stopped at the boxes, but you get the idea)
 ```{r gg-boxplot-fromscratch-08, echo = -1}
 has_groups <- ggplot2:::has_groups
@@ -1080,7 +1086,8 @@ QUIT;
 ```
 </details>
 
-There are other variants of box plots (and similar concepts). Here is a violin plot, which attempts to show some more information about the distribution of the continuous variable (instead of hiding it all in the summary statistics). 
+<details><summary>There are other variants of box plots (and similar concepts). </summary>
+Here is a violin plot, which attempts to show some more information about the distribution of the continuous variable (instead of hiding it all in the summary statistics). 
 
 ```{r gg-violin-08}
 tmp %>%
@@ -1094,9 +1101,10 @@ tmp %>%
 </details>
 
 #### Histograms and Density Plots {-}
-<details><summary>
-Box plots aren't the only way to show distributions, though. If we want to, we can show distributions using histograms or density plots. A **histogram** is created by binning the variable, then counting the number of observations that fall within each specified range.</summary>
+Box plots aren't the only way to show distributions, though. If we want to, we can show distributions using histograms or density plots. A **histogram** is created by binning the variable, then counting the number of observations that fall within each specified range.
 Usually, these ranges have constant width (but not always). 
+
+<details><summary>Histograms in ggplot2</summary>
 ```{r gg-hist-08}
 poke %>%
   ggplot(aes(x = hp)) + 
@@ -1106,11 +1114,11 @@ poke %>%
   ggplot(aes(x = hp)) + 
   geom_histogram(color = "black", fill = "grey", binwidth = 20)
 ```
-
+</details>
 You should always look at  a histogram under multiple bin widths, because that parameter can change the visual appearance of the distribution quite a bit. 
 
-<details><summary>In a histogram, the statistic that is computed is `stat_bin` - we break the x range up into intervals and then count how many points lie in each interval. </summary>
-
+<details><summary>Histograms and `stat_bin` in ggplot2</summary>
+In a histogram, the statistic that is computed is `stat_bin` - we break the x range up into intervals and then count how many points lie in each interval.
 ```{r gg-hist-stat-08}
 tibble(x = rnorm(100)) %>%
   ggplot(aes(x = x)) + 
@@ -1136,25 +1144,30 @@ RUN;
 QUIT; 
 ```
 </details>
-</details>
 
-<details><summary>
-A **kernel density** is an empirical method of estimating the probability density function of a variable. In a density plot, instead of count, the y axis is labeled "density" and the continuous curve will be scaled so that the distribution integrates to 1.</summary> Density plots can be quite useful for continuous variables, but are also dependent on parameter selection - instead of a bin width, you may need to adjust a kernel width (though there are algorithms that will select this by default, so usually you only have to tweak it a bit). 
 
+A **kernel density** is an empirical method of estimating the probability density function of a variable.
+In a density plot, instead of count, the y axis is labeled "density" and the continuous curve will be scaled so that the distribution integrates to 1.
+Density plots can be quite useful for continuous variables, but are also dependent on parameter selection - instead of a bin width, you may need to adjust a kernel width (though there are algorithms that will select this by default, so usually you only have to tweak it a bit). 
+
+<details><summary>ggplot2 density plot</summary>
 ```{r gg-kernel-dens-08}
 
 poke %>%
   ggplot(aes(x = hp)) + 
   geom_density(color = "black", fill = "grey")
 ```
+</details>
 
-If you try to create a density plot for a variable which has only a limited number of values, you'll often get an extremely spiky distribution. If your variable is e.g. measured in imprecise intervals, even though it's continuous, you can adjust the bandwidth, but you may be better off using a histogram and choosing your bin width to be a multiple of your measurement precision. A spiky density curve can alert you to other problems in your data - for instance, the presence of a large number of 0s might tell you a mixture distribution would be a more appropriate distribution when you're modeling the data. 
+If you try to create a density plot for a variable which has only a limited number of values, you'll often get an extremely spiky distribution. If your variable is e.g. measured in imprecise intervals, even though it's continuous, you can adjust the bandwidth, but you may be better off using a histogram and choosing your bin width to be a multiple of your measurement precision. 
+<details><summary>A spiky density curve can alert you to other problems in your data - for instance, the presence of a large number of 0s might tell you a mixture distribution would be a more appropriate distribution when you're modeling the data. </summary>
 
 ```{r gg-kernel-dens-cat-08}
 poke %>%
   ggplot(aes(x = catch_rate)) + 
   geom_density(color = "black", fill = "grey")
 ```
+</details>
 
 In base R, you can get a density plot of a single variable with `plot(density(...))`. 
 
@@ -1174,12 +1187,10 @@ RUN;
 QUIT; 
 ```
 </details>
-</details>
 
  
-::: tryitout
+##### Try It Out {- .tryitout}
 Read the help files for `stat_density` and `stat_histogram` and attempt to create your own histogram/density combination, before looking at the solution below
-:::
 
 <details><summary>If you're careful to specify your mappings properly, you can plot a density curve on top of a histogram.</summary>
 Since both geoms compute statistics, you have to read the help files to see that they actually are computing multiple statistics.
@@ -1220,8 +1231,9 @@ QUIT;
 ```
 </details>
 
-<details><summary>Higher Dimensional "histograms" and densities</summary>
-You can use density plots and histograms in two dimensions to show the bivariate relationship between two variables, but at that point we have to represent the height of the density or number of points in the bin using another aesthetic (as x and y are taken by the two variables you're computing a density for). 
+##### Higher Dimensional Histograms and Density Plots {-}
+<details><summary>You can use density plots and histograms in two dimensions to show the bivariate relationship between two variables, but at that point we have to represent the height of the density or number of points in the bin using another aesthetic (as x and y are taken by the two variables you're computing a density for). </summary>
+
 
 One common aesthetic choice is to map density (or counts) to the fill color, leaving you to imagine a "height" associated with the color.  
 ```{r gg-2d-bin-08}
@@ -1260,8 +1272,10 @@ Of course, joint distributions can also be shown using a scatterplot. Another us
 </details>
 
 #### Bar Charts {-}
-<details><summary>
-A bar chart is a plot with a categorical variable on one axis and a summary statistic on the other (usually, this is a count).</summary> Note that a bar chart is NOT the same as a histogram (a histogram looks very similar, but has a binned numeric variable on one axis and counts on the other). Geometrically, bar charts are rectangles; typically each rectangle will have equal width and variable height.
+A bar chart is a plot with a categorical variable on one axis and a summary statistic on the other (usually, this is a count).
+Note that a bar chart is NOT the same as a histogram (a histogram looks very similar, but has a binned numeric variable on one axis and counts on the other). Geometrically, bar charts are rectangles; typically each rectangle will have equal width and variable height.
+<details><summary> Bar Charts in ggplot2</summary> 
+
 
 ```{r gg-bar-detail-08}
 ggplot(poke, aes(x = generation)) + geom_bar()
@@ -1351,7 +1365,6 @@ RUN;
 QUIT; 
 ```
 </details>
-</details>
 
 #### Other useful geoms {-}
 
@@ -1368,8 +1381,8 @@ There are a few other geoms which may be useful from time to time, especially wh
 ### Small Multiples
 
 Sometimes, you want to show separate plots for each level of a factor (or a combination of factors). Often, this happens when you expect the gross shape of the plotted information to change - something relatively obvious. Other times, though, you might just have too much data and need to break it down somehow. 
-<details><summary>
-These sub-plots within a plot are called small multiples, or facets, or panel plots, depending on the software or discipline. </summary>
+These sub-plots within a plot are called small multiples, or facets, or panel plots, depending on the software or discipline. 
+<details><summary>In ggplot2</summary>
 
 ```{r gg-facet-08}
 fbi %>%
@@ -1402,7 +1415,7 @@ fbi %>%
   geom_col() + 
   facet_grid(Abb~Type)
 ```
-
+</details>
 <details><summary>Panel plots in SAS</summary>
 Basically the same syntax as SGPLOT, but using SGPANEL and a PANELBY statement. This is very similar to ggplot2's `facet_` addition. 
 ```{sashtml sas-facet-08, error = T, fig.path = "image/"}
@@ -1415,8 +1428,6 @@ HBAR type_1;
 RUN;
 QUIT; 
 ```
-</details>
-
 </details>
 
 ### Try it out {- .tryitout}
@@ -1641,8 +1652,7 @@ In graphics, we can leverage the gestalt principles of grouping to create order 
 </details>
 
 <details><summary>Example: Suppose I want to emphasize the change in the murder rate between 1980 and 2010. </summary>
-
-<details><summary>I could use a bar chart</summary>
+I could use a bar chart
 ```{r chart-emphasis-bar-08, fig.height = 8, fig.width = 6}
 fbiwide %>% 
   filter(Year %in% c(1980, 2010)) %>%
@@ -1651,8 +1661,8 @@ fbiwide %>%
   coord_flip() + 
   ylab("Murders per 100,000 residents")
 ```
-</details>
-<details><summary>Or, I could use a line chart</summary>
+
+Or, I could use a line chart
 ```{r chart-emphasis-line-08}
 fbiwide %>% 
   filter(Year %in% c(1980, 2010)) %>%
@@ -1660,8 +1670,8 @@ fbiwide %>%
   geom_line() + 
   ylab("Murders per 100,000 residents")
 ```
-</details>
-<details><summary>Or, I could use a box plot</summary>
+
+Or, I could use a box plot
 ```{r chart-emphasis-box-08}
 fbiwide %>% 
   filter(Year %in% c(1980, 2010)) %>%
@@ -1669,7 +1679,6 @@ fbiwide %>%
   geom_boxplot() + 
   ylab("Murders per 100,000 residents")
 ```
-</details>
 
 Which one best demonstrates that in every state and region, the murder rate decreeased?
 
@@ -1745,7 +1754,7 @@ People have made some very cool visualizations using rayrender:
 - [3D maps](https://pbs.twimg.com/media/Eip98RJWkAMgZH6?format=jpg&name=large) (which you can create STL files from and 3D print...)
 - [Rendering a table, on a laptop, on a table](https://twitter.com/i/status/1306954065159610369)
 
-## References
+## References {- .learn-more}
 
 ### Motivation
 - [If you think this all sounds complicated, read this blog post about saving graphics from Excel.](https://policyviz.com/2020/07/21/high-resolution-excel-images/)
