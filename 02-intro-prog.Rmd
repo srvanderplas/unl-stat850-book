@@ -37,7 +37,6 @@ The use of markdown for this week's assignment is a "trust me, and you'll get co
 
 More informally, the goal is to get familiar with the basics of each programming language, and to show you where to find references for how to use each command -- because (at least) half of programming is knowing where to look something up. 
 
-::: note
 <details><summary>I'm teaching SAS very differently</summary>
 I'm definitely teaching SAS differently than it is normally taught. This is so that we don't have to do half the semester in SAS and half in R - I'd rather teach the concepts and show you how they're implemented than split them up by language. BUT, this means that some of the things we're doing first in SAS are things you wouldn't normally do until you were already proficient in SAS. It also means that SAS is probably going to seem even more oddly organized when taught this way than it actually is (and it is oddly organized, in my opinion).
 
@@ -49,7 +48,6 @@ Note: If you've programmed before, this chapter is going to seem very ... boring
 
 If you're bored, or feel like you know this material, skim through it anyways just to confirm (and if I'm doing something that's really out there, or there's an easier way to do it, tell me!). Then you can either find something in the references that you don't know already (the book Advanced R is always a great place to start if you want to be quickly confused), or help your classmates that are less experienced. 
 </details>
-:::
 
 ## Definitions {-}
 
@@ -243,11 +241,10 @@ Other reasons to learn factors besides for debugging purposes:
 - ... I'm sure there are more, but I'm drawing a blank at the moment
 
 
-<details class="example"><summary>Factors example</summary>
+<details><summary>Factors example</summary>
 
 ::: note
-In this example, we'll use a data.frame, which you can think of as a spreadsheet-type table. We'll work with data frames later in much more detail, but for now, I'm mostly trying to show you a real-life situation that happens ALL the time, with the hopes that you'll recognize the error when/if you encounter it. The data frame isn't the important part. 
-:::
+In this example, we'll use a data.frame, which you can think of as a spreadsheet-type table. We'll work with data frames later in much more detail, but for now, I'm mostly trying to show you a real-life situation that happens ALL the time, with the hopes that you'll recognize the error when/if you encounter it. The data frame isn't the important part. :::
 
 Let's look at the names of the months:
 ```{r}
@@ -1575,8 +1572,7 @@ Another explanation of while loops is available at [Khan Academy](https://www.kh
 
 Write a while loop in R and in SAS to calculate $\displaystyle \lim_{x \rightarrow 4} \frac{2 - \sqrt{x}}{4-x}$ by starting at 3 and halving the distance to 4 with each iteration. Exit the loop when you are within 1e-6 of the value computed on the previous iteration, or when you are within 1e-6 from 4. Which exit condition did you hit first? How do you know?
 
-Solutions:
-<details>
+<details><summary>Solutions</summary>
 ```{r}
 x <- 3
 dist <- 4 - x
@@ -1593,7 +1589,7 @@ c(x = x, dist = dist, current_value = current_value, d_value = abs(current_value
 ```
 Before $x$ got to 4 - 1e-6, the change in f(x) became less than 1e-6. 
 
-```{sas}
+```{sashtml}
 proc iml;
   x = 3;
   dist = 4 - x;
