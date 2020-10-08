@@ -646,13 +646,16 @@ tweetrmd::tweet_screenshot(tweetrmd::tweet_url("grubes14", "1168946210868269057"
 ```
 </details>
 
-I'm going to do my best to expose you to some of the solutions to common problems and even point you in the right direction, but I'm intentionally *not* formally teaching you some of these things, because part of learning how to program is learning how to read documentation and other resources to figure things out. It would be relatively easy to teach you how to do a set list of tasks, but you'll be better statisticians and programmers if you learn the skills to solve any niche problem on your own.
+
+In this class, my goal is to expose you to solutions to common problems; unfortunately, there are too many common problems for us to work through line-by-line. 
+Part of the goal of this class is for you to learn how to read through a package description and evaluate whether the package will do what you want; we're going to try to build some of those skills starting now. 
+It would be relatively easy to teach you how to do a set list of tasks, but you'll be better statisticians and programmers if you learn the skills to solve niche problems on your own.
 
 ```{r, echo = F, fig.cap = "Apologies for the noninclusive language, but the sentiment is real."}
 tweetrmd::tweet_screenshot(tweetrmd::tweet_url("abt_programming", "459414524303785984"))
 ```
 
-What I will do is provide you with a quick list of packages in R which will solve some of the more common problems. Between that and the R cheatsheet, you should be set. In SAS, there are fewer options, so it's less bewildering to google solutions (but I'll link you to relevant pieces for the common SAS stuff too).
+Here is a quick list of packages in R which will solve some of the more common problems. Between that and the R cheatsheet, you should be set. In SAS, there are fewer options, so it's less bewildering to google solutions (but I'll link you to relevant pieces for the common SAS stuff too).
 
 ::: learn-more
 - Dates and times: `lubridate` package in R (esp. `ymd_hms()` and variants, `decimal_date()`, and other convenience functions). [SAS Dates and Times](https://documentation.sas.com/?docsetId=lrcon&docsetTarget=p1wj0wt2ebe2a0n1lv4lem9hdc0v.htm&docsetVersion=9.4&locale=en).
