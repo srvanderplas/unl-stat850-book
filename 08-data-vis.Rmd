@@ -1577,16 +1577,16 @@ In reality, I know that I have issues with perceiving some shades of red, green,
 <details><summary>It is possible to simulate the effect of color blindness and color deficiency on an image. </summary>
 <table width="100%"><tr><td rowspan = 2 width="40%">
 ![Original image using a rainbow color scale](image/RainbowScaleOrig.jpg)</td><td width="20%">![Red cone deficient](image/RainbowScaleOrig-protanomaly.jpg)</td><td width="20%">![Green cone deficient](image/RainbowScaleOrig-deuteranomaly.jpg)</td><td width="20%">![Blue cone deficient](image/RainbowScaleOrig-tritanomaly.jpg)</td></tr><tr><td width="20%">![Red cone absent](image/RainbowScaleOrig-protanopia.jpg)</td><td width="20%">![Green cone absent](image/RainbowScaleOrig-deuteranopia.jpg)</td><td width="20%">![Blue cone absent](image/RainbowScaleOrig-tritanopia.jpg)</td></tr></table>
+</details>
 
-In addition to colorblindness, there are other factors than the actual color value which are important in how we experience color. 
+In addition to colorblindness, there are other factors than the actual color value which are important in how we experience color, such as context. 
 
-```{r checker-shadow-fig, fig.cap = "The color constancy illusion. The squares marked A and B are actually the same color", out.width = "45%"}
+```{r checker-shadow-fig, fig.cap = "The color constancy illusion. The squares marked A and B are actually the same color", out.width = "45%", echo = F}
 knitr::include_graphics("image/CheckerShadow.png")
 knitr::include_graphics("image/CheckerShadow2.png")
 ```
 
 Our brains are extremely dependent on context and make excellent use of the large amounts of experience we have with the real world. As a result, we implicitly "remove" the effect of things like shadows as we make sense of the input to the visual system. This can result in odd things, like the checkerboard and shadow shown above - because we're correcting for the shadow, B looks lighter than A even though when the context is removed they are clearly the same shade. 
-</details>
 
 **Implications and Guidelines**
 
@@ -1647,7 +1647,9 @@ When faced with ambiguity, our brains use available context and past experience 
 Did you see something like "3 circles, a triangle with a black outline, and a white triangle on top of that"? In reality, there are 3 angles and 3 pac-man shapes. But, it's much more likely that we're seeing layers of information, where some of the information is obscured (like the "mouth" of the pac-man circles, or the middle segment of each side of the triangle). This explanation is simpler, and more consistent with our experience. 
 
 Now, look at the logo for the Pittsburgh Zoo. 
-![What do you see?](https://upload.wikimedia.org/wikipedia/en/5/5b/Pittsburgh_Zoo_%26_PPG_Aquarium_logo.svg)
+
+<img src="https://upload.wikimedia.org/wikipedia/en/5/5b/Pittsburgh_Zoo_%26_PPG_Aquarium_logo.svg" alt="What do you see?" width = "80%"/>
+
 Do you see the gorilla and lionness? Or do you see a tree? Here, we're not entirely sure which part of the image is the figure and which is the background. 
 
 
