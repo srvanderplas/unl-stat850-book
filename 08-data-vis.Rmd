@@ -67,7 +67,7 @@ Base R graphics and the original SAS graphics engine fall firmly into the first 
 The SAS ODS Graphics Engine^[I'll fully admit my bias here - I think ODS graphics are better than the default SAS graphics, but I still prefer the syntax and logic behind ggplot2. But, if you prefer SAS Graphics, you do you. Better you than me, is all I'm saying.] falls somewhere in between the two approaches - it provides some sensible defaults, but its design isn't rooted in the philosophy of the grammar of graphics, so if (as some SAS manuals have claimed) there is a similarity between the two, it's functional and not philosophical or because of a similarity in the design strategy.
 
 ::: note
-In either case, you're going to learn how to make graphics by finding sample code, changing that code to match your data set, and tweaking things as you go. That's the best way to learn this, and while option 2 does have a structure and some syntax to learn, once you're familiar with the principles, you'll still want to learn graphics by doing it. 
+You're going to learn how to make graphics by finding sample code, changing that code to match your data set, and tweaking things as you go. That's the best way to learn this, and while option 2 does have a structure and some syntax to learn, once you're familiar with the principles, you'll still want to learn graphics by doing it. 
 :::
 
 There are other graphics systems in R (namely, `lattice`, plus some web-based rendering engines) that you could explore, but it's far more important that you know how to functionally create plots in R and/or SAS. I don't recommend you try to become proficient in all of them. Pick one (two at most) and get to know that, then google for the rest.
@@ -323,6 +323,7 @@ We can add a title to the plot
 ggplot(fbiwide, aes(x = Murder, y = Assault)) + geom_point() + 
   ggtitle("Murders and Assaults")
 ```
+
 You can also add labels using `xlab()` and `ylab()`. We'll talk more about how to make fine-grained modifications of axis scales later, but the shorthand commands for changing the title and labels are convenient.
 
 <details><summary>Base R</summary>
@@ -330,6 +331,7 @@ You can also add labels using `xlab()` and `ylab()`. We'll talk more about how t
 plot(Murder ~ Assault, data = fbiwide) 
 title("Murders and Assaults")
 ```
+
 </details>
 <details><summary>SAS ODS Graphics</summary>
 ```{sashtml sas-add-title-08, error = T, collectcode = T, fig.path = "image/"}
@@ -350,6 +352,7 @@ We can also modify the appearance of the plotted objects
 ggplot(fbiwide, aes(x = Population, y = Assault)) +
   geom_point(color = "blue", alpha = .5)
 ```
+
 Alpha blending, or transparency, allows us to see the structure in over-plotted (crowded) charts. Here, I've specified that the points should have 50% opacity.
 
 Another point to note: inside the `aes()` function, variables are mapped to geometric object characteristics, but outside, those same parameters can be mapped to **constant values**. If something is inside aes(), it should be a variable. 
@@ -407,6 +410,7 @@ fbiwide$state_color <- state_colors[fbiwide$Abb_factor]
 
 plot(Assault ~ Population, col = state_color, data = fbiwide)
 ```
+
 You can use `?points` to get information on all of the graphical parameters for points.
 </details>
 <details><summary>SAS ODS Graphics variable mapping</summary>
@@ -507,6 +511,7 @@ RUN;
 QUIT; 
 
 ```
+
 [SAS Line attributes and patterns options](https://documentation.sas.com/?docsetId=grstatproc&docsetTarget=p0er4dg9tojp05n1sf7maeqdz1d8.htm&docsetVersion=9.4&locale=en)
 </details>
 
@@ -569,6 +574,7 @@ legend("topleft",
 
 
 If we want to map a value to alpha, we have to make our own scale again... but it may be easier to just make a transformation function that we can pass stuff into. That way we can create the legend and the data transformation using the same function (and if we want to change the transformation, it will be much easier to do so if we only have to change things in one place). 
+
 ```{r base-numeric-aes-alpha-trans-fcn-08}
 library(scales)
 
@@ -683,6 +689,7 @@ worship <- read_csv("data/All_Places_Of_Worship.csv", guess_max = 5000) %>%
 
 write_csv(worship, "data/Places_of_Worship.csv", na = '.')
 ```
+
 ```{r install-ggthemes-map-pkgs-08, eval = F}
 pkgs <- installed.packages()
 # Install any of the packages that you don't have
@@ -1550,14 +1557,16 @@ Unfortunately, while our visual system is *amazing*, it is not always as accurat
 ### Perceptual and Cognitive Factors
 
 #### Color
-<details><summary>Color perception, color blindness, and context</summary>
 Our eyes are optimized for perceiving the yellow/green region of the color spectrum. Why? Well, our sun produces yellow light, and plants tend to be green. It's pretty important to be able to distinguish different shades of green (evolutionarily speaking) because it impacts your ability to feed yourself. There aren't that many purple or blue predators, so there is less selection pressure to improve perception of that part of the visual spectrum.    
 
 ![Sensitivity of the human eye to different wavelengths of visual light (Image from Wikimedia commons)](https://upload.wikimedia.org/wikipedia/commons/c/c0/Eyesensitivity.svg)
 
 Not everyone perceives color in the same way. Some individuals are [colorblind or color deficient](https://en.wikipedia.org/wiki/Color_blindness). We have 3 cones used for color detection, as well as cells called rods which detect light intensity (brightness/darkness). In about 5% of the population (10% of XY individuals, <1% of XX individuals), one or more of the cones may be missing or malformed, leading to color blindness - a reduced ability to perceive different shades. The rods, however, function normally in almost all of the population, which means that light/dark contrasts are extremely safe, while contrasts based on the hue of the color are problematic in some instances. 
 
-<details><summary>You can take a test designed to screen for colorblindness [here](https://www.eyeque.com/color-blind-test/test/) (your monitor may affect how you score on this test - I am colorblind, but on some monitors, I can pass the test, and on some, I perform worse than normal). A different test is available [here](https://www.color-blindness.com/farnsworth-munsell-100-hue-color-vision-test/). </summary>
+<details><summary>You can take a test designed to screen for colorblindness [here](https://www.eyeque.com/color-blind-test/test/)</summary>
+Your monitor may affect how you score on these tests - I am colorblind, but on some monitors, I can pass the test, and on some, I perform worse than normal. 
+A different test is available [here](https://www.color-blindness.com/farnsworth-munsell-100-hue-color-vision-test/). 
+
 ![My results on one monitor](image/08_colorblindness_monitorLG.png)
 ![My results on a monitor that has a different tech and supposedly higher color fidelity](image/08_colorblindness_monitorDell.png)
 
@@ -1580,6 +1589,7 @@ Our brains are extremely dependent on context and make excellent use of the larg
 </details>
 
 **Implications and Guidelines**
+
 - Do not use rainbow color gradient schemes - because of the unequal perception of different wavelengths, these schemes are _misleading_ - the color distance does not match the perceptual distance. 
 - Avoid any scheme that uses green-yellow-red signaling if you have a target audience that may include colorblind people. 
 - To "colorblind-proof" a graphic, you can use a couple of strategies: 
@@ -1598,32 +1608,34 @@ Our brains are extremely dependent on context and make excellent use of the larg
 
 We have a limited amount of memory that we can instantaneously utilize. This mental space, called **short-term memory**, holds information for active use, but only for a limited amount of time. <details><summary>Without rehearsing information, short term memory lasts a few seconds. </summary>
 
-::: tryitout
+##### Try it out {- .tryitout}
 
 <details><summary>Click here, read the information, and then click to hide it.</summary> 1 4 2 2 3 9 8 0 7 8</details>
 
-Wait a few seconds
-
-<details>
+<details><summary>Wait a few seconds, then expand this section</summary>
 What was the third number?
 </details>
-:::
+
 
 Without rehearsing the information (repeating it over and over to yourself), the try it out task may have been challenging. Short term memory has a capacity of between 3 and 9 "bits" of information. 
 
+##### {-}
 In charts and graphs, short term memory is important because we need to be able to associate information from e.g. a key, legend, or caption with information plotted on the graph. As a result, if you try to plot more than ~6 categories of information, your reader will have to shift between the legend and the graph repeatedly, increasing the amount of cognitive labor required to digest the information in the chart.
-</details>
 
 Where possible, try to keep your legends to 6 or 7 characteristics. 
 
 **Implications and Guidelines**
+
 - Limit the number of categories in your legends to minimize the short term memory demands on your reader.
+
     - When using continuous color schemes, you may want to use a log scale to better show differences in value across orders of magnitude. 
+    
 - Use colors and symbols which have implicit meaning to minimize the need to refer to the legend.
 - Add annotations on the plot, where possible, to reduce the need to re-read captions.
 
 #### Grouping and Sense-making
-<details><summary>Imposing order on visual chaos.</summary>
+Imposing order on visual chaos.
+
 <details><summary>What does the figure below look like to you?</summary>
 ![Is it a rabbit, or a duck?](image/DuckRabbitIllusion.jpg)
 </details>
@@ -1632,14 +1644,17 @@ When faced with ambiguity, our brains use available context and past experience 
 
 ![Consider this image - what do you see?](image/IllusoryContour.png)
 
-Did you see something like "3 circles, a triangle with a black outline, and a white triangle on top of that"? What's actually there are 3 angles and 3 pac-man shapes. But, it's much more likely that we're seeing layers of information, where some of the information is obscured (like the "mouth" of the pac-man circles, or the middle segment of each side of the triangle). This explanation is simpler, and more consistent with our experience. 
+Did you see something like "3 circles, a triangle with a black outline, and a white triangle on top of that"? In reality, there are 3 angles and 3 pac-man shapes. But, it's much more likely that we're seeing layers of information, where some of the information is obscured (like the "mouth" of the pac-man circles, or the middle segment of each side of the triangle). This explanation is simpler, and more consistent with our experience. 
 
 Now, look at the logo for the Pittsburgh Zoo. 
 ![What do you see?](https://upload.wikimedia.org/wikipedia/en/5/5b/Pittsburgh_Zoo_%26_PPG_Aquarium_logo.svg)
 Do you see the gorilla and lionness? Or do you see a tree? Here, we're not entirely sure which part of the image is the figure and which is the background. 
 
 
-The ambiguous figures shown above demonstrate that our brains are actively imposing order upon the visual stimuli we encounter. There are some heuristics for how this order is applied which impact our perception of statistical graphs. The catchphrase of Gestalt psychology is 
+The ambiguous figures shown above demonstrate that our brains are actively imposing order upon the visual stimuli we encounter. There are some heuristics for how this order is applied which impact our perception of statistical graphs. 
+
+The catchphrase of Gestalt psychology is 
+
 > The whole is greater than the sum of the parts
 
 That is, what we perceive and the meaning we derive from the visual scene is more than the individual components of that visual scene. 
@@ -1649,7 +1664,6 @@ That is, what we perceive and the meaning we derive from the visual scene is mor
 You can read about the gestalt rules [here](https://en.wikipedia.org/wiki/Principles_of_grouping), but they are also demonstrated in the figure above. 
 
 In graphics, we can leverage the gestalt principles of grouping to create order and meaning. If we color points by another variable, we are creating groups of similar points which assist with the perception of groups instead of individual observations. If we add a trend line, we create the perception that the points are moving "with" the line (in most cases), or occasionally, that the line is dividing up two groups of points. Depending on what features of the data you wish to emphasize, you might choose different aesthetics mappings, facet variables, and factor orders. 
-</details>
 
 <details><summary>Example: Suppose I want to emphasize the change in the murder rate between 1980 and 2010. </summary>
 I could use a bar chart
@@ -1685,7 +1699,7 @@ Which one best demonstrates that in every state and region, the murder rate decr
 The line segment plot connects related observations (from the same state) but allows you to assess similarity between the lines (e.g. almost all states have negative slope). The same information goes into the creation of the other two plots, but the bar chart is extremely cluttered, and the boxplot doesn't allow you to connect single state observations over time. So while you can see an aggregate relationship (overall, the average number of murders in each state per 100k residents decreased) you can't see the individual relationships. 
 </details>
 
-The aesthetic mappings and choices you make when creating plots have a huge impact on the conclusions that you (and others) can easily make when examining those plots.^[See [this paper](https://doi.org/10.1080/10618600.2016.1209116) for more details.] 
+The aesthetic mappings and choices you make when creating plots have a huge impact on the conclusions that you (and others) can easily make when examining those plots.^[See [this paper](https://doi.org/10.1080/10618600.2016.1209116) for more details. This is the last chapter of my dissertation, for what it's worth. It was a lot of fun. (no sarcasm, seriously, it was fun!)] 
 
 ### General guidelines for accuracy
 
@@ -1701,7 +1715,7 @@ ggplot(segs, aes(x = x, xend = x, y = y1, yend = y2)) +
   theme(axis.text = element_blank(), axis.ticks = element_blank(), axis.title = element_blank())
 ```
 
-In general, when making judgements corresponding to numerical quantities, there is an order of tasks from easiest (1) to hardest (6), with equivalent tasks at the same level.^[See [this paper](https://www.jstor.org/stable/2288400) for the major source of this ranking; other follow-up studies have been integrated, but the essential order is largely unchanged.] 
+When making judgements corresponding to numerical quantities, there is an order of tasks from easiest (1) to hardest (6), with equivalent tasks at the same level.^[See [this paper](https://www.jstor.org/stable/2288400) for the major source of this ranking; other follow-up studies have been integrated, but the essential order is largely unchanged.] 
 
 1. Position (common scale)
 2. Position (non-aligned scale)
@@ -1725,9 +1739,11 @@ tmp <- tibble(portfolio = c("Cash", "Bond", "Stocks"),
   mutate(px_pct = px/sum(px))
 tmp
 ```
+
 ![Here, the area and height both encode the same variable, leading to a far disproportionate number of pixels allocated to "Stocks" than "Cash Investments" ([h/t Junk Charts](https://junkcharts.typepad.com/junk_charts/2020/06/when-the-pie-chart-is-more-complex-than-the-data.html)). In the first chart, stocks make up 60% of the portfolio, but have 67.5% of the pixels; Cash makes up 5% of the portfolio but those investments represent 2.3% of the pixels.](image/3d_graphs_suck.jpg). 
 
 [Ted ED: How to spot a misleading graph - Lea Gaslowitz](https://youtu.be/E91bGT9BjYk)
+
 [Business Insider: The Worst Graphs Ever](https://www.businessinsider.com/the-27-worst-charts-of-all-time-2013-6)
 
 Extra dimensions and other annotations are sometimes called "chartjunk" and should only be used if they contribute to the overall numerical accuracy of the chart (e.g. they should not just be for decoration). 
@@ -1738,7 +1754,7 @@ We do experiments on people (*evil cackle*)! No, seriously, we do. See [this pap
 
 If you're still curious after reading those, set up an appointment and let's talk!. 
 
-## Other things worth exploring
+## Other things worth exploring (and future expansions for this chapter)
 
 ![The patchwork package lets you arrange ggplots (image by Allison Horst)](https://github.com/allisonhorst/stats-illustrations/raw/master/rstats-artwork/patchwork_1.jpg)
 
