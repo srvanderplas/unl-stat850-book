@@ -381,6 +381,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="10.3" data-path="docs-reports.html"><a href="docs-reports.html#slides"><i class="fa fa-check"></i><b>10.3</b> Slides</a><ul>
 <li class="chapter" data-level="10.3.1" data-path="docs-reports.html"><a href="docs-reports.html#beamer-latex-and-knitr"><i class="fa fa-check"></i><b>10.3.1</b> Beamer (LaTeX) and knitr</a></li>
 <li class="chapter" data-level="10.3.2" data-path="docs-reports.html"><a href="docs-reports.html#html-slides"><i class="fa fa-check"></i><b>10.3.2</b> HTML slides</a></li>
+<li class="chapter" data-level="" data-path="intro-prog.html"><a href="intro-prog.html#try-it-out-2"><i class="fa fa-check"></i>Try it out</a></li>
 </ul></li>
 <li class="chapter" data-level="10.4" data-path="docs-reports.html"><a href="docs-reports.html#posters"><i class="fa fa-check"></i><b>10.4</b> Posters</a><ul>
 <li class="chapter" data-level="10.4.1" data-path="tools.html"><a href="tools.html#latex"><i class="fa fa-check"></i><b>10.4.1</b> LaTeX</a></li>
@@ -579,11 +580,12 @@ You can see the compiled pdf <a href="other/test.pdf">here</a>.
 <li><a href="https://bookdown.org/yihui/rmarkdown/xaringan.html">xaringan</a> <a href="https://slides.yihui.org/xaringan/#1">Example presentation</a>, <a href="http://srvanderplas.github.io/Presentations/2020-DSSV/index.html#1">Example presentation 2 using UNL CSS theme</a></li>
 <li><a href="https://bookdown.org/yihui/rmarkdown/revealjs.html">reveal.js</a> <a href="https://github.com/rstudio/ShinyDeveloperConference/tree/master/Reactivity">Example presentation</a></li>
 </ul>
-<div class="tryitout">
-<p>Take a few minutes and try each of them out to see what feels right to you.</p>
-</div>
 <p>If you’re familiar with CSS (or happier tinkering to get the look of something exactly right) then <code>xaringan</code> is an excellent full-featured option.</p>
 <p>A nice feature of reveal.js presentations (my favorite option before <code>xaringan</code>) is support for 2D slide layouts, so you can have multiple sections in your presentation, and move vertically through each section, or horizontally between sections. That is useful for presentations where you may not plan on covering everything, but where you want to have all of the information available if necessary. I relied heavily on that during my PhD prelim and defense.</p>
+</div>
+<div id="try-it-out-2" class="section level3 unnumbered tryitout">
+<h3>Try it out</h3>
+<p>Take a few minutes and try each of them out to see what feels right to you. Each one has a slightly different “flavor” of Rmarkdown, so read through the example to get a sense for what is different.</p>
 </div>
 </div>
 <div id="posters" class="section level2">
@@ -594,7 +596,7 @@ You can see the compiled pdf <a href="other/test.pdf">here</a>.
 <p><a href="https://www.overleaf.com/gallery/tagged/poster">Overleaf has a fantastic gallery of posters made in LaTeX</a>.</p>
 <p>There are several LaTeX options for making scientific posters: baposter, beamerposter, tikzposter are among the most common. We’ll focus on <code>beamerposter</code> here, but you are free to explore the other poster classes at will. As with beamer, you can easily integrate knitr code chunks into a document, so that you are generating your images reproducibly.</p>
 <p>Basic code for a poster in beamer (along with the necessary style files) that I’ve minimally customized to meet UNL branding requirements can be found <a href="other/beamer_poster/beamer_poster.zip">here</a>.</p>
-<div id="try-it-out-2" class="section level4 unnumbered tryitout">
+<div id="try-it-out-3" class="section level4 unnumbered tryitout">
 <h4>Try it out</h4>
 <p>Download the beamer template and do the following:</p>
 <ol style="list-style-type: decimal">
@@ -612,13 +614,13 @@ You can see the compiled pdf <a href="other/test.pdf">here</a>.
 <p class="caption">Use the RStudio menu to create a posterdown presentation file – with a prefilled template</p>
 </div>
 <p>I have provided an example posterdown theme <a href="other/posterdown/posterdown.zip">here</a>. You can also find the additional customization options <a href="https://github.com/brentthorne/posterdown/wiki/posterdown_html">here</a>. As with other markdown items, you can customize things even more using CSS. The nice thing about HTML posters, though, is that you can directly <a href="other/posterdown/index.html">link to them</a>.</p>
-<p>You can also print a poster to PDF by running the following command: <code>pagedown::chrome_print(&quot;myfile.Rmd&quot;)</code>. See the <a href="other/pagedown/index.pdf">pdf version of my customized UNL-themed poster</a>.</p>
+<p>You can also print a poster to PDF by running the following command: <code>pagedown::chrome_print(&quot;myfile.Rmd&quot;)</code>. See the <a href="other/posterdown/index.pdf">pdf version of my customized UNL-themed poster</a>.</p>
 </div>
 <div id="pagedown" class="section level3">
 <h3><span class="header-section-number">10.4.3</span> Pagedown</h3>
 <p>The <code>pagedown</code> package also has a couple of poster templates, including <a href="https://pagedown.rbind.io/poster-relaxed">poster-relaxed</a> and <a href="https://user-images.githubusercontent.com/163582/49780277-7b326780-fcd3-11e8-9eb6-69e46292158c.png">poster-jacobs</a>.</p>
 <p>There are also templates for letters, business cards, and more in pagedown, if you’re feeling ambitious.</p>
-<div id="try-it-out-3" class="section level4 unnumbered tryitout">
+<div id="try-it-out-4" class="section level4 unnumbered tryitout">
 <h4>Try it out</h4>
 <p>Download the pagedown template and do the following:</p>
 <ol style="list-style-type: decimal">

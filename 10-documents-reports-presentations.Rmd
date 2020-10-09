@@ -209,7 +209,7 @@ To start, install posterdown with `install.packages("posterdown")`.
 
 I have provided an example posterdown theme [here](other/posterdown/posterdown.zip). You can also find the additional customization options [here](https://github.com/brentthorne/posterdown/wiki/posterdown_html). As with other markdown items, you can customize things even more using CSS. The nice thing about HTML posters, though, is that you can directly [link to them](other/posterdown/index.html). 
 
-You can also print a poster to PDF by running the following command: `pagedown::chrome_print("myfile.Rmd")`. See the [pdf version of my customized UNL-themed poster](other/pagedown/index.pdf). 
+You can also print a poster to PDF by running the following command: `pagedown::chrome_print("myfile.Rmd")`. See the [pdf version of my customized UNL-themed poster](other/posterdown/index.pdf). 
 
 ### Pagedown
 

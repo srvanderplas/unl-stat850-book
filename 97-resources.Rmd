@@ -13,4 +13,10 @@ file.remove(list.files(".", ".png"))
 
 # Copy image/ files to docs/image
 file.copy(list.files("image/", ".(png|svg|jpg)$", full.names = T), to = "docs/image/", overwrite = T)
+
+# Copy other files to docs/other
+other_files <- list.files("other/", full.names = T)
+other_files <- other_files[file.size(other_files) < 1024*1024*5]
+
+file.copy(other_files, to = "docs/other/", overwrite = T)
 ```
