@@ -244,7 +244,8 @@ Other reasons to learn factors besides for debugging purposes:
 <details><summary>Factors example</summary>
 
 ::: note
-In this example, we'll use a data.frame, which you can think of as a spreadsheet-type table. We'll work with data frames later in much more detail, but for now, I'm mostly trying to show you a real-life situation that happens ALL the time, with the hopes that you'll recognize the error when/if you encounter it. The data frame isn't the important part. :::
+In this example, we'll use a data.frame, which you can think of as a spreadsheet-type table. We'll work with data frames later in much more detail, but for now, I'm mostly trying to show you a real-life situation that happens ALL the time, with the hopes that you'll recognize the error when/if you encounter it. The data frame isn't the important part.
+:::
 
 Let's look at the names of the months:
 ```{r}
@@ -263,12 +264,11 @@ str(df)
 
 Notice that as soon as we make that data.frame, the months are converted into a factor variable? The other big problem is that the order of the factor levels is ... not what we'd normally want. We don't want alphabetical ordering of month names - they have a different, implicit, and natural order.
 
-<details><summary>We could get this same behavior without the data.frame, but this is where it shows up most often</summary>
+We could get this same behavior without the data.frame, but this is where it shows up most often.
 
 ```{r}
 month_fct <- factor(month.name) # the order is still not exactly what we'd want it to be
 ```
-</details>
 
 To fix this, we can explicitly specify that we're dealing with a factor, and what we want the levels to be. If you specify the levels manually (instead of letting R do the work for you) then you get to determine the order. 
 ```{r}
@@ -346,7 +346,7 @@ TRUE + TRUE
 ```
 
 In R, adding a string to a string creates an error ("non-numeric argument to binary operator"). Adding a logical to a logical, e.g. TRUE + TRUE, results in `r TRUE + TRUE`, which is a numeric value.
-</summary>
+</details>
 
 ### SAS
 
@@ -724,12 +724,11 @@ state_facts$state[which.min(state_facts$PopDensity)]
 
 If at this point you're bored because you've seen this material before, keep reading to find out about tibbles, list columns and other ways to make data frames even more powerful. 
 
-<details>
-<summary>Tibbles</summary>
+::: learn-more
 A tibble is a fancy data frame that is optimized to work with the `tidyverse`, which is a collection of R packages that make data wrangling (getting the data clean and ready for analysis) easier. 
 
-[You can read about tibbles [here](https://r4ds.had.co.nz/tibbles.html).]{.learn-more}
-</details>
+You can read about tibbles [here](https://r4ds.had.co.nz/tibbles.html).
+:::
 
 <details>
 <summary>You like data frames? Lists? Let's put some lists inside a data frame! (All about list columns)</summary>
@@ -743,6 +742,8 @@ A list is just another object that could be stored in a data frame! It is a "gen
 
 ::: learn-more
 You can see a couple of examples [here](https://jennybc.github.io/purrr-tutorial/ls13_list-columns.html) (but they assume that you know things that you'll only learn in a few modules). 
+
+It is worth coming back to this link later in the book. I will try to remind you.
 :::
 
 </details>
@@ -827,8 +828,7 @@ Both R and SAS are 1-indexed languages, so the elements of a list or vector are 
 
 As R has logical vectors, it is possible to index a vector using a logical vector of the same length.
 
-<div class="tryitout">
-##### Try it out {-}
+##### Try it out {- .tryitout}
 (From project Euler)
 
 If we list all the natural numbers below 10 that are multiples of 3 or 5,
@@ -877,8 +877,7 @@ run;
 
 Note on the SAS code: where statements allow you to select part of the data for further processing. There was a note earlier about the fact that type conversion doesn't happen in where clauses... this is one of those clauses. We'll get into where clauses in more detail later, in module 5. 
 </details>
-</div>
-</div>
+
 
 Most complicated structures in R are actually lists underneath. You should be able to access any of the pieces of a list using a combination of named references and indexing. 
 
@@ -1110,8 +1109,7 @@ Now things work the way we expected them to work.
 
 There are more complicated if-statement like control structures, such as switch statements, which can save time and typing. In the interests of simplicity, we will skip these for now, as any conditional can be implemented with sequences of if statements in the proper order. If you would like to read about switch statements, here are links to [SAS case statement documentation](https://documentation.sas.com/?docsetId=sqlproc&docsetTarget=n0a85s0ijz65irn1h3jtariooea5.htm&docsetVersion=9.4&locale=en) and [base R switch statement explanation](https://www.tutorialgateway.org/r-switch-statement/) and [documentation](https://www.rdocumentation.org/packages/base/versions/3.6.2/topics/switch).
 
-<div class="tryitout">
-##### Try it out {-}
+##### Try it out {- .tryitout}
 The `sample()` function selects a random sample of entries from a vector. Suppose we sample a random vector $x$ with 10 entries. Write one or more if statements to fulfill the following conditions
 
 - if $x$ is divisible by 2, $y$ should be positive; otherwise, it should be negative.
@@ -1221,7 +1219,6 @@ run;
 
 See [this](https://www.oreilly.com/library/view/sas-certification-prep/9781607649243/p12osnn9d1s4hgn12yf8ffocxhw7.htm) to understand how the print statement works and how to add column summary values. 
 </details>
-</div>
 
 ### Loops
 Often, we need to do a single task many times - for instance, we may need to calculate the average data value for each week, using daily data. Rather than typing out 52 different iterations of the same code, it is likely easier to type out one single block of code which contains the steps necessary to complete one instance of the task, and then leverage variables to ensure that each task is completed the correct number of times, using the correct inputs.

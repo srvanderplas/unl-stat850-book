@@ -207,7 +207,7 @@ While writing this code, I got an error of "Invalid logical name" because origin
 Due to UTF-8 issues, this code chunk runs (with complaints) when I paste it into SAS, but does not run in bookdown. The complaints are because there are column names that are not valid SAS names (presumably, SAS doesn't allow UTF-8 characters as column names).
 :::
 
-```{sashtml,error=T}
+````
 /* x "curl https://raw.githubusercontent.com/shahinrostami/pokemon_dataset/master/pokemon_gen_1_to_8.csv > data/pokemon.csv";
 only run this once to download the file... */
 filename pokeloc 'data/pokemon.csv' encoding="utf-8";
@@ -219,7 +219,7 @@ proc import datafile = pokeloc out=poke
   ;
 proc print data=poke (obs=10); /* print the first 10 observations */
   run;
-```
+````
 
 The only abnormal thing is that on my computer, the japanese characters don't render.
 [Here is the output from SAS running the above code interactively](other/04Pokemon_output.html)

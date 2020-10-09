@@ -2277,3 +2277,10 @@ Other references
 - [R graph gallery](https://www.r-graph-gallery.com/)
 
 - [Videos of analysis of new data from Tidy Tuesday](https://www.youtube.com/playlist?list=PL19ev-r1GBwkuyiwnxoHTRC8TTqP8OEi8) - may include use of other packages, but almost definitely includes use of tidyr/dplyr as well. 
+
+
+::: learn-more
+Way back in Module 2, I briefly mentioned list-columns in tibbles. At the time, you didn't have enough R knowledge to use that information, but now you do!! 
+
+You can see a couple of examples [here](https://jennybc.github.io/purrr-tutorial/ls13_list-columns.html) (but they assume that you know things that you'll only learn in a few modules). 
+:::
