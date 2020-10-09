@@ -171,13 +171,15 @@ Rather than repeat the documentation for each slide package in this document, I 
 - [xaringan](https://bookdown.org/yihui/rmarkdown/xaringan.html) [Example presentation](https://slides.yihui.org/xaringan/#1), [Example presentation 2 using UNL CSS theme](http://srvanderplas.github.io/Presentations/2020-DSSV/index.html#1)
 - [reveal.js](https://bookdown.org/yihui/rmarkdown/revealjs.html) [Example presentation](https://github.com/rstudio/ShinyDeveloperConference/tree/master/Reactivity)
 
-::: tryitout
-Take a few minutes and try each of them out to see what feels right to you.
-:::
+
 
 If you're familiar with CSS (or happier tinkering to get the look of something exactly right) then `xaringan` is an excellent full-featured option. 
 
 A nice feature of reveal.js presentations (my favorite option before `xaringan`) is support for 2D slide layouts, so you can have multiple sections in your presentation, and move vertically through each section, or horizontally between sections. That is useful for presentations where you may not plan on covering everything, but where you want to have all of the information available if necessary. I relied heavily on that during my PhD prelim and defense. 
+
+### Try it out {- .tryitout}
+Take a few minutes and try each of them out to see what feels right to you. Each one has a slightly different "flavor" of Rmarkdown, so read through the example to get a sense for what is different.
+
 
 ## Posters
 
