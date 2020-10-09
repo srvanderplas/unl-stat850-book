@@ -16,38 +16,41 @@ pre code {
 .tryitout {
   border:2px solid #378b2e;
   padding:10px;
+  min-width:100%;
+  min-height:2em;
 }
 
 .tryitout h3:before,.tryitout h4:before,.tryitout h5:before,.tryitout h6:before{
   font-size:1.5em;
   font-family: 'FontAwesome';
-  content: "\f0c3";
+  content: "\f0c3\00a0\00a0";
   color: #378b2e;
-  float:left;
   font-weight: bold;
-  padding: 2;
 }
 
 .tryitout h3, .tryitout h4, .tryitout h5, .tryitout h6 {
+  margin:0 0 .25em 0;
   color: #378b2e;
 }
 
-.watchout {
-  background-image:url(image/warning.svg);
+.watchout,.learn-more,.note,.my-opinion {
+  background-origin:border-box;
   background-repeat: no-repeat;
   background-size:10% auto;
   padding:5px 5px 5px 11%;
+  min-width:100%;
+  min-height:3em;
+}
+
+.watchout {
+  background-origin:padding-box;
+  background-image:url(image/warning.svg);
   border:2px solid #a7383d;
-  padding:10px;
 }
 
 .learn-more{
   background-image:url(image/learnmore.svg);
-  background-repeat: no-repeat;
-  background-size:10% auto;
-  padding:5px 5px 5px 11%;
   border:2px solid #074600;
-  padding:10px;
 }
 
 .example{
@@ -57,26 +60,12 @@ pre code {
 
 .note {
   background-image:url(image/notethat.svg);
-  background-repeat: no-repeat;
-  background-size:10% auto;
-  padding:5px 5px 5px 11%;
   color:#12073b;
   border:2px solid #12073b;
 }
 
-.note :before:first-child {
-
-  color: #12073b;
-  float:left;
-  font-weight: bold;
-  padding: 2;
-}
-
-
 .my-opinion{
   background-image:url(image/comment.svg);
-  background-repeat: no-repeat;
-  background-size:10% auto;
   padding:5px 5px 5px 11%;
   border:1px solid #3f3075;
   color: #3f3075;
@@ -89,7 +78,7 @@ summary::-webkit-details-marker {
 summary:before {
   font-family: 'FontAwesome';
   content: "\f05a\00a0\00a0";
-  color: lime;
+  color: #226765;
   font-size: 1em;
   font-weight: bold;
   width: 20px;
