@@ -146,6 +146,9 @@ college <- read_csv("data/College_Data_Abbrev.csv", guess_max = 5000, na = '.')
 str(college)
 ```
 
+```{sashtml sas-college-read-data-setup, include = F, collectcode=T}
+ODS HTML style=HTMLBLUE;
+```
 ```{sashtml sas-college-read-data, fig.path = "image/"}
 libname classdat "sas/";
 
@@ -193,7 +196,7 @@ In SAS, we use `find(x, pattern, 't')` to find the location of the pattern, whic
 
 Note that SAS pads character fields with spaces so that they are all the same length. So if we want to test for "Alabama    " we could omit the 't' option in the command, but since we usually don't want that, we need to tell SAS to trim the fields before searching for the pattern. 
 
-```{sashtml sas-college-find, fig.path = "image/"}
+```{sashtml sas-college-find}
 libname classdat "sas/";
 
 DATA collegetmp;
@@ -243,7 +246,10 @@ unnest(tmp) %>%
 In SAS, this is a bit more tricky. Most people I know that use both SAS and R will do the data cleaning in R once things get complicated, and then read the clean data in to SAS. That's a valid approach, but it's worth seeing what has to be done in SAS this once. As we get further into this class, I'll probably be more willing to say "we're just going to use R for this" for two reasons - 1. I know R better, and 2. R is generally better at handling the weird stuff; SAS is built to quickly handle things that are already formatted in a reasonable way. SAS seems to be highly preferred for e.g. fitting mixed/linear models, but it isn't the easiest tool to use for data cleaning. 
 
 But, in this particular case, there is [documentation about how to break a sentence into words](https://blogs.sas.com/content/iml/2016/07/11/break-sentence-into-words-sas.html) in SAS. 
-```{sashtml sas-college-split-string-words, fig.path = "image/"}
+```{sashtml sas-college-split-string-words-setup, collectcode=T,include = F, fig.path = "image/"}
+ODS HTML style=HTMLblue;
+```
+```{sashtml sas-college-split-string-words, fig.path = "image/", collectcode=T}
 libname classdat "sas/";
 DATA collegename;
 SET classdat.college;
@@ -1240,7 +1246,10 @@ filter(who_disease_long, Country == "Bangladesh", Disease == "measles") %>%
 </details>
 
 <details><summary>SAS solution</summary>
-```{sashtml, fig.path = "image/"}
+```{sashtml, fig.path = "image/", collectcode=T,include = F}
+ODS HTML style=HTMLblue;
+```
+```{sashtml measles-bangladesh-sas, fig.path = "image/", collectcode=T}
 libname classdat "sas/";
 
 filename fileloc 'data/who_disease_incidence.csv';
@@ -1430,7 +1439,10 @@ who_disease_wide %>%
 </details>
 
 <details><summary>SAS solution</summary>
-```{sashtml, fig.path = "image/"}
+```{sashtml, fig.path = "image/", collectcode=T,include = F}
+ODS HTML style=HTMLblue;
+```
+```{sashtml polio-sas, fig.path = "image/", collectcode=T}
 libname classdat "sas/";
 
 PROC SORT DATA = classdat.disease_long OUT = dis_long;
@@ -1455,7 +1467,7 @@ SERIES X = year Y = polio /
   GROUP = Cname
   /* Give the color mapping a name so you can modify its legend */
   name = "a"
-  /* Make lines thicker so they're visible */
+  /* Make lines thicker so they are visible */
   lineattrs=(thickness = 3);
 /* Change the legend title and what it is showing (line color) */
 KEYLEGEND "a" / title = "Country" type = linecolor;
@@ -1670,7 +1682,7 @@ In SAS, you can do joins using a data step or PROC SQL. To do a join with data s
 [This guide shows the syntax for PROC SQL and DATA step joins side-by-side.](https://support.sas.com/resources/papers/proceedings/pdfs/sgf2008/178-2008.pdf)
 
 <details><summary>PROC SQL Mutating joins</summary>
-```{sashtml, fig.path = "image/"}
+```{sashtml}
 data t1;
 input x $ y;
 datalines;
@@ -1742,7 +1754,7 @@ title;
 </details>
 
 <details><summary>Data Step Mutating joins</summary>
-```{sashtml, fig.path = "image/"}
+```{sashtml}
 data t1;
 input x $ y;
 datalines;
@@ -1824,7 +1836,7 @@ It doesn't look like there's much of a relationship to me. If anything, older pl
 </details>
 
 <details><summary>In SAS</summary>
-```{sashtml flights-delay-age-sas-prep, collectcode=T, fig.path = "image/"}
+```{sashtml flights-delay-age-sas-prep, collectcode=T}
 libname nycair odbc complete = "dsn=nycflight; Database=data/nycflights13.sqlite";
 
 PROC SQL;
@@ -1837,7 +1849,7 @@ SELECT tailnum, dep_delay, arr_delay, air_time, distance, hour, carrier, origin
 FROM nycair.flights;
 ```
 Now that the prep work is done, we can get on with answering the question.
-```{sashtml flights-delay-age-sas-res, collectcode=T, fig.path = "image/"}
+```{sashtml flights-delay-age-sas-res, collectcode=T}
 
 PROC SQL;
 CREATE TABLE agedelay AS
@@ -1863,6 +1875,9 @@ ID _STAT_;
 RUN;
 ```
 In theory, we could use some sort of linear model, but lets start with a simple plot of age * average delay and see where that takes us. 
+```{sashtml flights-delay-age-sas-plot1-setup, include = F, collectcode=T}
+ODS HTML style=HTMLBLUE;
+```
 ```{sashtml flights-delay-age-sas-plot1, collectcode=T, fig.path = "image/"}
 PROC SGPANEL DATA = agemeanst;
 PANELBY VAR;
@@ -1871,6 +1886,9 @@ RUN;
 ```
 I started wondering about that pattern - to me, it doesn't look like there's any particular trend so much as there's just low - high - low clusters. So I decided to plot frequency as well, and, lo and behold, the frequency count is similarly distributed. So my current working hypothesis is that there are a lot more observations in the middle group of planes that are 5-15 years old.
 
+```{sashtml flights-delay-age-sas-plot2-setup, include = F, collectcode=T}
+ODS HTML style=HTMLBLUE;
+```
 ```{sashtml flights-delay-age-sas-plot2, collectcode=T, fig.path = "image/"}
 
 PROC SGPLOT DATA = agemeanst;
@@ -2259,3 +2277,10 @@ Other references
 - [R graph gallery](https://www.r-graph-gallery.com/)
 
 - [Videos of analysis of new data from Tidy Tuesday](https://www.youtube.com/playlist?list=PL19ev-r1GBwkuyiwnxoHTRC8TTqP8OEi8) - may include use of other packages, but almost definitely includes use of tidyr/dplyr as well. 
+
+
+::: learn-more
+Way back in Module 2, I briefly mentioned list-columns in tibbles. At the time, you didn't have enough R knowledge to use that information, but now you do!! 
+
+You can see a couple of examples [here](https://jennybc.github.io/purrr-tutorial/ls13_list-columns.html) (but they assume that you know things that you'll only learn in a few modules). 
+:::

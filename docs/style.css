@@ -13,45 +13,102 @@ pre code {
   white-space: inherit;
 }
 
-
-.note {
-  font-style:italic;
-  color:purple;
-  border:2px solid purple;
-  padding:2px;
-}
-
 .tryitout {
-  border:2px solid green;
+  border:2px solid #378b2e;
   padding:10px;
+  min-width:100%;
+  min-height:2em;
 }
+
+.tryitout h3:before,.tryitout h4:before,.tryitout h5:before,.tryitout h6:before{
+  font-size:1.5em;
+  font-family: 'FontAwesome';
+  content: "\f0c3\00a0\00a0";
+  color: #378b2e;
+  font-weight: bold;
+}
+
 .tryitout h3, .tryitout h4, .tryitout h5, .tryitout h6 {
-  color: green;
+  margin:0 0 .25em 0;
+  color: #378b2e;
+}
+
+.watchout,.learn-more,.note,.my-opinion {
+  background-origin:border-box;
+  background-repeat: no-repeat;
+  background-size:10% auto;
+  padding:5px 5px 5px 11%;
+  min-width:100%;
+  min-height:3em;
 }
 
 .watchout {
-  border:2px solid orange;
-  padding:10px;
-}
-.watchout h3, .watchout h4, .watchout h5, .watchout h6 {
-  color: orange;
+  background-origin:padding-box;
+  background-image:url(image/warning.svg);
+  border:2px solid #a7383d;
 }
 
 .learn-more{
-  border:2px solid lime;
-  padding:10px;
-
+  background-image:url(image/learnmore.svg);
+  border:2px solid #074600;
 }
 
 .example{
-  border:2px solid blue;
+  border:2px solid #aa9539;
   padding:10px;
 }
 
+.note {
+  background-image:url(image/notethat.svg);
+  color:#12073b;
+  border:2px solid #12073b;
+}
+
 .my-opinion{
-  border:1px solid deepskyblue;
-  padding:5px;
-  text-color: deepskyblue;
+  background-image:url(image/comment.svg);
+  padding:5px 5px 5px 11%;
+  border:1px solid #3f3075;
+  color: #3f3075;
+}
+
+summary::-webkit-details-marker {
+  display: none
+}
+
+summary:before {
+  font-family: 'FontAwesome';
+  content: "\f05a\00a0\00a0";
+  color: #226765;
+  font-size: 1em;
+  font-weight: bold;
+  width: 20px;
+  white-space: pre;
+  word-wrap: break-word;
+}
+
+details[open] summary:before {
+  font-family: 'FontAwesome';
+  content: "\f057\00a0\00a0";
+}
+
+details[open] {
+  border:2px;
+  background: #fcfcfc;
+}
+
+details:before {
+  content: " ";
+  padding-top:2em;
+}
+
+details:after {
+  content: " ";
+  padding-bottom:2em;
+}
+
+details img {
+  margin-left:auto;
+  margin-right:auto;
 }
 
 

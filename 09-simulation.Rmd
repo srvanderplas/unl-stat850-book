@@ -171,12 +171,12 @@ You want to assess the coverage probability of a confidence interval computed un
 
 Under scenario 1, our theoretical interval should be exp((-1.96/5, 1.96/5)) (because $\mu$ is 0, and $\sigma$ is 1, so $SE(\overline x) = 1/\sqrt{25} = 1/5$). $(`r exp(-1.96/5)`,`r exp(1.96/5)`)$
 
-Under scenario 2, the expected value of the lognormal distribution is $\exp(1/2) = `r exp(.5)`$, the variance is $(\exp(1) - 1)(\exp(1)) = `r (exp(1) - 1)*exp(1)`$ and our theoretical interval should be $(`r exp(.5) - 1.96*sqrt((exp(1) - 1)*exp(1))/5`, `r exp(.5) + 1.96*sqrt((exp(1) - 1)*exp(1))/5`)$. Note that this interval contains 0, which is implausible for lognormally distributed data. 
+Under scenario 2, the expected value of the lognormal distribution is $\exp(1/2) = `r exp(.5)`$, the variance is $(\exp(1) - 1)(\exp(1)) = `r (exp(1) - 1)*exp(1)`$ and our theoretical interval should be $(`r exp(.5) - 1.96*sqrt((exp(1) - 1)*exp(1))/5`, `r exp(.5) + 1.96*sqrt((exp(1) - 1)*exp(1))/5`)$. This interval contains 0, which is implausible for lognormally distributed data. 
 
-Note that our expected values are different under scenario 1 and scenario 2: in scenario 1 we are computing an interval for $\mu$, in scenario 2, we are computing an interval for the population mean, which is $\exp(\mu + .5\sigma^2)$. Both are valid quantities we might be interested in, but they do not mean the same thing. 
+Our expected values are different under scenario 1 and scenario 2: in scenario 1 we are computing an interval for $\mu$, in scenario 2, we are computing an interval for the population mean, which is $\exp(\mu + .5\sigma^2)$. Both are valid quantities we might be interested in, but they do not mean the same thing. 
 
 ::: note
-Note that the `purrr::map` notation specifies that we're using the `map` function from the `purrr` package. When functions are named generically, and there may be more than one package with a function name, it is often more readable to specify the package name along with the function.
+The `purrr::map` notation specifies that we're using the `map` function from the `purrr` package. When functions are named generically, and there may be more than one package with a function name, it is often more readable to specify the package name along with the function.
 
 `purrr::map` takes an argument and for each "group" calls the compute_interval function, storing the results in `res`. So each row in `res` is a 1x2 tibble with columns lb and ub.
 
@@ -388,7 +388,7 @@ The expected number of uniform RV draws required to sum to 1 is $e$!
 [Explanation of why this works](https://www.jstor.org/stable/2685243)
 </details>
 
-Monte Carlo methods are often used to approximate the value of integrals which do not have a closed-form (in particular, these integrals tend to pop up frequently in Bayesian methods). Suppose you want to integrate $$\int_0^1 e^{-x^3}dx$$. 
+Monte Carlo methods are often used to approximate the value of integrals which do not have a closed-form (in particular, these integrals tend to pop up frequently in Bayesian methods). Suppose you want to integrate $$\int_0^1 e^{-x^3}dx$$
 
 You could set up Riemann integration and evaluate the integral using a sum over $K$ points, but that approach only converges for smooth functions (and besides, that's boring calc 2 stuff, right?). 
 
@@ -434,7 +434,7 @@ Buffon's needle is a mathematical problem which can be boiled down to a simple p
 
 <details><summary>Solution</summary>
 
-Let's start out with horizontal lines at 0 and 1, and set our stick length to 1. We need to randomly generate a position (of one end of the stick) and an angle. Note that the position in $x$ doesn't actually make much of a difference (since what we care about is the $y$ coordinates), but we can draw a picture if we generate $x$ as well. 
+Let's start out with horizontal lines at 0 and 1, and set our stick length to 1. We need to randomly generate a position (of one end of the stick) and an angle. The position in $x$ doesn't actually make much of a difference (since what we care about is the $y$ coordinates), but we can draw a picture if we generate $x$ as well. 
 
 ```{r}
 needle_sim <- function(sticks = 100) {

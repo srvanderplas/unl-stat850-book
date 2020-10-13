@@ -635,7 +635,7 @@ You should format your question to make it as easy as possible to help you. Make
 
 ### Example: MWEs {.example}
 
-You haven't gotten to module 8 yet, but at one point I had issues with SAS graphs rendering in black and white most of the time. (By the time you get there, I may still be having that issue, but it's applicable now). 
+You haven't gotten to module 8 yet, but at one point I had issues with SAS graphs rendering in black and white most of the time. 
 
 I started debugging the issue with the following code chunk: 
 
@@ -713,6 +713,10 @@ I pasted my example into the issues page, and then included some additional info
 5. An additional line of R code that would delete any files created if someone ran my example. Because file clutter sucks.
 
 This process took me about 45 minutes, but that was still much shorter than the time I'd spent rerunning code trying to get it to work with no success. 
+
+In less than 24 hours, the package maintainer responded with a (admittedly terse) explanation of what he thought caused the problem. I had to do some additional research to figure out what that meant, but once I had my reproducible example working in color, I posted that code (so that anyone else with the same problem would know what to do).
+
+Then, I had to tinker with the book a bit to figure out if there were easier ways to get the same result. Hopefully, at this point, all of the SAS graphs are now in full color, as modern graphics intended. 
 
 ### Try It Out {.tryitout}
 
