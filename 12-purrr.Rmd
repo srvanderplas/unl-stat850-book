@@ -1,5 +1,184 @@
 # Lists, Nested Lists, and Functional Programming
 
+## Review: Lists and Vectors
+
+A **vector** is a 1-dimensional R data structure that contains items of the same simple ('atomic') type (character, logical, integer, factor). 
+
+```{r}
+(logical_vec <- c(T, F, T, T))
+(numeric_vec <- c(3, 1, 4, 5))
+(char_vec <- c("A", "AB", "ABC", "ABCD"))
+```
+
+You **index** a vector using brackets: to get the 3rd element of the vector `x`, you would use `x[3]`.
+```{r}
+logical_vec[3]
+numeric_vec[3]
+char_vec[3]
+```
+
+You can also index a vector using a logical vector:
+```{r}
+numeric_vec[logical_vec]
+char_vec[logical_vec]
+logical_vec[logical_vec]
+```
+
+
+A **list** is a 1-dimensional R data structure that has no restrictions on what type of content is stored within it. 
+
+```{r}
+(mylist <- list(logical_vec, numeric_vec, third_thing = char_vec[1:2]))
+```
+
+A list is a vector, but it is not an atomic vector - that is, it does not necessarily contain things that are all the same type. List components may have names (or not), be homogeneous (or not), have the same length (or not). 
+
+There are 3 ways to index a list:
+
+- With single square brackets, just like we index atomic vectors. In this case, the return value is always a list.
+
+```{r}
+mylist[1]
+
+mylist[2]
+
+mylist[c(T, F, T)]
+```
+- With double square brackets. In this case, the return value is the thing inside the specified position in the list, but you also can only get one entry in the main list at a time. You can also get things by name.
+
+```{r}
+mylist[[1]]
+
+mylist[["third_thing"]]
+```
+- Using `x$name`. This is equivalent to using `x[["name"]]`. Note that this does not work on unnamed entries in the list.
+
+```{r}
+mylist$third_thing
+```
+
+::: learn-more
+You can get a more thorough review of vectors and lists [from Jenny Bryan's purrr tutorial](https://jennybc.github.io/purrr-tutorial/bk00_vectors-and-lists.html).
+:::
+
+Operations in R are **vectorized** - that is, by default, they operate on vectors. This is primarily a feature that applies to atomic vectors (and we don't even think about it): 
+
+```{r}
+(rnorm(10) + rnorm(10, mean = 3))
+```
+
+We didn't have to use a for loop to add these two vectors with 10 entries each together. In python (and SAS, and other languages), this might instead look like:
+
+```{r}
+a <- rnorm(10)
+b <- rnorm(10, mean = 3)
+result <- rep(0, 10)
+for(i in 1:10) {
+  result[i] <- a[i] + b[i]
+}
+result
+```
+
+That is, we would apply or map the + function to each entry of a and b. For atomic vectors, it's easy to do this by default; with a list, however, we need to be a bit more explicit (because everything that's passed into the function may not be the same type). 
+
+This logic is the basis behind the purrr package (and similar base functions `apply`, `lapply`, `sapply`, `tapply`, and `mapply` - I find the purrr package easier to work with, but you may use the base package versions if you want, and you can find a [side-by-side comparison in the purrr tutorial](https://jennybc.github.io/purrr-tutorial/bk01_base-functions.html)). 
+
+
+## Introduction to `map`
+
+```{r purrr-pkg-load}
+library(tidyverse)
+library(purrr) # list functions
+library(repurrrsive) # examples
+```
+
+We'll use one of the datasets in `repurrsive`, `got_chars`, to start playing with the `map_` series of functions.
+```{r}
+data(got_chars)
+length(got_chars)
+got_chars[[1]]
+```
+
+It appears that each entry in this 30-item list is a character from Game of Thrones, and there are several sub-fields for each character.
+
+What characters do we have?
+
+We can use `purrr::map(x, "name")` to get a list of all characters' names. Since they are all the same type, we could also use an extension of `map`, `map_chr`, which will coerce the returned list into a character vector (which may be simpler to operate on). 
+
+::: note
+There are several packages with map() functions including functions that are meant to actually plot maps; it generally saves time and effort to just type the function name with the package you want; you don't *have* to do so, but if you have a lot of other (non tidyverse, in particular) packages loaded, it will save you a lot of grief.
+:::
+
+```{r}
+purrr::map(got_chars, "name")
+purrr::map_chr(got_chars, "name")
+```
+
+Similar shortcuts work to get the nth item in each sub list:
+```{r}
+purrr::map_chr(got_chars, 4)
+```
+Specifying the output type using e.g. `map_chr` works if each item in the list is an atomic vector of length 1. If the list is more complicated, though, these shortcuts will issue an error:
+
+```{r, error = T}
+purrr::map(got_chars, "books")
+purrr::map_chr(got_chars, "books")
+```
+
+What if we want to extract several things? This trick works off of the idea that `[` is a function: that is, the single brackets we used before are actually a special type of function. In R functions, there is often the argument `...`, which is a convention that allows us to pass arguments to other functions that are called within the main function we are using (you'll see ... used in plotting and regression functions frequently as well). 
+
+Here, we use `...` to pass in our list of 3 things we want to pull from each item in the list.
+
+```{r}
+purrr::map(got_chars, `[`, c("name", "gender", "born"))
+```
+
+If this is ugly syntax to you, that's fine - the `magrittr` package also includes an `extract` function that works the same way.
+
+```{r}
+purrr::map(got_chars, magrittr::extract, c("name", "gender", "born"))
+```
+
+What if we want this to be a data frame instead? We can use `map_dfr` to get a data frame that is formed by row-binding each element in the list. 
+
+```{r}
+purrr::map_dfr(got_chars, `[`, c("name", "gender", "born")) 
+
+# Equivalent to
+purrr::map(got_chars, `[`, c("name", "gender", "born")) %>%
+  dplyr::bind_rows()
+```
+
+## Creating List-columns
+
+Data structures in R are typically list-based in one way or another. Sometimes, more complicated data structures are actually lists of lists, or tibbles with a list-column, or other variations on "list within a ____". In combination with `purrr`, this is an *incredibly* powerful setup that can make working with simulations and data very easy.
+
+Suppose, for instance, I want to simulate some data for modeling purposes, where I can control the number of outliers in the dataset:
+
+```{r}
+data_sim <- function(n_outliers = 0) {
+  tmp <- tibble(x = seq(-10, 10, .1),
+                y = rnorm(length(x), mean = x, sd = 1))
+  
+  
+  outlier_sample <- c(NULL, sample(tmp$x, n_outliers))
+  
+  # Create outliers
+  tmp %>% 
+    mutate(
+      is_outlier = x %in% outlier_sample,
+      y = y + is_outlier * sample(c(-1, 1), n(), replace = T) * runif(n(), 5, 10)
+    )
+}
+data_sim()
+```
+Now, lets suppose that I want 100 replicates of each of 0, 5, 10, and 20 outliers. 
+
+```{r}
+sim <- crossing(rep = 1:100, n_outliers = c(0, 5, 10, 20)) %>%
+  mutate(sim_data = purrr::map(n_outliers, data_sim))
+```
+
 
 ## References {- .learn-more}
 
