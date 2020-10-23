@@ -30,7 +30,7 @@ library(SASmarkdown)
 
 ```
 
-```{r, include = F}
+```{r book-functions, include = F}
 .pkgkeeplist <- c("package:stats","package:graphics","package:grDevices","package:utils","package:datasets","package:methods","package:base", "package:SASmarkdown", "package:rmarkdown", "package:knitr", "package:magrittr")
 
 .objkeeplist <- c(".pkgkeeplist", ".objkeeplist", ".reset", "saspath", "sasopts")
@@ -49,7 +49,7 @@ library(SASmarkdown)
 }
 ```
 
-```{r, include = F, cache = F}
+```{r pkg-list-update, include = F, cache = F}
 # update package list
 source("code/collect_packages.R")
 ```
