@@ -179,6 +179,75 @@ sim <- crossing(rep = 1:100, n_outliers = c(0, 5, 10, 20)) %>%
   mutate(sim_data = purrr::map(n_outliers, data_sim))
 ```
 
+I could use `unnest(sim_data)` if I wanted to expand my data a bit to see what I have, but in this case, it's more useful to leave it in its current, compact form. Instead, suppose I fit a linear regression to each of the simulated data sets, and store the fitted linear regression object in a new list-column?
+
+```{r}
+sim <- sim %>%
+  mutate(reg = purrr::map(sim_data, ~lm(data = ., y ~ x)))
+```
+Here, we use an **anonymous** function in purrr: by using `~{expression}`, we have defined a function that takes the argument `.` (which is just a placeholder). So in our case, we're saying "use the data that I pass in to fit a linear regression of `y` using `x` as a predictor". 
+
+Let's play around a bit with this: We might want to look at our regression coefficients or standard errors to see how much the additional outliers affect us. We could use a fancy package for tidy modeling, such as `broom`, but for now, lets do something a bit simpler and apply the purrr name extraction functions we used earlier.
+
+It can be helpful to examine one of the objects just to see what you're dealing with:
+
+```{r}
+str(sim$reg[[1]])
+```
+
+If we pull out the coefficients by name we get a vector of length two. So before we unnest, we need to change that so that R formats it as a row of a data frame.
+
+```{r}
+sim$reg[[1]]$coefficients %>% as_tibble_row()
+```
+
+This will make our formatting a lot easier and prevent any duplication that might occur if we unnest a vector that has length > 1. 
+
+```{r}
+sim <- sim %>%
+  mutate(coefs = purrr::map(reg, "coefficients") %>%
+           purrr::map(as_tibble_row))
+
+sim$coefs[1:5]
+```
+
+Then, we can plot our results:
+
+```{r}
+sim %>%
+  unnest(coefs) %>%
+  select(rep, n_outliers, `(Intercept)`, x) %>%
+  pivot_longer(-c(rep, n_outliers), names_to = "coef", values_to = "value") %>%
+  ggplot(aes(x = value, color = factor(n_outliers))) + geom_density() + 
+  facet_wrap(~coef, scales = "free_x")
+```
+
+So as there are more and more outliers, the coefficient estimates get a wider distribution, but remain (relatively) centered on the "true" values of 0 and 1, respectively. 
+
+Notice that we keep our data in list column form right up until it is time to actually unnest it - which means that we have at the ready the simulated data, the simulated model, and the conditions under which it was simulated, all in the same data structure. It's a really nice, organized system.
+
+<!-- ## Other Purrr functions -->
+
+
+
 
 ## References {- .learn-more}
 
+- The Joy of Functional Programming (for Data Science): Hadley Wickham's talk on purrr and functional programming. [~1h video](https://learning.acm.org/techtalks/functionalprogramming) and [slides](https://learning.acm.org/binaries/content/assets/leaning-center/webinar-slides/2019/hadleywickham_techtalkslides.pdf).     
+(The Joy of Cooking meets Data Science, with illustrations by Allison Horst)
+
+- [Pirating Web Content Responsibly with R and purrr](https://rud.is/b/2017/09/19/pirating-web-content-responsibly-with-r/) (a blog post in honor of international talk like a pirate day)
+
+- [Happy R Development with purrr](https://colinfay.me/happy-dev-purrr/)
+
+- [Web mining with purrr](https://colinfay.me/purrr-web-mining/)
+
+- [Text Wrangling with purrr](https://colinfay.me/purrr-text-wrangling/)
+
+- [Setting NAs with purrr](https://colinfay.me/purrr-set-na/) (uses the `naniar` package)
+
+- [Mappers with purrr](https://colinfay.me/purrr-mappers/) - handy ways to make your code simpler if you're reusing functions a lot. 
+
+- [Function factories - code optimization with purrr](https://colinfay.me/purrr-code-optim/)
+
+- [Stats and Machine Learning examples with purrr](https://colinfay.me/purrr-statistics/)
