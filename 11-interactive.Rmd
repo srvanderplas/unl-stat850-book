@@ -45,6 +45,7 @@ library(tibble)
 library(lubridate) # dates and times
 library(tidytuesdayR) # get interesting data
 library(plotly)
+library(stringr)
 
 # Load the data from TidyTuesday on May 12
 full_data <- tt_load('2020-05-12')
@@ -268,9 +269,9 @@ Plotly will handle some variable mappings for you, depending on which "trace" ty
 </details>
 
 ::: watchout
-The plotly documentation often uses `plyr` -- which is an older version of `dplyr`. If you load `plyr`, it will seriously mess up your day -- a lot of the function names are the same. So, instead, here's a shortcut: `spread` is `pivot_wider` and `gather` is `pivot_longer`. That should at least help with understanding what the code is doing. 
+The plotly documentation often uses `plyr` and `reshape2` -- which are older versions of `dplyr` and `tidyr`. If you load `plyr` and `reshape2`, it may seriously mess up your day -- a lot of the function names are the same. So, instead, here's a shortcut: `cast` is `pivot_wider` and `melt` is `pivot_longer`. That should at least help with understanding what the code is doing. 
 
-If you do accidentally load `plyr`, that's fine: just restart your R session so that your loaded packages are cleared and you can start over. Or, if you must, you can reference a `plyr` function using `plyr::spread` without loading the package -- that's a safe way to use the plotly demo code as-is.
+If you do accidentally load `plyr` or `reshape2`, that's fine: just restart your R session so that your loaded packages are cleared and you can start over. Or, if you must, you can reference a `plyr` function using `plyr::function_name` without loading the package -- that's a safe way to use the plotly demo code as-is.
 :::
 
 <details><summary>Let's explore traces a bit.</summary> 
@@ -332,7 +333,7 @@ fbi %>%
 ```
 Sometimes the animations get a bit trippy, don't they?
 
-You can even animate by something other than time, if you're so inclined...
+You can even animate by something other than time, if you're so inclined, though it's not necessarily going to make sense if there isn't any context shared between successive observations. So animating over space might make sense, but animating over a factor makes a lot less sense. 
 ```{r}
 fbi %>%
   mutate(State = factor(State),
@@ -475,7 +476,8 @@ election_results <- read_csv("data/1976-2018-house2.csv") %>%
   mutate(party = ifelse(party == "democratic-farmer-labor", "democrat", party))
 
 # Read in the districts
-congress_districts <- st_read("data/116_congress/cb_2018_us_cd116_5m.shp")
+congress_districts <- st_read("data/116_congress/cb_2018_us_cd116_5m.shp") %>%
+  mutate(geometry = st_transform(geometry, crs = st_crs("+proj=longlat +datum=WGS84")))
 
 # Clean up congress districts
 congress_districts <- congress_districts %>%
@@ -509,9 +511,8 @@ leaflet() %>%
 ## Shiny
 https://github.com/rfordatascience/tidytuesday/blob/master/data/2020/2020-05-26/readme.md
 
-Before we get started on Shiny, take a few minutes and poke around the [RStudio Shiny user showcase](https://shiny.rstudio.com/gallery/#user-showcase). Sometimes, it helps to have some motivation, and to get a sense of what is possible before you start learning something. One of the more amusing ones I found was [an exploration of lego demographics](https://kaplanas.shinyapps.io/living_in_the_lego_world/). 
+Before we get started on Shiny, take a few minutes and poke around the [RStudio Shiny user showcase](https://shiny.rstudio.com/gallery/#user-showcase). It helps to have some motivation, and to get a sense of what is possible before you start learning something. One of the more amusing ones I found was [an exploration of lego demographics](https://kaplanas.shinyapps.io/living_in_the_lego_world/). 
 
-All done? 
 
 Shiny is a framework for building interactive web applications in R. Unlike plotly and other graphics engines, Shiny depends on an R instance on a server to do computations. This means Shiny is much more powerful and has more capabilities, but also that it's harder to share and deploy - you have to have access to a web server with R installed on it. If you happen to have a server like that, though, Shiny is pretty awesome. RStudio runs a service called shinyapps.io that will provide some limited free hosting, as well as paid plans for apps that have more web traffic, but you can also create Shiny apps for local use - I often do this for model debugging when I'm using neural networks, because they're so complicated.
 
@@ -521,11 +522,13 @@ I generally think it's better to send you to the source when there are well-prod
 
 One other interesting feature to keep in mind when using Shiny - you can integrate Shiny reactivity into Rmarkdown by adding `runtime: shiny` to the markdown header. 
 
-## General References
+## General References {.learn-more}
 
 - [R graph gallery interactive charts](https://www.r-graph-gallery.com/interactive-charts.html) points you in the right direction for which package to use for different tasks.
 
 - [Shiny articles](https://shiny.rstudio.com/articles/)
+
+- [Reactivity in Shiny](https://www.youtube.com/watch?v=cqOUpnF-Lco)
 
 - [Leaflet introduction for R](https://rstudio.github.io/leaflet/)
 
@@ -534,3 +537,11 @@ One other interesting feature to keep in mind when using Shiny - you can integra
 - [htmlwidgets](https://www.htmlwidgets.org/) - a generic wrapper for any Javascript library (htmlwidgets is used under the hood in both Leaflet and Plotly R integration)
 
 - [dash](https://dashr.plotly.com/) - Another dashboard program supported by plotly. `dash` is the python equivalent of `shiny`, but also has R integration (though I'm not sure how well it's supported). 
+
+### Debugging
+
+- [Debugging with Dean - Shiny debugging](https://www.youtube.com/watch?reload=9&v=sP_VB9OFJP0) - YouTube video with debugging in realtime.
+
+- [ShinyJS - Using Shiny and JavaScript together](https://www.youtube.com/watch?v=fPY13maWKKE)
+
+- [Using Shiny in Production](https://www.youtube.com/watch?v=Wy3TY0gOmJw) - Joe Cheng
