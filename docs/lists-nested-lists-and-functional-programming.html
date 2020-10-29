@@ -448,13 +448,22 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="11.4" data-path="animated-and-interactive-graphics.html"><a href="animated-and-interactive-graphics.html#general-references"><i class="fa fa-check"></i><b>11.4</b> General References</a>
 <ul>
 <li class="chapter" data-level="11.4.1" data-path="animated-and-interactive-graphics.html"><a href="animated-and-interactive-graphics.html#other-interactive-tools"><i class="fa fa-check"></i><b>11.4.1</b> Other interactive tools</a></li>
+<li class="chapter" data-level="11.4.2" data-path="debugging.html"><a href="debugging.html#debugging"><i class="fa fa-check"></i><b>11.4.2</b> Debugging</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="12" data-path="lists-nested-lists-and-functional-programming.html"><a href="lists-nested-lists-and-functional-programming.html"><i class="fa fa-check"></i><b>12</b> Lists, Nested Lists, and Functional Programming</a>
 <ul>
 <li class="chapter" data-level="12.1" data-path="lists-nested-lists-and-functional-programming.html"><a href="lists-nested-lists-and-functional-programming.html#review-lists-and-vectors"><i class="fa fa-check"></i><b>12.1</b> Review: Lists and Vectors</a></li>
 <li class="chapter" data-level="12.2" data-path="lists-nested-lists-and-functional-programming.html"><a href="lists-nested-lists-and-functional-programming.html#introduction-to-map"><i class="fa fa-check"></i><b>12.2</b> Introduction to <code>map</code></a></li>
-<li class="chapter" data-level="12.3" data-path="lists-nested-lists-and-functional-programming.html"><a href="lists-nested-lists-and-functional-programming.html#creating-list-columns"><i class="fa fa-check"></i><b>12.3</b> Creating List-columns</a></li>
+<li class="chapter" data-level="12.3" data-path="lists-nested-lists-and-functional-programming.html"><a href="lists-nested-lists-and-functional-programming.html#creating-and-using-list-columns"><i class="fa fa-check"></i><b>12.3</b> Creating (and Using) List-columns</a></li>
+<li class="chapter" data-level="12.4" data-path="lists-nested-lists-and-functional-programming.html"><a href="lists-nested-lists-and-functional-programming.html#ways-to-use-map"><i class="fa fa-check"></i><b>12.4</b> Ways to use <code>map</code></a>
+<ul>
+<li class="chapter" data-level="" data-path="intro-prog.html"><a href="intro-prog.html#try-it-out"><i class="fa fa-check"></i>Try it out</a></li>
+</ul></li>
+<li class="chapter" data-level="12.5" data-path="lists-nested-lists-and-functional-programming.html"><a href="lists-nested-lists-and-functional-programming.html#beyond-map-functions-with-multiple-inputs"><i class="fa fa-check"></i><b>12.5</b> Beyond <code>map</code>: Functions with multiple inputs</a>
+<ul>
+<li class="chapter" data-level="" data-path="intro-prog.html"><a href="intro-prog.html#try-it-out-1"><i class="fa fa-check"></i>Try it out</a></li>
+</ul></li>
 <li class="chapter" data-level="" data-path="tools.html"><a href="tools.html#references"><i class="fa fa-check"></i>References</a></li>
 </ul></li>
 <li class="chapter" data-level="13" data-path="high-performance-computing.html"><a href="high-performance-computing.html"><i class="fa fa-check"></i><b>13</b> High Performance Computing</a>
@@ -572,8 +581,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <p>Operations in R are <strong>vectorized</strong> - that is, by default, they operate on vectors. This is primarily a feature that applies to atomic vectors (and we don’t even think about it):</p>
 <div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="lists-nested-lists-and-functional-programming.html#cb33-1"></a>(<span class="kw">rnorm</span>(<span class="dv">10</span>) <span class="op">+</span><span class="st"> </span><span class="kw">rnorm</span>(<span class="dv">10</span>, <span class="dt">mean =</span> <span class="dv">3</span>))</span></code></pre></div>
-<pre><code>##  [1] 2.5901192 5.6280698 3.8117427 2.9286354 0.7314445 1.8338168 3.1511402
-##  [8] 1.2429209 4.1388425 2.2162552</code></pre>
+<pre><code>##  [1] 2.962322 2.304403 3.469598 1.786258 2.787927 5.174108 3.377978 5.515752
+##  [9] 3.001097 0.844748</code></pre>
 <p>We didn’t have to use a for loop to add these two vectors with 10 entries each together. In python (and SAS, and other languages), this might instead look like:</p>
 <div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="lists-nested-lists-and-functional-programming.html#cb35-1"></a>a &lt;-<span class="st"> </span><span class="kw">rnorm</span>(<span class="dv">10</span>)</span>
 <span id="cb35-2"><a href="lists-nested-lists-and-functional-programming.html#cb35-2"></a>b &lt;-<span class="st"> </span><span class="kw">rnorm</span>(<span class="dv">10</span>, <span class="dt">mean =</span> <span class="dv">3</span>)</span>
@@ -582,8 +591,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb35-5"><a href="lists-nested-lists-and-functional-programming.html#cb35-5"></a>  result[i] &lt;-<span class="st"> </span>a[i] <span class="op">+</span><span class="st"> </span>b[i]</span>
 <span id="cb35-6"><a href="lists-nested-lists-and-functional-programming.html#cb35-6"></a>}</span>
 <span id="cb35-7"><a href="lists-nested-lists-and-functional-programming.html#cb35-7"></a>result</span></code></pre></div>
-<pre><code>##  [1] 2.670812 1.864085 3.418096 3.077160 1.961165 2.360801 2.158312 2.616665
-##  [9] 3.034091 2.552671</code></pre>
+<pre><code>##  [1] 1.852131 4.881300 3.238447 3.638142 2.866209 4.318061 3.268676 3.033669
+##  [9] 4.341455 5.716266</code></pre>
 <p>That is, we would apply or map the + function to each entry of a and b. For atomic vectors, it’s easy to do this by default; with a list, however, we need to be a bit more explicit (because everything that’s passed into the function may not be the same type).</p>
 <p>This logic is the basis behind the purrr package (and similar base functions <code>apply</code>, <code>lapply</code>, <code>sapply</code>, <code>tapply</code>, and <code>mapply</code> - I find the purrr package easier to work with, but you may use the base package versions if you want, and you can find a <a href="https://jennybc.github.io/purrr-tutorial/bk01_base-functions.html">side-by-side comparison in the purrr tutorial</a>).</p>
 </div>
@@ -1572,8 +1581,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## 10 Davos Seaworth     Male   &quot;In 260 AC or before, at King&#39;s Landing&quot;
 ## # … with 20 more rows</code></pre>
 </div>
-<div id="creating-list-columns" class="section level2" number="12.3">
-<h2><span class="header-section-number">12.3</span> Creating List-columns</h2>
+<div id="creating-and-using-list-columns" class="section level2" number="12.3">
+<h2><span class="header-section-number">12.3</span> Creating (and Using) List-columns</h2>
 <p>Data structures in R are typically list-based in one way or another. Sometimes, more complicated data structures are actually lists of lists, or tibbles with a list-column, or other variations on “list within a ____”. In combination with <code>purrr</code>, this is an <em>incredibly</em> powerful setup that can make working with simulations and data very easy.</p>
 <p>Suppose, for instance, I want to simulate some data for modeling purposes, where I can control the number of outliers in the dataset:</p>
 <div class="sourceCode" id="cb64"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb64-1"><a href="lists-nested-lists-and-functional-programming.html#cb64-1"></a>data_sim &lt;-<span class="st"> </span><span class="cf">function</span>(<span class="dt">n_outliers =</span> <span class="dv">0</span>) {</span>
@@ -1594,16 +1603,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <pre><code>## # A tibble: 201 x 3
 ##        x      y is_outlier
 ##    &lt;dbl&gt;  &lt;dbl&gt; &lt;lgl&gt;     
-##  1 -10    -8.88 FALSE     
-##  2  -9.9  -9.13 FALSE     
-##  3  -9.8  -9.64 FALSE     
-##  4  -9.7  -9.30 FALSE     
-##  5  -9.6 -10.5  FALSE     
-##  6  -9.5 -11.8  FALSE     
-##  7  -9.4 -10.5  FALSE     
-##  8  -9.3  -9.45 FALSE     
-##  9  -9.2  -9.07 FALSE     
-## 10  -9.1  -7.42 FALSE     
+##  1 -10   -10.4  FALSE     
+##  2  -9.9 -10.2  FALSE     
+##  3  -9.8  -8.68 FALSE     
+##  4  -9.7 -10.6  FALSE     
+##  5  -9.6  -8.82 FALSE     
+##  6  -9.5  -9.91 FALSE     
+##  7  -9.4  -9.34 FALSE     
+##  8  -9.3 -10.3  FALSE     
+##  9  -9.2  -6.78 FALSE     
+## 10  -9.1  -8.74 FALSE     
 ## # … with 191 more rows</code></pre>
 <p>Now, lets suppose that I want 100 replicates of each of 0, 5, 10, and 20 outliers.</p>
 <div class="sourceCode" id="cb66"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb66-1"><a href="lists-nested-lists-and-functional-programming.html#cb66-1"></a>sim &lt;-<span class="st"> </span><span class="kw">crossing</span>(<span class="dt">rep =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">100</span>, <span class="dt">n_outliers =</span> <span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">5</span>, <span class="dv">10</span>, <span class="dv">20</span>)) <span class="op">%&gt;%</span></span>
@@ -1616,14 +1625,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>It can be helpful to examine one of the objects just to see what you’re dealing with:</p>
 <div class="sourceCode" id="cb68"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb68-1"><a href="lists-nested-lists-and-functional-programming.html#cb68-1"></a><span class="kw">str</span>(sim<span class="op">$</span>reg[[<span class="dv">1</span>]])</span></code></pre></div>
 <pre><code>## List of 12
-##  $ coefficients : Named num [1:2] -0.241 1.015
+##  $ coefficients : Named num [1:2] 0.0316 1.0061
 ##   ..- attr(*, &quot;names&quot;)= chr [1:2] &quot;(Intercept)&quot; &quot;x&quot;
-##  $ residuals    : Named num [1:201] -0.2395 1.0206 -0.0367 0.318 -0.2776 ...
+##  $ residuals    : Named num [1:201] -0.336 -1.466 -0.573 1.278 -0.7 ...
 ##   ..- attr(*, &quot;names&quot;)= chr [1:201] &quot;1&quot; &quot;2&quot; &quot;3&quot; &quot;4&quot; ...
-##  $ effects      : Named num [1:201] 3.423 83.47 -0.124 0.231 -0.363 ...
+##  $ effects      : Named num [1:201] -0.449 82.767 -0.406 1.442 -0.537 ...
 ##   ..- attr(*, &quot;names&quot;)= chr [1:201] &quot;(Intercept)&quot; &quot;x&quot; &quot;&quot; &quot;&quot; ...
 ##  $ rank         : int 2
-##  $ fitted.values: Named num [1:201] -10.39 -10.29 -10.19 -10.08 -9.98 ...
+##  $ fitted.values: Named num [1:201] -10.03 -9.93 -9.83 -9.73 -9.63 ...
 ##   ..- attr(*, &quot;names&quot;)= chr [1:201] &quot;1&quot; &quot;2&quot; &quot;3&quot; &quot;4&quot; ...
 ##  $ assign       : int [1:2] 0 1
 ##  $ qr           :List of 5
@@ -1650,12 +1659,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ##   .. ..- attr(*, &quot;order&quot;)= int 1
 ##   .. ..- attr(*, &quot;intercept&quot;)= int 1
 ##   .. ..- attr(*, &quot;response&quot;)= int 1
-##   .. ..- attr(*, &quot;.Environment&quot;)=&lt;environment: 0x55ddc3dde378&gt; 
+##   .. ..- attr(*, &quot;.Environment&quot;)=&lt;environment: 0x55e4d1abd2d8&gt; 
 ##   .. ..- attr(*, &quot;predvars&quot;)= language list(y, x)
 ##   .. ..- attr(*, &quot;dataClasses&quot;)= Named chr [1:2] &quot;numeric&quot; &quot;numeric&quot;
 ##   .. .. ..- attr(*, &quot;names&quot;)= chr [1:2] &quot;y&quot; &quot;x&quot;
 ##  $ model        :&#39;data.frame&#39;:	201 obs. of  2 variables:
-##   ..$ y: num [1:201] -10.63 -9.27 -10.22 -9.77 -10.26 ...
+##   ..$ y: num [1:201] -10.37 -11.4 -10.4 -8.45 -10.33 ...
 ##   ..$ x: num [1:201] -10 -9.9 -9.8 -9.7 -9.6 -9.5 -9.4 -9.3 -9.2 -9.1 ...
 ##   ..- attr(*, &quot;terms&quot;)=Classes &#39;terms&#39;, &#39;formula&#39;  language y ~ x
 ##   .. .. ..- attr(*, &quot;variables&quot;)= language list(y, x)
@@ -1667,7 +1676,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ##   .. .. ..- attr(*, &quot;order&quot;)= int 1
 ##   .. .. ..- attr(*, &quot;intercept&quot;)= int 1
 ##   .. .. ..- attr(*, &quot;response&quot;)= int 1
-##   .. .. ..- attr(*, &quot;.Environment&quot;)=&lt;environment: 0x55ddc3dde378&gt; 
+##   .. .. ..- attr(*, &quot;.Environment&quot;)=&lt;environment: 0x55e4d1abd2d8&gt; 
 ##   .. .. ..- attr(*, &quot;predvars&quot;)= language list(y, x)
 ##   .. .. ..- attr(*, &quot;dataClasses&quot;)= Named chr [1:2] &quot;numeric&quot; &quot;numeric&quot;
 ##   .. .. .. ..- attr(*, &quot;names&quot;)= chr [1:2] &quot;y&quot; &quot;x&quot;
@@ -1677,7 +1686,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <pre><code>## # A tibble: 1 x 2
 ##   `(Intercept)`     x
 ##           &lt;dbl&gt; &lt;dbl&gt;
-## 1        -0.241  1.01</code></pre>
+## 1        0.0316  1.01</code></pre>
 <p>This will make our formatting a lot easier and prevent any duplication that might occur if we unnest a vector that has length &gt; 1.</p>
 <div class="sourceCode" id="cb72"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb72-1"><a href="lists-nested-lists-and-functional-programming.html#cb72-1"></a>sim &lt;-<span class="st"> </span>sim <span class="op">%&gt;%</span></span>
 <span id="cb72-2"><a href="lists-nested-lists-and-functional-programming.html#cb72-2"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">coefs =</span> purrr<span class="op">::</span><span class="kw">map</span>(reg, <span class="st">&quot;coefficients&quot;</span>) <span class="op">%&gt;%</span></span>
@@ -1688,31 +1697,31 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## # A tibble: 1 x 2
 ##   `(Intercept)`     x
 ##           &lt;dbl&gt; &lt;dbl&gt;
-## 1        -0.241  1.01
+## 1        0.0316  1.01
 ## 
 ## [[2]]
 ## # A tibble: 1 x 2
 ##   `(Intercept)`     x
 ##           &lt;dbl&gt; &lt;dbl&gt;
-## 1        -0.283  1.02
+## 1        -0.256  1.01
 ## 
 ## [[3]]
 ## # A tibble: 1 x 2
 ##   `(Intercept)`     x
 ##           &lt;dbl&gt; &lt;dbl&gt;
-## 1         0.232  1.00
+## 1      -0.00297 0.977
 ## 
 ## [[4]]
 ## # A tibble: 1 x 2
 ##   `(Intercept)`     x
 ##           &lt;dbl&gt; &lt;dbl&gt;
-## 1       -0.0635  1.03
+## 1        -0.119 0.959
 ## 
 ## [[5]]
 ## # A tibble: 1 x 2
 ##   `(Intercept)`     x
 ##           &lt;dbl&gt; &lt;dbl&gt;
-## 1       -0.0625  1.03</code></pre>
+## 1       -0.0471  1.02</code></pre>
 <p>Then, we can plot our results:</p>
 <div class="sourceCode" id="cb74"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb74-1"><a href="lists-nested-lists-and-functional-programming.html#cb74-1"></a>sim <span class="op">%&gt;%</span></span>
 <span id="cb74-2"><a href="lists-nested-lists-and-functional-programming.html#cb74-2"></a><span class="st">  </span><span class="kw">unnest</span>(coefs) <span class="op">%&gt;%</span></span>
@@ -1723,7 +1732,120 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p><img src="unl-stat850_files/figure-html/unnamed-chunk-23-1.png" width="672" /></p>
 <p>So as there are more and more outliers, the coefficient estimates get a wider distribution, but remain (relatively) centered on the “true” values of 0 and 1, respectively.</p>
 <p>Notice that we keep our data in list column form right up until it is time to actually unnest it - which means that we have at the ready the simulated data, the simulated model, and the conditions under which it was simulated, all in the same data structure. It’s a really nice, organized system.</p>
+</div>
+<div id="ways-to-use-map" class="section level2" number="12.4">
+<h2><span class="header-section-number">12.4</span> Ways to use <code>map</code></h2>
+<p>There are 3 main use cases for <code>map</code> (and its cousins <code>pmap</code>, <code>map2</code>, etc.):</p>
+<ol style="list-style-type: decimal">
+<li>Use with an existing function</li>
+<li>Use with an anonymous function, defined on the fly</li>
+<li>Use with a formula (which is just a concise way to define an anonymous function)</li>
+</ol>
+<p>I’ll use a trivial example to show the difference between these options:</p>
+<div class="sourceCode" id="cb75"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb75-1"><a href="lists-nested-lists-and-functional-programming.html#cb75-1"></a><span class="co"># An existing function</span></span>
+<span id="cb75-2"><a href="lists-nested-lists-and-functional-programming.html#cb75-2"></a>res &lt;-<span class="st"> </span><span class="kw">tibble</span>(<span class="dt">x =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">10</span>, <span class="dt">y1 =</span> <span class="kw">map_dbl</span>(x, log10))</span>
+<span id="cb75-3"><a href="lists-nested-lists-and-functional-programming.html#cb75-3"></a></span>
+<span id="cb75-4"><a href="lists-nested-lists-and-functional-programming.html#cb75-4"></a><span class="co"># An anonymous function</span></span>
+<span id="cb75-5"><a href="lists-nested-lists-and-functional-programming.html#cb75-5"></a>res &lt;-<span class="st"> </span>res <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">mutate</span>(<span class="dt">y2 =</span> <span class="kw">map_dbl</span>(x, <span class="cf">function</span>(z) z<span class="op">^</span><span class="dv">2</span><span class="op">/</span><span class="dv">10</span>))</span>
+<span id="cb75-6"><a href="lists-nested-lists-and-functional-programming.html#cb75-6"></a></span>
+<span id="cb75-7"><a href="lists-nested-lists-and-functional-programming.html#cb75-7"></a><span class="co"># A formula equivalent to function(z) z^5/(z + 10)</span></span>
+<span id="cb75-8"><a href="lists-nested-lists-and-functional-programming.html#cb75-8"></a><span class="co"># the . is the variable you&#39;re manipulating</span></span>
+<span id="cb75-9"><a href="lists-nested-lists-and-functional-programming.html#cb75-9"></a>res &lt;-<span class="st"> </span>res <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">mutate</span>(<span class="dt">y3 =</span> <span class="kw">map_dbl</span>(x, <span class="op">~</span>.<span class="op">^</span><span class="dv">5</span><span class="op">/</span>(.<span class="op">+</span><span class="dv">10</span>)))</span></code></pre></div>
+<p>It can be a bit tricky to differentiate between options 2 and 3 in practice - the biggest difference is that you’re not using the keyword <code>function</code> and your variable is the default placeholder variable <code>.</code> used in the tidyverse.</p>
+<div id="try-it-out" class="section level3 unnumbered tryitout" number="">
+<h3>Try it out</h3>
+<p>Use each of the 3 options for defining a method in purrr to pull out a single string of all of the books each character was in. To do this, you’ll need to collapse the list of books for each character into a single string, which you can do with the <code>paste</code> function and the <code>collapse</code> argument.</p>
+<div class="sourceCode" id="cb76"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb76-1"><a href="lists-nested-lists-and-functional-programming.html#cb76-1"></a>letters[<span class="dv">1</span><span class="op">:</span><span class="dv">10</span>] <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">paste</span>(<span class="dt">collapse =</span> <span class="st">&quot;|&quot;</span>)</span></code></pre></div>
+<pre><code>## [1] &quot;a|b|c|d|e|f|g|h|i|j&quot;</code></pre>
+<p>Start with this data frame of character names and book list-columns:</p>
+<div class="sourceCode" id="cb78"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb78-1"><a href="lists-nested-lists-and-functional-programming.html#cb78-1"></a>got_df &lt;-<span class="st"> </span><span class="kw">tibble</span>(<span class="dt">name =</span> <span class="kw">map_chr</span>(got_chars, <span class="st">&quot;name&quot;</span>),</span>
+<span id="cb78-2"><a href="lists-nested-lists-and-functional-programming.html#cb78-2"></a>                 <span class="dt">id =</span> <span class="kw">map_int</span>(got_chars, <span class="st">&quot;id&quot;</span>),</span>
+<span id="cb78-3"><a href="lists-nested-lists-and-functional-programming.html#cb78-3"></a>                 <span class="dt">books =</span> <span class="kw">map</span>(got_chars, <span class="st">&quot;books&quot;</span>))</span></code></pre></div>
+<details>
+<p><summary>Solution</summary></p>
+<div class="sourceCode" id="cb79"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb79-1"><a href="lists-nested-lists-and-functional-programming.html#cb79-1"></a><span class="co"># Define a function</span></span>
+<span id="cb79-2"><a href="lists-nested-lists-and-functional-programming.html#cb79-2"></a>my_collapse &lt;-<span class="st"> </span><span class="cf">function</span>(x) <span class="kw">paste</span>(x, <span class="dt">collapse =</span> <span class="st">&quot; | &quot;</span>)</span>
+<span id="cb79-3"><a href="lists-nested-lists-and-functional-programming.html#cb79-3"></a></span>
+<span id="cb79-4"><a href="lists-nested-lists-and-functional-programming.html#cb79-4"></a>got_df &lt;-<span class="st"> </span>got_df <span class="op">%&gt;%</span></span>
+<span id="cb79-5"><a href="lists-nested-lists-and-functional-programming.html#cb79-5"></a><span class="st">  </span><span class="kw">mutate</span>(</span>
+<span id="cb79-6"><a href="lists-nested-lists-and-functional-programming.html#cb79-6"></a>    <span class="dt">fun_def_res =</span> <span class="kw">map_chr</span>(books, my_collapse),</span>
+<span id="cb79-7"><a href="lists-nested-lists-and-functional-programming.html#cb79-7"></a>    <span class="co"># Here, I don&#39;t have to define a function, I just pass my additional </span></span>
+<span id="cb79-8"><a href="lists-nested-lists-and-functional-programming.html#cb79-8"></a>    <span class="co"># argument in after the fact...</span></span>
+<span id="cb79-9"><a href="lists-nested-lists-and-functional-programming.html#cb79-9"></a>    <span class="dt">fun_base_res =</span> <span class="kw">map_chr</span>(books, paste, <span class="dt">collapse =</span> <span class="st">&quot; | &quot;</span>),</span>
+<span id="cb79-10"><a href="lists-nested-lists-and-functional-programming.html#cb79-10"></a>    </span>
+<span id="cb79-11"><a href="lists-nested-lists-and-functional-programming.html#cb79-11"></a>    <span class="co"># Here, I can just define a new function without a name and apply it to </span></span>
+<span id="cb79-12"><a href="lists-nested-lists-and-functional-programming.html#cb79-12"></a>    <span class="co"># each entry</span></span>
+<span id="cb79-13"><a href="lists-nested-lists-and-functional-programming.html#cb79-13"></a>    <span class="dt">fun_anon_res =</span> <span class="kw">map_chr</span>(books, <span class="cf">function</span>(x) <span class="kw">paste</span>(x, <span class="dt">collapse =</span> <span class="st">&quot; | &quot;</span>)),</span>
+<span id="cb79-14"><a href="lists-nested-lists-and-functional-programming.html#cb79-14"></a>    </span>
+<span id="cb79-15"><a href="lists-nested-lists-and-functional-programming.html#cb79-15"></a>    <span class="co"># And here, I don&#39;t even bother to specifically say that I&#39;m defining a </span></span>
+<span id="cb79-16"><a href="lists-nested-lists-and-functional-programming.html#cb79-16"></a>    <span class="co"># function, I just apply a formula to each entry</span></span>
+<span id="cb79-17"><a href="lists-nested-lists-and-functional-programming.html#cb79-17"></a>    <span class="dt">fun_formula_res =</span> <span class="kw">map_chr</span>(books, <span class="op">~</span><span class="kw">paste</span>(., <span class="dt">collapse =</span> <span class="st">&quot; | &quot;</span>))</span>
+<span id="cb79-18"><a href="lists-nested-lists-and-functional-programming.html#cb79-18"></a>  ) </span>
+<span id="cb79-19"><a href="lists-nested-lists-and-functional-programming.html#cb79-19"></a></span>
+<span id="cb79-20"><a href="lists-nested-lists-and-functional-programming.html#cb79-20"></a><span class="kw">head</span>(got_df)</span></code></pre></div>
+<pre><code>## # A tibble: 6 x 7
+##   name      id books  fun_def_res   fun_base_res  fun_anon_res  fun_formula_res 
+##   &lt;chr&gt;  &lt;int&gt; &lt;list&gt; &lt;chr&gt;         &lt;chr&gt;         &lt;chr&gt;         &lt;chr&gt;           
+## 1 Theon…  1022 &lt;chr … A Game of Th… A Game of Th… A Game of Th… A Game of Thron…
+## 2 Tyrio…  1052 &lt;chr … A Feast for … A Feast for … A Feast for … A Feast for Cro…
+## 3 Victa…  1074 &lt;chr … A Game of Th… A Game of Th… A Game of Th… A Game of Thron…
+## 4 Will    1109 &lt;chr … A Clash of K… A Clash of K… A Clash of K… A Clash of Kings
+## 5 Areo …  1166 &lt;chr … A Game of Th… A Game of Th… A Game of Th… A Game of Thron…
+## 6 Chett   1267 &lt;chr … A Game of Th… A Game of Th… A Game of Th… A Game of Thron…</code></pre>
+</details>
 <!-- ## Other Purrr functions -->
+</div>
+</div>
+<div id="beyond-map-functions-with-multiple-inputs" class="section level2" number="12.5">
+<h2><span class="header-section-number">12.5</span> Beyond <code>map</code>: Functions with multiple inputs</h2>
+<p>Sometimes, you might need to map a function over two vectors/lists in parallel. <code>purrr</code> has you covered with the <code>map2</code> function. As with <code>map</code>, the syntax is <code>map2(thing1, thing2, function, other.args)</code>; the big difference is that <code>function</code> takes two arguments.</p>
+<p>Let’s create a simple times-table:</p>
+<div class="sourceCode" id="cb81"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb81-1"><a href="lists-nested-lists-and-functional-programming.html#cb81-1"></a><span class="kw">crossing</span>(<span class="dt">x =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">10</span>, <span class="dt">y =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">10</span>) <span class="op">%&gt;%</span></span>
+<span id="cb81-2"><a href="lists-nested-lists-and-functional-programming.html#cb81-2"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">times =</span> <span class="kw">map2_int</span>(x, y, <span class="st">`</span><span class="dt">*</span><span class="st">`</span>)) <span class="op">%&gt;%</span></span>
+<span id="cb81-3"><a href="lists-nested-lists-and-functional-programming.html#cb81-3"></a><span class="st">  </span><span class="kw">pivot_wider</span>(<span class="dt">names_from =</span> y, <span class="dt">names_prefix =</span> <span class="st">&#39;y=&#39;</span>, <span class="dt">values_from =</span> times)</span></code></pre></div>
+<pre><code>## # A tibble: 10 x 11
+##        x `y=1` `y=2` `y=3` `y=4` `y=5` `y=6` `y=7` `y=8` `y=9` `y=10`
+##    &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt;  &lt;int&gt;
+##  1     1     1     2     3     4     5     6     7     8     9     10
+##  2     2     2     4     6     8    10    12    14    16    18     20
+##  3     3     3     6     9    12    15    18    21    24    27     30
+##  4     4     4     8    12    16    20    24    28    32    36     40
+##  5     5     5    10    15    20    25    30    35    40    45     50
+##  6     6     6    12    18    24    30    36    42    48    54     60
+##  7     7     7    14    21    28    35    42    49    56    63     70
+##  8     8     8    16    24    32    40    48    56    64    72     80
+##  9     9     9    18    27    36    45    54    63    72    81     90
+## 10    10    10    20    30    40    50    60    70    80    90    100</code></pre>
+<div class="sourceCode" id="cb83"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb83-1"><a href="lists-nested-lists-and-functional-programming.html#cb83-1"></a><span class="co"># we could use `multiply_by` instead of `*` if we wanted to</span></span></code></pre></div>
+<p>If you are using formula notation to define functions with <code>map2</code>, you will need to refer to your two arguments as <code>.x</code> and <code>.y</code>. You can determine this from the Usage section when you run <code>map2</code>, which shows you <code>map2(.x, .y, .f, ...)</code> - that is, the first argument is .x, the second is .y, and the third is the function.</p>
+<div id="try-it-out-1" class="section level3 unnumbered tryitout" number="">
+<h3>Try it out</h3>
+<p>Use <code>map2</code> to determine if each Game of Thrones character has more titles than aliases. Start with this code:</p>
+<div class="sourceCode" id="cb84"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb84-1"><a href="lists-nested-lists-and-functional-programming.html#cb84-1"></a>got_names &lt;-<span class="st"> </span><span class="kw">tibble</span>(<span class="dt">name =</span> purrr<span class="op">::</span><span class="kw">map_chr</span>(got_chars, <span class="st">&quot;name&quot;</span>),</span>
+<span id="cb84-2"><a href="lists-nested-lists-and-functional-programming.html#cb84-2"></a>                    <span class="dt">titles =</span> purrr<span class="op">::</span><span class="kw">map</span>(got_chars, <span class="st">&quot;titles&quot;</span>),</span>
+<span id="cb84-3"><a href="lists-nested-lists-and-functional-programming.html#cb84-3"></a>                    <span class="dt">aliases =</span> purrr<span class="op">::</span><span class="kw">map</span>(got_chars, <span class="st">&quot;aliases&quot;</span>))</span></code></pre></div>
+<details>
+<p><summary>Solution</summary></p>
+<div class="sourceCode" id="cb85"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb85-1"><a href="lists-nested-lists-and-functional-programming.html#cb85-1"></a>got_names <span class="op">%&gt;%</span></span>
+<span id="cb85-2"><a href="lists-nested-lists-and-functional-programming.html#cb85-2"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">more_titles =</span> <span class="kw">map2_lgl</span>(titles, aliases, <span class="op">~</span><span class="kw">length</span>(.x) <span class="op">&gt;</span><span class="st"> </span><span class="kw">length</span>(.y)))</span></code></pre></div>
+<pre><code>## # A tibble: 30 x 4
+##    name               titles    aliases    more_titles
+##    &lt;chr&gt;              &lt;list&gt;    &lt;list&gt;     &lt;lgl&gt;      
+##  1 Theon Greyjoy      &lt;chr [3]&gt; &lt;chr [4]&gt;  FALSE      
+##  2 Tyrion Lannister   &lt;chr [2]&gt; &lt;chr [11]&gt; FALSE      
+##  3 Victarion Greyjoy  &lt;chr [2]&gt; &lt;chr [1]&gt;  TRUE       
+##  4 Will               &lt;chr [1]&gt; &lt;chr [1]&gt;  FALSE      
+##  5 Areo Hotah         &lt;chr [1]&gt; &lt;chr [1]&gt;  FALSE      
+##  6 Chett              &lt;chr [1]&gt; &lt;chr [1]&gt;  FALSE      
+##  7 Cressen            &lt;chr [1]&gt; &lt;chr [1]&gt;  FALSE      
+##  8 Arianne Martell    &lt;chr [1]&gt; &lt;chr [1]&gt;  FALSE      
+##  9 Daenerys Targaryen &lt;chr [5]&gt; &lt;chr [11]&gt; FALSE      
+## 10 Davos Seaworth     &lt;chr [4]&gt; &lt;chr [5]&gt;  FALSE      
+## # … with 20 more rows</code></pre>
+</details>
+<p>Like <code>map</code>, you can specify the type of the output response using <code>map2</code>. This makes it very easy to format the output appropriately for your application.</p>
+<p>You can use functions with many arguments with <code>map</code> by using the <code>pmap</code> variant; here, you pass in a list of functions, which are identified by position (<code>..1, ..2, ..3,</code> etc). Note the <code>..</code> - you are referencing the list first, and the index within the list argument 2nd.</p>
+</div>
 </div>
 <div id="references" class="section level2 unnumbered learn-more" number="">
 <h2>References</h2>
