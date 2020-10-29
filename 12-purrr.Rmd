@@ -226,9 +226,106 @@ So as there are more and more outliers, the coefficient estimates get a wider di
 
 Notice that we keep our data in list column form right up until it is time to actually unnest it - which means that we have at the ready the simulated data, the simulated model, and the conditions under which it was simulated, all in the same data structure. It's a really nice, organized system.
 
+## Ways to use `map`
+
+There are 3 main use cases for `map` (and its cousins `pmap`, `map2`, etc.):
+
+1. Use with an existing function
+2. Use with an anonymous function, defined on the fly
+3. Use with a formula (which is just a concise way to define an anonymous function)
+
+I'll use a trivial example to show the difference between these options:
+
+```{r}
+# An existing function
+res <- tibble(x = 1:10, y1 = map_dbl(x, log10))
+
+# An anonymous function
+res <- res %>% mutate(y2 = map_dbl(x, function(z) z^2/10))
+
+# A formula equivalent to function(z) z^5/(z + 10)
+# the . is the variable you're manipulating
+res <- res %>% mutate(y3 = map_dbl(x, ~.^5/(.+10)))
+```
+
+It can be a bit tricky to differentiate between options 2 and 3 in practice - the biggest difference is that you're not using the keyword `function` and your variable is the default placeholder variable `.` used in the tidyverse. 
+
+### Try it out {- .tryitout}
+
+Use each of the 3 options for defining a method in purrr to pull out a single string of all of the books each character was in. To do this, you'll need to collapse the list of books for each character into a single string, which you can do with the `paste` function and the `collapse` argument.
+
+```{r}
+letters[1:10] %>% paste(collapse = "|")
+```
+Start with this data frame of character names and book list-columns:
+
+```{r}
+got_df <- tibble(name = map_chr(got_chars, "name"),
+                 id = map_int(got_chars, "id"),
+                 books = map(got_chars, "books"))
+```
+
+<details><summary>Solution</summary>
+```{r}
+# Define a function
+my_collapse <- function(x) paste(x, collapse = " | ")
+
+got_df <- got_df %>%
+  mutate(
+    fun_def_res = map_chr(books, my_collapse),
+    # Here, I don't have to define a function, I just pass my additional 
+    # argument in after the fact...
+    fun_base_res = map_chr(books, paste, collapse = " | "),
+    
+    # Here, I can just define a new function without a name and apply it to 
+    # each entry
+    fun_anon_res = map_chr(books, function(x) paste(x, collapse = " | ")),
+    
+    # And here, I don't even bother to specifically say that I'm defining a 
+    # function, I just apply a formula to each entry
+    fun_formula_res = map_chr(books, ~paste(., collapse = " | "))
+  ) 
+
+head(got_df)
+```
+</details>
+
+
 <!-- ## Other Purrr functions -->
+## Beyond `map`: Functions with multiple inputs
 
+Sometimes, you might need to map a function over two vectors/lists in parallel. `purrr` has you covered with the `map2` function. As with `map`, the syntax is `map2(thing1, thing2, function, other.args)`; the big difference is that `function` takes two arguments.
 
+Let's create a simple times-table:
+```{r}
+crossing(x = 1:10, y = 1:10) %>%
+  mutate(times = map2_int(x, y, `*`)) %>%
+  pivot_wider(names_from = y, names_prefix = 'y=', values_from = times)
+# we could use `multiply_by` instead of `*` if we wanted to
+```
+
+If you are using formula notation to define functions with `map2`, you will need to refer to your two arguments as `.x` and `.y`. You can determine this from the Usage section when you run `map2`, which shows you `map2(.x, .y, .f, ...)` - that is, the first argument is .x, the second is .y, and the third is the function. 
+
+### Try it out {- .tryitout}
+
+Use `map2` to determine if each Game of Thrones character has more titles than aliases. Start with this code:
+
+```{r}
+got_names <- tibble(name = purrr::map_chr(got_chars, "name"),
+                    titles = purrr::map(got_chars, "titles"),
+                    aliases = purrr::map(got_chars, "aliases"))
+```
+
+<details><summary>Solution</summary>
+```{r}
+got_names %>%
+  mutate(more_titles = map2_lgl(titles, aliases, ~length(.x) > length(.y)))
+```
+</details>
+
+Like `map`, you can specify the type of the output response using `map2`. This makes it very easy to format the output appropriately for your application.
+
+You can use functions with many arguments with `map` by using the `pmap` variant; here, you pass in a list of functions, which are identified by position (`..1, ..2, ..3,` etc). Note the `..` - you are referencing the list first, and the index within the list argument 2nd. 
 
 
 ## References {- .learn-more}
