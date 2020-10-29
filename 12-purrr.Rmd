@@ -149,7 +149,7 @@ purrr::map(got_chars, `[`, c("name", "gender", "born")) %>%
   dplyr::bind_rows()
 ```
 
-## Creating List-columns
+## Creating (and Using) List-columns
 
 Data structures in R are typically list-based in one way or another. Sometimes, more complicated data structures are actually lists of lists, or tibbles with a list-column, or other variations on "list within a ____". In combination with `purrr`, this is an *incredibly* powerful setup that can make working with simulations and data very easy.
 
