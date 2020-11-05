@@ -32,7 +32,7 @@
   
 <link rel="prev" href="animated-and-interactive-graphics.html"/>
 <link rel="next" href="high-performance-computing.html"/>
-<script src="libs/header-attrs-2.3/header-attrs.js"></script>
+<script src="libs/header-attrs-2.5/header-attrs.js"></script>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -51,6 +51,8 @@
 
 
 <script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
+<link href="libs/anchor-sections-1.0/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0/anchor-sections.js"></script>
 <script>
 
 (function() {
@@ -464,16 +466,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ul>
 <li class="chapter" data-level="" data-path="intro-prog.html"><a href="intro-prog.html#try-it-out-1"><i class="fa fa-check"></i>Try it out</a></li>
 </ul></li>
-<li class="chapter" data-level="" data-path="tools.html"><a href="tools.html#references"><i class="fa fa-check"></i>References</a></li>
+<li class="chapter" data-level="" data-path="lists-nested-lists-and-functional-programming.html"><a href="lists-nested-lists-and-functional-programming.html#purrr-references"><i class="fa fa-check"></i>Purrr References</a></li>
 </ul></li>
 <li class="chapter" data-level="13" data-path="high-performance-computing.html"><a href="high-performance-computing.html"><i class="fa fa-check"></i><b>13</b> High Performance Computing</a>
 <ul>
-<li class="chapter" data-level="" data-path="tools.html"><a href="tools.html#references"><i class="fa fa-check"></i>References</a></li>
+<li class="chapter" data-level="" data-path="high-performance-computing.html"><a href="high-performance-computing.html#hpc-references"><i class="fa fa-check"></i>HPC References</a></li>
 </ul></li>
-<li class="chapter" data-level="14" data-path="tidy-models.html"><a href="tidy-models.html"><i class="fa fa-check"></i><b>14</b> Tidy Models</a>
-<ul>
-<li class="chapter" data-level="" data-path="tools.html"><a href="tools.html#references"><i class="fa fa-check"></i>References</a></li>
-</ul></li>
+<li class="chapter" data-level="14" data-path="tidy-models.html"><a href="tidy-models.html"><i class="fa fa-check"></i><b>14</b> Tidy Models</a></li>
 <li class="chapter" data-level="15" data-path="spatial-packages.html"><a href="spatial-packages.html"><i class="fa fa-check"></i><b>15</b> Spatial packages</a>
 <ul>
 <li class="chapter" data-level="" data-path="tools.html"><a href="tools.html#references"><i class="fa fa-check"></i>References</a></li>
@@ -581,8 +580,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <p>Operations in R are <strong>vectorized</strong> - that is, by default, they operate on vectors. This is primarily a feature that applies to atomic vectors (and we don’t even think about it):</p>
 <div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="lists-nested-lists-and-functional-programming.html#cb33-1"></a>(<span class="kw">rnorm</span>(<span class="dv">10</span>) <span class="op">+</span><span class="st"> </span><span class="kw">rnorm</span>(<span class="dv">10</span>, <span class="dt">mean =</span> <span class="dv">3</span>))</span></code></pre></div>
-<pre><code>##  [1] 2.962322 2.304403 3.469598 1.786258 2.787927 5.174108 3.377978 5.515752
-##  [9] 3.001097 0.844748</code></pre>
+<pre><code>##  [1] 4.443001 2.690353 4.600577 3.768191 2.812131 2.996722 3.578992 2.262230
+##  [9] 3.198266 5.215017</code></pre>
 <p>We didn’t have to use a for loop to add these two vectors with 10 entries each together. In python (and SAS, and other languages), this might instead look like:</p>
 <div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="lists-nested-lists-and-functional-programming.html#cb35-1"></a>a &lt;-<span class="st"> </span><span class="kw">rnorm</span>(<span class="dv">10</span>)</span>
 <span id="cb35-2"><a href="lists-nested-lists-and-functional-programming.html#cb35-2"></a>b &lt;-<span class="st"> </span><span class="kw">rnorm</span>(<span class="dv">10</span>, <span class="dt">mean =</span> <span class="dv">3</span>)</span>
@@ -591,8 +590,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb35-5"><a href="lists-nested-lists-and-functional-programming.html#cb35-5"></a>  result[i] &lt;-<span class="st"> </span>a[i] <span class="op">+</span><span class="st"> </span>b[i]</span>
 <span id="cb35-6"><a href="lists-nested-lists-and-functional-programming.html#cb35-6"></a>}</span>
 <span id="cb35-7"><a href="lists-nested-lists-and-functional-programming.html#cb35-7"></a>result</span></code></pre></div>
-<pre><code>##  [1] 1.852131 4.881300 3.238447 3.638142 2.866209 4.318061 3.268676 3.033669
-##  [9] 4.341455 5.716266</code></pre>
+<pre><code>##  [1] 4.707204 4.490175 4.542241 1.596232 1.728671 3.660799 5.474533 2.292365
+##  [9] 1.362700 5.062606</code></pre>
 <p>That is, we would apply or map the + function to each entry of a and b. For atomic vectors, it’s easy to do this by default; with a list, however, we need to be a bit more explicit (because everything that’s passed into the function may not be the same type).</p>
 <p>This logic is the basis behind the purrr package (and similar base functions <code>apply</code>, <code>lapply</code>, <code>sapply</code>, <code>tapply</code>, and <code>mapply</code> - I find the purrr package easier to work with, but you may use the base package versions if you want, and you can find a <a href="https://jennybc.github.io/purrr-tutorial/bk01_base-functions.html">side-by-side comparison in the purrr tutorial</a>).</p>
 </div>
@@ -603,7 +602,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <pre><code>## ✓ ggplot2 3.3.2.9000     ✓ purrr   0.3.4     
 ## ✓ tibble  3.0.4          ✓ dplyr   1.0.2     
 ## ✓ tidyr   1.1.2          ✓ stringr 1.4.0     
-## ✓ readr   1.3.1          ✓ forcats 0.5.0</code></pre>
+## ✓ readr   1.4.0          ✓ forcats 0.5.0</code></pre>
 <pre><code>## ── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
 ## x dplyr::filter() masks stats::filter()
 ## x dplyr::lag()    masks stats::lag()</code></pre>
@@ -1603,16 +1602,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <pre><code>## # A tibble: 201 x 3
 ##        x      y is_outlier
 ##    &lt;dbl&gt;  &lt;dbl&gt; &lt;lgl&gt;     
-##  1 -10   -10.4  FALSE     
-##  2  -9.9 -10.2  FALSE     
-##  3  -9.8  -8.68 FALSE     
-##  4  -9.7 -10.6  FALSE     
-##  5  -9.6  -8.82 FALSE     
-##  6  -9.5  -9.91 FALSE     
-##  7  -9.4  -9.34 FALSE     
-##  8  -9.3 -10.3  FALSE     
-##  9  -9.2  -6.78 FALSE     
-## 10  -9.1  -8.74 FALSE     
+##  1 -10   -10.5  FALSE     
+##  2  -9.9 -10.1  FALSE     
+##  3  -9.8  -9.57 FALSE     
+##  4  -9.7  -9.63 FALSE     
+##  5  -9.6 -10.3  FALSE     
+##  6  -9.5 -10.6  FALSE     
+##  7  -9.4 -12.0  FALSE     
+##  8  -9.3  -8.49 FALSE     
+##  9  -9.2 -10.3  FALSE     
+## 10  -9.1  -9.93 FALSE     
 ## # … with 191 more rows</code></pre>
 <p>Now, lets suppose that I want 100 replicates of each of 0, 5, 10, and 20 outliers.</p>
 <div class="sourceCode" id="cb66"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb66-1"><a href="lists-nested-lists-and-functional-programming.html#cb66-1"></a>sim &lt;-<span class="st"> </span><span class="kw">crossing</span>(<span class="dt">rep =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">100</span>, <span class="dt">n_outliers =</span> <span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">5</span>, <span class="dv">10</span>, <span class="dv">20</span>)) <span class="op">%&gt;%</span></span>
@@ -1625,14 +1624,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>It can be helpful to examine one of the objects just to see what you’re dealing with:</p>
 <div class="sourceCode" id="cb68"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb68-1"><a href="lists-nested-lists-and-functional-programming.html#cb68-1"></a><span class="kw">str</span>(sim<span class="op">$</span>reg[[<span class="dv">1</span>]])</span></code></pre></div>
 <pre><code>## List of 12
-##  $ coefficients : Named num [1:2] 0.0316 1.0061
+##  $ coefficients : Named num [1:2] -0.0369 0.9805
 ##   ..- attr(*, &quot;names&quot;)= chr [1:2] &quot;(Intercept)&quot; &quot;x&quot;
-##  $ residuals    : Named num [1:201] -0.336 -1.466 -0.573 1.278 -0.7 ...
+##  $ residuals    : Named num [1:201] -0.43 -0.702 0.232 0.549 0.566 ...
 ##   ..- attr(*, &quot;names&quot;)= chr [1:201] &quot;1&quot; &quot;2&quot; &quot;3&quot; &quot;4&quot; ...
-##  $ effects      : Named num [1:201] -0.449 82.767 -0.406 1.442 -0.537 ...
+##  $ effects      : Named num [1:201] 0.524 80.657 0.328 0.644 0.66 ...
 ##   ..- attr(*, &quot;names&quot;)= chr [1:201] &quot;(Intercept)&quot; &quot;x&quot; &quot;&quot; &quot;&quot; ...
 ##  $ rank         : int 2
-##  $ fitted.values: Named num [1:201] -10.03 -9.93 -9.83 -9.73 -9.63 ...
+##  $ fitted.values: Named num [1:201] -9.84 -9.74 -9.65 -9.55 -9.45 ...
 ##   ..- attr(*, &quot;names&quot;)= chr [1:201] &quot;1&quot; &quot;2&quot; &quot;3&quot; &quot;4&quot; ...
 ##  $ assign       : int [1:2] 0 1
 ##  $ qr           :List of 5
@@ -1659,12 +1658,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ##   .. ..- attr(*, &quot;order&quot;)= int 1
 ##   .. ..- attr(*, &quot;intercept&quot;)= int 1
 ##   .. ..- attr(*, &quot;response&quot;)= int 1
-##   .. ..- attr(*, &quot;.Environment&quot;)=&lt;environment: 0x55e4d1abd2d8&gt; 
+##   .. ..- attr(*, &quot;.Environment&quot;)=&lt;environment: 0x5582316af968&gt; 
 ##   .. ..- attr(*, &quot;predvars&quot;)= language list(y, x)
 ##   .. ..- attr(*, &quot;dataClasses&quot;)= Named chr [1:2] &quot;numeric&quot; &quot;numeric&quot;
 ##   .. .. ..- attr(*, &quot;names&quot;)= chr [1:2] &quot;y&quot; &quot;x&quot;
 ##  $ model        :&#39;data.frame&#39;:	201 obs. of  2 variables:
-##   ..$ y: num [1:201] -10.37 -11.4 -10.4 -8.45 -10.33 ...
+##   ..$ y: num [1:201] -10.27 -10.45 -9.41 -9 -8.88 ...
 ##   ..$ x: num [1:201] -10 -9.9 -9.8 -9.7 -9.6 -9.5 -9.4 -9.3 -9.2 -9.1 ...
 ##   ..- attr(*, &quot;terms&quot;)=Classes &#39;terms&#39;, &#39;formula&#39;  language y ~ x
 ##   .. .. ..- attr(*, &quot;variables&quot;)= language list(y, x)
@@ -1676,7 +1675,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ##   .. .. ..- attr(*, &quot;order&quot;)= int 1
 ##   .. .. ..- attr(*, &quot;intercept&quot;)= int 1
 ##   .. .. ..- attr(*, &quot;response&quot;)= int 1
-##   .. .. ..- attr(*, &quot;.Environment&quot;)=&lt;environment: 0x55e4d1abd2d8&gt; 
+##   .. .. ..- attr(*, &quot;.Environment&quot;)=&lt;environment: 0x5582316af968&gt; 
 ##   .. .. ..- attr(*, &quot;predvars&quot;)= language list(y, x)
 ##   .. .. ..- attr(*, &quot;dataClasses&quot;)= Named chr [1:2] &quot;numeric&quot; &quot;numeric&quot;
 ##   .. .. .. ..- attr(*, &quot;names&quot;)= chr [1:2] &quot;y&quot; &quot;x&quot;
@@ -1686,7 +1685,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <pre><code>## # A tibble: 1 x 2
 ##   `(Intercept)`     x
 ##           &lt;dbl&gt; &lt;dbl&gt;
-## 1        0.0316  1.01</code></pre>
+## 1       -0.0369 0.980</code></pre>
 <p>This will make our formatting a lot easier and prevent any duplication that might occur if we unnest a vector that has length &gt; 1.</p>
 <div class="sourceCode" id="cb72"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb72-1"><a href="lists-nested-lists-and-functional-programming.html#cb72-1"></a>sim &lt;-<span class="st"> </span>sim <span class="op">%&gt;%</span></span>
 <span id="cb72-2"><a href="lists-nested-lists-and-functional-programming.html#cb72-2"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">coefs =</span> purrr<span class="op">::</span><span class="kw">map</span>(reg, <span class="st">&quot;coefficients&quot;</span>) <span class="op">%&gt;%</span></span>
@@ -1697,31 +1696,31 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## # A tibble: 1 x 2
 ##   `(Intercept)`     x
 ##           &lt;dbl&gt; &lt;dbl&gt;
-## 1        0.0316  1.01
+## 1       -0.0369 0.980
 ## 
 ## [[2]]
 ## # A tibble: 1 x 2
 ##   `(Intercept)`     x
 ##           &lt;dbl&gt; &lt;dbl&gt;
-## 1        -0.256  1.01
+## 1       -0.0167 0.988
 ## 
 ## [[3]]
 ## # A tibble: 1 x 2
 ##   `(Intercept)`     x
 ##           &lt;dbl&gt; &lt;dbl&gt;
-## 1      -0.00297 0.977
+## 1        0.0273 0.974
 ## 
 ## [[4]]
 ## # A tibble: 1 x 2
 ##   `(Intercept)`     x
 ##           &lt;dbl&gt; &lt;dbl&gt;
-## 1        -0.119 0.959
+## 1         0.132  1.05
 ## 
 ## [[5]]
 ## # A tibble: 1 x 2
 ##   `(Intercept)`     x
 ##           &lt;dbl&gt; &lt;dbl&gt;
-## 1       -0.0471  1.02</code></pre>
+## 1       -0.0110 0.997</code></pre>
 <p>Then, we can plot our results:</p>
 <div class="sourceCode" id="cb74"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb74-1"><a href="lists-nested-lists-and-functional-programming.html#cb74-1"></a>sim <span class="op">%&gt;%</span></span>
 <span id="cb74-2"><a href="lists-nested-lists-and-functional-programming.html#cb74-2"></a><span class="st">  </span><span class="kw">unnest</span>(coefs) <span class="op">%&gt;%</span></span>
@@ -1847,8 +1846,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>You can use functions with many arguments with <code>map</code> by using the <code>pmap</code> variant; here, you pass in a list of functions, which are identified by position (<code>..1, ..2, ..3,</code> etc). Note the <code>..</code> - you are referencing the list first, and the index within the list argument 2nd.</p>
 </div>
 </div>
-<div id="references" class="section level2 unnumbered learn-more" number="">
-<h2>References</h2>
+<div id="purrr-references" class="section level2 unnumbered learn-more" number="">
+<h2>Purrr References</h2>
 <ul>
 <li><p>The Joy of Functional Programming (for Data Science): Hadley Wickham’s talk on purrr and functional programming. <a href="https://learning.acm.org/techtalks/functionalprogramming">~1h video</a> and <a href="https://learning.acm.org/binaries/content/assets/leaning-center/webinar-slides/2019/hadleywickham_techtalkslides.pdf">slides</a>.<br />
 (The Joy of Cooking meets Data Science, with illustrations by Allison Horst)</p></li>

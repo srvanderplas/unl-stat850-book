@@ -328,7 +328,7 @@ Like `map`, you can specify the type of the output response using `map2`. This m
 You can use functions with many arguments with `map` by using the `pmap` variant; here, you pass in a list of functions, which are identified by position (`..1, ..2, ..3,` etc). Note the `..` - you are referencing the list first, and the index within the list argument 2nd. 
 
 
-## References {- .learn-more}
+## Purrr References {- .learn-more}
 
 - The Joy of Functional Programming (for Data Science): Hadley Wickham's talk on purrr and functional programming. [~1h video](https://learning.acm.org/techtalks/functionalprogramming) and [slides](https://learning.acm.org/binaries/content/assets/leaning-center/webinar-slides/2019/hadleywickham_techtalkslides.pdf).     
 (The Joy of Cooking meets Data Science, with illustrations by Allison Horst)
