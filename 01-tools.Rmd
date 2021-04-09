@@ -50,7 +50,7 @@ On Linux, instead of a YouTube video, you get a text-based  [tutorial](https://g
 
 Once you have R installed, try to run the following code, which will install (most of) the packages you need to run the code in this book. 
 
-```{r}
+```{r install-req-pkgs}
 # Read in a list of all packages that are required
 pkgs <- readLines("https://raw.githubusercontent.com/srvanderplas/unl-stat850/master/data/packages")
 # Remove any already installed packages from the list
@@ -102,7 +102,7 @@ If both of those things worked, you're probably set up correctly!
 
 Next, try typing this into the text editor, then run the line. Look in the environment tab and see if you can see what has changed.
 
-```{r}
+```{r env-var-changes}
 a <- 3 # store 3 in the variable a
 ```
 
@@ -233,7 +233,7 @@ Copy [this script](code/01_setup_install.R) into a text editor in RStudio on you
 
 It will run for a while, installing most of the packages you'll need for this course. Read the code file if you want to know what it's doing - I've provided short explanations of what each package does (and anyways, you shouldn't run code on your machine if you don't understand what it does). 
 
-```{r eval = F}
+```{r setup-and-install-everything, eval = F}
 source("code/01_setup_install.R")
 ```
 
@@ -278,7 +278,7 @@ Let's suppose you already have a folder on your machine named `hello-world-1` (y
 
 If you want, you can use the following R code to set this up:
 
-```{r, eval = F}
+```{r git-local-repository-first, eval = F}
 dir <- "./hello-world-1"
 if (!dir.exists(dir)) {
   dir.create(dir)
