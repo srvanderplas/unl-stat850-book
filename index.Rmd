@@ -23,28 +23,30 @@ knitr::opts_chunk$set(collapse = T, cache = T)
 
 saspath <- "/usr/local/SASHome/SASFoundation/9.4/bin/sas_en"
 sasopts <- "-ls 75"
-knitr::opts_chunk$set(engine.path=list(sas=saspath, saslog=saspath, sashtml=saspath),
-                      engine.opts=list(sas=sasopts, saslog=sasopts, sashtml=sasopts), 
-                      comment=NA, cache = T)
+knitr::opts_chunk$set(
+  engine.path = list(sas = saspath, saslog = saspath, sashtml = saspath),
+  engine.opts = list(sas = sasopts, saslog = sasopts, sashtml = sasopts),
+  comment = NA, cache = T
+)
 library(SASmarkdown)
 
 ```
 
 ```{r book-functions, include = F}
-.pkgkeeplist <- c("package:stats","package:graphics","package:grDevices","package:utils","package:datasets","package:methods","package:base", "package:SASmarkdown", "package:rmarkdown", "package:knitr", "package:magrittr")
+.pkgkeeplist <- c("package:stats", "package:graphics", "package:grDevices", "package:utils", "package:datasets", "package:methods", "package:base", "package:SASmarkdown", "package:rmarkdown", "package:knitr", "package:magrittr")
 
 .objkeeplist <- c(".pkgkeeplist", ".objkeeplist", ".reset", "saspath", "sasopts")
 
 .reset <- function() {
   basic.packages <- .pkgkeeplist
 
-  package.list <- search()[ifelse(unlist(gregexpr("package:",search()))==1,TRUE,FALSE)]
+  package.list <- search()[ifelse(unlist(gregexpr("package:", search())) == 1, TRUE, FALSE)]
 
-  package.list <- setdiff(package.list,basic.packages)
-  
+  package.list <- setdiff(package.list, basic.packages)
+
   obj.list <- setdiff(ls(), .objkeeplist)
 
-  if (length(package.list)>0)  for (package in package.list) detach(package, character.only=TRUE)
+  if (length(package.list) > 0) for (package in package.list) detach(package, character.only = TRUE)
   rm(list = obj.list)
 }
 ```
