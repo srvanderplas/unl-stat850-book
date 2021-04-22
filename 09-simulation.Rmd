@@ -78,7 +78,7 @@ tibble(
 </details>
 <details><summary>In SAS</summary>
 You can see the [various distribution options](https://documentation.sas.com/?docsetId=lefunctionsref&docsetTarget=p0fpeei0opypg8n1b06qe4r040lv.htm&docsetVersion=9.4&locale=en) in the RAND documentation. 
-```{sashtml sas-rand-density-09, error = T, fig.path = "image/"}
+```{r sas-rand-density-09, collectcode = F, fig.path = "image/", engine = "sashtml", engine.path = sasexe, engine.opts = sasopts, error = T}
 %let N=500; /* size of sample */
   
 DATA sample;
@@ -122,7 +122,7 @@ summary(regression)
 ```
 </details>
 <details><summary>In SAS</summary>
-```{sashtml sas-linear-reg-09, error = T, fig.path = "image/"}
+```{r sas-linear-reg-09, collectcode = F, fig.path = "image/", engine = "sashtml", engine.path = sasexe, engine.opts = sasopts, error = T}
 DATA tmp;
 call streaminit(20572983);
 DO i = -10 to 10 by .1;
@@ -296,7 +296,7 @@ If 101 and 102.5 are the anchor points we have, let's assume that 95% of normal 
 
 We can simulate 1000 observations from $N(101.75, 0.375)$, create a new variable which truncates them at 102, and compute the mean of both variables to determine just how biased our results are.
 
-```{sashtml sas-dog-simulation-09, error = T, fig.path = "image/"}
+```{r sas-dog-simulation-09, collectcode = F, fig.path = "image/", engine = "sashtml", engine.path = sasexe, engine.opts = sasopts, error = T}
 DATA dogtemp;
   call streaminit(20572983);
   DO i = 1 to 1000;
@@ -405,7 +405,7 @@ mean(sim_data$y)
 
 ```
 
-```{sashtml sas-var-converge-e-09, fig.path = "image/"}
+```{r sas-var-converge-e-09, collectcode = F, fig.path = "image/", engine = "sashtml", engine.path = sasexe, engine.opts = sasopts, error = T}
 DATA tmp;
 CALL streaminit(20283492);
   DO i = 1 to 100000;

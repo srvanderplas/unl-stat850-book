@@ -1,4 +1,4 @@
-```{r, include = F}
+```{r reset-6, include = F}
 .reset()
 ```
 
@@ -25,7 +25,7 @@ For now, you need to know this material well enough to 1) identify what operatio
 :::
 
 <details><summary>Load initial packages</summary>
-```{r, message = F}
+```{r tidypkgs, message = F}
 library(dplyr) # Data wrangling
 library(tidyr) # Data rearranging
 library(tibble) # data table
@@ -37,28 +37,28 @@ library(tibble) # data table
 
 These datasets all display the same data: TB cases documented by the WHO in Afghanistan, Brazil, and China, between 1999 and 2000. There are 4 variables: country, year, cases, and population, but each table has a different layout.
 
-```{r, echo = F}
+```{r tidy1, echo = F}
 knitr::kable(table1, caption = "Table 1")
 ```
 
 Here, each observation is a single row, each variable is a column, and everything is nicely arranged for e.g. regression or statistical analysis. We can easily compute another measure, such as cases per 100,000 population, by taking cases/population * 100000 (this would define a new column). 
 
 
-```{r, echo = F}
+```{r tidy2, echo = F}
 knitr::kable(table2, caption = "Table 2")
 ```
 
 Here, we have 4 columns again, but we now have 12 rows: one of the columns is an indicator of which of two numerical observations is recorded in that row; a second column stores the value. This form of the data is more easily plotted in e.g. ggplot2, if we want to show lines for both cases and population, but computing per capita cases would be much more difficult in this form than in the arrangement in table 1. 
 
 
-```{r, echo = F}
+```{r tidy3, echo = F}
 knitr::kable(table3, caption = "Table 3")
 ```
 
 This form has only 3 columns, because the rate variable (which is a character) stores both the case count and the population. We can't do *anything* with this format as it stands, because we can't do math on data stored as characters. However, this form might be easier to read and record for a human being. 
 
 
-```{r, echo = F}
+```{r tidy4, echo = F}
 knitr::kable(table4a, caption = "Table 4a")
 knitr::kable(table4b, caption = "Table 4b")
 ```
@@ -66,7 +66,7 @@ knitr::kable(table4b, caption = "Table 4b")
 In this form, we have two tables - one for population, and one for cases. Each year's observations are in a separate column. This format is often found in separate sheets of an excel workbook. To work with this data, we'll need to transform each table so that there is a column indicating which year an observation is from, and then merge the two tables together by country and year. 
 
 
-```{r, echo = F}
+```{r tidy5, echo = F}
 knitr::kable(table5, caption = "Table 5")
 ```
 
@@ -112,7 +112,7 @@ Nearly always, when multiple variables are stored in a single column, they are s
 
 The tidyverse package to deal with strings is [`stringr`](https://stringr.tidyverse.org/). The functions in stringr take the form of `str_XXX` where XXX is a verb. So `str_split()`, `str_replace()`, `str_remove()`, `str_to_lower()` all should make some sense.
 
-```{r, eval = F, include = F}
+```{r readr-college-data, eval = F, include = F}
 library(readr)
 college_data <- read_csv("https://ed-public-download.app.cloud.gov/downloads/Most-Recent-Cohorts-All-Data-Elements.csv") 
 college_data2 <- college_data %>%
@@ -141,15 +141,15 @@ write_csv(college_data2, "data/College_Data_Abbrev.csv", na = '.')
 For this example, we'll use a subset of the US Department of Education College Scorecard data. [Documentation](https://collegescorecard.ed.gov/data/documentation/), [Data](https://collegescorecard.ed.gov/data/). I've selected a few columns from the institution-level data available on the College Scorecard site. 
 
 <details><summary>Let's take a look (Read in the data)</summary>
-```{r}
+```{r summary-college-data}
 college <- read_csv("data/College_Data_Abbrev.csv", guess_max = 5000, na = '.')
 str(college)
 ```
 
-```{sashtml sas-college-read-data-setup, include = F, collectcode=T}
+```{r sas-college-read-data-setup, include = F, collectcode=T, fig.path = "image/", engine = "sashtml", engine.path = sasexe, engine.opts = sasopts, error = T}
 ODS HTML style=HTMLBLUE;
 ```
-```{sashtml sas-college-read-data, fig.path = "image/"}
+```{r sas-college-read-data, fig.path = "image/", engine = "sashtml", engine.path = sasexe, engine.opts = sasopts, collectcode = F, error = T}
 libname classdat "sas/";
 
 filename fileloc 'data/College_Data_Abbrev.csv';
@@ -169,7 +169,7 @@ RUN;
 <details><summary>What proportion of the schools operating in each state have the state's name in the school name?</summary>
 
 We'll use `str_detect()` to look for the state name in the college name. 
-```{r, fig.width = 4, fig.height = 8, out.width = 4}
+```{r string-ops, fig.width = 4, fig.height = 8, out.width = 4}
 library(stringr) # string processing
 
 # Outside the pipe
@@ -196,7 +196,7 @@ In SAS, we use `find(x, pattern, 't')` to find the location of the pattern, whic
 
 Note that SAS pads character fields with spaces so that they are all the same length. So if we want to test for "Alabama    " we could omit the 't' option in the command, but since we usually don't want that, we need to tell SAS to trim the fields before searching for the pattern. 
 
-```{sashtml sas-college-find}
+```{r sas-college-find, fig.path = "image/", engine = "sashtml", engine.path = sasexe, engine.opts = sasopts, collectcode = F, error = T}
 libname classdat "sas/";
 
 DATA collegetmp;
@@ -213,7 +213,7 @@ RUN;
 <details><summary>What are some common substrings in a set of text?</summary>
 For this, we'll start with working with the single column `INSTNM`. 
 
-```{r}
+```{r substrings}
 head(college$INSTNM) %>% str_split(., " ") # Split on every space
 
 # We may need to fix certain things that should stay together
@@ -223,8 +223,9 @@ str_replace(college$INSTNM, "A & M", "A&M") %>%
   str_split(., "[ -]") # This pattern says "either ' ' or '-'" 
                        # (but the - has to be at the start or the end)
 ```
+
 So we could take the time to clean up everything, making sure that e.g. San Diego is treated as a single word, but that's a pain in the rear. Instead, let's just see what happens if we brute-force it. 
-```{r}
+```{r substrings-2}
 tmp <- college %>%
   select(INSTNM, State) %>% 
   mutate(name_words = str_split(INSTNM, '[ -]')) # This is a list-column
@@ -232,8 +233,10 @@ tmp
 unnest(tmp) # Unnest duplicates rows so that the expanded data frame has the 
             # same structure as the original data
 ```
+
 List columns are one way to maintain tidy data. They allow you to have several "sub-observations" for each observation and are useful for precisely cases like this, where there are uneven numbers of words in each university's name. We're not going to focus on list columns, but if you're interested, check out `purrr` and this [excellent tutorial](https://jennybc.github.io/purrr-tutorial/). 
-```{r}
+
+```{r purrr-mention}
 library(purrr) # List columns
 
 unnest(tmp) %>% 
@@ -246,10 +249,10 @@ unnest(tmp) %>%
 In SAS, this is a bit more tricky. Most people I know that use both SAS and R will do the data cleaning in R once things get complicated, and then read the clean data in to SAS. That's a valid approach, but it's worth seeing what has to be done in SAS this once. As we get further into this class, I'll probably be more willing to say "we're just going to use R for this" for two reasons - 1. I know R better, and 2. R is generally better at handling the weird stuff; SAS is built to quickly handle things that are already formatted in a reasonable way. SAS seems to be highly preferred for e.g. fitting mixed/linear models, but it isn't the easiest tool to use for data cleaning. 
 
 But, in this particular case, there is [documentation about how to break a sentence into words](https://blogs.sas.com/content/iml/2016/07/11/break-sentence-into-words-sas.html) in SAS. 
-```{sashtml sas-college-split-string-words-setup, collectcode=T,include = F, fig.path = "image/"}
+```{r sas-college-split-string-words-setup, collectcode=T, include = F, fig.path = "image/", engine = "sashtml", engine.path = sasexe, engine.opts = sasopts, error = T}
 ODS HTML style=HTMLblue;
 ```
-```{sashtml sas-college-split-string-words, fig.path = "image/", collectcode=T}
+```{r sas-college-split-string-words, fig.path = "image/", engine = "sashtml", engine.path = sasexe, engine.opts = sasopts, collectcode = F, error = T}
 libname classdat "sas/";
 DATA collegename;
 SET classdat.college;
@@ -273,7 +276,7 @@ RUN;
 ### Regular Expressions
 Matching exact strings is easy - it's just like using find and replace.
 
-```{r}
+```{r regular-expressions}
 human_talk <- "blah, blah, blah. Do you want to go for a walk?"
 dog_hears <- str_extract(human_talk, "walk")
 dog_hears
@@ -293,7 +296,7 @@ Ex: `[abc]` will match any single character `a`, `b`, `c`
 - `.` matches any character (except a newline)
 - To match special characters, escape them using `\` (in most languages) or `\\` (in R). So `\\.` will match a literal `.`, `\\$` will match a literal `$`. 
 
-```{r}
+```{r phone-strings}
 num_string <- "phone: 123-456-7890, nuid: 12345678, ssn: 123-45-6789"
 
 ssn <- str_extract(num_string, "[0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9][0-9][0-9]")
@@ -307,14 +310,14 @@ Listing out all of those numbers can get repetitive, though. How do we specify r
 - `?` means 0 or 1 times -- most useful when you're looking for something optional
 - `{a, b}` means repeat between `a` and `b` times, where `a` and `b` are integers. `b` can be blank. So `[abc]{3,}` will match `abc`, `aaaa`, `cbbaa`, but not `ab`, `bb`, or `a`. For a single number of repeated characters, you can use `{a}`. So `{3, }` means "3 or more times" and `{3}` means "exactly 3 times"
 
-```{r}
+```{r regular-expression-banana}
 str_extract("banana", "[a-z]{1,}") # match any sequence of lowercase characters
 str_extract("banana", "[ab]{1,}") # Match any sequence of a and b characters
 str_extract_all("banana", "(..)") # Match any two characters
 str_extract("banana", "(..)\\1") # Match a repeated thing
 ```
 
-```{r}
+```{r regular-expression-phone-ssn}
 num_string <- "phone: 123-456-7890, nuid: 12345678, ssn: 123-45-6789, bank account balance: $50,000,000.23"
 
 ssn <- str_extract(num_string, "[0-9]{3}-[0-9]{2}-[0-9]{4}")
@@ -335,7 +338,7 @@ There are also ways to "anchor" a pattern to a part of the string (e.g. the begi
 - `$` means the end of a string
 
 Combined with pre and post-processing, these let you make sense out of semi-structured string data, such as addresses
-```{r}
+```{r regular-expression-addresses}
 address <- "1600 Pennsylvania Ave NW, Washington D.C., 20500"
 
 house_num <- str_extract(address, "^[0-9]{1,}")
@@ -355,7 +358,7 @@ zip <- str_extract(address, "[0-9-]{5,10}$") # match 5 and 9 digit zip codes
 
 If you've captured information using (), you can reference that information using backreferences. In most languages, those look like this: `\1` for the first reference, `\9` for the ninth. In R, though, the `\` character is special, so you have to escape it. So in R, `\\1` is the first reference, and `\\2` is the second, and so on. 
 
-```{r}
+```{r -regular-expression-fancier}
 phone_num_variants <- c("(123) 456-7980", "123.456.7890", "+1 123-456-7890")
 phone_regex <- "\\(?([0-9]{3})?\\)?.?([0-9]{3}).?([0-9]{4})"
 # \\( and \\) match literal parentheses if they exist
@@ -382,7 +385,7 @@ In PCRE regular expressions, '/' are used as delimiters. SAS assigns each sequen
 
 In this example, however, lets just test to see whether PRXMATCH finds a match or not
 
-```{sashtml, fig.path = "image/"}
+```{r regex-sas, fig.path = "image/", engine = "sashtml", engine.path = sasexe, engine.opts = sasopts, collectcode = F, error = T}
 DATA strings;
   INFILE DATALINES DSD; /* This allows quoted strings */
   INPUT string ~ $150.; /* ~ says deal with quoted strings */
@@ -412,7 +415,7 @@ RUN;
 ```
 
 Note that the equivalent syntax in R would be:
-```{r}
+```{r regex-r-version-of-sas}
 strings <- c("abcdefghijklmnopqrstuvwxyzABAB",
 "banana orange strawberry apple",
 "ana went to montana to eat a banana",
@@ -441,7 +444,7 @@ When doing various operations with regular expressions, it can be useful to save
 - SUBSTR extracts the string given the starting location and length
 
 <details><summary>PRXPARSE, PRXSUBSTR, SUBSTR</summary>
-```{sashtml, fig.path = "image/"}
+```{r regex-sas-2, fig.path = "image/", engine = "sashtml", engine.path = sasexe, engine.opts = sasopts, collectcode = F, error = T}
 DATA strings;
   INFILE DATALINES DSD; /* This allows quoted strings */
   INPUT string ~ $150.; /* ~ says deal with quoted strings */
@@ -504,7 +507,7 @@ RUN;
 ```
 
 Note that the equivalent syntax in R would be:
-```{r}
+```{r regex-sas-in-r2}
 strings <- c("abcdefghijklmnopqrstuvwxyzABAB",
 "banana orange strawberry apple",
 "ana went to montana to eat a banana",
@@ -529,7 +532,7 @@ tibble(
 <details><summary>Find and Replace with PRXCHANGE</summary>
 The next major task is find and replace, where we get to see another feature of perl-style regular expressions. 's/xxx/yyy/' is the general form of a find-and-replace regular expression. Think "substitue yyy for xxx". 
 
-```{sashtml, fig.path = "image/"}
+```{r five-ducks-example-sas, fig.path = "image/", engine = "sashtml", engine.path = sasexe, engine.opts = sasopts, collectcode = F, error = T}
 DATA ducks;
 INFILE DATALINES DSD;
 INPUT line ~ $50.;
@@ -567,7 +570,7 @@ RUN;
 ```
 
 The equivalent R code:
-```{r}
+```{r five-ducks-example-R}
 line <- c(
 "Five little ducks went out one day,",
 "Over the hills and far away.",
@@ -593,18 +596,18 @@ Another thing to realize - regular expressions are 100% a language you write, bu
 :::
 
 
-#### Try it out {- .tryitout}
+#### Try it out - Squirrel Census {- .tryitout}
 
 The Squirrel Census (https://www.thesquirrelcensus.com/) is a multimedia science, design, and storytelling project focusing on the Eastern gray (Sciurus carolinensis) in NYC's Central Park. They count squirrels and present their findings to the public. This table contains squirrel data for each of the 3,023 sightings, including location coordinates, age, primary and secondary fur color, elevation, activities, communications, and interactions between squirrels and with humans.
 
-```{r include = F, eval = F}
+```{r squirrelcensus-data, include = F, eval = F}
 tmp <- read_csv("data/2018_Central_Park_Squirrel_Census_-_Squirrel_Data.csv")
 ```
 <details><summary>Task 1: Fix the date!</summary>
 In both SAS and R, read in the data ([link](data/2018_Central_Park_Squirrel_Census_-_Squirrel_Data.csv)) and format the date correctly. You can do this by carefully specifying how the date is read in (?read_csv in R, [informat](https://documentation.sas.com/?docsetId=etsug&docsetTarget=etsug_intervals_sect009.htm&docsetVersion=15.1&locale=en) in SAS)
 
 <details><summary>R solution</summary>
-```{r}
+```{r squirrelcensus-data-read-in}
 library(readr)
 library(lubridate)
 
@@ -614,7 +617,7 @@ squirrels <- read_csv("data/2018_Central_Park_Squirrel_Census_-_Squirrel_Data.cs
 </details>
 
 <details><summary>SAS solution</summary>
-```{sashtml, fig.path = "image/"}
+```{r sas-squirrelcensus-data-read-in, fig.path = "image/", engine = "sashtml", engine.path = sasexe, engine.opts = sasopts, collectcode = F, error = T}
 libname classdat "sas/";
 
 filename fileloc 'data/2018_Central_Park_Squirrel_Census_-_Squirrel_Data.csv';
@@ -646,7 +649,7 @@ B. Where two highlight colors exist, add the primary color to both of them (so `
 You can do this by working with the original values or the combination values; whatever is easiest. 
 
 <details><summary>R solution</summary>
-```{r}
+```{r squirrel-colorfix}
 squirrels_colorfix <- squirrels %>%
   # Make it easier to join things back together...
   mutate(id = 1:n()) %>% 
@@ -680,7 +683,7 @@ table(squirrels_colorfix$combo)
 </details>
 
 <details><summary>SAS solution</summary>
-```{sashtml}
+```{r sas-squirrel-colorfix, fig.path = "image/", engine = "sashtml", engine.path = sasexe, engine.opts = sasopts, collectcode = F, error = T}
 libname classdat "sas/";
 
 DATA squirrelcolor;
@@ -713,13 +716,13 @@ SELECT DISTINCT orig, new_text3 FROM squirrelcolor;
 ### Joining and Splitting Variables
 
 There's another string-related task that is fairly commonly encountered: separating variables into two different columns (as in Table 3 above).
-```{r, echo = F, out.width = "50%", fig.cap = "A visual representation of what separating variables means for data set operations."}
+```{r tidy-separate-pic, echo = F, out.width = "50%", fig.cap = "A visual representation of what separating variables means for data set operations."}
 knitr::include_graphics("image/tidyr_separate.png")
 ```
 <details><summary>Separating Variables</summary>
 We can use `str_extract()` if we want, but it's actually faster to use `separate()`, which is part of the `tidyr` package. There is also `extract()`, which is another `tidyr` function that uses regular expressions and capture groups to split variables up. 
 
-```{r}
+```{r separate-demo}
 table3 %>%
   separate(col = rate, into = c("cases", "population"), sep = "/", remove = F)
 ```
@@ -729,7 +732,7 @@ I've left the rate column in the original data frame just to make it easy to com
 `separate()` will also take a full on regular expression if you want to capture only parts of a string to put into new columns. 
 
 [The `scan()` function in SAS can be used similarly](https://communities.sas.com/t5/SAS-Procedures/Splitting-a-delimited-column-into-multiple-columns/td-p/351130), though it doesn't have quite the simplicity and convenience of `separate`.
-```{sashtml sas-table3-scan, fig.path = "image/"}
+```{r sas-table3-scan, fig.path = "image/", engine = "sashtml", engine.path = sasexe, engine.opts = sasopts, collectcode = F, error = T}
 data table3;
 length country $12 rate $20;
 input country $ year rate $;
@@ -755,13 +758,13 @@ run;
 </details>
 
 And, of course, there is a complementary operation, which is when it's necessary to join two columns to get a useable data value. 
-```{r, echo = F, out.width = "50%", fig.cap = "A visual representation of what uniting variables means for data set operations."}
+```{r tidyr-unite-pic, echo = F, out.width = "50%", fig.cap = "A visual representation of what uniting variables means for data set operations."}
 knitr::include_graphics("image/tidyr_unite.png")
 ```
 
 <details><summary>Joining Variables</summary>
 `separate()` has a complement, `unite()`, which is useful for handling situations like in table5:
-```{r}
+```{r tidyr-unite-demo}
 table5 %>%
   unite(col = "year", century:year, sep = '') %>%
   separate(col = rate, into = c("cases", "population"), sep = "/")
@@ -770,7 +773,7 @@ table5 %>%
 Note that separate and unite both work with character variables - it's not necessarily true that you'll always be working with character formats when you need to do these operations. For instance, it's relatively common to need to separate dates into year, month, and day as separate columns (or to join them together). 
 
 Of course, it's much easier just to do a similar two-step operation (we have to convert to numeric variables to do math)
-```{r}
+```{r tidyr-unite-mutate}
 table5 %>%
   mutate(year = as.numeric(century)*100 + as.numeric(year)) %>% 
   select(-century)
@@ -780,7 +783,7 @@ table5 %>%
 
 Similarly, it is possible to do this operation in SAS as well (by string concatenation or using the numeric approach), as shown below:
 
-```{sashtml sas-table5-concatenate, fig.path = "image/"}
+```{r sas-table5-concatenate, fig.path = "image/", engine = "sashtml", engine.path = sasexe, engine.opts = sasopts, collectcode = F, error = T}
 /* read in the data */
 DATA table5;
 LENGTH country $12 century year rate $20;
@@ -829,21 +832,21 @@ It's fairly common for data to come in forms which are convenient for either hum
 In many cases, the data come in what we might call "wide" form - some of the column names are not names of variables, but instead, are themselves values of another variable. 
 
 Tables 4a and 4b are good examples of data which is in "wide" form and should be in long(er) form: the years, which are variables, are column names, and the values are cases and population respectively.  
-```{r}
+```{r longer-pivot-demo}
 table4a
 table4b
 ```
 
 The solution to this is to rearrange the data into "long form": to take the columns which contain values and "stack" them, adding a variable to indicate which column each value came from. To do this, we have to duplicate the values in any column which isn't being stacked (e.g. country, in both the example above and the image below). 
 
-```{r, echo = F, out.width = "50%", fig.cap = "A visual representation of what the pivot_longer operation looks like in practice."}
+```{r tidyr-pivot-longer-pic, echo = F, out.width = "50%", fig.cap = "A visual representation of what the pivot_longer operation looks like in practice."}
 knitr::include_graphics("image/tidyr_pivot_longer.png")
 ```
 
 Once our data are in long form, we can (if necessary) separate values that once served as column labels into actual variables, and we'll have tidy(er) data. 
 
 <details><summary>In R, wide-to-long conversions are performed using `pivot_longer()`</summary>
-```{r}
+```{r tidyr-pivot-longer-demo2}
 tba <- table4a %>% 
   pivot_longer(-country, names_to = "year", values_to = "cases")
 tbb <- table4b %>% 
@@ -867,7 +870,7 @@ Which option is easier depends how many things you're pivoting (and how the colu
 
 If we wanted to avoid the table join, we could do this process another way: first, we would add a column to each tibble called id with values "cases" and "population" respectively. Then, we could bind the two tables together by row (so stack them on top of each other). We could then do a wide-to-long pivot, followed by a long-to-wide pivot to get our data into tidy form. 
 
-```{r}
+```{r tidyr-pivot-longer-id}
 # Create ID columns
 table4a.x <- table4a %>% mutate(id = "cases")
 table4b.x <- table4b %>% mutate(id = "population")
@@ -899,7 +902,7 @@ SAS will let you do a single transpose operation, where tidyr requires two separ
 
 [[Friendly guide to PROC TRANSPOSE](https://libguides.library.kent.edu/SAS/TransposeData)]{.learn-more}
 
-```{sashtml, fig.path = "image/"}
+```{r sas-proc-transpose, fig.path = "image/", engine = "sashtml", engine.path = sasexe, engine.opts = sasopts, collectcode = F, error = T}
 DATA table4a;
 input country $12. _1999 _2000;
 datalines;
@@ -947,7 +950,7 @@ RUN;
 In the above code, we let SAS name our output variable COL1, and then renamed it at the end by modifying the output statement. Another option would be to create an ID variable when inputting each data set, and use the ID statement to indicate that variable. 
 
 
-```{sashtml, fig.path = "image/"}
+```{r sas-proc-transpose-2, fig.path = "image/", engine = "sashtml", engine.path = sasexe, engine.opts = sasopts, collectcode = F, error = T}
 DATA table4a;
 input country $12. _1999 _2000;
 id = "cases";
@@ -998,7 +1001,7 @@ RUN;
 This seems a bit odd, as we're defining constant variables, but it works -- and provides some insight into how the reverse operation (long to wide) might work (e.g. nonconstant variables). 
 Imagine instead of transposing each dataset and then merging them, we just stack the two wide-format datasets on top of each other. Then we can do the same transpose operation, but we'll end up with two columns: cases, and population. 
 
-```{sashtml, fig.path = "image/"}
+```{r sas-proc-transpose-stack, fig.path = "image/", engine = "sashtml", engine.path = sasexe, engine.opts = sasopts, collectcode = F, error = T}
 DATA table4a;
 input country $12. _1999 _2000;
 id = "cases";
@@ -1071,7 +1074,7 @@ hiv <- set_names(hiv, newnames) %>%
 write_csv(hiv, path = "data/who_hiv.csv", na = '.') # make it easy for SAS
 ```
 Since I've cheated a bit to make this easier to read in using SAS... hopefully that will be uneventful. 
-```{sashtml read-hiv-data-sas}
+```{r read-hiv-data-sas, fig.path = "image/", engine = "sashtml", engine.path = sasexe, engine.opts = sasopts, collectcode = F, error = T}
 libname classdat "sas/";
 
 filename fileloc 'data/who_hiv.csv';
@@ -1085,7 +1088,7 @@ RUN;
 </details>
 
 <details><summary>Original Data Structure (WHO HIV data)</summary>
-```{r}
+```{r hiv-data-structure}
 hiv %>%
   # Only look at 1st 6 cols, because there are too many
   select(1:6) %>%
@@ -1127,14 +1130,14 @@ Now that we have a plan, lets execute that plan
 
 
 <details><summary>Wide-to-long transformation in R  (WHO HIV data)</summary>
-```{r}
+```{r hiv-tidyr}
 hiv_tidier <- hiv %>%
   pivot_longer(-Country, names_to = "key", values_to = "rate")
 hiv_tidier
 ```
 From this point, it's pretty easy to use things we've used in the past (regular expressions, separate, extract)
 
-```{r}
+```{r hiv-tidyr-separate-mutate-extract}
  hiv_tidy <- hiv_tidier %>%
   # Split the key into Rate (don't keep), year, and group (F, M, Both)
   separate(key, into = c(NA, "year", "group"), sep = "_", convert = T) %>%
@@ -1149,7 +1152,7 @@ hiv_tidy
 <details><summary>Wide-to-long transformation in SAS (WHO HIV data) </summary>
 I've thoroughly commented the code below to hopefully make the logical steps clear. 
 
-```{sashtml sas-transpose-hiv-clean, error = T, warning = T, fig.path = "image/"}
+```{r sas-transpose-hiv-clean, error = T, warning = T, fig.path = "image/", engine = "sashtml", engine.path = sasexe, engine.opts = sasopts, collectcode = F, error = T}
 libname classdat "sas/";
 
 PROC TRANSPOSE DATA=classdat.hiv OUT = classdat.hivtidy
@@ -1192,7 +1195,7 @@ title 'Final result';
 PROC PRINT DATA=classdat.hivtidy(obs=5); RUN;
 
 ```
-```{sashtml include = F}
+```{r sas-reset-title, include = F, fig.path = "image/", engine = "sashtml", engine.path = sasexe, engine.opts = sasopts, collectcode = F, error = T}
 title;
 ```
 </details>
@@ -1202,7 +1205,7 @@ In the next section, we'll be using the WHO surveillance of disease incidence da
 
 It will require some preprocessing before it's suitable for a demonstration. I'll do some of it, but in this section, you're going to do the rest :)
 
-```{r}
+```{r tryitout-who-surveillance}
 library(readxl)
 library(purrr) # This uses the map() function as a replacement for for loops. 
 # It's pretty sweet
@@ -1231,7 +1234,7 @@ Download the exported data [here](data/who_disease_incidence.csv) and import it 
 Can you make a line plot of cases of measles in Bangladesh over time?
 
 <details><summary>R solution</summary>
-```{r}
+```{r tryitout-surveillance-cleaning}
 who_disease <- read_csv("data/who_disease_incidence.csv", na = ".")
 
 who_disease_long <- who_disease %>%
@@ -1246,10 +1249,10 @@ filter(who_disease_long, Country == "Bangladesh", Disease == "measles") %>%
 </details>
 
 <details><summary>SAS solution</summary>
-```{sashtml, fig.path = "image/", collectcode=T,include = F}
+```{r sas-tryitout-surveillance-cleaning, fig.path = "image/", collectcode=T,include = F, engine = "sashtml", engine.path = sasexe, engine.opts = sasopts, error = T}
 ODS HTML style=HTMLblue;
 ```
-```{sashtml measles-bangladesh-sas, fig.path = "image/", collectcode=T}
+```{sashtml measles-bangladesh-sas, fig.path = "image/", collectcode=T, engine = "sashtml", engine.path = sasexe, engine.opts = sasopts, collectcode = F, error = T}
 libname classdat "sas/";
 
 filename fileloc 'data/who_disease_incidence.csv';
@@ -1302,18 +1305,18 @@ While it's very common to need to transform data into a longer format, it's not 
 Table 2 is an example of a table that is in long format but needs to be converted to a wider layout to be "tidy" - there are separate rows for cases and population, which means that a single observation (one year, one country) has two rows. 
 
 
-```{r, echo = F, out.width = "50%", fig.cap = "A visual representation of what the pivot_wider operation looks like in practice."}
+```{r pivot-wider-pic, echo = F, out.width = "50%", fig.cap = "A visual representation of what the pivot_wider operation looks like in practice."}
 knitr::include_graphics("image/tidyr_pivot_wider.png")
 ```
 
 <details><summary>In R, long-to-wide conversion operations are performed using `pivot_wider()`</summary>
-```{r}
+```{r pivot-wider-demo}
 table2 %>%
   pivot_wider(names_from = type, values_from = count)
 ```
 </details>
 <details><summary>In SAS, we use PROC TRANSPOSE again</summary>
-```{sashtml, fig.path = "image/"}
+```{r pivot-wider-proc-transpose, fig.path = "image/", engine = "sashtml", engine.path = sasexe, engine.opts = sasopts, collectcode = F, error = T}
 DATA table2;
 input country $12. year  type$12. count 12.;
 datalines;
@@ -1355,7 +1358,7 @@ Afghanistan | 2018 | est | .02 | .03 | .01
  | 2018 | ub | .04 | .06 | .03
  
 As a reminder, the data currently looks like this: 
-```{r}
+```{r data-view-hiv}
 hiv_tidy
 ```
  
@@ -1389,7 +1392,7 @@ Afghanistan | 2018 | Male | est | 0.03
 </details>
 
 <details><summary>WHO HIV Data: long-to-wide in R</summary>
-```{r}
+```{r long-to-wide-hiv-R}
 hiv_tidy %>%
   pivot_longer(est:ub, names_to = "measure", values_to = "value") %>%
   # Take the opportunity to transform everything to numeric at once...
@@ -1399,7 +1402,7 @@ hiv_tidy %>%
 </details>
 <details><summary>WHO HIV Data: long-to-wide in SAS</summary>
 In SAS, we can do the pivot operations in one step, but we have to sort everything first. 
-```{sashtml, fig.path = "image/"}
+```{r long-to-wide-hiv-sas, fig.path = "image/", engine = "sashtml", engine.path = sasexe, engine.opts = sasopts, collectcode = F, error = T}
 libname classdat "sas/";
 
 PROC SORT DATA = classdat.hivtidy;
@@ -1427,7 +1430,7 @@ Before you start:
 Can you create a plot of polio cases over time for your 3 favorite countries?
 
 <details><summary>R solution</summary>
-```{r}
+```{r tryitout-disease-wide-R}
 who_disease_wide <- who_disease_long %>%
   pivot_wider(id_cols = c(Country, year), names_from = Disease, values_from = cases)
 
@@ -1439,10 +1442,10 @@ who_disease_wide %>%
 </details>
 
 <details><summary>SAS solution</summary>
-```{sashtml, fig.path = "image/", collectcode=T,include = F}
+```{r tryitout-disease-wide-sas-setup, fig.path = "image/", collectcode=T,include = F, engine = "sashtml", engine.path = sasexe, engine.opts = sasopts, error = T}
 ODS HTML style=HTMLblue;
 ```
-```{sashtml polio-sas, fig.path = "image/", collectcode=T}
+```{r tryitout-disease-wide-sas, collectcode=T, fig.path = "image/", engine = "sashtml", engine.path = sasexe, engine.opts = sasopts,  error = T}
 libname classdat "sas/";
 
 PROC SORT DATA = classdat.disease_long OUT = dis_long;
@@ -1575,7 +1578,7 @@ We'll use the `nycflights13` package in R. Unfortunately, the data in this packa
 <details><summary>Instructions</summary>
 We'll use a function in the `dbplyr` package to do that.^[Incidentally, dbplyr is basically dplyr for databases, and is worth checking out, even if we aren't covering it in this class.]
 
-```{r}
+```{r dataset-setup-demo}
 if (!"nycflights13" %in% installed.packages()) install.packages("nycflights13")
 if (!"dbplyr" %in% installed.packages()) install.packages("dbplyr")
 library(nycflights13)
@@ -1595,7 +1598,7 @@ Database = data/nycflights13.sqlite
 
 </details>
 
-```{sashtml sqlite3-nycflights, echo = F, fig.path = "image/"}
+```{r sqlite3-nycflights-sas, echo = F, fig.path = "image/", engine = "sashtml", engine.path = sasexe, engine.opts = sasopts, collectcode = F, error = T}
 /* This code requires that I've set up a DSN connecting the sqlite file to */
 /* a specific driver on my computer. You'll have to set up your machine to */
 /* have a configuration that is appropriate for your setup */
@@ -1646,33 +1649,33 @@ Joins are differentiated based on how they treat the rows and columns of each si
 </table>
 
 <details><summary>Mutating joins in R</summary>
-```{r}
+```{r mutating-joins1}
 t1 <- tibble(x = c("A", "B", "D"), y = c(1, 2, 3))
 t2 <- tibble(x = c("B", "C", "D"), z = c(2, 4, 5))
 ```
 
 An inner join keeps only rows that exist on both sides, but keeps all columns.
-```{r}
+```{r mutating-joins2}
 inner_join(t1, t2)
 ```
 
 A left join keeps all of the rows in the left side, and adds any columns from the right side that match rows on the left. Rows on the left that don't match get filled in with NAs. 
 
-```{r}
+```{r mutating-joins3}
 left_join(t1, t2)
 left_join(t2, t1)
 ```
 
 There is a similar construct called a right join that is equivalent to flipping the arguments in a left join. The row and column ordering may be different, but all of the same values will be there
 
-```{r}
+```{r mutating-joins4}
 right_join(t1, t2)
 right_join(t2, t1)
 ```
 
 An outer join keeps everything - all rows, all columns. In dplyr, it's known as a `full_join`. 
 
-```{r}
+```{r mutating-joins5}
 full_join(t1, t2)
 ```
 </details>
@@ -1682,7 +1685,7 @@ In SAS, you can do joins using a data step or PROC SQL. To do a join with data s
 [This guide shows the syntax for PROC SQL and DATA step joins side-by-side.](https://support.sas.com/resources/papers/proceedings/pdfs/sgf2008/178-2008.pdf)
 
 <details><summary>PROC SQL Mutating joins</summary>
-```{sashtml}
+```{r sql-sas-mutating-joins, fig.path = "image/", engine = "sashtml", engine.path = sasexe, engine.opts = sasopts, collectcode = F, error = T}
 data t1;
 input x $ y;
 datalines;
@@ -1754,7 +1757,7 @@ title;
 </details>
 
 <details><summary>Data Step Mutating joins</summary>
-```{sashtml}
+```{r sas-data-mutating-joins, fig.path = "image/", engine = "sashtml", engine.path = sasexe, engine.opts = sasopts, collectcode = F, error = T}
 data t1;
 input x $ y;
 datalines;
@@ -1836,7 +1839,7 @@ It doesn't look like there's much of a relationship to me. If anything, older pl
 </details>
 
 <details><summary>In SAS</summary>
-```{sashtml flights-delay-age-sas-prep, collectcode=T}
+```{r flights-delay-age-sas-prep, collectcode=T, fig.path = "image/", engine = "sashtml", engine.path = sasexe, engine.opts = sasopts, error = T}
 libname nycair odbc complete = "dsn=nycflight; Database=data/nycflights13.sqlite";
 
 PROC SQL;
@@ -1849,7 +1852,7 @@ SELECT tailnum, dep_delay, arr_delay, air_time, distance, hour, carrier, origin
 FROM nycair.flights;
 ```
 Now that the prep work is done, we can get on with answering the question.
-```{sashtml flights-delay-age-sas-res, collectcode=T}
+```{sashtml flights-delay-age-sas-res, collectcode=T, fig.path = "image/", engine = "sashtml", engine.path = sasexe, engine.opts = sasopts, error = T}
 
 PROC SQL;
 CREATE TABLE agedelay AS
@@ -1875,10 +1878,10 @@ ID _STAT_;
 RUN;
 ```
 In theory, we could use some sort of linear model, but lets start with a simple plot of age * average delay and see where that takes us. 
-```{sashtml flights-delay-age-sas-plot1-setup, include = F, collectcode=T}
+```{sashtml flights-delay-age-sas-plot1-setup, include = F, collectcode=T, fig.path = "image/", engine = "sashtml", engine.path = sasexe, engine.opts = sasopts, error = T}
 ODS HTML style=HTMLBLUE;
 ```
-```{sashtml flights-delay-age-sas-plot1, collectcode=T, fig.path = "image/"}
+```{sashtml flights-delay-age-sas-plot1, collectcode=T, fig.path = "image/",  engine = "sashtml", engine.path = sasexe, engine.opts = sasopts, error = T}
 PROC SGPANEL DATA = agemeanst;
 PANELBY VAR;
 SCATTER X = age Y = MEAN;
@@ -1886,10 +1889,10 @@ RUN;
 ```
 I started wondering about that pattern - to me, it doesn't look like there's any particular trend so much as there's just low - high - low clusters. So I decided to plot frequency as well, and, lo and behold, the frequency count is similarly distributed. So my current working hypothesis is that there are a lot more observations in the middle group of planes that are 5-15 years old.
 
-```{sashtml flights-delay-age-sas-plot2-setup, include = F, collectcode=T}
+```{sashtml flights-delay-age-sas-plot2-setup, include = F, collectcode=T, fig.path = "image/",  engine = "sashtml", engine.path = sasexe, engine.opts = sasopts, error = T}
 ODS HTML style=HTMLBLUE;
 ```
-```{sashtml flights-delay-age-sas-plot2, collectcode=T, fig.path = "image/"}
+```{sashtml flights-delay-age-sas-plot2, collectcode=T, fig.path = "image/",  engine = "sashtml", engine.path = sasexe, engine.opts = sasopts, error = T}
 
 PROC SGPLOT DATA = agemeanst;
 SCATTER X = age Y = _FREQ_;
@@ -1935,7 +1938,7 @@ If you want to try this for yourself first, there is a skeleton file [here](code
 
 <details><summary>Reading in the data from the web</summary>
 
-```{r}
+```{r web-data-reading}
 library(rvest) # scrape data from the web
 library(xml2) # parse xml data
 url <- "https://www.eia.gov/dnav/pet/hist/LeafHandler.ashx?n=pet&s=emm_epm0u_pte_nus_dpg&f=w"
@@ -1944,12 +1947,12 @@ htmldoc <- read_html(url)
 gas_prices_raw <- html_table(htmldoc, fill = T, trim = T) [[5]]
 ```
 </details>
-```{r}
+```{r web-data-head}
 head(gas_prices_raw)
 ```
 
 <details><summary>Initial data cleaning - fix up column names, get rid of empty rows</summary>
-```{r}
+```{r tidyverse-gas-data}
 library(tidyverse)
 library(magrittr) # pipe friendly operations
 # Function to clean up column names
@@ -1972,34 +1975,34 @@ gas_prices_raw <- gas_prices_raw %>%
   filter(Year.Month != "")
 ```
 </details>
-```{r}
+```{r tidyverse-gas-data-raw}
 head(gas_prices_raw)
 ```
 
 <details><summary>Separate year and month into different columns</summary>
-```{r}
+```{r tidy-gas-data-separate}
 gas_prices_raw <- gas_prices_raw %>%
   separate(Year.Month, into = c("year", "month"), sep = "-")
 ```
 </details>
-```{r}
+```{r tidy-gas-data-separate-view}
 head(gas_prices_raw)
 ```
 
 <details><summary>Move from wide to long format (part 1: extra-long format)</summary>
-```{r}
+```{r tidy-gas-data-long}
 gas_prices_long <- pivot_longer(gas_prices_raw, -c(year, month),
                                 names_to = "variable", values_to = "value")
 
 ```
 </details>
-```{r}
+```{r tidy-gas-data-long-view}
 head(gas_prices_long)
 ```
 
 <details><summary>Move from wide to long format (part 2: data cleaning and pivot long-to-wide)</summary>
 We need to get our variables into two columns: one for what the value contains, and one indicating which week the value is from.
-```{r}
+```{r tidy-gas-data-longer}
 gas_prices_long <- gas_prices_long %>%
   # First, take "Week." off of the front
   mutate(variable = str_remove(variable, "Week\\.")) %>%
@@ -2007,12 +2010,12 @@ gas_prices_long <- gas_prices_long %>%
   separate(variable, into = c("week", "variable"), sep = "\\.")
 ```
 
-```{r}
+```{r tidy-gas-data-longer-view}
 head(gas_prices_long)
 ```
 
 Now we're ready to move back into wide-er form
-```{r}
+```{r tidy-gas-data-wide}
 # 
 gas_prices <- gas_prices_long %>%
   # filter out empty values
@@ -2023,14 +2026,14 @@ gas_prices <- gas_prices_long %>%
   )
 ```
 </details>
-```{r}
+```{r tidy-gas-data-wide-view}
 head(gas_prices)
 ```
 
 
 <details><summary>Clean up dates and format variables properly</summary>
 We can read the date in as MDY format if we just add the year to the end of the month/day column. 
-```{r}
+```{r cleaning-up-dates}
 
 library(lubridate) # dates and times
 gas_prices <- gas_prices %>%
@@ -2046,7 +2049,7 @@ gas_prices <- gas_prices %>%
   mutate(Value = as.numeric(Value))
 ```
 </details>
-```{r}
+```{r cleaning-up-dates-view}
 head(gas_prices)
 
 # Lets look at our data:
@@ -2065,7 +2068,7 @@ I spent quite a while trying to get collectcode = T to run so that I could put t
 
 
 <details><summary>Read in the data</summary>
-```
+```{r read-data-sas, collectcode=T, fig.path = "image/",  engine = "sashtml", engine.path = sasexe, engine.opts = sasopts, error = T}
 /*********************************************************/
 /* Step 1: Read in the data and drop missing rows/cols   */
 /*********************************************************/
@@ -2104,8 +2107,8 @@ The options missing piece allows us to test for whether information is missing o
 ![SAS output - gas_raw](image/06-transforming-data_insertimage_1.png)
 
 <details><summary>Split up year and month, format month properly</summary>
+```{r split-data-sas-properly, collectcode=T, fig.path = "image/",  engine = "sashtml", engine.path = sasexe, engine.opts = sasopts, error = T}
 
-```
 proc format;
 value $ mon 'Jan' = 1 'Feb' = 2 'Mar' = 3 'Apr' = 4 'May' = 5 'Jun' = 6 'Jul' = 7 'Aug' = 8 'Sep' = 9 'Oct' = 10 'Nov' = 11 'Dec' = 12;
 run;
@@ -2134,7 +2137,8 @@ run;
 
 <details><summary>Get long data with just the dates</summary>
 
-```
+```{r transpose-data-sas, collectcode=T, fig.path = "image/",  engine = "sashtml", engine.path = sasexe, engine.opts = sasopts, error = T}
+
 PROC TRANSPOSE DATA = gas_raw OUT = split_long1
 (rename=(col1=date)) NAME = week;
 BY year month NOTSORTED;
@@ -2162,7 +2166,8 @@ RUN;
 ![SAS output - split_long1](image/06-transforming-data_insertimage_3.png)
 
 <details><summary>Get long data with just the prices</summary>
-```
+```{r transpose-data-sas2, collectcode=T, fig.path = "image/",  engine = "sashtml", engine.path = sasexe, engine.opts = sasopts, error = T}
+
 PROC TRANSPOSE DATA=gas_split OUT =split_long2
 (rename=(col1=price)) NAME = week;
 BY year month NOTSORTED;
@@ -2191,7 +2196,8 @@ RUN;
 ![SAS output - split_long2](image/06-transforming-data_insertimage_4.png)
 
 <details><summary>Merge the two long datasets together</summary>
-```
+```{r merge-data-sas, collectcode=T, fig.path = "image/",  engine = "sashtml", engine.path = sasexe, engine.opts = sasopts, error = T}
+
 PROC SQL;
 CREATE TABLE gas_prices AS
 SELECT COALESCE(p1.year, p2.year) AS year,
@@ -2207,7 +2213,8 @@ ON p1.year = p2.year AND p1.month = p2.month AND p1.week = p2.week;
 ![SAS output - gas prices ](image/06-transforming-data_insertimage_5.png)
 
 <details><summary>Format dates</summary>
-```
+```{r format-dates-sas, collectcode=T, fig.path = "image/",  engine = "sashtml", engine.path = sasexe, engine.opts = sasopts, error = T}
+
 DATA split2;
    SET gas_prices;
    length var1-var2 3;
@@ -2233,7 +2240,8 @@ RUN;
 </details>
 
 ![SAS output - gas prices, final version ](image/06-transforming-data_insertimage_6.png)
-```
+```{r plot-data-sas, collectcode=T, fig.path = "image/",  engine = "sashtml", engine.path = sasexe, engine.opts = sasopts, error = T}
+
 PROC SGPLOT DATA = gas_prices;
 SERIES X = date Y = price;
 TITLE 'Gas Prices';

@@ -1,5 +1,32 @@
-```{r, include = F}
-.reset()
+```{r book-functions2, include = F}
+.pkgkeeplist <- c("package:stats", "package:graphics", "package:grDevices", "package:utils", "package:datasets", "package:methods", "package:base", "package:SASmarkdown", "package:rmarkdown", "package:knitr", "package:magrittr")
+
+.objkeeplist <- c(".pkgkeeplist", ".objkeeplist", ".reset", "sasexe", "sasopts")
+
+.reset <- function() {
+  basic.packages <- .pkgkeeplist
+
+  package.list <- search()[ifelse(unlist(gregexpr("package:", search())) == 1, TRUE, FALSE)]
+
+  package.list <- setdiff(package.list, basic.packages)
+
+  obj.list <- setdiff(ls(), .objkeeplist)
+
+  if (length(package.list) > 0) for (package in package.list) detach(package, character.only = TRUE)
+  rm(list = obj.list)
+}
+```
+```{r load-libraries2, echo = F, message = F, warning = F, cache = F}
+library(SASmarkdown)
+sasexe <- "/usr/local/SASHome/SASFoundation/9.4/bin/sas_en"
+sasopts <- "-ls 75"
+```
+```{r clear-all-sas-output2, include=F, engine='saslog', engine = "sashtmllog", engine.path = sasexe, engine.opts = sasopts, collectcode = F}
+/* Clean log and output */
+dm log "clear";
+dm output "clear";
+ods html close;
+ods html;
 ```
 
 # Introduction to Statistical Programming {#intro-prog}
@@ -29,7 +56,7 @@ In this module, you'll be submitting homework in Rmarkdown using SASmarkdown chu
 The use of markdown for this week's assignment is a "trust me, and you'll get comfortable with this eventually" sort of thing. 
 
 
-## Intro to Programming: Module Objectives  {-}
+## Intro to Programming: Module Objectives  {- #module-2-objectives}
 
 - Identify variable types, data structures, and common reserved words in R and SAS
 - Use control structures (loops and conditionals) effectively
@@ -212,7 +239,7 @@ When we make our intent explicit (convert "abcd" to a numeric variable) we get a
 
 If you are unsure what the type of a variable is, use the `typeof()` function to find out. 
 
-```{r}
+```{r var-types}
 w <- "a string"
 x <- 3L
 y <- 3.1415
@@ -248,7 +275,7 @@ In this example, we'll use a data.frame, which you can think of as a spreadsheet
 :::
 
 Let's look at the names of the months:
-```{r}
+```{r factors-ex}
 month.name
 
 df <- data.frame(num = 1:12, name = month.name, stringsAsFactors = T)
@@ -266,19 +293,19 @@ Notice that as soon as we make that data.frame, the months are converted into a 
 
 We could get this same behavior without the data.frame, but this is where it shows up most often.
 
-```{r}
+```{r factors-ex-2}
 month_fct <- factor(month.name) # the order is still not exactly what we'd want it to be
 ```
 
 To fix this, we can explicitly specify that we're dealing with a factor, and what we want the levels to be. If you specify the levels manually (instead of letting R do the work for you) then you get to determine the order. 
-```{r}
+```{r factors-ex-3}
 month_fct <- factor(month.name, levels = month.name)
 str(month_fct)
 ```
 
 We can even be more explicit: 
 
-```{r}
+```{r factors-ex-4}
 month_fct <- factor(month.name, levels = month.name, ordered = T)
 str(month_fct)
 ```
@@ -286,13 +313,13 @@ str(month_fct)
 Making the factor ordered lets us explicitly say which levels are less than other levels.
 
 Factors are technically integers, with labels that are stored as an attribute. That doesn't mean you can do math with them, though. 
-```{r, error = T}
+```{r factors-ex-5, error = T}
 month_fct[1] + month_fct[2]
 ```
 
 Often, years or dates or other numeric-like information will end up as factor variables. When this happens, you need to be a little bit careful. 
 
-```{r}
+```{r factors-ex-6}
 # This works pretty naturally for months, right?
 as.numeric(month_fct)
 
@@ -312,7 +339,7 @@ When converting factors with numeric labels, you need to first convert the facto
 
 1. Create variables `string`, `integer`, `decimal`, and `logical`, with types that match the relevant variable names.
 
-```{r, eval = F}
+```{r tryitout-data-type, eval = F}
 string <- 
 integer <- 
 decimal <- 
@@ -331,7 +358,7 @@ string + integer
 
 <details><summary>Solutions</summary>
 
-```{r try-it-out-data-type-answers, error = T}
+```{r tryitout-data-type-answers, error = T}
 string <- "hi, I'm a string"
 integer <- 4L
 decimal <- 5.412
@@ -367,33 +394,37 @@ Implicit conversion does not occur in WHERE statements. (This will make more sen
 <details><summary>Manual type conversions</summary>
 If you want to manually convert a value, use the INPUT statement. Unlike in R, the INPUT statement has the ability to read numbers which are formatted differently. For instance
 
-```{sashtml sas-ex}
-proc printto log="saslog.log" new;
-data set1; /* This tells SAS we're defining some variables */
+```{r sas-type-conversions-1, engine = "sas", engine.path = sasexe, engine.opts = sasopts, collectcode = F}
+data set1;
   x = 3;
   y = '3.1415';
-  z = x * y; 
-  /* this is arithmetic, so y will be converted */
-  x = '3.14159'; 
-  /* x previously had a number in it, */
-  /* so it will be converted to a number here */
-  zz = y<=2; 
-  /* comparison operator: y will be converted */
-  
-  put z; /* This prints the result to the log */
-  put x=;
-  put zz=;
+  z = x * y;
+  put z;
 run;
 ```
 
+```{r sas-type-conversions-2, engine = "sas", engine.path = sasexe, engine.opts = sasopts, collectcode = F}
+data set2;
+  x = 3;
+  y = '3.1415';
+  z = x * y;
+  put z; /* print to log */
+
+  x = '3.14159';
+  /* x previously had a number in it, 
+     so it will be converted to a number here */
+  put x; /* print to log */
+
+  zz = y <= 2;
+  /* comparison operator: y will be converted */
+  put zz; /* print to log */
+  
+run;
+```
+
+
 Notice that in SAS, `zz`, which is the result of the logical statement `y<=2`, is a numeric variable. The value 0 signifies that the comparison was false. SAS does not have a logical data type, it uses the numeric variable with 0:=FALSE, 1:=TRUE.
 
-```{r readlog-sas-ex, echo = F}
-cat(readLines("saslog.log"), sep="\n")
-
-# Do not forget to remove the log file when you are done!
-unlink("saslog.log")
-```
 </details>
 
 
@@ -404,9 +435,7 @@ unlink("saslog.log")
 2. What happens if you use `string1` and add 3 to it? 
 
 <details><summary>Solutions</summary>
-```{sashtml try-it-out-data-type-answers-sas}
-
-proc printto log="saslog.log" new;
+```{r tryitout-data-type-answers-sas, engine = "sashtmllog", engine.path = sasexe, engine.opts = sasopts, collectcode = F }
 data set1; 
   string1 = 'Bob';
   string2 = 'Jane';
@@ -416,19 +445,10 @@ run;
 
 ```
 
-```{r readlog-sas-ex-answers, echo = F}
-cat(readLines("saslog.log"), sep="\n")
-
-# Do not forget to remove the log file when you are done!
-unlink("saslog.log")
-```
-
 SAS will actually compare strings based on the first letter: Bob comes before Jane, so Bob < Jane. 
 
 
-```{sashtml try-it-out-data-type-answers-sas2}
-proc printto log="saslog.log" new;
-
+```{r tryitout-data-type-answers-sas2, error = T, engine = "sashtmllog", engine.path = sasexe, engine.opts = sasopts, collectcode = F }
 data set2;
   string1 = 'Bob';
   y = string1 + 3;
@@ -436,12 +456,6 @@ data set2;
 run;
 ```
 
-```{r readlog-sas-ex-answers2, echo = F}
-cat(readLines("saslog.log"), sep="\n")
-
-# Do not forget to remove the log file when you are done!
-unlink("saslog.log")
-```
 
 The `.` in SAS is a missing value (like `NA` in R). So SAS is behaving basically like R does: it complains about the fact that you asked it to add a string to a number, and then it stores the result as a missing value. 
 
@@ -556,7 +570,7 @@ str(dog)
 <details><summary>Recursive lists</summary>
 Lists can also contain other lists. When accessing a list-within-a-list, just add another index or name reference (see below). 
 
-```{r}
+```{r list-recursive-demo}
 grocery_list <- list(
   dairy = list("asiago", "fontina", "mozzarella", "blue cheese"),
   baking = list("flour", "yeast", "salt"),
@@ -582,7 +596,8 @@ yummy_toppings
 <details><summary>Basic List Syntax in SAS</summary>
 There are also [lists in SAS IML](https://documentation.sas.com/?docsetId=imlug&docsetTarget=imlug_langref_sect040.htm&docsetVersion=15.1&locale=en) which function similarly to lists in R. To create a named object in a list, precede the name with `#`. In SAS, the `$` operator can be used to get items from a list, using either name or numeric references. 
 
-```{sashtml}
+```{r recursive-list-demo-sas, engine = "sashtmllog", engine.path = sasexe, engine.opts = sasopts, collectcode = F }
+
 proc iml;
   grocery_list = [
     #dairy  = ["asiago", "fontina", "mozzarella", "blue cheese"], 
@@ -615,6 +630,8 @@ proc iml;
 quit;
 
 ```
+
+
 </details>
 
 
@@ -654,7 +671,7 @@ summary(mtcars$mpg)
 Often, it is useful to know the dimensions of a data frame. The number of rows can be obtained by using `nrow(df)` and similarly, the columns can be obtained using `ncol(df)` (or, get both with `dim()`). There is also an easy way to get a summary of each column in the data frame, using `summary()`.
 
 
-```{r}
+```{r summary-mtcars}
 summary(mtcars)
 dim(mtcars)
 nrow(mtcars)
@@ -665,7 +682,7 @@ Missing variables in an R data frame are indicated with NA.
 </details>
 
 <details><summary>Creating an R data frame</summary>
-```{r}
+```{r math-lsd-r}
 math_and_lsd <- data.frame(lsd_conc = c(1.17, 2.97, 3.26, 4.69, 5.83, 6.00, 6.41),
                            test_score = c(78.93, 58.20, 67.47, 37.47, 45.65, 32.92, 29.97))
 math_and_lsd
@@ -681,7 +698,7 @@ math_and_lsd
 
 The dataset `state.x77` contains information on US state statistics in the 1970s. By default, it is a matrix, but we can easily convert it to a data frame, as shown below. 
 
-```{r}
+```{r state-facts-tryitout}
 data(state)
 state_facts <- data.frame(state.x77)
 state_facts <- cbind(state = row.names(state_facts), state_facts, stringsAsFactors = F) 
@@ -700,7 +717,7 @@ head(state_facts)
 3. Calculate the average population density of each state (population per square mile) and store it in a new column `PopDensity`. Using the R reference card, can you find functions that you can combine to get the state with the minimum population density?
 
 <details><summary>Solutions</summary>
-```{r}
+```{r state-facts-tryitout-solutions}
 # 3 ways to get rows and columns
 str(state_facts)
 dim(state_facts)
@@ -761,10 +778,10 @@ SAS datasets also come with a description which is attached to the table. The de
 
 <details><summary>Creating a SAS data set</summary>
 In the next code chunk, we'll create a data set using a SAS Data step. We'll talk more about the anatomy of a SAS command later, but for now, notice that I'm specifying some metadata (the title), telling SAS what the variable names are (Drugs, Score), and then providing some data (indicated by the datalines statement). 
-```{sashtml mj-data-step}
+```{r mj-data-step, engine = "sashtmllog", engine.path = sasexe, engine.opts = sasopts, collectcode = F }
 /* Data source: http://blog.yhat.com/posts/7-funny-datasets.html */
   
-data mathMJ;
+data mathLSD;
 title 'Average math test scores under the influence of LSD';
 input Drugs	Score;
 datalines;
@@ -779,10 +796,10 @@ datalines;
 
 /* Describe the dataset */
 proc datasets;
-  contents data = mathMJ;
+  contents data = mathLSD;
 run;
 
-proc print data = mathMJ;
+proc print data = mathLSD;
 run;
 ```
 
@@ -814,7 +831,7 @@ x[3:4, 1:2]
 <details><summary>SAS matrix example</summary>
 In SAS, the same basic code works (though matrix definition is a bit more manual). 
 
-```{sas matrix-example-sas}
+```{r matrix-example-sas, engine = "sas", engine.path = sasexe, engine.opts = sasopts, collectcode = F }
 proc iml; /* Interactive Matrix Language */
   x = {1 2 3 4 5, 6 7 8 9 10, 11 12 13 14 15, 16 17 18 19 20};
   y = x[3:4, 1:2];
@@ -855,7 +872,7 @@ sum(x[m3or5])
 </details>
 
 <details><summary>SAS solution</summary>
-```{sashtml vectorindexing-solution-sas}
+```{r vectorindexing-solution-sas, engine = "sashtmllog", engine.path = sasexe, engine.opts = sasopts, collectcode = F }
 data tmp;
   do x = 1 to 999;
   output;
@@ -959,7 +976,7 @@ That is, `condition 2` is only checked once it is known that `condition` is fals
 The syntax for conditional statements using if/then logic is shown below using an example where Santa must determine which members of a household will receive a toy for Christmas and which members will receive coal. ^[Traditionally, naughty children get coal, while nice children get toys or candy.]
 
 <details><summary>In R</summary>
-```{r}
+```{r santa-unexpected}
 tmp <- data.frame(name = c("Alex", "Edison", "Susan", "Ryan"),
                   status = c("naughty", "nice", NA, "neutral"),
                   stringsAsFactors = F)
@@ -978,7 +995,7 @@ What happened?
 
 When evaluating if statements, R does not evaluate each entry in the vector `tmp$status` separately. Instead, it takes the first value and issues a warning message. One option would be to use a loop, and examine each row in the data set separately. We'll talk about loops in the next subsection. Another option is to use the `ifelse()` function, which is `ifelse(condition, thing to do if condition is true, thing to do if condition is false)`
 
-```{r}
+```{r r santa-ifelse}
 tmp$present <- ifelse(tmp$status == "naughty", "coal", "toy")
 
 tmp
@@ -986,7 +1003,7 @@ tmp
 
 When R evaluates a missing value, (so ? NA == "naughty"), the result is `NA`. This is fine for us - if we don't have data on whether someone is naughty or nice, maybe we don't need to give them a present at all. But "neutral" is evaluated as getting a toy. Do we want that to happen? Maybe not. We might have to nest ifelse statements to solve this issue...
 
-```{r}
+```{r santa-naughty}
 tmp$present <- ifelse(tmp$status == "naughty", 
                       "coal", 
                       ifelse(tmp$status == "nice", "toy", NA))
@@ -997,7 +1014,7 @@ tmp
 
 <details><summary>In SAS</summary>
 In a data step:
-```{sashtml}
+```{r santa-sas, engine = "sashtmllog", engine.path = sasexe, engine.opts = sasopts, collectcode = F, error = T}
 data santa;
   input name $ status $;
   datalines;
@@ -1020,7 +1037,7 @@ run;
 
 Note that `.`, or missing data is handled the same as 'nice'. That might not be what we wanted... this is the natural thing to do, right?
 
-````
+```{r santa-notworking, engine = "sashtmllog", engine.path = sasexe, engine.opts = sasopts, collectcode = F, error = T}
 data santa;
   input name $ status $;
   datalines;
@@ -1039,11 +1056,11 @@ run; /* must end with run if no datalines option */
 
 proc print data=presents;
 run;
-````
+```
 
 SAS doesn't handle nested if statements very well - they can be ambiguous. Instead, [SAS documentation suggests using `do;` and `end;` to denote the start and end points of each if statement](https://documentation.sas.com/?docsetId=basess&docsetTarget=p0pcj5ajwyngron1wlsq0tet0hce.htm&docsetVersion=9.4&locale=en) (like the `{}` in R). 
 
-```{sashtml}
+```{r santa-working-1, engine = "sashtmllog", engine.path = sasexe, engine.opts = sasopts, collectcode = F , error = T}
 data santa;
   input name $ status $;
   datalines;
@@ -1074,7 +1091,7 @@ run;
 
 Interestingly, if you set a character variable to be missing, SAS converts it to '.'. So, if we actually want to have the value be missing, we can set it to an empty string.
 
-```{sashtml}
+```{r santa-working-2, engine = "sashtmllog", engine.path = sasexe, engine.opts = sasopts, collectcode = F , error = T}
 data santa;
   input name $ status $;
   datalines;
@@ -1118,7 +1135,7 @@ The `sample()` function selects a random sample of entries from a vector. Suppos
 It may be helpful to define separate variables `y_mag` and `y_sign` and then multiply them afterwards. Once you have found the value of $y$ compute $\text{sum}(x * y)$.
 
 You may use the following R and SAS code skeletons to set the problem up.
-```{r}
+```{r tryitout-sample}
 set.seed(342502837)
 x <- sample(1:50, size = 20, replace = F)
 
@@ -1163,7 +1180,7 @@ run;
 ````
 
 <details><summary>R Solution</summary>
-```{r}
+```{r tryitout-sample-solution}
 set.seed(342502837)
 x <- sample(1:50, size = 20, replace = F)
 
@@ -1176,7 +1193,7 @@ sum(x * y)
 </details>
 <details><summary>SAS Solution</summary>
 
-```{sashtml}
+```{r tryitout-sas-sample-solution, engine = "sashtmllog", engine.path = sasexe, engine.opts = sasopts, collectcode = F }
 proc iml;
   call randseed(342502837);
   x = sample(1:50, 20)`;
@@ -1242,14 +1259,14 @@ In a for loop, the steps in the loop body repeat a specified number of times. Th
 For instance, suppose we want to revisit our R Santa example from the previous section. The original if/else code we wrote in R didn't work, because R evaluates if statements using a single (scalar or vector of length 1) condition. If we add a loop around that code, we can evaluate only one row at a time. We need to check every row, so we'll iterate over `1:nrow(tmp)` - it's better to get the upper bound from the data frame, rather than just using 4 - if we add another entry, the code will still work if we're using `nrow(tmp)` to define how many iterations we need.
 
 We start by defining our data frame:
-```{r}
+```{r forloop-df-setup}
 tmp <- data.frame(name = c("Alex", "Edison", "Susan", "Ryan"),
                   status = c("naughty", "nice", NA, "neutral"),
                   stringsAsFactors = F)
 ```
 
 And then we add the basic loop syntax:
-```{r}
+```{r forloop-df-syntax}
 for (i in 1:nrow(tmp)) {
   
 }
@@ -1263,7 +1280,7 @@ Now we need to add the middle part by adapting the conditional statement we used
 
 It's good practice to initialize your variable (create a column for it) ahead of time and set the variable to a default value.
 
-```{r, error = T}
+```{r forloop-df-logic, error = T}
 
 tmp$present <- NA # Initialize column and set to NA by default
 
@@ -1283,7 +1300,7 @@ for (i in 1:nrow(tmp)) {
 
 Well, that didn't work! We can see that the loop stopped at `i = 3` by printing out the value of `i` - because the loop failed, `i` will still contain the value which caused the loop to stop. 
 
-```{r}
+```{r forloop-df-print}
 i
 tmp[i,] # print tmp at that point
 ```
@@ -1293,7 +1310,7 @@ Combining this information with the error above, we can guess that R stopped eva
 
 if/else statements in R can't evaluate to `NA`, so we need to restructure our conditional statement - first, we'll test for `NA` values, then, we can test for naughty and nice, and we'll keep the catch-all statement at the bottom. We'll test for an `NA` value using the function `is.na()`.
 
-```{r}
+```{r forloop-df-logic2}
 
 tmp$present <- NA # Initialize column and set to NA by default
 
@@ -1322,7 +1339,7 @@ In most cases in R and SAS, it is possible to write code without needing loops a
 Here is an example of the most basic for loop logic - printing the numbers 1 through 10 - in both R and SAS. SAS code is provided for both PROC IML and DATA steps.
 
 <details><summary>For loops in R</summary>
-```{r forloop}
+```{r forloop-demo}
 # R Example loop
 for (i in 1:10) {
   print(i)
@@ -1331,7 +1348,7 @@ for (i in 1:10) {
 </details>
 
 <details><summary>"For loops" in SAS IML (using `do`)</summary>
-```{sas doloop1}
+```{r doloop1, engine = "sashtmllog", engine.path = sasexe, engine.opts = sasopts, collectcode = F }
 /* SAS IML example loop */
 proc iml;
   do i = 1 to 10;
@@ -1342,9 +1359,7 @@ quit;
 </details>
 
 <details><summary>"For loops" in a SAS DATA step</summary>
-```{sas doloop2}
-/* SAS DATA step example loop */
-proc printto log="saslog.log" new; /* shows output log in bookdown */
+```{r doloop2, engine = "sashtmllog", engine.path = sasexe, engine.opts = sasopts, collectcode = F }
 data A;
   do i = 1 to 10;
     put i=;
@@ -1352,12 +1367,6 @@ data A;
 run;
 ```
 
-```{r readlog-sas-doloop-answers2, echo = F}
-cat(readLines("saslog.log"), sep="\n")
-
-# Do not forget to remove the log file when you are done!
-unlink("saslog.log")
-```
 </details>
 
 
@@ -1369,7 +1378,7 @@ While the most straighforward (and common) case of for-loop use in practice is t
 <details><summary>Other sequences in loops in R</summary>
 
 R allows loops to occur over any vector... even randomly generated numbers, or nonnumeric vectors (say, a character vector of URLs).
-```{r}
+```{r forloop-examples}
 x <- rnorm(5) # Generate 5 normal (0,1) samples
 
 for (i in x) {
@@ -1379,7 +1388,7 @@ for (i in x) {
 ```
 
 We can also iterate by non-integer values using `seq(from = , to = , by = )`
-```{r}
+```{r forloop-examples-2}
 # This loop counts down in 1/2 units from 5 to 0
 for (i in seq(5, 0, -.5)) {
   # do nothing
@@ -1389,8 +1398,7 @@ for (i in seq(5, 0, -.5)) {
 
 <details><summary>Other sequence structures in SAS for loops</summary>
 We can iterate by non-integer values:
-```{sas}
-proc printto log="saslog.log" new; /* to shows output log in bookdown */
+```{r loop-examples, engine = "sashtmllog", engine.path = sasexe, engine.opts = sasopts, collectcode = F }
 data A;
 y = 0;
 do i = 5 to 0 by -0.5;
@@ -1399,29 +1407,15 @@ do i = 5 to 0 by -0.5;
 run;
 ```
 
-```{r, echo = F}
-cat(readLines("saslog.log"), sep="\n")
-
-# Do not forget to remove the log file when you are done!
-unlink("saslog.log")
-```
-
 We can even add additional conditions:
 
-```{sas}
-proc printto log="saslog.log" new; /* to shows output log in bookdown */
+```{r loop-examples2, engine = "sashtmllog", engine.path = sasexe, engine.opts = sasopts, collectcode = F }
 data A;
 y = 0;
 do i = 5 to 0 by -0.5 while (i**2 > 1);
     put i=;
   end;
 run;
-```
-```{r, echo = F}
-cat(readLines("saslog.log"), sep="\n")
-
-# Do not forget to remove the log file when you are done!
-unlink("saslog.log")
 ```
 </details>
 
@@ -1435,13 +1429,15 @@ We'll learn more about packages in the next chapter, but for now, just go with i
 :::
 
 You can install the package using the following command:
-```{r, eval = F}
+```{r tryitout-beepr-install, eval = F}
 install.packages("beepr")
 ```
+
 (if you are using Linux you will also need to make sure one of `paplay`, `aplay`, or `vlc` is installed)
 
 Load the library and write a `for` loop which plays the 10 different sounds corresponding to integers 1 through 10. 
-```{r, eval = F}
+
+```{r tryitout-beepr-test, eval = F}
 library(beepr) # load the beepr library
 
 beep(sound = 1) # sound is any integer between 1 and 10.
@@ -1450,7 +1446,7 @@ beep(sound = 1) # sound is any integer between 1 and 10.
 It may be helpful to add the command `Sys.sleep(5)` into your loop to space out the noises so that they can be heard individually.
 
 <details><summary>Solution</summary>
-```{r, eval = F}
+```{r tryitout-beepr-loop, eval = F}
 library(beepr)
 
 for (i in 1:10) {
@@ -1465,7 +1461,7 @@ for (i in 1:10) {
 
 Write a for loop which will output the first 30 [fibbonacci numbers](https://en.wikipedia.org/wiki/Fibonacci_number). You can use the following code as a starting point:
 
-````
+```{r sas-tryitout-iml-loop, engine = "sashtmllog", engine.path = sasexe, engine.opts = sasopts, collectcode = F }
 /* SAS IML example loop */
 proc iml;
   current = 1;
@@ -1477,7 +1473,7 @@ quit;
 
 <details><summary>Solution</summary>
 
-```{sas}
+```{r sas-tryitout-iml-loop-solutions, engine = "sashtmllog", engine.path = sasexe, engine.opts = sasopts, collectcode = F }
 /* SAS IML example loop */
 proc iml;
   current = 1;
@@ -1534,7 +1530,7 @@ prev_basel_value
 </details>
 
 <details><summary>In SAS</summary>
-```{sas}
+```{r basel-problem-sas, engine = "sashtmllog", engine.path = sasexe, engine.opts = sasopts, collectcode = F }
 proc iml;
   i = 1;
   basel = 0;
@@ -1570,7 +1566,7 @@ Another explanation of while loops is available at [Khan Academy](https://www.kh
 Write a while loop in R and in SAS to calculate $\displaystyle \lim_{x \rightarrow 4} \frac{2 - \sqrt{x}}{4-x}$ by starting at 3 and halving the distance to 4 with each iteration. Exit the loop when you are within 1e-6 of the value computed on the previous iteration, or when you are within 1e-6 from 4. Which exit condition did you hit first? How do you know?
 
 <details><summary>Solutions</summary>
-```{r}
+```{r limit-tryitout-solution}
 x <- 3
 dist <- 4 - x
 current_value <- 0
@@ -1586,7 +1582,7 @@ c(x = x, dist = dist, current_value = current_value, d_value = abs(current_value
 ```
 Before $x$ got to 4 - 1e-6, the change in f(x) became less than 1e-6. 
 
-```{sashtml}
+```{r sas-limit-tryitout-solution, engine = "sashtmllog", engine.path = sasexe, engine.opts = sasopts, collectcode = F }
 proc iml;
   x = 3;
   dist = 4 - x;
@@ -1630,7 +1626,7 @@ In this section, we will essentially be using both R and SAS as overgrown calcul
 | Matrix Transpose | `t(A)` | `A\\`` |
 
 <details><summary>R basic mathematical operators</summary>
-```{r}
+```{r math-operators-sas}
 # transpose these to make row vectors to match SAS
 x <- t(1:10)
 y <- t(seq(3, 30, by = 3))
@@ -1646,7 +1642,7 @@ t(x) %*% y
 
 <details><summary>SAS basic mathematical operators</summary>
 By default, SAS creates row vectors with `do(a, b, by = c)` syntax. The transpose operator (a single backtick) can be used to transform `A` into `A`\`. 
-```{sashtml}
+```{r iml-math-operators-sas, engine = "sashtmllog", engine.path = sasexe, engine.opts = sasopts, collectcode = F }
 proc iml;
   x = do(1, 10, 1);
   y = do(3, 30, 3);
@@ -1666,7 +1662,7 @@ quit;
 Other matrix operations, such as determinants and extraction of the matrix diagonal, are similarly easy:
 
 <details><summary>R matrix operations</summary>
-```{r}
+```{r matrix-operations}
 mat <- matrix(c(1, 2, 3, 6, 4, 5, 7, 8, 9), nrow = 3, byrow = T)
 t(mat) # transpose
 det(mat) # get the determinant
@@ -1676,7 +1672,7 @@ diag(1:3) # diag() also will create a diagonal matrix if given a vector
 ```
 </details>
 <details><summary>SAS matrix operations</summary>
-```{sashtml}
+```{r matrix-operations-sas, engine = "sashtmllog", engine.path = sasexe, engine.opts = sasopts, collectcode = F }
 proc iml;
   mat = {1 2 3, 6 4 5, 7 8 9};
   tmat = mat`; /* transpose */
@@ -1695,7 +1691,7 @@ quit;
 The other important matrix-related function is the inverse. In R, `A^-1` will get you the elementwise reciprocal of the matrix. Not exactly what we'd like to see... Instead, in both languages, we use the `solve()` function. The inverse is defined as the matrix B such that `AB = I` where `I` is the identity matrix (1's on diagonal, 0's off-diagonal). So if we `solve(A)` (in R) or `solve(A, diag(n))` in SAS (where n is a vector of 1s the size of A), we will get the inverse matrix.
 
 <details><summary>Invert a matrix in R</summary>
-```{r}
+```{r invert-matrix-example}
 mat <- matrix(c(1, 2, 3, 6, 4, 5, 7, 8, 9), nrow = 3, byrow = T)
 
 minv <- solve(mat) # get the inverse
@@ -1707,7 +1703,7 @@ mat %*% minv
 
 <details><summary>Invert a matrix in SAS</summary>
 [Documentation](https://documentation.sas.com/?docsetId=imlug&docsetTarget=imlug_langref_sect208.htm&docsetVersion=14.2&locale=en)
-```{sashtml}
+```{r invert-matrix-example-sas, engine = "sashtmllog", engine.path = sasexe, engine.opts = sasopts, collectcode = F }
 proc iml;
   mat = {1 2 3, 6 4 5, 7 8 9};
 

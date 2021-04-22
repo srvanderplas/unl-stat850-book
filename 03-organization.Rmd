@@ -1,9 +1,37 @@
-```{r, include = F}
-.reset()
+```{r book-functions3, include = F}
+.pkgkeeplist <- c("package:stats", "package:graphics", "package:grDevices", "package:utils", "package:datasets", "package:methods", "package:base", "package:SASmarkdown", "package:rmarkdown", "package:knitr", "package:magrittr")
+
+.objkeeplist <- c(".pkgkeeplist", ".objkeeplist", ".reset", "sasexe", "sasopts")
+
+.reset <- function() {
+  basic.packages <- .pkgkeeplist
+
+  package.list <- search()[ifelse(unlist(gregexpr("package:", search())) == 1, TRUE, FALSE)]
+
+  package.list <- setdiff(package.list, basic.packages)
+
+  obj.list <- setdiff(ls(), .objkeeplist)
+
+  if (length(package.list) > 0) for (package in package.list) detach(package, character.only = TRUE)
+  rm(list = obj.list)
+}
 ```
+```{r load-libraries3, echo = F, message = F, warning = F, cache = F}
+library(SASmarkdown)
+sasexe <- "/usr/local/SASHome/SASFoundation/9.4/bin/sas_en"
+sasopts <- "-ls 75"
+```
+```{r clear-all-sas-output3, include=F, engine='saslog', engine = "sashtmllog", engine.path = sasexe, engine.opts = sasopts, collectcode = F}
+/* Clean log and output */
+dm log "clear";
+dm output "clear";
+ods html close;
+ods html;
+```
+
 # Organization: Packages, Functions, Scripts, and Documents {#organization}
 
-## Organization: Module Objectives  {-}
+## Organization: Module Objectives  {- #module-3-objectives}
 
 - Use markdown to create dynamic documents which show code and results reproducibly
 - Create functions and scripts to accomplish simple tasks
@@ -62,7 +90,7 @@ I highly recommend scanning these resources to get a good sense of the different
 - [The Biostatistics reproducibility issue w/ responses to the editorial and associated commentary](https://academic.oup.com/biostatistics/issue/11/3)
 
 
-## Markdown and R {#rmarkdown}
+### Markdown and R {#rmarkdown}
 
 In this class, we're primarily going to use rmarkdown to create dynamic documents. Markdown itself is a special style of text that is intended to allow you to do basic formatting without having to pause to actually click the buttons (if you were writing in word). It integrates equation functionality (so you can type mathematical equations using LaTeX syntax) and also allows for the use of templates (so you can write whole journal articles in a text editor). Markdown is also program agnostic - it will allow you to compile your work into HTML, word, or PDF form. 
 
@@ -93,7 +121,17 @@ Here's how that's set up.
 [SAS in Rmarkdown -- guide](http://ritsokiguess.site/docs/2018/08/20/sas-in-r-markdown/).
 :::
 
-It's really fairly easy, which surprised me -- I was expecting it to be a lot more involved to set SASmarkdown up.  
+It's really fairly easy, which surprised me -- I was expecting it to be a lot more involved to set SASmarkdown up. 
+
+SASmarkdown will not work if you don't have the following setup(s):
+
+- Windows + SAS (not Community Edition) + R 
+- Mac + Parallels (with SAS and RStudio both installed in parallels)
+- Linux + SAS + R
+
+If you're using Community Edition, you cannot use SASMarkdown. Instead, you'll have to submit SAS files separately from your Rmarkdown code, or use the server set up by HCC that has the correct configuration.
+
+If you are using SAS Community Edition, you are still expected to ensure your code is fully reproducible on other computers.
 
 ## Functions and Modules
 
@@ -147,7 +185,7 @@ The only difference between the RUN and CALL statements is the order of resoluti
 
 Let's try functions out by writing a simple function that takes two numbers as arguments and adds them together.
 
-```{r}
+```{r function-demo}
 adder <- function(a, b) {
   return(a + b)
 }
@@ -155,7 +193,7 @@ adder <- function(a, b) {
 adder(3, 4)
 ```
 
-```{sashtml}
+```{r iml-function-demo, engine = "saslog", engine.path = sasexe, engine.opts = sasopts, collectcode = F}
 proc IML;
 
   start adder(a, b);
@@ -172,7 +210,7 @@ quit;
 Of course, it's not just important to be able to write your own functions. It's also helpful to be able to see how functions are written, both to explore how a method is implemented and for debugging purposes. In SAS, this is generally not an option, because SAS is closed source, but in R, you can see the code behind any function which is implemented in R (it is harder to see functions implemented in C or C++, but not impossible) by typing the function name (no parentheses) into the command prompt.
 
 <details><summary>Let's examine how the colSums() function is implemented</summary>
-```{r}
+```{r function-code-demo}
 colSums
 ```
 
@@ -192,7 +230,7 @@ Then there are statements that transfer dimension names over to the summed objec
 Write a function named `circle_area` which computes the area of a circle given the radius. Make sure to use reasonable parameter names! (Note: in R, pi is conveniently stored in the variable of the same name - it can be overwritten if you want to do so, but why would you want to do that? In SAS, you can get the value of pi using `constant("pi")`)
 
 <details><summary>Solution</summary>
-```{r}
+```{r tryitout-circle-area-solution}
 circle_area <- function(r) {
   r^2*pi # automatically returned as the last computed value
 }
@@ -201,7 +239,7 @@ circle_area(5)
 ```
 
 A more complete and robust answer might include a test for numeric `r`:
-```{r}
+```{r tryitout-circle-area-solution2}
 circle_area <- function(r) {
   if (!is.numeric(r)) {
     stop("Supplied radius must be numeric") # This issues an error
@@ -212,7 +250,7 @@ circle_area(5)
 ```
 
 
-```{sashtml}
+```{r tryitout-circle-area-solution-sas, engine = "sashtmllog", engine.path = sasexe, engine.opts = sasopts, collectcode = F}
 proc IML;
 
   start circle_area(r);
@@ -240,7 +278,7 @@ In R, every function is defined in a certain environment, and once it is defined
 
 <details><summary>Demonstration of scoping in R</summary>
 
-```{r}
+```{r scope-example-1}
 
 a <- 3
 
@@ -256,7 +294,7 @@ myfun(a, 3) # this references the a outside the function
 
 ![Scope diagram. When myfun() is called, the calling environment contains the two parameters a and b.](image/03_myfun_scope.png)
 
-```{r}
+```{r scope-example-2}
 a <- 3
 
 myfun2 <- function(d) {
@@ -269,7 +307,7 @@ myfun2(3) # the only a in scope inside fun2 is the a defined at the top of the c
 
 ![Scope diagram. When myfun2() is called, the calling environment contains only a parameter $d$. $a$ is pulled from the global environment, as there is no parameter $a$ in the myfun2 calling environment.](image/03_myfun2_scope.png)
 
-```{r}
+```{r scope-example-3}
 a <- 3
 
 myfun3 <- function(a, d) {
@@ -299,7 +337,7 @@ In SAS, scoping rules are more like those in other programming languages - you h
 
 <details><summary>Demonstration of scoping in SAS. Environments do not inherit variables from the calling environment.</summary>
 
-```{sashtml}
+```{r scope-example-sas-1, engine = "saslog", engine.path = sasexe, engine.opts = sasopts, collectcode = F}
 PROC IML;
 a = 3;
 
@@ -321,7 +359,7 @@ quit;
 
 In SAS, the equivalent version of the program used to demonstrate lexical scoping in R produces an error. In SAS, you cannot assume the function has access to values defined outside of that function that are not passed into the function as arguments.
 
-````
+```{r scope-example-sas-2, engine = "saslog", engine.path = sasexe, engine.opts = sasopts, collectcode = F, error = T}
 PROC IML;
 a = 3;
 
@@ -337,13 +375,12 @@ r1 = myfun2(3);
 
 print r1;
 quit;
-
-````
+```
 </details>
 
 
 First, let's consider the similarities: like R, functions have a local scope, and changing a similarly named value inside the function doesn't change the value outside the function. 
-```{sashtml}
+```{r sas-scope-example-1, engine = "saslog", engine.path = sasexe, engine.opts = sasopts, collectcode = F, error = T}
 PROC IML;
 start myfun(x); 
   y = 2 * x;
@@ -370,7 +407,7 @@ This is faster and more efficient (because you aren't making a new copy of the d
 
 <details><summary>Argument passing in SAS</summary>
 If we make a slight modification to `myfun(a, b)`, though, we see some interesting behavior in SAS that we wouldn't see in the equivalent R program.
-```{sas}
+```{r argument-passing-sas, engine = "saslog", engine.path = sasexe, engine.opts = sasopts, collectcode = F}
 PROC IML;
 a = 3;
 
@@ -392,7 +429,7 @@ d = a;
 print b[label="a before r1"] r1 c[label="a after r1"] r2 d[label="a after r2"];
 quit;
 ```
-</details>
+
 
 ::: note
 In SAS, be sure that if you are using a logical operator AND, `&`, you put spaces around it (e.g. ` & `) - `&var2` is a way to specify that you are passing an argument (`var2`) by reference, and SAS can get confused and issue weird warnings if you actually intended this to be a logical statement of `var1 &var2`. 
@@ -400,33 +437,9 @@ In SAS, be sure that if you are using a logical operator AND, `&`, you put space
 I ran across this once and it thoroughly confused me until I remembered that &var can mean "pass by reference" in some languages. 
 :::
 
-<details><summary>Argument passing in R</summary>
-In R, variables inside a function don't modify variables which are outside a function (generally speaking). In SAS, this is not necessarily the case. In the first call to myfun(), we pass in two numerical arguments, and we see that even though the value of a changes inside the function, that change doesn't affect the variable defined outside of the function. In the second call to myfun(), we pass a variable in as an argument, and we see that the variable changes after the function's execution! In the R chunk (below), you can see that the behavior of what is essentially the same code is different.
-```{r}
-
-a <- 3
-
-myfun <- function(a, b) {
-  a <- a + 2
-  a + b
-}
-
-a
-
-myfun(5, 6)
-
-a
-
-myfun(a, 3) 
-
-a
-```
-</details>
-
-
 <details><summary>Another example of SAS passing arguments by reference (and the unexpected effects that can have on a program's state)</summary>
 
-```{sashtml}
+```{r sas-arg-by-reference, engine = "saslog", engine.path = sasexe, engine.opts = sasopts, collectcode = F}
 PROC IML;
 start myfun(x); 
   call sort(x, 1); /* sort the values */
@@ -450,7 +463,7 @@ quit;
 
 Because arguments in SAS are passed by reference, you can "trick" a function into returning multiple values by passing the variables in as arguments to the function, changing their values in the function, and returning. This is not necessarily a good practice - it can make code very difficult to debug, and may lead to non-obvious dependencies - but for short, simple programs, you can probably get away with it.
 
-```{sashtml}
+```{r sas-arg-by-reference2, engine = "saslog", engine.path = sasexe, engine.opts = sasopts, collectcode = F}
 PROC IML;
   start getDescriptive(Mean, SD, /* output args */
                          x /* input arg */);
@@ -473,12 +486,39 @@ quit;
 If you want to avoid any of these side-effects of SAS's pass-by-reference behavior, you can very easily do so: just don't write any modules that modify input arguments. Always modify a copy of the variable instead. 
 </details>
 
+</details>
+
+
+<details><summary>Argument passing in R</summary>
+In R, variables inside a function don't modify variables which are outside a function (generally speaking). In SAS, this is not necessarily the case. In the first call to myfun(), we pass in two numerical arguments, and we see that even though the value of a changes inside the function, that change doesn't affect the variable defined outside of the function. In the second call to myfun(), we pass a variable in as an argument, and we see that the variable changes after the function's execution! In the R chunk (below), you can see that the behavior of what is essentially the same code is different.
+```{r argument-passing-r}
+
+a <- 3
+
+myfun <- function(a, b) {
+  a <- a + 2
+  a + b
+}
+
+a
+
+myfun(5, 6)
+
+a
+
+myfun(a, 3) 
+
+a
+```
+</details>
+
+
 <div class="tryitout">
 #### Try it out {-}
 
 Can you predict what the output of this chunk will be?
 
-```{r, eval = F}
+```
 f <- function(x) {
   f <- function(x) {
     f <- function(x) {
@@ -495,17 +535,18 @@ Run it - were you right?
 
 What happens when you run a similar program in SAS? (I only nested two functions this time, but you get the idea)
 
-````
+```
 proc IML;
   start f(x);
+
     start f(x);
       return x**x;
     finish;
+
     return f(x)+1;
   finish;
 quit;
-
-````
+```
 
 <details><summary>Solution</summary>
 
@@ -523,17 +564,19 @@ f <- function(x) {
 }
 f(10)
 ```
+
 Once this has been renamed, it is relatively easy to write out as a series of mathematical substitutions:
 
 $$f(10) = f1(10) * 2 = (f2(10) + 1) * 2 = (10^2 + 1)*2 = 202$$
 
 Running the similar program in SAS results in SAS complaining about a recursive function definition. 
+
 </details>
 
 
 What will this SAS program output?
 
-```{sashtml}
+```{r sas-prog-output-prediction, engine = "sashtmllog", engine.path = sasexe, engine.opts = sasopts, collectcode = F, error = T}
 proc IML;
 
 start funwithSAS(x, y);
@@ -607,7 +650,7 @@ Most functions take arguments written after the function name. Can you think of 
 
 R has a number of infix functions, but you can also create your own. User-defined infix functions start and end with %. So %>%, %in%, %dosomething% would all be valid infix operators. To define one, you need to enclose the name in back-ticks (\`). 
 
-```{r}
+```{r infix-fun}
 `%dosomething%` <- function(a, b) {
   a^b - a + b
 }
@@ -626,7 +669,7 @@ The one part of this section that is important to at least be able to use is the
 There is an [entire chapter dedicated to discussing the pipe in R4DS](https://r4ds.had.co.nz/pipes.html), including a discussion of when not to use the pipe. 
 </div>
 
-```{r}
+```{r pipe-demo}
 library(magrittr)
 
 3 %>% exp()
@@ -636,7 +679,7 @@ exp(3)
 The pipe takes the left hand side and a function, and puts the left hand side as an argument to the function on the right hand side. It doesn't sound very impressive, but it allows you to do a very cool thing: "chain" operations.
 
 Consider 3 functions:
-```{r}
+```{r pipe-demo-2}
 f1 <- function(x, y = 3) {
   x * y
 }
@@ -651,7 +694,7 @@ f3 <- function(z2) {
 ```
 
 Normally, you'd write `f3(f2(f1(4)))`, which you have to read from the inside to the outside if you want to describe what this function call is doing. With pipes, you can write the same operation as:
-```{r}
+```{r pipe-demo-3}
 4 %>% f1() %>% f2() %>% f3()
 ```
 
@@ -676,7 +719,7 @@ RUN;
 By default, SAS will use the last dataset created to run this procedure. 
 
 <details><summary>SAS procedures can also be run with options that modify the statement. </summary>
-```{sashtml}
+```{r sas-proc-options, engine = "sashtmllog", engine.path = sasexe, engine.opts = sasopts, collectcode = F}
 PROC PRINT DATA=SASHELP.CARS (obs=10);
 RUN;
 
@@ -687,14 +730,14 @@ In the code above, both `DATA=SASHELP.CARS` and `(obs=10)` are options that modi
 </details>
 <details><summary>
 Some procs also support additional statements: for instance, we can use the VAR statement to tell SAS which variables we want to work with. </summary>
-```{sashtml}
+```{r sas-proc-var, engine = "sashtmllog", engine.path = sasexe, engine.opts = sasopts, collectcode = F}
 PROC MEANS DATA=SASHELP.CARS;
   VAR msrp cylinders;
 RUN;
 ```
 </details>
 <details><summary>Another statement, CLASS, tells SAS to run the procedure for each level of a named categorical variable. </summary>
-```{sashtml}
+```{r sas-proc-class, engine = "sashtmllog", engine.path = sasexe, engine.opts = sasopts, collectcode = F}
 PROC MEANS DATA=SASHELP.CARS;
   CLASS type;
   VAR msrp cylinders;
@@ -744,13 +787,83 @@ I've pared down my list of packages a bit for this class (you don't need the pac
 
 Read the script (located [here](code/03_setup.R)) and try to understand what it is doing. Once you think you understand what it is doing, run the following command to run the script and install the packages on your machine. Were you right?
 
-```{r, eval = F}
+```{r useful-packages, eval = F}
 url <- "https://raw.githubusercontent.com/srvanderplas/unl-stat850/master/code/03_setup.R"
 source(url)
 ```
 
+### Try it out (SAS) {- .tryitout}
+
+Use [this blog post](https://blogs.sas.com/content/iml/2016/12/12/koch-snowflake.html) to create a SAS script that draws a Koch Snowflake in SAS. Save it as "Snowflake.SAS" and open the file in SAS to run it.
+
+<details><summary>Snowflake.SAS</summary>
+```{r sas-snowflake-tryitout, engine = "sashtml", engine.path = sasexe, engine.opts = sasopts, collectcode = F, fig.path = "image/", error = T}
+PROC IML;
+  start KochDivide(A, E);                    /* (x,y) coords of endpoints */
+     segs = j(5, 2, .);                      /* matrix to hold 4 shorter segs */
+     v = (E-A) / 3;                          /* vector 1/3 as long as orig */
+     segs[{1 2 4 5}, ] = A + v @ T(0:3);     /* endpoints of new segs */
+     /* Now compute middle point. Use ATAN2 to find direction angle. */
+     theta = -constant("pi")/3 + atan2(v[2], v[1]); /* change angle by pi/3 */
+     w = cos(theta) || sin(theta);           /* vector to middle point */
+     segs[3,] = segs[2,] + norm(v)*w;
+     return segs;
+  finish;
+ 
+
+  /* create Koch Snowflake from an equilateral triangle */
+  start KochPoly(P0, iters=5);    
+    P = P0;
+    do j=1 to iters;
+       N = nrow(P) - 1;             /* old number of segments */
+       newP = j(4*N+1, 2);          /* new number of segments + 1 */
+       do i=1 to N;                 /* for each segment... */
+          idx = (4*i-3):(4*i+1);                    /* rows for 4 new segments */
+          newP[idx, ] = KochDivide(P[i,], P[i+1,]); /* generate new segments */
+       end;
+       P = newP;                    /* update polygon and iterate */
+    end;
+    return P;
+  finish;
+
+  /* create equilateral triangle as base for snowflake */
+  pi = constant("pi");
+  angles = -pi/6 // pi/2 // 7*pi/6;  /* angles for equilateral triangle */
+  P = cos(angles) || sin(angles);    /* vertices of equilateral triangle */
+  P = P // P[1,];                    /* append first vertex to close triangle */
+  K = KochPoly(P);                   /* create the Koch snowflake */
+    
+  S = j(nrow(K), 3, 1);      /* add ID variable with constant value 1 */
+  S[ ,1:2] = K;
+  create Koch from S[colname={X Y ID}];  
+  append from S;  
+  close;
 
 
+  /* test KochDivide on line segment from (0,0) to (1,0) */
+  s = KochDivide({0 0}, {1 0});
+  title  "Fundamental Step in the Koch Snowflake Construction";
+  ods graphics / width=600  height=300; 
+  call series(s[,1], s[,2]) procopt="aspect=0.333";
+
+QUIT;
+ 
+ods graphics / width=400px height=400px;
+footnote justify=Center "Koch Snowflake";
+proc sgplot data=Koch;
+   styleattrs wallcolor=CXD6EAF8;               /* light blue */
+   polygon x=x y=y ID=ID / outline fill fillattrs=(color=white);
+   xaxis display=none;
+   yaxis display=none;
+run;
+```
+```{r sas-reset-snowflake, engine = "sashtml", engine.path = sasexe, engine.opts = sasopts, collectcode = F, fig.path = "image/", error = T}
+dm log "clear";
+dm output "clear";
+ods html close;
+ods html;
+```
+</details>
 
 ## Packages
 
@@ -767,8 +880,9 @@ In R, there are two main sources for packages: CRAN (the Comprehensive R Archive
 
 On github, packages go through less verification. Many packages use a system where the version in development is on github and available for installation, but the version on CRAN is considered "stable". Sometimes, packages are never put on CRAN: I contribute to several packages which are too large for CRAN, and it's not worth the hassle to get an exception or figure out a workaround.
 
-```{r}
+```{r packages-on-cran, include = F}
 library(rvest)
+library(xml2)
 txt <- read_xml("https://cran.r-project.org/web/packages/") %>%
   html_node(css = "#pkgs") %>% 
   xml_parent() %>%
@@ -791,7 +905,7 @@ Install the R package `tibble` if it is not already installed. Pull up the vigne
 Get to the package index for the `tibble` package, either by navigating through the Packages tab in RStudio, or using `?tibble`. Access the documentation for the `tribble` function, and try loading the package and creating your own tibble using `tribble`. 
 
 <details><summary>Solution</summary>
-```{r, eval = -c(1, 3:4)}
+```{r tryitout-tibble-pkg-solution, eval = -c(1, 3:4)}
 install.packages("tibble")
 library(tibble)
 ?tibble

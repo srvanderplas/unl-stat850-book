@@ -16,26 +16,33 @@ description: "Introductions to statistical computing packages and document prepa
 ```{r setup, echo = F}
 library(magrittr)
 library(knitr)
-knitr::opts_chunk$set(collapse = T, cache = T)
+knitr::opts_chunk$set(collapse = T, cache = T, fig.path = "image/", engine.opts = list("r" = list(tidy = "styler")), dpi = 300)
 ```
 
 ```{r load-libraries, echo = F, message = F, warning = F, cache = F}
-
-saspath <- "/usr/local/SASHome/SASFoundation/9.4/bin/sas_en"
-sasopts <- "-ls 75"
-knitr::opts_chunk$set(
-  engine.path = list(sas = saspath, saslog = saspath, sashtml = saspath),
-  engine.opts = list(sas = sasopts, saslog = sasopts, sashtml = sasopts),
-  comment = NA, cache = T
-)
 library(SASmarkdown)
-
+sasexe <- "/usr/local/SASHome/SASFoundation/9.4/bin/sas_en"
+sasopts <- "-ls 75"
+knitr::opts_chunk$set(collapse = T, cache = T, fig.path = "image/",
+                      engine.opts = list(
+                        "r" = list(tidy = "styler"), 
+                        "sashtmllog" = sasopts, 
+                        "saslog" = sasopts,
+                        "sas" = sasopts,
+                        "sashtml" = sasopts),
+                      engine.path = list(
+                        sashtmllog = sasexe,
+                        saslog = sasexe,
+                        sashtml = sasexe,
+                        sas = sasexe
+                      ),
+                      dpi = 300)
 ```
 
 ```{r book-functions, include = F}
 .pkgkeeplist <- c("package:stats", "package:graphics", "package:grDevices", "package:utils", "package:datasets", "package:methods", "package:base", "package:SASmarkdown", "package:rmarkdown", "package:knitr", "package:magrittr")
 
-.objkeeplist <- c(".pkgkeeplist", ".objkeeplist", ".reset", "saspath", "sasopts")
+.objkeeplist <- c(".pkgkeeplist", ".objkeeplist", ".reset", "sasexe", "sasopts")
 
 .reset <- function() {
   basic.packages <- .pkgkeeplist
@@ -49,6 +56,15 @@ library(SASmarkdown)
   if (length(package.list) > 0) for (package in package.list) detach(package, character.only = TRUE)
   rm(list = obj.list)
 }
+```
+
+
+```{r clear-all-sas-output, include=F, engine='saslog', engine = "sashtmllog", engine.path = sasexe, engine.opts = sasopts, collectcode = F}
+/* Clean log and output */
+dm log "clear";
+dm output "clear";
+ods html close;
+ods html;
 ```
 
 ```{r pkg-list-update, include = F, cache = F}

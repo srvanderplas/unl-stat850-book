@@ -1,4 +1,4 @@
-```{r, include = F}
+```{r reset-8, include = F}
 .reset()
 ```
 # Introduction to Data Visualization {#data-vis-intro}
@@ -141,7 +141,7 @@ Original SAS graphics engine
 
 Note: This code runs, but it causes every other sas chunk in this document to go haywire... so you'll have to copy the code and run it on your own to see what it looks like. 
 
-```{sashtml, fig.path = "image/"}
+```{r sas-gchart, fig.path = "image/", engine = "sashtml", engine.path = sasexe, engine.opts = sasopts, error = T}
 ODS HTML style= HTMLBlue; /* needed for color graphs in bookdown */
 libname classdat "sas/";
 
@@ -162,13 +162,23 @@ VBAR i / SUBGROUP = generation;
 RUN;
 QUIT; 
 ```
+
+```{r clear-all-sas-output8-1, include=F, engine = "sashtml", engine.path = sasexe, engine.opts = sasopts, collectcode = F}
+/* Clean log and output */
+dm log "clear";
+dm output "clear";
+ods html close;
+ods html;
+```
+
+
 </details>
 
 <details><summary>ODS Graphics</summary>
 Note: This is a terrible example in SAS because there isn't an easy way to create a pie chart^[It's not often you'll find me approving of SAS graphics, but making it hard to make pie charts is definitely a point in SAS's favor]. We have to resort to using SAS Graph Template Language. 
 
 
-```{sashtml ods-pie, collectcode=T, error = T, fig.path = "image/"}
+```{sashtml ods-pie, collectcode=T, fig.path = "image/", engine = "sashtml", engine.path = sasexe, engine.opts = sasopts, error = T}
 ODS HTML style= HTMLBlue; /* needed for color graphs in bookdown */
 libname classdat "sas/";
 
@@ -254,7 +264,7 @@ if(!file.exists("data/fbi.csv")) write_csv(fbi, "data/fbi.csv", na = ".")
 if(!file.exists("data/fbiwide.csv")) write_csv(fbiwide, "data/fbiwide.csv", na = ".")
 ```
 
-```{sas sas-data-setup-08, error = T}
+```{r sas-data-setup-0, fig.path = "image/", engine = "sashtml", engine.path = sasexe, engine.opts = sasopts, error = T}
 libname classdat "sas/";
 
 PROC IMPORT datafile = "data/happy.csv" out=classdat.happy
@@ -306,7 +316,7 @@ plot(Murder ~ Assault, data = fbiwide)
 
 <details><summary>SAS ODS Graphics</summary>
 The workhorse of the ODS graphics engine is SGPLOT. 
-```{sashtml basic-sgplot-scatterplot, error = T, fig.path = "image/"}
+```{r basic-sgplot-scatterplot, error = T, fig.path = "image/", engine = "sashtml", engine.path = sasexe, engine.opts = sasopts, error = T}
 ODS HTML style= HTMLBlue; /* needed for color graphs in bookdown */
 libname classdat "sas/";
 
@@ -334,7 +344,7 @@ title("Murders and Assaults")
 
 </details>
 <details><summary>SAS ODS Graphics</summary>
-```{sashtml sas-add-title-08, error = T, collectcode = T, fig.path = "image/"}
+```{r sas-add-title-08, error = T, collectcode = T, fig.path = "image/", engine = "sashtml", engine.path = sasexe, engine.opts = sasopts, error = T}
 ODS HTML style= HTMLBlue; /* needed for color graphs in bookdown */
 libname classdat "sas/";
 
@@ -369,7 +379,7 @@ plot(Assault ~ Population,
 ```
 </details>
 <details><summary>SAS ODS Graphics</summary>
-```{sashtml sas-adj-aes-const-08, error = T, collectcode = T, fig.path = "image/"}
+```{r sas-adj-aes-const-08, collectcode = T, fig.path = "image/", engine = "sashtml", engine.path = sasexe, engine.opts = sasopts, error = T}
 ODS HTML style= HTMLBlue; /* needed for color graphs in bookdown */
 libname classdat "sas/";
 
@@ -414,7 +424,7 @@ plot(Assault ~ Population, col = state_color, data = fbiwide)
 You can use `?points` to get information on all of the graphical parameters for points.
 </details>
 <details><summary>SAS ODS Graphics variable mapping</summary>
-```{sashtml sas-cat-aes-map-08, error = T, collectcode = T, fig.path = "image/"}
+```{r sas-cat-aes-map-08, collectcode = T, fig.path = "image/", engine = "sashtml", engine.path = sasexe, engine.opts = sasopts, error = T}
 ODS HTML style= HTMLBlue; /* needed for color graphs in bookdown */
 libname classdat "sas/";
 
@@ -499,7 +509,7 @@ for (i in unique(fbiwide$Abb)) {
 ```
 </details>
 <details><summary>SAS ODS line plots</summary>
-```{sashtml sas-line-plot-color-08, error = T, collectcode = T, fig.path = "image/"}
+```{r sas-line-plot-color-08, collectcode = T, fig.path = "image/", engine = "sashtml", engine.path = sasexe, engine.opts = sasopts, error = T}
 ODS HTML style= HTMLBlue; /* needed for color graphs in bookdown */
 libname classdat "sas/";
 
@@ -652,7 +662,7 @@ legend("topleft",
 <details><summary>SAS ODS graphics and numeric variable transformations</summary>
 In order to change point size to show a different variable value, we have to use BUBBLE instead of SCATTER.
 
-```{sashtml sas-numeric-aes-bubble-08, error = T, collectcode = T, fig.path = "image/"}
+```{r sas-numeric-aes-bubble-08, collectcode = T, fig.path = "image/", engine = "sashtml", engine.path = sasexe, engine.opts = sasopts, error = T}
 ODS HTML style= HTMLBlue; /* needed for color graphs in bookdown */
 libname classdat "sas/";
 
@@ -1077,7 +1087,7 @@ boxplot(per_100k~crime, data = tmp)
 ```
 </details>
 <details><summary>Box plots in SAS</summary>
-```{sashtml sas-boxplot-08, error = T, collectcode = T, fig.path = "image/"}
+```{r sas-boxplot-08, collectcode = F, fig.path = "image/", engine = "sashtml", engine.path = sasexe, engine.opts = sasopts, error = T}
 ODS HTML style= HTMLBlue; /* needed for color graphs in bookdown */
 libname classdat "sas/";
 
@@ -1136,7 +1146,7 @@ tibble(x = rnorm(100)) %>%
 In base R, you can get histograms with the `hist()` function. 
 
 <details><summary>Histograms in SAS</summary>
-```{sashtml sas-hist-08, error = T, fig.path = "image/"}
+```{r sas-hist-08, collectcode = F, fig.path = "image/", engine = "sashtml", engine.path = sasexe, engine.opts = sasopts, error = T}
 ODS HTML style= HTMLBlue; /* needed for color graphs in bookdown */
 libname classdat "sas/";
 
@@ -1179,7 +1189,7 @@ poke %>%
 In base R, you can get a density plot of a single variable with `plot(density(...))`. 
 
 <details><summary>Density plots in SAS</summary>
-```{sashtml sas-kernel-dens-08, error = T, fig.path = "image/"}
+```{r sas-kernel-dens-08, collectcode =F, fig.path = "image/", engine = "sashtml", engine.path = sasexe, engine.opts = sasopts, error = T}
 ODS HTML style= HTMLBlue; /* needed for color graphs in bookdown */
 libname classdat "sas/";
 
@@ -1221,7 +1231,7 @@ poke %>%
 
 In SAS, this is actually easier than it is in ggplot2: As long as you put the histogram first in the SGPLOT statement, you'll get the right scale. 
 
-```{sashtml sas-hist-dens-08, error = T, fig.path = "image/"}
+```{r sas-hist-dens-08, collectcode = F, fig.path = "image/", engine = "sashtml", engine.path = sasexe, engine.opts = sasopts, error = T}
 ODS HTML style= HTMLBlue; /* needed for color graphs in bookdown */
 libname classdat "sas/";
 
@@ -1356,7 +1366,7 @@ ggplot(aes(x = generation, fill = status, weight = prop)) +
 ```
 
 <details><summary>Bar Charts in SAS</summary>
-```{sashtml sas-bar-08, error = T, fig.path = "image/"}
+```{r sas-bar-08, collectcode = F, fig.path = "image/", engine = "sashtml", engine.path = sasexe, engine.opts = sasopts, error = T}
 
 ODS HTML style= HTMLBlue; /* needed for color graphs in bookdown */
 libname classdat "sas/";
@@ -1425,7 +1435,7 @@ fbi %>%
 </details>
 <details><summary>Panel plots in SAS</summary>
 Basically the same syntax as SGPLOT, but using SGPANEL and a PANELBY statement. This is very similar to ggplot2's `facet_` addition. 
-```{sashtml sas-facet-08, error = T, fig.path = "image/"}
+```{r sas-facet-08, collectcode = F, fig.path = "image/", engine = "sashtml", engine.path = sasexe, engine.opts = sasopts, error = T}
 ODS HTML style= HTMLBlue; /* needed for color graphs in bookdown */
 libname classdat "sas/";
 
