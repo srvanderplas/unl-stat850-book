@@ -16,12 +16,8 @@ description: "Introductions to statistical computing packages and document prepa
 ```{r setup, echo = F}
 library(magrittr)
 library(knitr)
-knitr::opts_chunk$set(collapse = T, cache = T, fig.path = "image/", engine.opts = list("r" = list(tidy = "styler")), dpi = 300)
-```
-
-```{r load-libraries, echo = F, message = F, warning = F, cache = F}
 library(SASmarkdown)
-sasexe <- "/usr/local/SASHome/SASFoundation/9.4/bin/sas_en"
+sasexe <- "/usr/local/SASHome/SASFoundation/9.4/bin/sas_u8"
 sasopts <- "-ls 75"
 knitr::opts_chunk$set(collapse = T, cache = T, fig.path = "image/",
                       engine.opts = list(

@@ -1,6 +1,3 @@
-```{r, include = F}
-.reset()
-```
 
 # External Data {#reading-data}
 
@@ -40,7 +37,6 @@ There are, of course, many other non-tabular data formats -- some open and easy 
 To be minimally functional in R and SAS, it's important to know how to read in text files (CSV, tab-delimited, etc.). It can be helpful to also know how to read in XLSX files. We will briefly cover binary files and databases, but it is less critical to remember how to read these in without consulting one or more online references. 
 
 
-
 ## Text Files
 
 There are several different variants of text data which are relatively common, but for the most part, text data files can be broken down into fixed-width and delimited formats. What's the difference, you say?
@@ -57,7 +53,7 @@ Col1    Col2    Col3
 
 
 <details> <summary>In base R (no extra packages), you can read fwf files in using `read.fwf`, but you must specify the column breaks yourself.</summary>
-```{r, error = T, eval = -1, echo = -2}
+```{r read-fwf-colbreaks, error = T, eval = -1, echo = -2}
 url <- "https://www.mesonet.org/index.php/dataMdfMts/dataController/getFile/202006070000/mdf/TEXT/"
 url <- "data/mesodata.txt"
 data <- read.fwf(url, 
@@ -71,7 +67,7 @@ data[1:6,] # first 6 rows
 
 
 <details><summary>You can count all of those spaces by hand (not shown), you can use a different function, or you can write code to do it for you. </summary>
-```{r}
+```{r fixed-width-demo}
 
 # I like to cheat a bit....
 # Read the first few lines in
@@ -114,7 +110,7 @@ But, there's an even simpler way...
 
 The `readr` package creates data-frame like objects called tibbles (really, they're a souped-up data frame), but it is *much* friendlier to use. Tibbles also do not have the problems with factors (see the [introduction to factors](#factors)) - they will always read characters in as characters. 
 
-```{r, message = F}
+```{r readr-demo, message = F}
 library(readr) # Better data importing in R
 
 read_table(url, skip = 2) # Gosh, that was much easier!
@@ -122,7 +118,7 @@ read_table(url, skip = 2) # Gosh, that was much easier!
 
 You can also write fixed-width files if you *really* want to: 
 
-```{r, message = F}
+```{r gdata-demo, message = F}
 if (!"gdata" %in% installed.packages()) install.packages("gdata")
 
 library(gdata)
@@ -134,7 +130,8 @@ write.fwf(mtcars, file = "data/04_mtcars-fixed-width.txt")
 
 
 <details> <summary>In SAS, it's a bit more complicated, but not that much - the biggest difference is that you generally have to specify the column names for SAS. For complicated data, as in R, you may also have to specify the column widths. </summary>
-```{sashtml, error = T}
+
+```{r sas-file-download, engine = "sashtmllog", engine.path = sasexe, engine.opts = sasopts, collectcode = F, error = T}
 /* This downloads the file to my machine */
 /* x "curl https://www.mesonet.org/index.php/dataMdfMts/dataController/getFile/202006070000/mdf/TEXT/ 
 > data/mesodata.txt" */
@@ -161,13 +158,14 @@ In SAS data statements, you generally need to specify the data names explicitly.
 
 In theory you can also get SAS to write out a fixed-width file, but it's much easier to just... not. You can generally use a CSV or format of your choice -- and you should definitely do that, because delimited files are much easier to work with. 
 
+
 ### Delimited Text Files
 
 Delimited text files are files where fields are separated by a specific character, such as " ", ",", tab, etc. Often, delimited text files will have the column names as the first row in the file. 
 
 <details><summary>
 As long as you know the delimiter, it's pretty easy to read in data from these files in R using the `readr` package. </summary>
-```{r}
+```{r delimited-text-files-r}
 url <- "https://raw.githubusercontent.com/shahinrostami/pokemon_dataset/master/pokemon_gen_1_to_8.csv"
 
 pokemon_info <- read_csv(url)
@@ -183,7 +181,7 @@ nebraska_locations[1:6, 1:6]
 
 <details><summary>
 You can also read in the same files using read.csv and read.delim, which are the equivalent base R functions. </summary>
-```{r}
+```{r delimited-text-files-r2}
 url <- "https://raw.githubusercontent.com/shahinrostami/pokemon_dataset/master/pokemon_gen_1_to_8.csv"
 
 pokemon_info <- read.csv(url, header = T, stringsAsFactors = F)
@@ -203,11 +201,8 @@ SAS also has procs to accommodate CSV and other delimited files. PROC IMPORT may
 While writing this code, I got an error of "Invalid logical name" because originally the filename was pokemonloc. Let this be a friendly reminder that your dataset names in SAS are limited to 8 characters in SAS. 
 
 <details><summary>CSV Import in SAS</summary>
-::: note
-Due to UTF-8 issues, this code chunk runs (with complaints) when I paste it into SAS, but does not run in bookdown. The complaints are because there are column names that are not valid SAS names (presumably, SAS doesn't allow UTF-8 characters as column names).
-:::
 
-````
+```{r csv-import-sas, engine = "sashtml", engine.path = sasexe, engine.opts = sasopts, collectcode = F, eval = T}
 /* x "curl https://raw.githubusercontent.com/shahinrostami/pokemon_dataset/master/pokemon_gen_1_to_8.csv > data/pokemon.csv";
 only run this once to download the file... */
 filename pokeloc 'data/pokemon.csv' encoding="utf-8";
@@ -219,7 +214,7 @@ proc import datafile = pokeloc out=poke
   ;
 proc print data=poke (obs=10); /* print the first 10 observations */
   run;
-````
+```
 
 The only abnormal thing is that on my computer, the japanese characters don't render.
 [Here is the output from SAS running the above code interactively](other/04Pokemon_output.html)
@@ -230,7 +225,7 @@ Alternately (because UTF-8 is finicky depending on your OS and the OS the data f
 
 <details><summary>CSVs in SAS (via R)</summary>
 If I fix the file in R (because I know how to fix it there... another option is to fix it manually), 
-```{r}
+```{r csv-sas-via-r}
 library(readr)
 library(dplyr)
 tmp <- read_csv("data/pokemon.csv")[,-1]
@@ -241,7 +236,7 @@ write_csv(tmp, "data/pokemon_ascii.csv", na='.')
 ```
 
 Then, reading in the new file allows us to actually see the output.
-```{sashtml pokemon}
+```{r pokemon-sas, engine = "sashtmllog", engine.path = sasexe, engine.opts = sasopts, collectcode = F, error = T}
 libname classdat "sas/";
 /* Create a library of class data */
 
@@ -263,13 +258,13 @@ This trick works in so many different situations. It's very common to read and d
 <details><summary>Non-comma delimited files in SAS (via R)</summary>
 To read in a pipe delimited file (the '|' character), we have to make some changes. Here is the proc import code. Note that I am reading in a version of the file that I've converted to ASCII (see details below) because while the import works with the original file, it causes the SAS -> R pipeline that the book is built on to break. 
 
-```{r}
+```{r pipe-delimited-SAS-r}
 tmp <- readLines("data/NE_Features_20200501.txt")
 tmp_ascii <- iconv(tmp, to = "ASCII//TRANSLIT")
 writeLines(tmp_ascii, "data/NE_Features_ascii.txt")
 ```
 
-```{sashtml}
+```{r pipe-delimited-SAS-r2, engine = "sashtmllog", engine.path = sasexe, engine.opts = sasopts, collectcode = F, error = T}
 /* Without specifying the library to store the data in, it is stored in WORK */
 proc import datafile = "data/NE_Features_ascii.txt" out=nefeatures
   DBMS = DLM /* delimited file */
@@ -285,7 +280,7 @@ proc print data=nefeatures (obs=10); /* print the first 10 observations */
 ```
 
 Under the hood, proc import is just writing code for a data step. So when proc import doesn't work, we can just write the code ourselves. It requires a bit more work (specifying column names, for example) but it also doesn't fail nearly as often. 
-```{sashtml, warning = T, error = T}
+```{r proc-import-data-step, engine = "sashtmllog", engine.path = sasexe, engine.opts = sasopts, collectcode = F, warning = T, error = T}
 /* x "curl https://raw.githubusercontent.com/srvanderplas/unl-stat850/master/data/NE_Features_20200501.txt
 > data/NE_Features_20200501.txt"; */
 /* only run this once... */
@@ -334,7 +329,7 @@ The `readr` package can handle .csv.gz files with no problems. Try reading in th
 
 
 <details><summary>Solution</summary>
-```{r, eval = F}
+```{r rebrickable-lego-data, eval = F}
 library(readr)
 legosets <- read_csv("https://cdn.rebrickable.com/media/downloads/sets.csv.gz")
 write_csv(legosets, "data/lego_sets.csv")
@@ -361,7 +356,7 @@ data _null_;
 run;
 ```
 <details><summary>Solution</summary>
-```{sashtml legosets}
+```{r rebrickable-tryitout-solution-sas, engine = "sashtmllog", engine.path = sasexe, engine.opts = sasopts, collectcode = F, warning = T, error = T}
 libname classdat "sas/";
 /* Work with the library of class data */
 
@@ -402,7 +397,7 @@ proc print data=legoset2 (obs=10);
 
 In R, the easiest way to read Excel data in is to use the `readxl` package. There are many other packages with different features, however - I have used `openxlsx` in the past to format spreadsheets to send to clients, for instance. By far and away you are more likely to have problems with the arcane format of the Excel spreadsheet than with the package used to read the data in. It is usually helpful to open the spreadsheet up in Excel or LibreOffice first to make sure the formatting is as you expected it to be.
 
-```{r, warning = F}
+```{r spreadsheet-readin, warning = F}
 if (!"readxl" %in% installed.packages()) install.packages("readxl")
 library(readxl)
 path <- "data/police_violence.xlsx"
@@ -415,7 +410,7 @@ police_violence[1:10, 1:6]
 
 In SAS, PROC IMPORT is one easy way to read in xlsx files. In this code chunk, we have to handle the fact that one of the columns in the spreadsheet contains dates. [SAS and Excel handle dates a bit differently](https://support.sas.com/resources/papers/proceedings/proceedings/sugi29/068-29.pdf), so we have to transform the date variable -- and we may as well relabel it at the same time. To do this, we use a DATA statement that outputs to the same dataset it references. We define a new variable date, adjust the Excel dates so that they conform to SAS's standard, and tell SAS how to format the date. (We'll talk more about dates and times later)
 
-```{sashtml, error = T}
+```{r proc-import-sas, engine = "sashtmllog", engine.path = sasexe, engine.opts = sasopts, collectcode = F, warning = T, error = T}
 libname classdat "sas/";
 
 PROC IMPORT OUT=classdat.police 
@@ -459,7 +454,7 @@ The Nebraska Department of Motor Vehicles publishes a database of vehicle regist
 Read that data in using both R and SAS. Be sure to look at the structure of the excel file, so that you can read the data in properly!
 
 <details><summary>Solution</summary>
-```{r}
+```{r tryitout-dmv-solution-r}
 url <- "https://dmv.nebraska.gov/sites/dmv.nebraska.gov/files/doc/2019_Veh_Reg_by_Plate_Type.xlsx"
 download.file(url, destfile = "data/2019_Vehicle_Registration_Plates_NE.xlsx", mode = "wb")
 library(readxl)
@@ -467,7 +462,7 @@ ne_plates <- read_xlsx(path = "data/2019_Vehicle_Registration_Plates_NE.xlsx", s
 ne_plates[1:10,1:6]
 ```
 
-```{sashtml}
+```{r tryitout-dmv-solution-sas, engine = "sashtmllog", engine.path = sasexe, engine.opts = sasopts, collectcode = F, warning = T, error = T}
 PROC IMPORT OUT=WORK.licplate 
     DATAFILE="data/2019_Vehicle_Registration_Plates_NE.xlsx" 
     DBMS=xlsx /* Tell SAS what type of file it's reading */ 
@@ -490,7 +485,7 @@ Both R and SAS have binary data files that store data in a more compact form. It
 Luckily, it is possible to read the binary data files in both programs.
 
 Let's read in the data from the 2009 National Household Travel Survey:
-```{sashtml}
+```{r nhts-sas-binary, engine = "sashtmllog", engine.path = sasexe, engine.opts = sasopts, collectcode = F, warning = T, error = T}
 libname classdat "data";
 /* this tells SAS where to look for (a bunch of) data files */
 
@@ -499,7 +494,7 @@ run;
 ```
 
 We can read the same file into R using the `sas7bdat` library:
-```{r}
+```{r nhts-sas7bdat-demo}
 if (!"sas7bdat" %in% installed.packages()) install.packages("sas7bdat")
 
 library(sas7bdat)
@@ -514,7 +509,7 @@ There are [theoretically ways to read R data into SAS via the R subsystem](https
 
 `.Rdata` is perhaps the most common, and can store several objects (along with their names) in the same file. 
 
-```{r}
+```{r rdata-demo}
 legos <- read_csv("data/lego_sets.csv")
 my_var <- "This variable contains a string"
 save(legos, my_var, file = "data/R_binary.Rdata")
@@ -525,7 +520,7 @@ If we look at the file sizes of `lego_sets.csv` (619 KB) and `R_binary.Rdata`(22
 
 
 <details><summary>We can load the R binary file back in using the `load()` function. </summary>
-```{r}
+```{r load-demo}
 rm(legos, my_var) # clear the files out
 
 ls() # all objects in the working environment
@@ -539,7 +534,7 @@ ls() # all objects in the working environment
 <details><summary>RDS format (another binary file format in R)</summary>
 Another (less common) binary format used in R is the RDS format. Unlike Rdata, the RDS format does not save the object name - it only saves its contents. As a result, when you read from an RDS file, you need to store the result of that function into a variable.
 
-```{r}
+```{r rds-demo}
 saveRDS(legos, "data/RDSlego.rds")
 
 other_lego <- readRDS("data/RDSlego.rds")
@@ -560,7 +555,7 @@ Finally, load your Rdata file. Are the two objects the same? (You can actually t
 
 <details><summary>Solution</summary>
 
-```{r}
+```{r tryitout-readin-data-saved}
 library(readxl)
 police_violence <- read_xlsx("data/police_violence.xlsx", sheet = 1, guess_max = 7000)
 police_violence2 <- read_xlsx("data/police_violence.xlsx", sheet = 2, guess_max = 7000)
@@ -597,7 +592,7 @@ Strictly speaking you can get through this class without this section. Feel free
 
 In R, we can read in MS Access files using the `Hmisc` package, as long as the mdbtools library is available on your computer^[A currently maintained version of the library is [here](https://github.com/cyberemissary/mdbtools) and should work for UNIX platforms. It may be possible to install the library on Windows using the UNIX subsystem, per [this thread](https://github.com/brianb/mdbtools/issues/107)]. For this demo, we'll be using the [Scottish Witchcraft Database](http://witches.shca.ed.ac.uk/index.cfm?fuseaction=home.register), which you can download from their website, or acquire from the course data folder. 
 
-```{r}
+```{r msaccess-data}
 if (!"Hmisc" %in% installed.packages()) install.packages("Hmisc")
 library(Hmisc)
 db_loc <- "data/Witchcraftsurvey_download.mdb"
@@ -609,14 +604,14 @@ mdb.get(db_loc, tables = "WDB_Trial")[1:6,1:10] # get table of trials, print fir
 Many databases have multiple tables with **keys** that connect information in each table. We'll spend more time on databases later in the semester - for now, it's enough to be able to get data out of one. 
 
 
-Unfortunately, it appears that SAS on Linux doesn't allow you to read in Access files. So I can't demonstrate that for you. But, since you know how to do it in R, worst case you can open up R and export all of the tables to separate CSV files, then read those into SAS. `emo::ji("sad")`
+Unfortunately, it appears that SAS on Linux doesn't allow you to read in Access files. So I can't demonstrate that for you. But, since you know how to do it in R, worst case you can open up R and export all of the tables to separate CSV files, then read those into SAS. `r emo::ji("sad")`
 
 ### SQLite
 
 
 <details><summary>SQLite databases are contained in single files with the extension .SQLite.</summary>
 These files can still contain many different tables, though. Let's try working with a sqlite file that has only one table: 
-```{r}
+```{r sqlite-data}
 if (!"RSQLite" %in% installed.packages()) install.packages("RSQLite")
 if (!"DBI" %in% installed.packages()) install.packages("DBI")
 library(RSQLite)
@@ -643,7 +638,7 @@ Driver = SQLite3
 Database = data/ssa-babynames-for-2015.sqlite
 ````
 
-```{sashtml sqlite3, error = T}
+```{r sqlite3-sas, engine = "sashtmllog", engine.path = sasexe, engine.opts = sasopts, collectcode = F, warning = T, error = T}
 /* This code requires that I've set up a DSN connecting the sqlite file to */
 /* a specific driver on my computer. You'll have to set up your machine to */
 /* have a configuration that is appropriate for your setup */
@@ -676,10 +671,10 @@ Major components of EDA:
 <details><summary>
 [Proc Freq](https://go.documentation.sas.com/?docsetId=procstat&docsetTarget=procstat_freq_toc.htm&docsetVersion=9.4&locale=en) generates frequency tables for variables or interactions of variables. </summary>
 This can help you to see whether there is missing information. Using those frequency tables, you can create frequency plots and set up chi squared tests.
-```{sashtml proc-freq-demo-setup, include = F, collectcode = T}
+```{r sas-proc-freq-demo-setup, include = F, engine = "sashtmllog", engine.path = sasexe, engine.opts = sasopts, collectcode = T, warning = T, error = T}
 ODS HTML style= HTMLBlue; 
 ```
-```{sashtml proc-freq-demo, fig.path = "image/", collectcode = T}
+```{r proc-freq-demo, fig.path = "image/", engine = "sashtmllog", engine.path = sasexe, engine.opts = sasopts, collectcode = T, warning = T, error = T}
 libname classdat "sas/";
 
 ODS GRAPHICS ON;
@@ -696,10 +691,10 @@ ODS GRAPHICS OFF;
 <details><summary>
 Proc Means can be used to get more useful summary statistics for numeric variables. </summary>Note that the Class statement identifies a categorical variable; the summary statistics are computed for each level of this variable. 
 
-```{sashtml proc-means-demo-setup, include = F, collectcode = T}
+```{r proc-means-demo-setup, include = F, engine = "sashtmllog", engine.path = sasexe, engine.opts = sasopts, collectcode = T, warning = T, error = T}
 ODS HTML style= HTMLBlue; 
 ```
-```{sashtml proc-means-demo, fig.path = "image/", collectcode = T}
+```{r proc-means-demo, fig.path = "image/", engine = "sashtmllog", engine.path = sasexe, engine.opts = sasopts, collectcode = T, warning = T, error = T}
 libname classdat "sas/";
 
 PROC MEANS DATA = classdat.poke;
@@ -714,10 +709,10 @@ run;
 
 <details><summary>For even higher levels of detail, [Proc Univariate](https://go.documentation.sas.com/?docsetId=procstat&docsetTarget=procstat_univariate_toc.htm&docsetVersion=9.4&locale=en) will provide variability, tests for location, quantiles, skewness, and will identify the extreme observations for you. </summary>
 You can also get histograms for variables, even specifying distributions you'd like to be fit to the data (if that's something you want). 
-```{sashtml proc-univariate-demo-setup, include = F, collectcode = T}
+```{r proc-univariate-demo-setup, include = F, engine = "sashtmllog", engine.path = sasexe, engine.opts = sasopts, collectcode = T, warning = T, error = T}
 ODS HTML style= HTMLBlue; 
 ```
-```{sashtml proc-univariate-demo, fig.path = "image/", collectcode = T}
+```{sashtml proc-univariate-demo, fig.path = "image/", engine = "sashtmllog", engine.path = sasexe, engine.opts = sasopts, collectcode = T, warning = T, error = T}
 libname classdat "sas/";
 
 ODS GRAPHICS ON;
@@ -731,7 +726,7 @@ ODS GRAPHICS OFF;
 
 <details><summary>Proc Corr allows you to examine the relationship between two quantitative variables. </summary>
 
-```{sashtml proc-corr-demo, fig.path = "image/"}
+```{r proc-corr-demo, fig.path = "image/", engine = "sashtmllog", engine.path = sasexe, engine.opts = sasopts, collectcode = F, warning = T, error = T}
 libname classdat "sas/";
 
 ODS GRAPHICS ON;
@@ -751,10 +746,10 @@ One of the datasets we read in above records incidents of police violence around
 It is useful to memorize the SAS PROC options you use most frequently, but it's also a good idea to reference the SAS documentation - it provides a list of all viable options for each procedure, and generally has decent examples to show how those options are used.
 
 <details><summary>Solution</summary>
-```{sashtml police-violence-tryitout-setup, include = F, collectcode = T}
+```{r police-violence-tryitout-setup, include = F, engine = "sashtmllog", engine.path = sasexe, engine.opts = sasopts, collectcode = T, warning = T, error = T}
 ODS HTML style= HTMLBlue; 
 ```
-```{sashtml police-violence-tryitout, fig.path = "image/", collectcode = T}
+```{r police-violence-tryitout, fig.path = "image/", engine = "sashtmllog", engine.path = sasexe, engine.opts = sasopts, collectcode = T, warning = T, error = T}
 libname classdat "sas/";
 
 ODS GRAPHICS ON;
@@ -812,7 +807,7 @@ In this section, I will mostly be using the plot commands that come with base R 
 <details><summary>
 The first, and most basic EDA command in R is `summary()`.</summary>
 For numeric variables, `summary` provides 5-number summaries plus the mean. For categorical variables, `summary` provides the length of the variable and the Class and Mode. For factors, `summary` provides a table of the most common values, as well as a catch-all "other" category. 
-```{r}
+```{r readr-eda}
 library(readr)
 url <- "https://raw.githubusercontent.com/shahinrostami/pokemon_dataset/master/pokemon_gen_1_to_8.csv"
 poke <- read_csv(url)
@@ -828,7 +823,7 @@ summary(poke)
 <details><summary>One common question in EDA is whether there are missing values or other inconsistencies that need to be handled.</summary> `summary()` provides you with the NA count for each variable, making it easy to identify what variables are likely to cause problems in an analysis. 
 
 There is one pokemon who appears to not have a weight specified. Let's investigate further:
-```{r}
+```{r poke-weight}
 poke[is.na(poke$weight_kg),] # Show any rows where weight.kg is NA
 ```
 This is the last row of our data frame, and this pokemon appears to have many missing values. 
@@ -836,7 +831,7 @@ This is the last row of our data frame, and this pokemon appears to have many mi
 
 <details><summary>We are often also interested in the distribution of values. </summary>
 We can generate cross-tabs for variables that we know are discrete (such as generation, which will always be a whole number). 
-```{r}
+```{r poke-distribution}
 table(poke$generation)
 plot(table(poke$generation)) # bar plot
 
@@ -847,7 +842,7 @@ plot(table(poke$type_1, poke$type_2)) # mosaic plot - hard to read b/c too many 
 </details>
 
 <details><summary>There are better options for examining this data, but they are easier to get in ggplot2. </summary>
-```{r}
+```{r poke-ggplot2}
 library(ggplot2)
 
 # define the x and y axis variables first
@@ -866,7 +861,7 @@ ggplot(data = poke, aes(x = type_1, y = type_2)) +
 We can also generate histograms or bar charts^[A histogram is a chart which breaks up a continuous variable into ranges, where the height of the bar is proportional to the number of items in the range. A bar chart is similar, but shows the number of occurrences of a discrete variable.] </summary>
 By default, R uses ranges of $(a, b]$ in histograms, so we specify which breaks will give us a desireable result. If we do not specify breaks, R will pick them for us.
 
-```{r, out.width = "48%", fig.show = "hold"}
+```{r poke-generation-out, out.width = "48%", fig.show = "hold"}
 hist(poke$generation) # This isn't really optimal... we only have whole numbers.
 hist(poke$generation, breaks = 0:8) # Much better.
 ```
@@ -878,7 +873,7 @@ hist(poke$generation, breaks = 0:8) # Much better.
 ::: .note
 Remember that `%>%` is the "pipe" and takes the left side of the pipe to pass as an argument to the right side. This makes code easier to read because it becomes a step-wise "recipe". 
 :::
-```{r, out.width = "48%", fig.show = "hold"}
+```{r pipe-poke-graphs, out.width = "48%", fig.show = "hold"}
 library(magrittr) # This provides the pipe command, %>%
 
 hist(poke$weight_kg)
@@ -904,7 +899,7 @@ poke$weight_kg %>%
 In R, most models are specified as `y ~ x1 + x2 + x3`, where the information on the left side of the tilde is the dependent variable, and the information on the right side are any explanatory variables. Interactions are specified using `x1*x2` to get all combinations of x1 and x2 (x1, x2, x1\*x2); single interaction terms are specified as e.g. `x1:x2` and do not include any component terms.
 
 To examine the relationship between a categorical variable and a continuous variable, we might look at boxplots: 
-```{r, out.width = "48%", fig.show = "hold"}
+```{r boxplot-graphs, out.width = "48%", fig.show = "hold"}
 
 boxplot(log10(height_m) ~ status, data = poke)
 
@@ -940,7 +935,7 @@ Explore the variables present in [the police violence data](data/police_violence
 
 How does your analysis in R differ from the way that you approached the data in SAS?
 <details><summary>Solution</summary>
-```{r}
+```{r police-violence-tryitout-R}
 if (!"readxl" %in% installed.packages()) install.packages("readxl")
 library(readxl)
 police_violence <- read_xlsx("data/police_violence.xlsx", sheet = 1, guess_max = 7000)
@@ -951,7 +946,7 @@ summary(police_violence)
 ```
 
 Let's examine the numeric and date variables first:
-```{r}
+```{r police-violence-numeric-date}
 hist(police_violence$`Victim's age`)
 
 # hist(police_violence$`Date of Incident (month/day/year)`) 
@@ -965,8 +960,8 @@ ggplot(police_violence, aes(x = `Date of Incident (month/day/year)`)) +
   geom_density()
 ```
 
-Let's look at the victim's gender and race:
-```{r}
+Let's look at the victims' gender and race:
+```{r police-violence-gender-race}
 table(police_violence$`Victim's race`, useNA = 'ifany')
 table(police_violence$`Victim's gender`)
 table(police_violence$`Victim's race`, police_violence$`Victim's gender`)
@@ -985,7 +980,7 @@ police_violence %>%
 
 And examine the age range for each gender as well:
 
-```{r}
+```{r police-violence-age}
 police_violence %>%
   boxplot(`Victim's age` ~ `Victim's gender`, data = .)
 ```
@@ -1000,7 +995,7 @@ My analysis in R was a bit more free-form than in SAS - in SAS, I proceeded fair
 I discovered this package while looking over the material in this chapter a second time (so this is new as of 2020/09/07). 
 :::
 
-```{r}
+```{r skimr}
 if (!"skimr" %in% installed.packages()) install.packages("skimr")
 library(skimr)
 skim(police_violence)

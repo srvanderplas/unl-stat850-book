@@ -257,7 +257,7 @@ SELECT \* says to select all variables. We'll talk about SELECT in the next sect
 
 If we want the 5 pokemon with the highest total points, we can use ORDER BY to sort the table, and then specify that we only want 5 rows.
 
-```{r sas-filter-sql-2, error = F, warn = F, warning = F, engine = "sashtmllog", engine.path = sasexe, engine.opts = sasopts, collectcode = F, fig.path = "image/"}
+```{r sas-filter-sql-2, error = T, warn = F, warning = F, engine = "sashtmllog", engine.path = "/usr/local/SASHome/SASFoundation/9.4/bin/sas_u8", engine.opts = sasopts, collectcode = F, fig.path = "image/"}
 libname classdat "sas/";
 
 PROC SQL;
