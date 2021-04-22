@@ -2,8 +2,10 @@ magrittr
 dplyr
 lubridate
 sas7bdat
+SASmarkdown
 beepr
 rvest
+xml2
 tibble
 readr
 gdata
@@ -21,7 +23,6 @@ tidyr
 stringr
 purrr
 dbplyr
-xml2
 tidyverse
 maps
 ggthemes
@@ -39,7 +40,6 @@ nycsquirrels18
 rgdal
 htmltools
 repurrrsive
-SASmarkdown
 knitr
 usethis
 tinytex

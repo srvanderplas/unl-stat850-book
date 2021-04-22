@@ -13,7 +13,7 @@ description: "Introductions to statistical computing packages and document prepa
 
 # Introduction {-}
 
-```{r setup, echo = F}
+```{r setup, echo = F, message = F, warning = F}
 library(magrittr)
 library(knitr)
 library(SASmarkdown)
