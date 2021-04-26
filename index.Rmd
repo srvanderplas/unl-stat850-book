@@ -5,9 +5,13 @@ date: "`r paste('Last Updated: ', Sys.Date())`"
 site: bookdown::bookdown_site
 documentclass: book
 bibliography: [book.bib, packages.bib]
+link-citations: true
 biblio-style: apalike
-link-citations: yes
 description: "Introductions to statistical computing packages and document preparation software. Topics include: graphical techniques, data management, Monte Carlo simulation, dynamic document preparation, presentation software."
+favicon: images/favicon.ico
+github-repo: srvanderplas/unl-stat850
+cover-image: images/cover.png
+url: https://srvanderplas.github.io/unl-stat850/
 ---
 
 
@@ -118,3 +122,54 @@ D. Test and debug software, using the following sequence: (Goals: 3, 4)
    4. Ask for help, describing the error or problem appropriately.
 
 E. Document the data, methods, and results of an analysis using reproducible methods. (Goals: 1, 2, 4)
+
+
+## How to Use This Book {-}
+
+I've made an effort to use some specific formatting and enable certain features that make this book a useful tool for this class.
+
+### Header Buttons/Links {-}
+The header contains a number of buttons which should help - the TOC and search buttons are fairly obvious, but here's a look at what the others will do for you:
+
+![The A button will let you set font size and white/sepia/dark mode](image/font-options-book.png)
+
+![You can suggest edits if you find a typo - please use this! You can submit a pull request in GitHub if you're signed in, and I can review and approve it easily.](image/edit-options-book.png)
+
+![You can download the entire (very long) Rmarkdown source code for the textbook](image/download-rmd-book.png)
+
+![The i button will remind you of keyboard shortcuts to navigate the book easily](image/keyboard-shortcuts-book.png)
+
+![You can also reference the book in tweets, if you really want to. Tag me if you do (\@srvanderplas)](image/tweet-about-book.png)
+
+![You can also find the book repository on GitHub quickly if you want to see code/data/etc. linked in the book](image/see-github-book.png)
+
+
+### Special Sections {-}
+
+<div class="tryitout"> <h4>Try It Out</h4>
+
+Try it out sections contain activities you should do to reinforce the things you've just read.
+</div>
+
+#### Watch Out {-.watchout}
+
+Watch out sections contain things you may want to look out for - common errors, etc.
+
+#### Learn More {-.learn-more}
+
+Learn More sections contain other references that may be useful on a specific topic. Suggestions are welcome (use the edit link at the top to suggest a new reference that I should add), as there's no way for one person to catalog all of the helpful R resources on the internet!
+
+
+#### Note {-.note}
+
+Note sections contain clarification points (anywhere I would normally say "note that ....) 
+
+#### My Opinion {-.my-opinion}
+
+These sections contain things you should definitely not consider as fact and should just take with a grain of salt. 
+
+#### Expandable Sections {-}
+<details><summary>These are expandable sections, with additional information when you click on the line</summary>
+
+This additional information may be information that is helpful but not essential, or it may be that an example just takes a LOT of space and I want to make sure you can skim the book without having to scroll through a ton of output.
+</details>

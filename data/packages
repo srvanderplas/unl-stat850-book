@@ -2,6 +2,7 @@ magrittr
 dplyr
 lubridate
 sas7bdat
+usethis
 SASmarkdown
 beepr
 rvest
@@ -41,15 +42,15 @@ rgdal
 htmltools
 repurrrsive
 knitr
-usethis
-tinytex
+#tinytex
 devtools
 mapproj
 here
+git2r
 emo
 rmarkdown
 pagedown
 plyr
 posterdown
 bookdown
-git2r
+tinytex

@@ -49,39 +49,21 @@ If you do not hopelessly break code during this chapter, then please do your bes
 
 If all else fails, while you're waiting for someone to help you figure out what an error message means... [try this approach](https://xkcd.com/1024/).
 
-## A quick note on Rmarkdown {-}
+## Module Objectives  {- #module-2-objectives}
 
-In this module, you'll be submitting homework in Rmarkdown using SASmarkdown chunks. I've structured the assignment so that you shouldn't have to do much configuring of the markdown document itself, aside from providing the location of the SAS executable file on your hard drive (look for the SASHome directory). However, if you find yourself having issues with SASmarkdown, feel free to check out [the section on markdown](#rmarkdown) in next week's module. 
+- Create a program flow map by breaking a problem down into smaller steps
+- Write basic scripts to solve mathematical problems with variables, control structures, and scalar/matrix algebra
 
-The use of markdown for this week's assignment is a "trust me, and you'll get comfortable with this eventually" sort of thing. 
-
-
-## Intro to Programming: Module Objectives  {- #module-2-objectives}
-
-- Identify variable types, data structures, and common reserved words in R and SAS
-- Use control structures (loops and conditionals) effectively
-- Use matrix algebra functionality in R and SAS to perform basic calculations
 
 More informally, the goal is to get familiar with the basics of each programming language, and to show you where to find references for how to use each command -- because (at least) half of programming is knowing where to look something up. 
 
-<details><summary>I'm teaching SAS very differently</summary>
-I'm definitely teaching SAS differently than it is normally taught. This is so that we don't have to do half the semester in SAS and half in R - I'd rather teach the concepts and show you how they're implemented than split them up by language. BUT, this means that some of the things we're doing first in SAS are things you wouldn't normally do until you were already proficient in SAS. It also means that SAS is probably going to seem even more oddly organized when taught this way than it actually is (and it is oddly organized, in my opinion).
-
-We're going to start with SAS IML (programming concepts) and then talk about the DATA step. We'll use some procedures implicitly along the way, but hopefully that will make sense in context. Then, we'll work on the PROCs (SQL, Transpose, and graphing) - in greater detail. 
-</details>
-
-<details><summary>If you've used R or SAS a lot in the past</summary>
-Note: If you've programmed before, this chapter is going to seem very ... boring. Sorry, there's no help for that. Some of your classmates haven't ever so much as written "Hello World", and we have to get them up to speed. 
-
-If you're bored, or feel like you know this material, skim through it anyways just to confirm (and if I'm doing something that's really out there, or there's an easier way to do it, tell me!). Then you can either find something in the references that you don't know already (the book Advanced R is always a great place to start if you want to be quickly confused), or help your classmates that are less experienced. 
-</details>
 
 ## Definitions {-}
 
 Many programming resources talk about 3, or 5, or 10 core concepts in any programming language. In this module, we're going to discuss the generic concepts, and then how these concepts are implemented in R and SAS.
 
 Interestingly, the "core concepts" aren't necessarily the same across lists. 
-<details><summary>So, here is a consensus list of concepts which are generic across languages and usually important</summary>
+Here is a consensus list of concepts which are generic across languages and usually important
 
 1. **Variables** - a symbolic name or reference to some kind of information. In the expression `a + b > a`, both `a` and `b` are variables. Variables may have a specific type (what data can be stored in the variable), scope (where the variable can be accessed), location (in memory). [Here](https://dev.to/lucpattyn/basic-programming-concepts-for-beginners-2o73) is a nice explanation of the difference between variables in programming and variables in math.
 
@@ -98,17 +80,32 @@ Interestingly, the "core concepts" aren't necessarily the same across lists.
 7. **Tools**, the set of external programs which may help with development and writing code. Some common tools are IDEs (Integrated Development Environments), which may correct syntax and typos, organize files for you, allow you to keep track of which variables you have defined, and assist you with code organization and navigation. Other tools include compilers (which take human-written code and translate it into efficient machine code), version control systems (which help you track changes to code over time), debuggers, and documentation generators. Not all of these tools are necessary for all languages - scripting languages such as python and R do not require compilers by default, for instance.  
 
 8. **Sequence of commands**: It's important to have the right commands in the right order. Some recipes, like bread dough, are flexible, and you can add the ingredients in almost any order, but in other recipes, the order matters as much as the correct quantity of ingredients (try putting the cheese powder in before the noodles are boiled when making macaroni and cheese. Yuck.). Programming tends to be like these less flexible recipes. 
-</details>
+
 
 ## Statistical Programming Languages {-}
 
 Having established the generic definitions of the concepts which apply to almost any programming language, we now must examine how R and SAS implement these concepts. R and SAS are both *statistical* programming languages - they are specifically designed to work with data, which means that they make compromises that other languages do not in order to make it easier to write code where the data (rather than the functions, classes, methods, or objects) are the primary concern.
 
-Both [R](https://bookdown.org/rdpeng/rprogdatascience/history-and-overview-of-r.html) and [SAS](https://en.wikipedia.org/wiki/SAS_(software)#History) have long histories. SAS in particular dates back to the 1960s, and has syntax which is unique compared to more modern languages such as C, python, Java, and R. R's predecessor, S, dates back to 1976 and was designed for internal use at Bell Labs. The histories of both languages are useful in understanding why they are optimized for their respective tasks, but are not essential for this course (so read them at your leisure).
+With that said, there are a few notes which are worth mentioning -- 
 
-The biggest difference between R and SAS (at a fundamental level) is that R is a [**functional** language](http://adv-r.had.co.nz/Functional-programming.html) - it consists mainly of functions, which can (and do) manipulate objects, including other functions. SAS, on the other hand, is a procedural language - most SAS programs follow a specific series of steps, known as "proc"s. Procs are essentially functions (or compositions of multiple functions), but in SAS, it is simpler to think of an analysis as a series of procedural steps; in R, there are steps, but they may be implemented in a more flexible way (depending on the analysis). 
+- <details><summary>Historical view</summary>
+Both [R](https://bookdown.org/rdpeng/rprogdatascience/history-and-overview-of-r.html) and [SAS](https://en.wikipedia.org/wiki/SAS_(software)#History) have long histories. SAS in particular dates back to the 1960s, and has syntax which is unique compared to more modern languages such as C, python, Java, and R. R's predecessor, S, dates back to 1976 and was designed for internal use at Bell Labs. The histories of both languages are useful in understanding why they are optimized for their respective tasks, but are not essential for this course (so read them at your leisure).</details>
 
-Another interesting feature of SAS is that it's really several languages - some commands work in PROC IML (interactive matrix language) but not in a DATA step. When looking for help in SAS, make sure you're referencing the correct part of the language documentation.
+- <details><summary>Difference between R and SAS</summary><p>
+The biggest difference between R and SAS (at a fundamental level) is that R is a [**functional** language](http://adv-r.had.co.nz/Functional-programming.html) - it consists mainly of functions, which can (and do) manipulate objects, including other functions. SAS, on the other hand, is a procedural language - most SAS programs follow a specific series of steps, known as "proc"s. Procs are essentially functions (or compositions of multiple functions), but in SAS, it is simpler to think of an analysis as a series of procedural steps; in R, there are steps, but they may be implemented in a more flexible way (depending on the analysis). </p><p>
+Another interesting feature of SAS is that it's really several languages - some commands work in PROC IML (interactive matrix language) but not in a DATA step. When looking for help in SAS, make sure you're referencing the correct part of the language documentation.</p>
+</details>
+
+- <details><summary>I'm teaching SAS very differently</summary>
+<p>I'm definitely teaching SAS differently than it is normally taught. This is so that we don't have to do half the semester in SAS and half in R - I'd rather teach the concepts and show you how they're implemented than split them up by language. BUT, this means that some of the things we're doing first in SAS are things you wouldn't normally do until you were already proficient in SAS. It also means that SAS is probably going to seem even more oddly organized when taught this way than it actually is (and it is oddly organized, in my opinion).</p><p>
+We're going to start with SAS IML (programming concepts) and then talk about the DATA step. We'll use some procedures implicitly along the way, but hopefully that will make sense in context. Then, we'll work on the PROCs (SQL, Transpose, and graphing) - in greater detail. </p>
+</details>
+
+- <details><summary>If you've used R or SAS a lot in the past</summary>
+<p>Note: If you've programmed before, this chapter is going to seem very ... boring. Sorry, there's no help for that. Some of your classmates haven't ever so much as written "Hello World", and we have to get them up to speed. </p><p>
+If you're bored, or feel like you know this material, skim through it anyways just to confirm (and if I'm doing something that's really out there, or there's an easier way to do it, tell me!). Then you can either find something in the references that you don't know already (the book Advanced R is always a great place to start if you want to be quickly confused), or help your classmates that are less experienced. </p>
+</details>
+
 
 ::: learn-more
 **Basic Syntax and Cheatsheets**
@@ -121,6 +118,84 @@ Another interesting feature of SAS is that it's really several languages - some 
 
 I kept the classic R reference card by my computer for about 5 years, and referenced it at least once or twice a day for that entire period. There will be other cheat sheets and reference cards scattered through this book because if you can't remember something's name, you might be able to remember where it is on the reference card (or at least, that's how I learned R).
 :::
+
+## Breaking Problems Down
+
+The most fundamental part of programming that you will need to learn in this class is how to break down a big problem into smaller (hopefully solvable) problems. [This post](https://medium.com/@dannysmith/breaking-down-problems-its-hard-when-you-re-learning-to-code-f10269f4ccd5) is a great example of the process of breaking things down for programming, but the same concept applies outside of programming too!
+
+<details><summary>Breaking problems down - remodeling edition</summary>
+My spouse and I recently decided to replace our shower curtain with glass doors because the curtain didn't really prevent water from getting all over the floor.
+
+We went to the store and picked out the parts, and the installation instructions broke the steps down like this:
+
+1. Install the base of the track
+
+2. Install the top of the track
+
+3. Hang shower doors
+
+4. Add hardware to shower doors
+
+So we started in on the instructions, only to find out that when our house was built, our shower wasn't leveled properly. The instructions had a solution - we could send off for a $300 custom part that would level our floor, but we'd have to wait at least 4-6 weeks for them to make and ship the part to us. 
+
+We're both programmer-adjacent, so we started thinking through how we could deal with our problem a different way. We considered ignoring the instructions -- our shower was about 1/8" off of level, surely that couldn't be so important, right? My spouse is a bit more ... detail oriented ... than I am, so he wasn't good with that suggestion. 
+
+We considered adding a ton of caulk or plaster to try to level the shower out. But we figured that 1) probably wouldn't work, and 2) would look awful.
+
+Finally, I suggested that my spouse 3D print sections of track-leveler using our 3D printer. Now, this isn't an option for most people, but it is for us - we have a small 3D printer, and spouse knows how to use OpenSCAD to create very accurate, custom dimension 3D printer files. He tested things out a few times, and printed up a series of 12 ~5" sections that when assembled were equivalent to the $300 custom part we could have ordered. Then, he proceeded with the rest of the installation as the instructions listed.
+
+Essentially, because we had a list of subproblems (steps for installation), we could focus our efforts on debugging the one problem we had (not level shower ledge) and we didn't have to get bogged down in "it's impossible to get this job done" - we knew that if we could solve the little problem, we'd be able to get the bigger job done. Programming is just like this - if you can break your problem down into steps (and not steps with code), you can think through how to solve a single step of the problem before you worry about the next step. 
+</details>
+
+
+One tool that is often used to help break a problem down is a [flowchart](https://www.programiz.com/article/flowchart-programming). 
+
+### Try it out {-.tryitout}
+The biggest advantage to breaking problems down into smaller steps is that it allows you to focus on solving a small, approachable problem. 
+
+Let's think through an example: suppose I want you to write a program to print out a pyramid of stars, 10 lines high. Yes, I remember, I haven't taught you how to write any code yet. Don't worry about code right now - let's just think about how we might create a pyramid of stars. 
+
+Start by writing some instructions to yourself.
+
+<details><summary>Solution</summary>
+
+First, we have to think about what we would need to make a pyramid of stars. So let's make a miniature one by hand (I'm using - for spaces here to make things visible):
+```
+---*---
+--***--
+-*****-
+```
+
+To make my miniature star pyramid, I started out by adding space on the first line, then a star, then more space. When I moved to the next line, I added space, but one less space than I'd added before, and then 3 stars, and then more space. So we can break our problem down into two components:
+
+- How much space? (one side)
+- How many stars?
+- (redundant piece) How much space (the other side).
+
+Thinking my way through how I created my manual pyramid, I realized that I was adding $n$ spaces (where $n$ is the total number of rows) on the first line, and then $n - i$ spaces on subsequent lines, if we start with i=0. But I am an R programmer, so we start with $i=1$, which means I need to have $n - i + 1$ spaces on each row first.
+
+Then, for $i=1$ the first row, we have $2*i - 1$ stars - i = 1, stars = 1, then i = 2, stars = 3, then i = 3, stars = 5....  you can do the regression if you want to, but it's pretty easy to see the relationship.
+
+Finally, we have to (in theory) add the same amount of space on the other side -- strictly speaking, this is optional, but it makes the lines the same length, so it is nice.
+
+So we've thought through the problem step by step, and now we just need to summarize it:
+
+If we want a pyramid that is $n$ rows high, we might think of creating it by using the following line-by-line formula, where $i$ is our current line:
+
+$n - i +1$ spaces, $2i - 1$ stars, $n - i + 1$ spaces
+
+Working this out in a small example helped me come up with that formula; now, I can write a "loop":
+
+- line 1: i = 1, n = 10, 10 spaces, 1 star, 10 spaces
+- line 2: i = 2, n = 10, 9 spaces, 3 stars, 9 spaces
+- line 3: i = 3, n = 10, 8 spaces, 5 stars, 8 spaces
+- line 4: i = 4, n = 10, 7 spaces, 7 stars, 7 spaces
+- ...
+- line n: i = n, n = 10, 1 space, 19 stars, 1 space
+
+Our program flow map would look something like this:
+![Program flow map for stars](image/prog-flow-pyramid-stars.svg)
+</details>
 
 
 ## Variable types
@@ -165,6 +240,7 @@ is.logical(x)
 is.integer(x)
 is.double(x)
 ```
+
 It is possible to use the shorthand `F` and `T`, but be careful with this, because `F` and `T` are not reserved, and other information can be stored within them. See [this discussion](https://twitter.com/tslumley/status/1279870794730893312) for pros and cons of using `F` and `T` as variables vs. shorthand for true and false. ^[There is also an [R package dedicated to pure evil](https://purrple.cat/blog/2017/05/28/turn-r-users-insane-with-evil/) that will set F and T randomly on startup. Use this information wisely.]
 </details>
 
@@ -213,7 +289,7 @@ The `numeric` category exists because when doing math, we can add an integer and
 The general case of this property of a language is called **implicit type conversion** - that is, R will implicitly (behind the scenes) convert your integer to a double and then add the other double, so that the result is unambiguously a double. 
 </details>
 
-#### Type Conversions
+#### Type Conversions {-}
 R will generally work hard to seamlessly convert variables to different types. So, for instance, 
 ```{r, error = T}
 TRUE + 2
@@ -253,7 +329,7 @@ typeof(z)
 ```
 
 
-#### Factors {#introfactors}
+#### Factors {- #introfactors}
 
 In R, there is one other type of variable to know about, and that is a factor. Factors are basically labeled integers. Instead of storing the data as a string or character, R instead stores the data as a series of integers, and then stores a separate table mapping the integers to labels. This is technically more efficient (which was important when computers had extremely limited memory), but it is also a pain in the rear (that's a technical term). 
 
@@ -379,7 +455,7 @@ In R, adding a string to a string creates an error ("non-numeric argument to bin
 
 In SAS, there are two basic variable types: numeric and character variables. SAS does not differentiate between integers and floats and doubles. Functionally, though, the same basic operations can be performed in SAS. As with R, SAS does attempt to implicitly convert variable types, and will notify you that the conversion has taken place in the log file.
 
-#### Type Conversions
+#### Type Conversions {-}
 SAS will attempt to implicitly convert variables when:
 
 - a character value is assigned to a previously defined numeric variable
@@ -737,15 +813,13 @@ state_facts$state[which.min(state_facts$PopDensity)]
 </details>
 
 
-##### Advanced Data Frames: Tibbles and List-columns {-}
+##### Advanced Data Frames: Tibbles and List-columns {- .learn-more}
 
 If at this point you're bored because you've seen this material before, keep reading to find out about tibbles, list columns and other ways to make data frames even more powerful. 
 
-::: learn-more
 A tibble is a fancy data frame that is optimized to work with the `tidyverse`, which is a collection of R packages that make data wrangling (getting the data clean and ready for analysis) easier. 
 
 You can read about tibbles [here](https://r4ds.had.co.nz/tibbles.html).
-:::
 
 <details>
 <summary>You like data frames? Lists? Let's put some lists inside a data frame! (All about list columns)</summary>
@@ -757,11 +831,9 @@ Let's start with the lego picture:
 
 A list is just another object that could be stored in a data frame! It is a "generalized vector" in that each entry in a list can be thought of as another list - so a list is really a vector of lists. List-columns make it possible to store e.g. whole data sets in a nested, organized way. Another useful feature is that each entry in a list-column doesn't have to be the same length, which makes it easier to store "ragged" data. 
 
-::: learn-more
 You can see a couple of examples [here](https://jennybc.github.io/purrr-tutorial/ls13_list-columns.html) (but they assume that you know things that you'll only learn in a few modules). 
 
 It is worth coming back to this link later in the book. I will try to remind you.
-:::
 
 </details>
 
@@ -1126,7 +1198,7 @@ Now things work the way we expected them to work.
 
 There are more complicated if-statement like control structures, such as switch statements, which can save time and typing. In the interests of simplicity, we will skip these for now, as any conditional can be implemented with sequences of if statements in the proper order. If you would like to read about switch statements, here are links to [SAS case statement documentation](https://documentation.sas.com/?docsetId=sqlproc&docsetTarget=n0a85s0ijz65irn1h3jtariooea5.htm&docsetVersion=9.4&locale=en) and [base R switch statement explanation](https://www.tutorialgateway.org/r-switch-statement/) and [documentation](https://www.rdocumentation.org/packages/base/versions/3.6.2/topics/switch).
 
-##### Try it out {- .tryitout}
+#### Try it out {- .tryitout}
 The `sample()` function selects a random sample of entries from a vector. Suppose we sample a random vector $x$ with 10 entries. Write one or more if statements to fulfill the following conditions
 
 - if $x$ is divisible by 2, $y$ should be positive; otherwise, it should be negative.
