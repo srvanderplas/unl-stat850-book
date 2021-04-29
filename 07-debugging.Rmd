@@ -4,7 +4,7 @@
 
 # Principles of Debugging {#debugging}
 
-## Module Objectives {-}
+## Debugging: Module Objectives  {-} 
 
 - Break down a complex procedure into simpler steps, mapping each step to a separate function which performs a single task.
 
@@ -16,13 +16,13 @@
 
 Note: The skills in this chapter take a lifetime to truly master. The real goal here is that you know how to ask for help appropriately (and in a way that people will respond positively to) and that you know how to do the research to get help yourself. 
 
-!["It has a ghost in it. Take it back."  "No." (xkcd #1316)](https://imgs.xkcd.com/comics/inexplicable.png)
+![The faces of debugging (by Allison Horst)](https://github.com/allisonhorst/stats-illustrations/blob/master/other-stats-artwork/debugging.jpg?raw=true)
 
 ## Step 1: Check your spelling.
 
 I'll guess that 80% of my personal debugging comes down to spelling errors and misplaced punctuation. 
 
-```{r, echo = F}
+```{r debugging-tweets, echo = F}
 if(!"tweetrmd"%in%installed.packages()) devtools::install_github("gadenbuie/tweetrmd")
 if(!"webshot2"%in%installed.packages()) devtools::install_github("rstudio/webshot2")
 # library(tweetrmd) # github.com/gadenbuie/tweetrmd
@@ -82,6 +82,9 @@ While defensive programming is a nice idea, if you're already at the point where
 
 There are several other general strategies for debugging:
 
+- Retype (from scratch) your code    
+This works well if it's a short function or a couple of lines of code, but it's less useful if you have a big script full of code to debug. However, it does sometimes fix really silly typos that are hard to spot, like having typed `<--` instead of `<-` in R and then wondering why your answers are negative. 
+
 - Visualize your data as it moves through the program. This may be done using `print()` statements, or the debugger, or some other strategy depending on your application.
 
 - Tracing statements. Again, this is part of `print()` debugging, but these messages indicate progress - "got into function x", "returning from function y", and so on. 
@@ -103,7 +106,7 @@ Sometimes called "tracing" techniques, the most common, universal, and low tech 
 <details><summary>Simple example</summary>
 Imagine we start with this:
 
-```{r}
+```{r print-debugging}
 a <- function(x) {
   b <- function(y) {
     c <- function(z) {
@@ -119,7 +122,7 @@ a(5)
 
 and the goal is to understand what's happening in the code. We might add some lines:
 
-```{r}
+```{r print-debugging2}
 a <- function(x) {
   print(paste("Entering a(). x = ", x))
   b <- function(y) {
@@ -150,7 +153,7 @@ I was recently writing a webscraper to get election polling data from the RealCl
 
 I was assuming that the order of the parents would be "html", "body", "div", "table", "tbody", "tr" - descending from outer to inner (if you know anything about HTML/XML structure). 
 
-```{r}
+```{r real-world-debugging}
 library(xml2) # read html
 
 search_for_parent <- function(node, tag) {
@@ -195,7 +198,7 @@ data(storms, package = "dplyr")
 
 The code below is supposed to print out a map of the tracks of all hurricanes of a specific category, 1 to 5, in 2013. Use print statements to figure out what's wrong with my code. 
 
-```{r, message = F, warning = F, out.width = "18%"}
+```{r map-hurricane-tracks, message = F, warning = F, out.width = "18%"}
 # Make base map to be used for each iteration
 basemap <-  ggplot() + 
   # Country shapes
@@ -225,7 +228,7 @@ for (i in 1:5) {
 
 <details><summary>Solution</summary>
 First, lets split the setup from the loop. 
-```{r, error = T}
+```{r map-hurricane-tracks-setup, error = T}
 # Make base map to be used for each iteration
 basemap <-  ggplot() + 
   # Country shapes
@@ -246,7 +249,7 @@ str(storms) # make sure the data exists and is formatted as expected
 
 Everything looks ok in the setup chunk...
 
-```{r}
+```{r map-hurricane-tracks-loop}
 for (i in 1:5) {
   print(paste0("Category ", i, " storms"))
   # Subset the data
@@ -269,13 +272,13 @@ for (i in 1:5) {
 
 Ok, so from this we can see that something is going wrong with our filter statement - we have no rows of data.
 
-```{r}
+```{r hurricane-tracks-debugging-head}
 head(storms)
 ```
 
 Whoops. I meant "category" when I typed "status". 
 
-```{r, error = T}
+```{r hurricane-tracks-debugging-loop2, error = T}
 for (i in 1:5) {
   print(paste0("Category ", i, " storms"))
   # Subset the data
@@ -298,7 +301,7 @@ for (i in 1:5) {
 
 Ok, that's something, at least. We now have some data for category 1 storms...
 
-```{r}
+```{r hurricane-tracks-debugging-3}
 filter(storms, year == 2013) %>%
   # Get max category for each named storm
   group_by(name) %>%
@@ -313,7 +316,7 @@ It looks like 2013 was just an incredibly quiet year for tropical activity.
 
 2004, however, was not. So let's just make sure our code works by checking out 2004. 
 
-```{r, error = T}
+```{r hurricane-tracks-debugging-4, error = T}
 for (i in 1:5) {
   print(paste0("Category ", i, " storms"))
   # Subset the data
@@ -337,7 +340,7 @@ for (i in 1:5) {
 If we want to only print informative plots, we could add an if statement. Now that the code works, we can also comment out our print() statements (we could delete them, too, depending on whether we anticipate future problems with the code). 
 
 
-```{r, error = T}
+```{r hurricane-tracks-debugging-5, error = T}
 for (i in 1:5) {
   # print(paste0("Category ", i, " storms"))
   
@@ -366,7 +369,7 @@ for (i in 1:5) {
 `traceback()` can help you narrow down where an error occurs by taking you through the series of function calls that led up to the error. This can help, but it can also be pretty arcane. 
 
 <details><summary>`traceback()` example</summary>
-```{r, error = T}
+```{r traceback-demo, error = T}
 a <- function(x) {
   b <- function(y) {
     c <- function(z) {
@@ -381,7 +384,7 @@ a()
 ```
 
 For more information, you could run traceback
-```{r, eval = F}
+```{r traceback-demo2, eval = F}
 traceback()
 ```
 
@@ -397,7 +400,7 @@ Reading through this, we see that a() was called, b() was called, c() was called
 
 If you are running this code interactively in RStudio, it's even easier to run `traceback()` by clicking on the "Show Traceback" option that appears when there is an error.
 
-```{r echo = F, fig.cap = "Both Show Traceback and Rerun with Debug are useful tools", out.width = "50%"}
+```{r traceback-rerun-debug-pic, echo = F, fig.cap = "Both Show Traceback and Rerun with Debug are useful tools", out.width = "50%"}
 knitr::include_graphics("image/Rstudio_rerun_traceback.png")
 ```
 
@@ -413,7 +416,7 @@ The `browser()` function is useful for debugging your own code. If you're writin
 Suppose that I want to write a function that will plot an xkcd comic in R. 
 
 I start with 
-```{r}
+```{r browser-demo}
 library(png)
 library(xml2)
 
@@ -431,10 +434,10 @@ get_xkcd <- function(id = NULL) {
 }
 ```
 
-Watch this live-coding video to see how I use browser() to figure out what's going on in the function and how to fix it.
+Watch this live-coding video to see how I use browser() to figure out what's going on in the function and how to fix it. [Vidgrid link](https://use.vg/j9CVIw). [Alternate YouTube Link](https://youtu.be/YlMAAjRA7rM)
 
 Here's the final function
-```{r}
+```{r browser-demo-2}
 library(png)
 library(xml2)
 
@@ -469,7 +472,7 @@ Each xkcd has a corresponding ID number (ordered sequentially from 1 to 2328 at 
 What things might you add to make this function "defensive programming" compatible? 
 
 <details><summary>Solution</summary>
-```{r}
+```{r xkcd-tryitout-solution}
 # get the most current xkcd or the specified number
 get_xkcd <- function(id = NULL) {
   if (is.null(id)) {
@@ -516,7 +519,7 @@ In the `traceback()` Rstudio output, the other option is "rerun with debug". In 
 `debug()` is most useful when you're working with code that you didn't write yourself. So, if you can't change the code in the function causing the error, `debug()` is the way to go. Otherwise, using `browser()` is generally easier. Essentially, `debug()` places a `browser()` statement at the first line of a function, but without having to actually alter the function's source code. 
 
 <details><summary>Example of using debug </summary>
-```{r, error = T}
+```{r debug-demo, error = T}
 data(iris)
 
 tmp <- lm(Species ~ ., data = iris)
@@ -524,7 +527,7 @@ summary(tmp)
 ```
 We get this weird warning, and then an error about factors when we use summary() to look at the coefficients. 
 
-```{r, eval = F}
+```{r debug-demo2, eval = F}
 debug(lm) # turn debugging on
 
 
@@ -556,7 +559,7 @@ But, until I run `undebug(lm)`, every call to `lm` will take me into the debug w
 ### Try it out {- .tryitout}
 larger(x, y) is supposed to return the elementwise maximum of two vectors. 
 
-```{r}
+```{r debug-demo-tryitout}
 larger <- function(x, y) { 
   y.is.bigger <- y > x 
   x[y.is.bigger] <- y[y.is.bigger] 
@@ -572,7 +575,7 @@ Why is there an NA in the second example? It should be a 6. Figure out why this 
 
 <details><summary>Solution</summary>
 I'll replicate "debug" in non-interactive mode by setting up an environment where x and y are defined
-```{r}
+```{r debug-demo-tryitout-solution}
 
 x <- c(1, 5, 10)
 y <- 6
@@ -597,10 +600,12 @@ larger <- function(x, y) {
 ## Debugging Tools in SAS
 
 In SAS, there are two stages that occur after you submit lines to the console. 
+
 - The Compilation Phase: code is parsed. In this step, SAS will catch the logic errors, misspellings, missing key words, etc.
 - The Execution Phase: program is run. In this step, SAS will catch any wrong assignments, loop issues, etc.
 
 Sas recognizes four types of errors:
+
 - Syntax errors - violations of the language structure
 - Semantic errors - structure of the statement is incorrect, but the syntax is correct. e.g. trying to reference an index that doesn't exist.
 - Execution-time errors - errors that occur when the compiled function is run on data values -- e.g. division by zero
@@ -620,11 +625,105 @@ If all else has failed, and you can't figure out what is causing your error, it'
 So, with that said, there are numerous resources for writing what's called a "minimal working example", "reproducible example" (commonly abbreviated reprex), or MCVE (minimal complete verifiable example). Much of this is lifted directly from the StackOverflow post describing a [minimal reproducible example](https://stackoverflow.com/help/minimal-reproducible-example).
 
 The goal is to reproduce the error message with information that is 
+
 - **minimal** - as little code as possible to still reproduce the problem
 - **complete** - everything necessary to reproduce the issue is contained in the description/question
 - **reproducible** - test the code you provide to reproduce the problem. 
 
 You should format your question to make it as easy as possible to help you. Make it so that code can be copied from your post directly and pasted into a terminal. Describe what you see and what you'd hope to see if the code were working. 
+
+
+### Example: MWEs {.example}
+
+You haven't gotten to module 8 yet, but at one point I had issues with SAS graphs rendering in black and white most of the time. 
+
+I started debugging the issue with the following code chunk: 
+
+```
+{r sas-cat-aes-map-07, engine="sashtml", engine.path="sas", fig.path = "image/"}
+libname classdat "sas/";
+
+PROC SGPLOT data=classdat.fbiwide; 
+SCATTER x = Population y = Assault /
+  markerattrs=(size=8pt symbol=circlefilled) 
+  group = Abb; /* maps to point color by default */
+RUN;
+QUIT; 
+  
+PROC SGPLOT data=classdat.fbiwide NOAUTOLEGEND; /* dont generate a legend */
+SCATTER x = Population y = Assault /
+  markercharattrs=(size=8) 
+  markerchar = Abb /* specify marker character variable */
+    group = Abb
+  ; 
+RUN;
+QUIT; 
+```
+
+(I moved the chunk header to the next line so that you can see the whole chunk)
+
+After running the code separately in SAS and getting a figure that looked like what I'd expected, I set out to construct a reproducible example so that I could post to the [SASmarkdown github issues page](https://github.com/Hemken/SASmarkdown/issues/14) and ask for help.
+
+The first thing I did was strip out all of the extra stuff that didn't need to be in the chunk - this chunk generates 2 pictures; I only need one. This chunk requires the fbiwide data; I replaced it with a dataset in the `sashelp` library.
+
+When I was done, the chunk looked like this:
+
+```
+PROC SGPLOT data=sashelp.snacks;
+SCATTER x = date y = QtySold /
+  markerattrs=(size=8pt symbol=circlefilled)
+  group = product; /* maps to point color by default */
+RUN;
+QUIT;
+```
+
+Then, I started constructing my reproducible example. I ran `?sas_enginesetup` to get to a SASmarkdown help page, because I remembered it had a nice way to generate and run markdown files from R directly (without saving the Rmd file). 
+
+I copied the example from that page:
+```
+indoc <- '
+---
+title: "Basic SASmarkdown Doc"
+author: "Doug Hemken"
+output: html_document
+---
+
+# I've deleted the intermediate chunks because they screw 
+# everything up when I print this chunk out
+'
+knitr::knit(text=indoc, output="test.md")
+rmarkdown::render("test.md")
+```
+
+Then, I created several chunks which would do the following:
+1. Write the minimal example SAS code above to a file
+2. Call that file in a SASmarkdown chunk using the `%include` macro, which dumps the listed file into the SAS program
+3. Call the file using SAS batch mode
+
+Finally, I included the image generated from the batch mode call manually.
+
+You can see the resulting code [here](https://github.com/Hemken/SASmarkdown/issues/14).
+
+I pasted my example into the issues page, and then included some additional information: 
+
+1. A screenshot of the rendered page
+2. The image files themselves
+3. A description of what happened
+4. My suspicions (some obvious option I'm missing?)
+5. An additional line of R code that would delete any files created if someone ran my example. Because file clutter sucks.
+
+This process took me about 45 minutes, but that was still much shorter than the time I'd spent rerunning code trying to get it to work with no success. 
+
+In less than 24 hours, the package maintainer responded with a (admittedly terse) explanation of what he thought caused the problem. I had to do some additional research to figure out what that meant, but once I had my reproducible example working in color, I posted that code (so that anyone else with the same problem would know what to do).
+
+Then, I had to tinker with the book a bit to figure out if there were easier ways to get the same result. Hopefully, at this point, all of the SAS graphs are now in full color, as modern graphics intended. 
+
+### Try It Out {.tryitout}
+
+Use [this list of StackOverflow posts](other/Debugging_exercise.html) to try out your new debugging techniques. Can you figure out what's wrong? What information would you need from the poster in order to come up with a solution?
+
+
+
 
 ## References {- .learn-more}
 

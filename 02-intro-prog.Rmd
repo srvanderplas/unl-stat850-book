@@ -1,5 +1,32 @@
-```{r, include = F}
-.reset()
+```{r book-functions2, include = F}
+.pkgkeeplist <- c("package:stats", "package:graphics", "package:grDevices", "package:utils", "package:datasets", "package:methods", "package:base", "package:SASmarkdown", "package:rmarkdown", "package:knitr", "package:magrittr")
+
+.objkeeplist <- c(".pkgkeeplist", ".objkeeplist", ".reset", "sasexe", "sasopts")
+
+.reset <- function() {
+  basic.packages <- .pkgkeeplist
+
+  package.list <- search()[ifelse(unlist(gregexpr("package:", search())) == 1, TRUE, FALSE)]
+
+  package.list <- setdiff(package.list, basic.packages)
+
+  obj.list <- setdiff(ls(), .objkeeplist)
+
+  if (length(package.list) > 0) for (package in package.list) detach(package, character.only = TRUE)
+  rm(list = obj.list)
+}
+```
+```{r load-libraries2, echo = F, message = F, warning = F, cache = F}
+library(SASmarkdown)
+sasexe <- "/usr/local/SASHome/SASFoundation/9.4/bin/sas_en"
+sasopts <- "-ls 75"
+```
+```{r clear-all-sas-output2, include=F, engine='saslog', engine = "sashtmllog", engine.path = sasexe, engine.opts = sasopts, collectcode = F}
+/* Clean log and output */
+dm log "clear";
+dm output "clear";
+ods html close;
+ods html;
 ```
 
 # Introduction to Statistical Programming {#intro-prog}
@@ -22,41 +49,21 @@ If you do not hopelessly break code during this chapter, then please do your bes
 
 If all else fails, while you're waiting for someone to help you figure out what an error message means... [try this approach](https://xkcd.com/1024/).
 
-## A quick note on Rmarkdown {-}
+## Module Objectives  {- #module-2-objectives}
 
-In this module, you'll be submitting homework in Rmarkdown using SASmarkdown chunks. I've structured the assignment so that you shouldn't have to do much configuring of the markdown document itself, aside from providing the location of the SAS executable file on your hard drive (look for the SASHome directory). However, if you find yourself having issues with SASmarkdown, feel free to check out [the section on markdown](#rmarkdown) in next week's module. 
+- Create a program flow map by breaking a problem down into smaller steps
+- Write basic scripts to solve mathematical problems with variables, control structures, and scalar/matrix algebra
 
-The use of markdown for this week's assignment is a "trust me, and you'll get comfortable with this eventually" sort of thing. 
-
-
-## Module Objectives {-}
-
-- Identify variable types, data structures, and common reserved words in R and SAS
-- Use control structures (loops and conditionals) effectively
-- Use matrix algebra functionality in R and SAS to perform basic calculations
 
 More informally, the goal is to get familiar with the basics of each programming language, and to show you where to find references for how to use each command -- because (at least) half of programming is knowing where to look something up. 
 
-::: note
-<details><summary>I'm teaching SAS very differently</summary>
-I'm definitely teaching SAS differently than it is normally taught. This is so that we don't have to do half the semester in SAS and half in R - I'd rather teach the concepts and show you how they're implemented than split them up by language. BUT, this means that some of the things we're doing first in SAS are things you wouldn't normally do until you were already proficient in SAS. It also means that SAS is probably going to seem even more oddly organized when taught this way than it actually is (and it is oddly organized, in my opinion).
-
-We're going to start with SAS IML (programming concepts) and then talk about the DATA step. We'll use some procedures implicitly along the way, but hopefully that will make sense in context. Then, we'll work on the PROCs (SQL, Transpose, and graphing) - in greater detail. 
-</details>
-
-<details><summary>If you've used R or SAS a lot in the past</summary>
-Note: If you've programmed before, this chapter is going to seem very ... boring. Sorry, there's no help for that. Some of your classmates haven't ever so much as written "Hello World", and we have to get them up to speed. 
-
-If you're bored, or feel like you know this material, skim through it anyways just to confirm (and if I'm doing something that's really out there, or there's an easier way to do it, tell me!). Then you can either find something in the references that you don't know already (the book Advanced R is always a great place to start if you want to be quickly confused), or help your classmates that are less experienced. 
-</details>
-:::
 
 ## Definitions {-}
 
 Many programming resources talk about 3, or 5, or 10 core concepts in any programming language. In this module, we're going to discuss the generic concepts, and then how these concepts are implemented in R and SAS.
 
 Interestingly, the "core concepts" aren't necessarily the same across lists. 
-<details><summary>So, here is a consensus list of concepts which are generic across languages and usually important</summary>
+Here is a consensus list of concepts which are generic across languages and usually important
 
 1. **Variables** - a symbolic name or reference to some kind of information. In the expression `a + b > a`, both `a` and `b` are variables. Variables may have a specific type (what data can be stored in the variable), scope (where the variable can be accessed), location (in memory). [Here](https://dev.to/lucpattyn/basic-programming-concepts-for-beginners-2o73) is a nice explanation of the difference between variables in programming and variables in math.
 
@@ -73,17 +80,32 @@ Interestingly, the "core concepts" aren't necessarily the same across lists.
 7. **Tools**, the set of external programs which may help with development and writing code. Some common tools are IDEs (Integrated Development Environments), which may correct syntax and typos, organize files for you, allow you to keep track of which variables you have defined, and assist you with code organization and navigation. Other tools include compilers (which take human-written code and translate it into efficient machine code), version control systems (which help you track changes to code over time), debuggers, and documentation generators. Not all of these tools are necessary for all languages - scripting languages such as python and R do not require compilers by default, for instance.  
 
 8. **Sequence of commands**: It's important to have the right commands in the right order. Some recipes, like bread dough, are flexible, and you can add the ingredients in almost any order, but in other recipes, the order matters as much as the correct quantity of ingredients (try putting the cheese powder in before the noodles are boiled when making macaroni and cheese. Yuck.). Programming tends to be like these less flexible recipes. 
-</details>
+
 
 ## Statistical Programming Languages {-}
 
 Having established the generic definitions of the concepts which apply to almost any programming language, we now must examine how R and SAS implement these concepts. R and SAS are both *statistical* programming languages - they are specifically designed to work with data, which means that they make compromises that other languages do not in order to make it easier to write code where the data (rather than the functions, classes, methods, or objects) are the primary concern.
 
-Both [R](https://bookdown.org/rdpeng/rprogdatascience/history-and-overview-of-r.html) and [SAS](https://en.wikipedia.org/wiki/SAS_(software)#History) have long histories. SAS in particular dates back to the 1960s, and has syntax which is unique compared to more modern languages such as C, python, Java, and R. R's predecessor, S, dates back to 1976 and was designed for internal use at Bell Labs. The histories of both languages are useful in understanding why they are optimized for their respective tasks, but are not essential for this course (so read them at your leisure).
+With that said, there are a few notes which are worth mentioning -- 
 
-The biggest difference between R and SAS (at a fundamental level) is that R is a [**functional** language](http://adv-r.had.co.nz/Functional-programming.html) - it consists mainly of functions, which can (and do) manipulate objects, including other functions. SAS, on the other hand, is a procedural language - most SAS programs follow a specific series of steps, known as "proc"s. Procs are essentially functions (or compositions of multiple functions), but in SAS, it is simpler to think of an analysis as a series of procedural steps; in R, there are steps, but they may be implemented in a more flexible way (depending on the analysis). 
+- <details><summary>Historical view</summary>
+Both [R](https://bookdown.org/rdpeng/rprogdatascience/history-and-overview-of-r.html) and [SAS](https://en.wikipedia.org/wiki/SAS_(software)#History) have long histories. SAS in particular dates back to the 1960s, and has syntax which is unique compared to more modern languages such as C, python, Java, and R. R's predecessor, S, dates back to 1976 and was designed for internal use at Bell Labs. The histories of both languages are useful in understanding why they are optimized for their respective tasks, but are not essential for this course (so read them at your leisure).</details>
 
-Another interesting feature of SAS is that it's really several languages - some commands work in PROC IML (interactive matrix language) but not in a DATA step. When looking for help in SAS, make sure you're referencing the correct part of the language documentation.
+- <details><summary>Difference between R and SAS</summary><p>
+The biggest difference between R and SAS (at a fundamental level) is that R is a [**functional** language](http://adv-r.had.co.nz/Functional-programming.html) - it consists mainly of functions, which can (and do) manipulate objects, including other functions. SAS, on the other hand, is a procedural language - most SAS programs follow a specific series of steps, known as "proc"s. Procs are essentially functions (or compositions of multiple functions), but in SAS, it is simpler to think of an analysis as a series of procedural steps; in R, there are steps, but they may be implemented in a more flexible way (depending on the analysis). </p><p>
+Another interesting feature of SAS is that it's really several languages - some commands work in PROC IML (interactive matrix language) but not in a DATA step. When looking for help in SAS, make sure you're referencing the correct part of the language documentation.</p>
+</details>
+
+- <details><summary>I'm teaching SAS very differently</summary>
+<p>I'm definitely teaching SAS differently than it is normally taught. This is so that we don't have to do half the semester in SAS and half in R - I'd rather teach the concepts and show you how they're implemented than split them up by language. BUT, this means that some of the things we're doing first in SAS are things you wouldn't normally do until you were already proficient in SAS. It also means that SAS is probably going to seem even more oddly organized when taught this way than it actually is (and it is oddly organized, in my opinion).</p><p>
+We're going to start with SAS IML (programming concepts) and then talk about the DATA step. We'll use some procedures implicitly along the way, but hopefully that will make sense in context. Then, we'll work on the PROCs (SQL, Transpose, and graphing) - in greater detail. </p>
+</details>
+
+- <details><summary>If you've used R or SAS a lot in the past</summary>
+<p>Note: If you've programmed before, this chapter is going to seem very ... boring. Sorry, there's no help for that. Some of your classmates haven't ever so much as written "Hello World", and we have to get them up to speed. </p><p>
+If you're bored, or feel like you know this material, skim through it anyways just to confirm (and if I'm doing something that's really out there, or there's an easier way to do it, tell me!). Then you can either find something in the references that you don't know already (the book Advanced R is always a great place to start if you want to be quickly confused), or help your classmates that are less experienced. </p>
+</details>
+
 
 ::: learn-more
 **Basic Syntax and Cheatsheets**
@@ -96,6 +118,84 @@ Another interesting feature of SAS is that it's really several languages - some 
 
 I kept the classic R reference card by my computer for about 5 years, and referenced it at least once or twice a day for that entire period. There will be other cheat sheets and reference cards scattered through this book because if you can't remember something's name, you might be able to remember where it is on the reference card (or at least, that's how I learned R).
 :::
+
+## Breaking Problems Down
+
+The most fundamental part of programming that you will need to learn in this class is how to break down a big problem into smaller (hopefully solvable) problems. [This post](https://medium.com/@dannysmith/breaking-down-problems-its-hard-when-you-re-learning-to-code-f10269f4ccd5) is a great example of the process of breaking things down for programming, but the same concept applies outside of programming too!
+
+<details><summary>Breaking problems down - remodeling edition</summary>
+My spouse and I recently decided to replace our shower curtain with glass doors because the curtain didn't really prevent water from getting all over the floor.
+
+We went to the store and picked out the parts, and the installation instructions broke the steps down like this:
+
+1. Install the base of the track
+
+2. Install the top of the track
+
+3. Hang shower doors
+
+4. Add hardware to shower doors
+
+So we started in on the instructions, only to find out that when our house was built, our shower wasn't leveled properly. The instructions had a solution - we could send off for a $300 custom part that would level our floor, but we'd have to wait at least 4-6 weeks for them to make and ship the part to us. 
+
+We're both programmer-adjacent, so we started thinking through how we could deal with our problem a different way. We considered ignoring the instructions -- our shower was about 1/8" off of level, surely that couldn't be so important, right? My spouse is a bit more ... detail oriented ... than I am, so he wasn't good with that suggestion. 
+
+We considered adding a ton of caulk or plaster to try to level the shower out. But we figured that 1) probably wouldn't work, and 2) would look awful.
+
+Finally, I suggested that my spouse 3D print sections of track-leveler using our 3D printer. Now, this isn't an option for most people, but it is for us - we have a small 3D printer, and spouse knows how to use OpenSCAD to create very accurate, custom dimension 3D printer files. He tested things out a few times, and printed up a series of 12 ~5" sections that when assembled were equivalent to the $300 custom part we could have ordered. Then, he proceeded with the rest of the installation as the instructions listed.
+
+Essentially, because we had a list of subproblems (steps for installation), we could focus our efforts on debugging the one problem we had (not level shower ledge) and we didn't have to get bogged down in "it's impossible to get this job done" - we knew that if we could solve the little problem, we'd be able to get the bigger job done. Programming is just like this - if you can break your problem down into steps (and not steps with code), you can think through how to solve a single step of the problem before you worry about the next step. 
+</details>
+
+
+One tool that is often used to help break a problem down is a [flowchart](https://www.programiz.com/article/flowchart-programming). 
+
+### Try it out {-.tryitout}
+The biggest advantage to breaking problems down into smaller steps is that it allows you to focus on solving a small, approachable problem. 
+
+Let's think through an example: suppose I want you to write a program to print out a pyramid of stars, 10 lines high. Yes, I remember, I haven't taught you how to write any code yet. Don't worry about code right now - let's just think about how we might create a pyramid of stars. 
+
+Start by writing some instructions to yourself.
+
+<details><summary>Solution</summary>
+
+First, we have to think about what we would need to make a pyramid of stars. So let's make a miniature one by hand (I'm using - for spaces here to make things visible):
+```
+---*---
+--***--
+-*****-
+```
+
+To make my miniature star pyramid, I started out by adding space on the first line, then a star, then more space. When I moved to the next line, I added space, but one less space than I'd added before, and then 3 stars, and then more space. So we can break our problem down into two components:
+
+- How much space? (one side)
+- How many stars?
+- (redundant piece) How much space (the other side).
+
+Thinking my way through how I created my manual pyramid, I realized that I was adding $n$ spaces (where $n$ is the total number of rows) on the first line, and then $n - i$ spaces on subsequent lines, if we start with i=0. But I am an R programmer, so we start with $i=1$, which means I need to have $n - i + 1$ spaces on each row first.
+
+Then, for $i=1$ the first row, we have $2*i - 1$ stars - i = 1, stars = 1, then i = 2, stars = 3, then i = 3, stars = 5....  you can do the regression if you want to, but it's pretty easy to see the relationship.
+
+Finally, we have to (in theory) add the same amount of space on the other side -- strictly speaking, this is optional, but it makes the lines the same length, so it is nice.
+
+So we've thought through the problem step by step, and now we just need to summarize it:
+
+If we want a pyramid that is $n$ rows high, we might think of creating it by using the following line-by-line formula, where $i$ is our current line:
+
+$n - i +1$ spaces, $2i - 1$ stars, $n - i + 1$ spaces
+
+Working this out in a small example helped me come up with that formula; now, I can write a "loop":
+
+- line 1: i = 1, n = 10, 10 spaces, 1 star, 10 spaces
+- line 2: i = 2, n = 10, 9 spaces, 3 stars, 9 spaces
+- line 3: i = 3, n = 10, 8 spaces, 5 stars, 8 spaces
+- line 4: i = 4, n = 10, 7 spaces, 7 stars, 7 spaces
+- ...
+- line n: i = n, n = 10, 1 space, 19 stars, 1 space
+
+Our program flow map would look something like this:
+![Program flow map for stars](image/prog-flow-pyramid-stars.svg)
+</details>
 
 
 ## Variable types
@@ -140,6 +240,7 @@ is.logical(x)
 is.integer(x)
 is.double(x)
 ```
+
 It is possible to use the shorthand `F` and `T`, but be careful with this, because `F` and `T` are not reserved, and other information can be stored within them. See [this discussion](https://twitter.com/tslumley/status/1279870794730893312) for pros and cons of using `F` and `T` as variables vs. shorthand for true and false. ^[There is also an [R package dedicated to pure evil](https://purrple.cat/blog/2017/05/28/turn-r-users-insane-with-evil/) that will set F and T randomly on startup. Use this information wisely.]
 </details>
 
@@ -188,7 +289,7 @@ The `numeric` category exists because when doing math, we can add an integer and
 The general case of this property of a language is called **implicit type conversion** - that is, R will implicitly (behind the scenes) convert your integer to a double and then add the other double, so that the result is unambiguously a double. 
 </details>
 
-#### Type Conversions
+#### Type Conversions {-}
 R will generally work hard to seamlessly convert variables to different types. So, for instance, 
 ```{r, error = T}
 TRUE + 2
@@ -214,7 +315,7 @@ When we make our intent explicit (convert "abcd" to a numeric variable) we get a
 
 If you are unsure what the type of a variable is, use the `typeof()` function to find out. 
 
-```{r}
+```{r var-types}
 w <- "a string"
 x <- 3L
 y <- 3.1415
@@ -228,7 +329,7 @@ typeof(z)
 ```
 
 
-#### Factors {#introfactors}
+#### Factors {- #introfactors}
 
 In R, there is one other type of variable to know about, and that is a factor. Factors are basically labeled integers. Instead of storing the data as a string or character, R instead stores the data as a series of integers, and then stores a separate table mapping the integers to labels. This is technically more efficient (which was important when computers had extremely limited memory), but it is also a pain in the rear (that's a technical term). 
 
@@ -243,14 +344,14 @@ Other reasons to learn factors besides for debugging purposes:
 - ... I'm sure there are more, but I'm drawing a blank at the moment
 
 
-<details class="example"><summary>Factors example</summary>
+<details><summary>Factors example</summary>
 
 ::: note
-In this example, we'll use a data.frame, which you can think of as a spreadsheet-type table. We'll work with data frames later in much more detail, but for now, I'm mostly trying to show you a real-life situation that happens ALL the time, with the hopes that you'll recognize the error when/if you encounter it. The data frame isn't the important part. 
+In this example, we'll use a data.frame, which you can think of as a spreadsheet-type table. We'll work with data frames later in much more detail, but for now, I'm mostly trying to show you a real-life situation that happens ALL the time, with the hopes that you'll recognize the error when/if you encounter it. The data frame isn't the important part.
 :::
 
 Let's look at the names of the months:
-```{r}
+```{r factors-ex}
 month.name
 
 df <- data.frame(num = 1:12, name = month.name, stringsAsFactors = T)
@@ -266,22 +367,21 @@ str(df)
 
 Notice that as soon as we make that data.frame, the months are converted into a factor variable? The other big problem is that the order of the factor levels is ... not what we'd normally want. We don't want alphabetical ordering of month names - they have a different, implicit, and natural order.
 
-<details><summary>We could get this same behavior without the data.frame, but this is where it shows up most often</summary>
+We could get this same behavior without the data.frame, but this is where it shows up most often.
 
-```{r}
+```{r factors-ex-2}
 month_fct <- factor(month.name) # the order is still not exactly what we'd want it to be
 ```
-</details>
 
 To fix this, we can explicitly specify that we're dealing with a factor, and what we want the levels to be. If you specify the levels manually (instead of letting R do the work for you) then you get to determine the order. 
-```{r}
+```{r factors-ex-3}
 month_fct <- factor(month.name, levels = month.name)
 str(month_fct)
 ```
 
 We can even be more explicit: 
 
-```{r}
+```{r factors-ex-4}
 month_fct <- factor(month.name, levels = month.name, ordered = T)
 str(month_fct)
 ```
@@ -289,13 +389,13 @@ str(month_fct)
 Making the factor ordered lets us explicitly say which levels are less than other levels.
 
 Factors are technically integers, with labels that are stored as an attribute. That doesn't mean you can do math with them, though. 
-```{r, error = T}
+```{r factors-ex-5, error = T}
 month_fct[1] + month_fct[2]
 ```
 
 Often, years or dates or other numeric-like information will end up as factor variables. When this happens, you need to be a little bit careful. 
 
-```{r}
+```{r factors-ex-6}
 # This works pretty naturally for months, right?
 as.numeric(month_fct)
 
@@ -315,7 +415,7 @@ When converting factors with numeric labels, you need to first convert the facto
 
 1. Create variables `string`, `integer`, `decimal`, and `logical`, with types that match the relevant variable names.
 
-```{r, eval = F}
+```{r tryitout-data-type, eval = F}
 string <- 
 integer <- 
 decimal <- 
@@ -334,7 +434,7 @@ string + integer
 
 <details><summary>Solutions</summary>
 
-```{r try-it-out-data-type-answers, error = T}
+```{r tryitout-data-type-answers, error = T}
 string <- "hi, I'm a string"
 integer <- 4L
 decimal <- 5.412
@@ -349,13 +449,13 @@ TRUE + TRUE
 ```
 
 In R, adding a string to a string creates an error ("non-numeric argument to binary operator"). Adding a logical to a logical, e.g. TRUE + TRUE, results in `r TRUE + TRUE`, which is a numeric value.
-</summary>
+</details>
 
 ### SAS
 
 In SAS, there are two basic variable types: numeric and character variables. SAS does not differentiate between integers and floats and doubles. Functionally, though, the same basic operations can be performed in SAS. As with R, SAS does attempt to implicitly convert variable types, and will notify you that the conversion has taken place in the log file.
 
-#### Type Conversions
+#### Type Conversions {-}
 SAS will attempt to implicitly convert variables when:
 
 - a character value is assigned to a previously defined numeric variable
@@ -370,33 +470,37 @@ Implicit conversion does not occur in WHERE statements. (This will make more sen
 <details><summary>Manual type conversions</summary>
 If you want to manually convert a value, use the INPUT statement. Unlike in R, the INPUT statement has the ability to read numbers which are formatted differently. For instance
 
-```{sashtml sas-ex}
-proc printto log="saslog.log" new;
-data set1; /* This tells SAS we're defining some variables */
+```{r sas-type-conversions-1, engine = "sas", engine.path = sasexe, engine.opts = sasopts, collectcode = F}
+data set1;
   x = 3;
   y = '3.1415';
-  z = x * y; 
-  /* this is arithmetic, so y will be converted */
-  x = '3.14159'; 
-  /* x previously had a number in it, */
-  /* so it will be converted to a number here */
-  zz = y<=2; 
-  /* comparison operator: y will be converted */
-  
-  put z; /* This prints the result to the log */
-  put x=;
-  put zz=;
+  z = x * y;
+  put z;
 run;
 ```
 
+```{r sas-type-conversions-2, engine = "sas", engine.path = sasexe, engine.opts = sasopts, collectcode = F}
+data set2;
+  x = 3;
+  y = '3.1415';
+  z = x * y;
+  put z; /* print to log */
+
+  x = '3.14159';
+  /* x previously had a number in it, 
+     so it will be converted to a number here */
+  put x; /* print to log */
+
+  zz = y <= 2;
+  /* comparison operator: y will be converted */
+  put zz; /* print to log */
+  
+run;
+```
+
+
 Notice that in SAS, `zz`, which is the result of the logical statement `y<=2`, is a numeric variable. The value 0 signifies that the comparison was false. SAS does not have a logical data type, it uses the numeric variable with 0:=FALSE, 1:=TRUE.
 
-```{r readlog-sas-ex, echo = F}
-cat(readLines("saslog.log"), sep="\n")
-
-# Do not forget to remove the log file when you are done!
-unlink("saslog.log")
-```
 </details>
 
 
@@ -407,9 +511,7 @@ unlink("saslog.log")
 2. What happens if you use `string1` and add 3 to it? 
 
 <details><summary>Solutions</summary>
-```{sashtml try-it-out-data-type-answers-sas}
-
-proc printto log="saslog.log" new;
+```{r tryitout-data-type-answers-sas, engine = "sashtmllog", engine.path = sasexe, engine.opts = sasopts, collectcode = F }
 data set1; 
   string1 = 'Bob';
   string2 = 'Jane';
@@ -419,19 +521,10 @@ run;
 
 ```
 
-```{r readlog-sas-ex-answers, echo = F}
-cat(readLines("saslog.log"), sep="\n")
-
-# Do not forget to remove the log file when you are done!
-unlink("saslog.log")
-```
-
 SAS will actually compare strings based on the first letter: Bob comes before Jane, so Bob < Jane. 
 
 
-```{sashtml try-it-out-data-type-answers-sas2}
-proc printto log="saslog.log" new;
-
+```{r tryitout-data-type-answers-sas2, error = T, engine = "sashtmllog", engine.path = sasexe, engine.opts = sasopts, collectcode = F }
 data set2;
   string1 = 'Bob';
   y = string1 + 3;
@@ -439,12 +532,6 @@ data set2;
 run;
 ```
 
-```{r readlog-sas-ex-answers2, echo = F}
-cat(readLines("saslog.log"), sep="\n")
-
-# Do not forget to remove the log file when you are done!
-unlink("saslog.log")
-```
 
 The `.` in SAS is a missing value (like `NA` in R). So SAS is behaving basically like R does: it complains about the fact that you asked it to add a string to a number, and then it stores the result as a missing value. 
 
@@ -559,7 +646,7 @@ str(dog)
 <details><summary>Recursive lists</summary>
 Lists can also contain other lists. When accessing a list-within-a-list, just add another index or name reference (see below). 
 
-```{r}
+```{r list-recursive-demo}
 grocery_list <- list(
   dairy = list("asiago", "fontina", "mozzarella", "blue cheese"),
   baking = list("flour", "yeast", "salt"),
@@ -585,7 +672,8 @@ yummy_toppings
 <details><summary>Basic List Syntax in SAS</summary>
 There are also [lists in SAS IML](https://documentation.sas.com/?docsetId=imlug&docsetTarget=imlug_langref_sect040.htm&docsetVersion=15.1&locale=en) which function similarly to lists in R. To create a named object in a list, precede the name with `#`. In SAS, the `$` operator can be used to get items from a list, using either name or numeric references. 
 
-```{sashtml}
+```{r recursive-list-demo-sas, engine = "sashtmllog", engine.path = sasexe, engine.opts = sasopts, collectcode = F }
+
 proc iml;
   grocery_list = [
     #dairy  = ["asiago", "fontina", "mozzarella", "blue cheese"], 
@@ -618,6 +706,8 @@ proc iml;
 quit;
 
 ```
+
+
 </details>
 
 
@@ -657,7 +747,7 @@ summary(mtcars$mpg)
 Often, it is useful to know the dimensions of a data frame. The number of rows can be obtained by using `nrow(df)` and similarly, the columns can be obtained using `ncol(df)` (or, get both with `dim()`). There is also an easy way to get a summary of each column in the data frame, using `summary()`.
 
 
-```{r}
+```{r summary-mtcars}
 summary(mtcars)
 dim(mtcars)
 nrow(mtcars)
@@ -668,7 +758,7 @@ Missing variables in an R data frame are indicated with NA.
 </details>
 
 <details><summary>Creating an R data frame</summary>
-```{r}
+```{r math-lsd-r}
 math_and_lsd <- data.frame(lsd_conc = c(1.17, 2.97, 3.26, 4.69, 5.83, 6.00, 6.41),
                            test_score = c(78.93, 58.20, 67.47, 37.47, 45.65, 32.92, 29.97))
 math_and_lsd
@@ -684,7 +774,7 @@ math_and_lsd
 
 The dataset `state.x77` contains information on US state statistics in the 1970s. By default, it is a matrix, but we can easily convert it to a data frame, as shown below. 
 
-```{r}
+```{r state-facts-tryitout}
 data(state)
 state_facts <- data.frame(state.x77)
 state_facts <- cbind(state = row.names(state_facts), state_facts, stringsAsFactors = F) 
@@ -703,7 +793,7 @@ head(state_facts)
 3. Calculate the average population density of each state (population per square mile) and store it in a new column `PopDensity`. Using the R reference card, can you find functions that you can combine to get the state with the minimum population density?
 
 <details><summary>Solutions</summary>
-```{r}
+```{r state-facts-tryitout-solutions}
 # 3 ways to get rows and columns
 str(state_facts)
 dim(state_facts)
@@ -723,16 +813,13 @@ state_facts$state[which.min(state_facts$PopDensity)]
 </details>
 
 
-##### Advanced Data Frames: Tibbles and List-columns {-}
+##### Advanced Data Frames: Tibbles and List-columns {- .learn-more}
 
 If at this point you're bored because you've seen this material before, keep reading to find out about tibbles, list columns and other ways to make data frames even more powerful. 
 
-<details>
-<summary>Tibbles</summary>
 A tibble is a fancy data frame that is optimized to work with the `tidyverse`, which is a collection of R packages that make data wrangling (getting the data clean and ready for analysis) easier. 
 
-[You can read about tibbles [here](https://r4ds.had.co.nz/tibbles.html).]{.learn-more}
-</details>
+You can read about tibbles [here](https://r4ds.had.co.nz/tibbles.html).
 
 <details>
 <summary>You like data frames? Lists? Let's put some lists inside a data frame! (All about list columns)</summary>
@@ -744,9 +831,9 @@ Let's start with the lego picture:
 
 A list is just another object that could be stored in a data frame! It is a "generalized vector" in that each entry in a list can be thought of as another list - so a list is really a vector of lists. List-columns make it possible to store e.g. whole data sets in a nested, organized way. Another useful feature is that each entry in a list-column doesn't have to be the same length, which makes it easier to store "ragged" data. 
 
-::: learn-more
 You can see a couple of examples [here](https://jennybc.github.io/purrr-tutorial/ls13_list-columns.html) (but they assume that you know things that you'll only learn in a few modules). 
-:::
+
+It is worth coming back to this link later in the book. I will try to remind you.
 
 </details>
 
@@ -763,10 +850,10 @@ SAS datasets also come with a description which is attached to the table. The de
 
 <details><summary>Creating a SAS data set</summary>
 In the next code chunk, we'll create a data set using a SAS Data step. We'll talk more about the anatomy of a SAS command later, but for now, notice that I'm specifying some metadata (the title), telling SAS what the variable names are (Drugs, Score), and then providing some data (indicated by the datalines statement). 
-```{sashtml mj-data-step}
+```{r mj-data-step, engine = "sashtmllog", engine.path = sasexe, engine.opts = sasopts, collectcode = F }
 /* Data source: http://blog.yhat.com/posts/7-funny-datasets.html */
   
-data mathMJ;
+data mathLSD;
 title 'Average math test scores under the influence of LSD';
 input Drugs	Score;
 datalines;
@@ -781,10 +868,10 @@ datalines;
 
 /* Describe the dataset */
 proc datasets;
-  contents data = mathMJ;
+  contents data = mathLSD;
 run;
 
-proc print data = mathMJ;
+proc print data = mathLSD;
 run;
 ```
 
@@ -816,7 +903,7 @@ x[3:4, 1:2]
 <details><summary>SAS matrix example</summary>
 In SAS, the same basic code works (though matrix definition is a bit more manual). 
 
-```{sas matrix-example-sas}
+```{r matrix-example-sas, engine = "sas", engine.path = sasexe, engine.opts = sasopts, collectcode = F }
 proc iml; /* Interactive Matrix Language */
   x = {1 2 3 4 5, 6 7 8 9 10, 11 12 13 14 15, 16 17 18 19 20};
   y = x[3:4, 1:2];
@@ -830,8 +917,7 @@ Both R and SAS are 1-indexed languages, so the elements of a list or vector are 
 
 As R has logical vectors, it is possible to index a vector using a logical vector of the same length.
 
-<div class="tryitout">
-##### Try it out {-}
+##### Try it out {- .tryitout}
 (From project Euler)
 
 If we list all the natural numbers below 10 that are multiples of 3 or 5,
@@ -858,7 +944,7 @@ sum(x[m3or5])
 </details>
 
 <details><summary>SAS solution</summary>
-```{sashtml vectorindexing-solution-sas}
+```{r vectorindexing-solution-sas, engine = "sashtmllog", engine.path = sasexe, engine.opts = sasopts, collectcode = F }
 data tmp;
   do x = 1 to 999;
   output;
@@ -880,8 +966,7 @@ run;
 
 Note on the SAS code: where statements allow you to select part of the data for further processing. There was a note earlier about the fact that type conversion doesn't happen in where clauses... this is one of those clauses. We'll get into where clauses in more detail later, in module 5. 
 </details>
-</div>
-</div>
+
 
 Most complicated structures in R are actually lists underneath. You should be able to access any of the pieces of a list using a combination of named references and indexing. 
 
@@ -963,7 +1048,7 @@ That is, `condition 2` is only checked once it is known that `condition` is fals
 The syntax for conditional statements using if/then logic is shown below using an example where Santa must determine which members of a household will receive a toy for Christmas and which members will receive coal. ^[Traditionally, naughty children get coal, while nice children get toys or candy.]
 
 <details><summary>In R</summary>
-```{r}
+```{r santa-unexpected}
 tmp <- data.frame(name = c("Alex", "Edison", "Susan", "Ryan"),
                   status = c("naughty", "nice", NA, "neutral"),
                   stringsAsFactors = F)
@@ -982,7 +1067,7 @@ What happened?
 
 When evaluating if statements, R does not evaluate each entry in the vector `tmp$status` separately. Instead, it takes the first value and issues a warning message. One option would be to use a loop, and examine each row in the data set separately. We'll talk about loops in the next subsection. Another option is to use the `ifelse()` function, which is `ifelse(condition, thing to do if condition is true, thing to do if condition is false)`
 
-```{r}
+```{r r santa-ifelse}
 tmp$present <- ifelse(tmp$status == "naughty", "coal", "toy")
 
 tmp
@@ -990,7 +1075,7 @@ tmp
 
 When R evaluates a missing value, (so ? NA == "naughty"), the result is `NA`. This is fine for us - if we don't have data on whether someone is naughty or nice, maybe we don't need to give them a present at all. But "neutral" is evaluated as getting a toy. Do we want that to happen? Maybe not. We might have to nest ifelse statements to solve this issue...
 
-```{r}
+```{r santa-naughty}
 tmp$present <- ifelse(tmp$status == "naughty", 
                       "coal", 
                       ifelse(tmp$status == "nice", "toy", NA))
@@ -1001,7 +1086,7 @@ tmp
 
 <details><summary>In SAS</summary>
 In a data step:
-```{sashtml}
+```{r santa-sas, engine = "sashtmllog", engine.path = sasexe, engine.opts = sasopts, collectcode = F, error = T}
 data santa;
   input name $ status $;
   datalines;
@@ -1024,7 +1109,7 @@ run;
 
 Note that `.`, or missing data is handled the same as 'nice'. That might not be what we wanted... this is the natural thing to do, right?
 
-````
+```{r santa-notworking, engine = "sashtmllog", engine.path = sasexe, engine.opts = sasopts, collectcode = F, error = T}
 data santa;
   input name $ status $;
   datalines;
@@ -1043,11 +1128,11 @@ run; /* must end with run if no datalines option */
 
 proc print data=presents;
 run;
-````
+```
 
 SAS doesn't handle nested if statements very well - they can be ambiguous. Instead, [SAS documentation suggests using `do;` and `end;` to denote the start and end points of each if statement](https://documentation.sas.com/?docsetId=basess&docsetTarget=p0pcj5ajwyngron1wlsq0tet0hce.htm&docsetVersion=9.4&locale=en) (like the `{}` in R). 
 
-```{sashtml}
+```{r santa-working-1, engine = "sashtmllog", engine.path = sasexe, engine.opts = sasopts, collectcode = F , error = T}
 data santa;
   input name $ status $;
   datalines;
@@ -1078,7 +1163,7 @@ run;
 
 Interestingly, if you set a character variable to be missing, SAS converts it to '.'. So, if we actually want to have the value be missing, we can set it to an empty string.
 
-```{sashtml}
+```{r santa-working-2, engine = "sashtmllog", engine.path = sasexe, engine.opts = sasopts, collectcode = F , error = T}
 data santa;
   input name $ status $;
   datalines;
@@ -1113,8 +1198,7 @@ Now things work the way we expected them to work.
 
 There are more complicated if-statement like control structures, such as switch statements, which can save time and typing. In the interests of simplicity, we will skip these for now, as any conditional can be implemented with sequences of if statements in the proper order. If you would like to read about switch statements, here are links to [SAS case statement documentation](https://documentation.sas.com/?docsetId=sqlproc&docsetTarget=n0a85s0ijz65irn1h3jtariooea5.htm&docsetVersion=9.4&locale=en) and [base R switch statement explanation](https://www.tutorialgateway.org/r-switch-statement/) and [documentation](https://www.rdocumentation.org/packages/base/versions/3.6.2/topics/switch).
 
-<div class="tryitout">
-##### Try it out {-}
+#### Try it out {- .tryitout}
 The `sample()` function selects a random sample of entries from a vector. Suppose we sample a random vector $x$ with 10 entries. Write one or more if statements to fulfill the following conditions
 
 - if $x$ is divisible by 2, $y$ should be positive; otherwise, it should be negative.
@@ -1123,7 +1207,7 @@ The `sample()` function selects a random sample of entries from a vector. Suppos
 It may be helpful to define separate variables `y_mag` and `y_sign` and then multiply them afterwards. Once you have found the value of $y$ compute $\text{sum}(x * y)$.
 
 You may use the following R and SAS code skeletons to set the problem up.
-```{r}
+```{r tryitout-sample}
 set.seed(342502837)
 x <- sample(1:50, size = 20, replace = F)
 
@@ -1168,7 +1252,7 @@ run;
 ````
 
 <details><summary>R Solution</summary>
-```{r}
+```{r tryitout-sample-solution}
 set.seed(342502837)
 x <- sample(1:50, size = 20, replace = F)
 
@@ -1181,7 +1265,7 @@ sum(x * y)
 </details>
 <details><summary>SAS Solution</summary>
 
-```{sashtml}
+```{r tryitout-sas-sample-solution, engine = "sashtmllog", engine.path = sasexe, engine.opts = sasopts, collectcode = F }
 proc iml;
   call randseed(342502837);
   x = sample(1:50, 20)`;
@@ -1224,7 +1308,6 @@ run;
 
 See [this](https://www.oreilly.com/library/view/sas-certification-prep/9781607649243/p12osnn9d1s4hgn12yf8ffocxhw7.htm) to understand how the print statement works and how to add column summary values. 
 </details>
-</div>
 
 ### Loops
 Often, we need to do a single task many times - for instance, we may need to calculate the average data value for each week, using daily data. Rather than typing out 52 different iterations of the same code, it is likely easier to type out one single block of code which contains the steps necessary to complete one instance of the task, and then leverage variables to ensure that each task is completed the correct number of times, using the correct inputs.
@@ -1248,14 +1331,14 @@ In a for loop, the steps in the loop body repeat a specified number of times. Th
 For instance, suppose we want to revisit our R Santa example from the previous section. The original if/else code we wrote in R didn't work, because R evaluates if statements using a single (scalar or vector of length 1) condition. If we add a loop around that code, we can evaluate only one row at a time. We need to check every row, so we'll iterate over `1:nrow(tmp)` - it's better to get the upper bound from the data frame, rather than just using 4 - if we add another entry, the code will still work if we're using `nrow(tmp)` to define how many iterations we need.
 
 We start by defining our data frame:
-```{r}
+```{r forloop-df-setup}
 tmp <- data.frame(name = c("Alex", "Edison", "Susan", "Ryan"),
                   status = c("naughty", "nice", NA, "neutral"),
                   stringsAsFactors = F)
 ```
 
 And then we add the basic loop syntax:
-```{r}
+```{r forloop-df-syntax}
 for (i in 1:nrow(tmp)) {
   
 }
@@ -1269,7 +1352,7 @@ Now we need to add the middle part by adapting the conditional statement we used
 
 It's good practice to initialize your variable (create a column for it) ahead of time and set the variable to a default value.
 
-```{r, error = T}
+```{r forloop-df-logic, error = T}
 
 tmp$present <- NA # Initialize column and set to NA by default
 
@@ -1289,7 +1372,7 @@ for (i in 1:nrow(tmp)) {
 
 Well, that didn't work! We can see that the loop stopped at `i = 3` by printing out the value of `i` - because the loop failed, `i` will still contain the value which caused the loop to stop. 
 
-```{r}
+```{r forloop-df-print}
 i
 tmp[i,] # print tmp at that point
 ```
@@ -1299,7 +1382,7 @@ Combining this information with the error above, we can guess that R stopped eva
 
 if/else statements in R can't evaluate to `NA`, so we need to restructure our conditional statement - first, we'll test for `NA` values, then, we can test for naughty and nice, and we'll keep the catch-all statement at the bottom. We'll test for an `NA` value using the function `is.na()`.
 
-```{r}
+```{r forloop-df-logic2}
 
 tmp$present <- NA # Initialize column and set to NA by default
 
@@ -1328,7 +1411,7 @@ In most cases in R and SAS, it is possible to write code without needing loops a
 Here is an example of the most basic for loop logic - printing the numbers 1 through 10 - in both R and SAS. SAS code is provided for both PROC IML and DATA steps.
 
 <details><summary>For loops in R</summary>
-```{r forloop}
+```{r forloop-demo}
 # R Example loop
 for (i in 1:10) {
   print(i)
@@ -1337,7 +1420,7 @@ for (i in 1:10) {
 </details>
 
 <details><summary>"For loops" in SAS IML (using `do`)</summary>
-```{sas doloop1}
+```{r doloop1, engine = "sashtmllog", engine.path = sasexe, engine.opts = sasopts, collectcode = F }
 /* SAS IML example loop */
 proc iml;
   do i = 1 to 10;
@@ -1348,9 +1431,7 @@ quit;
 </details>
 
 <details><summary>"For loops" in a SAS DATA step</summary>
-```{sas doloop2}
-/* SAS DATA step example loop */
-proc printto log="saslog.log" new; /* shows output log in bookdown */
+```{r doloop2, engine = "sashtmllog", engine.path = sasexe, engine.opts = sasopts, collectcode = F }
 data A;
   do i = 1 to 10;
     put i=;
@@ -1358,12 +1439,6 @@ data A;
 run;
 ```
 
-```{r readlog-sas-doloop-answers2, echo = F}
-cat(readLines("saslog.log"), sep="\n")
-
-# Do not forget to remove the log file when you are done!
-unlink("saslog.log")
-```
 </details>
 
 
@@ -1375,7 +1450,7 @@ While the most straighforward (and common) case of for-loop use in practice is t
 <details><summary>Other sequences in loops in R</summary>
 
 R allows loops to occur over any vector... even randomly generated numbers, or nonnumeric vectors (say, a character vector of URLs).
-```{r}
+```{r forloop-examples}
 x <- rnorm(5) # Generate 5 normal (0,1) samples
 
 for (i in x) {
@@ -1385,7 +1460,7 @@ for (i in x) {
 ```
 
 We can also iterate by non-integer values using `seq(from = , to = , by = )`
-```{r}
+```{r forloop-examples-2}
 # This loop counts down in 1/2 units from 5 to 0
 for (i in seq(5, 0, -.5)) {
   # do nothing
@@ -1395,8 +1470,7 @@ for (i in seq(5, 0, -.5)) {
 
 <details><summary>Other sequence structures in SAS for loops</summary>
 We can iterate by non-integer values:
-```{sas}
-proc printto log="saslog.log" new; /* to shows output log in bookdown */
+```{r loop-examples, engine = "sashtmllog", engine.path = sasexe, engine.opts = sasopts, collectcode = F }
 data A;
 y = 0;
 do i = 5 to 0 by -0.5;
@@ -1405,29 +1479,15 @@ do i = 5 to 0 by -0.5;
 run;
 ```
 
-```{r, echo = F}
-cat(readLines("saslog.log"), sep="\n")
-
-# Do not forget to remove the log file when you are done!
-unlink("saslog.log")
-```
-
 We can even add additional conditions:
 
-```{sas}
-proc printto log="saslog.log" new; /* to shows output log in bookdown */
+```{r loop-examples2, engine = "sashtmllog", engine.path = sasexe, engine.opts = sasopts, collectcode = F }
 data A;
 y = 0;
 do i = 5 to 0 by -0.5 while (i**2 > 1);
     put i=;
   end;
 run;
-```
-```{r, echo = F}
-cat(readLines("saslog.log"), sep="\n")
-
-# Do not forget to remove the log file when you are done!
-unlink("saslog.log")
 ```
 </details>
 
@@ -1441,13 +1501,15 @@ We'll learn more about packages in the next chapter, but for now, just go with i
 :::
 
 You can install the package using the following command:
-```{r, eval = F}
+```{r tryitout-beepr-install, eval = F}
 install.packages("beepr")
 ```
+
 (if you are using Linux you will also need to make sure one of `paplay`, `aplay`, or `vlc` is installed)
 
 Load the library and write a `for` loop which plays the 10 different sounds corresponding to integers 1 through 10. 
-```{r, eval = F}
+
+```{r tryitout-beepr-test, eval = F}
 library(beepr) # load the beepr library
 
 beep(sound = 1) # sound is any integer between 1 and 10.
@@ -1456,7 +1518,7 @@ beep(sound = 1) # sound is any integer between 1 and 10.
 It may be helpful to add the command `Sys.sleep(5)` into your loop to space out the noises so that they can be heard individually.
 
 <details><summary>Solution</summary>
-```{r, eval = F}
+```{r tryitout-beepr-loop, eval = F}
 library(beepr)
 
 for (i in 1:10) {
@@ -1471,7 +1533,7 @@ for (i in 1:10) {
 
 Write a for loop which will output the first 30 [fibbonacci numbers](https://en.wikipedia.org/wiki/Fibonacci_number). You can use the following code as a starting point:
 
-````
+```{r sas-tryitout-iml-loop, engine = "sashtmllog", engine.path = sasexe, engine.opts = sasopts, collectcode = F }
 /* SAS IML example loop */
 proc iml;
   current = 1;
@@ -1483,7 +1545,7 @@ quit;
 
 <details><summary>Solution</summary>
 
-```{sas}
+```{r sas-tryitout-iml-loop-solutions, engine = "sashtmllog", engine.path = sasexe, engine.opts = sasopts, collectcode = F }
 /* SAS IML example loop */
 proc iml;
   current = 1;
@@ -1540,7 +1602,7 @@ prev_basel_value
 </details>
 
 <details><summary>In SAS</summary>
-```{sas}
+```{r basel-problem-sas, engine = "sashtmllog", engine.path = sasexe, engine.opts = sasopts, collectcode = F }
 proc iml;
   i = 1;
   basel = 0;
@@ -1575,9 +1637,8 @@ Another explanation of while loops is available at [Khan Academy](https://www.kh
 
 Write a while loop in R and in SAS to calculate $\displaystyle \lim_{x \rightarrow 4} \frac{2 - \sqrt{x}}{4-x}$ by starting at 3 and halving the distance to 4 with each iteration. Exit the loop when you are within 1e-6 of the value computed on the previous iteration, or when you are within 1e-6 from 4. Which exit condition did you hit first? How do you know?
 
-Solutions:
-<details>
-```{r}
+<details><summary>Solutions</summary>
+```{r limit-tryitout-solution}
 x <- 3
 dist <- 4 - x
 current_value <- 0
@@ -1593,7 +1654,7 @@ c(x = x, dist = dist, current_value = current_value, d_value = abs(current_value
 ```
 Before $x$ got to 4 - 1e-6, the change in f(x) became less than 1e-6. 
 
-```{sas}
+```{r sas-limit-tryitout-solution, engine = "sashtmllog", engine.path = sasexe, engine.opts = sasopts, collectcode = F }
 proc iml;
   x = 3;
   dist = 4 - x;
@@ -1637,7 +1698,7 @@ In this section, we will essentially be using both R and SAS as overgrown calcul
 | Matrix Transpose | `t(A)` | `A\\`` |
 
 <details><summary>R basic mathematical operators</summary>
-```{r}
+```{r math-operators-sas}
 # transpose these to make row vectors to match SAS
 x <- t(1:10)
 y <- t(seq(3, 30, by = 3))
@@ -1653,7 +1714,7 @@ t(x) %*% y
 
 <details><summary>SAS basic mathematical operators</summary>
 By default, SAS creates row vectors with `do(a, b, by = c)` syntax. The transpose operator (a single backtick) can be used to transform `A` into `A`\`. 
-```{sashtml}
+```{r iml-math-operators-sas, engine = "sashtmllog", engine.path = sasexe, engine.opts = sasopts, collectcode = F }
 proc iml;
   x = do(1, 10, 1);
   y = do(3, 30, 3);
@@ -1673,7 +1734,7 @@ quit;
 Other matrix operations, such as determinants and extraction of the matrix diagonal, are similarly easy:
 
 <details><summary>R matrix operations</summary>
-```{r}
+```{r matrix-operations}
 mat <- matrix(c(1, 2, 3, 6, 4, 5, 7, 8, 9), nrow = 3, byrow = T)
 t(mat) # transpose
 det(mat) # get the determinant
@@ -1683,7 +1744,7 @@ diag(1:3) # diag() also will create a diagonal matrix if given a vector
 ```
 </details>
 <details><summary>SAS matrix operations</summary>
-```{sashtml}
+```{r matrix-operations-sas, engine = "sashtmllog", engine.path = sasexe, engine.opts = sasopts, collectcode = F }
 proc iml;
   mat = {1 2 3, 6 4 5, 7 8 9};
   tmat = mat`; /* transpose */
@@ -1702,7 +1763,7 @@ quit;
 The other important matrix-related function is the inverse. In R, `A^-1` will get you the elementwise reciprocal of the matrix. Not exactly what we'd like to see... Instead, in both languages, we use the `solve()` function. The inverse is defined as the matrix B such that `AB = I` where `I` is the identity matrix (1's on diagonal, 0's off-diagonal). So if we `solve(A)` (in R) or `solve(A, diag(n))` in SAS (where n is a vector of 1s the size of A), we will get the inverse matrix.
 
 <details><summary>Invert a matrix in R</summary>
-```{r}
+```{r invert-matrix-example}
 mat <- matrix(c(1, 2, 3, 6, 4, 5, 7, 8, 9), nrow = 3, byrow = T)
 
 minv <- solve(mat) # get the inverse
@@ -1714,7 +1775,7 @@ mat %*% minv
 
 <details><summary>Invert a matrix in SAS</summary>
 [Documentation](https://documentation.sas.com/?docsetId=imlug&docsetTarget=imlug_langref_sect208.htm&docsetVersion=14.2&locale=en)
-```{sashtml}
+```{r invert-matrix-example-sas, engine = "sashtmllog", engine.path = sasexe, engine.opts = sasopts, collectcode = F }
 proc iml;
   mat = {1 2 3, 6 4 5, 7 8 9};
 

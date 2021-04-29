@@ -1,6 +1,6 @@
 # Documents and Reports {#docs-reports}
 
-## Module Objectives {-}
+## Documents and Reports: Module Objectives {-}
 Be able to create 
 
 - presentation slides in LaTeX and rmarkdown
@@ -10,6 +10,8 @@ Be able to create
 This chapter will be shorter in length than many of the rest, but you should not devote less time to it. Instead, you should spend the time playing with the different options presented here and deciding which one of each is your favorite. Rather than detailing all of the customization options in each package, I think you'll have an easier time looking at examples, trying to customize them yourself to get the effect you want, and figuring out how to do that by reading the documentation, stackoverflow posts, and other help files -- those are the skills you'll need when you try to put this knowledge into action. 
 
 At the end of this chapter there are a few extras -- for instance, how to use GitHub to host your documents, how to create a blog with `blogdown`, and more. You should feel free to investigate, but as long as you are able to create presentation slides, posters, and a CV, you're good to go. 
+
+![Reproducibility with Rmarkdown (by Allison Horst)](https://raw.githubusercontent.com/allisonhorst/stats-illustrations/master/rstats-artwork/reproducibility_court.png)
 
 ## Literate Programming, `knitr`, and `rmarkdown`
 
@@ -169,13 +171,15 @@ Rather than repeat the documentation for each slide package in this document, I 
 - [xaringan](https://bookdown.org/yihui/rmarkdown/xaringan.html) [Example presentation](https://slides.yihui.org/xaringan/#1), [Example presentation 2 using UNL CSS theme](http://srvanderplas.github.io/Presentations/2020-DSSV/index.html#1)
 - [reveal.js](https://bookdown.org/yihui/rmarkdown/revealjs.html) [Example presentation](https://github.com/rstudio/ShinyDeveloperConference/tree/master/Reactivity)
 
-::: tryitout
-Take a few minutes and try each of them out to see what feels right to you.
-:::
+
 
 If you're familiar with CSS (or happier tinkering to get the look of something exactly right) then `xaringan` is an excellent full-featured option. 
 
 A nice feature of reveal.js presentations (my favorite option before `xaringan`) is support for 2D slide layouts, so you can have multiple sections in your presentation, and move vertically through each section, or horizontally between sections. That is useful for presentations where you may not plan on covering everything, but where you want to have all of the information available if necessary. I relied heavily on that during my PhD prelim and defense. 
+
+### Try it out {- .tryitout}
+Take a few minutes and try each of them out to see what feels right to you. Each one has a slightly different "flavor" of Rmarkdown, so read through the example to get a sense for what is different.
+
 
 ## Posters
 
@@ -205,7 +209,7 @@ To start, install posterdown with `install.packages("posterdown")`.
 
 I have provided an example posterdown theme [here](other/posterdown/posterdown.zip). You can also find the additional customization options [here](https://github.com/brentthorne/posterdown/wiki/posterdown_html). As with other markdown items, you can customize things even more using CSS. The nice thing about HTML posters, though, is that you can directly [link to them](other/posterdown/index.html). 
 
-You can also print a poster to PDF by running the following command: `pagedown::chrome_print("myfile.Rmd")`. See the [pdf version of my customized UNL-themed poster](other/pagedown/index.pdf). 
+You can also print a poster to PDF by running the following command: `pagedown::chrome_print("myfile.Rmd")`. See the [pdf version of my customized UNL-themed poster](other/posterdown/index.pdf). 
 
 ### Pagedown
 

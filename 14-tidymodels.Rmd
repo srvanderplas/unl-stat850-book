@@ -1,0 +1,13 @@
+# Tidy Models
+
+![Tidymodels workflow](image/tidymodels.png)
+
+Tidymodels is a set of packages designed to help with the modeling part of the tidy workflow shown above. 
+
+We'll be working off of the [Tidymodels introduction](https://www.tidymodels.org/start/models/). There are 5 articles in the sequence; we'll work through them together in class. Please make sure you have the `tidymodels` package installed as well as the `broom.mixed` package.
+
+```{r, eval = F}
+install.packages("tidymodels")
+install.packages("broom.mixed")
+```
+

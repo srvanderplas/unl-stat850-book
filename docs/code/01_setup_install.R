@@ -20,10 +20,13 @@ install.packages(c("devtools", "dplyr", "ggplot2", "tidyr", "purrr", "stringr",
 # usethis - handy functions for R setup
 
 
+user_name <- readline(prompt = "Your full name: ")
+user_email <- readline(prompt = "The email address associated with your github account: ")
+
 library(usethis)
 use_git_config(user.name = user_name, user.email = user_email, scope = "user")
 git_vaccinate() # Tell git to ignore all files that are OS-dependent and don't have useful data.
 # git2r::cred_ssh_key(publickey=git2r::ssh_path("id_rsa.pub"), privatekey = git2r::ssh_path("id_rsa"))
 
-library(tinytex)
-tinytex::install_tinytex() # Install LaTeX on your system
+#library(tinytex)
+#tinytex::install_tinytex() # Install LaTeX on your system
