@@ -205,15 +205,15 @@ Note that `<-` is used for assigning a value to a variable. So `x <- "R is aweso
 ```r
 x <- "R is awesome"
 typeof(x)
-[1] "character"
+## [1] "character"
 is.character(x)
-[1] TRUE
+## [1] TRUE
 is.logical(x)
-[1] FALSE
+## [1] FALSE
 is.integer(x)
-[1] FALSE
+## [1] FALSE
 is.double(x)
-[1] FALSE
+## [1] FALSE
 ```
 
 #### Logical Variables {-}
@@ -221,15 +221,15 @@ is.double(x)
 ```r
 x <- FALSE
 typeof(x)
-[1] "logical"
+## [1] "logical"
 is.character(x)
-[1] FALSE
+## [1] FALSE
 is.logical(x)
-[1] TRUE
+## [1] TRUE
 is.integer(x)
-[1] FALSE
+## [1] FALSE
 is.double(x)
-[1] FALSE
+## [1] FALSE
 ```
 
 It is possible to use the shorthand `F` and `T`, but be careful with this, because `F` and `T` are not reserved, and other information can be stored within them. See [this discussion](https://twitter.com/tslumley/status/1279870794730893312) for pros and cons of using `F` and `T` as variables vs. shorthand for true and false. ^[There is also an [R package dedicated to pure evil](https://purrple.cat/blog/2017/05/28/turn-r-users-insane-with-evil/) that will set F and T randomly on startup. Use this information wisely.]
@@ -239,15 +239,15 @@ It is possible to use the shorthand `F` and `T`, but be careful with this, becau
 ```r
 x <- 2
 typeof(x)
-[1] "double"
+## [1] "double"
 is.character(x)
-[1] FALSE
+## [1] FALSE
 is.logical(x)
-[1] FALSE
+## [1] FALSE
 is.integer(x)
-[1] FALSE
+## [1] FALSE
 is.double(x)
-[1] TRUE
+## [1] TRUE
 ```
 
 Wait, 2 is an integer, right?
@@ -258,17 +258,17 @@ Wait, 2 is an integer, right?
 ```r
 x <- 2L # The L immediately after the 2 indicates that it is an integer.
 typeof(x)
-[1] "integer"
+## [1] "integer"
 is.character(x)
-[1] FALSE
+## [1] FALSE
 is.logical(x)
-[1] FALSE
+## [1] FALSE
 is.integer(x)
-[1] TRUE
+## [1] TRUE
 is.double(x)
-[1] FALSE
+## [1] FALSE
 is.numeric(x)
-[1] TRUE
+## [1] TRUE
 ```
 
 #### Double Variables {-}
@@ -276,17 +276,17 @@ is.numeric(x)
 ```r
 x <- 2.45
 typeof(x)
-[1] "double"
+## [1] "double"
 is.character(x)
-[1] FALSE
+## [1] FALSE
 is.logical(x)
-[1] FALSE
+## [1] FALSE
 is.integer(x)
-[1] FALSE
+## [1] FALSE
 is.double(x)
-[1] TRUE
+## [1] TRUE
 is.numeric(x)
-[1] TRUE
+## [1] TRUE
 ```
 
 #### Numeric Variables {-}
@@ -295,20 +295,20 @@ A fifth common "type"^[`numeric` is not really a type, it's a mode. Run `?mode` 
 The `numeric` category exists because when doing math, we can add an integer and a double, but adding an integer and a string is ... trickier. Testing for numeric variables guarantees that we'll be able to do math with those variables. `is.numeric()` and `as.numeric()` work as you would expect them to work.
 
 The general case of this property of a language is called **implicit type conversion** - that is, R will implicitly (behind the scenes) convert your integer to a double and then add the other double, so that the result is unambiguously a double. 
-</details>
 
-#### Type Conversions {-}
+
+#### Type Conversions {}
 R will generally work hard to seamlessly convert variables to different types. So, for instance, 
 
 ```r
 TRUE + 2
-[1] 3
+## [1] 3
 
 2L + 3.1415
-[1] 5.1415
+## [1] 5.1415
 
 "abcd" + 3
-Error in "abcd" + 3: non-numeric argument to binary operator
+## Error in "abcd" + 3: non-numeric argument to binary operator
 ```
 
 This conversion doesn't always work - there's no clear way to make "abcd" into a number we could use in addition. So instead, R will issue an error. This error pops up frequently when something went wrong with data import and all of a sudden you just tried to take the mean of a set of string/character variables. Whoops.
@@ -318,14 +318,14 @@ When you want to, you can also use `as.xxx()` to make the type conversion **expl
 
 ```r
 as.double(TRUE) + 2
-[1] 3
+## [1] 3
 
 as.double(2L) + 3.1415
-[1] 5.1415
+## [1] 5.1415
 
 as.numeric("abcd") + 3
-Warning: NAs introduced by coercion
-[1] NA
+## Warning: NAs introduced by coercion
+## [1] NA
 ```
 
 When we make our intent explicit (convert "abcd" to a numeric variable) we get an NA - a missing value. There's still no easy way to figure out where "abcd" is on a number line, but our math will still have a result - `NA + 3` is `NA`.
@@ -340,17 +340,17 @@ y <- 3.1415
 z <- FALSE
 
 typeof(w)
-[1] "character"
+## [1] "character"
 typeof(x)
-[1] "integer"
+## [1] "integer"
 typeof(y)
-[1] "double"
+## [1] "double"
 typeof(z)
-[1] "logical"
+## [1] "logical"
 ```
 
 
-#### Factors {- #introfactors}
+#### Factors { #introfactors}
 
 In R, there is one other type of variable to know about, and that is a factor. Factors are basically labeled integers. Instead of storing the data as a string or character, R instead stores the data as a series of integers, and then stores a separate table mapping the integers to labels. This is technically more efficient (which was important when computers had extremely limited memory), but it is also a pain in the rear (that's a technical term). 
 
@@ -374,8 +374,8 @@ Let's look at the names of the months:
 
 ```r
 month.name
- [1] "January"   "February"  "March"     "April"     "May"       "June"     
- [7] "July"      "August"    "September" "October"   "November"  "December" 
+##  [1] "January"   "February"  "March"     "April"     "May"       "June"     
+##  [7] "July"      "August"    "September" "October"   "November"  "December"
 
 df <- data.frame(num = 1:12, name = month.name, stringsAsFactors = T)
 # I'm putting the argument in so that this is still relevant when everyone 
@@ -386,9 +386,9 @@ df <- data.frame(num = 1:12, name = month.name, stringsAsFactors = T)
 # that are based on strings being converted to factors.
 
 str(df)
-'data.frame':	12 obs. of  2 variables:
- $ num : int  1 2 3 4 5 6 7 8 9 10 ...
- $ name: Factor w/ 12 levels "April","August",..: 5 4 8 1 9 7 6 2 12 11 ...
+## 'data.frame':	12 obs. of  2 variables:
+##  $ num : int  1 2 3 4 5 6 7 8 9 10 ...
+##  $ name: Factor w/ 12 levels "April","August",..: 5 4 8 1 9 7 6 2 12 11 ...
 ```
 
 Notice that as soon as we make that data.frame, the months are converted into a factor variable? The other big problem is that the order of the factor levels is ... not what we'd normally want. We don't want alphabetical ordering of month names - they have a different, implicit, and natural order.
@@ -405,7 +405,7 @@ To fix this, we can explicitly specify that we're dealing with a factor, and wha
 ```r
 month_fct <- factor(month.name, levels = month.name)
 str(month_fct)
- Factor w/ 12 levels "January","February",..: 1 2 3 4 5 6 7 8 9 10 ...
+##  Factor w/ 12 levels "January","February",..: 1 2 3 4 5 6 7 8 9 10 ...
 ```
 
 We can even be more explicit: 
@@ -414,7 +414,7 @@ We can even be more explicit:
 ```r
 month_fct <- factor(month.name, levels = month.name, ordered = T)
 str(month_fct)
- Ord.factor w/ 12 levels "January"<"February"<..: 1 2 3 4 5 6 7 8 9 10 ...
+##  Ord.factor w/ 12 levels "January"<"February"<..: 1 2 3 4 5 6 7 8 9 10 ...
 ```
 
 Making the factor ordered lets us explicitly say which levels are less than other levels.
@@ -423,9 +423,9 @@ Factors are technically integers, with labels that are stored as an attribute. T
 
 ```r
 month_fct[1] + month_fct[2]
-Warning in Ops.ordered(month_fct[1], month_fct[2]): '+' is not meaningful for
-ordered factors
-[1] NA
+## Warning in Ops.ordered(month_fct[1], month_fct[2]): '+' is not meaningful for
+## ordered factors
+## [1] NA
 ```
 
 Often, years or dates or other numeric-like information will end up as factor variables. When this happens, you need to be a little bit careful. 
@@ -434,24 +434,24 @@ Often, years or dates or other numeric-like information will end up as factor va
 ```r
 # This works pretty naturally for months, right?
 as.numeric(month_fct)
- [1]  1  2  3  4  5  6  7  8  9 10 11 12
+##  [1]  1  2  3  4  5  6  7  8  9 10 11 12
 
 yfact <- factor(2000:2020, levels = 2000:2020)
 yfact
- [1] 2000 2001 2002 2003 2004 2005 2006 2007 2008 2009 2010 2011 2012 2013 2014
-[16] 2015 2016 2017 2018 2019 2020
-21 Levels: 2000 2001 2002 2003 2004 2005 2006 2007 2008 2009 2010 2011 ... 2020
+##  [1] 2000 2001 2002 2003 2004 2005 2006 2007 2008 2009 2010 2011 2012 2013 2014
+## [16] 2015 2016 2017 2018 2019 2020
+## 21 Levels: 2000 2001 2002 2003 2004 2005 2006 2007 2008 2009 2010 2011 ... 2020
 # But, this does not...
 as.numeric(yfact)
- [1]  1  2  3  4  5  6  7  8  9 10 11 12 13 14 15 16 17 18 19 20 21
+##  [1]  1  2  3  4  5  6  7  8  9 10 11 12 13 14 15 16 17 18 19 20 21
 
 as.character(yfact) # gets the labels
- [1] "2000" "2001" "2002" "2003" "2004" "2005" "2006" "2007" "2008" "2009"
-[11] "2010" "2011" "2012" "2013" "2014" "2015" "2016" "2017" "2018" "2019"
-[21] "2020"
+##  [1] "2000" "2001" "2002" "2003" "2004" "2005" "2006" "2007" "2008" "2009"
+## [11] "2010" "2011" "2012" "2013" "2014" "2015" "2016" "2017" "2018" "2019"
+## [21] "2020"
 as.numeric(as.character(yfact)) # gets the info we want
- [1] 2000 2001 2002 2003 2004 2005 2006 2007 2008 2009 2010 2011 2012 2013 2014
-[16] 2015 2016 2017 2018 2019 2020
+##  [1] 2000 2001 2002 2003 2004 2005 2006 2007 2008 2009 2010 2011 2012 2013 2014
+## [16] 2015 2016 2017 2018 2019 2020
 ```
 When converting factors with numeric labels, you need to first convert the factor to a character, and then to a numeric variable. That will get the information you actually want back out.
 </details>
@@ -490,17 +490,17 @@ decimal <- 5.412
 logical <- TRUE
 
 logical + decimal
-[1] 6.412
+## [1] 6.412
 integer + decimal
-[1] 9.412
+## [1] 9.412
 as.numeric(string) + integer
-Warning: NAs introduced by coercion
-[1] NA
+## Warning: NAs introduced by coercion
+## [1] NA
 
 "abcd" + "defg"
-Error in "abcd" + "defg": non-numeric argument to binary operator
+## Error in "abcd" + "defg": non-numeric argument to binary operator
 TRUE + TRUE
-[1] 2
+## [1] 2
 ```
 
 In R, adding a string to a string creates an error ("non-numeric argument to binary operator"). Adding a logical to a logical, e.g. TRUE + TRUE, results in 2, which is a numeric value.
@@ -612,7 +612,7 @@ NOTE: Missing values were generated as a result of performing an operation
 NOTE: The data set WORK.SET2 has 1 observations and 2 variables.
 NOTE: DATA statement used (Total process time):
       real time           0.00 seconds
-      cpu time            0.01 seconds
+      cpu time            0.00 seconds
       
 ```
 
@@ -646,7 +646,7 @@ If we try to create a heterogeneous vector in R, using the `concatenate` functio
 
 ```r
 c(1, 2, "a", "b", "c")
-[1] "1" "2" "a" "b" "c"
+## [1] "1" "2" "a" "b" "c"
 ```
 Because there were 3 character entries, the entire vector is now a character vector.
 
@@ -657,8 +657,8 @@ R's vector-by-default approach can cause some errors - for instance, R does not 
 ```r
 x <- c(356, 452, "1,325")
 mean(x)
-Warning in mean.default(x): argument is not numeric or logical: returning NA
-[1] NA
+## Warning in mean.default(x): argument is not numeric or logical: returning NA
+## [1] NA
 ```
 
 If you are reading in data from a file, this will cause some issues - the whole column of data will be formatted as characters. Keep an eye out for errors of this type. 
@@ -694,38 +694,38 @@ A **list** is, well, a list - a sequence of potentially different-typed values. 
 x <- list("a", "b", "c", 1, 2, 3)
 
 x
-[[1]]
-[1] "a"
-
-[[2]]
-[1] "b"
-
-[[3]]
-[1] "c"
-
-[[4]]
-[1] 1
-
-[[5]]
-[1] 2
-
-[[6]]
-[1] 3
+## [[1]]
+## [1] "a"
+## 
+## [[2]]
+## [1] "b"
+## 
+## [[3]]
+## [1] "c"
+## 
+## [[4]]
+## [1] 1
+## 
+## [[5]]
+## [1] 2
+## 
+## [[6]]
+## [1] 3
 x[[3]]
-[1] "c"
+## [1] "c"
 
 x[[4]] + x[[5]]
-[1] 3
+## [1] 3
 
 x[1:2] # This will work
-[[1]]
-[1] "a"
-
-[[2]]
-[1] "b"
+## [[1]]
+## [1] "a"
+## 
+## [[2]]
+## [1] "b"
 
 x[[1:2]] # This won't work
-Error in x[[1:2]]: subscript out of bounds
+## Error in x[[1:2]]: subscript out of bounds
 ```
 
 
@@ -747,29 +747,29 @@ dog <- list(name = "Edison Vanderplas", age = 8,
             `link(video)` = "https://youtu.be/zVeoQTOTIuQ")
 
 dog
-$name
-[1] "Edison Vanderplas"
-
-$age
-[1] 8
-
-$breed
-[1] "Jack Russell Terrorist"
-
-$`favorite toy`
-[1] "a blue and orange stuffed duck. Or rawhide."
-
-$`link(video)`
-[1] "https://youtu.be/zVeoQTOTIuQ"
+## $name
+## [1] "Edison Vanderplas"
+## 
+## $age
+## [1] 8
+## 
+## $breed
+## [1] "Jack Russell Terrorist"
+## 
+## $`favorite toy`
+## [1] "a blue and orange stuffed duck. Or rawhide."
+## 
+## $`link(video)`
+## [1] "https://youtu.be/zVeoQTOTIuQ"
 
 dog$name
-[1] "Edison Vanderplas"
+## [1] "Edison Vanderplas"
 dog$breed
-[1] "Jack Russell Terrorist"
+## [1] "Jack Russell Terrorist"
 dog$`favorite toy`
-[1] "a blue and orange stuffed duck. Or rawhide."
+## [1] "a blue and orange stuffed duck. Or rawhide."
 dog[["link(video)"]]
-[1] "https://youtu.be/zVeoQTOTIuQ"
+## [1] "https://youtu.be/zVeoQTOTIuQ"
 ```
 
 
@@ -779,12 +779,12 @@ You can get a sense of the structure of a list (or any other object) in R using 
 ```r
 
 str(dog)
-List of 5
- $ name        : chr "Edison Vanderplas"
- $ age         : num 8
- $ breed       : chr "Jack Russell Terrorist"
- $ favorite toy: chr "a blue and orange stuffed duck. Or rawhide."
- $ link(video) : chr "https://youtu.be/zVeoQTOTIuQ"
+## List of 5
+##  $ name        : chr "Edison Vanderplas"
+##  $ age         : num 8
+##  $ breed       : chr "Jack Russell Terrorist"
+##  $ favorite toy: chr "a blue and orange stuffed duck. Or rawhide."
+##  $ link(video) : chr "https://youtu.be/zVeoQTOTIuQ"
 ```
 
 ##### Recursive lists {-}
@@ -802,56 +802,56 @@ grocery_list <- list(
 
 ick <- c(grocery_list[[4]][2:3], grocery_list$canned_goods[[3]])
 ick
-[[1]]
-[1] "sausage"
-
-[[2]]
-[1] "anchovies"
-
-[[3]]
-[1] "olives"
+## [[1]]
+## [1] "sausage"
+## 
+## [[2]]
+## [1] "anchovies"
+## 
+## [[3]]
+## [1] "olives"
 
 crust_ingredients <- c(grocery_list$baking, "water")
 crust_ingredients
-[[1]]
-[1] "flour"
-
-[[2]]
-[1] "yeast"
-
-[[3]]
-[1] "salt"
-
-[[4]]
-[1] "water"
+## [[1]]
+## [1] "flour"
+## 
+## [[2]]
+## [1] "yeast"
+## 
+## [[3]]
+## [1] "salt"
+## 
+## [[4]]
+## [1] "water"
 
 essential_toppings <- c(grocery_list$dairy[3], grocery_list$canned_goods[2])
 essential_toppings
-[[1]]
-[1] "mozzarella"
-
-[[2]]
-[1] "pizza sauce"
+## [[1]]
+## [1] "mozzarella"
+## 
+## [[2]]
+## [1] "pizza sauce"
 
 yummy_toppings <- c(grocery_list$dairy[c(1, 2, 4)], grocery_list$meat[1], grocery_list[[5]][c(3, 5)])
 yummy_toppings
-[[1]]
-[1] "asiago"
-
-[[2]]
-[1] "fontina"
-
-[[3]]
-[1] "blue cheese"
-
-[[4]]
-[1] "bacon"
-
-[[5]]
-[1] "scallions"
-
-[[6]]
-[1] "basil"
+## [[1]]
+## [1] "asiago"
+## 
+## [[2]]
+## [1] "fontina"
+## 
+## [[3]]
+## [1] "blue cheese"
+## 
+## [[4]]
+## [1] "bacon"
+## 
+## [[5]]
+## [1] "scallions"
+## 
+## [[6]]
+## [1] "basil"
 ```
 
 ##### Basic List Syntax in SAS {-}
@@ -898,7 +898,7 @@ quit;
 <a name="IDX"></a>
 <div>
 <div align="center">
-<!--BEGINTABLE--><table class="table" cellspacing="0" cellpadding="7" rules="groups" frame="hsides" summary="Procedure IML: labl">
+<!--BEGINTABLE--><table class="table" style=" border-left-width: 0px; border-right-width: 0px;" cellspacing="0" cellpadding="7" rules="groups" frame="hsides" bordercolor="#C1C1C1" summary="Procedure IML: labl">
 <colgroup>
 <col>
 </colgroup>
@@ -914,7 +914,7 @@ quit;
 <a name="IDX1"></a>
 <div>
 <div align="center">
-<!--BEGINTABLE--><table class="table" cellspacing="0" cellpadding="7" rules="groups" frame="hsides" summary="Procedure IML: Item 1">
+<!--BEGINTABLE--><table class="table" style=" border-left-width: 0px; border-right-width: 0px;" cellspacing="0" cellpadding="7" rules="groups" frame="hsides" bordercolor="#C1C1C1" summary="Procedure IML: Item 1">
 <colgroup>
 <col>
 </colgroup>
@@ -935,7 +935,7 @@ quit;
 <a name="IDX2"></a>
 <div>
 <div align="center">
-<!--BEGINTABLE--><table class="table" cellspacing="0" cellpadding="7" rules="groups" frame="hsides" summary="Procedure IML: Item 2">
+<!--BEGINTABLE--><table class="table" style=" border-left-width: 0px; border-right-width: 0px;" cellspacing="0" cellpadding="7" rules="groups" frame="hsides" bordercolor="#C1C1C1" summary="Procedure IML: Item 2">
 <colgroup>
 <col>
 </colgroup>
@@ -956,7 +956,7 @@ quit;
 <a name="IDX3"></a>
 <div>
 <div align="center">
-<!--BEGINTABLE--><table class="table" cellspacing="0" cellpadding="7" rules="groups" frame="hsides" summary="Procedure IML: Item 3">
+<!--BEGINTABLE--><table class="table" style=" border-left-width: 0px; border-right-width: 0px;" cellspacing="0" cellpadding="7" rules="groups" frame="hsides" bordercolor="#C1C1C1" summary="Procedure IML: Item 3">
 <colgroup>
 <col>
 </colgroup>
@@ -977,7 +977,7 @@ quit;
 <a name="IDX4"></a>
 <div>
 <div align="center">
-<!--BEGINTABLE--><table class="table" cellspacing="0" cellpadding="7" rules="groups" frame="hsides" summary="Procedure IML: labl">
+<!--BEGINTABLE--><table class="table" style=" border-left-width: 0px; border-right-width: 0px;" cellspacing="0" cellpadding="7" rules="groups" frame="hsides" bordercolor="#C1C1C1" summary="Procedure IML: labl">
 <colgroup>
 <col>
 </colgroup>
@@ -993,7 +993,7 @@ quit;
 <a name="IDX5"></a>
 <div>
 <div align="center">
-<!--BEGINTABLE--><table class="table" cellspacing="0" cellpadding="7" rules="groups" frame="hsides" summary="Procedure IML: Item 1">
+<!--BEGINTABLE--><table class="table" style=" border-left-width: 0px; border-right-width: 0px;" cellspacing="0" cellpadding="7" rules="groups" frame="hsides" bordercolor="#C1C1C1" summary="Procedure IML: Item 1">
 <colgroup>
 <col>
 </colgroup>
@@ -1014,7 +1014,7 @@ quit;
 <a name="IDX6"></a>
 <div>
 <div align="center">
-<!--BEGINTABLE--><table class="table" cellspacing="0" cellpadding="7" rules="groups" frame="hsides" summary="Procedure IML: Item 2">
+<!--BEGINTABLE--><table class="table" style=" border-left-width: 0px; border-right-width: 0px;" cellspacing="0" cellpadding="7" rules="groups" frame="hsides" bordercolor="#C1C1C1" summary="Procedure IML: Item 2">
 <colgroup>
 <col>
 </colgroup>
@@ -1035,7 +1035,7 @@ quit;
 <a name="IDX7"></a>
 <div>
 <div align="center">
-<!--BEGINTABLE--><table class="table" cellspacing="0" cellpadding="7" rules="groups" frame="hsides" summary="Procedure IML: Item 3">
+<!--BEGINTABLE--><table class="table" style=" border-left-width: 0px; border-right-width: 0px;" cellspacing="0" cellpadding="7" rules="groups" frame="hsides" bordercolor="#C1C1C1" summary="Procedure IML: Item 3">
 <colgroup>
 <col>
 </colgroup>
@@ -1056,7 +1056,7 @@ quit;
 <a name="IDX8"></a>
 <div>
 <div align="center">
-<!--BEGINTABLE--><table class="table" cellspacing="0" cellpadding="7" rules="groups" frame="hsides" summary="Procedure IML: Item 4">
+<!--BEGINTABLE--><table class="table" style=" border-left-width: 0px; border-right-width: 0px;" cellspacing="0" cellpadding="7" rules="groups" frame="hsides" bordercolor="#C1C1C1" summary="Procedure IML: Item 4">
 <colgroup>
 <col>
 </colgroup>
@@ -1077,7 +1077,7 @@ quit;
 <a name="IDX9"></a>
 <div>
 <div align="center">
-<!--BEGINTABLE--><table class="table" cellspacing="0" cellpadding="7" rules="groups" frame="hsides" summary="Procedure IML: labl">
+<!--BEGINTABLE--><table class="table" style=" border-left-width: 0px; border-right-width: 0px;" cellspacing="0" cellpadding="7" rules="groups" frame="hsides" bordercolor="#C1C1C1" summary="Procedure IML: labl">
 <colgroup>
 <col>
 </colgroup>
@@ -1093,7 +1093,7 @@ quit;
 <a name="IDX10"></a>
 <div>
 <div align="center">
-<!--BEGINTABLE--><table class="table" cellspacing="0" cellpadding="7" rules="groups" frame="hsides" summary="Procedure IML: Item 1">
+<!--BEGINTABLE--><table class="table" style=" border-left-width: 0px; border-right-width: 0px;" cellspacing="0" cellpadding="7" rules="groups" frame="hsides" bordercolor="#C1C1C1" summary="Procedure IML: Item 1">
 <colgroup>
 <col>
 </colgroup>
@@ -1114,7 +1114,7 @@ quit;
 <a name="IDX11"></a>
 <div>
 <div align="center">
-<!--BEGINTABLE--><table class="table" cellspacing="0" cellpadding="7" rules="groups" frame="hsides" summary="Procedure IML: Item 2">
+<!--BEGINTABLE--><table class="table" style=" border-left-width: 0px; border-right-width: 0px;" cellspacing="0" cellpadding="7" rules="groups" frame="hsides" bordercolor="#C1C1C1" summary="Procedure IML: Item 2">
 <colgroup>
 <col>
 </colgroup>
@@ -1135,7 +1135,7 @@ quit;
 <a name="IDX12"></a>
 <div>
 <div align="center">
-<!--BEGINTABLE--><table class="table" cellspacing="0" cellpadding="7" rules="groups" frame="hsides" summary="Procedure IML: Item 3">
+<!--BEGINTABLE--><table class="table" style=" border-left-width: 0px; border-right-width: 0px;" cellspacing="0" cellpadding="7" rules="groups" frame="hsides" bordercolor="#C1C1C1" summary="Procedure IML: Item 3">
 <colgroup>
 <col>
 </colgroup>
@@ -1156,7 +1156,7 @@ quit;
 <a name="IDX13"></a>
 <div>
 <div align="center">
-<!--BEGINTABLE--><table class="table" cellspacing="0" cellpadding="7" rules="groups" frame="hsides" summary="Procedure IML: Item 4">
+<!--BEGINTABLE--><table class="table" style=" border-left-width: 0px; border-right-width: 0px;" cellspacing="0" cellpadding="7" rules="groups" frame="hsides" bordercolor="#C1C1C1" summary="Procedure IML: Item 4">
 <colgroup>
 <col>
 </colgroup>
@@ -1177,7 +1177,7 @@ quit;
 <a name="IDX14"></a>
 <div>
 <div align="center">
-<!--BEGINTABLE--><table class="table" cellspacing="0" cellpadding="7" rules="groups" frame="hsides" summary="Procedure IML: Item 5">
+<!--BEGINTABLE--><table class="table" style=" border-left-width: 0px; border-right-width: 0px;" cellspacing="0" cellpadding="7" rules="groups" frame="hsides" bordercolor="#C1C1C1" summary="Procedure IML: Item 5">
 <colgroup>
 <col>
 </colgroup>
@@ -1220,27 +1220,27 @@ When you examine the structure of a data frame, as shown below, you get each col
 
 ```r
 head(mtcars) ## A data frame included in base R
-                   mpg cyl disp  hp drat    wt  qsec vs am gear carb
-Mazda RX4         21.0   6  160 110 3.90 2.620 16.46  0  1    4    4
-Mazda RX4 Wag     21.0   6  160 110 3.90 2.875 17.02  0  1    4    4
-Datsun 710        22.8   4  108  93 3.85 2.320 18.61  1  1    4    1
-Hornet 4 Drive    21.4   6  258 110 3.08 3.215 19.44  1  0    3    1
-Hornet Sportabout 18.7   8  360 175 3.15 3.440 17.02  0  0    3    2
-Valiant           18.1   6  225 105 2.76 3.460 20.22  1  0    3    1
+##                    mpg cyl disp  hp drat    wt  qsec vs am gear carb
+## Mazda RX4         21.0   6  160 110 3.90 2.620 16.46  0  1    4    4
+## Mazda RX4 Wag     21.0   6  160 110 3.90 2.875 17.02  0  1    4    4
+## Datsun 710        22.8   4  108  93 3.85 2.320 18.61  1  1    4    1
+## Hornet 4 Drive    21.4   6  258 110 3.08 3.215 19.44  1  0    3    1
+## Hornet Sportabout 18.7   8  360 175 3.15 3.440 17.02  0  0    3    2
+## Valiant           18.1   6  225 105 2.76 3.460 20.22  1  0    3    1
 
 str(mtcars)
-'data.frame':	32 obs. of  11 variables:
- $ mpg : num  21 21 22.8 21.4 18.7 18.1 14.3 24.4 22.8 19.2 ...
- $ cyl : num  6 6 4 6 8 6 8 4 4 6 ...
- $ disp: num  160 160 108 258 360 ...
- $ hp  : num  110 110 93 110 175 105 245 62 95 123 ...
- $ drat: num  3.9 3.9 3.85 3.08 3.15 2.76 3.21 3.69 3.92 3.92 ...
- $ wt  : num  2.62 2.88 2.32 3.21 3.44 ...
- $ qsec: num  16.5 17 18.6 19.4 17 ...
- $ vs  : num  0 0 1 1 0 1 0 1 1 1 ...
- $ am  : num  1 1 1 0 0 0 0 0 0 0 ...
- $ gear: num  4 4 4 3 3 3 3 4 4 4 ...
- $ carb: num  4 4 1 1 2 1 4 2 2 4 ...
+## 'data.frame':	32 obs. of  11 variables:
+##  $ mpg : num  21 21 22.8 21.4 18.7 18.1 14.3 24.4 22.8 19.2 ...
+##  $ cyl : num  6 6 4 6 8 6 8 4 4 6 ...
+##  $ disp: num  160 160 108 258 360 ...
+##  $ hp  : num  110 110 93 110 175 105 245 62 95 123 ...
+##  $ drat: num  3.9 3.9 3.85 3.08 3.15 2.76 3.21 3.69 3.92 3.92 ...
+##  $ wt  : num  2.62 2.88 2.32 3.21 3.44 ...
+##  $ qsec: num  16.5 17 18.6 19.4 17 ...
+##  $ vs  : num  0 0 1 1 0 1 0 1 1 1 ...
+##  $ am  : num  1 1 1 0 0 0 0 0 0 0 ...
+##  $ gear: num  4 4 4 3 3 3 3 4 4 4 ...
+##  $ carb: num  4 4 1 1 2 1 4 2 2 4 ...
 ```
 
 You can change column values or add new columns easily using assignment. It's also easy to access specific columns to perform summary operations.
@@ -1250,11 +1250,11 @@ You can change column values or add new columns easily using assignment. It's al
 mtcars$gpm <- 1/mtcars$mpg # gpm is sometimes used to assess efficiency
 
 summary(mtcars$gpm)
-   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
-0.02950 0.04386 0.05208 0.05423 0.06483 0.09615 
+##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+## 0.02950 0.04386 0.05208 0.05423 0.06483 0.09615
 summary(mtcars$mpg)
-   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
-  10.40   15.43   19.20   20.09   22.80   33.90 
+##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+##   10.40   15.43   19.20   20.09   22.80   33.90
 ```
 
 Often, it is useful to know the dimensions of a data frame. The number of rows can be obtained by using `nrow(df)` and similarly, the columns can be obtained using `ncol(df)` (or, get both with `dim()`). There is also an easy way to get a summary of each column in the data frame, using `summary()`.
@@ -1263,33 +1263,33 @@ Often, it is useful to know the dimensions of a data frame. The number of rows c
 
 ```r
 summary(mtcars)
-      mpg             cyl             disp             hp       
- Min.   :10.40   Min.   :4.000   Min.   : 71.1   Min.   : 52.0  
- 1st Qu.:15.43   1st Qu.:4.000   1st Qu.:120.8   1st Qu.: 96.5  
- Median :19.20   Median :6.000   Median :196.3   Median :123.0  
- Mean   :20.09   Mean   :6.188   Mean   :230.7   Mean   :146.7  
- 3rd Qu.:22.80   3rd Qu.:8.000   3rd Qu.:326.0   3rd Qu.:180.0  
- Max.   :33.90   Max.   :8.000   Max.   :472.0   Max.   :335.0  
-      drat             wt             qsec             vs        
- Min.   :2.760   Min.   :1.513   Min.   :14.50   Min.   :0.0000  
- 1st Qu.:3.080   1st Qu.:2.581   1st Qu.:16.89   1st Qu.:0.0000  
- Median :3.695   Median :3.325   Median :17.71   Median :0.0000  
- Mean   :3.597   Mean   :3.217   Mean   :17.85   Mean   :0.4375  
- 3rd Qu.:3.920   3rd Qu.:3.610   3rd Qu.:18.90   3rd Qu.:1.0000  
- Max.   :4.930   Max.   :5.424   Max.   :22.90   Max.   :1.0000  
-       am              gear            carb            gpm         
- Min.   :0.0000   Min.   :3.000   Min.   :1.000   Min.   :0.02950  
- 1st Qu.:0.0000   1st Qu.:3.000   1st Qu.:2.000   1st Qu.:0.04386  
- Median :0.0000   Median :4.000   Median :2.000   Median :0.05208  
- Mean   :0.4062   Mean   :3.688   Mean   :2.812   Mean   :0.05423  
- 3rd Qu.:1.0000   3rd Qu.:4.000   3rd Qu.:4.000   3rd Qu.:0.06483  
- Max.   :1.0000   Max.   :5.000   Max.   :8.000   Max.   :0.09615  
+##       mpg             cyl             disp             hp       
+##  Min.   :10.40   Min.   :4.000   Min.   : 71.1   Min.   : 52.0  
+##  1st Qu.:15.43   1st Qu.:4.000   1st Qu.:120.8   1st Qu.: 96.5  
+##  Median :19.20   Median :6.000   Median :196.3   Median :123.0  
+##  Mean   :20.09   Mean   :6.188   Mean   :230.7   Mean   :146.7  
+##  3rd Qu.:22.80   3rd Qu.:8.000   3rd Qu.:326.0   3rd Qu.:180.0  
+##  Max.   :33.90   Max.   :8.000   Max.   :472.0   Max.   :335.0  
+##       drat             wt             qsec             vs        
+##  Min.   :2.760   Min.   :1.513   Min.   :14.50   Min.   :0.0000  
+##  1st Qu.:3.080   1st Qu.:2.581   1st Qu.:16.89   1st Qu.:0.0000  
+##  Median :3.695   Median :3.325   Median :17.71   Median :0.0000  
+##  Mean   :3.597   Mean   :3.217   Mean   :17.85   Mean   :0.4375  
+##  3rd Qu.:3.920   3rd Qu.:3.610   3rd Qu.:18.90   3rd Qu.:1.0000  
+##  Max.   :4.930   Max.   :5.424   Max.   :22.90   Max.   :1.0000  
+##        am              gear            carb            gpm         
+##  Min.   :0.0000   Min.   :3.000   Min.   :1.000   Min.   :0.02950  
+##  1st Qu.:0.0000   1st Qu.:3.000   1st Qu.:2.000   1st Qu.:0.04386  
+##  Median :0.0000   Median :4.000   Median :2.000   Median :0.05208  
+##  Mean   :0.4062   Mean   :3.688   Mean   :2.812   Mean   :0.05423  
+##  3rd Qu.:1.0000   3rd Qu.:4.000   3rd Qu.:4.000   3rd Qu.:0.06483  
+##  Max.   :1.0000   Max.   :5.000   Max.   :8.000   Max.   :0.09615
 dim(mtcars)
-[1] 32 12
+## [1] 32 12
 nrow(mtcars)
-[1] 32
+## [1] 32
 ncol(mtcars)
-[1] 12
+## [1] 12
 ```
 
 Missing variables in an R data frame are indicated with NA. 
@@ -1301,27 +1301,27 @@ Missing variables in an R data frame are indicated with NA.
 math_and_lsd <- data.frame(lsd_conc = c(1.17, 2.97, 3.26, 4.69, 5.83, 6.00, 6.41),
                            test_score = c(78.93, 58.20, 67.47, 37.47, 45.65, 32.92, 29.97))
 math_and_lsd
-  lsd_conc test_score
-1     1.17      78.93
-2     2.97      58.20
-3     3.26      67.47
-4     4.69      37.47
-5     5.83      45.65
-6     6.00      32.92
-7     6.41      29.97
+##   lsd_conc test_score
+## 1     1.17      78.93
+## 2     2.97      58.20
+## 3     3.26      67.47
+## 4     4.69      37.47
+## 5     5.83      45.65
+## 6     6.00      32.92
+## 7     6.41      29.97
 
 # add a column - character vector
 math_and_lsd$subjective <- c("finally coming back", "getting better", "it's totally better", "really tripping out", "is it over?", "whoa, man", "I can taste color, but I can't do math")
 
 math_and_lsd
-  lsd_conc test_score                             subjective
-1     1.17      78.93                    finally coming back
-2     2.97      58.20                         getting better
-3     3.26      67.47                    it's totally better
-4     4.69      37.47                    really tripping out
-5     5.83      45.65                            is it over?
-6     6.00      32.92                              whoa, man
-7     6.41      29.97 I can taste color, but I can't do math
+##   lsd_conc test_score                             subjective
+## 1     1.17      78.93                    finally coming back
+## 2     2.97      58.20                         getting better
+## 3     3.26      67.47                    it's totally better
+## 4     4.69      37.47                    really tripping out
+## 5     5.83      45.65                            is it over?
+## 6     6.00      32.92                              whoa, man
+## 7     6.41      29.97 I can taste color, but I can't do math
 ```
 </details>
 
@@ -1340,13 +1340,13 @@ state_facts <- cbind(state = row.names(state_facts), state_facts, stringsAsFacto
 row.names(state_facts) <- NULL # get rid of row names
 
 head(state_facts)
-       state Population Income Illiteracy Life.Exp Murder HS.Grad Frost   Area
-1    Alabama       3615   3624        2.1    69.05   15.1    41.3    20  50708
-2     Alaska        365   6315        1.5    69.31   11.3    66.7   152 566432
-3    Arizona       2212   4530        1.8    70.55    7.8    58.1    15 113417
-4   Arkansas       2110   3378        1.9    70.66   10.1    39.9    65  51945
-5 California      21198   5114        1.1    71.71   10.3    62.6    20 156361
-6   Colorado       2541   4884        0.7    72.06    6.8    63.9   166 103766
+##        state Population Income Illiteracy Life.Exp Murder HS.Grad Frost   Area
+## 1    Alabama       3615   3624        2.1    69.05   15.1    41.3    20  50708
+## 2     Alaska        365   6315        1.5    69.31   11.3    66.7   152 566432
+## 3    Arizona       2212   4530        1.8    70.55    7.8    58.1    15 113417
+## 4   Arkansas       2110   3378        1.9    70.66   10.1    39.9    65  51945
+## 5 California      21198   5114        1.1    71.71   10.3    62.6    20 156361
+## 6   Colorado       2541   4884        0.7    72.06    6.8    63.9   166 103766
 ```
 
 1. How many rows and columns does it have? Can you find at least 3 ways to get that information?
@@ -1360,22 +1360,22 @@ head(state_facts)
 ```r
 # 3 ways to get rows and columns
 str(state_facts)
-'data.frame':	50 obs. of  9 variables:
- $ state     : chr  "Alabama" "Alaska" "Arizona" "Arkansas" ...
- $ Population: num  3615 365 2212 2110 21198 ...
- $ Income    : num  3624 6315 4530 3378 5114 ...
- $ Illiteracy: num  2.1 1.5 1.8 1.9 1.1 0.7 1.1 0.9 1.3 2 ...
- $ Life.Exp  : num  69 69.3 70.5 70.7 71.7 ...
- $ Murder    : num  15.1 11.3 7.8 10.1 10.3 6.8 3.1 6.2 10.7 13.9 ...
- $ HS.Grad   : num  41.3 66.7 58.1 39.9 62.6 63.9 56 54.6 52.6 40.6 ...
- $ Frost     : num  20 152 15 65 20 166 139 103 11 60 ...
- $ Area      : num  50708 566432 113417 51945 156361 ...
+## 'data.frame':	50 obs. of  9 variables:
+##  $ state     : chr  "Alabama" "Alaska" "Arizona" "Arkansas" ...
+##  $ Population: num  3615 365 2212 2110 21198 ...
+##  $ Income    : num  3624 6315 4530 3378 5114 ...
+##  $ Illiteracy: num  2.1 1.5 1.8 1.9 1.1 0.7 1.1 0.9 1.3 2 ...
+##  $ Life.Exp  : num  69 69.3 70.5 70.7 71.7 ...
+##  $ Murder    : num  15.1 11.3 7.8 10.1 10.3 6.8 3.1 6.2 10.7 13.9 ...
+##  $ HS.Grad   : num  41.3 66.7 58.1 39.9 62.6 63.9 56 54.6 52.6 40.6 ...
+##  $ Frost     : num  20 152 15 65 20 166 139 103 11 60 ...
+##  $ Area      : num  50708 566432 113417 51945 156361 ...
 dim(state_facts)
-[1] 50  9
+## [1] 50  9
 nrow(state_facts)
-[1] 50
+## [1] 50
 ncol(state_facts)
-[1] 9
+## [1] 9
 
 # Illiteracy
 state_facts$TotalNumIlliterate <- state_facts$Population * 1e3 * (state_facts$Illiteracy/100) 
@@ -1386,7 +1386,7 @@ state_facts$PopDensity <- state_facts$Population * 1e3/state_facts$Area
 
 # minimum population
 state_facts$state[which.min(state_facts$PopDensity)]
-[1] "Alaska"
+## [1] "Alaska"
 ```
 </details>
 
@@ -1455,15 +1455,15 @@ run;
 
 
 <div class="branch">
-<a name="IDX"></a>
-<table class="systitleandfootercontainer" width="100%" cellspacing="0" cellpadding="1" rules="none" frame="void" summary="Page Layout">
+<a name="IDX15"></a>
+<table class="systitleandfootercontainer" style=" border-spacing: 0px;" width="100%" cellspacing="0" cellpadding="1" rules="none" frame="void" border="0" summary="Page Layout">
 <tr>
 <td class="c systemtitle">Average math test scores under the influence of LSD</td>
 </tr>
 </table><br>
 <div>
 <div align="center">
-<!--BEGINTABLE--><table class="table" cellspacing="0" cellpadding="7" rules="groups" frame="hsides" summary="Procedure Datasets: Directory Information">
+<!--BEGINTABLE--><table class="table" style=" border-left-width: 0px; border-right-width: 0px;" cellspacing="0" cellpadding="7" rules="groups" frame="hsides" bordercolor="#C1C1C1" summary="Procedure Datasets: Directory Information">
 <colgroup>
 <col>
 <col>
@@ -1484,15 +1484,15 @@ run;
 </tr>
 <tr>
 <th class="l rowheader" scope="row">Physical Name</th>
-<td class="l data">/tmp/SAS_workE54C0003EA9A_silicon</td>
+<td class="l data">/tmp/SAS_work4A01000164D6_stats-bigfoot</td>
 </tr>
 <tr>
 <th class="l rowheader" scope="row">Filename</th>
-<td class="l data">/tmp/SAS_workE54C0003EA9A_silicon</td>
+<td class="l data">/tmp/SAS_work4A01000164D6_stats-bigfoot</td>
 </tr>
 <tr>
 <th class="l rowheader" scope="row">Inode Number</th>
-<td class="l data">11276266</td>
+<td class="l data">3162260</td>
 </tr>
 <tr>
 <th class="l rowheader" scope="row">Access Permission</th>
@@ -1500,7 +1500,7 @@ run;
 </tr>
 <tr>
 <th class="l rowheader" scope="row">Owner Name</th>
-<td class="l data">susan</td>
+<td class="l data">srvander</td>
 </tr>
 <tr>
 <th class="l rowheader" scope="row">File Size</th>
@@ -1515,10 +1515,10 @@ run;
 <!--ENDTABLE--></div>
 </div>
 <br>
-<a name="IDX1"></a>
+<a name="IDX16"></a>
 <div>
 <div align="center">
-<!--BEGINTABLE--><table class="table" cellspacing="0" cellpadding="7" rules="groups" frame="hsides" summary="Procedure Datasets: Library Members">
+<!--BEGINTABLE--><table class="table" style=" border-left-width: 0px; border-right-width: 0px;" cellspacing="0" cellpadding="7" rules="groups" frame="hsides" bordercolor="#C1C1C1" summary="Procedure Datasets: Library Members">
 <colgroup>
 <col>
 </colgroup>
@@ -1543,35 +1543,28 @@ run;
 <td class="l data">MATHLSD</td>
 <td class="l data">DATA</td>
 <td class="r data">128KB</td>
-<td class="l data">04/28/2021 11:52:31</td>
+<td class="l data">04/29/2021 10:42:22</td>
 </tr>
 <tr>
 <th class="r rowheader" scope="row">2</th>
-<td class="l data">REGSTRY</td>
-<td class="l data">ITEMSTOR</td>
-<td class="r data">32KB</td>
-<td class="l data">04/28/2021 11:52:31</td>
-</tr>
-<tr>
-<th class="r rowheader" scope="row">3</th>
 <td class="l data">SASMAC3</td>
 <td class="l data">CATALOG</td>
 <td class="r data">20KB</td>
-<td class="l data">04/28/2021 11:52:31</td>
+<td class="l data">04/29/2021 10:42:21</td>
 </tr>
 <tr>
-<th class="r rowheader" scope="row">4</th>
+<th class="r rowheader" scope="row">3</th>
 <td class="l data">SET1</td>
 <td class="l data">DATA</td>
 <td class="r data">128KB</td>
-<td class="l data">04/28/2021 11:52:31</td>
+<td class="l data">04/29/2021 10:42:21</td>
 </tr>
 <tr>
-<th class="r rowheader" scope="row">5</th>
+<th class="r rowheader" scope="row">4</th>
 <td class="l data">SET2</td>
 <td class="l data">DATA</td>
 <td class="r data">128KB</td>
-<td class="l data">04/28/2021 11:52:31</td>
+<td class="l data">04/29/2021 10:42:21</td>
 </tr>
 </tbody>
 </table>
@@ -1579,15 +1572,15 @@ run;
 </div>
 <br>
 <p style="page-break-after: always;"><br/></p><hr size="3"/>
-<a name="IDX2"></a>
-<table class="systitleandfootercontainer" width="100%" cellspacing="0" cellpadding="1" rules="none" frame="void" summary="Page Layout">
+<a name="IDX17"></a>
+<table class="systitleandfootercontainer" style=" border-spacing: 0px;" width="100%" cellspacing="0" cellpadding="1" rules="none" frame="void" border="0" summary="Page Layout">
 <tr>
 <td class="c systemtitle">Average math test scores under the influence of LSD</td>
 </tr>
 </table><br>
 <div>
 <div align="center">
-<!--BEGINTABLE--><table class="table" cellspacing="0" cellpadding="7" rules="groups" frame="hsides" summary="Procedure Datasets: Attributes">
+<!--BEGINTABLE--><table class="table" style=" border-left-width: 0px; border-right-width: 0px;" cellspacing="0" cellpadding="7" rules="groups" frame="hsides" bordercolor="#C1C1C1" summary="Procedure Datasets: Attributes">
 <colgroup>
 <col>
 <col>
@@ -1615,13 +1608,13 @@ run;
 </tr>
 <tr>
 <th class="l rowheader" scope="row">Created</th>
-<td class="l data">04/28/2021 11:52:32</td>
+<td class="l data">04/29/2021 10:42:22</td>
 <th class="l rowheader" scope="row">Observation Length</th>
 <td class="l data">16</td>
 </tr>
 <tr>
 <th class="l rowheader" scope="row">Last Modified</th>
-<td class="l data">04/28/2021 11:52:32</td>
+<td class="l data">04/29/2021 10:42:22</td>
 <th class="l rowheader" scope="row">Deleted Observations</th>
 <td class="l data">0</td>
 </tr>
@@ -1660,10 +1653,10 @@ run;
 <!--ENDTABLE--></div>
 </div>
 <br>
-<a name="IDX3"></a>
+<a name="IDX18"></a>
 <div>
 <div align="center">
-<!--BEGINTABLE--><table class="table" cellspacing="0" cellpadding="7" rules="groups" frame="hsides" summary="Procedure Datasets: Engine/Host Information">
+<!--BEGINTABLE--><table class="table" style=" border-left-width: 0px; border-right-width: 0px;" cellspacing="0" cellpadding="7" rules="groups" frame="hsides" bordercolor="#C1C1C1" summary="Procedure Datasets: Engine/Host Information">
 <colgroup>
 <col>
 <col>
@@ -1700,7 +1693,7 @@ run;
 </tr>
 <tr>
 <th class="l rowheader" scope="row">Filename</th>
-<td class="l data">/tmp/SAS_workE54C0003EA9A_silicon/mathlsd.sas7bdat</td>
+<td class="l data">/tmp/SAS_work4A01000164D6_stats-bigfoot/mathlsd.sas7bdat</td>
 </tr>
 <tr>
 <th class="l rowheader" scope="row">Release Created</th>
@@ -1712,15 +1705,15 @@ run;
 </tr>
 <tr>
 <th class="l rowheader" scope="row">Inode Number</th>
-<td class="l data">11276272</td>
+<td class="l data">3162266</td>
 </tr>
 <tr>
 <th class="l rowheader" scope="row">Access Permission</th>
-<td class="l data">rw-rw-r--</td>
+<td class="l data">rw-r--r--</td>
 </tr>
 <tr>
 <th class="l rowheader" scope="row">Owner Name</th>
-<td class="l data">susan</td>
+<td class="l data">srvander</td>
 </tr>
 <tr>
 <th class="l rowheader" scope="row">File Size</th>
@@ -1735,10 +1728,10 @@ run;
 <!--ENDTABLE--></div>
 </div>
 <br>
-<a name="IDX4"></a>
+<a name="IDX19"></a>
 <div>
 <div align="center">
-<!--BEGINTABLE--><table class="table" cellspacing="0" cellpadding="7" rules="groups" frame="hsides" summary="Procedure Datasets: Variables">
+<!--BEGINTABLE--><table class="table" style=" border-left-width: 0px; border-right-width: 0px;" cellspacing="0" cellpadding="7" rules="groups" frame="hsides" bordercolor="#C1C1C1" summary="Procedure Datasets: Variables">
 <colgroup>
 <col>
 </colgroup>
@@ -1779,15 +1772,15 @@ run;
 </div>
 <div class="branch">
 <p style="page-break-after: always;"><br/></p><hr size="3"/>
-<a name="IDX5"></a>
-<table class="systitleandfootercontainer" width="100%" cellspacing="0" cellpadding="1" rules="none" frame="void" summary="Page Layout">
+<a name="IDX20"></a>
+<table class="systitleandfootercontainer" style=" border-spacing: 0px;" width="100%" cellspacing="0" cellpadding="1" rules="none" frame="void" border="0" summary="Page Layout">
 <tr>
 <td class="c systemtitle">Average math test scores under the influence of LSD</td>
 </tr>
 </table><br>
 <div>
 <div align="center">
-<!--BEGINTABLE--><table class="table" cellspacing="0" cellpadding="7" rules="groups" frame="hsides" summary="Procedure Print: Data Set WORK.MATHLSD">
+<!--BEGINTABLE--><table class="table" style=" border-left-width: 0px; border-right-width: 0px;" cellspacing="0" cellpadding="7" rules="groups" frame="hsides" bordercolor="#C1C1C1" summary="Procedure Print: Data Set WORK.MATHLSD">
 <colgroup>
 <col>
 </colgroup>
@@ -1867,17 +1860,17 @@ x <- matrix(1:20, nrow = 5, byrow = T)
 # Create a matrix with values 1 to 20, 5 rows, and fill by row
 
 x
-     [,1] [,2] [,3] [,4]
-[1,]    1    2    3    4
-[2,]    5    6    7    8
-[3,]    9   10   11   12
-[4,]   13   14   15   16
-[5,]   17   18   19   20
+##      [,1] [,2] [,3] [,4]
+## [1,]    1    2    3    4
+## [2,]    5    6    7    8
+## [3,]    9   10   11   12
+## [4,]   13   14   15   16
+## [5,]   17   18   19   20
 
 x[3:4, 1:2]
-     [,1] [,2]
-[1,]    9   10
-[2,]   13   14
+##      [,1] [,2]
+## [1,]    9   10
+## [2,]   13   14
 # Gets a submatrix 
 ```
 </details>
@@ -1897,10 +1890,10 @@ quit; /* exit proc IML */
 
 
 <div class="branch">
-<a name="IDX"></a>
+<a name="IDX21"></a>
 <div>
 <div align="center">
-<!--BEGINTABLE--><table class="table" cellspacing="0" cellpadding="7" rules="groups" frame="hsides" summary="Procedure IML: x">
+<!--BEGINTABLE--><table class="table" style=" border-left-width: 0px; border-right-width: 0px;" cellspacing="0" cellpadding="7" rules="groups" frame="hsides" bordercolor="#C1C1C1" summary="Procedure IML: x">
 <colgroup>
 <col>
 <col>
@@ -1947,10 +1940,10 @@ quit; /* exit proc IML */
 <!--ENDTABLE--></div>
 </div>
 <br>
-<a name="IDX1"></a>
+<a name="IDX22"></a>
 <div>
 <div align="center">
-<!--BEGINTABLE--><table class="table" cellspacing="0" cellpadding="7" rules="groups" frame="hsides" summary="Procedure IML: y">
+<!--BEGINTABLE--><table class="table" style=" border-left-width: 0px; border-right-width: 0px;" cellspacing="0" cellpadding="7" rules="groups" frame="hsides" bordercolor="#C1C1C1" summary="Procedure IML: y">
 <colgroup>
 <col>
 <col>
@@ -2005,7 +1998,7 @@ m5 <- (x %% 5) == 0 # multiple of 5
 m3or5 <- m3 | m5
 
 sum(x[m3or5])
-[1] 233168
+## [1] 233168
 ```
 </details>
 
@@ -2038,8 +2031,8 @@ NOTE: There were 466 observations read from the data set WORK.TMP.
       WHERE (MOD(x, 3)=0) or (MOD(x, 5)=0);
 NOTE: The data set WORK.SUM_X has 1 observations and 3 variables.
 NOTE: PROCEDURE SUMMARY used (Total process time):
-      real time           0.00 seconds
-      cpu time            0.00 seconds
+      real time           0.01 seconds
+      cpu time            0.02 seconds
       
 
 20         
@@ -2055,10 +2048,10 @@ NOTE: PROCEDURE PRINT used (Total process time):
 
 
 <div class="branch">
-<a name="IDX"></a>
+<a name="IDX23"></a>
 <div>
 <div align="center">
-<!--BEGINTABLE--><table class="table" cellspacing="0" cellpadding="7" rules="groups" frame="hsides" summary="Procedure Print: Data Set WORK.SUM_X">
+<!--BEGINTABLE--><table class="table" style=" border-left-width: 0px; border-right-width: 0px;" cellspacing="0" cellpadding="7" rules="groups" frame="hsides" bordercolor="#C1C1C1" summary="Procedure Print: Data Set WORK.SUM_X">
 <colgroup>
 <col>
 </colgroup>
@@ -2189,15 +2182,15 @@ if (tmp$status == "naughty") {
 } else {
  tmp$present <- "toy"
 }
-Warning in if (tmp$status == "naughty") {: the condition has length > 1 and only
-the first element will be used
+## Warning in if (tmp$status == "naughty") {: the condition has length > 1 and only
+## the first element will be used
 
 tmp
-    name  status present
-1   Alex naughty    coal
-2 Edison    nice    coal
-3  Susan    <NA>    coal
-4   Ryan neutral    coal
+##     name  status present
+## 1   Alex naughty    coal
+## 2 Edison    nice    coal
+## 3  Susan    <NA>    coal
+## 4   Ryan neutral    coal
 ```
 
 What happened? 
@@ -2209,11 +2202,11 @@ When evaluating if statements, R does not evaluate each entry in the vector `tmp
 tmp$present <- ifelse(tmp$status == "naughty", "coal", "toy")
 
 tmp
-    name  status present
-1   Alex naughty    coal
-2 Edison    nice     toy
-3  Susan    <NA>    <NA>
-4   Ryan neutral     toy
+##     name  status present
+## 1   Alex naughty    coal
+## 2 Edison    nice     toy
+## 3  Susan    <NA>    <NA>
+## 4   Ryan neutral     toy
 ```
 
 When R evaluates a missing value, (so ? NA == "naughty"), the result is `NA`. This is fine for us - if we don't have data on whether someone is naughty or nice, maybe we don't need to give them a present at all. But "neutral" is evaluated as getting a toy. Do we want that to happen? Maybe not. We might have to nest ifelse statements to solve this issue...
@@ -2225,11 +2218,11 @@ tmp$present <- ifelse(tmp$status == "naughty",
                       ifelse(tmp$status == "nice", "toy", NA))
 
 tmp
-    name  status present
-1   Alex naughty    coal
-2 Edison    nice     toy
-3  Susan    <NA>    <NA>
-4   Ryan neutral    <NA>
+##     name  status present
+## 1   Alex naughty    coal
+## 2 Edison    nice     toy
+## 3  Susan    <NA>    <NA>
+## 4   Ryan neutral    <NA>
 ```
 </details>
 
@@ -2259,7 +2252,7 @@ run;
 
 
 <div class="branch">
-<a name="IDX"></a>
+<a name="IDX24"></a>
 <div>
 <div align="center">
 <!--BEGINTABLE--><table class="table" style=" border-left-width: 0px; border-right-width: 0px;" cellspacing="0" cellpadding="7" rules="groups" frame="hsides" bordercolor="#C1C1C1" summary="Procedure Print: Data Set WORK.PRESENTS">
@@ -2390,9 +2383,11 @@ NOTE: Due to ERROR(s) above, SAS set option OBS=0, enabling syntax check
       This prevents execution of subsequent data modification statements.
 WARNING: The data set WORK.PRESENTS may be incomplete.  When this step was 
          stopped there were 0 observations and 4 variables.
+WARNING: Data set WORK.PRESENTS was not replaced because this step was 
+         stopped.
 NOTE: DATA statement used (Total process time):
       real time           0.00 seconds
-      cpu time            0.00 seconds
+      cpu time            0.01 seconds
       
 
 
@@ -2406,7 +2401,7 @@ NOTE: PROCEDURE PRINT used (Total process time):
       cpu time            0.00 seconds
       
 
-ERROR: Errors printed on page 1.
+ERROR: Errors printed on page 4.
 ```
 
 
@@ -2611,7 +2606,7 @@ x <- sample(1:50, size = 20, replace = F)
 # Conditional statements go here
 
 sum(x * y)
-[1] 1567.609
+## [1] 1567.609
 ```
 
 ````
@@ -2660,7 +2655,7 @@ y_mag <- ifelse(x %% 3 == 0, 2, 1)
 y <- y_sign * y_mag
 
 sum(x * y)
-[1] 157
+## [1] 157
 ```
 </details>
 <details><summary>SAS Solution</summary>
@@ -2679,7 +2674,7 @@ NOTE: The data set WORK.SAMPLEDATA has 20 observations and 1 variables.
 12         quit;
 NOTE: Exiting IML.
 NOTE: PROCEDURE IML used (Total process time):
-      real time           0.01 seconds
+      real time           0.00 seconds
       cpu time            0.01 seconds
       
 
@@ -2718,7 +2713,7 @@ NOTE: There were 20 observations read from the data set WORK.XY.
 NOTE: The data set WORK.TMPSUM has 1 observations and 3 variables.
 NOTE: PROCEDURE SUMMARY used (Total process time):
       real time           0.00 seconds
-      cpu time            0.01 seconds
+      cpu time            0.02 seconds
       
 
 35         
@@ -2731,8 +2726,8 @@ NOTE: PROCEDURE SUMMARY used (Total process time):
 
 NOTE: There were 20 observations read from the data set WORK.XY.
 NOTE: PROCEDURE PRINT used (Total process time):
-      real time           0.00 seconds
-      cpu time            0.00 seconds
+      real time           0.01 seconds
+      cpu time            0.01 seconds
       
 
 41         
@@ -2748,7 +2743,7 @@ NOTE: PROCEDURE PRINT used (Total process time):
 
 
 <div class="branch">
-<a name="IDX"></a>
+<a name="IDX2"></a>
 <div>
 <div align="center">
 <!--BEGINTABLE--><table class="table" style=" border-left-width: 0px; border-right-width: 0px;" cellspacing="0" cellpadding="7" rules="groups" frame="hsides" bordercolor="#C1C1C1" summary="Procedure Print: Data Set WORK.XY">
@@ -2903,7 +2898,7 @@ NOTE: PROCEDURE PRINT used (Total process time):
 </div>
 <div class="branch">
 <p style="page-break-after: always;"><br/></p><hr size="3"/>
-<a name="IDX1"></a>
+<a name="IDX3"></a>
 <div>
 <div align="center">
 <!--BEGINTABLE--><table class="table" style=" border-left-width: 0px; border-right-width: 0px;" cellspacing="0" cellpadding="7" rules="groups" frame="hsides" bordercolor="#C1C1C1" summary="Procedure Print: Data Set WORK.TMPSUM">
@@ -3007,7 +3002,7 @@ for (i in 1:nrow(tmp)) {
     # character type to avoid any issues
   }
 }
-Error in if (tmp$status[i] == "naughty") {: missing value where TRUE/FALSE needed
+## Error in if (tmp$status[i] == "naughty") {: missing value where TRUE/FALSE needed
 ```
 
 Well, that didn't work! We can see that the loop stopped at `i = 3` by printing out the value of `i` - because the loop failed, `i` will still contain the value which caused the loop to stop. 
@@ -3015,10 +3010,10 @@ Well, that didn't work! We can see that the loop stopped at `i = 3` by printing 
 
 ```r
 i
-[1] 3
+## [1] 3
 tmp[i,] # print tmp at that point
-   name status present
-3 Susan   <NA>    <NA>
+##    name status present
+## 3 Susan   <NA>    <NA>
 ```
 
 
@@ -3045,11 +3040,11 @@ for (i in 1:nrow(tmp)) {
 }
 
 tmp
-    name  status present
-1   Alex naughty    coal
-2 Edison    nice     toy
-3  Susan    <NA>    <NA>
-4   Ryan neutral    <NA>
+##     name  status present
+## 1   Alex naughty    coal
+## 2 Edison    nice     toy
+## 3  Susan    <NA>    <NA>
+## 4   Ryan neutral    <NA>
 ```
 
 Now the if/else logic works exactly as intended. This is longer than the version using `ifelse()`, but it is perhaps more readable. 
@@ -3067,16 +3062,16 @@ Here is an example of the most basic for loop logic - printing the numbers 1 thr
 for (i in 1:10) {
   print(i)
 }
-[1] 1
-[1] 2
-[1] 3
-[1] 4
-[1] 5
-[1] 6
-[1] 7
-[1] 8
-[1] 9
-[1] 10
+## [1] 1
+## [1] 2
+## [1] 3
+## [1] 4
+## [1] 5
+## [1] 6
+## [1] 7
+## [1] 8
+## [1] 9
+## [1] 10
 ```
 </details>
 
@@ -3093,14 +3088,14 @@ NOTE: IML Ready
 11         quit;
 NOTE: Exiting IML.
 NOTE: PROCEDURE IML used (Total process time):
-      real time           0.00 seconds
+      real time           0.01 seconds
       cpu time            0.01 seconds
       
 ```
 
 
 <div class="branch">
-<a name="IDX"></a>
+<a name="IDX4"></a>
 <div>
 <div align="center">
 <!--BEGINTABLE--><table class="table" style=" border-left-width: 0px; border-right-width: 0px;" cellspacing="0" cellpadding="7" rules="groups" frame="hsides" bordercolor="#C1C1C1" summary="Procedure IML: i">
@@ -3121,7 +3116,7 @@ NOTE: PROCEDURE IML used (Total process time):
 <!--ENDTABLE--></div>
 </div>
 <br>
-<a name="IDX1"></a>
+<a name="IDX5"></a>
 <div>
 <div align="center">
 <!--BEGINTABLE--><table class="table" style=" border-left-width: 0px; border-right-width: 0px;" cellspacing="0" cellpadding="7" rules="groups" frame="hsides" bordercolor="#C1C1C1" summary="Procedure IML: i">
@@ -3142,7 +3137,7 @@ NOTE: PROCEDURE IML used (Total process time):
 <!--ENDTABLE--></div>
 </div>
 <br>
-<a name="IDX2"></a>
+<a name="IDX6"></a>
 <div>
 <div align="center">
 <!--BEGINTABLE--><table class="table" style=" border-left-width: 0px; border-right-width: 0px;" cellspacing="0" cellpadding="7" rules="groups" frame="hsides" bordercolor="#C1C1C1" summary="Procedure IML: i">
@@ -3163,7 +3158,7 @@ NOTE: PROCEDURE IML used (Total process time):
 <!--ENDTABLE--></div>
 </div>
 <br>
-<a name="IDX3"></a>
+<a name="IDX7"></a>
 <div>
 <div align="center">
 <!--BEGINTABLE--><table class="table" style=" border-left-width: 0px; border-right-width: 0px;" cellspacing="0" cellpadding="7" rules="groups" frame="hsides" bordercolor="#C1C1C1" summary="Procedure IML: i">
@@ -3184,7 +3179,7 @@ NOTE: PROCEDURE IML used (Total process time):
 <!--ENDTABLE--></div>
 </div>
 <br>
-<a name="IDX4"></a>
+<a name="IDX8"></a>
 <div>
 <div align="center">
 <!--BEGINTABLE--><table class="table" style=" border-left-width: 0px; border-right-width: 0px;" cellspacing="0" cellpadding="7" rules="groups" frame="hsides" bordercolor="#C1C1C1" summary="Procedure IML: i">
@@ -3205,7 +3200,7 @@ NOTE: PROCEDURE IML used (Total process time):
 <!--ENDTABLE--></div>
 </div>
 <br>
-<a name="IDX5"></a>
+<a name="IDX9"></a>
 <div>
 <div align="center">
 <!--BEGINTABLE--><table class="table" style=" border-left-width: 0px; border-right-width: 0px;" cellspacing="0" cellpadding="7" rules="groups" frame="hsides" bordercolor="#C1C1C1" summary="Procedure IML: i">
@@ -3226,7 +3221,7 @@ NOTE: PROCEDURE IML used (Total process time):
 <!--ENDTABLE--></div>
 </div>
 <br>
-<a name="IDX6"></a>
+<a name="IDX10"></a>
 <div>
 <div align="center">
 <!--BEGINTABLE--><table class="table" style=" border-left-width: 0px; border-right-width: 0px;" cellspacing="0" cellpadding="7" rules="groups" frame="hsides" bordercolor="#C1C1C1" summary="Procedure IML: i">
@@ -3247,7 +3242,7 @@ NOTE: PROCEDURE IML used (Total process time):
 <!--ENDTABLE--></div>
 </div>
 <br>
-<a name="IDX7"></a>
+<a name="IDX11"></a>
 <div>
 <div align="center">
 <!--BEGINTABLE--><table class="table" style=" border-left-width: 0px; border-right-width: 0px;" cellspacing="0" cellpadding="7" rules="groups" frame="hsides" bordercolor="#C1C1C1" summary="Procedure IML: i">
@@ -3268,7 +3263,7 @@ NOTE: PROCEDURE IML used (Total process time):
 <!--ENDTABLE--></div>
 </div>
 <br>
-<a name="IDX8"></a>
+<a name="IDX12"></a>
 <div>
 <div align="center">
 <!--BEGINTABLE--><table class="table" style=" border-left-width: 0px; border-right-width: 0px;" cellspacing="0" cellpadding="7" rules="groups" frame="hsides" bordercolor="#C1C1C1" summary="Procedure IML: i">
@@ -3289,7 +3284,7 @@ NOTE: PROCEDURE IML used (Total process time):
 <!--ENDTABLE--></div>
 </div>
 <br>
-<a name="IDX9"></a>
+<a name="IDX13"></a>
 <div>
 <div align="center">
 <!--BEGINTABLE--><table class="table" style=" border-left-width: 0px; border-right-width: 0px;" cellspacing="0" cellpadding="7" rules="groups" frame="hsides" bordercolor="#C1C1C1" summary="Procedure IML: i">
@@ -3354,11 +3349,11 @@ x <- rnorm(5) # Generate 5 normal (0,1) samples
 for (i in x) {
   print(i^2)
 }
-[1] 4.500349
-[1] 3.820737
-[1] 2.656216
-[1] 1.120775
-[1] 2.10086
+## [1] 4.500349
+## [1] 3.820737
+## [1] 2.656216
+## [1] 1.120775
+## [1] 2.10086
 ```
 
 We can also iterate by non-integer values using `seq(from = , to = , by = )`
@@ -3510,8 +3505,8 @@ NOTE: IML Ready
 17         quit;
 NOTE: Exiting IML.
 NOTE: PROCEDURE IML used (Total process time):
-      real time           0.01 seconds
-      cpu time            0.01 seconds
+      real time           0.02 seconds
+      cpu time            0.03 seconds
       
 
 18         
@@ -3519,7 +3514,7 @@ NOTE: PROCEDURE IML used (Total process time):
 
 
 <div class="branch">
-<a name="IDX10"></a>
+<a name="IDX14"></a>
 <div>
 <div align="center">
 <!--BEGINTABLE--><table class="table" style=" border-left-width: 0px; border-right-width: 0px;" cellspacing="0" cellpadding="7" rules="groups" frame="hsides" bordercolor="#C1C1C1" summary="Procedure IML: current">
@@ -3540,7 +3535,7 @@ NOTE: PROCEDURE IML used (Total process time):
 <!--ENDTABLE--></div>
 </div>
 <br>
-<a name="IDX11"></a>
+<a name="IDX15"></a>
 <div>
 <div align="center">
 <!--BEGINTABLE--><table class="table" style=" border-left-width: 0px; border-right-width: 0px;" cellspacing="0" cellpadding="7" rules="groups" frame="hsides" bordercolor="#C1C1C1" summary="Procedure IML: current">
@@ -3561,7 +3556,7 @@ NOTE: PROCEDURE IML used (Total process time):
 <!--ENDTABLE--></div>
 </div>
 <br>
-<a name="IDX12"></a>
+<a name="IDX16"></a>
 <div>
 <div align="center">
 <!--BEGINTABLE--><table class="table" style=" border-left-width: 0px; border-right-width: 0px;" cellspacing="0" cellpadding="7" rules="groups" frame="hsides" bordercolor="#C1C1C1" summary="Procedure IML: current">
@@ -3582,7 +3577,7 @@ NOTE: PROCEDURE IML used (Total process time):
 <!--ENDTABLE--></div>
 </div>
 <br>
-<a name="IDX13"></a>
+<a name="IDX17"></a>
 <div>
 <div align="center">
 <!--BEGINTABLE--><table class="table" style=" border-left-width: 0px; border-right-width: 0px;" cellspacing="0" cellpadding="7" rules="groups" frame="hsides" bordercolor="#C1C1C1" summary="Procedure IML: current">
@@ -3603,7 +3598,7 @@ NOTE: PROCEDURE IML used (Total process time):
 <!--ENDTABLE--></div>
 </div>
 <br>
-<a name="IDX14"></a>
+<a name="IDX18"></a>
 <div>
 <div align="center">
 <!--BEGINTABLE--><table class="table" style=" border-left-width: 0px; border-right-width: 0px;" cellspacing="0" cellpadding="7" rules="groups" frame="hsides" bordercolor="#C1C1C1" summary="Procedure IML: current">
@@ -3624,7 +3619,7 @@ NOTE: PROCEDURE IML used (Total process time):
 <!--ENDTABLE--></div>
 </div>
 <br>
-<a name="IDX15"></a>
+<a name="IDX19"></a>
 <div>
 <div align="center">
 <!--BEGINTABLE--><table class="table" style=" border-left-width: 0px; border-right-width: 0px;" cellspacing="0" cellpadding="7" rules="groups" frame="hsides" bordercolor="#C1C1C1" summary="Procedure IML: current">
@@ -3645,7 +3640,7 @@ NOTE: PROCEDURE IML used (Total process time):
 <!--ENDTABLE--></div>
 </div>
 <br>
-<a name="IDX16"></a>
+<a name="IDX20"></a>
 <div>
 <div align="center">
 <!--BEGINTABLE--><table class="table" style=" border-left-width: 0px; border-right-width: 0px;" cellspacing="0" cellpadding="7" rules="groups" frame="hsides" bordercolor="#C1C1C1" summary="Procedure IML: current">
@@ -3666,7 +3661,7 @@ NOTE: PROCEDURE IML used (Total process time):
 <!--ENDTABLE--></div>
 </div>
 <br>
-<a name="IDX17"></a>
+<a name="IDX21"></a>
 <div>
 <div align="center">
 <!--BEGINTABLE--><table class="table" style=" border-left-width: 0px; border-right-width: 0px;" cellspacing="0" cellpadding="7" rules="groups" frame="hsides" bordercolor="#C1C1C1" summary="Procedure IML: current">
@@ -3687,7 +3682,7 @@ NOTE: PROCEDURE IML used (Total process time):
 <!--ENDTABLE--></div>
 </div>
 <br>
-<a name="IDX18"></a>
+<a name="IDX22"></a>
 <div>
 <div align="center">
 <!--BEGINTABLE--><table class="table" style=" border-left-width: 0px; border-right-width: 0px;" cellspacing="0" cellpadding="7" rules="groups" frame="hsides" bordercolor="#C1C1C1" summary="Procedure IML: current">
@@ -3708,7 +3703,7 @@ NOTE: PROCEDURE IML used (Total process time):
 <!--ENDTABLE--></div>
 </div>
 <br>
-<a name="IDX19"></a>
+<a name="IDX23"></a>
 <div>
 <div align="center">
 <!--BEGINTABLE--><table class="table" style=" border-left-width: 0px; border-right-width: 0px;" cellspacing="0" cellpadding="7" rules="groups" frame="hsides" bordercolor="#C1C1C1" summary="Procedure IML: current">
@@ -3729,7 +3724,7 @@ NOTE: PROCEDURE IML used (Total process time):
 <!--ENDTABLE--></div>
 </div>
 <br>
-<a name="IDX20"></a>
+<a name="IDX24"></a>
 <div>
 <div align="center">
 <!--BEGINTABLE--><table class="table" style=" border-left-width: 0px; border-right-width: 0px;" cellspacing="0" cellpadding="7" rules="groups" frame="hsides" bordercolor="#C1C1C1" summary="Procedure IML: current">
@@ -3750,7 +3745,7 @@ NOTE: PROCEDURE IML used (Total process time):
 <!--ENDTABLE--></div>
 </div>
 <br>
-<a name="IDX21"></a>
+<a name="IDX25"></a>
 <div>
 <div align="center">
 <!--BEGINTABLE--><table class="table" style=" border-left-width: 0px; border-right-width: 0px;" cellspacing="0" cellpadding="7" rules="groups" frame="hsides" bordercolor="#C1C1C1" summary="Procedure IML: current">
@@ -3771,7 +3766,7 @@ NOTE: PROCEDURE IML used (Total process time):
 <!--ENDTABLE--></div>
 </div>
 <br>
-<a name="IDX22"></a>
+<a name="IDX26"></a>
 <div>
 <div align="center">
 <!--BEGINTABLE--><table class="table" style=" border-left-width: 0px; border-right-width: 0px;" cellspacing="0" cellpadding="7" rules="groups" frame="hsides" bordercolor="#C1C1C1" summary="Procedure IML: current">
@@ -3792,7 +3787,7 @@ NOTE: PROCEDURE IML used (Total process time):
 <!--ENDTABLE--></div>
 </div>
 <br>
-<a name="IDX23"></a>
+<a name="IDX27"></a>
 <div>
 <div align="center">
 <!--BEGINTABLE--><table class="table" style=" border-left-width: 0px; border-right-width: 0px;" cellspacing="0" cellpadding="7" rules="groups" frame="hsides" bordercolor="#C1C1C1" summary="Procedure IML: current">
@@ -3813,7 +3808,7 @@ NOTE: PROCEDURE IML used (Total process time):
 <!--ENDTABLE--></div>
 </div>
 <br>
-<a name="IDX24"></a>
+<a name="IDX28"></a>
 <div>
 <div align="center">
 <!--BEGINTABLE--><table class="table" style=" border-left-width: 0px; border-right-width: 0px;" cellspacing="0" cellpadding="7" rules="groups" frame="hsides" bordercolor="#C1C1C1" summary="Procedure IML: current">
@@ -3834,7 +3829,7 @@ NOTE: PROCEDURE IML used (Total process time):
 <!--ENDTABLE--></div>
 </div>
 <br>
-<a name="IDX25"></a>
+<a name="IDX29"></a>
 <div>
 <div align="center">
 <!--BEGINTABLE--><table class="table" style=" border-left-width: 0px; border-right-width: 0px;" cellspacing="0" cellpadding="7" rules="groups" frame="hsides" bordercolor="#C1C1C1" summary="Procedure IML: current">
@@ -3855,7 +3850,7 @@ NOTE: PROCEDURE IML used (Total process time):
 <!--ENDTABLE--></div>
 </div>
 <br>
-<a name="IDX26"></a>
+<a name="IDX30"></a>
 <div>
 <div align="center">
 <!--BEGINTABLE--><table class="table" style=" border-left-width: 0px; border-right-width: 0px;" cellspacing="0" cellpadding="7" rules="groups" frame="hsides" bordercolor="#C1C1C1" summary="Procedure IML: current">
@@ -3876,7 +3871,7 @@ NOTE: PROCEDURE IML used (Total process time):
 <!--ENDTABLE--></div>
 </div>
 <br>
-<a name="IDX27"></a>
+<a name="IDX31"></a>
 <div>
 <div align="center">
 <!--BEGINTABLE--><table class="table" style=" border-left-width: 0px; border-right-width: 0px;" cellspacing="0" cellpadding="7" rules="groups" frame="hsides" bordercolor="#C1C1C1" summary="Procedure IML: current">
@@ -3897,7 +3892,7 @@ NOTE: PROCEDURE IML used (Total process time):
 <!--ENDTABLE--></div>
 </div>
 <br>
-<a name="IDX28"></a>
+<a name="IDX32"></a>
 <div>
 <div align="center">
 <!--BEGINTABLE--><table class="table" style=" border-left-width: 0px; border-right-width: 0px;" cellspacing="0" cellpadding="7" rules="groups" frame="hsides" bordercolor="#C1C1C1" summary="Procedure IML: current">
@@ -3918,7 +3913,7 @@ NOTE: PROCEDURE IML used (Total process time):
 <!--ENDTABLE--></div>
 </div>
 <br>
-<a name="IDX29"></a>
+<a name="IDX33"></a>
 <div>
 <div align="center">
 <!--BEGINTABLE--><table class="table" style=" border-left-width: 0px; border-right-width: 0px;" cellspacing="0" cellpadding="7" rules="groups" frame="hsides" bordercolor="#C1C1C1" summary="Procedure IML: current">
@@ -3939,7 +3934,7 @@ NOTE: PROCEDURE IML used (Total process time):
 <!--ENDTABLE--></div>
 </div>
 <br>
-<a name="IDX30"></a>
+<a name="IDX34"></a>
 <div>
 <div align="center">
 <!--BEGINTABLE--><table class="table" style=" border-left-width: 0px; border-right-width: 0px;" cellspacing="0" cellpadding="7" rules="groups" frame="hsides" bordercolor="#C1C1C1" summary="Procedure IML: current">
@@ -3960,7 +3955,7 @@ NOTE: PROCEDURE IML used (Total process time):
 <!--ENDTABLE--></div>
 </div>
 <br>
-<a name="IDX31"></a>
+<a name="IDX35"></a>
 <div>
 <div align="center">
 <!--BEGINTABLE--><table class="table" style=" border-left-width: 0px; border-right-width: 0px;" cellspacing="0" cellpadding="7" rules="groups" frame="hsides" bordercolor="#C1C1C1" summary="Procedure IML: current">
@@ -3981,7 +3976,7 @@ NOTE: PROCEDURE IML used (Total process time):
 <!--ENDTABLE--></div>
 </div>
 <br>
-<a name="IDX32"></a>
+<a name="IDX36"></a>
 <div>
 <div align="center">
 <!--BEGINTABLE--><table class="table" style=" border-left-width: 0px; border-right-width: 0px;" cellspacing="0" cellpadding="7" rules="groups" frame="hsides" bordercolor="#C1C1C1" summary="Procedure IML: current">
@@ -4002,7 +3997,7 @@ NOTE: PROCEDURE IML used (Total process time):
 <!--ENDTABLE--></div>
 </div>
 <br>
-<a name="IDX33"></a>
+<a name="IDX37"></a>
 <div>
 <div align="center">
 <!--BEGINTABLE--><table class="table" style=" border-left-width: 0px; border-right-width: 0px;" cellspacing="0" cellpadding="7" rules="groups" frame="hsides" bordercolor="#C1C1C1" summary="Procedure IML: current">
@@ -4023,7 +4018,7 @@ NOTE: PROCEDURE IML used (Total process time):
 <!--ENDTABLE--></div>
 </div>
 <br>
-<a name="IDX34"></a>
+<a name="IDX38"></a>
 <div>
 <div align="center">
 <!--BEGINTABLE--><table class="table" style=" border-left-width: 0px; border-right-width: 0px;" cellspacing="0" cellpadding="7" rules="groups" frame="hsides" bordercolor="#C1C1C1" summary="Procedure IML: current">
@@ -4044,7 +4039,7 @@ NOTE: PROCEDURE IML used (Total process time):
 <!--ENDTABLE--></div>
 </div>
 <br>
-<a name="IDX35"></a>
+<a name="IDX39"></a>
 <div>
 <div align="center">
 <!--BEGINTABLE--><table class="table" style=" border-left-width: 0px; border-right-width: 0px;" cellspacing="0" cellpadding="7" rules="groups" frame="hsides" bordercolor="#C1C1C1" summary="Procedure IML: current">
@@ -4065,7 +4060,7 @@ NOTE: PROCEDURE IML used (Total process time):
 <!--ENDTABLE--></div>
 </div>
 <br>
-<a name="IDX36"></a>
+<a name="IDX40"></a>
 <div>
 <div align="center">
 <!--BEGINTABLE--><table class="table" style=" border-left-width: 0px; border-right-width: 0px;" cellspacing="0" cellpadding="7" rules="groups" frame="hsides" bordercolor="#C1C1C1" summary="Procedure IML: current">
@@ -4086,7 +4081,7 @@ NOTE: PROCEDURE IML used (Total process time):
 <!--ENDTABLE--></div>
 </div>
 <br>
-<a name="IDX37"></a>
+<a name="IDX41"></a>
 <div>
 <div align="center">
 <!--BEGINTABLE--><table class="table" style=" border-left-width: 0px; border-right-width: 0px;" cellspacing="0" cellpadding="7" rules="groups" frame="hsides" bordercolor="#C1C1C1" summary="Procedure IML: current">
@@ -4107,7 +4102,7 @@ NOTE: PROCEDURE IML used (Total process time):
 <!--ENDTABLE--></div>
 </div>
 <br>
-<a name="IDX38"></a>
+<a name="IDX42"></a>
 <div>
 <div align="center">
 <!--BEGINTABLE--><table class="table" style=" border-left-width: 0px; border-right-width: 0px;" cellspacing="0" cellpadding="7" rules="groups" frame="hsides" bordercolor="#C1C1C1" summary="Procedure IML: current">
@@ -4128,7 +4123,7 @@ NOTE: PROCEDURE IML used (Total process time):
 <!--ENDTABLE--></div>
 </div>
 <br>
-<a name="IDX39"></a>
+<a name="IDX43"></a>
 <div>
 <div align="center">
 <!--BEGINTABLE--><table class="table" style=" border-left-width: 0px; border-right-width: 0px;" cellspacing="0" cellpadding="7" rules="groups" frame="hsides" bordercolor="#C1C1C1" summary="Procedure IML: current">
@@ -4188,23 +4183,23 @@ while (abs(basel_value - prev_basel_value) > 0.000001) {
     print(c('i = ' = i, 'prev' = prev_basel_value, 'current' = basel_value, diff = basel_value - prev_basel_value))
   }
 }
-        i =          prev      current         diff 
-2.000000e+02 1.639896e+00 1.639922e+00 2.525189e-05 
-        i =          prev      current         diff 
-4.000000e+02 1.642425e+00 1.642431e+00 6.281368e-06 
-        i =          prev      current         diff 
-6.000000e+02 1.643263e+00 1.643266e+00 2.787060e-06 
-        i =          prev      current         diff 
-8.000000e+02 1.643682e+00 1.643683e+00 1.566414e-06 
-        i =          prev      current         diff 
-1.000000e+03 1.643933e+00 1.643934e+00 1.002003e-06 
+##         i =          prev      current         diff 
+## 2.000000e+02 1.639896e+00 1.639922e+00 2.525189e-05 
+##         i =          prev      current         diff 
+## 4.000000e+02 1.642425e+00 1.642431e+00 6.281368e-06 
+##         i =          prev      current         diff 
+## 6.000000e+02 1.643263e+00 1.643266e+00 2.787060e-06 
+##         i =          prev      current         diff 
+## 8.000000e+02 1.643682e+00 1.643683e+00 1.566414e-06 
+##         i =          prev      current         diff 
+## 1.000000e+03 1.643933e+00 1.643934e+00 1.002003e-06
 
 i
-[1] 1001
+## [1] 1001
 basel_value
-[1] 1.643935
+## [1] 1.643935
 prev_basel_value
-[1] 1.643934
+## [1] 1.643934
 ```
 </details>
 
@@ -4237,7 +4232,7 @@ NOTE: IML Ready
 27         quit;
 NOTE: Exiting IML.
 NOTE: PROCEDURE IML used (Total process time):
-      real time           0.01 seconds
+      real time           0.02 seconds
       cpu time            0.02 seconds
       
 
@@ -4246,7 +4241,7 @@ NOTE: PROCEDURE IML used (Total process time):
 
 
 <div class="branch">
-<a name="IDX40"></a>
+<a name="IDX44"></a>
 <div>
 <div align="center">
 <!--BEGINTABLE--><table class="table" style=" border-left-width: 0px; border-right-width: 0px;" cellspacing="0" cellpadding="7" rules="groups" frame="hsides" bordercolor="#C1C1C1" summary="Procedure IML: i">
@@ -4267,7 +4262,7 @@ NOTE: PROCEDURE IML used (Total process time):
 <!--ENDTABLE--></div>
 </div>
 <br>
-<a name="IDX41"></a>
+<a name="IDX45"></a>
 <div>
 <div align="center">
 <!--BEGINTABLE--><table class="table" style=" border-left-width: 0px; border-right-width: 0px;" cellspacing="0" cellpadding="7" rules="groups" frame="hsides" bordercolor="#C1C1C1" summary="Procedure IML: prev">
@@ -4288,7 +4283,7 @@ NOTE: PROCEDURE IML used (Total process time):
 <!--ENDTABLE--></div>
 </div>
 <br>
-<a name="IDX42"></a>
+<a name="IDX46"></a>
 <div>
 <div align="center">
 <!--BEGINTABLE--><table class="table" style=" border-left-width: 0px; border-right-width: 0px;" cellspacing="0" cellpadding="7" rules="groups" frame="hsides" bordercolor="#C1C1C1" summary="Procedure IML: basel">
@@ -4309,7 +4304,7 @@ NOTE: PROCEDURE IML used (Total process time):
 <!--ENDTABLE--></div>
 </div>
 <br>
-<a name="IDX43"></a>
+<a name="IDX47"></a>
 <div>
 <div align="center">
 <!--BEGINTABLE--><table class="table" style=" border-left-width: 0px; border-right-width: 0px;" cellspacing="0" cellpadding="7" rules="groups" frame="hsides" bordercolor="#C1C1C1" summary="Procedure IML: i">
@@ -4330,7 +4325,7 @@ NOTE: PROCEDURE IML used (Total process time):
 <!--ENDTABLE--></div>
 </div>
 <br>
-<a name="IDX44"></a>
+<a name="IDX48"></a>
 <div>
 <div align="center">
 <!--BEGINTABLE--><table class="table" style=" border-left-width: 0px; border-right-width: 0px;" cellspacing="0" cellpadding="7" rules="groups" frame="hsides" bordercolor="#C1C1C1" summary="Procedure IML: prev">
@@ -4351,7 +4346,7 @@ NOTE: PROCEDURE IML used (Total process time):
 <!--ENDTABLE--></div>
 </div>
 <br>
-<a name="IDX45"></a>
+<a name="IDX49"></a>
 <div>
 <div align="center">
 <!--BEGINTABLE--><table class="table" style=" border-left-width: 0px; border-right-width: 0px;" cellspacing="0" cellpadding="7" rules="groups" frame="hsides" bordercolor="#C1C1C1" summary="Procedure IML: basel">
@@ -4372,7 +4367,7 @@ NOTE: PROCEDURE IML used (Total process time):
 <!--ENDTABLE--></div>
 </div>
 <br>
-<a name="IDX46"></a>
+<a name="IDX50"></a>
 <div>
 <div align="center">
 <!--BEGINTABLE--><table class="table" style=" border-left-width: 0px; border-right-width: 0px;" cellspacing="0" cellpadding="7" rules="groups" frame="hsides" bordercolor="#C1C1C1" summary="Procedure IML: i">
@@ -4393,7 +4388,7 @@ NOTE: PROCEDURE IML used (Total process time):
 <!--ENDTABLE--></div>
 </div>
 <br>
-<a name="IDX47"></a>
+<a name="IDX51"></a>
 <div>
 <div align="center">
 <!--BEGINTABLE--><table class="table" style=" border-left-width: 0px; border-right-width: 0px;" cellspacing="0" cellpadding="7" rules="groups" frame="hsides" bordercolor="#C1C1C1" summary="Procedure IML: prev">
@@ -4414,7 +4409,7 @@ NOTE: PROCEDURE IML used (Total process time):
 <!--ENDTABLE--></div>
 </div>
 <br>
-<a name="IDX48"></a>
+<a name="IDX52"></a>
 <div>
 <div align="center">
 <!--BEGINTABLE--><table class="table" style=" border-left-width: 0px; border-right-width: 0px;" cellspacing="0" cellpadding="7" rules="groups" frame="hsides" bordercolor="#C1C1C1" summary="Procedure IML: basel">
@@ -4435,7 +4430,7 @@ NOTE: PROCEDURE IML used (Total process time):
 <!--ENDTABLE--></div>
 </div>
 <br>
-<a name="IDX49"></a>
+<a name="IDX53"></a>
 <div>
 <div align="center">
 <!--BEGINTABLE--><table class="table" style=" border-left-width: 0px; border-right-width: 0px;" cellspacing="0" cellpadding="7" rules="groups" frame="hsides" bordercolor="#C1C1C1" summary="Procedure IML: i">
@@ -4456,7 +4451,7 @@ NOTE: PROCEDURE IML used (Total process time):
 <!--ENDTABLE--></div>
 </div>
 <br>
-<a name="IDX50"></a>
+<a name="IDX54"></a>
 <div>
 <div align="center">
 <!--BEGINTABLE--><table class="table" style=" border-left-width: 0px; border-right-width: 0px;" cellspacing="0" cellpadding="7" rules="groups" frame="hsides" bordercolor="#C1C1C1" summary="Procedure IML: prev">
@@ -4477,7 +4472,7 @@ NOTE: PROCEDURE IML used (Total process time):
 <!--ENDTABLE--></div>
 </div>
 <br>
-<a name="IDX51"></a>
+<a name="IDX55"></a>
 <div>
 <div align="center">
 <!--BEGINTABLE--><table class="table" style=" border-left-width: 0px; border-right-width: 0px;" cellspacing="0" cellpadding="7" rules="groups" frame="hsides" bordercolor="#C1C1C1" summary="Procedure IML: basel">
@@ -4498,7 +4493,7 @@ NOTE: PROCEDURE IML used (Total process time):
 <!--ENDTABLE--></div>
 </div>
 <br>
-<a name="IDX52"></a>
+<a name="IDX56"></a>
 <div>
 <div align="center">
 <!--BEGINTABLE--><table class="table" style=" border-left-width: 0px; border-right-width: 0px;" cellspacing="0" cellpadding="7" rules="groups" frame="hsides" bordercolor="#C1C1C1" summary="Procedure IML: i">
@@ -4519,7 +4514,7 @@ NOTE: PROCEDURE IML used (Total process time):
 <!--ENDTABLE--></div>
 </div>
 <br>
-<a name="IDX53"></a>
+<a name="IDX57"></a>
 <div>
 <div align="center">
 <!--BEGINTABLE--><table class="table" style=" border-left-width: 0px; border-right-width: 0px;" cellspacing="0" cellpadding="7" rules="groups" frame="hsides" bordercolor="#C1C1C1" summary="Procedure IML: prev">
@@ -4540,7 +4535,7 @@ NOTE: PROCEDURE IML used (Total process time):
 <!--ENDTABLE--></div>
 </div>
 <br>
-<a name="IDX54"></a>
+<a name="IDX58"></a>
 <div>
 <div align="center">
 <!--BEGINTABLE--><table class="table" style=" border-left-width: 0px; border-right-width: 0px;" cellspacing="0" cellpadding="7" rules="groups" frame="hsides" bordercolor="#C1C1C1" summary="Procedure IML: basel">
@@ -4561,7 +4556,7 @@ NOTE: PROCEDURE IML used (Total process time):
 <!--ENDTABLE--></div>
 </div>
 <br>
-<a name="IDX55"></a>
+<a name="IDX59"></a>
 <div>
 <div align="center">
 <!--BEGINTABLE--><table class="table" style=" border-left-width: 0px; border-right-width: 0px;" cellspacing="0" cellpadding="7" rules="groups" frame="hsides" bordercolor="#C1C1C1" summary="Procedure IML: i">
@@ -4582,7 +4577,7 @@ NOTE: PROCEDURE IML used (Total process time):
 <!--ENDTABLE--></div>
 </div>
 <br>
-<a name="IDX56"></a>
+<a name="IDX60"></a>
 <div>
 <div align="center">
 <!--BEGINTABLE--><table class="table" style=" border-left-width: 0px; border-right-width: 0px;" cellspacing="0" cellpadding="7" rules="groups" frame="hsides" bordercolor="#C1C1C1" summary="Procedure IML: basel">
@@ -4627,8 +4622,8 @@ while (abs(current_value - prev_value) > 1e-6 & dist > 1e-6) {
 }
 
 c(x = x, dist = dist, current_value = current_value, d_value = abs(current_value - prev_value))
-            x          dist current_value       d_value 
- 3.999939e+00  6.103516e-05  2.500010e-01  9.536961e-07 
+##             x          dist current_value       d_value 
+##  3.999939e+00  6.103516e-05  2.500010e-01  9.536961e-07
 ```
 Before $x$ got to 4 - 1e-6, the change in f(x) became less than 1e-6. 
 
@@ -4653,7 +4648,7 @@ NOTE: IML Ready
 21         quit;
 NOTE: Exiting IML.
 NOTE: PROCEDURE IML used (Total process time):
-      real time           0.00 seconds
+      real time           0.01 seconds
       cpu time            0.01 seconds
       
 
@@ -4662,7 +4657,7 @@ NOTE: PROCEDURE IML used (Total process time):
 
 
 <div class="branch">
-<a name="IDX57"></a>
+<a name="IDX61"></a>
 <div>
 <div align="center">
 <!--BEGINTABLE--><table class="table" style=" border-left-width: 0px; border-right-width: 0px;" cellspacing="0" cellpadding="7" rules="groups" frame="hsides" bordercolor="#C1C1C1" summary="Procedure IML: x">
@@ -4683,7 +4678,7 @@ NOTE: PROCEDURE IML used (Total process time):
 <!--ENDTABLE--></div>
 </div>
 <br>
-<a name="IDX58"></a>
+<a name="IDX62"></a>
 <div>
 <div align="center">
 <!--BEGINTABLE--><table class="table" style=" border-left-width: 0px; border-right-width: 0px;" cellspacing="0" cellpadding="7" rules="groups" frame="hsides" bordercolor="#C1C1C1" summary="Procedure IML: dist">
@@ -4704,7 +4699,7 @@ NOTE: PROCEDURE IML used (Total process time):
 <!--ENDTABLE--></div>
 </div>
 <br>
-<a name="IDX59"></a>
+<a name="IDX63"></a>
 <div>
 <div align="center">
 <!--BEGINTABLE--><table class="table" style=" border-left-width: 0px; border-right-width: 0px;" cellspacing="0" cellpadding="7" rules="groups" frame="hsides" bordercolor="#C1C1C1" summary="Procedure IML: fx">
@@ -4725,7 +4720,7 @@ NOTE: PROCEDURE IML used (Total process time):
 <!--ENDTABLE--></div>
 </div>
 <br>
-<a name="IDX60"></a>
+<a name="IDX64"></a>
 <div>
 <div align="center">
 <!--BEGINTABLE--><table class="table" style=" border-left-width: 0px; border-right-width: 0px;" cellspacing="0" cellpadding="7" rules="groups" frame="hsides" bordercolor="#C1C1C1" summary="Procedure IML: dfx">
@@ -4779,34 +4774,34 @@ x <- t(1:10)
 y <- t(seq(3, 30, by = 3))
 
 x + y
-     [,1] [,2] [,3] [,4] [,5] [,6] [,7] [,8] [,9] [,10]
-[1,]    4    8   12   16   20   24   28   32   36    40
+##      [,1] [,2] [,3] [,4] [,5] [,6] [,7] [,8] [,9] [,10]
+## [1,]    4    8   12   16   20   24   28   32   36    40
 x - y
-     [,1] [,2] [,3] [,4] [,5] [,6] [,7] [,8] [,9] [,10]
-[1,]   -2   -4   -6   -8  -10  -12  -14  -16  -18   -20
+##      [,1] [,2] [,3] [,4] [,5] [,6] [,7] [,8] [,9] [,10]
+## [1,]   -2   -4   -6   -8  -10  -12  -14  -16  -18   -20
 x * y
-     [,1] [,2] [,3] [,4] [,5] [,6] [,7] [,8] [,9] [,10]
-[1,]    3   12   27   48   75  108  147  192  243   300
+##      [,1] [,2] [,3] [,4] [,5] [,6] [,7] [,8] [,9] [,10]
+## [1,]    3   12   27   48   75  108  147  192  243   300
 x / y
-          [,1]      [,2]      [,3]      [,4]      [,5]      [,6]      [,7]
-[1,] 0.3333333 0.3333333 0.3333333 0.3333333 0.3333333 0.3333333 0.3333333
-          [,8]      [,9]     [,10]
-[1,] 0.3333333 0.3333333 0.3333333
+##           [,1]      [,2]      [,3]      [,4]      [,5]      [,6]      [,7]
+## [1,] 0.3333333 0.3333333 0.3333333 0.3333333 0.3333333 0.3333333 0.3333333
+##           [,8]      [,9]     [,10]
+## [1,] 0.3333333 0.3333333 0.3333333
 x^2
-     [,1] [,2] [,3] [,4] [,5] [,6] [,7] [,8] [,9] [,10]
-[1,]    1    4    9   16   25   36   49   64   81   100
+##      [,1] [,2] [,3] [,4] [,5] [,6] [,7] [,8] [,9] [,10]
+## [1,]    1    4    9   16   25   36   49   64   81   100
 t(x) %*% y
-      [,1] [,2] [,3] [,4] [,5] [,6] [,7] [,8] [,9] [,10]
- [1,]    3    6    9   12   15   18   21   24   27    30
- [2,]    6   12   18   24   30   36   42   48   54    60
- [3,]    9   18   27   36   45   54   63   72   81    90
- [4,]   12   24   36   48   60   72   84   96  108   120
- [5,]   15   30   45   60   75   90  105  120  135   150
- [6,]   18   36   54   72   90  108  126  144  162   180
- [7,]   21   42   63   84  105  126  147  168  189   210
- [8,]   24   48   72   96  120  144  168  192  216   240
- [9,]   27   54   81  108  135  162  189  216  243   270
-[10,]   30   60   90  120  150  180  210  240  270   300
+##       [,1] [,2] [,3] [,4] [,5] [,6] [,7] [,8] [,9] [,10]
+##  [1,]    3    6    9   12   15   18   21   24   27    30
+##  [2,]    6   12   18   24   30   36   42   48   54    60
+##  [3,]    9   18   27   36   45   54   63   72   81    90
+##  [4,]   12   24   36   48   60   72   84   96  108   120
+##  [5,]   15   30   45   60   75   90  105  120  135   150
+##  [6,]   18   36   54   72   90  108  126  144  162   180
+##  [7,]   21   42   63   84  105  126  147  168  189   210
+##  [8,]   24   48   72   96  120  144  168  192  216   240
+##  [9,]   27   54   81  108  135  162  189  216  243   270
+## [10,]   30   60   90  120  150  180  210  240  270   300
 ```
 </details>
 
@@ -4829,14 +4824,14 @@ NOTE: IML Ready
 17         quit;
 NOTE: Exiting IML.
 NOTE: PROCEDURE IML used (Total process time):
-      real time           0.01 seconds
+      real time           0.02 seconds
       cpu time            0.02 seconds
       
 ```
 
 
 <div class="branch">
-<a name="IDX61"></a>
+<a name="IDX65"></a>
 <div>
 <div align="center">
 <!--BEGINTABLE--><table class="table" style=" border-left-width: 0px; border-right-width: 0px;" cellspacing="0" cellpadding="7" rules="groups" frame="hsides" bordercolor="#C1C1C1" summary="Procedure IML: z">
@@ -4892,7 +4887,7 @@ NOTE: PROCEDURE IML used (Total process time):
 <!--ENDTABLE--></div>
 </div>
 <br>
-<a name="IDX62"></a>
+<a name="IDX66"></a>
 <div>
 <div align="center">
 <!--BEGINTABLE--><table class="table" style=" border-left-width: 0px; border-right-width: 0px;" cellspacing="0" cellpadding="7" rules="groups" frame="hsides" bordercolor="#C1C1C1" summary="Procedure IML: z2">
@@ -4948,7 +4943,7 @@ NOTE: PROCEDURE IML used (Total process time):
 <!--ENDTABLE--></div>
 </div>
 <br>
-<a name="IDX63"></a>
+<a name="IDX67"></a>
 <div>
 <div align="center">
 <!--BEGINTABLE--><table class="table" style=" border-left-width: 0px; border-right-width: 0px;" cellspacing="0" cellpadding="7" rules="groups" frame="hsides" bordercolor="#C1C1C1" summary="Procedure IML: z3">
@@ -5004,7 +4999,7 @@ NOTE: PROCEDURE IML used (Total process time):
 <!--ENDTABLE--></div>
 </div>
 <br>
-<a name="IDX64"></a>
+<a name="IDX68"></a>
 <div>
 <div align="center">
 <!--BEGINTABLE--><table class="table" style=" border-left-width: 0px; border-right-width: 0px;" cellspacing="0" cellpadding="7" rules="groups" frame="hsides" bordercolor="#C1C1C1" summary="Procedure IML: z4">
@@ -5060,7 +5055,7 @@ NOTE: PROCEDURE IML used (Total process time):
 <!--ENDTABLE--></div>
 </div>
 <br>
-<a name="IDX65"></a>
+<a name="IDX69"></a>
 <div>
 <div align="center">
 <!--BEGINTABLE--><table class="table" style=" border-left-width: 0px; border-right-width: 0px;" cellspacing="0" cellpadding="7" rules="groups" frame="hsides" bordercolor="#C1C1C1" summary="Procedure IML: z5">
@@ -5116,7 +5111,7 @@ NOTE: PROCEDURE IML used (Total process time):
 <!--ENDTABLE--></div>
 </div>
 <br>
-<a name="IDX66"></a>
+<a name="IDX70"></a>
 <div>
 <div align="center">
 <!--BEGINTABLE--><table class="table" style=" border-left-width: 0px; border-right-width: 0px;" cellspacing="0" cellpadding="7" rules="groups" frame="hsides" bordercolor="#C1C1C1" summary="Procedure IML: z6">
@@ -5300,24 +5295,24 @@ Other matrix operations, such as determinants and extraction of the matrix diago
 ```r
 mat <- matrix(c(1, 2, 3, 6, 4, 5, 7, 8, 9), nrow = 3, byrow = T)
 t(mat) # transpose
-     [,1] [,2] [,3]
-[1,]    1    6    7
-[2,]    2    4    8
-[3,]    3    5    9
+##      [,1] [,2] [,3]
+## [1,]    1    6    7
+## [2,]    2    4    8
+## [3,]    3    5    9
 det(mat) # get the determinant
-[1] 18
+## [1] 18
 diag(mat) # get the diagonal
-[1] 1 4 9
+## [1] 1 4 9
 diag(diag(mat)) # get a square matrix with off-diag 0s
-     [,1] [,2] [,3]
-[1,]    1    0    0
-[2,]    0    4    0
-[3,]    0    0    9
+##      [,1] [,2] [,3]
+## [1,]    1    0    0
+## [2,]    0    4    0
+## [3,]    0    0    9
 diag(1:3) # diag() also will create a diagonal matrix if given a vector
-     [,1] [,2] [,3]
-[1,]    1    0    0
-[2,]    0    2    0
-[3,]    0    0    3
+##      [,1] [,2] [,3]
+## [1,]    1    0    0
+## [2,]    0    2    0
+## [3,]    0    0    3
 ```
 </details>
 <details class="ex"><summary>SAS matrix operations</summary>
@@ -5346,14 +5341,14 @@ NOTE: IML Ready
 17         quit;
 NOTE: Exiting IML.
 NOTE: PROCEDURE IML used (Total process time):
-      real time           0.00 seconds
+      real time           0.01 seconds
       cpu time            0.01 seconds
       
 ```
 
 
 <div class="branch">
-<a name="IDX67"></a>
+<a name="IDX71"></a>
 <div>
 <div align="center">
 <!--BEGINTABLE--><table class="table" style=" border-left-width: 0px; border-right-width: 0px;" cellspacing="0" cellpadding="7" rules="groups" frame="hsides" bordercolor="#C1C1C1" summary="Procedure IML: tmat">
@@ -5388,7 +5383,7 @@ NOTE: PROCEDURE IML used (Total process time):
 <!--ENDTABLE--></div>
 </div>
 <br>
-<a name="IDX68"></a>
+<a name="IDX72"></a>
 <div>
 <div align="center">
 <!--BEGINTABLE--><table class="table" style=" border-left-width: 0px; border-right-width: 0px;" cellspacing="0" cellpadding="7" rules="groups" frame="hsides" bordercolor="#C1C1C1" summary="Procedure IML: determinant">
@@ -5409,7 +5404,7 @@ NOTE: PROCEDURE IML used (Total process time):
 <!--ENDTABLE--></div>
 </div>
 <br>
-<a name="IDX69"></a>
+<a name="IDX73"></a>
 <div>
 <div align="center">
 <!--BEGINTABLE--><table class="table" style=" border-left-width: 0px; border-right-width: 0px;" cellspacing="0" cellpadding="7" rules="groups" frame="hsides" bordercolor="#C1C1C1" summary="Procedure IML: diagonal_vector">
@@ -5436,7 +5431,7 @@ NOTE: PROCEDURE IML used (Total process time):
 <!--ENDTABLE--></div>
 </div>
 <br>
-<a name="IDX70"></a>
+<a name="IDX74"></a>
 <div>
 <div align="center">
 <!--BEGINTABLE--><table class="table" style=" border-left-width: 0px; border-right-width: 0px;" cellspacing="0" cellpadding="7" rules="groups" frame="hsides" bordercolor="#C1C1C1" summary="Procedure IML: diagonal_mat">
@@ -5471,7 +5466,7 @@ NOTE: PROCEDURE IML used (Total process time):
 <!--ENDTABLE--></div>
 </div>
 <br>
-<a name="IDX71"></a>
+<a name="IDX75"></a>
 <div>
 <div align="center">
 <!--BEGINTABLE--><table class="table" style=" border-left-width: 0px; border-right-width: 0px;" cellspacing="0" cellpadding="7" rules="groups" frame="hsides" bordercolor="#C1C1C1" summary="Procedure IML: dm">
@@ -5519,15 +5514,15 @@ mat <- matrix(c(1, 2, 3, 6, 4, 5, 7, 8, 9), nrow = 3, byrow = T)
 minv <- solve(mat) # get the inverse
 
 minv
-           [,1]       [,2]       [,3]
-[1,] -0.2222222  0.3333333 -0.1111111
-[2,] -1.0555556 -0.6666667  0.7222222
-[3,]  1.1111111  0.3333333 -0.4444444
+##            [,1]       [,2]       [,3]
+## [1,] -0.2222222  0.3333333 -0.1111111
+## [2,] -1.0555556 -0.6666667  0.7222222
+## [3,]  1.1111111  0.3333333 -0.4444444
 mat %*% minv 
-     [,1] [,2] [,3]
-[1,]    1    0    0
-[2,]    0    1    0
-[3,]    0    0    1
+##      [,1] [,2] [,3]
+## [1,]    1    0    0
+## [2,]    0    1    0
+## [3,]    0    0    1
 ```
 </details>
 
@@ -5551,14 +5546,14 @@ NOTE: IML Ready
 16         quit;
 NOTE: Exiting IML.
 NOTE: PROCEDURE IML used (Total process time):
-      real time           0.00 seconds
-      cpu time            0.00 seconds
+      real time           0.01 seconds
+      cpu time            0.01 seconds
       
 ```
 
 
 <div class="branch">
-<a name="IDX72"></a>
+<a name="IDX76"></a>
 <div>
 <div align="center">
 <!--BEGINTABLE--><table class="table" style=" border-left-width: 0px; border-right-width: 0px;" cellspacing="0" cellpadding="7" rules="groups" frame="hsides" bordercolor="#C1C1C1" summary="Procedure IML: mat_inv">
@@ -5593,7 +5588,7 @@ NOTE: PROCEDURE IML used (Total process time):
 <!--ENDTABLE--></div>
 </div>
 <br>
-<a name="IDX73"></a>
+<a name="IDX77"></a>
 <div>
 <div align="center">
 <!--BEGINTABLE--><table class="table" style=" border-left-width: 0px; border-right-width: 0px;" cellspacing="0" cellpadding="7" rules="groups" frame="hsides" bordercolor="#C1C1C1" summary="Procedure IML: mat_inv2">
@@ -5628,7 +5623,7 @@ NOTE: PROCEDURE IML used (Total process time):
 <!--ENDTABLE--></div>
 </div>
 <br>
-<a name="IDX74"></a>
+<a name="IDX78"></a>
 <div>
 <div align="center">
 <!--BEGINTABLE--><table class="table" style=" border-left-width: 0px; border-right-width: 0px;" cellspacing="0" cellpadding="7" rules="groups" frame="hsides" bordercolor="#C1C1C1" summary="Procedure IML: id">
@@ -5663,7 +5658,7 @@ NOTE: PROCEDURE IML used (Total process time):
 <!--ENDTABLE--></div>
 </div>
 <br>
-<a name="IDX75"></a>
+<a name="IDX79"></a>
 <div>
 <div align="center">
 <!--BEGINTABLE--><table class="table" style=" border-left-width: 0px; border-right-width: 0px;" cellspacing="0" cellpadding="7" rules="groups" frame="hsides" bordercolor="#C1C1C1" summary="Procedure IML: id2">

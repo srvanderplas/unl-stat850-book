@@ -28,12 +28,12 @@ You will also need to sign up for a [GitHub account](https://help.github.com/en/
 
 First, lets cover the basics of setting up the software you're going to be using in this course. You don't at this point have to understand what the different software DOES, but you should at least get it installed and working -- this may be tricky, so we'll take it slow.
 
-### SAS
+### SAS {#setting-up-sas}
 
 For SAS installation, see Steve Westerholt. He manages UNL SAS installations. You can pay a small fee to get the full SAS installation, or you can use SAS community edition (but if you take this route, it may be more difficult to manage your paths, etc., and you may not be able to use SAS Markdown on your machine). You can also use the HCC environment (we will talk more about this in week 2 or thereabouts) set up for you to be able to do your homework. As long as you can run SAS code on a machine you have regular access to, I'm fine.
 
 
-### R 
+### R {#setting-up-R}
 
 Note that the tutorial videos use versions of R that are *old*. You should be installing at least R 4.0 (if you have an older version, please update.) The basic installation process is the same, though, so the videos are still useful.
 
@@ -78,7 +78,7 @@ devtools::install_github(c("mine-cetinkaya-rundel/nycsquirrels18",
 
 If some packages did not install, feel free to post in Yellowdig with the error message(s) received and the list of packages you're having trouble installing (or contact me and we'll set up a time to debug). 
 
-### RStudio
+### RStudio {#setting-up-rstudio}
 
 
 You can find RStudio at https://rstudio.com/products/rstudio/download/. You want the open source edition of RStudio Desktop. If you're feeling brave, you can install the [preview release](https://rstudio.com/products/rstudio/download/preview/#download) - this may have a few bugs, but tends to be relatively stable and has the latest features. Please install RStudio 1.3.9+ for this class. 
@@ -86,7 +86,7 @@ You can find RStudio at https://rstudio.com/products/rstudio/download/. You want
 If you're on Linux, go ahead and [import RStudio's public key](https://rstudio.com/code-signing/) so that software validation works. (All of the commands are provided in the linked page)
 
 
-### git
+### git {#setting-up-git}
 
 The git material in this chapter is just going to link directly to the book "Happy Git with R" by Jenny Bryan. It's amazing, amusing, and generally well written. I'm not going to try to do better. 
 
@@ -112,22 +112,10 @@ Follow the instructions [here](https://happygitwithr.com/hello-git.html), or run
 
 
 ```r
+
 user_name <- readline(prompt = "Your full name: ")
-```
+user_email <- readline(prompt = "The address associated w your github account: ")
 
-```
-## Your full name:
-```
-
-```r
-user_email <- readline(prompt = "The email address associated with your github account: ")
-```
-
-```
-## The email address associated with your github account:
-```
-
-```r
 if (!"usethis" %in% installed.packages()) install.packages("usethis")
 
 library(usethis)
@@ -155,7 +143,7 @@ Then, proceed to github. Make sure you’re signed into GitHub. Click on your pr
 
 I don't personally use a git client other than RStudio, but you may prefer to have a client, especially if you anticipate doing lots of work in SAS.
 
-### LaTeX
+### LaTeX {#setting-up-latex}
 
 You will need to follow operating-system instructions to install LaTeX. If you are using R/RStudio/SAS on Parallels, install LaTeX in parallels using the windows instructions. 
 
@@ -169,7 +157,7 @@ You may find TeXLive in your package manager, but it's usually easier to install
 
 Now that you have the software installed, it's useful to take a look at each program and learn just a little bit about each one. Where there is interesting history and commentary, I've added that in an expandable details section that you can read if you are interested.
 
-### R and RStudio
+### R and RStudio {#looking-around-Rstudio}
 
 R is an open-source statistical programming language. It is a domain-specific language -- that is, it is optimized for doing statistics, and is NOT a general-purpose programming language like C or python.  This means that R is very good for doing data-related tasks, but if you want to implement something that is not data related (or even not tabular data related), it may be harder than you expect.
 
@@ -223,7 +211,7 @@ a <- 3 # store 3 in the variable a
 
 You can use the environment window to preview your data, check on the status of variables, and more. Note that while R is running, the window doesn't update (so you can't check on the status of a loop while the loop is running using the window).
 
-### SAS
+### SAS {#looking-around-sas}
 
 SAS is another extensively used statistical programming language. It is primarily used for mixed models and in the biostatistics community (for e.g. drug trials). 
 
@@ -280,7 +268,7 @@ The git material in this chapter is just going to link directly to the book "Hap
 
 [Go read Chapter 1, if you haven't already.](https://happygitwithr.com/big-picture.html)
 
-#### Git and Github
+#### Git vs Github
 
 <details><summary>Slightly crude (but memorable) analogy (don't click if you're offended by PG13/R rated stuff)</summary>
 Git is to GitHub what Porn is to PornHub. Specifically, GitHub hosts git repositories publicly, while PornHub hosts porn publicly. But it would be silly to equate porn and PornHub, and it's similarly silly to think of GitHub as the only place you can use git repositories.
@@ -292,7 +280,7 @@ If you want, you can hook Git up to GitHub, and make a copy of your local git re
 
 Remember: any data you don't have in 3 different places is data you don't care about.^[Yes, I'm aware that this sounds paranoid. It's been a very rare occasion that I've needed to restore something from another backup. You don't want to take chances. I knew a guy who had to retype his entire masters thesis from the printed out version the night before it was due because he had stored it on a network drive that was decommissioned. You don't want to be that person.]
 
-### LaTeX
+### LaTeX {#looking-around-latex}
 
 LaTeX is a typesetting program, which makes it different from most other document creation software, such as MS Word, which is "WYSIWYG" - what you see is what you get. In LaTeX, you'll type in code to create a document, and LaTeX will compile the document into something pretty. The goal is that you have to think less about formatting and what goes on which page - LaTeX will handle that part for you - so that you can think more about the content.
 
@@ -309,12 +297,15 @@ In practice, it doesn't usually work out like that, so there are programs like m
 LaTeX is often used for typesetting statistical and mathematical papers because its equation editor is top notch. (It was actually written by Donald Knuth because he got so annoyed trying to write his dissertation that he took some time off to write TeX first, and then used it to write his dissertation).^[Amusingly, `knitr` was written in much the same manner. Yihui Xie had to substitute-teach ISU's version of 850 on the day we covered Sweave (a predecessor to knitr). He got so frustrated teaching the class that he went home and started writing `knitr`. Later, he developed Rmarkdown, bookdown, blogdown, and several other packages aimed at making writing documents + code easier to handle.    
 Moral of the story - if you get frustrated with the tools you have, you're in good company. Use it as fuel to make better tools.] 
 
+If you want to try to make a simple LaTeX document in RStudio, [try out this LaTeX tutorial](https://latex-tutorial.com/tutorials/first-document/).
+
 ### Markdown
 
 We'll work with LaTeX later in the semester, but for now, we'll be primarily working with Markdown, which is much simpler. [Here's a quick cheatsheet](https://rmarkdown.rstudio.com/authoring_basics.html). 
 
 When you use markdown within RStudio, you don't have to worry about where pandoc lives on your computer (e.g. the path). You can just click the button at the top of the file that says "Knit" or "Preview" to see what your file looks like.
 
+If you want to try out some simple Markdown formatting, you can create a new Rmarkdown document by going to File > New File > Rmarkdown and testing out the simple document it starts you out with.
 
 ## Some Computer Basics
 

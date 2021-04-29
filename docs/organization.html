@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Module 3 Organization: Packages, Functions, Scripts, and Documents | Stat 850: Computing Tools for Statisticians</title>
   <meta name="description" content="Introductions to statistical computing packages and document preparation software. Topics include: graphical techniques, data management, Monte Carlo simulation, dynamic document preparation, presentation software." />
-  <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.20 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Module 3 Organization: Packages, Functions, Scripts, and Documents | Stat 850: Computing Tools for Statisticians" />
   <meta property="og:type" content="book" />
@@ -32,8 +32,7 @@
   <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon" />
 <link rel="prev" href="intro-prog.html"/>
 <link rel="next" href="reading-data.html"/>
-<script src="libs/header-attrs-2.7/header-attrs.js"></script>
-<script src="libs/jquery-3.5.1/jquery.min.js"></script>
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
@@ -50,22 +49,7 @@
 
 
 
-<link href="libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
-<link href="libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
-<script src="libs/htmlwidgets-1.5.3/htmlwidgets.js"></script>
-<script src="libs/plotly-binding-4.9.3/plotly.js"></script>
-<script src="libs/typedarray-0.1/typedarray.min.js"></script>
-<link href="libs/crosstalk-1.1.1/css/crosstalk.css" rel="stylesheet" />
-<script src="libs/crosstalk-1.1.1/js/crosstalk.min.js"></script>
-<link href="libs/plotly-htmlwidgets-css-1.57.1/plotly-htmlwidgets.css" rel="stylesheet" />
-<script src="libs/plotly-main-1.57.1/plotly-latest.min.js"></script>
-<link href="libs/leaflet-1.3.1/leaflet.css" rel="stylesheet" />
-<script src="libs/leaflet-1.3.1/leaflet.js"></script>
-<link href="libs/leafletfix-1.0.0/leafletfix.css" rel="stylesheet" />
-<script src="libs/proj4-2.6.2/proj4.min.js"></script>
-<script src="libs/Proj4Leaflet-1.0.1/proj4leaflet.js"></script>
-<link href="libs/rstudio_leaflet-1.3.1/rstudio_leaflet.css" rel="stylesheet" />
-<script src="libs/leaflet-binding-2.0.4.1/leaflet.js"></script>
+<script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
 <script>
 
 (function() {
@@ -85,21 +69,36 @@
   }
 })();
 </script>
+<script>
+function unrolltab(evt, tabName) {
+  var i, tabcontent, tablinks;
+  tabcontent = document.getElementsByClassName("tabcontent");
+  for (i = 0; i < tabcontent.length; i++) {
+    tabcontent[i].style.display = "none";
+  }
+  tablinks = document.getElementsByClassName("tablinks");
+  for (i = 0; i < tablinks.length; i++) {
+    tablinks[i].className = tablinks[i].className.replace(" active", "");
+  }
+  document.getElementById(tabName).style.display = "block";
+  evt.currentTarget.className += " active";
+}
+</script>
 
 
 <style type="text/css">
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
+code.sourceCode > span { display: inline-block; line-height: 1.25; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
+code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
 pre.sourceCode { margin: 0; }
 @media screen {
 div.sourceCode { overflow: auto; }
 }
 @media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+code.sourceCode { white-space: pre-wrap; }
+code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
   { counter-reset: source-line 0; }
@@ -119,7 +118,7 @@ pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-le
 div.sourceCode
   {   }
 @media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 code span.al { color: #ff0000; font-weight: bold; } /* Alert */
 code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
@@ -169,47 +168,40 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><a href="./">Introduction to Statistical Computing</a></li>
 
 <li class="divider"></li>
-<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Introduction</a>
-<ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Introduction</a><ul>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html#forward"><i class="fa fa-check"></i>Forward</a></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html#course-description"><i class="fa fa-check"></i>Course Description</a></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html#course-goals"><i class="fa fa-check"></i>Course Goals</a></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html#course-objectives"><i class="fa fa-check"></i>Course Objectives</a></li>
-<li class="chapter" data-level="" data-path="index.html"><a href="index.html#how-to-use-this-book"><i class="fa fa-check"></i>How to Use This Book</a>
-<ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#how-to-use-this-book"><i class="fa fa-check"></i>How to Use This Book</a><ul>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html#header-buttonslinks"><i class="fa fa-check"></i>Header Buttons/Links</a></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html#special-sections"><i class="fa fa-check"></i>Special Sections</a></li>
 </ul></li>
 </ul></li>
 <li class="part"><span><b>I Fundamentals</b></span></li>
-<li class="chapter" data-level="1" data-path="tools.html"><a href="tools.html"><i class="fa fa-check"></i><b>1</b> Tools for Statistical Computing</a>
-<ul>
+<li class="chapter" data-level="1" data-path="tools.html"><a href="tools.html"><i class="fa fa-check"></i><b>1</b> Tools for Statistical Computing</a><ul>
 <li class="chapter" data-level="" data-path="tools.html"><a href="tools.html#module-1-objectives"><i class="fa fa-check"></i>Module Objectives</a></li>
-<li class="chapter" data-level="1.1" data-path="tools.html"><a href="tools.html#setting-up-software"><i class="fa fa-check"></i><b>1.1</b> Setting Up Software</a>
-<ul>
-<li class="chapter" data-level="1.1.1" data-path="tools.html"><a href="tools.html#sas"><i class="fa fa-check"></i><b>1.1.1</b> SAS</a></li>
-<li class="chapter" data-level="1.1.2" data-path="tools.html"><a href="tools.html#r"><i class="fa fa-check"></i><b>1.1.2</b> R</a></li>
-<li class="chapter" data-level="1.1.3" data-path="tools.html"><a href="tools.html#rstudio"><i class="fa fa-check"></i><b>1.1.3</b> RStudio</a></li>
-<li class="chapter" data-level="1.1.4" data-path="tools.html"><a href="tools.html#git"><i class="fa fa-check"></i><b>1.1.4</b> git</a></li>
-<li class="chapter" data-level="1.1.5" data-path="tools.html"><a href="tools.html#latex"><i class="fa fa-check"></i><b>1.1.5</b> LaTeX</a></li>
+<li class="chapter" data-level="1.1" data-path="tools.html"><a href="tools.html#setting-up-software"><i class="fa fa-check"></i><b>1.1</b> Setting Up Software</a><ul>
+<li class="chapter" data-level="1.1.1" data-path="tools.html"><a href="tools.html#setting-up-sas"><i class="fa fa-check"></i><b>1.1.1</b> SAS</a></li>
+<li class="chapter" data-level="1.1.2" data-path="tools.html"><a href="tools.html#setting-up-R"><i class="fa fa-check"></i><b>1.1.2</b> R</a></li>
+<li class="chapter" data-level="1.1.3" data-path="tools.html"><a href="tools.html#setting-up-rstudio"><i class="fa fa-check"></i><b>1.1.3</b> RStudio</a></li>
+<li class="chapter" data-level="1.1.4" data-path="tools.html"><a href="tools.html#setting-up-git"><i class="fa fa-check"></i><b>1.1.4</b> git</a></li>
+<li class="chapter" data-level="1.1.5" data-path="tools.html"><a href="tools.html#setting-up-latex"><i class="fa fa-check"></i><b>1.1.5</b> LaTeX</a></li>
 </ul></li>
-<li class="chapter" data-level="1.2" data-path="tools.html"><a href="tools.html#looking-around-your-environment"><i class="fa fa-check"></i><b>1.2</b> Looking Around Your Environment</a>
-<ul>
-<li class="chapter" data-level="1.2.1" data-path="tools.html"><a href="tools.html#r-and-rstudio"><i class="fa fa-check"></i><b>1.2.1</b> R and RStudio</a></li>
+<li class="chapter" data-level="1.2" data-path="tools.html"><a href="tools.html#looking-around-your-environment"><i class="fa fa-check"></i><b>1.2</b> Looking Around Your Environment</a><ul>
+<li class="chapter" data-level="1.2.1" data-path="tools.html"><a href="tools.html#looking-around-Rstudio"><i class="fa fa-check"></i><b>1.2.1</b> R and RStudio</a></li>
 <li class="chapter" data-level="" data-path="tools.html"><a href="tools.html#try-it-out"><i class="fa fa-check"></i>Try It Out</a></li>
-<li class="chapter" data-level="1.2.2" data-path="tools.html"><a href="tools.html#sas-1"><i class="fa fa-check"></i><b>1.2.2</b> SAS</a></li>
+<li class="chapter" data-level="1.2.2" data-path="tools.html"><a href="tools.html#looking-around-sas"><i class="fa fa-check"></i><b>1.2.2</b> SAS</a></li>
 <li class="chapter" data-level="1.2.3" data-path="tools.html"><a href="tools.html#version-control-with-git"><i class="fa fa-check"></i><b>1.2.3</b> Version Control with Git</a></li>
-<li class="chapter" data-level="1.2.4" data-path="tools.html"><a href="tools.html#latex-1"><i class="fa fa-check"></i><b>1.2.4</b> LaTeX</a></li>
+<li class="chapter" data-level="1.2.4" data-path="tools.html"><a href="tools.html#looking-around-latex"><i class="fa fa-check"></i><b>1.2.4</b> LaTeX</a></li>
 <li class="chapter" data-level="1.2.5" data-path="tools.html"><a href="tools.html#markdown"><i class="fa fa-check"></i><b>1.2.5</b> Markdown</a></li>
 </ul></li>
-<li class="chapter" data-level="1.3" data-path="tools.html"><a href="tools.html#some-computer-basics"><i class="fa fa-check"></i><b>1.3</b> Some Computer Basics</a>
-<ul>
+<li class="chapter" data-level="1.3" data-path="tools.html"><a href="tools.html#some-computer-basics"><i class="fa fa-check"></i><b>1.3</b> Some Computer Basics</a><ul>
 <li class="chapter" data-level="1.3.1" data-path="tools.html"><a href="tools.html#file-systems"><i class="fa fa-check"></i><b>1.3.1</b> File Systems</a></li>
 <li class="chapter" data-level="1.3.2" data-path="tools.html"><a href="tools.html#system-paths"><i class="fa fa-check"></i><b>1.3.2</b> System Paths</a></li>
 <li class="chapter" data-level="1.3.3" data-path="tools.html"><a href="tools.html#working-directories"><i class="fa fa-check"></i><b>1.3.3</b> Working Directories</a></li>
 </ul></li>
-<li class="chapter" data-level="1.4" data-path="tools.html"><a href="tools.html#using-version-control-with-rstudio"><i class="fa fa-check"></i><b>1.4</b> Using Version Control (with RStudio)</a>
-<ul>
+<li class="chapter" data-level="1.4" data-path="tools.html"><a href="tools.html#using-version-control-with-rstudio"><i class="fa fa-check"></i><b>1.4</b> Using Version Control (with RStudio)</a><ul>
 <li class="chapter" data-level="1.4.1" data-path="tools.html"><a href="tools.html#create-a-repository"><i class="fa fa-check"></i><b>1.4.1</b> Create a Repository</a></li>
 <li class="chapter" data-level="1.4.2" data-path="tools.html"><a href="tools.html#adding-files"><i class="fa fa-check"></i><b>1.4.2</b> Adding files</a></li>
 <li class="chapter" data-level="1.4.3" data-path="tools.html"><a href="tools.html#staging-your-changes"><i class="fa fa-check"></i><b>1.4.3</b> Staging your changes</a></li>
@@ -219,34 +211,28 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="1.5" data-path="tools.html"><a href="tools.html#topic-sequencing"><i class="fa fa-check"></i><b>1.5</b> Topic Sequencing</a></li>
 <li class="chapter" data-level="1.6" data-path="tools.html"><a href="tools.html#references"><i class="fa fa-check"></i><b>1.6</b> References</a></li>
 </ul></li>
-<li class="chapter" data-level="2" data-path="intro-prog.html"><a href="intro-prog.html"><i class="fa fa-check"></i><b>2</b> Introduction to Statistical Programming</a>
-<ul>
+<li class="chapter" data-level="2" data-path="intro-prog.html"><a href="intro-prog.html"><i class="fa fa-check"></i><b>2</b> Introduction to Statistical Programming</a><ul>
 <li class="chapter" data-level="" data-path="intro-prog.html"><a href="intro-prog.html#module-2-objectives"><i class="fa fa-check"></i>Module Objectives</a></li>
 <li class="chapter" data-level="" data-path="intro-prog.html"><a href="intro-prog.html#definitions"><i class="fa fa-check"></i>Definitions</a></li>
 <li class="chapter" data-level="" data-path="intro-prog.html"><a href="intro-prog.html#statistical-programming-languages"><i class="fa fa-check"></i>Statistical Programming Languages</a></li>
-<li class="chapter" data-level="2.1" data-path="intro-prog.html"><a href="intro-prog.html#breaking-problems-down"><i class="fa fa-check"></i><b>2.1</b> Breaking Problems Down</a>
-<ul>
-<li class="chapter" data-level="" data-path="intro-prog.html"><a href="intro-prog.html#try-it-out-1"><i class="fa fa-check"></i>Try it out</a></li>
+<li class="chapter" data-level="2.1" data-path="intro-prog.html"><a href="intro-prog.html#breaking-problems-down"><i class="fa fa-check"></i><b>2.1</b> Breaking Problems Down</a><ul>
+<li class="chapter" data-level="" data-path="tools.html"><a href="tools.html#try-it-out"><i class="fa fa-check"></i>Try it out</a></li>
 </ul></li>
-<li class="chapter" data-level="2.2" data-path="intro-prog.html"><a href="intro-prog.html#variable-types"><i class="fa fa-check"></i><b>2.2</b> Variable types</a>
-<ul>
-<li class="chapter" data-level="2.2.1" data-path="intro-prog.html"><a href="intro-prog.html#r-1"><i class="fa fa-check"></i><b>2.2.1</b> R</a></li>
-<li class="chapter" data-level="2.2.2" data-path="intro-prog.html"><a href="intro-prog.html#sas-2"><i class="fa fa-check"></i><b>2.2.2</b> SAS</a></li>
+<li class="chapter" data-level="2.2" data-path="intro-prog.html"><a href="intro-prog.html#variable-types"><i class="fa fa-check"></i><b>2.2</b> Variable types</a><ul>
+<li class="chapter" data-level="2.2.1" data-path="intro-prog.html"><a href="intro-prog.html#r"><i class="fa fa-check"></i><b>2.2.1</b> R</a></li>
+<li class="chapter" data-level="2.2.2" data-path="intro-prog.html"><a href="intro-prog.html#sas"><i class="fa fa-check"></i><b>2.2.2</b> SAS</a></li>
 </ul></li>
-<li class="chapter" data-level="2.3" data-path="intro-prog.html"><a href="intro-prog.html#data-structures"><i class="fa fa-check"></i><b>2.3</b> Data structures</a>
-<ul>
+<li class="chapter" data-level="2.3" data-path="intro-prog.html"><a href="intro-prog.html#data-structures"><i class="fa fa-check"></i><b>2.3</b> Data structures</a><ul>
 <li class="chapter" data-level="2.3.1" data-path="intro-prog.html"><a href="intro-prog.html#homogeneous-data-structures-r-and-sas"><i class="fa fa-check"></i><b>2.3.1</b> Homogeneous data structures (R and SAS)</a></li>
 <li class="chapter" data-level="2.3.2" data-path="intro-prog.html"><a href="intro-prog.html#heterogeneous-data-structures"><i class="fa fa-check"></i><b>2.3.2</b> Heterogeneous data structures</a></li>
 <li class="chapter" data-level="2.3.3" data-path="intro-prog.html"><a href="intro-prog.html#indexing"><i class="fa fa-check"></i><b>2.3.3</b> Indexing</a></li>
 </ul></li>
-<li class="chapter" data-level="2.4" data-path="intro-prog.html"><a href="intro-prog.html#control-structures"><i class="fa fa-check"></i><b>2.4</b> Control structures</a>
-<ul>
+<li class="chapter" data-level="2.4" data-path="intro-prog.html"><a href="intro-prog.html#control-structures"><i class="fa fa-check"></i><b>2.4</b> Control structures</a><ul>
 <li class="chapter" data-level="2.4.1" data-path="intro-prog.html"><a href="intro-prog.html#if-statements"><i class="fa fa-check"></i><b>2.4.1</b> If statements</a></li>
 <li class="chapter" data-level="2.4.2" data-path="intro-prog.html"><a href="intro-prog.html#loops"><i class="fa fa-check"></i><b>2.4.2</b> Loops</a></li>
 </ul></li>
 <li class="chapter" data-level="2.5" data-path="intro-prog.html"><a href="intro-prog.html#overgrown-calculators"><i class="fa fa-check"></i><b>2.5</b> Overgrown Calculators</a></li>
-<li class="chapter" data-level="" data-path="intro-prog.html"><a href="intro-prog.html#references-and-links"><i class="fa fa-check"></i>References and Links</a>
-<ul>
+<li class="chapter" data-level="" data-path="intro-prog.html"><a href="intro-prog.html#references-and-links"><i class="fa fa-check"></i>References and Links</a><ul>
 <li class="chapter" data-level="2.5.1" data-path="intro-prog.html"><a href="intro-prog.html#cheat-sheets-and-reference-cards"><i class="fa fa-check"></i><b>2.5.1</b> Cheat Sheets and Reference Cards</a></li>
 <li class="chapter" data-level="2.5.2" data-path="intro-prog.html"><a href="intro-prog.html#sas-as-taught-in-other-places"><i class="fa fa-check"></i><b>2.5.2</b> SAS (as taught in other places)</a></li>
 <li class="chapter" data-level="2.5.3" data-path="intro-prog.html"><a href="intro-prog.html#r-courses-as-taught-elsewhere-and-textbooks"><i class="fa fa-check"></i><b>2.5.3</b> R courses (as taught elsewhere) and Textbooks</a></li>
@@ -254,161 +240,135 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="2.5.5" data-path="intro-prog.html"><a href="intro-prog.html#non-exhaustive-list-of-sources-used-to-aggregate-core-programming-concepts"><i class="fa fa-check"></i><b>2.5.5</b> Non-Exhaustive List of Sources used to aggregate “core programming concepts”:</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="3" data-path="organization.html"><a href="organization.html"><i class="fa fa-check"></i><b>3</b> Organization: Packages, Functions, Scripts, and Documents</a>
-<ul>
+<li class="chapter" data-level="3" data-path="organization.html"><a href="organization.html"><i class="fa fa-check"></i><b>3</b> Organization: Packages, Functions, Scripts, and Documents</a><ul>
 <li class="chapter" data-level="" data-path="organization.html"><a href="organization.html#module-3-objectives"><i class="fa fa-check"></i>Module Objectives</a></li>
-<li class="chapter" data-level="3.1" data-path="organization.html"><a href="organization.html#reproducibility-and-markdown"><i class="fa fa-check"></i><b>3.1</b> Reproducibility and Markdown</a>
-<ul>
+<li class="chapter" data-level="3.1" data-path="organization.html"><a href="organization.html#reproducibility-and-rmarkdown"><i class="fa fa-check"></i><b>3.1</b> Reproducibility and RMarkdown</a><ul>
 <li class="chapter" data-level="" data-path="organization.html"><a href="organization.html#reproducibility-references-and-reading"><i class="fa fa-check"></i>Reproducibility References and Reading</a></li>
 <li class="chapter" data-level="3.1.1" data-path="organization.html"><a href="organization.html#rmarkdown"><i class="fa fa-check"></i><b>3.1.1</b> Markdown and R</a></li>
 <li class="chapter" data-level="3.1.2" data-path="organization.html"><a href="organization.html#rmarkdown-with-sas"><i class="fa fa-check"></i><b>3.1.2</b> Rmarkdown with… SAS?</a></li>
 </ul></li>
-<li class="chapter" data-level="3.2" data-path="organization.html"><a href="organization.html#functions-and-modules"><i class="fa fa-check"></i><b>3.2</b> Functions and Modules</a>
-<ul>
-<li class="chapter" data-level="" data-path="organization.html"><a href="organization.html#try-it-out-9"><i class="fa fa-check"></i>Try it out</a></li>
-<li class="chapter" data-level="3.2.1" data-path="organization.html"><a href="organization.html#scope"><i class="fa fa-check"></i><b>3.2.1</b> Scope</a></li>
+<li class="chapter" data-level="3.2" data-path="organization.html"><a href="organization.html#functions-and-modules"><i class="fa fa-check"></i><b>3.2</b> Functions and Modules</a><ul>
+<li class="chapter" data-level="" data-path="organization.html"><a href="organization.html#function-example-adding-things-together"><i class="fa fa-check"></i>Function example: Adding things together</a></li>
+<li><a href="intro-prog.html#section"></a></li>
+<li class="chapter" data-level="" data-path="tools.html"><a href="tools.html#try-it-out"><i class="fa fa-check"></i>Try it out</a></li>
+<li><a href="intro-prog.html#section-1"></a></li>
+<li class="chapter" data-level="3.2.1" data-path="organization.html"><a href="organization.html#function-scope"><i class="fa fa-check"></i><b>3.2.1</b> Function Scope</a></li>
 <li class="chapter" data-level="3.2.2" data-path="organization.html"><a href="organization.html#the-pipe"><i class="fa fa-check"></i><b>3.2.2</b> The Pipe</a></li>
 </ul></li>
-<li class="chapter" data-level="3.3" data-path="organization.html"><a href="organization.html#procs-and-data-steps"><i class="fa fa-check"></i><b>3.3</b> Procs and Data steps</a>
-<ul>
-<li class="chapter" data-level="" data-path="organization.html"><a href="organization.html#try-it-out-11"><i class="fa fa-check"></i>Try It Out</a></li>
-</ul></li>
-<li class="chapter" data-level="3.4" data-path="organization.html"><a href="organization.html#scripts"><i class="fa fa-check"></i><b>3.4</b> Scripts</a>
-<ul>
-<li class="chapter" data-level="" data-path="organization.html"><a href="organization.html#try-it-out-12"><i class="fa fa-check"></i>Try it out</a></li>
+<li class="chapter" data-level="3.3" data-path="organization.html"><a href="organization.html#procs-and-data-steps"><i class="fa fa-check"></i><b>3.3</b> Procs and Data steps</a></li>
+<li class="chapter" data-level="3.4" data-path="organization.html"><a href="organization.html#scripts"><i class="fa fa-check"></i><b>3.4</b> Scripts</a><ul>
+<li class="chapter" data-level="" data-path="intro-prog.html"><a href="intro-prog.html#try-it-out-3"><i class="fa fa-check"></i>Try it out</a></li>
 <li class="chapter" data-level="" data-path="organization.html"><a href="organization.html#try-it-out-sas"><i class="fa fa-check"></i>Try it out (SAS)</a></li>
 </ul></li>
-<li class="chapter" data-level="3.5" data-path="organization.html"><a href="organization.html#packages"><i class="fa fa-check"></i><b>3.5</b> Packages</a>
-<ul>
-<li class="chapter" data-level="" data-path="organization.html"><a href="organization.html#try-it-out-13"><i class="fa fa-check"></i>Try it out</a></li>
+<li class="chapter" data-level="3.5" data-path="organization.html"><a href="organization.html#packages"><i class="fa fa-check"></i><b>3.5</b> Packages</a><ul>
+<li class="chapter" data-level="" data-path="intro-prog.html"><a href="intro-prog.html#try-it-out-4"><i class="fa fa-check"></i>Try it out</a></li>
 </ul></li>
-<li class="chapter" data-level="" data-path="organization.html"><a href="organization.html#references-and-links-1"><i class="fa fa-check"></i>References and Links</a></li>
+<li class="chapter" data-level="" data-path="intro-prog.html"><a href="intro-prog.html#references-and-links"><i class="fa fa-check"></i>References and Links</a></li>
 </ul></li>
 <li class="part"><span><b>II Data Programming</b></span></li>
-<li class="chapter" data-level="4" data-path="reading-data.html"><a href="reading-data.html"><i class="fa fa-check"></i><b>4</b> External Data</a>
-<ul>
+<li class="chapter" data-level="4" data-path="reading-data.html"><a href="reading-data.html"><i class="fa fa-check"></i><b>4</b> External Data</a><ul>
 <li class="chapter" data-level="" data-path="reading-data.html"><a href="reading-data.html#reading-data-module-objectives"><i class="fa fa-check"></i>Reading Data: Module Objectives</a></li>
 <li class="chapter" data-level="4.1" data-path="reading-data.html"><a href="reading-data.html#external-data-formats"><i class="fa fa-check"></i><b>4.1</b> External Data Formats</a></li>
-<li class="chapter" data-level="4.2" data-path="reading-data.html"><a href="reading-data.html#text-files"><i class="fa fa-check"></i><b>4.2</b> Text Files</a>
-<ul>
+<li class="chapter" data-level="4.2" data-path="reading-data.html"><a href="reading-data.html#text-files"><i class="fa fa-check"></i><b>4.2</b> Text Files</a><ul>
 <li class="chapter" data-level="4.2.1" data-path="reading-data.html"><a href="reading-data.html#fixed-width-files"><i class="fa fa-check"></i><b>4.2.1</b> Fixed-width files</a></li>
 <li class="chapter" data-level="4.2.2" data-path="reading-data.html"><a href="reading-data.html#delimited-text-files"><i class="fa fa-check"></i><b>4.2.2</b> Delimited Text Files</a></li>
-<li class="chapter" data-level="" data-path="reading-data.html"><a href="reading-data.html#try-it-out-14"><i class="fa fa-check"></i>Try it out</a></li>
+<li class="chapter" data-level="" data-path="tools.html"><a href="tools.html#try-it-out"><i class="fa fa-check"></i>Try it out</a></li>
 </ul></li>
-<li class="chapter" data-level="4.3" data-path="reading-data.html"><a href="reading-data.html#spreadsheets"><i class="fa fa-check"></i><b>4.3</b> Spreadsheets</a>
-<ul>
-<li class="chapter" data-level="" data-path="reading-data.html"><a href="reading-data.html#try-it-out-15"><i class="fa fa-check"></i>Try it out</a></li>
+<li class="chapter" data-level="4.3" data-path="reading-data.html"><a href="reading-data.html#spreadsheets"><i class="fa fa-check"></i><b>4.3</b> Spreadsheets</a><ul>
+<li class="chapter" data-level="" data-path="intro-prog.html"><a href="intro-prog.html#try-it-out-1"><i class="fa fa-check"></i>Try it out</a></li>
 </ul></li>
-<li class="chapter" data-level="4.4" data-path="reading-data.html"><a href="reading-data.html#binary-files"><i class="fa fa-check"></i><b>4.4</b> Binary Files</a>
-<ul>
-<li class="chapter" data-level="" data-path="reading-data.html"><a href="reading-data.html#try-it-out-16"><i class="fa fa-check"></i>Try it out</a></li>
+<li class="chapter" data-level="4.4" data-path="reading-data.html"><a href="reading-data.html#binary-files"><i class="fa fa-check"></i><b>4.4</b> Binary Files</a><ul>
+<li class="chapter" data-level="" data-path="intro-prog.html"><a href="intro-prog.html#try-it-out-2"><i class="fa fa-check"></i>Try it out</a></li>
 </ul></li>
-<li class="chapter" data-level="4.5" data-path="reading-data.html"><a href="reading-data.html#databases"><i class="fa fa-check"></i><b>4.5</b> Databases</a>
-<ul>
+<li class="chapter" data-level="4.5" data-path="reading-data.html"><a href="reading-data.html#databases"><i class="fa fa-check"></i><b>4.5</b> Databases</a><ul>
 <li class="chapter" data-level="4.5.1" data-path="reading-data.html"><a href="reading-data.html#microsoft-access"><i class="fa fa-check"></i><b>4.5.1</b> Microsoft Access</a></li>
 <li class="chapter" data-level="4.5.2" data-path="reading-data.html"><a href="reading-data.html#sqlite"><i class="fa fa-check"></i><b>4.5.2</b> SQLite</a></li>
 </ul></li>
-<li class="chapter" data-level="4.6" data-path="reading-data.html"><a href="reading-data.html#exploratory-data-analysis"><i class="fa fa-check"></i><b>4.6</b> Exploratory Data Analysis</a>
-<ul>
-<li class="chapter" data-level="4.6.1" data-path="reading-data.html"><a href="reading-data.html#sas-3"><i class="fa fa-check"></i><b>4.6.1</b> SAS</a></li>
-<li class="chapter" data-level="4.6.2" data-path="reading-data.html"><a href="reading-data.html#r-2"><i class="fa fa-check"></i><b>4.6.2</b> R</a></li>
+<li class="chapter" data-level="4.6" data-path="reading-data.html"><a href="reading-data.html#exploratory-data-analysis"><i class="fa fa-check"></i><b>4.6</b> Exploratory Data Analysis</a><ul>
+<li class="chapter" data-level="4.6.1" data-path="intro-prog.html"><a href="intro-prog.html#sas"><i class="fa fa-check"></i><b>4.6.1</b> SAS</a></li>
+<li class="chapter" data-level="4.6.2" data-path="intro-prog.html"><a href="intro-prog.html#r"><i class="fa fa-check"></i><b>4.6.2</b> R</a></li>
 <li class="chapter" data-level="4.6.3" data-path="reading-data.html"><a href="reading-data.html#comparison"><i class="fa fa-check"></i><b>4.6.3</b> Comparison</a></li>
 </ul></li>
-<li class="chapter" data-level="" data-path="reading-data.html"><a href="reading-data.html#references-and-links-2"><i class="fa fa-check"></i>References and Links</a></li>
+<li class="chapter" data-level="" data-path="intro-prog.html"><a href="intro-prog.html#references-and-links"><i class="fa fa-check"></i>References and Links</a></li>
 </ul></li>
-<li class="chapter" data-level="5" data-path="manipulating-data.html"><a href="manipulating-data.html"><i class="fa fa-check"></i><b>5</b> Manipulating Data</a>
-<ul>
+<li class="chapter" data-level="5" data-path="manipulating-data.html"><a href="manipulating-data.html"><i class="fa fa-check"></i><b>5</b> Manipulating Data</a><ul>
 <li class="chapter" data-level="" data-path="manipulating-data.html"><a href="manipulating-data.html#manipulating-data-module-objectives"><i class="fa fa-check"></i>Manipulating Data: Module Objectives</a></li>
 <li class="chapter" data-level="5.1" data-path="manipulating-data.html"><a href="manipulating-data.html#tidy-data"><i class="fa fa-check"></i><b>5.1</b> Tidy Data</a></li>
-<li class="chapter" data-level="5.2" data-path="manipulating-data.html"><a href="manipulating-data.html#filter-pick-cases-rows-based-on-their-values"><i class="fa fa-check"></i><b>5.2</b> Filter: Pick cases (rows) based on their values</a>
-<ul>
+<li class="chapter" data-level="5.2" data-path="manipulating-data.html"><a href="manipulating-data.html#filter-pick-cases-rows-based-on-their-values"><i class="fa fa-check"></i><b>5.2</b> Filter: Pick cases (rows) based on their values</a><ul>
 <li class="chapter" data-level="5.2.1" data-path="manipulating-data.html"><a href="manipulating-data.html#common-filter-tasks"><i class="fa fa-check"></i><b>5.2.1</b> Common Filter() Tasks</a></li>
-<li class="chapter" data-level="" data-path="manipulating-data.html"><a href="manipulating-data.html#try-it-out-17"><i class="fa fa-check"></i>Try it out</a></li>
+<li class="chapter" data-level="" data-path="tools.html"><a href="tools.html#try-it-out"><i class="fa fa-check"></i>Try it out</a></li>
 </ul></li>
 <li class="chapter" data-level="5.3" data-path="manipulating-data.html"><a href="manipulating-data.html#select-pick-columns"><i class="fa fa-check"></i><b>5.3</b> Select: Pick columns</a></li>
 <li class="chapter" data-level="5.4" data-path="manipulating-data.html"><a href="manipulating-data.html#mutate-add-and-transform-variables"><i class="fa fa-check"></i><b>5.4</b> Mutate: Add and transform variables</a></li>
 <li class="chapter" data-level="5.5" data-path="manipulating-data.html"><a href="manipulating-data.html#summarize"><i class="fa fa-check"></i><b>5.5</b> Summarize</a></li>
 <li class="chapter" data-level="5.6" data-path="manipulating-data.html"><a href="manipulating-data.html#group-by-power"><i class="fa fa-check"></i><b>5.6</b> Group By + (?) = Power!</a></li>
 <li class="chapter" data-level="5.7" data-path="manipulating-data.html"><a href="manipulating-data.html#other-dplyr-functions-across-relocate"><i class="fa fa-check"></i><b>5.7</b> Other <code>dplyr</code> functions: across, relocate</a></li>
-<li class="chapter" data-level="" data-path="manipulating-data.html"><a href="manipulating-data.html#try-it-out-18"><i class="fa fa-check"></i>Try it out</a></li>
-<li class="chapter" data-level="" data-path="manipulating-data.html"><a href="manipulating-data.html#references-1"><i class="fa fa-check"></i>References</a></li>
+<li class="chapter" data-level="" data-path="intro-prog.html"><a href="intro-prog.html#try-it-out-1"><i class="fa fa-check"></i>Try it out</a></li>
+<li class="chapter" data-level="" data-path="tools.html"><a href="tools.html#references"><i class="fa fa-check"></i>References</a></li>
 </ul></li>
-<li class="chapter" data-level="6" data-path="transforming-data.html"><a href="transforming-data.html"><i class="fa fa-check"></i><b>6</b> Transforming Data</a>
-<ul>
+<li class="chapter" data-level="6" data-path="transforming-data.html"><a href="transforming-data.html"><i class="fa fa-check"></i><b>6</b> Transforming Data</a><ul>
 <li class="chapter" data-level="" data-path="transforming-data.html"><a href="transforming-data.html#transforming-data-module-objectives"><i class="fa fa-check"></i>Transforming Data: Module Objectives</a></li>
-<li class="chapter" data-level="6.1" data-path="transforming-data.html"><a href="transforming-data.html#identifying-the-problem-messy-data"><i class="fa fa-check"></i><b>6.1</b> Identifying the problem: Messy data</a>
-<ul>
-<li class="chapter" data-level="" data-path="transforming-data.html"><a href="transforming-data.html#try-it-out-19"><i class="fa fa-check"></i>Try it out</a></li>
+<li class="chapter" data-level="6.1" data-path="transforming-data.html"><a href="transforming-data.html#identifying-the-problem-messy-data"><i class="fa fa-check"></i><b>6.1</b> Identifying the problem: Messy data</a><ul>
+<li class="chapter" data-level="" data-path="tools.html"><a href="tools.html#try-it-out"><i class="fa fa-check"></i>Try it out</a></li>
 </ul></li>
-<li class="chapter" data-level="6.2" data-path="transforming-data.html"><a href="transforming-data.html#string-operations-creating-new-variables-and-separating-multi-variable-columns"><i class="fa fa-check"></i><b>6.2</b> String operations: Creating new variables and separating multi-variable columns</a>
-<ul>
+<li class="chapter" data-level="6.2" data-path="transforming-data.html"><a href="transforming-data.html#string-operations-creating-new-variables-and-separating-multi-variable-columns"><i class="fa fa-check"></i><b>6.2</b> String operations: Creating new variables and separating multi-variable columns</a><ul>
 <li class="chapter" data-level="6.2.1" data-path="transforming-data.html"><a href="transforming-data.html#basic-string-operations"><i class="fa fa-check"></i><b>6.2.1</b> Basic String Operations</a></li>
 <li class="chapter" data-level="6.2.2" data-path="transforming-data.html"><a href="transforming-data.html#regular-expressions"><i class="fa fa-check"></i><b>6.2.2</b> Regular Expressions</a></li>
 <li class="chapter" data-level="6.2.3" data-path="transforming-data.html"><a href="transforming-data.html#joining-and-splitting-variables"><i class="fa fa-check"></i><b>6.2.3</b> Joining and Splitting Variables</a></li>
 </ul></li>
-<li class="chapter" data-level="6.3" data-path="transforming-data.html"><a href="transforming-data.html#pivot-operations"><i class="fa fa-check"></i><b>6.3</b> Pivot operations</a>
-<ul>
+<li class="chapter" data-level="6.3" data-path="transforming-data.html"><a href="transforming-data.html#pivot-operations"><i class="fa fa-check"></i><b>6.3</b> Pivot operations</a><ul>
 <li class="chapter" data-level="6.3.1" data-path="transforming-data.html"><a href="transforming-data.html#longer"><i class="fa fa-check"></i><b>6.3.1</b> Longer</a></li>
 <li class="chapter" data-level="6.3.2" data-path="transforming-data.html"><a href="transforming-data.html#wider"><i class="fa fa-check"></i><b>6.3.2</b> Wider</a></li>
 </ul></li>
-<li class="chapter" data-level="6.4" data-path="transforming-data.html"><a href="transforming-data.html#relational-data-and-joining-tables"><i class="fa fa-check"></i><b>6.4</b> Relational Data and Joining Tables</a>
-<ul>
+<li class="chapter" data-level="6.4" data-path="transforming-data.html"><a href="transforming-data.html#relational-data-and-joining-tables"><i class="fa fa-check"></i><b>6.4</b> Relational Data and Joining Tables</a><ul>
 <li class="chapter" data-level="6.4.1" data-path="transforming-data.html"><a href="transforming-data.html#demonstration-dataset-setup"><i class="fa fa-check"></i><b>6.4.1</b> Demonstration dataset setup</a></li>
 <li class="chapter" data-level="6.4.2" data-path="transforming-data.html"><a href="transforming-data.html#mutating-joins"><i class="fa fa-check"></i><b>6.4.2</b> Mutating joins</a></li>
 </ul></li>
-<li class="chapter" data-level="6.5" data-path="transforming-data.html"><a href="transforming-data.html#example-gas-prices-data"><i class="fa fa-check"></i><b>6.5</b> Example: Gas Prices Data</a>
-<ul>
+<li class="chapter" data-level="6.5" data-path="transforming-data.html"><a href="transforming-data.html#example-gas-prices-data"><i class="fa fa-check"></i><b>6.5</b> Example: Gas Prices Data</a><ul>
 <li class="chapter" data-level="6.5.1" data-path="transforming-data.html"><a href="transforming-data.html#option-1-manual-formatting-in-excel"><i class="fa fa-check"></i><b>6.5.1</b> Option 1: Manual formatting in Excel</a></li>
 <li class="chapter" data-level="6.5.2" data-path="transforming-data.html"><a href="transforming-data.html#option-2-r"><i class="fa fa-check"></i><b>6.5.2</b> Option 2: R</a></li>
 <li class="chapter" data-level="6.5.3" data-path="transforming-data.html"><a href="transforming-data.html#option-3-sas"><i class="fa fa-check"></i><b>6.5.3</b> Option 3: SAS</a></li>
 </ul></li>
-<li class="chapter" data-level="" data-path="transforming-data.html"><a href="transforming-data.html#references-2"><i class="fa fa-check"></i>References</a></li>
+<li class="chapter" data-level="" data-path="tools.html"><a href="tools.html#references"><i class="fa fa-check"></i>References</a></li>
 </ul></li>
-<li class="chapter" data-level="7" data-path="debugging.html"><a href="debugging.html"><i class="fa fa-check"></i><b>7</b> Principles of Debugging</a>
-<ul>
+<li class="chapter" data-level="7" data-path="debugging.html"><a href="debugging.html"><i class="fa fa-check"></i><b>7</b> Principles of Debugging</a><ul>
 <li class="chapter" data-level="" data-path="debugging.html"><a href="debugging.html#debugging-module-objectives"><i class="fa fa-check"></i>Debugging: Module Objectives</a></li>
 <li class="chapter" data-level="7.1" data-path="debugging.html"><a href="debugging.html#step-1-check-your-spelling."><i class="fa fa-check"></i><b>7.1</b> Step 1: Check your spelling.</a></li>
 <li class="chapter" data-level="7.2" data-path="debugging.html"><a href="debugging.html#defensive-programming"><i class="fa fa-check"></i><b>7.2</b> Defensive Programming</a></li>
 <li class="chapter" data-level="7.3" data-path="debugging.html"><a href="debugging.html#general-debugging-strategies"><i class="fa fa-check"></i><b>7.3</b> General Debugging Strategies</a></li>
-<li class="chapter" data-level="7.4" data-path="debugging.html"><a href="debugging.html#debugging-tools-in-r"><i class="fa fa-check"></i><b>7.4</b> Debugging Tools in R</a>
-<ul>
+<li class="chapter" data-level="7.4" data-path="debugging.html"><a href="debugging.html#debugging-tools-in-r"><i class="fa fa-check"></i><b>7.4</b> Debugging Tools in R</a><ul>
 <li class="chapter" data-level="7.4.1" data-path="debugging.html"><a href="debugging.html#low-tech-debugging-with-print-and-other-tools"><i class="fa fa-check"></i><b>7.4.1</b> Low tech debugging with print() and other tools</a></li>
 <li class="chapter" data-level="7.4.2" data-path="debugging.html"><a href="debugging.html#after-an-error-has-occurred---traceback"><i class="fa fa-check"></i><b>7.4.2</b> After an error has occurred - <code>traceback()</code></a></li>
 <li class="chapter" data-level="7.4.3" data-path="debugging.html"><a href="debugging.html#browser---debugging-your-own-code-interactively"><i class="fa fa-check"></i><b>7.4.3</b> <code>browser()</code> - debugging your own code, interactively</a></li>
 <li class="chapter" data-level="7.4.4" data-path="debugging.html"><a href="debugging.html#debug---the-general-debugging-workhorse"><i class="fa fa-check"></i><b>7.4.4</b> <code>debug()</code> - the general debugging workhorse</a></li>
-<li class="chapter" data-level="" data-path="debugging.html"><a href="debugging.html#try-it-out-25"><i class="fa fa-check"></i>Try it out</a></li>
+<li class="chapter" data-level="" data-path="intro-prog.html"><a href="intro-prog.html#try-it-out-2"><i class="fa fa-check"></i>Try it out</a></li>
 </ul></li>
 <li class="chapter" data-level="7.5" data-path="debugging.html"><a href="debugging.html#debugging-tools-in-sas"><i class="fa fa-check"></i><b>7.5</b> Debugging Tools in SAS</a></li>
-<li class="chapter" data-level="7.6" data-path="debugging.html"><a href="debugging.html#minimal-working-examples"><i class="fa fa-check"></i><b>7.6</b> Minimal Working Examples</a>
-<ul>
+<li class="chapter" data-level="7.6" data-path="debugging.html"><a href="debugging.html#minimal-working-examples"><i class="fa fa-check"></i><b>7.6</b> Minimal Working Examples</a><ul>
 <li class="chapter" data-level="7.6.1" data-path="debugging.html"><a href="debugging.html#example-mwes"><i class="fa fa-check"></i><b>7.6.1</b> Example: MWEs</a></li>
-<li class="chapter" data-level="7.6.2" data-path="debugging.html"><a href="debugging.html#try-it-out-26"><i class="fa fa-check"></i><b>7.6.2</b> Try It Out</a></li>
+<li class="chapter" data-level="7.6.2" data-path="intro-prog.html"><a href="intro-prog.html#try-it-out-3"><i class="fa fa-check"></i><b>7.6.2</b> Try It Out</a></li>
 </ul></li>
-<li class="chapter" data-level="" data-path="debugging.html"><a href="debugging.html#references-3"><i class="fa fa-check"></i>References</a></li>
+<li class="chapter" data-level="" data-path="tools.html"><a href="tools.html#references"><i class="fa fa-check"></i>References</a></li>
 </ul></li>
 <li class="part"><span><b>III Applications</b></span></li>
-<li class="chapter" data-level="8" data-path="data-vis-intro.html"><a href="data-vis-intro.html"><i class="fa fa-check"></i><b>8</b> Introduction to Data Visualization</a>
-<ul>
+<li class="chapter" data-level="8" data-path="data-vis-intro.html"><a href="data-vis-intro.html"><i class="fa fa-check"></i><b>8</b> Introduction to Data Visualization</a><ul>
 <li class="chapter" data-level="" data-path="data-vis-intro.html"><a href="data-vis-intro.html#visualization-module-objectives"><i class="fa fa-check"></i>Visualization: Module Objectives</a></li>
 <li class="chapter" data-level="8.1" data-path="data-vis-intro.html"><a href="data-vis-intro.html#why-do-we-create-graphics"><i class="fa fa-check"></i><b>8.1</b> Why do we create graphics?</a></li>
 <li class="chapter" data-level="8.2" data-path="data-vis-intro.html"><a href="data-vis-intro.html#general-approaches-to-creating-graphics"><i class="fa fa-check"></i><b>8.2</b> General approaches to creating graphics</a></li>
-<li class="chapter" data-level="8.3" data-path="data-vis-intro.html"><a href="data-vis-intro.html#the-grammar-of-graphics"><i class="fa fa-check"></i><b>8.3</b> The Grammar of Graphics</a>
-<ul>
+<li class="chapter" data-level="8.3" data-path="data-vis-intro.html"><a href="data-vis-intro.html#the-grammar-of-graphics"><i class="fa fa-check"></i><b>8.3</b> The Grammar of Graphics</a><ul>
 <li class="chapter" data-level="8.3.1" data-path="data-vis-intro.html"><a href="data-vis-intro.html#demonstration-aesthetic-mappings-and-basic-plots"><i class="fa fa-check"></i><b>8.3.1</b> Demonstration: Aesthetic Mappings and Basic Plots</a></li>
 <li class="chapter" data-level="8.3.2" data-path="data-vis-intro.html"><a href="data-vis-intro.html#syntax-and-general-structure-layers"><i class="fa fa-check"></i><b>8.3.2</b> Syntax and General Structure: Layers</a></li>
 <li class="chapter" data-level="8.3.3" data-path="data-vis-intro.html"><a href="data-vis-intro.html#statistics-and-different-types-of-plots"><i class="fa fa-check"></i><b>8.3.3</b> Statistics and Different Types of Plots</a></li>
 <li class="chapter" data-level="8.3.4" data-path="data-vis-intro.html"><a href="data-vis-intro.html#small-multiples"><i class="fa fa-check"></i><b>8.3.4</b> Small Multiples</a></li>
-<li class="chapter" data-level="" data-path="data-vis-intro.html"><a href="data-vis-intro.html#try-it-out-30"><i class="fa fa-check"></i>Try it out</a></li>
+<li class="chapter" data-level="" data-path="intro-prog.html"><a href="intro-prog.html#try-it-out-3"><i class="fa fa-check"></i>Try it out</a></li>
 </ul></li>
-<li class="chapter" data-level="8.4" data-path="data-vis-intro.html"><a href="data-vis-intro.html#good-charts"><i class="fa fa-check"></i><b>8.4</b> Good charts</a>
-<ul>
+<li class="chapter" data-level="8.4" data-path="data-vis-intro.html"><a href="data-vis-intro.html#good-charts"><i class="fa fa-check"></i><b>8.4</b> Good charts</a><ul>
 <li class="chapter" data-level="8.4.1" data-path="data-vis-intro.html"><a href="data-vis-intro.html#perceptual-and-cognitive-factors"><i class="fa fa-check"></i><b>8.4.1</b> Perceptual and Cognitive Factors</a></li>
 <li class="chapter" data-level="8.4.2" data-path="data-vis-intro.html"><a href="data-vis-intro.html#general-guidelines-for-accuracy"><i class="fa fa-check"></i><b>8.4.2</b> General guidelines for accuracy</a></li>
 <li class="chapter" data-level="8.4.3" data-path="data-vis-intro.html"><a href="data-vis-intro.html#how-do-we-know"><i class="fa fa-check"></i><b>8.4.3</b> How do we know?</a></li>
 </ul></li>
 <li class="chapter" data-level="8.5" data-path="data-vis-intro.html"><a href="data-vis-intro.html#other-things-worth-exploring-and-future-expansions-for-this-chapter"><i class="fa fa-check"></i><b>8.5</b> Other things worth exploring (and future expansions for this chapter)</a></li>
-<li class="chapter" data-level="" data-path="data-vis-intro.html"><a href="data-vis-intro.html#references-4"><i class="fa fa-check"></i>References</a>
-<ul>
+<li class="chapter" data-level="" data-path="tools.html"><a href="tools.html#references"><i class="fa fa-check"></i>References</a><ul>
 <li class="chapter" data-level="8.5.1" data-path="data-vis-intro.html"><a href="data-vis-intro.html#motivation"><i class="fa fa-check"></i><b>8.5.1</b> Motivation</a></li>
 <li class="chapter" data-level="8.5.2" data-path="data-vis-intro.html"><a href="data-vis-intro.html#r-graphics"><i class="fa fa-check"></i><b>8.5.2</b> R graphics</a></li>
 <li class="chapter" data-level="8.5.3" data-path="data-vis-intro.html"><a href="data-vis-intro.html#sas-graphics"><i class="fa fa-check"></i><b>8.5.3</b> SAS graphics</a></li>
@@ -416,108 +376,88 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="8.5.5" data-path="data-vis-intro.html"><a href="data-vis-intro.html#other-graphics-packages"><i class="fa fa-check"></i><b>8.5.5</b> Other Graphics packages</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="9" data-path="simulation.html"><a href="simulation.html"><i class="fa fa-check"></i><b>9</b> Simulation and Reproducibility</a>
-<ul>
+<li class="chapter" data-level="9" data-path="simulation.html"><a href="simulation.html"><i class="fa fa-check"></i><b>9</b> Simulation and Reproducibility</a><ul>
 <li class="chapter" data-level="" data-path="simulation.html"><a href="simulation.html#simulation-module-objectives"><i class="fa fa-check"></i>Simulation: Module Objectives</a></li>
 <li class="chapter" data-level="9.1" data-path="simulation.html"><a href="simulation.html#pseudorandom-number-generation"><i class="fa fa-check"></i><b>9.1</b> Pseudorandom Number Generation</a></li>
-<li class="chapter" data-level="9.2" data-path="simulation.html"><a href="simulation.html#built-in-simulations-from-distributions"><i class="fa fa-check"></i><b>9.2</b> Built-in simulations from distributions</a>
-<ul>
-<li class="chapter" data-level="" data-path="simulation.html"><a href="simulation.html#try-it-out-32"><i class="fa fa-check"></i>Try it out</a></li>
+<li class="chapter" data-level="9.2" data-path="simulation.html"><a href="simulation.html#built-in-simulations-from-distributions"><i class="fa fa-check"></i><b>9.2</b> Built-in simulations from distributions</a><ul>
+<li class="chapter" data-level="" data-path="tools.html"><a href="tools.html#try-it-out"><i class="fa fa-check"></i>Try it out</a></li>
 </ul></li>
-<li class="chapter" data-level="9.3" data-path="simulation.html"><a href="simulation.html#simulation-to-test-model-assumptions"><i class="fa fa-check"></i><b>9.3</b> Simulation to test model assumptions</a>
-<ul>
-<li class="chapter" data-level="" data-path="simulation.html"><a href="simulation.html#try-it-out-33"><i class="fa fa-check"></i>Try it out</a></li>
+<li class="chapter" data-level="9.3" data-path="simulation.html"><a href="simulation.html#simulation-to-test-model-assumptions"><i class="fa fa-check"></i><b>9.3</b> Simulation to test model assumptions</a><ul>
+<li class="chapter" data-level="" data-path="intro-prog.html"><a href="intro-prog.html#try-it-out-1"><i class="fa fa-check"></i>Try it out</a></li>
 </ul></li>
-<li class="chapter" data-level="9.4" data-path="simulation.html"><a href="simulation.html#monte-carlo-methods"><i class="fa fa-check"></i><b>9.4</b> Monte Carlo methods</a>
-<ul>
-<li class="chapter" data-level="" data-path="simulation.html"><a href="simulation.html#try-it-out-34"><i class="fa fa-check"></i>Try it out</a></li>
+<li class="chapter" data-level="9.4" data-path="simulation.html"><a href="simulation.html#monte-carlo-methods"><i class="fa fa-check"></i><b>9.4</b> Monte Carlo methods</a><ul>
+<li class="chapter" data-level="" data-path="intro-prog.html"><a href="intro-prog.html#try-it-out-2"><i class="fa fa-check"></i>Try it out</a></li>
 </ul></li>
-<li class="chapter" data-level="9.5" data-path="simulation.html"><a href="simulation.html#references-5"><i class="fa fa-check"></i><b>9.5</b> References</a></li>
+<li class="chapter" data-level="9.5" data-path="tools.html"><a href="tools.html#references"><i class="fa fa-check"></i><b>9.5</b> References</a></li>
 </ul></li>
-<li class="chapter" data-level="10" data-path="docs-reports.html"><a href="docs-reports.html"><i class="fa fa-check"></i><b>10</b> Documents and Reports</a>
-<ul>
+<li class="chapter" data-level="10" data-path="docs-reports.html"><a href="docs-reports.html"><i class="fa fa-check"></i><b>10</b> Documents and Reports</a><ul>
 <li class="chapter" data-level="" data-path="docs-reports.html"><a href="docs-reports.html#documents-and-reports-module-objectives"><i class="fa fa-check"></i>Documents and Reports: Module Objectives</a></li>
 <li class="chapter" data-level="10.1" data-path="docs-reports.html"><a href="docs-reports.html#literate-programming-knitr-and-rmarkdown"><i class="fa fa-check"></i><b>10.1</b> Literate Programming, <code>knitr</code>, and <code>rmarkdown</code></a></li>
-<li class="chapter" data-level="10.2" data-path="docs-reports.html"><a href="docs-reports.html#a-very-brief-introduction-to-latex"><i class="fa fa-check"></i><b>10.2</b> A Very Brief Introduction to LaTeX</a>
-<ul>
-<li class="chapter" data-level="" data-path="docs-reports.html"><a href="docs-reports.html#try-it-out-35"><i class="fa fa-check"></i>Try it out</a></li>
+<li class="chapter" data-level="10.2" data-path="docs-reports.html"><a href="docs-reports.html#a-very-brief-introduction-to-latex"><i class="fa fa-check"></i><b>10.2</b> A Very Brief Introduction to LaTeX</a><ul>
+<li class="chapter" data-level="" data-path="tools.html"><a href="tools.html#try-it-out"><i class="fa fa-check"></i>Try it out</a></li>
 <li class="chapter" data-level="10.2.1" data-path="docs-reports.html"><a href="docs-reports.html#knitr"><i class="fa fa-check"></i><b>10.2.1</b> Knitr</a></li>
 </ul></li>
-<li class="chapter" data-level="10.3" data-path="docs-reports.html"><a href="docs-reports.html#slides"><i class="fa fa-check"></i><b>10.3</b> Slides</a>
-<ul>
+<li class="chapter" data-level="10.3" data-path="docs-reports.html"><a href="docs-reports.html#slides"><i class="fa fa-check"></i><b>10.3</b> Slides</a><ul>
 <li class="chapter" data-level="10.3.1" data-path="docs-reports.html"><a href="docs-reports.html#beamer-latex-and-knitr"><i class="fa fa-check"></i><b>10.3.1</b> Beamer (LaTeX) and knitr</a></li>
 <li class="chapter" data-level="10.3.2" data-path="docs-reports.html"><a href="docs-reports.html#html-slides"><i class="fa fa-check"></i><b>10.3.2</b> HTML slides</a></li>
-<li class="chapter" data-level="" data-path="docs-reports.html"><a href="docs-reports.html#try-it-out-37"><i class="fa fa-check"></i>Try it out</a></li>
+<li class="chapter" data-level="" data-path="intro-prog.html"><a href="intro-prog.html#try-it-out-2"><i class="fa fa-check"></i>Try it out</a></li>
 </ul></li>
-<li class="chapter" data-level="10.4" data-path="docs-reports.html"><a href="docs-reports.html#posters"><i class="fa fa-check"></i><b>10.4</b> Posters</a>
-<ul>
-<li class="chapter" data-level="10.4.1" data-path="docs-reports.html"><a href="docs-reports.html#latex-2"><i class="fa fa-check"></i><b>10.4.1</b> LaTeX</a></li>
+<li class="chapter" data-level="10.4" data-path="docs-reports.html"><a href="docs-reports.html#posters"><i class="fa fa-check"></i><b>10.4</b> Posters</a><ul>
+<li class="chapter" data-level="10.4.1" data-path="docs-reports.html"><a href="docs-reports.html#latex"><i class="fa fa-check"></i><b>10.4.1</b> LaTeX</a></li>
 <li class="chapter" data-level="10.4.2" data-path="docs-reports.html"><a href="docs-reports.html#posterdown"><i class="fa fa-check"></i><b>10.4.2</b> Posterdown</a></li>
 <li class="chapter" data-level="10.4.3" data-path="docs-reports.html"><a href="docs-reports.html#pagedown"><i class="fa fa-check"></i><b>10.4.3</b> Pagedown</a></li>
 </ul></li>
 <li class="chapter" data-level="10.5" data-path="docs-reports.html"><a href="docs-reports.html#resumecv"><i class="fa fa-check"></i><b>10.5</b> Resume/CV</a></li>
 <li class="chapter" data-level="10.6" data-path="docs-reports.html"><a href="docs-reports.html#using-github-pages"><i class="fa fa-check"></i><b>10.6</b> Using Github Pages</a></li>
-<li class="chapter" data-level="10.7" data-path="docs-reports.html"><a href="docs-reports.html#references-6"><i class="fa fa-check"></i><b>10.7</b> References</a></li>
+<li class="chapter" data-level="10.7" data-path="tools.html"><a href="tools.html#references"><i class="fa fa-check"></i><b>10.7</b> References</a></li>
 </ul></li>
-<li class="chapter" data-level="11" data-path="animated-and-interactive-graphics.html"><a href="animated-and-interactive-graphics.html"><i class="fa fa-check"></i><b>11</b> Animated and Interactive Graphics</a>
-<ul>
+<li class="chapter" data-level="11" data-path="animated-and-interactive-graphics.html"><a href="animated-and-interactive-graphics.html"><i class="fa fa-check"></i><b>11</b> Animated and Interactive Graphics</a><ul>
 <li class="chapter" data-level="" data-path="animated-and-interactive-graphics.html"><a href="animated-and-interactive-graphics.html#animated-and-interactive-graphics-module-objectives"><i class="fa fa-check"></i>Animated and Interactive Graphics: Module Objectives</a></li>
-<li class="chapter" data-level="11.1" data-path="animated-and-interactive-graphics.html"><a href="animated-and-interactive-graphics.html#plotly"><i class="fa fa-check"></i><b>11.1</b> Plotly</a>
-<ul>
+<li class="chapter" data-level="11.1" data-path="animated-and-interactive-graphics.html"><a href="animated-and-interactive-graphics.html#plotly"><i class="fa fa-check"></i><b>11.1</b> Plotly</a><ul>
 <li class="chapter" data-level="11.1.1" data-path="animated-and-interactive-graphics.html"><a href="animated-and-interactive-graphics.html#ggplotly-ggplot2-to-plotly-conversions"><i class="fa fa-check"></i><b>11.1.1</b> <code>ggplotly</code>: ggplot2 to plotly conversions</a></li>
 <li class="chapter" data-level="11.1.2" data-path="animated-and-interactive-graphics.html"><a href="animated-and-interactive-graphics.html#plot_ly-like-base-plotting-but-interactive"><i class="fa fa-check"></i><b>11.1.2</b> <code>plot_ly</code>: Like base plotting, but interactive!</a></li>
 <li class="chapter" data-level="11.1.3" data-path="animated-and-interactive-graphics.html"><a href="animated-and-interactive-graphics.html#animation"><i class="fa fa-check"></i><b>11.1.3</b> Animation</a></li>
 </ul></li>
-<li class="chapter" data-level="11.2" data-path="animated-and-interactive-graphics.html"><a href="animated-and-interactive-graphics.html#leaflet-maps"><i class="fa fa-check"></i><b>11.2</b> Leaflet maps</a>
-<ul>
-<li class="chapter" data-level="" data-path="animated-and-interactive-graphics.html"><a href="animated-and-interactive-graphics.html#try-it-out-41"><i class="fa fa-check"></i>Try it out</a></li>
+<li class="chapter" data-level="11.2" data-path="animated-and-interactive-graphics.html"><a href="animated-and-interactive-graphics.html#leaflet-maps"><i class="fa fa-check"></i><b>11.2</b> Leaflet maps</a><ul>
+<li class="chapter" data-level="" data-path="intro-prog.html"><a href="intro-prog.html#try-it-out-1"><i class="fa fa-check"></i>Try it out</a></li>
 </ul></li>
 <li class="chapter" data-level="11.3" data-path="animated-and-interactive-graphics.html"><a href="animated-and-interactive-graphics.html#shiny"><i class="fa fa-check"></i><b>11.3</b> Shiny</a></li>
-<li class="chapter" data-level="11.4" data-path="animated-and-interactive-graphics.html"><a href="animated-and-interactive-graphics.html#general-references"><i class="fa fa-check"></i><b>11.4</b> General References</a>
-<ul>
+<li class="chapter" data-level="11.4" data-path="animated-and-interactive-graphics.html"><a href="animated-and-interactive-graphics.html#general-references"><i class="fa fa-check"></i><b>11.4</b> General References</a><ul>
 <li class="chapter" data-level="11.4.1" data-path="animated-and-interactive-graphics.html"><a href="animated-and-interactive-graphics.html#other-interactive-tools"><i class="fa fa-check"></i><b>11.4.1</b> Other interactive tools</a></li>
-<li class="chapter" data-level="11.4.2" data-path="animated-and-interactive-graphics.html"><a href="animated-and-interactive-graphics.html#debugging-1"><i class="fa fa-check"></i><b>11.4.2</b> Debugging</a></li>
+<li class="chapter" data-level="11.4.2" data-path="debugging.html"><a href="debugging.html#debugging"><i class="fa fa-check"></i><b>11.4.2</b> Debugging</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="12" data-path="lists-nested-lists-and-functional-programming.html"><a href="lists-nested-lists-and-functional-programming.html"><i class="fa fa-check"></i><b>12</b> Lists, Nested Lists, and Functional Programming</a>
-<ul>
+<li class="chapter" data-level="12" data-path="lists-nested-lists-and-functional-programming.html"><a href="lists-nested-lists-and-functional-programming.html"><i class="fa fa-check"></i><b>12</b> Lists, Nested Lists, and Functional Programming</a><ul>
 <li class="chapter" data-level="12.1" data-path="lists-nested-lists-and-functional-programming.html"><a href="lists-nested-lists-and-functional-programming.html#review-lists-and-vectors"><i class="fa fa-check"></i><b>12.1</b> Review: Lists and Vectors</a></li>
 <li class="chapter" data-level="12.2" data-path="lists-nested-lists-and-functional-programming.html"><a href="lists-nested-lists-and-functional-programming.html#introduction-to-map"><i class="fa fa-check"></i><b>12.2</b> Introduction to <code>map</code></a></li>
 <li class="chapter" data-level="12.3" data-path="lists-nested-lists-and-functional-programming.html"><a href="lists-nested-lists-and-functional-programming.html#creating-and-using-list-columns"><i class="fa fa-check"></i><b>12.3</b> Creating (and Using) List-columns</a></li>
-<li class="chapter" data-level="12.4" data-path="lists-nested-lists-and-functional-programming.html"><a href="lists-nested-lists-and-functional-programming.html#ways-to-use-map"><i class="fa fa-check"></i><b>12.4</b> Ways to use <code>map</code></a>
-<ul>
-<li class="chapter" data-level="" data-path="lists-nested-lists-and-functional-programming.html"><a href="lists-nested-lists-and-functional-programming.html#try-it-out-42"><i class="fa fa-check"></i>Try it out</a></li>
+<li class="chapter" data-level="12.4" data-path="lists-nested-lists-and-functional-programming.html"><a href="lists-nested-lists-and-functional-programming.html#ways-to-use-map"><i class="fa fa-check"></i><b>12.4</b> Ways to use <code>map</code></a><ul>
+<li class="chapter" data-level="" data-path="tools.html"><a href="tools.html#try-it-out"><i class="fa fa-check"></i>Try it out</a></li>
 </ul></li>
-<li class="chapter" data-level="12.5" data-path="lists-nested-lists-and-functional-programming.html"><a href="lists-nested-lists-and-functional-programming.html#beyond-map-functions-with-multiple-inputs"><i class="fa fa-check"></i><b>12.5</b> Beyond <code>map</code>: Functions with multiple inputs</a>
-<ul>
-<li class="chapter" data-level="" data-path="lists-nested-lists-and-functional-programming.html"><a href="lists-nested-lists-and-functional-programming.html#try-it-out-43"><i class="fa fa-check"></i>Try it out</a></li>
+<li class="chapter" data-level="12.5" data-path="lists-nested-lists-and-functional-programming.html"><a href="lists-nested-lists-and-functional-programming.html#beyond-map-functions-with-multiple-inputs"><i class="fa fa-check"></i><b>12.5</b> Beyond <code>map</code>: Functions with multiple inputs</a><ul>
+<li class="chapter" data-level="" data-path="intro-prog.html"><a href="intro-prog.html#try-it-out-1"><i class="fa fa-check"></i>Try it out</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="lists-nested-lists-and-functional-programming.html"><a href="lists-nested-lists-and-functional-programming.html#purrr-references"><i class="fa fa-check"></i>Purrr References</a></li>
 </ul></li>
-<li class="chapter" data-level="13" data-path="high-performance-computing.html"><a href="high-performance-computing.html"><i class="fa fa-check"></i><b>13</b> High Performance Computing</a>
-<ul>
+<li class="chapter" data-level="13" data-path="high-performance-computing.html"><a href="high-performance-computing.html"><i class="fa fa-check"></i><b>13</b> High Performance Computing</a><ul>
 <li class="chapter" data-level="" data-path="high-performance-computing.html"><a href="high-performance-computing.html#hpc-references"><i class="fa fa-check"></i>HPC References</a></li>
 </ul></li>
 <li class="chapter" data-level="14" data-path="tidy-models.html"><a href="tidy-models.html"><i class="fa fa-check"></i><b>14</b> Tidy Models</a></li>
-<li class="chapter" data-level="15" data-path="spatial-packages.html"><a href="spatial-packages.html"><i class="fa fa-check"></i><b>15</b> Spatial packages</a>
-<ul>
-<li class="chapter" data-level="" data-path="spatial-packages.html"><a href="spatial-packages.html#references-7"><i class="fa fa-check"></i>References</a></li>
+<li class="chapter" data-level="15" data-path="spatial-packages.html"><a href="spatial-packages.html"><i class="fa fa-check"></i><b>15</b> Spatial packages</a><ul>
+<li class="chapter" data-level="" data-path="tools.html"><a href="tools.html#references"><i class="fa fa-check"></i>References</a></li>
 </ul></li>
 <li class="appendix"><span><b>Appendix</b></span></li>
-<li class="chapter" data-level="A" data-path="common-problems-and-general-computing-topics.html"><a href="common-problems-and-general-computing-topics.html"><i class="fa fa-check"></i><b>A</b> Common Problems and General Computing Topics</a>
-<ul>
-<li class="chapter" data-level="A.1" data-path="common-problems-and-general-computing-topics.html"><a href="common-problems-and-general-computing-topics.html#file-paths-working-directories-and-reproducibility"><i class="fa fa-check"></i><b>A.1</b> File Paths, Working Directories, and Reproducibility</a>
-<ul>
+<li class="chapter" data-level="A" data-path="common-problems-and-general-computing-topics.html"><a href="common-problems-and-general-computing-topics.html"><i class="fa fa-check"></i><b>A</b> Common Problems and General Computing Topics</a><ul>
+<li class="chapter" data-level="A.1" data-path="common-problems-and-general-computing-topics.html"><a href="common-problems-and-general-computing-topics.html#file-paths-working-directories-and-reproducibility"><i class="fa fa-check"></i><b>A.1</b> File Paths, Working Directories, and Reproducibility</a><ul>
 <li class="chapter" data-level="A.1.1" data-path="common-problems-and-general-computing-topics.html"><a href="common-problems-and-general-computing-topics.html#file-paths"><i class="fa fa-check"></i><b>A.1.1</b> File paths</a></li>
 <li class="chapter" data-level="A.1.2" data-path="common-problems-and-general-computing-topics.html"><a href="common-problems-and-general-computing-topics.html#working-directory"><i class="fa fa-check"></i><b>A.1.2</b> Working Directory</a></li>
 <li class="chapter" data-level="A.1.3" data-path="common-problems-and-general-computing-topics.html"><a href="common-problems-and-general-computing-topics.html#reproducibility"><i class="fa fa-check"></i><b>A.1.3</b> Reproducibility</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="B" data-path="other-resources-articles-and-food-for-thought.html"><a href="other-resources-articles-and-food-for-thought.html"><i class="fa fa-check"></i><b>B</b> Other Resources, Articles, and Food for Thought</a>
-<ul>
+<li class="chapter" data-level="B" data-path="other-resources-articles-and-food-for-thought.html"><a href="other-resources-articles-and-food-for-thought.html"><i class="fa fa-check"></i><b>B</b> Other Resources, Articles, and Food for Thought</a><ul>
 <li class="chapter" data-level="B.1" data-path="other-resources-articles-and-food-for-thought.html"><a href="other-resources-articles-and-food-for-thought.html#comparing-languages"><i class="fa fa-check"></i><b>B.1</b> Comparing Languages</a></li>
 </ul></li>
-<li class="chapter" data-level="" data-path="references-8.html"><a href="references-8.html"><i class="fa fa-check"></i>References</a></li>
+<li class="chapter" data-level="" data-path="tools.html"><a href="tools.html#references"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
 
@@ -538,7 +478,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="organization" class="section level1" number="3">
+<div id="organization" class="section level1">
 <h1><span class="header-section-number">Module 3</span> Organization: Packages, Functions, Scripts, and Documents</h1>
 <div id="module-3-objectives" class="section level2 unnumbered">
 <h2>Module Objectives</h2>
@@ -548,8 +488,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li>Analyze additional software available from package and software repositories to determine whether it is suitable for the problem</li>
 </ul>
 </div>
-<div id="reproducibility-and-markdown" class="section level2" number="3.1">
-<h2><span class="header-section-number">3.1</span> Reproducibility and Markdown</h2>
+<div id="reproducibility-and-rmarkdown" class="section level2">
+<h2><span class="header-section-number">3.1</span> Reproducibility and RMarkdown</h2>
 <!-- Why reproducibility is important in science and statistics -->
 <p>The concepts of <strong>replication</strong> and <strong>reproducibility</strong> are central to science - we do not trust studies whose results cannot be replicated by additional repetitions of the experiment, and we do not trust statistical analyses whose results are not backed up by valid methods that can be re-run to verify the reported results. While replication covers the lab methods, experimental design, and data collection procedures, reproducibility is concerned with the code and the data from an experiment which has already been run. Specifically, the idea is that the research paper is basically an advertisement - by exposing the code and data used in the analysis, readers can engage with the core of the analysis methods, leading to better peer feedback as well as easier adoption of the research for future work.</p>
 <p>Reproducibility has several advantages:</p>
@@ -570,7 +510,7 @@ In 2 years, when you need to find the code you used for that analysis in XXX pap
 </ul>
 <p>There are also many levels of reproducibility. Much of the computer code written in the 1960s is no longer runnable today, because the computer architecture it was written for is not available anymore. Code which depends on URLs is vulnerable to website rearrangements or the content no longer being hosted. Archiving projects on GitHub is nice, but what happens if GitHub goes down? It’s important to decide what type of reproducibility is important for a particular project, and then design the project’s workflow around that process.</p>
 <div class="my-opinion">
-<p>For most of my projects, I don’t worry about software versioning too much.<a href="#fn10" class="footnote-ref" id="fnref10"><sup>10</sup></a> As much as possible, I keep the <strong>code and the data (if it’s small) on GitHub</strong> in a public repository for people to access, along with any manuscripts or presentations related to the project. Manuscripts are written in knitr or Rmarkdown, so that the code is documented by the context of the project, and every image in the article generated by R has corresponding code available. This ensures that</p>
+<p>For most of my projects, I don’t worry about software versioning too much.<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a> As much as possible, I keep the <strong>code and the data (if it’s small) on GitHub</strong> in a public repository for people to access, along with any manuscripts or presentations related to the project. Manuscripts are written in knitr or Rmarkdown, so that the code is documented by the context of the project, and every image in the article generated by R has corresponding code available. This ensures that</p>
 <ol style="list-style-type: decimal">
 <li>my code (and data) is stored somewhere off-site (backed up in the cloud)</li>
 <li>my code is available if others want to use it</li>
@@ -579,10 +519,15 @@ In 2 years, when you need to find the code you used for that analysis in XXX pap
 <li>I can undo changes my collaborators inadvertently make because all changes are recorded.</li>
 <li>I can reuse blocks of code easily (and find them easily on GitHub)</li>
 </ol>
-<p>In situations where I run experiments, I also make sure that <strong>any experimental stimuli</strong> or other code that would contribute to the execution and data collection part of the experiment are also included in the repository. This may involve archiving intermediate results that would not normally be archived so that exact stimuli can be regenerated “just in case.”</p>
+<p>In situations where I run experiments, I also make sure that <strong>any experimental stimuli</strong> or other code that would contribute to the execution and data collection part of the experiment are also included in the repository. This may involve archiving intermediate results that would not normally be archived so that exact stimuli can be regenerated “just in case”.</p>
 </div>
 <!-- Why reproducibility is convenient -->
 <p>The github reproducibility work flow is convenient - it allows for me to easily collaborate with others, without emailing versions of code and documents back and forth or dealing with Dropbox version conflicts. I can revert changes that are made that had unintentional effects fairly easily. I can sync my files across multiple machines effortlessly. And if necessary, I can look back at the changes I’ve made and see why I made them, or what I’ve already tried.</p>
+<p>Most importantly, though, having code, text, and outputs in the same document helps me keep track of what I’m doing, which is a real help for not losing files or getting sidetracked.</p>
+<div class="figure">
+<img src="https://raw.githubusercontent.com/allisonhorst/stats-illustrations/master/rstats-artwork/rmarkdown_rockstar.png" alt="" />
+<p class="caption">Rmarkdown - get text, code, outputs in the same place. By Allison Horst</p>
+</div>
 <div id="reproducibility-references-and-reading" class="section level3 unnumbered learn-more">
 <h3>Reproducibility References and Reading</h3>
 <p>I highly recommend scanning these resources to get a good sense of the different ways the word “reproducibility” is used in the literature.</p>
@@ -594,7 +539,7 @@ In 2 years, when you need to find the code you used for that analysis in XXX pap
 <li><a href="https://academic.oup.com/biostatistics/issue/11/3">The Biostatistics reproducibility issue w/ responses to the editorial and associated commentary</a></li>
 </ul>
 </div>
-<div id="rmarkdown" class="section level3" number="3.1.1">
+<div id="rmarkdown" class="section level3">
 <h3><span class="header-section-number">3.1.1</span> Markdown and R</h3>
 <div class="figure">
 <img src="https://github.com/allisonhorst/stats-illustrations/raw/master/rstats-artwork/rmarkdown_wizards.png" alt="" />
@@ -608,17 +553,15 @@ In 2 years, when you need to find the code you used for that analysis in XXX pap
 <p>There is a full set of <a href="https://rmarkdown.rstudio.com/lesson-1.html">Rmarkdown tutorials</a> from RStudio. There is also a handy <a href="https://rmarkdown.rstudio.com/lesson-15.html">cheatsheet</a>. If you run into trouble or want to do something more complicated, <a href="https://bookdown.org/yihui/rmarkdown-cookbook/">there is an Rmarkdown cookbook</a> which contains a number of useful tricks.</p>
 </div>
 <details>
-<summary>
-Quick Anatomy of Rmarkdown documents
-</summary>
-<img src="image/Rmarkdown_doc_anatomy.png" title="fig:" alt="Explanation of Rmarkdown markup" />
+<summary>Quick Anatomy of Rmarkdown documents</summary>
+<img src="image/Rmarkdown_doc_anatomy.png" alt="Explanation of Rmarkdown markup" />
 </details>
 <div class="tryitout">
 <p>Or, you can take the “jump right in” approach - open RStudio, File -&gt; New -&gt; Rmarkdown document. To compile it, click the knit button in the bar at the top of the text editor window. Make changes to the text and the R code, compile it, and see what happens. Voila! You’re a markdow expert!</p>
 </div>
 <p>Rmarkdown documents may contain code used to support an analysis, but they are usually not the best way to develop an analysis method - they are better for documentation, writing tutorials, and other scenarios where you need both text explanations and code/analysis/results. There are other “containers” for code, though, including functions, scripts, and packages. Each has their own advantages and disadvantages, and most of them can be used together.</p>
 </div>
-<div id="rmarkdown-with-sas" class="section level3" number="3.1.2">
+<div id="rmarkdown-with-sas" class="section level3">
 <h3><span class="header-section-number">3.1.2</span> Rmarkdown with… SAS?</h3>
 <p>You may have noticed that I’ve been including SAS chunks throughout this book, and even in your homework assignments.</p>
 <div class="learn-more">
@@ -636,7 +579,7 @@ Quick Anatomy of Rmarkdown documents
 <p>If you are using SAS Community Edition, you are still expected to ensure your code is fully reproducible on other computers.</p>
 </div>
 </div>
-<div id="functions-and-modules" class="section level2" number="3.2">
+<div id="functions-and-modules" class="section level2">
 <h2><span class="header-section-number">3.2</span> Functions and Modules</h2>
 <p>A function (or a module, in SAS) is a block of code which is only run when it is called. It takes arguments (known as parameters) and returns data or some other value.</p>
 <div class="learn-more">
@@ -657,7 +600,7 @@ Quick Anatomy of Rmarkdown documents
 <ul>
 <li>For <code>param1</code>, we do not provide a default value, but for <code>param2</code>, we indicate that the <strong>default value</strong> is 3.<br />
 If we call the function (tell the program to run this function with certain arguments and provide the result), we could either say <code>my_function_name(param1 = value1, param2 = value2)</code> or <code>my_function_name(param1 = value1)</code> (which is equivalent to <code>my_function_name(param1 = value1, param2 = 3)</code>).<br />
-In R, you can even say <code>my_function_name(value1, value2)</code> and the assumption is that you’ve supplied the parameters in the correct order.<a href="#fn11" class="footnote-ref" id="fnref11"><sup>11</sup></a></li>
+In R, you can even say <code>my_function_name(value1, value2)</code> and the assumption is that you’ve supplied the parameters in the correct order.<a href="#fn2" class="footnote-ref" id="fnref2"><sup>2</sup></a></li>
 </ul></li>
 <li>Inside the function block (indicated by <code>{}</code> here, but some languages may use <code>do ... end;</code>), we perform whatever steps we’ve decided to include in the function</li>
 <li>At the end of the function, we <strong>return</strong> a value - the function exits, and leaves behind some information.</li>
@@ -679,9 +622,7 @@ In R, you can even say <code>my_function_name(value1, value2)</code> and the ass
 </blockquote>
 <p>and we would call the function using <code>RUN function_name args;</code></p>
 <details>
-<summary>
-Module documentation
-</summary>
+<p><summary>Module documentation</summary></p>
 <pre><code>Statements That Define and Execute Modules
 Modules are used to create a user-defined subroutine or function. 
 
@@ -698,13 +639,15 @@ The general forms of these statements are as follows:
 The only difference between the RUN and CALL statements is the order of resolution.</code></pre>
 <a href="https://support.sas.com/rnd/app/iml/programming.html">Source: SAS function reference</a>
 </details>
+<div id="function-example-adding-things-together" class="section level3 ex unnumbered">
+<h3>Function example: Adding things together</h3>
 <p>Let’s try functions out by writing a simple function that takes two numbers as arguments and adds them together.</p>
-<div class="sourceCode" id="cb95"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb95-1"><a href="organization.html#cb95-1" aria-hidden="true" tabindex="-1"></a>adder <span class="ot">&lt;-</span> <span class="cf">function</span>(a, b) {</span>
-<span id="cb95-2"><a href="organization.html#cb95-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(a <span class="sc">+</span> b)</span>
-<span id="cb95-3"><a href="organization.html#cb95-3" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb95-4"><a href="organization.html#cb95-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb95-5"><a href="organization.html#cb95-5" aria-hidden="true" tabindex="-1"></a><span class="fu">adder</span>(<span class="dv">3</span>, <span class="dv">4</span>)</span>
-<span id="cb95-6"><a href="organization.html#cb95-6" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="dv">7</span></span></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="organization.html#cb3-1"></a>adder &lt;-<span class="st"> </span><span class="cf">function</span>(a, b) {</span>
+<span id="cb3-2"><a href="organization.html#cb3-2"></a>  <span class="kw">return</span>(a <span class="op">+</span><span class="st"> </span>b)</span>
+<span id="cb3-3"><a href="organization.html#cb3-3"></a>}</span>
+<span id="cb3-4"><a href="organization.html#cb3-4"></a></span>
+<span id="cb3-5"><a href="organization.html#cb3-5"></a><span class="kw">adder</span>(<span class="dv">3</span>, <span class="dv">4</span>)</span>
+<span id="cb3-6"><a href="organization.html#cb3-6"></a><span class="co">## [1] 7</span></span></code></pre></div>
 <pre class="sashtmllog"><code>6          proc IML;
 NOTE: IML Ready
 7          
@@ -720,8 +663,8 @@ NOTE: Module ADDER defined.
 16         quit;
 NOTE: Exiting IML.
 NOTE: PROCEDURE IML used (Total process time):
-      real time           0.00 seconds
-      cpu time            0.00 seconds
+      real time           0.01 seconds
+      cpu time            0.01 seconds
       </code></pre>
 <div class="branch">
 <a name="IDX"></a>
@@ -758,64 +701,63 @@ c
 </div>
 <br>
 </div>
+</div>
+<div id="section" class="section level3 unnumbered">
+<h3></h3>
 <p>Of course, it’s not just important to be able to write your own functions. It’s also helpful to be able to see how functions are written, both to explore how a method is implemented and for debugging purposes. In SAS, this is generally not an option, because SAS is closed source, but in R, you can see the code behind any function which is implemented in R (it is harder to see functions implemented in C or C++, but not impossible) by typing the function name (no parentheses) into the command prompt.</p>
 <details>
-<summary>
-Let’s examine how the colSums() function is implemented
-</summary>
-<div class="sourceCode" id="cb97"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb97-1"><a href="organization.html#cb97-1" aria-hidden="true" tabindex="-1"></a>colSums</span>
-<span id="cb97-2"><a href="organization.html#cb97-2" aria-hidden="true" tabindex="-1"></a><span class="cf">function</span> (x, <span class="at">na.rm =</span> <span class="cn">FALSE</span>, <span class="at">dims =</span> 1L) </span>
-<span id="cb97-3"><a href="organization.html#cb97-3" aria-hidden="true" tabindex="-1"></a>{</span>
-<span id="cb97-4"><a href="organization.html#cb97-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> (<span class="fu">is.data.frame</span>(x)) </span>
-<span id="cb97-5"><a href="organization.html#cb97-5" aria-hidden="true" tabindex="-1"></a>        x <span class="ot">&lt;-</span> <span class="fu">as.matrix</span>(x)</span>
-<span id="cb97-6"><a href="organization.html#cb97-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> (<span class="sc">!</span><span class="fu">is.array</span>(x) <span class="sc">||</span> <span class="fu">length</span>(dn <span class="ot">&lt;-</span> <span class="fu">dim</span>(x)) <span class="sc">&lt;</span> 2L) </span>
-<span id="cb97-7"><a href="organization.html#cb97-7" aria-hidden="true" tabindex="-1"></a>        <span class="fu">stop</span>(<span class="st">&quot;&#39;x&#39; must be an array of at least two dimensions&quot;</span>)</span>
-<span id="cb97-8"><a href="organization.html#cb97-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> (dims <span class="sc">&lt;</span> 1L <span class="sc">||</span> dims <span class="sc">&gt;</span> <span class="fu">length</span>(dn) <span class="sc">-</span> 1L) </span>
-<span id="cb97-9"><a href="organization.html#cb97-9" aria-hidden="true" tabindex="-1"></a>        <span class="fu">stop</span>(<span class="st">&quot;invalid &#39;dims&#39;&quot;</span>)</span>
-<span id="cb97-10"><a href="organization.html#cb97-10" aria-hidden="true" tabindex="-1"></a>    n <span class="ot">&lt;-</span> <span class="fu">prod</span>(dn[id <span class="ot">&lt;-</span> <span class="fu">seq_len</span>(dims)])</span>
-<span id="cb97-11"><a href="organization.html#cb97-11" aria-hidden="true" tabindex="-1"></a>    dn <span class="ot">&lt;-</span> dn[<span class="sc">-</span>id]</span>
-<span id="cb97-12"><a href="organization.html#cb97-12" aria-hidden="true" tabindex="-1"></a>    z <span class="ot">&lt;-</span> <span class="cf">if</span> (<span class="fu">is.complex</span>(x)) </span>
-<span id="cb97-13"><a href="organization.html#cb97-13" aria-hidden="true" tabindex="-1"></a>        <span class="fu">.Internal</span>(<span class="fu">colSums</span>(<span class="fu">Re</span>(x), n, <span class="fu">prod</span>(dn), na.rm)) <span class="sc">+</span> (<span class="dv">0</span><span class="sc">+</span>1i) <span class="sc">*</span> </span>
-<span id="cb97-14"><a href="organization.html#cb97-14" aria-hidden="true" tabindex="-1"></a>            <span class="fu">.Internal</span>(<span class="fu">colSums</span>(<span class="fu">Im</span>(x), n, <span class="fu">prod</span>(dn), na.rm))</span>
-<span id="cb97-15"><a href="organization.html#cb97-15" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span> <span class="fu">.Internal</span>(<span class="fu">colSums</span>(x, n, <span class="fu">prod</span>(dn), na.rm))</span>
-<span id="cb97-16"><a href="organization.html#cb97-16" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> (<span class="fu">length</span>(dn) <span class="sc">&gt;</span> 1L) {</span>
-<span id="cb97-17"><a href="organization.html#cb97-17" aria-hidden="true" tabindex="-1"></a>        <span class="fu">dim</span>(z) <span class="ot">&lt;-</span> dn</span>
-<span id="cb97-18"><a href="organization.html#cb97-18" aria-hidden="true" tabindex="-1"></a>        <span class="fu">dimnames</span>(z) <span class="ot">&lt;-</span> <span class="fu">dimnames</span>(x)[<span class="sc">-</span>id]</span>
-<span id="cb97-19"><a href="organization.html#cb97-19" aria-hidden="true" tabindex="-1"></a>    }</span>
-<span id="cb97-20"><a href="organization.html#cb97-20" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span> <span class="fu">names</span>(z) <span class="ot">&lt;-</span> <span class="fu">dimnames</span>(x)[[dims <span class="sc">+</span> 1L]]</span>
-<span id="cb97-21"><a href="organization.html#cb97-21" aria-hidden="true" tabindex="-1"></a>    z</span>
-<span id="cb97-22"><a href="organization.html#cb97-22" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb97-23"><a href="organization.html#cb97-23" aria-hidden="true" tabindex="-1"></a><span class="sc">&lt;</span>bytecode<span class="sc">:</span> <span class="dv">0x55c638bb3af0</span><span class="sc">&gt;</span></span>
-<span id="cb97-24"><a href="organization.html#cb97-24" aria-hidden="true" tabindex="-1"></a><span class="er">&lt;</span>environment<span class="sc">:</span> namespace<span class="sc">:</span>base<span class="sc">&gt;</span></span></code></pre></div>
+<p><summary>Let’s examine how the colSums() function is implemented</summary></p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="organization.html#cb5-1"></a>colSums</span>
+<span id="cb5-2"><a href="organization.html#cb5-2"></a><span class="co">## function (x, na.rm = FALSE, dims = 1L) </span></span>
+<span id="cb5-3"><a href="organization.html#cb5-3"></a><span class="co">## {</span></span>
+<span id="cb5-4"><a href="organization.html#cb5-4"></a><span class="co">##     if (is.data.frame(x)) </span></span>
+<span id="cb5-5"><a href="organization.html#cb5-5"></a><span class="co">##         x &lt;- as.matrix(x)</span></span>
+<span id="cb5-6"><a href="organization.html#cb5-6"></a><span class="co">##     if (!is.array(x) || length(dn &lt;- dim(x)) &lt; 2L) </span></span>
+<span id="cb5-7"><a href="organization.html#cb5-7"></a><span class="co">##         stop(&quot;&#39;x&#39; must be an array of at least two dimensions&quot;)</span></span>
+<span id="cb5-8"><a href="organization.html#cb5-8"></a><span class="co">##     if (dims &lt; 1L || dims &gt; length(dn) - 1L) </span></span>
+<span id="cb5-9"><a href="organization.html#cb5-9"></a><span class="co">##         stop(&quot;invalid &#39;dims&#39;&quot;)</span></span>
+<span id="cb5-10"><a href="organization.html#cb5-10"></a><span class="co">##     n &lt;- prod(dn[id &lt;- seq_len(dims)])</span></span>
+<span id="cb5-11"><a href="organization.html#cb5-11"></a><span class="co">##     dn &lt;- dn[-id]</span></span>
+<span id="cb5-12"><a href="organization.html#cb5-12"></a><span class="co">##     z &lt;- if (is.complex(x)) </span></span>
+<span id="cb5-13"><a href="organization.html#cb5-13"></a><span class="co">##         .Internal(colSums(Re(x), n, prod(dn), na.rm)) + (0+1i) * </span></span>
+<span id="cb5-14"><a href="organization.html#cb5-14"></a><span class="co">##             .Internal(colSums(Im(x), n, prod(dn), na.rm))</span></span>
+<span id="cb5-15"><a href="organization.html#cb5-15"></a><span class="co">##     else .Internal(colSums(x, n, prod(dn), na.rm))</span></span>
+<span id="cb5-16"><a href="organization.html#cb5-16"></a><span class="co">##     if (length(dn) &gt; 1L) {</span></span>
+<span id="cb5-17"><a href="organization.html#cb5-17"></a><span class="co">##         dim(z) &lt;- dn</span></span>
+<span id="cb5-18"><a href="organization.html#cb5-18"></a><span class="co">##         dimnames(z) &lt;- dimnames(x)[-id]</span></span>
+<span id="cb5-19"><a href="organization.html#cb5-19"></a><span class="co">##     }</span></span>
+<span id="cb5-20"><a href="organization.html#cb5-20"></a><span class="co">##     else names(z) &lt;- dimnames(x)[[dims + 1L]]</span></span>
+<span id="cb5-21"><a href="organization.html#cb5-21"></a><span class="co">##     z</span></span>
+<span id="cb5-22"><a href="organization.html#cb5-22"></a><span class="co">## }</span></span>
+<span id="cb5-23"><a href="organization.html#cb5-23"></a><span class="co">## &lt;bytecode: 0x5594b8082098&gt;</span></span>
+<span id="cb5-24"><a href="organization.html#cb5-24"></a><span class="co">## &lt;environment: namespace:base&gt;</span></span></code></pre></div>
 <p>You can see that the first 3 steps in the function are if statements to test whether the inputs are acceptable - x must be a data frame, a matrix, or an array (with 2+ dimensions).</p>
 <p>The next couple of lines test to see whether there are additional “column” dimensions (don’t worry if you don’t understand what’s going on in this code - it’s highly optimized and a bit arcane).</p>
 <p>Then, the function checks to see if x is real-valued or complex, and if it’s complex, computes the real and imaginary sums separately.</p>
 <p>The <code>.Internal(colSums(x...))</code> part is calling a C function - basically, functions written in C are faster than R because they’re compiled, so this speeds basic operations up in R.</p>
 Then there are statements that transfer dimension names over to the summed object. At the end of the function, the last value computed is returned automatically (in this case, z).
 </details>
-<div class="tryitout">
-<div id="try-it-out-9" class="section level3 unnumbered">
+</div>
+<div id="try-it-out" class="section level3 unnumbered tryitout">
 <h3>Try it out</h3>
 <p>Write a function named <code>circle_area</code> which computes the area of a circle given the radius. Make sure to use reasonable parameter names! (Note: in R, pi is conveniently stored in the variable of the same name - it can be overwritten if you want to do so, but why would you want to do that? In SAS, you can get the value of pi using <code>constant("pi")</code>)</p>
 <details>
-<summary>
-Solution
-</summary>
-<div class="sourceCode" id="cb98"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb98-1"><a href="organization.html#cb98-1" aria-hidden="true" tabindex="-1"></a>circle_area <span class="ot">&lt;-</span> <span class="cf">function</span>(r) {</span>
-<span id="cb98-2"><a href="organization.html#cb98-2" aria-hidden="true" tabindex="-1"></a>  r<span class="sc">^</span><span class="dv">2</span><span class="sc">*</span>pi <span class="co"># automatically returned as the last computed value</span></span>
-<span id="cb98-3"><a href="organization.html#cb98-3" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb98-4"><a href="organization.html#cb98-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb98-5"><a href="organization.html#cb98-5" aria-hidden="true" tabindex="-1"></a><span class="fu">circle_area</span>(<span class="dv">5</span>)</span>
-<span id="cb98-6"><a href="organization.html#cb98-6" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="fl">78.53982</span></span></code></pre></div>
+<p><summary>Solution</summary></p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="organization.html#cb6-1"></a>circle_area &lt;-<span class="st"> </span><span class="cf">function</span>(r) {</span>
+<span id="cb6-2"><a href="organization.html#cb6-2"></a>  r<span class="op">^</span><span class="dv">2</span><span class="op">*</span>pi <span class="co"># automatically returned as the last computed value</span></span>
+<span id="cb6-3"><a href="organization.html#cb6-3"></a>}</span>
+<span id="cb6-4"><a href="organization.html#cb6-4"></a></span>
+<span id="cb6-5"><a href="organization.html#cb6-5"></a><span class="kw">circle_area</span>(<span class="dv">5</span>)</span>
+<span id="cb6-6"><a href="organization.html#cb6-6"></a><span class="co">## [1] 78.53982</span></span></code></pre></div>
 <p>A more complete and robust answer might include a test for numeric <code>r</code>:</p>
-<div class="sourceCode" id="cb99"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb99-1"><a href="organization.html#cb99-1" aria-hidden="true" tabindex="-1"></a>circle_area <span class="ot">&lt;-</span> <span class="cf">function</span>(r) {</span>
-<span id="cb99-2"><a href="organization.html#cb99-2" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (<span class="sc">!</span><span class="fu">is.numeric</span>(r)) {</span>
-<span id="cb99-3"><a href="organization.html#cb99-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">stop</span>(<span class="st">&quot;Supplied radius must be numeric&quot;</span>) <span class="co"># This issues an error</span></span>
-<span id="cb99-4"><a href="organization.html#cb99-4" aria-hidden="true" tabindex="-1"></a>  }</span>
-<span id="cb99-5"><a href="organization.html#cb99-5" aria-hidden="true" tabindex="-1"></a>  r<span class="sc">^</span><span class="dv">2</span><span class="sc">*</span>pi <span class="co"># automatically returned as the last computed value</span></span>
-<span id="cb99-6"><a href="organization.html#cb99-6" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb99-7"><a href="organization.html#cb99-7" aria-hidden="true" tabindex="-1"></a><span class="fu">circle_area</span>(<span class="dv">5</span>)</span>
-<span id="cb99-8"><a href="organization.html#cb99-8" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="fl">78.53982</span></span></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="organization.html#cb7-1"></a>circle_area &lt;-<span class="st"> </span><span class="cf">function</span>(r) {</span>
+<span id="cb7-2"><a href="organization.html#cb7-2"></a>  <span class="cf">if</span> (<span class="op">!</span><span class="kw">is.numeric</span>(r)) {</span>
+<span id="cb7-3"><a href="organization.html#cb7-3"></a>    <span class="kw">stop</span>(<span class="st">&quot;Supplied radius must be numeric&quot;</span>) <span class="co"># This issues an error</span></span>
+<span id="cb7-4"><a href="organization.html#cb7-4"></a>  }</span>
+<span id="cb7-5"><a href="organization.html#cb7-5"></a>  r<span class="op">^</span><span class="dv">2</span><span class="op">*</span>pi <span class="co"># automatically returned as the last computed value</span></span>
+<span id="cb7-6"><a href="organization.html#cb7-6"></a>}</span>
+<span id="cb7-7"><a href="organization.html#cb7-7"></a><span class="kw">circle_area</span>(<span class="dv">5</span>)</span>
+<span id="cb7-8"><a href="organization.html#cb7-8"></a><span class="co">## [1] 78.53982</span></span></code></pre></div>
 <pre class="sashtmllog"><code>6          proc IML;
 NOTE: IML Ready
 7          
@@ -832,7 +774,7 @@ NOTE: Module CIRCLE_AREA defined.
 NOTE: Exiting IML.
 NOTE: PROCEDURE IML used (Total process time):
       real time           0.00 seconds
-      cpu time            0.00 seconds
+      cpu time            0.01 seconds
       
 
 17         </code></pre>
@@ -867,62 +809,62 @@ c
 </div>
 </details>
 </div>
+<div id="section-1" class="section level3 unnumbered">
+<h3></h3>
 <p>One last trick to note: functions generally can only return one object. If you need to return more than one thing, put the objects into a list or another data structure, and return that - then you can take the list/structure apart outside the function to use the returned values separately.</p>
 </div>
-<div id="scope" class="section level3" number="3.2.1">
-<h3><span class="header-section-number">3.2.1</span> Scope</h3>
+<div id="function-scope" class="section level3">
+<h3><span class="header-section-number">3.2.1</span> Function Scope</h3>
 <p>The scope of a variable is the space in the program where a variable is defined and can be accessed. A <strong>local</strong> variable is one which can only be accessed within a function or block of code - it does not exist outside of that code. A <strong>global</strong> variable is one which is available to the entire program.</p>
 <p>In R, every function is defined in a certain environment, and once it is defined, executed in a specific environment. Think of an environment as a space full of available variables, functions, and objects. Any defined object or variable that a function has access to is <strong>in scope</strong>. When you are inside of a function block, you have access to values defined within the function, plus any other values outside the function. When there are two variables with the same name, the object in the environment which is “closest” is used.</p>
 <details>
-<summary>
-Demonstration of scoping in R
-</summary>
-<div class="sourceCode" id="cb101"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb101-1"><a href="organization.html#cb101-1" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb101-2"><a href="organization.html#cb101-2" aria-hidden="true" tabindex="-1"></a>a <span class="ot">&lt;-</span> <span class="dv">3</span></span>
-<span id="cb101-3"><a href="organization.html#cb101-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb101-4"><a href="organization.html#cb101-4" aria-hidden="true" tabindex="-1"></a>myfun <span class="ot">&lt;-</span> <span class="cf">function</span>(a, b) {</span>
-<span id="cb101-5"><a href="organization.html#cb101-5" aria-hidden="true" tabindex="-1"></a>  a <span class="sc">+</span> b <span class="sc">+</span> <span class="dv">2</span></span>
-<span id="cb101-6"><a href="organization.html#cb101-6" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb101-7"><a href="organization.html#cb101-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb101-8"><a href="organization.html#cb101-8" aria-hidden="true" tabindex="-1"></a><span class="fu">myfun</span>(<span class="dv">5</span>, <span class="dv">6</span>) <span class="co"># a is 5 inside the function, so that overrides the </span></span>
-<span id="cb101-9"><a href="organization.html#cb101-9" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="dv">13</span></span>
-<span id="cb101-10"><a href="organization.html#cb101-10" aria-hidden="true" tabindex="-1"></a>            <span class="co"># a defined outside the function</span></span>
-<span id="cb101-11"><a href="organization.html#cb101-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb101-12"><a href="organization.html#cb101-12" aria-hidden="true" tabindex="-1"></a><span class="fu">myfun</span>(a, <span class="dv">3</span>) <span class="co"># this references the a outside the function</span></span>
-<span id="cb101-13"><a href="organization.html#cb101-13" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="dv">8</span></span></code></pre></div>
+<p><summary>Demonstration of scoping in R</summary></p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="organization.html#cb9-1"></a></span>
+<span id="cb9-2"><a href="organization.html#cb9-2"></a>a &lt;-<span class="st"> </span><span class="dv">3</span></span>
+<span id="cb9-3"><a href="organization.html#cb9-3"></a></span>
+<span id="cb9-4"><a href="organization.html#cb9-4"></a>myfun &lt;-<span class="st"> </span><span class="cf">function</span>(a, b) {</span>
+<span id="cb9-5"><a href="organization.html#cb9-5"></a>  a <span class="op">+</span><span class="st"> </span>b <span class="op">+</span><span class="st"> </span><span class="dv">2</span></span>
+<span id="cb9-6"><a href="organization.html#cb9-6"></a>}</span>
+<span id="cb9-7"><a href="organization.html#cb9-7"></a></span>
+<span id="cb9-8"><a href="organization.html#cb9-8"></a><span class="kw">myfun</span>(<span class="dv">5</span>, <span class="dv">6</span>) <span class="co"># a is 5 inside the function, so that overrides the </span></span>
+<span id="cb9-9"><a href="organization.html#cb9-9"></a><span class="co">## [1] 13</span></span>
+<span id="cb9-10"><a href="organization.html#cb9-10"></a>            <span class="co"># a defined outside the function</span></span>
+<span id="cb9-11"><a href="organization.html#cb9-11"></a></span>
+<span id="cb9-12"><a href="organization.html#cb9-12"></a><span class="kw">myfun</span>(a, <span class="dv">3</span>) <span class="co"># this references the a outside the function</span></span>
+<span id="cb9-13"><a href="organization.html#cb9-13"></a><span class="co">## [1] 8</span></span></code></pre></div>
 <div class="figure">
 <img src="image/03_myfun_scope.png" alt="" />
 <p class="caption">Scope diagram. When myfun() is called, the calling environment contains the two parameters a and b.</p>
 </div>
-<div class="sourceCode" id="cb102"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb102-1"><a href="organization.html#cb102-1" aria-hidden="true" tabindex="-1"></a>a <span class="ot">&lt;-</span> <span class="dv">3</span></span>
-<span id="cb102-2"><a href="organization.html#cb102-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb102-3"><a href="organization.html#cb102-3" aria-hidden="true" tabindex="-1"></a>myfun2 <span class="ot">&lt;-</span> <span class="cf">function</span>(d) {</span>
-<span id="cb102-4"><a href="organization.html#cb102-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">myfun</span>(a, d)</span>
-<span id="cb102-5"><a href="organization.html#cb102-5" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb102-6"><a href="organization.html#cb102-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb102-7"><a href="organization.html#cb102-7" aria-hidden="true" tabindex="-1"></a><span class="fu">myfun2</span>(<span class="dv">3</span>) <span class="co"># the only a in scope inside fun2 is the a defined at the top of the chunk</span></span>
-<span id="cb102-8"><a href="organization.html#cb102-8" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="dv">8</span></span></code></pre></div>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="organization.html#cb10-1"></a>a &lt;-<span class="st"> </span><span class="dv">3</span></span>
+<span id="cb10-2"><a href="organization.html#cb10-2"></a></span>
+<span id="cb10-3"><a href="organization.html#cb10-3"></a>myfun2 &lt;-<span class="st"> </span><span class="cf">function</span>(d) {</span>
+<span id="cb10-4"><a href="organization.html#cb10-4"></a>  <span class="kw">myfun</span>(a, d)</span>
+<span id="cb10-5"><a href="organization.html#cb10-5"></a>}</span>
+<span id="cb10-6"><a href="organization.html#cb10-6"></a></span>
+<span id="cb10-7"><a href="organization.html#cb10-7"></a><span class="kw">myfun2</span>(<span class="dv">3</span>) <span class="co"># the only a in scope inside fun2 is the a defined at the top of the chunk</span></span>
+<span id="cb10-8"><a href="organization.html#cb10-8"></a><span class="co">## [1] 8</span></span></code></pre></div>
 <div class="figure">
 <img src="image/03_myfun2_scope.png" alt="" />
 <p class="caption">Scope diagram. When myfun2() is called, the calling environment contains only a parameter <span class="math inline">\(d\)</span>. <span class="math inline">\(a\)</span> is pulled from the global environment, as there is no parameter <span class="math inline">\(a\)</span> in the myfun2 calling environment.</p>
 </div>
-<div class="sourceCode" id="cb103"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb103-1"><a href="organization.html#cb103-1" aria-hidden="true" tabindex="-1"></a>a <span class="ot">&lt;-</span> <span class="dv">3</span></span>
-<span id="cb103-2"><a href="organization.html#cb103-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb103-3"><a href="organization.html#cb103-3" aria-hidden="true" tabindex="-1"></a>myfun3 <span class="ot">&lt;-</span> <span class="cf">function</span>(a, d) {</span>
-<span id="cb103-4"><a href="organization.html#cb103-4" aria-hidden="true" tabindex="-1"></a>  b <span class="ot">&lt;-</span> a; <span class="co"># make a copy of the value</span></span>
-<span id="cb103-5"><a href="organization.html#cb103-5" aria-hidden="true" tabindex="-1"></a>  a <span class="ot">&lt;-</span> <span class="dv">250</span>;</span>
-<span id="cb103-6"><a href="organization.html#cb103-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">myfun</span>(b, d)</span>
-<span id="cb103-7"><a href="organization.html#cb103-7" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb103-8"><a href="organization.html#cb103-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb103-9"><a href="organization.html#cb103-9" aria-hidden="true" tabindex="-1"></a>a</span>
-<span id="cb103-10"><a href="organization.html#cb103-10" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="dv">3</span></span>
-<span id="cb103-11"><a href="organization.html#cb103-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb103-12"><a href="organization.html#cb103-12" aria-hidden="true" tabindex="-1"></a><span class="fu">myfun3</span>(<span class="dv">5</span>, <span class="dv">3</span>) <span class="co"># now, a is defined inside fun3 as a = 5, so there is an a in </span></span>
-<span id="cb103-13"><a href="organization.html#cb103-13" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="dv">10</span></span>
-<span id="cb103-14"><a href="organization.html#cb103-14" aria-hidden="true" tabindex="-1"></a>             <span class="co"># fun3&#39;s scope that isn&#39;t in the global environment.</span></span>
-<span id="cb103-15"><a href="organization.html#cb103-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb103-16"><a href="organization.html#cb103-16" aria-hidden="true" tabindex="-1"></a>a <span class="co"># value of a hasn&#39;t changed</span></span>
-<span id="cb103-17"><a href="organization.html#cb103-17" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="dv">3</span></span></code></pre></div>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="organization.html#cb11-1"></a>a &lt;-<span class="st"> </span><span class="dv">3</span></span>
+<span id="cb11-2"><a href="organization.html#cb11-2"></a></span>
+<span id="cb11-3"><a href="organization.html#cb11-3"></a>myfun3 &lt;-<span class="st"> </span><span class="cf">function</span>(a, d) {</span>
+<span id="cb11-4"><a href="organization.html#cb11-4"></a>  b &lt;-<span class="st"> </span>a; <span class="co"># make a copy of the value</span></span>
+<span id="cb11-5"><a href="organization.html#cb11-5"></a>  a &lt;-<span class="st"> </span><span class="dv">250</span>;</span>
+<span id="cb11-6"><a href="organization.html#cb11-6"></a>  <span class="kw">myfun</span>(b, d)</span>
+<span id="cb11-7"><a href="organization.html#cb11-7"></a>}</span>
+<span id="cb11-8"><a href="organization.html#cb11-8"></a></span>
+<span id="cb11-9"><a href="organization.html#cb11-9"></a>a</span>
+<span id="cb11-10"><a href="organization.html#cb11-10"></a><span class="co">## [1] 3</span></span>
+<span id="cb11-11"><a href="organization.html#cb11-11"></a></span>
+<span id="cb11-12"><a href="organization.html#cb11-12"></a><span class="kw">myfun3</span>(<span class="dv">5</span>, <span class="dv">3</span>) <span class="co"># now, a is defined inside fun3 as a = 5, so there is an a in </span></span>
+<span id="cb11-13"><a href="organization.html#cb11-13"></a><span class="co">## [1] 10</span></span>
+<span id="cb11-14"><a href="organization.html#cb11-14"></a>             <span class="co"># fun3&#39;s scope that isn&#39;t in the global environment.</span></span>
+<span id="cb11-15"><a href="organization.html#cb11-15"></a></span>
+<span id="cb11-16"><a href="organization.html#cb11-16"></a>a <span class="co"># value of a hasn&#39;t changed</span></span>
+<span id="cb11-17"><a href="organization.html#cb11-17"></a><span class="co">## [1] 3</span></span></code></pre></div>
 <div class="figure">
 <img src="image/03_myfun3_scope.png" alt="" />
 <p class="caption">Scope diagram. When myfun3() is called, the calling environment contains parameters a and d, which are then copied into the calling environment of myfun as <span class="math inline">\(a\)</span> and <span class="math inline">\(b\)</span>. The variable <span class="math inline">\(a\)</span> in the global environment is ignored.</p>
@@ -932,9 +874,7 @@ Demonstration of scoping in R
 <p>R does have global variables and a global assignment operator, <code>&lt;&lt;-</code>, but the use of global variables is strongly discouraged, and global variables are not permitted in e.g. CRAN packages.</p>
 <p>In SAS, scoping rules are more like those in other programming languages - you have to keep track of how arguments are made available to the function.</p>
 <details>
-<summary>
-Demonstration of scoping in SAS. Environments do not inherit variables from the calling environment.
-</summary>
+<p><summary>Demonstration of scoping in SAS. Environments do not inherit variables from the calling environment.</summary></p>
 <pre class="saslog"><code>2          PROC IML;
 NOTE: IML Ready
 3          a = 3;
@@ -961,24 +901,24 @@ NOTE: PROCEDURE IML used (Total process time):
       
 
 18         
-                              The SAS System                              1
-                                      Wednesday, April 28, 2021 11:52:00 AM
-
-                                             c
-
-                            3 + 4 =          7
-                              The SAS System                              2
-                                      Wednesday, April 28, 2021 11:52:00 AM
-
-                                     c
-
-                                 78.539816
- 
-                                                                           
- 
-                                   r1        r2
-
-                                   13         8</code></pre>
+##                               The SAS System                              1
+##                                        Thursday, April 29, 2021 12:12:00 PM
+## 
+##                                              c
+## 
+##                             3 + 4 =          7
+##                               The SAS System                              2
+##                                        Thursday, April 29, 2021 12:12:00 PM
+## 
+##                                      c
+## 
+##                                  78.539816
+##  
+##                                                                            
+##  
+##                                    r1        r2
+## 
+##                                    13         8</code></pre>
 <p>In SAS, the equivalent version of the program used to demonstrate lexical scoping in R produces an error. In SAS, you cannot assume the function has access to values defined outside of that function that are not passed into the function as arguments.</p>
 <pre class="saslog"><code>2          PROC IML;
 NOTE: IML Ready
@@ -1028,24 +968,24 @@ NOTE: PROCEDURE IML used (Total process time):
       
 
 ERROR: Errors printed on page 2.
-                              The SAS System                              1
-                                      Wednesday, April 28, 2021 11:52:00 AM
-
-                                             c
-
-                            3 + 4 =          7
-                              The SAS System                              2
-                                      Wednesday, April 28, 2021 11:52:00 AM
-
-                                     c
-
-                                 78.539816
-                              The SAS System                              3
-                                      Wednesday, April 28, 2021 11:52:00 AM
-
-                                   r1        r2
-
-                                   13         8</code></pre>
+##                               The SAS System                              1
+##                                        Thursday, April 29, 2021 12:12:00 PM
+## 
+##                                              c
+## 
+##                             3 + 4 =          7
+##                               The SAS System                              2
+##                                        Thursday, April 29, 2021 12:12:00 PM
+## 
+##                                      c
+## 
+##                                  78.539816
+##                               The SAS System                              3
+##                                        Thursday, April 29, 2021 12:12:00 PM
+## 
+##                                    r1        r2
+## 
+##                                    13         8</code></pre>
 </details>
 <p>First, let’s consider the similarities: like R, functions have a local scope, and changing a similarly named value inside the function doesn’t change the value outside the function.</p>
 <pre class="saslog"><code>
@@ -1075,44 +1015,43 @@ NOTE: PROCEDURE IML used (Total process time):
 15         
 
 ERROR: Errors printed on page 2.
-                              The SAS System                              1
-                                      Wednesday, April 28, 2021 11:52:00 AM
-
-                                             c
-
-                            3 + 4 =          7
-                              The SAS System                              2
-                                      Wednesday, April 28, 2021 11:52:00 AM
-
-                                     c
-
-                                 78.539816
-                              The SAS System                              3
-                                      Wednesday, April 28, 2021 11:52:00 AM
-
-                                   r1        r2
-
-                                   13         8
- 
-                                                                           
- 
-                         y inside function (local)
-
-                     2         4         6         8        10
-
-                            y outside function
-
-                                             0</code></pre>
+##                               The SAS System                              1
+##                                        Thursday, April 29, 2021 12:12:00 PM
+## 
+##                                              c
+## 
+##                             3 + 4 =          7
+##                               The SAS System                              2
+##                                        Thursday, April 29, 2021 12:12:00 PM
+## 
+##                                      c
+## 
+##                                  78.539816
+##                               The SAS System                              3
+##                                        Thursday, April 29, 2021 12:12:00 PM
+## 
+##                                    r1        r2
+## 
+##                                    13         8
+##  
+##                                                                            
+##  
+##                          y inside function (local)
+## 
+##                      2         4         6         8        10
+## 
+## 
+##                             y outside function
+## 
+##                                              0</code></pre>
 <p>However, R’s environment feature and lexical scoping is not common to many other programming languages.
 When values are passed into the function as arguments, the behavior in SAS deviates from the equivalent behavior in R. In SAS, arguments to functions are passed by <strong>reference</strong>.</p>
 <p>An argument that is passed <strong>by value</strong> makes a copy of the value (to a new memory location) for the local function scope (this is what R does).</p>
-<p>When an argument is passed <strong>by reference</strong>, the <em>address</em> of the argument is passed in instead<a href="#fn12" class="footnote-ref" id="fnref12"><sup>12</sup></a>.
+<p>When an argument is passed <strong>by reference</strong>, the <em>address</em> of the argument is passed in instead<a href="#fn3" class="footnote-ref" id="fnref3"><sup>3</sup></a>.
 This is faster and more efficient (because you aren’t making a new copy of the data), but it does mean that changes inside the function persist outside that function. <a href="https://blogs.sas.com/content/iml/2011/02/07/passing-arguments-by-reference-an-efficient-choice.html">This can cause problems when reusing modules</a>.</p>
 <details>
-<summary>
-Argument passing in SAS
-</summary>
-<p>If we make a slight modification to <code>myfun(a, b)</code>, though, we see some interesting behavior in SAS that we wouldn’t see in the equivalent R program.</p>
+<p><summary>Argument passing in SAS</summary>
+If we make a slight modification to <code>myfun(a, b)</code>, though, we see some interesting behavior in SAS that we wouldn’t see in the equivalent R program.</p>
 <pre class="saslog"><code>2          PROC IML;
 NOTE: IML Ready
 3          a = 3;
@@ -1137,55 +1076,20 @@ NOTE: Module MYFUN defined.
 20       ! d[label=&quot;a after r2&quot;];
 21         quit;
 NOTE: Exiting IML.
-NOTE: The PROCEDURE IML printed page 5.
+NOTE: The PROCEDURE IML printed page 1.
 NOTE: PROCEDURE IML used (Total process time):
-      real time           0.00 seconds
-      cpu time            0.00 seconds
+      real time           0.03 seconds
+      cpu time            0.03 seconds
       
-
-ERROR: Errors printed on page 2.
-                              The SAS System                              1
-                                      Wednesday, April 28, 2021 11:52:00 AM
-
-                                             c
-
-                            3 + 4 =          7
-                              The SAS System                              2
-                                      Wednesday, April 28, 2021 11:52:00 AM
-
-                                     c
-
-                                 78.539816
-                              The SAS System                              3
-                                      Wednesday, April 28, 2021 11:52:00 AM
-
-                                   r1        r2
-
-                                   13         8
-                              The SAS System                              4
-                                      Wednesday, April 28, 2021 11:52:00 AM
-
-                         y inside function (local)
-
-                     2         4         6         8        10
-
-                            y outside function
-
-                                             0
- 
-                                                                           
- 
-           a before r1        r1 a after r1        r2 a after r2
-
-                     3        13          3         8          5</code></pre>
+##            a before r1        r1 a after r1        r2 a after r2
+## 
+##                      3        13          3         8          5</code></pre>
 <div class="note">
 <p>In SAS, be sure that if you are using a logical operator AND, <code>&amp;</code>, you put spaces around it (e.g. <code>&amp;</code>) - <code>&amp;var2</code> is a way to specify that you are passing an argument (<code>var2</code>) by reference, and SAS can get confused and issue weird warnings if you actually intended this to be a logical statement of <code>var1 &amp;var2</code>.</p>
 <p>I ran across this once and it thoroughly confused me until I remembered that &amp;var can mean “pass by reference” in some languages.</p>
 </div>
 <details>
-<summary>
-Another example of SAS passing arguments by reference (and the unexpected effects that can have on a program’s state)
-</summary>
+<p><summary>Another example of SAS passing arguments by reference (and the unexpected effects that can have on a program’s state)</summary></p>
 <pre class="saslog"><code>2          PROC IML;
 NOTE: IML Ready
 3          start myfun(x);
@@ -1209,77 +1113,48 @@ NOTE: Module MYFUN defined.
 18         
 19         quit;
 NOTE: Exiting IML.
-NOTE: The PROCEDURE IML printed page 6.
+NOTE: The PROCEDURE IML printed page 2.
 NOTE: PROCEDURE IML used (Total process time):
       real time           0.00 seconds
-      cpu time            0.00 seconds
+      cpu time            0.01 seconds
       
 
 20         
-
-ERROR: Errors printed on page 2.
-                              The SAS System                              1
-                                      Wednesday, April 28, 2021 11:52:00 AM
-
-                                             c
-
-                            3 + 4 =          7
-                              The SAS System                              2
-                                      Wednesday, April 28, 2021 11:52:00 AM
-
-                                     c
-
-                                 78.539816
-                              The SAS System                              3
-                                      Wednesday, April 28, 2021 11:52:00 AM
-
-                                   r1        r2
-
-                                   13         8
-                              The SAS System                              4
-                                      Wednesday, April 28, 2021 11:52:00 AM
-
-                         y inside function (local)
-
-                     2         4         6         8        10
-
-                            y outside function
-
-                                             0
-                              The SAS System                              5
-                                      Wednesday, April 28, 2021 11:52:00 AM
-
-           a before r1        r1 a after r1        r2 a after r2
-
-                     3        13          3         8          5
- 
-                                                                           
- 
-                        y before function is called
-
-                                                  3
-                                                  1
-                                                  4
-                                                  1
-                                                  5
-                                                  9
-                                                  2
-                                                  6
-                                                  5
-                                                  4
-
-     original y y after function is called cumulative sum of sorted y
-
-              3                          1                          1
-              1                          1                          2
-              4                          2                          4
-              1                          3                          7
-              5                          4                         11
-              9                          4                         15
-              2                          5                         20
-              6                          5                         25
-              5                          6                         31
-              4                          9                         40</code></pre>
+##                               The SAS System                              1
+##                                        Thursday, April 29, 2021 03:17:00 PM
+## 
+##            a before r1        r1 a after r1        r2 a after r2
+## 
+##                      3        13          3         8          5
+##  
+##                                                                            
+##  
+##                         y before function is called
+## 
+##                                                   3
+##                                                   1
+##                                                   4
+##                                                   1
+##                                                   5
+##                                                   9
+##                                                   2
+##                                                   6
+##                                                   5
+##                                                   4
+## 
+## 
+##      original y y after function is called cumulative sum of sorted y
+## 
+##               3                          1                          1
+##               1                          1                          2
+##               4                          2                          4
+##               1                          3                          7
+##               5                          4                         11
+##               9                          4                         15
+##               2                          5                         20
+##               6                          5                         25
+##               5                          6                         31
+##               4                          9                         40</code></pre>
 <p>Because arguments in SAS are passed by reference, you can “trick” a function into returning multiple values by passing the variables in as arguments to the function, changing their values in the function, and returning. This is not necessarily a good practice - it can make code very difficult to debug, and may lead to non-obvious dependencies - but for short, simple programs, you can probably get away with it.</p>
 <pre class="saslog"><code>2          PROC IML;
 NOTE: IML Ready
@@ -1302,116 +1177,85 @@ NOTE: Module GETDESCRIPTIVE defined.
 16         
 17         quit;
 NOTE: Exiting IML.
-NOTE: The PROCEDURE IML printed page 7.
+NOTE: The PROCEDURE IML printed page 3.
 NOTE: PROCEDURE IML used (Total process time):
       real time           0.00 seconds
-      cpu time            0.00 seconds
+      cpu time            0.01 seconds
       
 
 18         
-
-ERROR: Errors printed on page 2.
-                              The SAS System                              1
-                                      Wednesday, April 28, 2021 11:52:00 AM
-
-                                             c
-
-                            3 + 4 =          7
-                              The SAS System                              2
-                                      Wednesday, April 28, 2021 11:52:00 AM
-
-                                     c
-
-                                 78.539816
-                              The SAS System                              3
-                                      Wednesday, April 28, 2021 11:52:00 AM
-
-                                   r1        r2
-
-                                   13         8
-                              The SAS System                              4
-                                      Wednesday, April 28, 2021 11:52:00 AM
-
-                         y inside function (local)
-
-                     2         4         6         8        10
-
-                            y outside function
-
-                                             0
-                              The SAS System                              5
-                                      Wednesday, April 28, 2021 11:52:00 AM
-
-           a before r1        r1 a after r1        r2 a after r2
-
-                     3        13          3         8          5
-                              The SAS System                              6
-                                      Wednesday, April 28, 2021 11:52:00 AM
-
-                        y before function is called
-
-                                                  3
-                                                  1
-                                                  4
-                                                  1
-                                                  5
-                                                  9
-                                                  2
-                                                  6
-                                                  5
-                                                  4
-
-     original y y after function is called cumulative sum of sorted y
-
-              3                          1                          1
-              1                          1                          2
-              4                          2                          4
-              1                          3                          7
-              5                          4                         11
-              9                          4                         15
-              2                          5                         20
-              6                          5                         25
-              5                          6                         31
-              4                          9                         40
- 
-                                                                           
- 
-                                    m         s
-
-                                    4 2.4494897</code></pre>
+##                               The SAS System                              1
+##                                        Thursday, April 29, 2021 03:17:00 PM
+## 
+##            a before r1        r1 a after r1        r2 a after r2
+## 
+##                      3        13          3         8          5
+##                               The SAS System                              2
+##                                        Thursday, April 29, 2021 03:17:00 PM
+## 
+##                         y before function is called
+## 
+##                                                   3
+##                                                   1
+##                                                   4
+##                                                   1
+##                                                   5
+##                                                   9
+##                                                   2
+##                                                   6
+##                                                   5
+##                                                   4
+## 
+## 
+##      original y y after function is called cumulative sum of sorted y
+## 
+##               3                          1                          1
+##               1                          1                          2
+##               4                          2                          4
+##               1                          3                          7
+##               5                          4                         11
+##               9                          4                         15
+##               2                          5                         20
+##               6                          5                         25
+##               5                          6                         31
+##               4                          9                         40
+##  
+##                                                                            
+##  
+##                                     m         s
+## 
+##                                     4 2.4494897</code></pre>
 If you want to avoid any of these side-effects of SAS’s pass-by-reference behavior, you can very easily do so: just don’t write any modules that modify input arguments. Always modify a copy of the variable instead.
 </details>
 </details>
 <details>
-<summary>
-Argument passing in R
-</summary>
-<p>In R, variables inside a function don’t modify variables which are outside a function (generally speaking). In SAS, this is not necessarily the case. In the first call to myfun(), we pass in two numerical arguments, and we see that even though the value of a changes inside the function, that change doesn’t affect the variable defined outside of the function. In the second call to myfun(), we pass a variable in as an argument, and we see that the variable changes after the function’s execution! In the R chunk (below), you can see that the behavior of what is essentially the same code is different.</p>
-<div class="sourceCode" id="cb110"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb110-1"><a href="organization.html#cb110-1" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb110-2"><a href="organization.html#cb110-2" aria-hidden="true" tabindex="-1"></a>a <span class="ot">&lt;-</span> <span class="dv">3</span></span>
-<span id="cb110-3"><a href="organization.html#cb110-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb110-4"><a href="organization.html#cb110-4" aria-hidden="true" tabindex="-1"></a>myfun <span class="ot">&lt;-</span> <span class="cf">function</span>(a, b) {</span>
-<span id="cb110-5"><a href="organization.html#cb110-5" aria-hidden="true" tabindex="-1"></a>  a <span class="ot">&lt;-</span> a <span class="sc">+</span> <span class="dv">2</span></span>
-<span id="cb110-6"><a href="organization.html#cb110-6" aria-hidden="true" tabindex="-1"></a>  a <span class="sc">+</span> b</span>
-<span id="cb110-7"><a href="organization.html#cb110-7" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb110-8"><a href="organization.html#cb110-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb110-9"><a href="organization.html#cb110-9" aria-hidden="true" tabindex="-1"></a>a</span>
-<span id="cb110-10"><a href="organization.html#cb110-10" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="dv">3</span></span>
-<span id="cb110-11"><a href="organization.html#cb110-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb110-12"><a href="organization.html#cb110-12" aria-hidden="true" tabindex="-1"></a><span class="fu">myfun</span>(<span class="dv">5</span>, <span class="dv">6</span>)</span>
-<span id="cb110-13"><a href="organization.html#cb110-13" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="dv">13</span></span>
-<span id="cb110-14"><a href="organization.html#cb110-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb110-15"><a href="organization.html#cb110-15" aria-hidden="true" tabindex="-1"></a>a</span>
-<span id="cb110-16"><a href="organization.html#cb110-16" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="dv">3</span></span>
-<span id="cb110-17"><a href="organization.html#cb110-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb110-18"><a href="organization.html#cb110-18" aria-hidden="true" tabindex="-1"></a><span class="fu">myfun</span>(a, <span class="dv">3</span>) </span>
-<span id="cb110-19"><a href="organization.html#cb110-19" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="dv">8</span></span>
-<span id="cb110-20"><a href="organization.html#cb110-20" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb110-21"><a href="organization.html#cb110-21" aria-hidden="true" tabindex="-1"></a>a</span>
-<span id="cb110-22"><a href="organization.html#cb110-22" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="dv">3</span></span></code></pre></div>
+<p><summary>Argument passing in R</summary>
+In R, variables inside a function don’t modify variables which are outside a function (generally speaking). In SAS, this is not necessarily the case. In the first call to myfun(), we pass in two numerical arguments, and we see that even though the value of a changes inside the function, that change doesn’t affect the variable defined outside of the function. In the second call to myfun(), we pass a variable in as an argument, and we see that the variable changes after the function’s execution! In the R chunk (below), you can see that the behavior of what is essentially the same code is different.</p>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="organization.html#cb18-1"></a></span>
+<span id="cb18-2"><a href="organization.html#cb18-2"></a>a &lt;-<span class="st"> </span><span class="dv">3</span></span>
+<span id="cb18-3"><a href="organization.html#cb18-3"></a></span>
+<span id="cb18-4"><a href="organization.html#cb18-4"></a>myfun &lt;-<span class="st"> </span><span class="cf">function</span>(a, b) {</span>
+<span id="cb18-5"><a href="organization.html#cb18-5"></a>  a &lt;-<span class="st"> </span>a <span class="op">+</span><span class="st"> </span><span class="dv">2</span></span>
+<span id="cb18-6"><a href="organization.html#cb18-6"></a>  a <span class="op">+</span><span class="st"> </span>b</span>
+<span id="cb18-7"><a href="organization.html#cb18-7"></a>}</span>
+<span id="cb18-8"><a href="organization.html#cb18-8"></a></span>
+<span id="cb18-9"><a href="organization.html#cb18-9"></a>a</span>
+<span id="cb18-10"><a href="organization.html#cb18-10"></a><span class="co">## [1] 3</span></span>
+<span id="cb18-11"><a href="organization.html#cb18-11"></a></span>
+<span id="cb18-12"><a href="organization.html#cb18-12"></a><span class="kw">myfun</span>(<span class="dv">5</span>, <span class="dv">6</span>)</span>
+<span id="cb18-13"><a href="organization.html#cb18-13"></a><span class="co">## [1] 13</span></span>
+<span id="cb18-14"><a href="organization.html#cb18-14"></a></span>
+<span id="cb18-15"><a href="organization.html#cb18-15"></a>a</span>
+<span id="cb18-16"><a href="organization.html#cb18-16"></a><span class="co">## [1] 3</span></span>
+<span id="cb18-17"><a href="organization.html#cb18-17"></a></span>
+<span id="cb18-18"><a href="organization.html#cb18-18"></a><span class="kw">myfun</span>(a, <span class="dv">3</span>) </span>
+<span id="cb18-19"><a href="organization.html#cb18-19"></a><span class="co">## [1] 8</span></span>
+<span id="cb18-20"><a href="organization.html#cb18-20"></a></span>
+<span id="cb18-21"><a href="organization.html#cb18-21"></a>a</span>
+<span id="cb18-22"><a href="organization.html#cb18-22"></a><span class="co">## [1] 3</span></span></code></pre></div>
 </details>
-<div id="try-it-out-10" class="section level4 unnumbered tryitout">
-<h4>Try it out</h4>
+<div class="tryitout">
+<h4 id="try-it-out-1" class="unnumbered">Try it out</h4>
 <p>Can you predict what the output of this chunk will be?</p>
 <pre><code>f &lt;- function(x) {
   f &lt;- function(x) {
@@ -1436,9 +1280,7 @@ f(10)</code></pre>
   finish;
 quit;</code></pre>
 <details>
-<summary>
-Solution
-</summary>
+<p><summary>Solution</summary></p>
 <p>Working through the R program: This gets much less confusing if you rename the functions following R’s scoping rules.</p>
 <pre><code>f &lt;- function(x) {
   f1 &lt;- function(x) { # because inside of f(), the new definition will dominate 
@@ -1487,14 +1329,10 @@ NOTE: PROCEDURE IML used (Total process time):
       cpu time            0.00 seconds
       
 
-29         
-
-ERROR: Errors printed on page 2.</code></pre>
+29         </code></pre>
 <details>
-<summary>
-Solution
-</summary>
-<p>This is easiest if we step through the program and list what is passed around inside and outside of the function evaluation.</p>
+<p><summary>Solution</summary>
+This is easiest if we step through the program and list what is passed around inside and outside of the function evaluation.</p>
 <pre><code>a = 0
 res1 = ...? 
 (inside funwithsas res1) x = (location of a), y = 5
@@ -1523,24 +1361,22 @@ The trick to this problem is to realize that inside of the function, when a vari
 </details>
 </div>
 </div>
-<div id="the-pipe" class="section level3" number="3.2.2">
+<div id="the-pipe" class="section level3">
 <h3><span class="header-section-number">3.2.2</span> The Pipe</h3>
 <div class="note">
-<p>You do not need to understand the collapsed section below. If you’re feeling comfortable with the material, go ahead and read it now. I’ve left it in the functions section, because it’s a topic relating to functions, but it’s not essential to understand to use R (even at an advanced level)<a href="#fn13" class="footnote-ref" id="fnref13"><sup>13</sup></a>.</p>
+<p>You do not need to understand the collapsed section below. If you’re feeling comfortable with the material, go ahead and read it now. I’ve left it in the functions section, because it’s a topic relating to functions, but it’s not essential to understand to use R (even at an advanced level)<a href="#fn4" class="footnote-ref" id="fnref4"><sup>4</sup></a>.</p>
 </div>
 <details>
-<summary>
-Infix operators
-</summary>
-<p>Most functions take arguments written after the function name. Can you think of any functions which work differently?</p>
+<p><summary>Infix operators</summary>
+Most functions take arguments written after the function name. Can you think of any functions which work differently?</p>
 <p><strong>Infix</strong> functions are functions that take arguments on both sides of the function name. Say, a + b: technically, a and b are arguments to the function +, so we could think of this as +(a, b).</p>
 <p>R has a number of infix functions, but you can also create your own. User-defined infix functions start and end with %. So %&gt;%, %in%, %dosomething% would all be valid infix operators. To define one, you need to enclose the name in back-ticks (`).</p>
-<div class="sourceCode" id="cb116"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb116-1"><a href="organization.html#cb116-1" aria-hidden="true" tabindex="-1"></a><span class="st">`</span><span class="at">%dosomething%</span><span class="st">`</span> <span class="ot">&lt;-</span> <span class="cf">function</span>(a, b) {</span>
-<span id="cb116-2"><a href="organization.html#cb116-2" aria-hidden="true" tabindex="-1"></a>  a<span class="sc">^</span>b <span class="sc">-</span> a <span class="sc">+</span> b</span>
-<span id="cb116-3"><a href="organization.html#cb116-3" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb116-4"><a href="organization.html#cb116-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb116-5"><a href="organization.html#cb116-5" aria-hidden="true" tabindex="-1"></a><span class="dv">3</span> <span class="sc">%dosomething%</span> <span class="dv">4</span></span>
-<span id="cb116-6"><a href="organization.html#cb116-6" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="dv">82</span></span></code></pre></div>
+<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="organization.html#cb24-1"></a><span class="st">`</span><span class="dt">%dosomething%</span><span class="st">`</span> &lt;-<span class="st"> </span><span class="cf">function</span>(a, b) {</span>
+<span id="cb24-2"><a href="organization.html#cb24-2"></a>  a<span class="op">^</span>b <span class="op">-</span><span class="st"> </span>a <span class="op">+</span><span class="st"> </span>b</span>
+<span id="cb24-3"><a href="organization.html#cb24-3"></a>}</span>
+<span id="cb24-4"><a href="organization.html#cb24-4"></a></span>
+<span id="cb24-5"><a href="organization.html#cb24-5"></a><span class="dv">3</span> <span class="op">%dosomething%</span><span class="st"> </span><span class="dv">4</span></span>
+<span id="cb24-6"><a href="organization.html#cb24-6"></a><span class="co">## [1] 82</span></span></code></pre></div>
 <p>You can also call default infix operators using this syntax: `+`(3, 4) = 7</p>
 One of the most useful infix operators is the pipe, <code>%&gt;%</code>, which is a part of the <code>magrittr</code> library and is commonly included in other packages, such as <code>dplyr</code>, and <code>tidyr</code> (we will talk about packages later in this chapter, but pipes are useful to discuss now, so roll with it for a few minutes).
 </details>
@@ -1548,45 +1384,43 @@ One of the most useful infix operators is the pipe, <code>%&gt;%</code>, which i
 <div class="learn-more">
 <p>There is an <a href="https://r4ds.had.co.nz/pipes.html">entire chapter dedicated to discussing the pipe in R4DS</a>, including a discussion of when not to use the pipe.</p>
 </div>
-<div class="sourceCode" id="cb117"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb117-1"><a href="organization.html#cb117-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(magrittr)</span>
-<span id="cb117-2"><a href="organization.html#cb117-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb117-3"><a href="organization.html#cb117-3" aria-hidden="true" tabindex="-1"></a><span class="dv">3</span> <span class="sc">%&gt;%</span> <span class="fu">exp</span>()</span>
-<span id="cb117-4"><a href="organization.html#cb117-4" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="fl">20.08554</span></span>
-<span id="cb117-5"><a href="organization.html#cb117-5" aria-hidden="true" tabindex="-1"></a><span class="fu">exp</span>(<span class="dv">3</span>)</span>
-<span id="cb117-6"><a href="organization.html#cb117-6" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="fl">20.08554</span></span></code></pre></div>
+<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="organization.html#cb25-1"></a><span class="kw">library</span>(magrittr)</span>
+<span id="cb25-2"><a href="organization.html#cb25-2"></a></span>
+<span id="cb25-3"><a href="organization.html#cb25-3"></a><span class="dv">3</span> <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">exp</span>()</span>
+<span id="cb25-4"><a href="organization.html#cb25-4"></a><span class="co">## [1] 20.08554</span></span>
+<span id="cb25-5"><a href="organization.html#cb25-5"></a><span class="kw">exp</span>(<span class="dv">3</span>)</span>
+<span id="cb25-6"><a href="organization.html#cb25-6"></a><span class="co">## [1] 20.08554</span></span></code></pre></div>
 <p>The pipe takes the left hand side and a function, and puts the left hand side as an argument to the function on the right hand side. It doesn’t sound very impressive, but it allows you to do a very cool thing: “chain” operations.</p>
 <p>Consider 3 functions:</p>
-<div class="sourceCode" id="cb118"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb118-1"><a href="organization.html#cb118-1" aria-hidden="true" tabindex="-1"></a>f1 <span class="ot">&lt;-</span> <span class="cf">function</span>(x, <span class="at">y =</span> <span class="dv">3</span>) {</span>
-<span id="cb118-2"><a href="organization.html#cb118-2" aria-hidden="true" tabindex="-1"></a>  x <span class="sc">*</span> y</span>
-<span id="cb118-3"><a href="organization.html#cb118-3" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb118-4"><a href="organization.html#cb118-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb118-5"><a href="organization.html#cb118-5" aria-hidden="true" tabindex="-1"></a>f2 <span class="ot">&lt;-</span> <span class="cf">function</span>(z) {</span>
-<span id="cb118-6"><a href="organization.html#cb118-6" aria-hidden="true" tabindex="-1"></a>  z<span class="sc">^</span><span class="dv">2</span></span>
-<span id="cb118-7"><a href="organization.html#cb118-7" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb118-8"><a href="organization.html#cb118-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb118-9"><a href="organization.html#cb118-9" aria-hidden="true" tabindex="-1"></a>f3 <span class="ot">&lt;-</span> <span class="cf">function</span>(z2) {</span>
-<span id="cb118-10"><a href="organization.html#cb118-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">log10</span>(z2)</span>
-<span id="cb118-11"><a href="organization.html#cb118-11" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="organization.html#cb26-1"></a>f1 &lt;-<span class="st"> </span><span class="cf">function</span>(x, <span class="dt">y =</span> <span class="dv">3</span>) {</span>
+<span id="cb26-2"><a href="organization.html#cb26-2"></a>  x <span class="op">*</span><span class="st"> </span>y</span>
+<span id="cb26-3"><a href="organization.html#cb26-3"></a>}</span>
+<span id="cb26-4"><a href="organization.html#cb26-4"></a></span>
+<span id="cb26-5"><a href="organization.html#cb26-5"></a>f2 &lt;-<span class="st"> </span><span class="cf">function</span>(z) {</span>
+<span id="cb26-6"><a href="organization.html#cb26-6"></a>  z<span class="op">^</span><span class="dv">2</span></span>
+<span id="cb26-7"><a href="organization.html#cb26-7"></a>}</span>
+<span id="cb26-8"><a href="organization.html#cb26-8"></a></span>
+<span id="cb26-9"><a href="organization.html#cb26-9"></a>f3 &lt;-<span class="st"> </span><span class="cf">function</span>(z2) {</span>
+<span id="cb26-10"><a href="organization.html#cb26-10"></a>  <span class="kw">log10</span>(z2)</span>
+<span id="cb26-11"><a href="organization.html#cb26-11"></a>}</span></code></pre></div>
 <p>Normally, you’d write <code>f3(f2(f1(4)))</code>, which you have to read from the inside to the outside if you want to describe what this function call is doing. With pipes, you can write the same operation as:</p>
-<div class="sourceCode" id="cb119"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb119-1"><a href="organization.html#cb119-1" aria-hidden="true" tabindex="-1"></a><span class="dv">4</span> <span class="sc">%&gt;%</span> <span class="fu">f1</span>() <span class="sc">%&gt;%</span> <span class="fu">f2</span>() <span class="sc">%&gt;%</span> <span class="fu">f3</span>()</span>
-<span id="cb119-2"><a href="organization.html#cb119-2" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="fl">2.158362</span></span></code></pre></div>
-<p>This is much simpler to read - it’s like a recipe. “Take 4, do f1, then f2, then f3.”</p>
+<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="organization.html#cb27-1"></a><span class="dv">4</span> <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">f1</span>() <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">f2</span>() <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">f3</span>()</span>
+<span id="cb27-2"><a href="organization.html#cb27-2"></a><span class="co">## [1] 2.158362</span></span></code></pre></div>
+<p>This is much simpler to read - it’s like a recipe. “Take 4, do f1, then f2, then f3”.</p>
 <p>You don’t need to know how to define your own infix operators, but you will want to become familiar with the pipe. It’s a central component of writing “tidy” R code. Incidentally, SAS also has a use for the pipe: <a href="https://blogs.sas.com/content/sgf/2016/03/11/using-a-pipe-to-return-the-output-of-an-operating-system-command-to-sas-software/">leveraging the operating system to work with files</a>. In SAS, you just use the keyword <code>pipe</code>, which is hopefully pretty obvious.</p>
 </div>
 </div>
-<div id="procs-and-data-steps" class="section level2" number="3.3">
+<div id="procs-and-data-steps" class="section level2">
 <h2><span class="header-section-number">3.3</span> Procs and Data steps</h2>
 <p>In R, the primary unit of code is a function, and nearly every operation in R is a function call, but the functions themselves are malleable and can be easily re-written. SAS is not that flexible - its procedures have been checked and double-checked and maintained for 30 years (in many cases). That level of validation explains its popularity in e.g. the pharmaceutical industry or government, but it does lead to a certain rigidity in the “flow” of a SAS data analysis. Personally, I find that using SAS generally doesn’t require much thought, but I quickly get frustrated when it’s not possible to do the exact thing I want to do in a direct or relatively easy way.</p>
-<p>The primary units of code in SAS are “steps,” and come in two main flavors: data steps, and proc steps. Data steps are written by the user and customized extensively to the dataset you’re creating or reading in. Proc steps, on the other hand, execute mainly pre-defined procedures that are built into SAS. Thus far, you’ve seen DATA steps and PROC PRINT and IML. In the next module, you’ll see PROC IMPORT, PROC MEANS, PROC CORR, PROC SUMMARY, PROC FREQ, and PROC UNIVARIATE.</p>
+<p>The primary units of code in SAS are “steps”, and come in two main flavors: data steps, and proc steps. Data steps are written by the user and customized extensively to the dataset you’re creating or reading in. Proc steps, on the other hand, execute mainly pre-defined procedures that are built into SAS. Thus far, you’ve seen DATA steps and PROC PRINT and IML. In the next module, you’ll see PROC IMPORT, PROC MEANS, PROC CORR, PROC SUMMARY, PROC FREQ, and PROC UNIVARIATE.</p>
 <p>There is a handy <a href="https://stats.idre.ucla.edu/sas/library/sas-libraryoverview-of-the-sas-language/">overview of the SAS language</a> that may be useful in understanding the code that you’ve only been reading and copying up to this point.</p>
 <p>The bare SAS procedure with no options looks like this:</p>
 <pre><code>PROC MEANS;
 RUN;</code></pre>
 <p>By default, SAS will use the last dataset created to run this procedure.</p>
 <details>
-<summary>
-SAS procedures can also be run with options that modify the statement.
-</summary>
+<p><summary>SAS procedures can also be run with options that modify the statement. </summary></p>
 <pre class="sashtmllog"><code>6          PROC PRINT DATA=SASHELP.CARS (obs=10);
 7          RUN;
 
@@ -1603,10 +1437,8 @@ NOTE: PROCEDURE PRINT used (Total process time):
 NOTE: There were 428 observations read from the data set SASHELP.CARS.
 NOTE: PROCEDURE MEANS used (Total process time):
       real time           0.01 seconds
-      cpu time            0.01 seconds
-      
-
-ERROR: Errors printed on page 2.</code></pre>
+      cpu time            0.02 seconds
+      </code></pre>
 <div class="branch">
 <a name="IDX"></a>
 <div>
@@ -2626,20 +2458,17 @@ Length (IN)
 In the code above, both <code>DATA=SASHELP.CARS</code> and <code>(obs=10)</code> are options that modify their respective statements.
 </details>
 <details>
-<summary>
-Some procs also support additional statements: for instance, we can use the VAR statement to tell SAS which variables we want to work with.
-</summary>
+<p><summary>
+Some procs also support additional statements: for instance, we can use the VAR statement to tell SAS which variables we want to work with. </summary></p>
 <pre class="sashtmllog"><code>6          PROC MEANS DATA=SASHELP.CARS;
 7            VAR msrp cylinders;
 8          RUN;
 
 NOTE: There were 428 observations read from the data set SASHELP.CARS.
 NOTE: PROCEDURE MEANS used (Total process time):
-      real time           0.00 seconds
+      real time           0.01 seconds
       cpu time            0.02 seconds
-      
-
-ERROR: Errors printed on page 2.</code></pre>
+      </code></pre>
 <div class="branch">
 <a name="IDX"></a>
 <div>
@@ -2774,9 +2603,7 @@ Cylinders
 </div>
 </details>
 <details>
-<summary>
-Another statement, CLASS, tells SAS to run the procedure for each level of a named categorical variable.
-</summary>
+<p><summary>Another statement, CLASS, tells SAS to run the procedure for each level of a named categorical variable. </summary></p>
 <pre class="sashtmllog"><code>6          PROC MEANS DATA=SASHELP.CARS;
 7            CLASS type;
 8            VAR msrp cylinders;
@@ -2784,11 +2611,9 @@ Another statement, CLASS, tells SAS to run the procedure for each level of a nam
 
 NOTE: There were 428 observations read from the data set SASHELP.CARS.
 NOTE: PROCEDURE MEANS used (Total process time):
-      real time           0.01 seconds
+      real time           0.02 seconds
       cpu time            0.02 seconds
-      
-
-ERROR: Errors printed on page 2.</code></pre>
+      </code></pre>
 <div class="branch">
 <a name="IDX"></a>
 <div>
@@ -3398,8 +3223,8 @@ Cylinders
 </details>
 <p>Some statements may have additional options that further modify the statement.</p>
 <p>The SAS documentation contains full lists of all statements (and all options for those statements).</p>
-<div id="try-it-out-11" class="section level3 unnumbered tryitout">
-<h3>Try It Out</h3>
+<div class="tryitout">
+<h3 id="try-it-out-2" class="unnumbered">Try It Out</h3>
 <p>Take a look at the <a href="https://documentation.sas.com/?docsetId=lestmtsref&amp;docsetTarget=p0gct6ariiecuhn15jkq8pzfzgef.htm&amp;docsetVersion=9.4&amp;locale=en">Dictionary of SAS DATA step statements</a>. Find the RENAME statement and read up on its syntax. Can you rename the variable msrp in the SASHELP.CARS dataset?</p>
 <pre><code>DATA tmp; /* Create a temporary dataset */
   SET SASHELP.CARS; /* use the CARS data */
@@ -3410,7 +3235,7 @@ RUN;</code></pre>
 </div>
 <p>There is an overview of many common SAS procedures <a href="https://stats.idre.ucla.edu/sas/library/sas-libraryoverview-of-sas-procedures/">here</a>.</p>
 </div>
-<div id="scripts" class="section level2" number="3.4">
+<div id="scripts" class="section level2">
 <h2><span class="header-section-number">3.4</span> Scripts</h2>
 <p>Up until this point, you may have been writing code in an R Studio or SAS text editor window, or, you may have been typing commands into the command line without preserving them in a separate file. You might even have been working in R markdown documents, where you had code and non-code chunks of the file.</p>
 <p>A <strong>script</strong> is a file which contains only code and comments. It is intended to run from start to finish, and usually completes one or more tasks - for instance, cleaning your data, or loading a series of custom functions into your R environment. Scripts are useful because they preserve code so that it can be re-run… and in some cases, they can even be re-run autonomously - I have several scripts which automatically run at specific times every day to complete various tasks (scraping data off the internet, mostly).</p>
@@ -3419,134 +3244,77 @@ RUN;</code></pre>
 <p>Scripts in R end in <code>.r</code> or <code>.R</code>, while scripts in SAS end in <code>.sas</code>.</p>
 <p>Scripts can be run in one of (at least) two modes: batch mode, or interactive mode. In batch mode, the entire script is run without human intervention or monitoring. This is useful for repetitive jobs – for instance, to record the weather at 6h intervals throughout the day. In interactive mode, scripts may be run line-by-line or block-wise, with small tweaks made to the code as you proceed through the file. I find that in some cases, what starts out as an interactive mode script can become a batch script as I work the kinks out.</p>
 <p>If you ever need to use the high-performance computing resources on campus, you will need to write code to run in batch mode, because these jobs are generally not friendly to interactive programming.</p>
-<div id="try-it-out-12" class="section level3 unnumbered tryitout">
+<div id="try-it-out-3" class="section level3 unnumbered tryitout">
 <h3>Try it out</h3>
 <p>I maintain a list of packages that I find to be useful so that when I install R on a new machine (or update R), I don’t have to spend 3 weeks realizing that I need to install X package. Instead of many repeated 5 minute pauses for package installation, I can just let this script run once and walk away.</p>
 <p>I’ve pared down my list of packages a bit for this class (you don’t need the packages for analysis of 3D bullet scan data, for instance), but this step should help populate your R installation with a few new packages.</p>
 <p>Read the script (located <a href="code/03_setup.R">here</a>) and try to understand what it is doing. Once you think you understand what it is doing, run the following command to run the script and install the packages on your machine. Were you right?</p>
-<div class="sourceCode" id="cb125"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb125-1"><a href="organization.html#cb125-1" aria-hidden="true" tabindex="-1"></a>url <span class="ot">&lt;-</span> <span class="st">&quot;https://raw.githubusercontent.com/srvanderplas/unl-stat850/master/code/03_setup.R&quot;</span></span>
-<span id="cb125-2"><a href="organization.html#cb125-2" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(url)</span></code></pre></div>
+<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="organization.html#cb33-1"></a>url &lt;-<span class="st"> &quot;https://raw.githubusercontent.com/srvanderplas/unl-stat850/master/code/03_setup.R&quot;</span></span>
+<span id="cb33-2"><a href="organization.html#cb33-2"></a><span class="kw">source</span>(url)</span></code></pre></div>
 </div>
 <div id="try-it-out-sas" class="section level3 unnumbered tryitout">
 <h3>Try it out (SAS)</h3>
 <p>Use <a href="https://blogs.sas.com/content/iml/2016/12/12/koch-snowflake.html">this blog post</a> to create a SAS script that draws a Koch Snowflake in SAS. Save it as “Snowflake.SAS” and open the file in SAS to run it.</p>
 <details>
-<summary>
-Snowflake.SAS
-</summary>
-<pre class="sashtml"><code>6          PROC IML;
-NOTE: IML Ready
-7            start KochDivide(A, E);
-7        !                                              /* (x,y) coords of
-7        ! endpoints */
-8               segs = j(5, 2, .);
-8        !                                              /* matrix to hold 4
-8        !  shorter segs */
-9               v = (E-A) / 3;
-9        !                                              /* vector 1/3 as
-9        ! long as orig */
-10              segs[{1 2 4 5}, ] = A + v @ T(0:3);
-10       !                                              /* endpoints of new
-10       !  segs */
-11              /* Now compute middle point. Use ATAN2 to find direction
-11       ! angle. */
-12              theta = -constant(&quot;pi&quot;)/3 + atan2(v[2], v[1]);
-12       !                                                     /* change
-12       ! angle by pi/3 */
-13              w = cos(theta) || sin(theta);
-13       !                                              /* vector to middle
-13       !  point */
-14              segs[3,] = segs[2,] + norm(v)*w;
-15              return segs;
-16           finish;
-NOTE: Module KOCHDIVIDE defined.
-17         
-18         
-19           /* create Koch Snowflake from an equilateral triangle */
-20           start KochPoly(P0, iters=5);
-21             P = P0;
-22             do j=1 to iters;
-23                N = nrow(P) - 1;
-23       !                                     /* old number of segments */
-24                newP = j(4*N+1, 2);
-24       !                                     /* new number of segments +
-24       ! 1 */
-25                do i=1 to N;
-25       !                                     /* for each segment... */
-26                   idx = (4*i-3):(4*i+1);
-26       !                                                     /* rows for
-26       ! 4 new segments */
-27                   newP[idx, ] = KochDivide(P[i,], P[i+1,]);
-27       !                                                     /* generate
-27       ! new segments */
-28                end;
-29                P = newP;
-29       !                                     /* update polygon and
-29       ! iterate */
-30             end;
-31             return P;
-32           finish;
-NOTE: Module KOCHPOLY defined.
-33         
-34           /* create equilateral triangle as base for snowflake */
-35           pi = constant(&quot;pi&quot;);
-36           angles = -pi/6 // pi/2 // 7*pi/6;
-36       !                                      /* angles for equilateral
-36       ! triangle */
-37           P = cos(angles) || sin(angles);
-37       !                                      /* vertices of equilateral
-37       ! triangle */
-38           P = P // P[1,];
-38       !                                      /* append first vertex to
-38       ! close triangle */
-39           K = KochPoly(P);
-39       !                                      /* create the Koch
-39       ! snowflake */
-40         
-41           S = j(nrow(K), 3, 1);
-41       !                              /* add ID variable with constant
-41       ! value 1 */
-42           S[ ,1:2] = K;
-43           create Koch from S[colname={X Y ID}];
-44           append from S;
-45           close;
-NOTE: Closing WORK.KOCH
-NOTE: The data set WORK.KOCH has 3073 observations and 3 variables.
-46         
-47         
-48           /* test KochDivide on line segment from (0,0) to (1,0) */
-49           s = KochDivide({0 0}, {1 0});
-50           title  &quot;Fundamental Step in the Koch Snowflake Construction&quot;;
-51           ods graphics / width=600  height=300;
-52           call series(s[,1], s[,2]) procopt=&quot;aspect=0.333&quot;;
-NOTE: Module SERIES loaded from the storage SASHELP.IMLMLIB.
-NOTE: Module ISEMPTY loaded from the storage SASHELP.IMLMLIB.
-NOTE: The data set WORK._SERIES has 5 observations and 2 variables.
-53         
-54         QUIT;
-NOTE: Exiting IML.
-NOTE: PROCEDURE IML used (Total process time):
-      real time           1.89 seconds
-      cpu time            0.06 seconds
-      
+<p><summary>Snowflake.SAS</summary></p>
+<pre class="sashtml"><code>PROC IML;
+  start KochDivide(A, E);                    /* (x,y) coords of endpoints */
+     segs = j(5, 2, .);                      /* matrix to hold 4 shorter segs */
+     v = (E-A) / 3;                          /* vector 1/3 as long as orig */
+     segs[{1 2 4 5}, ] = A + v @ T(0:3);     /* endpoints of new segs */
+     /* Now compute middle point. Use ATAN2 to find direction angle. */
+     theta = -constant(&quot;pi&quot;)/3 + atan2(v[2], v[1]); /* change angle by pi/3 */
+     w = cos(theta) || sin(theta);           /* vector to middle point */
+     segs[3,] = segs[2,] + norm(v)*w;
+     return segs;
+  finish;
+ 
 
-55         
-56         ods graphics / width=400px height=400px;
-57         footnote justify=Center &quot;Koch Snowflake&quot;;
-58         proc sgplot data=Koch;
-59            styleattrs wallcolor=CXD6EAF8;               /* light blue */
-60            polygon x=x y=y ID=ID / outline fill fillattrs=(color=white);
-61            xaxis display=none;
-62            yaxis display=none;
-63         run;
+  /* create Koch Snowflake from an equilateral triangle */
+  start KochPoly(P0, iters=5);    
+    P = P0;
+    do j=1 to iters;
+       N = nrow(P) - 1;             /* old number of segments */
+       newP = j(4*N+1, 2);          /* new number of segments + 1 */
+       do i=1 to N;                 /* for each segment... */
+          idx = (4*i-3):(4*i+1);                    /* rows for 4 new segments */
+          newP[idx, ] = KochDivide(P[i,], P[i+1,]); /* generate new segments */
+       end;
+       P = newP;                    /* update polygon and iterate */
+    end;
+    return P;
+  finish;
 
-NOTE: PROCEDURE SGPLOT used (Total process time):
-      real time           0.13 seconds
-      cpu time            0.01 seconds
-      
-NOTE: There were 3073 observations read from the data set WORK.KOCH.
+  /* create equilateral triangle as base for snowflake */
+  pi = constant(&quot;pi&quot;);
+  angles = -pi/6 // pi/2 // 7*pi/6;  /* angles for equilateral triangle */
+  P = cos(angles) || sin(angles);    /* vertices of equilateral triangle */
+  P = P // P[1,];                    /* append first vertex to close triangle */
+  K = KochPoly(P);                   /* create the Koch snowflake */
+    
+  S = j(nrow(K), 3, 1);      /* add ID variable with constant value 1 */
+  S[ ,1:2] = K;
+  create Koch from S[colname={X Y ID}];  
+  append from S;  
+  close;
 
-ERROR: Errors printed on page 2.</code></pre>
+
+  /* test KochDivide on line segment from (0,0) to (1,0) */
+  s = KochDivide({0 0}, {1 0});
+  title  &quot;Fundamental Step in the Koch Snowflake Construction&quot;;
+  ods graphics / width=600  height=300; 
+  call series(s[,1], s[,2]) procopt=&quot;aspect=0.333&quot;;
+
+QUIT;
+ 
+ods graphics / width=400px height=400px;
+footnote justify=Center &quot;Koch Snowflake&quot;;
+proc sgplot data=Koch;
+   styleattrs wallcolor=CXD6EAF8;               /* light blue */
+   polygon x=x y=y ID=ID / outline fill fillattrs=(color=white);
+   xaxis display=none;
+   yaxis display=none;
+run;</code></pre>
 <div class="branch">
 <div class="branch">
 <a name="IDX"></a>
@@ -3574,53 +3342,47 @@ ERROR: Errors printed on page 2.</code></pre>
 </details>
 </div>
 </div>
-<div id="packages" class="section level2" number="3.5">
+<div id="packages" class="section level2">
 <h2><span class="header-section-number">3.5</span> Packages</h2>
-<p>Both SAS and R have systems for extending the base system/language with additional functionality. In R, these extensions are called packages. In SAS, language extensions are called modules (for things sold by SAS), macros (for functions distributed by users), and in packages (which exist but are rarely used).<a href="#fn14" class="footnote-ref" id="fnref14"><sup>14</sup></a></p>
+<p>Both SAS and R have systems for extending the base system/language with additional functionality. In R, these extensions are called packages. In SAS, language extensions are called modules (for things sold by SAS), macros (for functions distributed by users), and in packages (which exist but are rarely used).<a href="#fn5" class="footnote-ref" id="fnref5"><sup>5</sup></a></p>
 <details>
-<summary>
-SAS packages
-</summary>
-<p>In SAS, there are packages of code that encapsulate scripts. However, unlike R (and many other languages), there is no centralized repository for SAS packages. Papers may include SAS packages to demonstrate new methods, and other packages may be found on GitHub or various SAS forums.</p>
+<p><summary>SAS packages</summary>
+In SAS, there are packages of code that encapsulate scripts. However, unlike R (and many other languages), there is no centralized repository for SAS packages. Papers may include SAS packages to demonstrate new methods, and other packages may be found on GitHub or various SAS forums.</p>
 A more common way of distributing code in SAS seems to be through the use of single-file macros. (Even longtime SAS users don’t necessarily know about the package system). These macros often need to be slightly customized to your environment (or you need to customize your environment to match the assumptions made in the macro, which can be harder).
 </details>
 <details>
-<summary>
-R packages
-</summary>
-<p>In R, there are two main sources for packages: CRAN (the Comprehensive R Archive Network) (and related archives, such as MRAN, which is Microsoft’s version of CRAN) and github. R packages published on CRAN go through a basic verification process that makes sure that the package meets certain <a href="https://cran.r-project.org/">standards</a> (for instance, packages must have proper dependencies specified, cannot conflict with previous package names, must have a software license, and cannot contain malicious code). Note that CRAN does not check the packages for statistical correctness!</p>
-<p>On github, packages go through less verification. Many packages use a system where the version in development is on github and available for installation, but the version on CRAN is considered “stable.” Sometimes, packages are never put on CRAN: I contribute to several packages which are too large for CRAN, and it’s not worth the hassle to get an exception or figure out a workaround.</p>
-<p>Currently, the CRAN package repository features 1.7498^{4} available packages. How do you navigate them to find the one you need? Sometimes, the <a href="https://cran.r-project.org/web/views/">CRAN Task Views</a> may be helpful - for instance, if you want to see all of the packages which are useful for Meta-Analysis, Finance, Bayesian statistics, etc. Other times, it’s useful to let Google help you navigate: searching for “R CRAN” + “what you want the package to do” can often narrow things down (I recommend adding CRAN in because Google results for “R” are not particularly useful.)</p>
+<p><summary>R packages</summary>
+In R, there are two main sources for packages: CRAN (the Comprehensive R Archive Network) (and related archives, such as MRAN, which is Microsoft’s version of CRAN) and github. R packages published on CRAN go through a basic verification process that makes sure that the package meets certain <a href="https://cran.r-project.org/">standards</a> (for instance, packages must have proper dependencies specified, cannot conflict with previous package names, must have a software license, and cannot contain malicious code). Note that CRAN does not check the packages for statistical correctness!</p>
+<p>On github, packages go through less verification. Many packages use a system where the version in development is on github and available for installation, but the version on CRAN is considered “stable”. Sometimes, packages are never put on CRAN: I contribute to several packages which are too large for CRAN, and it’s not worth the hassle to get an exception or figure out a workaround.</p>
+<p>Currently, the CRAN package repository features 1.748510^{4} available packages. How do you navigate them to find the one you need? Sometimes, the <a href="https://cran.r-project.org/web/views/">CRAN Task Views</a> may be helpful - for instance, if you want to see all of the packages which are useful for Meta-Analysis, Finance, Bayesian statistics, etc. Other times, it’s useful to let Google help you navigate: searching for “R CRAN” + “what you want the package to do” can often narrow things down (I recommend adding CRAN in because Google results for “R” are not particularly useful.)</p>
 <p>Once you find and install a package (<code>install.packages()</code> for CRAN packages, <code>devtools::install_github()</code> for GitHub packages), you have to figure out how to use it. Many R packages come with <strong>vignettes</strong>, which are short articles that demonstrate how a package is used.
 You can browse the available vignettes using <code>browseVignettes()</code> (if you provide a package name as an argument, you will get only vignettes from that package).</p>
 Another way to get help on a package is to use <code>?&lt;package name&gt;</code>, e.g. <code>?ggplot2</code>. That will take you to the main package description page, and there are often links to documentation. At the bottom of the description page, you can click on a link to get to the Index, which is a list of all functions that are provided in that package. From there, you can find the documentation for each function in the package.
 </details>
-<div id="try-it-out-13" class="section level3 unnumbered tryitout">
+<div id="try-it-out-4" class="section level3 unnumbered tryitout">
 <h3>Try it out</h3>
 <p>Install the R package <code>tibble</code> if it is not already installed. Pull up the vignettes for the <code>tibble</code> package, and read about tibbles. What is the equivalent base R object? How do tibbles differ from that object?</p>
 <p>Get to the package index for the <code>tibble</code> package, either by navigating through the Packages tab in RStudio, or using <code>?tibble</code>. Access the documentation for the <code>tribble</code> function, and try loading the package and creating your own tibble using <code>tribble</code>.</p>
 <details>
-<summary>
-Solution
-</summary>
-<div class="sourceCode" id="cb127"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb127-1"><a href="organization.html#cb127-1" aria-hidden="true" tabindex="-1"></a><span class="do">## install.packages(&quot;tibble&quot;)</span></span>
-<span id="cb127-2"><a href="organization.html#cb127-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tibble)</span>
-<span id="cb127-3"><a href="organization.html#cb127-3" aria-hidden="true" tabindex="-1"></a><span class="do">## ?tibble</span></span>
-<span id="cb127-4"><a href="organization.html#cb127-4" aria-hidden="true" tabindex="-1"></a><span class="do">## ?tribble</span></span>
-<span id="cb127-5"><a href="organization.html#cb127-5" aria-hidden="true" tabindex="-1"></a><span class="fu">tribble</span>(<span class="sc">~</span>var1, <span class="sc">~</span>var2,</span>
-<span id="cb127-6"><a href="organization.html#cb127-6" aria-hidden="true" tabindex="-1"></a>        <span class="dv">1</span>, <span class="dv">2</span>, </span>
-<span id="cb127-7"><a href="organization.html#cb127-7" aria-hidden="true" tabindex="-1"></a>        <span class="dv">3</span>, <span class="dv">4</span>,</span>
-<span id="cb127-8"><a href="organization.html#cb127-8" aria-hidden="true" tabindex="-1"></a>        <span class="dv">5</span>, <span class="dv">6</span>)</span>
-<span id="cb127-9"><a href="organization.html#cb127-9" aria-hidden="true" tabindex="-1"></a><span class="co"># A tibble: 3 x 2</span></span>
-<span id="cb127-10"><a href="organization.html#cb127-10" aria-hidden="true" tabindex="-1"></a>   var1  var2</span>
-<span id="cb127-11"><a href="organization.html#cb127-11" aria-hidden="true" tabindex="-1"></a>  <span class="sc">&lt;</span>dbl<span class="sc">&gt;</span> <span class="er">&lt;</span>dbl<span class="sc">&gt;</span></span>
-<span id="cb127-12"><a href="organization.html#cb127-12" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span>     <span class="dv">1</span>     <span class="dv">2</span></span>
-<span id="cb127-13"><a href="organization.html#cb127-13" aria-hidden="true" tabindex="-1"></a><span class="dv">2</span>     <span class="dv">3</span>     <span class="dv">4</span></span>
-<span id="cb127-14"><a href="organization.html#cb127-14" aria-hidden="true" tabindex="-1"></a><span class="dv">3</span>     <span class="dv">5</span>     <span class="dv">6</span></span></code></pre></div>
+<p><summary>Solution</summary></p>
+<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="organization.html#cb35-1"></a><span class="co">## install.packages(&quot;tibble&quot;)</span></span>
+<span id="cb35-2"><a href="organization.html#cb35-2"></a><span class="kw">library</span>(tibble)</span>
+<span id="cb35-3"><a href="organization.html#cb35-3"></a><span class="co">## ?tibble</span></span>
+<span id="cb35-4"><a href="organization.html#cb35-4"></a><span class="co">## ?tribble</span></span>
+<span id="cb35-5"><a href="organization.html#cb35-5"></a><span class="kw">tribble</span>(<span class="op">~</span>var1, <span class="op">~</span>var2,</span>
+<span id="cb35-6"><a href="organization.html#cb35-6"></a>        <span class="dv">1</span>, <span class="dv">2</span>, </span>
+<span id="cb35-7"><a href="organization.html#cb35-7"></a>        <span class="dv">3</span>, <span class="dv">4</span>,</span>
+<span id="cb35-8"><a href="organization.html#cb35-8"></a>        <span class="dv">5</span>, <span class="dv">6</span>)</span>
+<span id="cb35-9"><a href="organization.html#cb35-9"></a><span class="co">## # A tibble: 3 x 2</span></span>
+<span id="cb35-10"><a href="organization.html#cb35-10"></a><span class="co">##    var1  var2</span></span>
+<span id="cb35-11"><a href="organization.html#cb35-11"></a><span class="co">##   &lt;dbl&gt; &lt;dbl&gt;</span></span>
+<span id="cb35-12"><a href="organization.html#cb35-12"></a><span class="co">## 1     1     2</span></span>
+<span id="cb35-13"><a href="organization.html#cb35-13"></a><span class="co">## 2     3     4</span></span>
+<span id="cb35-14"><a href="organization.html#cb35-14"></a><span class="co">## 3     5     6</span></span></code></pre></div>
 </details>
 </div>
 </div>
-<div id="references-and-links-1" class="section level2 learn-more unnumbered">
+<div id="references-and-links" class="section level2 learn-more unnumbered">
 <h2>References and Links</h2>
 <ul>
 <li>A more advanced take on functions in R can be found <a href="http://adv-r.had.co.nz/Functions.html">here</a> (Advanced R chapter)</li>
@@ -3638,12 +3400,12 @@ Solution
 
 <div class="footnotes">
 <hr />
-<ol start="10">
-<li id="fn10"><p>I may archive my sessionInfo() so that package versions are documented<a href="organization.html#fnref10" class="footnote-back">↩︎</a></p></li>
-<li id="fn11"><p>It’s a good idea to specify your parameter names when you’re using functions you’re unfamiliar with, which at this point, is probably all of them.<a href="organization.html#fnref11" class="footnote-back">↩︎</a></p></li>
-<li id="fn12"><p>if you’re familiar with C, the argument passed in is just a pointer to the original memory<a href="organization.html#fnref12" class="footnote-back">↩︎</a></p></li>
-<li id="fn13"><p>I had been using R for ~8 years before I ever heard the term “infix operator” - and I’d been using infix operators for a long time at that point, just without thinking about what they were.<a href="organization.html#fnref13" class="footnote-back">↩︎</a></p></li>
-<li id="fn14"><p>Note that the various components of SAS can be <em>extremely</em> confusing to separate. I found <a href="https://www.lexjansen.com/mwsug/2017/RF/MWSUG-2017-RF01.pdf">this</a> guide to be somewhat helpful.<a href="organization.html#fnref14" class="footnote-back">↩︎</a></p></li>
+<ol start="1">
+<li id="fn1"><p>I may archive my sessionInfo() so that package versions are documented<a href="organization.html#fnref1" class="footnote-back">↩︎</a></p></li>
+<li id="fn2"><p>It’s a good idea to specify your parameter names when you’re using functions you’re unfamiliar with, which at this point, is probably all of them.<a href="organization.html#fnref2" class="footnote-back">↩︎</a></p></li>
+<li id="fn3"><p>if you’re familiar with C, the argument passed in is just a pointer to the original memory<a href="organization.html#fnref3" class="footnote-back">↩︎</a></p></li>
+<li id="fn4"><p>I had been using R for ~8 years before I ever heard the term “infix operator” - and I’d been using infix operators for a long time at that point, just without thinking about what they were.<a href="organization.html#fnref4" class="footnote-back">↩︎</a></p></li>
+<li id="fn5"><p>Note that the various components of SAS can be <em>extremely</em> confusing to separate. I found <a href="https://www.lexjansen.com/mwsug/2017/RF/MWSUG-2017-RF01.pdf">this</a> guide to be somewhat helpful.<a href="organization.html#fnref5" class="footnote-back">↩︎</a></p></li>
 </ol>
 </div>
             </section>

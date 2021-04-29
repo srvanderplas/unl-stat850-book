@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Module 1 Tools for Statistical Computing | Stat 850: Computing Tools for Statisticians</title>
   <meta name="description" content="Introductions to statistical computing packages and document preparation software. Topics include: graphical techniques, data management, Monte Carlo simulation, dynamic document preparation, presentation software." />
-  <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.20 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Module 1 Tools for Statistical Computing | Stat 850: Computing Tools for Statisticians" />
   <meta property="og:type" content="book" />
@@ -32,8 +32,7 @@
   <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon" />
 <link rel="prev" href="index.html"/>
 <link rel="next" href="intro-prog.html"/>
-<script src="libs/header-attrs-2.7/header-attrs.js"></script>
-<script src="libs/jquery-3.5.1/jquery.min.js"></script>
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
@@ -50,22 +49,7 @@
 
 
 
-<link href="libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
-<link href="libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
-<script src="libs/htmlwidgets-1.5.3/htmlwidgets.js"></script>
-<script src="libs/plotly-binding-4.9.3/plotly.js"></script>
-<script src="libs/typedarray-0.1/typedarray.min.js"></script>
-<link href="libs/crosstalk-1.1.1/css/crosstalk.css" rel="stylesheet" />
-<script src="libs/crosstalk-1.1.1/js/crosstalk.min.js"></script>
-<link href="libs/plotly-htmlwidgets-css-1.57.1/plotly-htmlwidgets.css" rel="stylesheet" />
-<script src="libs/plotly-main-1.57.1/plotly-latest.min.js"></script>
-<link href="libs/leaflet-1.3.1/leaflet.css" rel="stylesheet" />
-<script src="libs/leaflet-1.3.1/leaflet.js"></script>
-<link href="libs/leafletfix-1.0.0/leafletfix.css" rel="stylesheet" />
-<script src="libs/proj4-2.6.2/proj4.min.js"></script>
-<script src="libs/Proj4Leaflet-1.0.1/proj4leaflet.js"></script>
-<link href="libs/rstudio_leaflet-1.3.1/rstudio_leaflet.css" rel="stylesheet" />
-<script src="libs/leaflet-binding-2.0.4.1/leaflet.js"></script>
+<script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
 <script>
 
 (function() {
@@ -85,21 +69,36 @@
   }
 })();
 </script>
+<script>
+function unrolltab(evt, tabName) {
+  var i, tabcontent, tablinks;
+  tabcontent = document.getElementsByClassName("tabcontent");
+  for (i = 0; i < tabcontent.length; i++) {
+    tabcontent[i].style.display = "none";
+  }
+  tablinks = document.getElementsByClassName("tablinks");
+  for (i = 0; i < tablinks.length; i++) {
+    tablinks[i].className = tablinks[i].className.replace(" active", "");
+  }
+  document.getElementById(tabName).style.display = "block";
+  evt.currentTarget.className += " active";
+}
+</script>
 
 
 <style type="text/css">
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
+code.sourceCode > span { display: inline-block; line-height: 1.25; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
+code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
 pre.sourceCode { margin: 0; }
 @media screen {
 div.sourceCode { overflow: auto; }
 }
 @media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+code.sourceCode { white-space: pre-wrap; }
+code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
   { counter-reset: source-line 0; }
@@ -119,7 +118,7 @@ pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-le
 div.sourceCode
   {   }
 @media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 code span.al { color: #ff0000; font-weight: bold; } /* Alert */
 code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
@@ -169,47 +168,40 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><a href="./">Introduction to Statistical Computing</a></li>
 
 <li class="divider"></li>
-<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Introduction</a>
-<ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Introduction</a><ul>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html#forward"><i class="fa fa-check"></i>Forward</a></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html#course-description"><i class="fa fa-check"></i>Course Description</a></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html#course-goals"><i class="fa fa-check"></i>Course Goals</a></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html#course-objectives"><i class="fa fa-check"></i>Course Objectives</a></li>
-<li class="chapter" data-level="" data-path="index.html"><a href="index.html#how-to-use-this-book"><i class="fa fa-check"></i>How to Use This Book</a>
-<ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#how-to-use-this-book"><i class="fa fa-check"></i>How to Use This Book</a><ul>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html#header-buttonslinks"><i class="fa fa-check"></i>Header Buttons/Links</a></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html#special-sections"><i class="fa fa-check"></i>Special Sections</a></li>
 </ul></li>
 </ul></li>
 <li class="part"><span><b>I Fundamentals</b></span></li>
-<li class="chapter" data-level="1" data-path="tools.html"><a href="tools.html"><i class="fa fa-check"></i><b>1</b> Tools for Statistical Computing</a>
-<ul>
+<li class="chapter" data-level="1" data-path="tools.html"><a href="tools.html"><i class="fa fa-check"></i><b>1</b> Tools for Statistical Computing</a><ul>
 <li class="chapter" data-level="" data-path="tools.html"><a href="tools.html#module-1-objectives"><i class="fa fa-check"></i>Module Objectives</a></li>
-<li class="chapter" data-level="1.1" data-path="tools.html"><a href="tools.html#setting-up-software"><i class="fa fa-check"></i><b>1.1</b> Setting Up Software</a>
-<ul>
-<li class="chapter" data-level="1.1.1" data-path="tools.html"><a href="tools.html#sas"><i class="fa fa-check"></i><b>1.1.1</b> SAS</a></li>
-<li class="chapter" data-level="1.1.2" data-path="tools.html"><a href="tools.html#r"><i class="fa fa-check"></i><b>1.1.2</b> R</a></li>
-<li class="chapter" data-level="1.1.3" data-path="tools.html"><a href="tools.html#rstudio"><i class="fa fa-check"></i><b>1.1.3</b> RStudio</a></li>
-<li class="chapter" data-level="1.1.4" data-path="tools.html"><a href="tools.html#git"><i class="fa fa-check"></i><b>1.1.4</b> git</a></li>
-<li class="chapter" data-level="1.1.5" data-path="tools.html"><a href="tools.html#latex"><i class="fa fa-check"></i><b>1.1.5</b> LaTeX</a></li>
+<li class="chapter" data-level="1.1" data-path="tools.html"><a href="tools.html#setting-up-software"><i class="fa fa-check"></i><b>1.1</b> Setting Up Software</a><ul>
+<li class="chapter" data-level="1.1.1" data-path="tools.html"><a href="tools.html#setting-up-sas"><i class="fa fa-check"></i><b>1.1.1</b> SAS</a></li>
+<li class="chapter" data-level="1.1.2" data-path="tools.html"><a href="tools.html#setting-up-R"><i class="fa fa-check"></i><b>1.1.2</b> R</a></li>
+<li class="chapter" data-level="1.1.3" data-path="tools.html"><a href="tools.html#setting-up-rstudio"><i class="fa fa-check"></i><b>1.1.3</b> RStudio</a></li>
+<li class="chapter" data-level="1.1.4" data-path="tools.html"><a href="tools.html#setting-up-git"><i class="fa fa-check"></i><b>1.1.4</b> git</a></li>
+<li class="chapter" data-level="1.1.5" data-path="tools.html"><a href="tools.html#setting-up-latex"><i class="fa fa-check"></i><b>1.1.5</b> LaTeX</a></li>
 </ul></li>
-<li class="chapter" data-level="1.2" data-path="tools.html"><a href="tools.html#looking-around-your-environment"><i class="fa fa-check"></i><b>1.2</b> Looking Around Your Environment</a>
-<ul>
-<li class="chapter" data-level="1.2.1" data-path="tools.html"><a href="tools.html#r-and-rstudio"><i class="fa fa-check"></i><b>1.2.1</b> R and RStudio</a></li>
+<li class="chapter" data-level="1.2" data-path="tools.html"><a href="tools.html#looking-around-your-environment"><i class="fa fa-check"></i><b>1.2</b> Looking Around Your Environment</a><ul>
+<li class="chapter" data-level="1.2.1" data-path="tools.html"><a href="tools.html#looking-around-Rstudio"><i class="fa fa-check"></i><b>1.2.1</b> R and RStudio</a></li>
 <li class="chapter" data-level="" data-path="tools.html"><a href="tools.html#try-it-out"><i class="fa fa-check"></i>Try It Out</a></li>
-<li class="chapter" data-level="1.2.2" data-path="tools.html"><a href="tools.html#sas-1"><i class="fa fa-check"></i><b>1.2.2</b> SAS</a></li>
+<li class="chapter" data-level="1.2.2" data-path="tools.html"><a href="tools.html#looking-around-sas"><i class="fa fa-check"></i><b>1.2.2</b> SAS</a></li>
 <li class="chapter" data-level="1.2.3" data-path="tools.html"><a href="tools.html#version-control-with-git"><i class="fa fa-check"></i><b>1.2.3</b> Version Control with Git</a></li>
-<li class="chapter" data-level="1.2.4" data-path="tools.html"><a href="tools.html#latex-1"><i class="fa fa-check"></i><b>1.2.4</b> LaTeX</a></li>
+<li class="chapter" data-level="1.2.4" data-path="tools.html"><a href="tools.html#looking-around-latex"><i class="fa fa-check"></i><b>1.2.4</b> LaTeX</a></li>
 <li class="chapter" data-level="1.2.5" data-path="tools.html"><a href="tools.html#markdown"><i class="fa fa-check"></i><b>1.2.5</b> Markdown</a></li>
 </ul></li>
-<li class="chapter" data-level="1.3" data-path="tools.html"><a href="tools.html#some-computer-basics"><i class="fa fa-check"></i><b>1.3</b> Some Computer Basics</a>
-<ul>
+<li class="chapter" data-level="1.3" data-path="tools.html"><a href="tools.html#some-computer-basics"><i class="fa fa-check"></i><b>1.3</b> Some Computer Basics</a><ul>
 <li class="chapter" data-level="1.3.1" data-path="tools.html"><a href="tools.html#file-systems"><i class="fa fa-check"></i><b>1.3.1</b> File Systems</a></li>
 <li class="chapter" data-level="1.3.2" data-path="tools.html"><a href="tools.html#system-paths"><i class="fa fa-check"></i><b>1.3.2</b> System Paths</a></li>
 <li class="chapter" data-level="1.3.3" data-path="tools.html"><a href="tools.html#working-directories"><i class="fa fa-check"></i><b>1.3.3</b> Working Directories</a></li>
 </ul></li>
-<li class="chapter" data-level="1.4" data-path="tools.html"><a href="tools.html#using-version-control-with-rstudio"><i class="fa fa-check"></i><b>1.4</b> Using Version Control (with RStudio)</a>
-<ul>
+<li class="chapter" data-level="1.4" data-path="tools.html"><a href="tools.html#using-version-control-with-rstudio"><i class="fa fa-check"></i><b>1.4</b> Using Version Control (with RStudio)</a><ul>
 <li class="chapter" data-level="1.4.1" data-path="tools.html"><a href="tools.html#create-a-repository"><i class="fa fa-check"></i><b>1.4.1</b> Create a Repository</a></li>
 <li class="chapter" data-level="1.4.2" data-path="tools.html"><a href="tools.html#adding-files"><i class="fa fa-check"></i><b>1.4.2</b> Adding files</a></li>
 <li class="chapter" data-level="1.4.3" data-path="tools.html"><a href="tools.html#staging-your-changes"><i class="fa fa-check"></i><b>1.4.3</b> Staging your changes</a></li>
@@ -219,34 +211,28 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="1.5" data-path="tools.html"><a href="tools.html#topic-sequencing"><i class="fa fa-check"></i><b>1.5</b> Topic Sequencing</a></li>
 <li class="chapter" data-level="1.6" data-path="tools.html"><a href="tools.html#references"><i class="fa fa-check"></i><b>1.6</b> References</a></li>
 </ul></li>
-<li class="chapter" data-level="2" data-path="intro-prog.html"><a href="intro-prog.html"><i class="fa fa-check"></i><b>2</b> Introduction to Statistical Programming</a>
-<ul>
+<li class="chapter" data-level="2" data-path="intro-prog.html"><a href="intro-prog.html"><i class="fa fa-check"></i><b>2</b> Introduction to Statistical Programming</a><ul>
 <li class="chapter" data-level="" data-path="intro-prog.html"><a href="intro-prog.html#module-2-objectives"><i class="fa fa-check"></i>Module Objectives</a></li>
 <li class="chapter" data-level="" data-path="intro-prog.html"><a href="intro-prog.html#definitions"><i class="fa fa-check"></i>Definitions</a></li>
 <li class="chapter" data-level="" data-path="intro-prog.html"><a href="intro-prog.html#statistical-programming-languages"><i class="fa fa-check"></i>Statistical Programming Languages</a></li>
-<li class="chapter" data-level="2.1" data-path="intro-prog.html"><a href="intro-prog.html#breaking-problems-down"><i class="fa fa-check"></i><b>2.1</b> Breaking Problems Down</a>
-<ul>
-<li class="chapter" data-level="" data-path="intro-prog.html"><a href="intro-prog.html#try-it-out-1"><i class="fa fa-check"></i>Try it out</a></li>
+<li class="chapter" data-level="2.1" data-path="intro-prog.html"><a href="intro-prog.html#breaking-problems-down"><i class="fa fa-check"></i><b>2.1</b> Breaking Problems Down</a><ul>
+<li class="chapter" data-level="" data-path="tools.html"><a href="tools.html#try-it-out"><i class="fa fa-check"></i>Try it out</a></li>
 </ul></li>
-<li class="chapter" data-level="2.2" data-path="intro-prog.html"><a href="intro-prog.html#variable-types"><i class="fa fa-check"></i><b>2.2</b> Variable types</a>
-<ul>
-<li class="chapter" data-level="2.2.1" data-path="intro-prog.html"><a href="intro-prog.html#r-1"><i class="fa fa-check"></i><b>2.2.1</b> R</a></li>
-<li class="chapter" data-level="2.2.2" data-path="intro-prog.html"><a href="intro-prog.html#sas-2"><i class="fa fa-check"></i><b>2.2.2</b> SAS</a></li>
+<li class="chapter" data-level="2.2" data-path="intro-prog.html"><a href="intro-prog.html#variable-types"><i class="fa fa-check"></i><b>2.2</b> Variable types</a><ul>
+<li class="chapter" data-level="2.2.1" data-path="intro-prog.html"><a href="intro-prog.html#r"><i class="fa fa-check"></i><b>2.2.1</b> R</a></li>
+<li class="chapter" data-level="2.2.2" data-path="intro-prog.html"><a href="intro-prog.html#sas"><i class="fa fa-check"></i><b>2.2.2</b> SAS</a></li>
 </ul></li>
-<li class="chapter" data-level="2.3" data-path="intro-prog.html"><a href="intro-prog.html#data-structures"><i class="fa fa-check"></i><b>2.3</b> Data structures</a>
-<ul>
+<li class="chapter" data-level="2.3" data-path="intro-prog.html"><a href="intro-prog.html#data-structures"><i class="fa fa-check"></i><b>2.3</b> Data structures</a><ul>
 <li class="chapter" data-level="2.3.1" data-path="intro-prog.html"><a href="intro-prog.html#homogeneous-data-structures-r-and-sas"><i class="fa fa-check"></i><b>2.3.1</b> Homogeneous data structures (R and SAS)</a></li>
 <li class="chapter" data-level="2.3.2" data-path="intro-prog.html"><a href="intro-prog.html#heterogeneous-data-structures"><i class="fa fa-check"></i><b>2.3.2</b> Heterogeneous data structures</a></li>
 <li class="chapter" data-level="2.3.3" data-path="intro-prog.html"><a href="intro-prog.html#indexing"><i class="fa fa-check"></i><b>2.3.3</b> Indexing</a></li>
 </ul></li>
-<li class="chapter" data-level="2.4" data-path="intro-prog.html"><a href="intro-prog.html#control-structures"><i class="fa fa-check"></i><b>2.4</b> Control structures</a>
-<ul>
+<li class="chapter" data-level="2.4" data-path="intro-prog.html"><a href="intro-prog.html#control-structures"><i class="fa fa-check"></i><b>2.4</b> Control structures</a><ul>
 <li class="chapter" data-level="2.4.1" data-path="intro-prog.html"><a href="intro-prog.html#if-statements"><i class="fa fa-check"></i><b>2.4.1</b> If statements</a></li>
 <li class="chapter" data-level="2.4.2" data-path="intro-prog.html"><a href="intro-prog.html#loops"><i class="fa fa-check"></i><b>2.4.2</b> Loops</a></li>
 </ul></li>
 <li class="chapter" data-level="2.5" data-path="intro-prog.html"><a href="intro-prog.html#overgrown-calculators"><i class="fa fa-check"></i><b>2.5</b> Overgrown Calculators</a></li>
-<li class="chapter" data-level="" data-path="intro-prog.html"><a href="intro-prog.html#references-and-links"><i class="fa fa-check"></i>References and Links</a>
-<ul>
+<li class="chapter" data-level="" data-path="intro-prog.html"><a href="intro-prog.html#references-and-links"><i class="fa fa-check"></i>References and Links</a><ul>
 <li class="chapter" data-level="2.5.1" data-path="intro-prog.html"><a href="intro-prog.html#cheat-sheets-and-reference-cards"><i class="fa fa-check"></i><b>2.5.1</b> Cheat Sheets and Reference Cards</a></li>
 <li class="chapter" data-level="2.5.2" data-path="intro-prog.html"><a href="intro-prog.html#sas-as-taught-in-other-places"><i class="fa fa-check"></i><b>2.5.2</b> SAS (as taught in other places)</a></li>
 <li class="chapter" data-level="2.5.3" data-path="intro-prog.html"><a href="intro-prog.html#r-courses-as-taught-elsewhere-and-textbooks"><i class="fa fa-check"></i><b>2.5.3</b> R courses (as taught elsewhere) and Textbooks</a></li>
@@ -254,161 +240,134 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="2.5.5" data-path="intro-prog.html"><a href="intro-prog.html#non-exhaustive-list-of-sources-used-to-aggregate-core-programming-concepts"><i class="fa fa-check"></i><b>2.5.5</b> Non-Exhaustive List of Sources used to aggregate “core programming concepts”:</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="3" data-path="organization.html"><a href="organization.html"><i class="fa fa-check"></i><b>3</b> Organization: Packages, Functions, Scripts, and Documents</a>
-<ul>
+<li class="chapter" data-level="3" data-path="organization.html"><a href="organization.html"><i class="fa fa-check"></i><b>3</b> Organization: Packages, Functions, Scripts, and Documents</a><ul>
 <li class="chapter" data-level="" data-path="organization.html"><a href="organization.html#module-3-objectives"><i class="fa fa-check"></i>Module Objectives</a></li>
-<li class="chapter" data-level="3.1" data-path="organization.html"><a href="organization.html#reproducibility-and-markdown"><i class="fa fa-check"></i><b>3.1</b> Reproducibility and Markdown</a>
-<ul>
+<li class="chapter" data-level="3.1" data-path="organization.html"><a href="organization.html#reproducibility-and-markdown"><i class="fa fa-check"></i><b>3.1</b> Reproducibility and Markdown</a><ul>
 <li class="chapter" data-level="" data-path="organization.html"><a href="organization.html#reproducibility-references-and-reading"><i class="fa fa-check"></i>Reproducibility References and Reading</a></li>
 <li class="chapter" data-level="3.1.1" data-path="organization.html"><a href="organization.html#rmarkdown"><i class="fa fa-check"></i><b>3.1.1</b> Markdown and R</a></li>
 <li class="chapter" data-level="3.1.2" data-path="organization.html"><a href="organization.html#rmarkdown-with-sas"><i class="fa fa-check"></i><b>3.1.2</b> Rmarkdown with… SAS?</a></li>
 </ul></li>
-<li class="chapter" data-level="3.2" data-path="organization.html"><a href="organization.html#functions-and-modules"><i class="fa fa-check"></i><b>3.2</b> Functions and Modules</a>
-<ul>
-<li class="chapter" data-level="" data-path="organization.html"><a href="organization.html#try-it-out-9"><i class="fa fa-check"></i>Try it out</a></li>
+<li class="chapter" data-level="3.2" data-path="organization.html"><a href="organization.html#functions-and-modules"><i class="fa fa-check"></i><b>3.2</b> Functions and Modules</a><ul>
+<li class="chapter" data-level="" data-path="tools.html"><a href="tools.html#try-it-out"><i class="fa fa-check"></i>Try it out</a></li>
 <li class="chapter" data-level="3.2.1" data-path="organization.html"><a href="organization.html#scope"><i class="fa fa-check"></i><b>3.2.1</b> Scope</a></li>
 <li class="chapter" data-level="3.2.2" data-path="organization.html"><a href="organization.html#the-pipe"><i class="fa fa-check"></i><b>3.2.2</b> The Pipe</a></li>
 </ul></li>
-<li class="chapter" data-level="3.3" data-path="organization.html"><a href="organization.html#procs-and-data-steps"><i class="fa fa-check"></i><b>3.3</b> Procs and Data steps</a>
-<ul>
-<li class="chapter" data-level="" data-path="organization.html"><a href="organization.html#try-it-out-11"><i class="fa fa-check"></i>Try It Out</a></li>
+<li class="chapter" data-level="3.3" data-path="organization.html"><a href="organization.html#procs-and-data-steps"><i class="fa fa-check"></i><b>3.3</b> Procs and Data steps</a><ul>
+<li class="chapter" data-level="" data-path="intro-prog.html"><a href="intro-prog.html#try-it-out-2"><i class="fa fa-check"></i>Try It Out</a></li>
 </ul></li>
-<li class="chapter" data-level="3.4" data-path="organization.html"><a href="organization.html#scripts"><i class="fa fa-check"></i><b>3.4</b> Scripts</a>
-<ul>
-<li class="chapter" data-level="" data-path="organization.html"><a href="organization.html#try-it-out-12"><i class="fa fa-check"></i>Try it out</a></li>
+<li class="chapter" data-level="3.4" data-path="organization.html"><a href="organization.html#scripts"><i class="fa fa-check"></i><b>3.4</b> Scripts</a><ul>
+<li class="chapter" data-level="" data-path="intro-prog.html"><a href="intro-prog.html#try-it-out-3"><i class="fa fa-check"></i>Try it out</a></li>
 <li class="chapter" data-level="" data-path="organization.html"><a href="organization.html#try-it-out-sas"><i class="fa fa-check"></i>Try it out (SAS)</a></li>
 </ul></li>
-<li class="chapter" data-level="3.5" data-path="organization.html"><a href="organization.html#packages"><i class="fa fa-check"></i><b>3.5</b> Packages</a>
-<ul>
-<li class="chapter" data-level="" data-path="organization.html"><a href="organization.html#try-it-out-13"><i class="fa fa-check"></i>Try it out</a></li>
+<li class="chapter" data-level="3.5" data-path="organization.html"><a href="organization.html#packages"><i class="fa fa-check"></i><b>3.5</b> Packages</a><ul>
+<li class="chapter" data-level="" data-path="intro-prog.html"><a href="intro-prog.html#try-it-out-4"><i class="fa fa-check"></i>Try it out</a></li>
 </ul></li>
-<li class="chapter" data-level="" data-path="organization.html"><a href="organization.html#references-and-links-1"><i class="fa fa-check"></i>References and Links</a></li>
+<li class="chapter" data-level="" data-path="intro-prog.html"><a href="intro-prog.html#references-and-links"><i class="fa fa-check"></i>References and Links</a></li>
 </ul></li>
 <li class="part"><span><b>II Data Programming</b></span></li>
-<li class="chapter" data-level="4" data-path="reading-data.html"><a href="reading-data.html"><i class="fa fa-check"></i><b>4</b> External Data</a>
-<ul>
+<li class="chapter" data-level="4" data-path="reading-data.html"><a href="reading-data.html"><i class="fa fa-check"></i><b>4</b> External Data</a><ul>
 <li class="chapter" data-level="" data-path="reading-data.html"><a href="reading-data.html#reading-data-module-objectives"><i class="fa fa-check"></i>Reading Data: Module Objectives</a></li>
 <li class="chapter" data-level="4.1" data-path="reading-data.html"><a href="reading-data.html#external-data-formats"><i class="fa fa-check"></i><b>4.1</b> External Data Formats</a></li>
-<li class="chapter" data-level="4.2" data-path="reading-data.html"><a href="reading-data.html#text-files"><i class="fa fa-check"></i><b>4.2</b> Text Files</a>
-<ul>
+<li class="chapter" data-level="4.2" data-path="reading-data.html"><a href="reading-data.html#text-files"><i class="fa fa-check"></i><b>4.2</b> Text Files</a><ul>
 <li class="chapter" data-level="4.2.1" data-path="reading-data.html"><a href="reading-data.html#fixed-width-files"><i class="fa fa-check"></i><b>4.2.1</b> Fixed-width files</a></li>
 <li class="chapter" data-level="4.2.2" data-path="reading-data.html"><a href="reading-data.html#delimited-text-files"><i class="fa fa-check"></i><b>4.2.2</b> Delimited Text Files</a></li>
-<li class="chapter" data-level="" data-path="reading-data.html"><a href="reading-data.html#try-it-out-14"><i class="fa fa-check"></i>Try it out</a></li>
+<li class="chapter" data-level="" data-path="tools.html"><a href="tools.html#try-it-out"><i class="fa fa-check"></i>Try it out</a></li>
 </ul></li>
-<li class="chapter" data-level="4.3" data-path="reading-data.html"><a href="reading-data.html#spreadsheets"><i class="fa fa-check"></i><b>4.3</b> Spreadsheets</a>
-<ul>
-<li class="chapter" data-level="" data-path="reading-data.html"><a href="reading-data.html#try-it-out-15"><i class="fa fa-check"></i>Try it out</a></li>
+<li class="chapter" data-level="4.3" data-path="reading-data.html"><a href="reading-data.html#spreadsheets"><i class="fa fa-check"></i><b>4.3</b> Spreadsheets</a><ul>
+<li class="chapter" data-level="" data-path="intro-prog.html"><a href="intro-prog.html#try-it-out-1"><i class="fa fa-check"></i>Try it out</a></li>
 </ul></li>
-<li class="chapter" data-level="4.4" data-path="reading-data.html"><a href="reading-data.html#binary-files"><i class="fa fa-check"></i><b>4.4</b> Binary Files</a>
-<ul>
-<li class="chapter" data-level="" data-path="reading-data.html"><a href="reading-data.html#try-it-out-16"><i class="fa fa-check"></i>Try it out</a></li>
+<li class="chapter" data-level="4.4" data-path="reading-data.html"><a href="reading-data.html#binary-files"><i class="fa fa-check"></i><b>4.4</b> Binary Files</a><ul>
+<li class="chapter" data-level="" data-path="intro-prog.html"><a href="intro-prog.html#try-it-out-2"><i class="fa fa-check"></i>Try it out</a></li>
 </ul></li>
-<li class="chapter" data-level="4.5" data-path="reading-data.html"><a href="reading-data.html#databases"><i class="fa fa-check"></i><b>4.5</b> Databases</a>
-<ul>
+<li class="chapter" data-level="4.5" data-path="reading-data.html"><a href="reading-data.html#databases"><i class="fa fa-check"></i><b>4.5</b> Databases</a><ul>
 <li class="chapter" data-level="4.5.1" data-path="reading-data.html"><a href="reading-data.html#microsoft-access"><i class="fa fa-check"></i><b>4.5.1</b> Microsoft Access</a></li>
 <li class="chapter" data-level="4.5.2" data-path="reading-data.html"><a href="reading-data.html#sqlite"><i class="fa fa-check"></i><b>4.5.2</b> SQLite</a></li>
 </ul></li>
-<li class="chapter" data-level="4.6" data-path="reading-data.html"><a href="reading-data.html#exploratory-data-analysis"><i class="fa fa-check"></i><b>4.6</b> Exploratory Data Analysis</a>
-<ul>
-<li class="chapter" data-level="4.6.1" data-path="reading-data.html"><a href="reading-data.html#sas-3"><i class="fa fa-check"></i><b>4.6.1</b> SAS</a></li>
-<li class="chapter" data-level="4.6.2" data-path="reading-data.html"><a href="reading-data.html#r-2"><i class="fa fa-check"></i><b>4.6.2</b> R</a></li>
+<li class="chapter" data-level="4.6" data-path="reading-data.html"><a href="reading-data.html#exploratory-data-analysis"><i class="fa fa-check"></i><b>4.6</b> Exploratory Data Analysis</a><ul>
+<li class="chapter" data-level="4.6.1" data-path="intro-prog.html"><a href="intro-prog.html#sas"><i class="fa fa-check"></i><b>4.6.1</b> SAS</a></li>
+<li class="chapter" data-level="4.6.2" data-path="intro-prog.html"><a href="intro-prog.html#r"><i class="fa fa-check"></i><b>4.6.2</b> R</a></li>
 <li class="chapter" data-level="4.6.3" data-path="reading-data.html"><a href="reading-data.html#comparison"><i class="fa fa-check"></i><b>4.6.3</b> Comparison</a></li>
 </ul></li>
-<li class="chapter" data-level="" data-path="reading-data.html"><a href="reading-data.html#references-and-links-2"><i class="fa fa-check"></i>References and Links</a></li>
+<li class="chapter" data-level="" data-path="intro-prog.html"><a href="intro-prog.html#references-and-links"><i class="fa fa-check"></i>References and Links</a></li>
 </ul></li>
-<li class="chapter" data-level="5" data-path="manipulating-data.html"><a href="manipulating-data.html"><i class="fa fa-check"></i><b>5</b> Manipulating Data</a>
-<ul>
+<li class="chapter" data-level="5" data-path="manipulating-data.html"><a href="manipulating-data.html"><i class="fa fa-check"></i><b>5</b> Manipulating Data</a><ul>
 <li class="chapter" data-level="" data-path="manipulating-data.html"><a href="manipulating-data.html#manipulating-data-module-objectives"><i class="fa fa-check"></i>Manipulating Data: Module Objectives</a></li>
 <li class="chapter" data-level="5.1" data-path="manipulating-data.html"><a href="manipulating-data.html#tidy-data"><i class="fa fa-check"></i><b>5.1</b> Tidy Data</a></li>
-<li class="chapter" data-level="5.2" data-path="manipulating-data.html"><a href="manipulating-data.html#filter-pick-cases-rows-based-on-their-values"><i class="fa fa-check"></i><b>5.2</b> Filter: Pick cases (rows) based on their values</a>
-<ul>
+<li class="chapter" data-level="5.2" data-path="manipulating-data.html"><a href="manipulating-data.html#filter-pick-cases-rows-based-on-their-values"><i class="fa fa-check"></i><b>5.2</b> Filter: Pick cases (rows) based on their values</a><ul>
 <li class="chapter" data-level="5.2.1" data-path="manipulating-data.html"><a href="manipulating-data.html#common-filter-tasks"><i class="fa fa-check"></i><b>5.2.1</b> Common Filter() Tasks</a></li>
-<li class="chapter" data-level="" data-path="manipulating-data.html"><a href="manipulating-data.html#try-it-out-17"><i class="fa fa-check"></i>Try it out</a></li>
+<li class="chapter" data-level="" data-path="tools.html"><a href="tools.html#try-it-out"><i class="fa fa-check"></i>Try it out</a></li>
 </ul></li>
 <li class="chapter" data-level="5.3" data-path="manipulating-data.html"><a href="manipulating-data.html#select-pick-columns"><i class="fa fa-check"></i><b>5.3</b> Select: Pick columns</a></li>
 <li class="chapter" data-level="5.4" data-path="manipulating-data.html"><a href="manipulating-data.html#mutate-add-and-transform-variables"><i class="fa fa-check"></i><b>5.4</b> Mutate: Add and transform variables</a></li>
 <li class="chapter" data-level="5.5" data-path="manipulating-data.html"><a href="manipulating-data.html#summarize"><i class="fa fa-check"></i><b>5.5</b> Summarize</a></li>
 <li class="chapter" data-level="5.6" data-path="manipulating-data.html"><a href="manipulating-data.html#group-by-power"><i class="fa fa-check"></i><b>5.6</b> Group By + (?) = Power!</a></li>
 <li class="chapter" data-level="5.7" data-path="manipulating-data.html"><a href="manipulating-data.html#other-dplyr-functions-across-relocate"><i class="fa fa-check"></i><b>5.7</b> Other <code>dplyr</code> functions: across, relocate</a></li>
-<li class="chapter" data-level="" data-path="manipulating-data.html"><a href="manipulating-data.html#try-it-out-18"><i class="fa fa-check"></i>Try it out</a></li>
-<li class="chapter" data-level="" data-path="manipulating-data.html"><a href="manipulating-data.html#references-1"><i class="fa fa-check"></i>References</a></li>
+<li class="chapter" data-level="" data-path="intro-prog.html"><a href="intro-prog.html#try-it-out-1"><i class="fa fa-check"></i>Try it out</a></li>
+<li class="chapter" data-level="" data-path="tools.html"><a href="tools.html#references"><i class="fa fa-check"></i>References</a></li>
 </ul></li>
-<li class="chapter" data-level="6" data-path="transforming-data.html"><a href="transforming-data.html"><i class="fa fa-check"></i><b>6</b> Transforming Data</a>
-<ul>
+<li class="chapter" data-level="6" data-path="transforming-data.html"><a href="transforming-data.html"><i class="fa fa-check"></i><b>6</b> Transforming Data</a><ul>
 <li class="chapter" data-level="" data-path="transforming-data.html"><a href="transforming-data.html#transforming-data-module-objectives"><i class="fa fa-check"></i>Transforming Data: Module Objectives</a></li>
-<li class="chapter" data-level="6.1" data-path="transforming-data.html"><a href="transforming-data.html#identifying-the-problem-messy-data"><i class="fa fa-check"></i><b>6.1</b> Identifying the problem: Messy data</a>
-<ul>
-<li class="chapter" data-level="" data-path="transforming-data.html"><a href="transforming-data.html#try-it-out-19"><i class="fa fa-check"></i>Try it out</a></li>
+<li class="chapter" data-level="6.1" data-path="transforming-data.html"><a href="transforming-data.html#identifying-the-problem-messy-data"><i class="fa fa-check"></i><b>6.1</b> Identifying the problem: Messy data</a><ul>
+<li class="chapter" data-level="" data-path="tools.html"><a href="tools.html#try-it-out"><i class="fa fa-check"></i>Try it out</a></li>
 </ul></li>
-<li class="chapter" data-level="6.2" data-path="transforming-data.html"><a href="transforming-data.html#string-operations-creating-new-variables-and-separating-multi-variable-columns"><i class="fa fa-check"></i><b>6.2</b> String operations: Creating new variables and separating multi-variable columns</a>
-<ul>
+<li class="chapter" data-level="6.2" data-path="transforming-data.html"><a href="transforming-data.html#string-operations-creating-new-variables-and-separating-multi-variable-columns"><i class="fa fa-check"></i><b>6.2</b> String operations: Creating new variables and separating multi-variable columns</a><ul>
 <li class="chapter" data-level="6.2.1" data-path="transforming-data.html"><a href="transforming-data.html#basic-string-operations"><i class="fa fa-check"></i><b>6.2.1</b> Basic String Operations</a></li>
 <li class="chapter" data-level="6.2.2" data-path="transforming-data.html"><a href="transforming-data.html#regular-expressions"><i class="fa fa-check"></i><b>6.2.2</b> Regular Expressions</a></li>
 <li class="chapter" data-level="6.2.3" data-path="transforming-data.html"><a href="transforming-data.html#joining-and-splitting-variables"><i class="fa fa-check"></i><b>6.2.3</b> Joining and Splitting Variables</a></li>
 </ul></li>
-<li class="chapter" data-level="6.3" data-path="transforming-data.html"><a href="transforming-data.html#pivot-operations"><i class="fa fa-check"></i><b>6.3</b> Pivot operations</a>
-<ul>
+<li class="chapter" data-level="6.3" data-path="transforming-data.html"><a href="transforming-data.html#pivot-operations"><i class="fa fa-check"></i><b>6.3</b> Pivot operations</a><ul>
 <li class="chapter" data-level="6.3.1" data-path="transforming-data.html"><a href="transforming-data.html#longer"><i class="fa fa-check"></i><b>6.3.1</b> Longer</a></li>
 <li class="chapter" data-level="6.3.2" data-path="transforming-data.html"><a href="transforming-data.html#wider"><i class="fa fa-check"></i><b>6.3.2</b> Wider</a></li>
 </ul></li>
-<li class="chapter" data-level="6.4" data-path="transforming-data.html"><a href="transforming-data.html#relational-data-and-joining-tables"><i class="fa fa-check"></i><b>6.4</b> Relational Data and Joining Tables</a>
-<ul>
+<li class="chapter" data-level="6.4" data-path="transforming-data.html"><a href="transforming-data.html#relational-data-and-joining-tables"><i class="fa fa-check"></i><b>6.4</b> Relational Data and Joining Tables</a><ul>
 <li class="chapter" data-level="6.4.1" data-path="transforming-data.html"><a href="transforming-data.html#demonstration-dataset-setup"><i class="fa fa-check"></i><b>6.4.1</b> Demonstration dataset setup</a></li>
 <li class="chapter" data-level="6.4.2" data-path="transforming-data.html"><a href="transforming-data.html#mutating-joins"><i class="fa fa-check"></i><b>6.4.2</b> Mutating joins</a></li>
 </ul></li>
-<li class="chapter" data-level="6.5" data-path="transforming-data.html"><a href="transforming-data.html#example-gas-prices-data"><i class="fa fa-check"></i><b>6.5</b> Example: Gas Prices Data</a>
-<ul>
+<li class="chapter" data-level="6.5" data-path="transforming-data.html"><a href="transforming-data.html#example-gas-prices-data"><i class="fa fa-check"></i><b>6.5</b> Example: Gas Prices Data</a><ul>
 <li class="chapter" data-level="6.5.1" data-path="transforming-data.html"><a href="transforming-data.html#option-1-manual-formatting-in-excel"><i class="fa fa-check"></i><b>6.5.1</b> Option 1: Manual formatting in Excel</a></li>
 <li class="chapter" data-level="6.5.2" data-path="transforming-data.html"><a href="transforming-data.html#option-2-r"><i class="fa fa-check"></i><b>6.5.2</b> Option 2: R</a></li>
 <li class="chapter" data-level="6.5.3" data-path="transforming-data.html"><a href="transforming-data.html#option-3-sas"><i class="fa fa-check"></i><b>6.5.3</b> Option 3: SAS</a></li>
 </ul></li>
-<li class="chapter" data-level="" data-path="transforming-data.html"><a href="transforming-data.html#references-2"><i class="fa fa-check"></i>References</a></li>
+<li class="chapter" data-level="" data-path="tools.html"><a href="tools.html#references"><i class="fa fa-check"></i>References</a></li>
 </ul></li>
-<li class="chapter" data-level="7" data-path="debugging.html"><a href="debugging.html"><i class="fa fa-check"></i><b>7</b> Principles of Debugging</a>
-<ul>
+<li class="chapter" data-level="7" data-path="debugging.html"><a href="debugging.html"><i class="fa fa-check"></i><b>7</b> Principles of Debugging</a><ul>
 <li class="chapter" data-level="" data-path="debugging.html"><a href="debugging.html#debugging-module-objectives"><i class="fa fa-check"></i>Debugging: Module Objectives</a></li>
 <li class="chapter" data-level="7.1" data-path="debugging.html"><a href="debugging.html#step-1-check-your-spelling."><i class="fa fa-check"></i><b>7.1</b> Step 1: Check your spelling.</a></li>
 <li class="chapter" data-level="7.2" data-path="debugging.html"><a href="debugging.html#defensive-programming"><i class="fa fa-check"></i><b>7.2</b> Defensive Programming</a></li>
 <li class="chapter" data-level="7.3" data-path="debugging.html"><a href="debugging.html#general-debugging-strategies"><i class="fa fa-check"></i><b>7.3</b> General Debugging Strategies</a></li>
-<li class="chapter" data-level="7.4" data-path="debugging.html"><a href="debugging.html#debugging-tools-in-r"><i class="fa fa-check"></i><b>7.4</b> Debugging Tools in R</a>
-<ul>
+<li class="chapter" data-level="7.4" data-path="debugging.html"><a href="debugging.html#debugging-tools-in-r"><i class="fa fa-check"></i><b>7.4</b> Debugging Tools in R</a><ul>
 <li class="chapter" data-level="7.4.1" data-path="debugging.html"><a href="debugging.html#low-tech-debugging-with-print-and-other-tools"><i class="fa fa-check"></i><b>7.4.1</b> Low tech debugging with print() and other tools</a></li>
 <li class="chapter" data-level="7.4.2" data-path="debugging.html"><a href="debugging.html#after-an-error-has-occurred---traceback"><i class="fa fa-check"></i><b>7.4.2</b> After an error has occurred - <code>traceback()</code></a></li>
 <li class="chapter" data-level="7.4.3" data-path="debugging.html"><a href="debugging.html#browser---debugging-your-own-code-interactively"><i class="fa fa-check"></i><b>7.4.3</b> <code>browser()</code> - debugging your own code, interactively</a></li>
 <li class="chapter" data-level="7.4.4" data-path="debugging.html"><a href="debugging.html#debug---the-general-debugging-workhorse"><i class="fa fa-check"></i><b>7.4.4</b> <code>debug()</code> - the general debugging workhorse</a></li>
-<li class="chapter" data-level="" data-path="debugging.html"><a href="debugging.html#try-it-out-25"><i class="fa fa-check"></i>Try it out</a></li>
+<li class="chapter" data-level="" data-path="intro-prog.html"><a href="intro-prog.html#try-it-out-2"><i class="fa fa-check"></i>Try it out</a></li>
 </ul></li>
 <li class="chapter" data-level="7.5" data-path="debugging.html"><a href="debugging.html#debugging-tools-in-sas"><i class="fa fa-check"></i><b>7.5</b> Debugging Tools in SAS</a></li>
-<li class="chapter" data-level="7.6" data-path="debugging.html"><a href="debugging.html#minimal-working-examples"><i class="fa fa-check"></i><b>7.6</b> Minimal Working Examples</a>
-<ul>
+<li class="chapter" data-level="7.6" data-path="debugging.html"><a href="debugging.html#minimal-working-examples"><i class="fa fa-check"></i><b>7.6</b> Minimal Working Examples</a><ul>
 <li class="chapter" data-level="7.6.1" data-path="debugging.html"><a href="debugging.html#example-mwes"><i class="fa fa-check"></i><b>7.6.1</b> Example: MWEs</a></li>
-<li class="chapter" data-level="7.6.2" data-path="debugging.html"><a href="debugging.html#try-it-out-26"><i class="fa fa-check"></i><b>7.6.2</b> Try It Out</a></li>
+<li class="chapter" data-level="7.6.2" data-path="intro-prog.html"><a href="intro-prog.html#try-it-out-3"><i class="fa fa-check"></i><b>7.6.2</b> Try It Out</a></li>
 </ul></li>
-<li class="chapter" data-level="" data-path="debugging.html"><a href="debugging.html#references-3"><i class="fa fa-check"></i>References</a></li>
+<li class="chapter" data-level="" data-path="tools.html"><a href="tools.html#references"><i class="fa fa-check"></i>References</a></li>
 </ul></li>
 <li class="part"><span><b>III Applications</b></span></li>
-<li class="chapter" data-level="8" data-path="data-vis-intro.html"><a href="data-vis-intro.html"><i class="fa fa-check"></i><b>8</b> Introduction to Data Visualization</a>
-<ul>
+<li class="chapter" data-level="8" data-path="data-vis-intro.html"><a href="data-vis-intro.html"><i class="fa fa-check"></i><b>8</b> Introduction to Data Visualization</a><ul>
 <li class="chapter" data-level="" data-path="data-vis-intro.html"><a href="data-vis-intro.html#visualization-module-objectives"><i class="fa fa-check"></i>Visualization: Module Objectives</a></li>
 <li class="chapter" data-level="8.1" data-path="data-vis-intro.html"><a href="data-vis-intro.html#why-do-we-create-graphics"><i class="fa fa-check"></i><b>8.1</b> Why do we create graphics?</a></li>
 <li class="chapter" data-level="8.2" data-path="data-vis-intro.html"><a href="data-vis-intro.html#general-approaches-to-creating-graphics"><i class="fa fa-check"></i><b>8.2</b> General approaches to creating graphics</a></li>
-<li class="chapter" data-level="8.3" data-path="data-vis-intro.html"><a href="data-vis-intro.html#the-grammar-of-graphics"><i class="fa fa-check"></i><b>8.3</b> The Grammar of Graphics</a>
-<ul>
+<li class="chapter" data-level="8.3" data-path="data-vis-intro.html"><a href="data-vis-intro.html#the-grammar-of-graphics"><i class="fa fa-check"></i><b>8.3</b> The Grammar of Graphics</a><ul>
 <li class="chapter" data-level="8.3.1" data-path="data-vis-intro.html"><a href="data-vis-intro.html#demonstration-aesthetic-mappings-and-basic-plots"><i class="fa fa-check"></i><b>8.3.1</b> Demonstration: Aesthetic Mappings and Basic Plots</a></li>
 <li class="chapter" data-level="8.3.2" data-path="data-vis-intro.html"><a href="data-vis-intro.html#syntax-and-general-structure-layers"><i class="fa fa-check"></i><b>8.3.2</b> Syntax and General Structure: Layers</a></li>
 <li class="chapter" data-level="8.3.3" data-path="data-vis-intro.html"><a href="data-vis-intro.html#statistics-and-different-types-of-plots"><i class="fa fa-check"></i><b>8.3.3</b> Statistics and Different Types of Plots</a></li>
 <li class="chapter" data-level="8.3.4" data-path="data-vis-intro.html"><a href="data-vis-intro.html#small-multiples"><i class="fa fa-check"></i><b>8.3.4</b> Small Multiples</a></li>
-<li class="chapter" data-level="" data-path="data-vis-intro.html"><a href="data-vis-intro.html#try-it-out-30"><i class="fa fa-check"></i>Try it out</a></li>
+<li class="chapter" data-level="" data-path="intro-prog.html"><a href="intro-prog.html#try-it-out-3"><i class="fa fa-check"></i>Try it out</a></li>
 </ul></li>
-<li class="chapter" data-level="8.4" data-path="data-vis-intro.html"><a href="data-vis-intro.html#good-charts"><i class="fa fa-check"></i><b>8.4</b> Good charts</a>
-<ul>
+<li class="chapter" data-level="8.4" data-path="data-vis-intro.html"><a href="data-vis-intro.html#good-charts"><i class="fa fa-check"></i><b>8.4</b> Good charts</a><ul>
 <li class="chapter" data-level="8.4.1" data-path="data-vis-intro.html"><a href="data-vis-intro.html#perceptual-and-cognitive-factors"><i class="fa fa-check"></i><b>8.4.1</b> Perceptual and Cognitive Factors</a></li>
 <li class="chapter" data-level="8.4.2" data-path="data-vis-intro.html"><a href="data-vis-intro.html#general-guidelines-for-accuracy"><i class="fa fa-check"></i><b>8.4.2</b> General guidelines for accuracy</a></li>
 <li class="chapter" data-level="8.4.3" data-path="data-vis-intro.html"><a href="data-vis-intro.html#how-do-we-know"><i class="fa fa-check"></i><b>8.4.3</b> How do we know?</a></li>
 </ul></li>
 <li class="chapter" data-level="8.5" data-path="data-vis-intro.html"><a href="data-vis-intro.html#other-things-worth-exploring-and-future-expansions-for-this-chapter"><i class="fa fa-check"></i><b>8.5</b> Other things worth exploring (and future expansions for this chapter)</a></li>
-<li class="chapter" data-level="" data-path="data-vis-intro.html"><a href="data-vis-intro.html#references-4"><i class="fa fa-check"></i>References</a>
-<ul>
+<li class="chapter" data-level="" data-path="tools.html"><a href="tools.html#references"><i class="fa fa-check"></i>References</a><ul>
 <li class="chapter" data-level="8.5.1" data-path="data-vis-intro.html"><a href="data-vis-intro.html#motivation"><i class="fa fa-check"></i><b>8.5.1</b> Motivation</a></li>
 <li class="chapter" data-level="8.5.2" data-path="data-vis-intro.html"><a href="data-vis-intro.html#r-graphics"><i class="fa fa-check"></i><b>8.5.2</b> R graphics</a></li>
 <li class="chapter" data-level="8.5.3" data-path="data-vis-intro.html"><a href="data-vis-intro.html#sas-graphics"><i class="fa fa-check"></i><b>8.5.3</b> SAS graphics</a></li>
@@ -416,108 +375,88 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="8.5.5" data-path="data-vis-intro.html"><a href="data-vis-intro.html#other-graphics-packages"><i class="fa fa-check"></i><b>8.5.5</b> Other Graphics packages</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="9" data-path="simulation.html"><a href="simulation.html"><i class="fa fa-check"></i><b>9</b> Simulation and Reproducibility</a>
-<ul>
+<li class="chapter" data-level="9" data-path="simulation.html"><a href="simulation.html"><i class="fa fa-check"></i><b>9</b> Simulation and Reproducibility</a><ul>
 <li class="chapter" data-level="" data-path="simulation.html"><a href="simulation.html#simulation-module-objectives"><i class="fa fa-check"></i>Simulation: Module Objectives</a></li>
 <li class="chapter" data-level="9.1" data-path="simulation.html"><a href="simulation.html#pseudorandom-number-generation"><i class="fa fa-check"></i><b>9.1</b> Pseudorandom Number Generation</a></li>
-<li class="chapter" data-level="9.2" data-path="simulation.html"><a href="simulation.html#built-in-simulations-from-distributions"><i class="fa fa-check"></i><b>9.2</b> Built-in simulations from distributions</a>
-<ul>
-<li class="chapter" data-level="" data-path="simulation.html"><a href="simulation.html#try-it-out-32"><i class="fa fa-check"></i>Try it out</a></li>
+<li class="chapter" data-level="9.2" data-path="simulation.html"><a href="simulation.html#built-in-simulations-from-distributions"><i class="fa fa-check"></i><b>9.2</b> Built-in simulations from distributions</a><ul>
+<li class="chapter" data-level="" data-path="tools.html"><a href="tools.html#try-it-out"><i class="fa fa-check"></i>Try it out</a></li>
 </ul></li>
-<li class="chapter" data-level="9.3" data-path="simulation.html"><a href="simulation.html#simulation-to-test-model-assumptions"><i class="fa fa-check"></i><b>9.3</b> Simulation to test model assumptions</a>
-<ul>
-<li class="chapter" data-level="" data-path="simulation.html"><a href="simulation.html#try-it-out-33"><i class="fa fa-check"></i>Try it out</a></li>
+<li class="chapter" data-level="9.3" data-path="simulation.html"><a href="simulation.html#simulation-to-test-model-assumptions"><i class="fa fa-check"></i><b>9.3</b> Simulation to test model assumptions</a><ul>
+<li class="chapter" data-level="" data-path="intro-prog.html"><a href="intro-prog.html#try-it-out-1"><i class="fa fa-check"></i>Try it out</a></li>
 </ul></li>
-<li class="chapter" data-level="9.4" data-path="simulation.html"><a href="simulation.html#monte-carlo-methods"><i class="fa fa-check"></i><b>9.4</b> Monte Carlo methods</a>
-<ul>
-<li class="chapter" data-level="" data-path="simulation.html"><a href="simulation.html#try-it-out-34"><i class="fa fa-check"></i>Try it out</a></li>
+<li class="chapter" data-level="9.4" data-path="simulation.html"><a href="simulation.html#monte-carlo-methods"><i class="fa fa-check"></i><b>9.4</b> Monte Carlo methods</a><ul>
+<li class="chapter" data-level="" data-path="intro-prog.html"><a href="intro-prog.html#try-it-out-2"><i class="fa fa-check"></i>Try it out</a></li>
 </ul></li>
-<li class="chapter" data-level="9.5" data-path="simulation.html"><a href="simulation.html#references-5"><i class="fa fa-check"></i><b>9.5</b> References</a></li>
+<li class="chapter" data-level="9.5" data-path="tools.html"><a href="tools.html#references"><i class="fa fa-check"></i><b>9.5</b> References</a></li>
 </ul></li>
-<li class="chapter" data-level="10" data-path="docs-reports.html"><a href="docs-reports.html"><i class="fa fa-check"></i><b>10</b> Documents and Reports</a>
-<ul>
+<li class="chapter" data-level="10" data-path="docs-reports.html"><a href="docs-reports.html"><i class="fa fa-check"></i><b>10</b> Documents and Reports</a><ul>
 <li class="chapter" data-level="" data-path="docs-reports.html"><a href="docs-reports.html#documents-and-reports-module-objectives"><i class="fa fa-check"></i>Documents and Reports: Module Objectives</a></li>
 <li class="chapter" data-level="10.1" data-path="docs-reports.html"><a href="docs-reports.html#literate-programming-knitr-and-rmarkdown"><i class="fa fa-check"></i><b>10.1</b> Literate Programming, <code>knitr</code>, and <code>rmarkdown</code></a></li>
-<li class="chapter" data-level="10.2" data-path="docs-reports.html"><a href="docs-reports.html#a-very-brief-introduction-to-latex"><i class="fa fa-check"></i><b>10.2</b> A Very Brief Introduction to LaTeX</a>
-<ul>
-<li class="chapter" data-level="" data-path="docs-reports.html"><a href="docs-reports.html#try-it-out-35"><i class="fa fa-check"></i>Try it out</a></li>
+<li class="chapter" data-level="10.2" data-path="docs-reports.html"><a href="docs-reports.html#a-very-brief-introduction-to-latex"><i class="fa fa-check"></i><b>10.2</b> A Very Brief Introduction to LaTeX</a><ul>
+<li class="chapter" data-level="" data-path="tools.html"><a href="tools.html#try-it-out"><i class="fa fa-check"></i>Try it out</a></li>
 <li class="chapter" data-level="10.2.1" data-path="docs-reports.html"><a href="docs-reports.html#knitr"><i class="fa fa-check"></i><b>10.2.1</b> Knitr</a></li>
 </ul></li>
-<li class="chapter" data-level="10.3" data-path="docs-reports.html"><a href="docs-reports.html#slides"><i class="fa fa-check"></i><b>10.3</b> Slides</a>
-<ul>
+<li class="chapter" data-level="10.3" data-path="docs-reports.html"><a href="docs-reports.html#slides"><i class="fa fa-check"></i><b>10.3</b> Slides</a><ul>
 <li class="chapter" data-level="10.3.1" data-path="docs-reports.html"><a href="docs-reports.html#beamer-latex-and-knitr"><i class="fa fa-check"></i><b>10.3.1</b> Beamer (LaTeX) and knitr</a></li>
 <li class="chapter" data-level="10.3.2" data-path="docs-reports.html"><a href="docs-reports.html#html-slides"><i class="fa fa-check"></i><b>10.3.2</b> HTML slides</a></li>
-<li class="chapter" data-level="" data-path="docs-reports.html"><a href="docs-reports.html#try-it-out-37"><i class="fa fa-check"></i>Try it out</a></li>
+<li class="chapter" data-level="" data-path="intro-prog.html"><a href="intro-prog.html#try-it-out-2"><i class="fa fa-check"></i>Try it out</a></li>
 </ul></li>
-<li class="chapter" data-level="10.4" data-path="docs-reports.html"><a href="docs-reports.html#posters"><i class="fa fa-check"></i><b>10.4</b> Posters</a>
-<ul>
-<li class="chapter" data-level="10.4.1" data-path="docs-reports.html"><a href="docs-reports.html#latex-2"><i class="fa fa-check"></i><b>10.4.1</b> LaTeX</a></li>
+<li class="chapter" data-level="10.4" data-path="docs-reports.html"><a href="docs-reports.html#posters"><i class="fa fa-check"></i><b>10.4</b> Posters</a><ul>
+<li class="chapter" data-level="10.4.1" data-path="docs-reports.html"><a href="docs-reports.html#latex"><i class="fa fa-check"></i><b>10.4.1</b> LaTeX</a></li>
 <li class="chapter" data-level="10.4.2" data-path="docs-reports.html"><a href="docs-reports.html#posterdown"><i class="fa fa-check"></i><b>10.4.2</b> Posterdown</a></li>
 <li class="chapter" data-level="10.4.3" data-path="docs-reports.html"><a href="docs-reports.html#pagedown"><i class="fa fa-check"></i><b>10.4.3</b> Pagedown</a></li>
 </ul></li>
 <li class="chapter" data-level="10.5" data-path="docs-reports.html"><a href="docs-reports.html#resumecv"><i class="fa fa-check"></i><b>10.5</b> Resume/CV</a></li>
 <li class="chapter" data-level="10.6" data-path="docs-reports.html"><a href="docs-reports.html#using-github-pages"><i class="fa fa-check"></i><b>10.6</b> Using Github Pages</a></li>
-<li class="chapter" data-level="10.7" data-path="docs-reports.html"><a href="docs-reports.html#references-6"><i class="fa fa-check"></i><b>10.7</b> References</a></li>
+<li class="chapter" data-level="10.7" data-path="tools.html"><a href="tools.html#references"><i class="fa fa-check"></i><b>10.7</b> References</a></li>
 </ul></li>
-<li class="chapter" data-level="11" data-path="animated-and-interactive-graphics.html"><a href="animated-and-interactive-graphics.html"><i class="fa fa-check"></i><b>11</b> Animated and Interactive Graphics</a>
-<ul>
+<li class="chapter" data-level="11" data-path="animated-and-interactive-graphics.html"><a href="animated-and-interactive-graphics.html"><i class="fa fa-check"></i><b>11</b> Animated and Interactive Graphics</a><ul>
 <li class="chapter" data-level="" data-path="animated-and-interactive-graphics.html"><a href="animated-and-interactive-graphics.html#animated-and-interactive-graphics-module-objectives"><i class="fa fa-check"></i>Animated and Interactive Graphics: Module Objectives</a></li>
-<li class="chapter" data-level="11.1" data-path="animated-and-interactive-graphics.html"><a href="animated-and-interactive-graphics.html#plotly"><i class="fa fa-check"></i><b>11.1</b> Plotly</a>
-<ul>
+<li class="chapter" data-level="11.1" data-path="animated-and-interactive-graphics.html"><a href="animated-and-interactive-graphics.html#plotly"><i class="fa fa-check"></i><b>11.1</b> Plotly</a><ul>
 <li class="chapter" data-level="11.1.1" data-path="animated-and-interactive-graphics.html"><a href="animated-and-interactive-graphics.html#ggplotly-ggplot2-to-plotly-conversions"><i class="fa fa-check"></i><b>11.1.1</b> <code>ggplotly</code>: ggplot2 to plotly conversions</a></li>
 <li class="chapter" data-level="11.1.2" data-path="animated-and-interactive-graphics.html"><a href="animated-and-interactive-graphics.html#plot_ly-like-base-plotting-but-interactive"><i class="fa fa-check"></i><b>11.1.2</b> <code>plot_ly</code>: Like base plotting, but interactive!</a></li>
 <li class="chapter" data-level="11.1.3" data-path="animated-and-interactive-graphics.html"><a href="animated-and-interactive-graphics.html#animation"><i class="fa fa-check"></i><b>11.1.3</b> Animation</a></li>
 </ul></li>
-<li class="chapter" data-level="11.2" data-path="animated-and-interactive-graphics.html"><a href="animated-and-interactive-graphics.html#leaflet-maps"><i class="fa fa-check"></i><b>11.2</b> Leaflet maps</a>
-<ul>
-<li class="chapter" data-level="" data-path="animated-and-interactive-graphics.html"><a href="animated-and-interactive-graphics.html#try-it-out-41"><i class="fa fa-check"></i>Try it out</a></li>
+<li class="chapter" data-level="11.2" data-path="animated-and-interactive-graphics.html"><a href="animated-and-interactive-graphics.html#leaflet-maps"><i class="fa fa-check"></i><b>11.2</b> Leaflet maps</a><ul>
+<li class="chapter" data-level="" data-path="intro-prog.html"><a href="intro-prog.html#try-it-out-1"><i class="fa fa-check"></i>Try it out</a></li>
 </ul></li>
 <li class="chapter" data-level="11.3" data-path="animated-and-interactive-graphics.html"><a href="animated-and-interactive-graphics.html#shiny"><i class="fa fa-check"></i><b>11.3</b> Shiny</a></li>
-<li class="chapter" data-level="11.4" data-path="animated-and-interactive-graphics.html"><a href="animated-and-interactive-graphics.html#general-references"><i class="fa fa-check"></i><b>11.4</b> General References</a>
-<ul>
+<li class="chapter" data-level="11.4" data-path="animated-and-interactive-graphics.html"><a href="animated-and-interactive-graphics.html#general-references"><i class="fa fa-check"></i><b>11.4</b> General References</a><ul>
 <li class="chapter" data-level="11.4.1" data-path="animated-and-interactive-graphics.html"><a href="animated-and-interactive-graphics.html#other-interactive-tools"><i class="fa fa-check"></i><b>11.4.1</b> Other interactive tools</a></li>
-<li class="chapter" data-level="11.4.2" data-path="animated-and-interactive-graphics.html"><a href="animated-and-interactive-graphics.html#debugging-1"><i class="fa fa-check"></i><b>11.4.2</b> Debugging</a></li>
+<li class="chapter" data-level="11.4.2" data-path="debugging.html"><a href="debugging.html#debugging"><i class="fa fa-check"></i><b>11.4.2</b> Debugging</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="12" data-path="lists-nested-lists-and-functional-programming.html"><a href="lists-nested-lists-and-functional-programming.html"><i class="fa fa-check"></i><b>12</b> Lists, Nested Lists, and Functional Programming</a>
-<ul>
+<li class="chapter" data-level="12" data-path="lists-nested-lists-and-functional-programming.html"><a href="lists-nested-lists-and-functional-programming.html"><i class="fa fa-check"></i><b>12</b> Lists, Nested Lists, and Functional Programming</a><ul>
 <li class="chapter" data-level="12.1" data-path="lists-nested-lists-and-functional-programming.html"><a href="lists-nested-lists-and-functional-programming.html#review-lists-and-vectors"><i class="fa fa-check"></i><b>12.1</b> Review: Lists and Vectors</a></li>
 <li class="chapter" data-level="12.2" data-path="lists-nested-lists-and-functional-programming.html"><a href="lists-nested-lists-and-functional-programming.html#introduction-to-map"><i class="fa fa-check"></i><b>12.2</b> Introduction to <code>map</code></a></li>
 <li class="chapter" data-level="12.3" data-path="lists-nested-lists-and-functional-programming.html"><a href="lists-nested-lists-and-functional-programming.html#creating-and-using-list-columns"><i class="fa fa-check"></i><b>12.3</b> Creating (and Using) List-columns</a></li>
-<li class="chapter" data-level="12.4" data-path="lists-nested-lists-and-functional-programming.html"><a href="lists-nested-lists-and-functional-programming.html#ways-to-use-map"><i class="fa fa-check"></i><b>12.4</b> Ways to use <code>map</code></a>
-<ul>
-<li class="chapter" data-level="" data-path="lists-nested-lists-and-functional-programming.html"><a href="lists-nested-lists-and-functional-programming.html#try-it-out-42"><i class="fa fa-check"></i>Try it out</a></li>
+<li class="chapter" data-level="12.4" data-path="lists-nested-lists-and-functional-programming.html"><a href="lists-nested-lists-and-functional-programming.html#ways-to-use-map"><i class="fa fa-check"></i><b>12.4</b> Ways to use <code>map</code></a><ul>
+<li class="chapter" data-level="" data-path="tools.html"><a href="tools.html#try-it-out"><i class="fa fa-check"></i>Try it out</a></li>
 </ul></li>
-<li class="chapter" data-level="12.5" data-path="lists-nested-lists-and-functional-programming.html"><a href="lists-nested-lists-and-functional-programming.html#beyond-map-functions-with-multiple-inputs"><i class="fa fa-check"></i><b>12.5</b> Beyond <code>map</code>: Functions with multiple inputs</a>
-<ul>
-<li class="chapter" data-level="" data-path="lists-nested-lists-and-functional-programming.html"><a href="lists-nested-lists-and-functional-programming.html#try-it-out-43"><i class="fa fa-check"></i>Try it out</a></li>
+<li class="chapter" data-level="12.5" data-path="lists-nested-lists-and-functional-programming.html"><a href="lists-nested-lists-and-functional-programming.html#beyond-map-functions-with-multiple-inputs"><i class="fa fa-check"></i><b>12.5</b> Beyond <code>map</code>: Functions with multiple inputs</a><ul>
+<li class="chapter" data-level="" data-path="intro-prog.html"><a href="intro-prog.html#try-it-out-1"><i class="fa fa-check"></i>Try it out</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="lists-nested-lists-and-functional-programming.html"><a href="lists-nested-lists-and-functional-programming.html#purrr-references"><i class="fa fa-check"></i>Purrr References</a></li>
 </ul></li>
-<li class="chapter" data-level="13" data-path="high-performance-computing.html"><a href="high-performance-computing.html"><i class="fa fa-check"></i><b>13</b> High Performance Computing</a>
-<ul>
+<li class="chapter" data-level="13" data-path="high-performance-computing.html"><a href="high-performance-computing.html"><i class="fa fa-check"></i><b>13</b> High Performance Computing</a><ul>
 <li class="chapter" data-level="" data-path="high-performance-computing.html"><a href="high-performance-computing.html#hpc-references"><i class="fa fa-check"></i>HPC References</a></li>
 </ul></li>
 <li class="chapter" data-level="14" data-path="tidy-models.html"><a href="tidy-models.html"><i class="fa fa-check"></i><b>14</b> Tidy Models</a></li>
-<li class="chapter" data-level="15" data-path="spatial-packages.html"><a href="spatial-packages.html"><i class="fa fa-check"></i><b>15</b> Spatial packages</a>
-<ul>
-<li class="chapter" data-level="" data-path="spatial-packages.html"><a href="spatial-packages.html#references-7"><i class="fa fa-check"></i>References</a></li>
+<li class="chapter" data-level="15" data-path="spatial-packages.html"><a href="spatial-packages.html"><i class="fa fa-check"></i><b>15</b> Spatial packages</a><ul>
+<li class="chapter" data-level="" data-path="tools.html"><a href="tools.html#references"><i class="fa fa-check"></i>References</a></li>
 </ul></li>
 <li class="appendix"><span><b>Appendix</b></span></li>
-<li class="chapter" data-level="A" data-path="common-problems-and-general-computing-topics.html"><a href="common-problems-and-general-computing-topics.html"><i class="fa fa-check"></i><b>A</b> Common Problems and General Computing Topics</a>
-<ul>
-<li class="chapter" data-level="A.1" data-path="common-problems-and-general-computing-topics.html"><a href="common-problems-and-general-computing-topics.html#file-paths-working-directories-and-reproducibility"><i class="fa fa-check"></i><b>A.1</b> File Paths, Working Directories, and Reproducibility</a>
-<ul>
+<li class="chapter" data-level="A" data-path="common-problems-and-general-computing-topics.html"><a href="common-problems-and-general-computing-topics.html"><i class="fa fa-check"></i><b>A</b> Common Problems and General Computing Topics</a><ul>
+<li class="chapter" data-level="A.1" data-path="common-problems-and-general-computing-topics.html"><a href="common-problems-and-general-computing-topics.html#file-paths-working-directories-and-reproducibility"><i class="fa fa-check"></i><b>A.1</b> File Paths, Working Directories, and Reproducibility</a><ul>
 <li class="chapter" data-level="A.1.1" data-path="common-problems-and-general-computing-topics.html"><a href="common-problems-and-general-computing-topics.html#file-paths"><i class="fa fa-check"></i><b>A.1.1</b> File paths</a></li>
 <li class="chapter" data-level="A.1.2" data-path="common-problems-and-general-computing-topics.html"><a href="common-problems-and-general-computing-topics.html#working-directory"><i class="fa fa-check"></i><b>A.1.2</b> Working Directory</a></li>
 <li class="chapter" data-level="A.1.3" data-path="common-problems-and-general-computing-topics.html"><a href="common-problems-and-general-computing-topics.html#reproducibility"><i class="fa fa-check"></i><b>A.1.3</b> Reproducibility</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="B" data-path="other-resources-articles-and-food-for-thought.html"><a href="other-resources-articles-and-food-for-thought.html"><i class="fa fa-check"></i><b>B</b> Other Resources, Articles, and Food for Thought</a>
-<ul>
+<li class="chapter" data-level="B" data-path="other-resources-articles-and-food-for-thought.html"><a href="other-resources-articles-and-food-for-thought.html"><i class="fa fa-check"></i><b>B</b> Other Resources, Articles, and Food for Thought</a><ul>
 <li class="chapter" data-level="B.1" data-path="other-resources-articles-and-food-for-thought.html"><a href="other-resources-articles-and-food-for-thought.html#comparing-languages"><i class="fa fa-check"></i><b>B.1</b> Comparing Languages</a></li>
 </ul></li>
-<li class="chapter" data-level="" data-path="references-8.html"><a href="references-8.html"><i class="fa fa-check"></i>References</a></li>
+<li class="chapter" data-level="" data-path="tools.html"><a href="tools.html#references"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
 
@@ -538,7 +477,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="tools" class="section level1" number="1">
+<div id="tools" class="section level1">
 <h1><span class="header-section-number">Module 1</span> Tools for Statistical Computing</h1>
 <p>The goal of this class is to expose you to basic computing skills in R and SAS, which are two of the more common languages for statistical computing (python is the 3rd most common, and is particularly popular in data science and machine learning, but will not be explicitly taught in this class.)</p>
 <p>Since we’ll be learning how to use a bunch of different software, the first step is to get everything set up on your machine:</p>
@@ -558,14 +497,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><p>Use version control to track changes to a document (git add, commit, push, pull)</p></li>
 </ul>
 </div>
-<div id="setting-up-software" class="section level2" number="1.1">
+<div id="setting-up-software" class="section level2">
 <h2><span class="header-section-number">1.1</span> Setting Up Software</h2>
 <p>First, lets cover the basics of setting up the software you’re going to be using in this course. You don’t at this point have to understand what the different software DOES, but you should at least get it installed and working – this may be tricky, so we’ll take it slow.</p>
-<div id="sas" class="section level3" number="1.1.1">
+<div id="setting-up-sas" class="section level3">
 <h3><span class="header-section-number">1.1.1</span> SAS</h3>
 <p>For SAS installation, see Steve Westerholt. He manages UNL SAS installations. You can pay a small fee to get the full SAS installation, or you can use SAS community edition (but if you take this route, it may be more difficult to manage your paths, etc., and you may not be able to use SAS Markdown on your machine). You can also use the HCC environment (we will talk more about this in week 2 or thereabouts) set up for you to be able to do your homework. As long as you can run SAS code on a machine you have regular access to, I’m fine.</p>
 </div>
-<div id="r" class="section level3" number="1.1.2">
+<div id="setting-up-R" class="section level3">
 <h3><span class="header-section-number">1.1.2</span> R</h3>
 <p>Note that the tutorial videos use versions of R that are <em>old</em>. You should be installing at least R 4.0 (if you have an older version, please update.) The basic installation process is the same, though, so the videos are still useful.</p>
 <ul>
@@ -575,86 +514,86 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 On Linux, instead of a YouTube video, you get a text-based <a href="https://github.com/swirldev/swirl/wiki/Installing-swirl-on-Linux">tutorial</a>. One of the Debian maintainers, Dirk Eddelbuettel, is also on R core, which means that R tends to work extremely well with Debian-based distributions, like Ubuntu and Linux Mint. R does work on RPM based distros, and you can of course also compile it from source for Arch/Gentoo, but I’ve stuck with Deb-based distributions for approximately 7 years because it seems to be a bit less hassle. Additional troubleshooting can be found <a href="https://pages.github.nceas.ucsb.edu/NCEAS/help/installing_r_on_ubuntu.html">here</a>.</p></li>
 </ul>
 <p>Once you have R installed, try to run the following code, which will install (most of) the packages you need to run the code in this book.</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="tools.html#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Read in a list of all packages that are required</span></span>
-<span id="cb1-2"><a href="tools.html#cb1-2" aria-hidden="true" tabindex="-1"></a>pkgs <span class="ot">&lt;-</span> <span class="fu">readLines</span>(<span class="st">&quot;https://raw.githubusercontent.com/srvanderplas/unl-stat850/master/data/packages&quot;</span>)</span>
-<span id="cb1-3"><a href="tools.html#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-4"><a href="tools.html#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Remove packages only available on github</span></span>
-<span id="cb1-5"><a href="tools.html#cb1-5" aria-hidden="true" tabindex="-1"></a>pkgs <span class="ot">&lt;-</span> <span class="fu">setdiff</span>(pkgs, <span class="fu">c</span>(<span class="st">&quot;nycsquirrels18&quot;</span>, <span class="st">&quot;emo&quot;</span>, <span class="st">&quot;tweetrmd&quot;</span>, <span class="st">&quot;classdata&quot;</span>))</span>
-<span id="cb1-6"><a href="tools.html#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-7"><a href="tools.html#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Remove any already installed packages from the list</span></span>
-<span id="cb1-8"><a href="tools.html#cb1-8" aria-hidden="true" tabindex="-1"></a>pkgs <span class="ot">&lt;-</span> <span class="fu">setdiff</span>(pkgs, <span class="fu">installed.packages</span>())</span>
-<span id="cb1-9"><a href="tools.html#cb1-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-10"><a href="tools.html#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="co"># The following code will not make a lot of sense... yet. Come back to it in a </span></span>
-<span id="cb1-11"><a href="tools.html#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="co"># few weeks and see how much you understand (or can decode)</span></span>
-<span id="cb1-12"><a href="tools.html#cb1-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-13"><a href="tools.html#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="co"># This ensures that if the installation fails, the code will keep running</span></span>
-<span id="cb1-14"><a href="tools.html#cb1-14" aria-hidden="true" tabindex="-1"></a>try_install_pkg <span class="ot">&lt;-</span> <span class="cf">function</span>(...) <span class="fu">try</span>(<span class="fu">install.packages</span>(..., <span class="at">dependencies =</span> T))</span>
-<span id="cb1-15"><a href="tools.html#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="fu">lapply</span>(pkgs, try_install_pkg)</span>
-<span id="cb1-16"><a href="tools.html#cb1-16" aria-hidden="true" tabindex="-1"></a>pkgs <span class="ot">&lt;-</span> <span class="fu">setdiff</span>(pkgs, <span class="fu">installed.packages</span>())</span>
-<span id="cb1-17"><a href="tools.html#cb1-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-18"><a href="tools.html#cb1-18" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="fu">length</span>(pkgs) <span class="sc">&gt;</span> <span class="dv">0</span>) {</span>
-<span id="cb1-19"><a href="tools.html#cb1-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">paste</span>(<span class="st">&quot;The following packages did not install: </span><span class="sc">\n</span><span class="st">&quot;</span>, <span class="fu">paste</span>(pkgs, <span class="at">collapse =</span> <span class="st">&quot;</span><span class="sc">\n</span><span class="st">&quot;</span>))</span>
-<span id="cb1-20"><a href="tools.html#cb1-20" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb1-21"><a href="tools.html#cb1-21" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-22"><a href="tools.html#cb1-22" aria-hidden="true" tabindex="-1"></a><span class="co"># Try installing github packages</span></span>
-<span id="cb1-23"><a href="tools.html#cb1-23" aria-hidden="true" tabindex="-1"></a>devtools<span class="sc">::</span><span class="fu">install_github</span>(<span class="fu">c</span>(<span class="st">&quot;mine-cetinkaya-rundel/nycsquirrels18&quot;</span>, </span>
-<span id="cb1-24"><a href="tools.html#cb1-24" aria-hidden="true" tabindex="-1"></a>                           <span class="st">&quot;hadley/emo&quot;</span>, </span>
-<span id="cb1-25"><a href="tools.html#cb1-25" aria-hidden="true" tabindex="-1"></a>                           <span class="st">&quot;gadenbuie/tweetrmd&quot;</span>, </span>
-<span id="cb1-26"><a href="tools.html#cb1-26" aria-hidden="true" tabindex="-1"></a>                           <span class="st">&quot;heike/classdata&quot;</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="tools.html#cb1-1"></a><span class="co"># Read in a list of all packages that are required</span></span>
+<span id="cb1-2"><a href="tools.html#cb1-2"></a>pkgs &lt;-<span class="st"> </span><span class="kw">readLines</span>(<span class="st">&quot;https://raw.githubusercontent.com/srvanderplas/unl-stat850/master/data/packages&quot;</span>)</span>
+<span id="cb1-3"><a href="tools.html#cb1-3"></a></span>
+<span id="cb1-4"><a href="tools.html#cb1-4"></a><span class="co"># Remove packages only available on github</span></span>
+<span id="cb1-5"><a href="tools.html#cb1-5"></a>pkgs &lt;-<span class="st"> </span><span class="kw">setdiff</span>(pkgs, <span class="kw">c</span>(<span class="st">&quot;nycsquirrels18&quot;</span>, <span class="st">&quot;emo&quot;</span>, <span class="st">&quot;tweetrmd&quot;</span>, <span class="st">&quot;classdata&quot;</span>))</span>
+<span id="cb1-6"><a href="tools.html#cb1-6"></a></span>
+<span id="cb1-7"><a href="tools.html#cb1-7"></a><span class="co"># Remove any already installed packages from the list</span></span>
+<span id="cb1-8"><a href="tools.html#cb1-8"></a>pkgs &lt;-<span class="st"> </span><span class="kw">setdiff</span>(pkgs, <span class="kw">installed.packages</span>())</span>
+<span id="cb1-9"><a href="tools.html#cb1-9"></a></span>
+<span id="cb1-10"><a href="tools.html#cb1-10"></a><span class="co"># The following code will not make a lot of sense... yet. Come back to it in a </span></span>
+<span id="cb1-11"><a href="tools.html#cb1-11"></a><span class="co"># few weeks and see how much you understand (or can decode)</span></span>
+<span id="cb1-12"><a href="tools.html#cb1-12"></a></span>
+<span id="cb1-13"><a href="tools.html#cb1-13"></a><span class="co"># This ensures that if the installation fails, the code will keep running</span></span>
+<span id="cb1-14"><a href="tools.html#cb1-14"></a>try_install_pkg &lt;-<span class="st"> </span><span class="cf">function</span>(...) <span class="kw">try</span>(<span class="kw">install.packages</span>(..., <span class="dt">dependencies =</span> T))</span>
+<span id="cb1-15"><a href="tools.html#cb1-15"></a><span class="kw">lapply</span>(pkgs, try_install_pkg)</span>
+<span id="cb1-16"><a href="tools.html#cb1-16"></a>pkgs &lt;-<span class="st"> </span><span class="kw">setdiff</span>(pkgs, <span class="kw">installed.packages</span>())</span>
+<span id="cb1-17"><a href="tools.html#cb1-17"></a></span>
+<span id="cb1-18"><a href="tools.html#cb1-18"></a><span class="cf">if</span> (<span class="kw">length</span>(pkgs) <span class="op">&gt;</span><span class="st"> </span><span class="dv">0</span>) {</span>
+<span id="cb1-19"><a href="tools.html#cb1-19"></a>  <span class="kw">paste</span>(<span class="st">&quot;The following packages did not install: </span><span class="ch">\n</span><span class="st">&quot;</span>, <span class="kw">paste</span>(pkgs, <span class="dt">collapse =</span> <span class="st">&quot;</span><span class="ch">\n</span><span class="st">&quot;</span>))</span>
+<span id="cb1-20"><a href="tools.html#cb1-20"></a>}</span>
+<span id="cb1-21"><a href="tools.html#cb1-21"></a></span>
+<span id="cb1-22"><a href="tools.html#cb1-22"></a><span class="co"># Try installing github packages</span></span>
+<span id="cb1-23"><a href="tools.html#cb1-23"></a>devtools<span class="op">::</span><span class="kw">install_github</span>(<span class="kw">c</span>(<span class="st">&quot;mine-cetinkaya-rundel/nycsquirrels18&quot;</span>, </span>
+<span id="cb1-24"><a href="tools.html#cb1-24"></a>                           <span class="st">&quot;hadley/emo&quot;</span>, </span>
+<span id="cb1-25"><a href="tools.html#cb1-25"></a>                           <span class="st">&quot;gadenbuie/tweetrmd&quot;</span>, </span>
+<span id="cb1-26"><a href="tools.html#cb1-26"></a>                           <span class="st">&quot;heike/classdata&quot;</span>))</span></code></pre></div>
 <p>If some packages did not install, feel free to post in Yellowdig with the error message(s) received and the list of packages you’re having trouble installing (or contact me and we’ll set up a time to debug).</p>
 </div>
-<div id="rstudio" class="section level3" number="1.1.3">
+<div id="setting-up-rstudio" class="section level3">
 <h3><span class="header-section-number">1.1.3</span> RStudio</h3>
 <p>You can find RStudio at <a href="https://rstudio.com/products/rstudio/download/" class="uri">https://rstudio.com/products/rstudio/download/</a>. You want the open source edition of RStudio Desktop. If you’re feeling brave, you can install the <a href="https://rstudio.com/products/rstudio/download/preview/#download">preview release</a> - this may have a few bugs, but tends to be relatively stable and has the latest features. Please install RStudio 1.3.9+ for this class.</p>
 <p>If you’re on Linux, go ahead and <a href="https://rstudio.com/code-signing/">import RStudio’s public key</a> so that software validation works. (All of the commands are provided in the linked page)</p>
 </div>
-<div id="git" class="section level3" number="1.1.4">
+<div id="setting-up-git" class="section level3">
 <h3><span class="header-section-number">1.1.4</span> git</h3>
 <p>The git material in this chapter is just going to link directly to the book “Happy Git with R” by Jenny Bryan. It’s amazing, amusing, and generally well written. I’m not going to try to do better.</p>
 <p><a href="https://happygitwithr.com/big-picture.html">Go read Chapter 1.</a></p>
-<div id="getting-set-up-github" class="section level4" number="1.1.4.1">
+<div id="getting-set-up-github" class="section level4">
 <h4><span class="header-section-number">1.1.4.1</span> Getting set up: GitHub</h4>
 <p>See the instructions <a href="https://happygitwithr.com/github-acct.html">here</a></p>
 </div>
-<div id="getting-set-up-git" class="section level4" number="1.1.4.2">
+<div id="getting-set-up-git" class="section level4">
 <h4><span class="header-section-number">1.1.4.2</span> Getting set up: git</h4>
 <p>To install git, see the instructions <a href="https://happygitwithr.com/install-git.html">here</a></p>
 <p>Write down, or keep track of, the git installation path. This will make your life much easier.</p>
 <p>There is a <a href="https://happygitwithr.com/troubleshooting.html">troubleshooting guide</a> that has some common problems which occur during git installation.</p>
 </div>
-<div id="introduce-yourself-to-git" class="section level4" number="1.1.4.3">
+<div id="introduce-yourself-to-git" class="section level4">
 <h4><span class="header-section-number">1.1.4.3</span> Introduce yourself to git</h4>
 <p>You need to tell git what your name and email address are, because every “commit” you make will be signed.</p>
 <p>Follow the instructions <a href="https://happygitwithr.com/hello-git.html">here</a>, or run the lines below:</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="tools.html#cb2-1" aria-hidden="true" tabindex="-1"></a>user_name <span class="ot">&lt;-</span> <span class="fu">readline</span>(<span class="at">prompt =</span> <span class="st">&quot;Your full name: &quot;</span>)</span></code></pre></div>
-<pre><code>## Your full name:</code></pre>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="tools.html#cb4-1" aria-hidden="true" tabindex="-1"></a>user_email <span class="ot">&lt;-</span> <span class="fu">readline</span>(<span class="at">prompt =</span> <span class="st">&quot;The email address associated with your github account: &quot;</span>)</span></code></pre></div>
-<pre><code>## The email address associated with your github account:</code></pre>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="tools.html#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="sc">!</span><span class="st">&quot;usethis&quot;</span> <span class="sc">%in%</span> <span class="fu">installed.packages</span>()) <span class="fu">install.packages</span>(<span class="st">&quot;usethis&quot;</span>)</span>
-<span id="cb6-2"><a href="tools.html#cb6-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-3"><a href="tools.html#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(usethis)</span>
-<span id="cb6-4"><a href="tools.html#cb6-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-5"><a href="tools.html#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="fu">use_git_config</span>(<span class="at">user.name =</span> user_name, <span class="at">user.email =</span> user_email, <span class="at">scope =</span> <span class="st">&quot;user&quot;</span>)</span>
-<span id="cb6-6"><a href="tools.html#cb6-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-7"><a href="tools.html#cb6-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Tell git to ignore all files that are OS-dependent and don&#39;t have useful data.</span></span>
-<span id="cb6-8"><a href="tools.html#cb6-8" aria-hidden="true" tabindex="-1"></a><span class="fu">git_vaccinate</span>() </span>
-<span id="cb6-9"><a href="tools.html#cb6-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-10"><a href="tools.html#cb6-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a ssh key if one doesn&#39;t already exist</span></span>
-<span id="cb6-11"><a href="tools.html#cb6-11" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="sc">!</span><span class="fu">file.exists</span>(git2r<span class="sc">::</span><span class="fu">ssh_path</span>(<span class="st">&quot;id_rsa.pub&quot;</span>))) {</span>
-<span id="cb6-12"><a href="tools.html#cb6-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">system</span>(<span class="st">&quot;ssh-keygen -t rsa -b 4096&quot;</span>) <span class="co"># Create an ssh key</span></span>
-<span id="cb6-13"><a href="tools.html#cb6-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">system</span>(<span class="st">&quot;eval $(ssh-agent -s)&quot;</span>)</span>
-<span id="cb6-14"><a href="tools.html#cb6-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">system</span>(<span class="st">&quot;ssh-add ~/.ssh/id_rsa&quot;</span>)</span>
-<span id="cb6-15"><a href="tools.html#cb6-15" aria-hidden="true" tabindex="-1"></a>} </span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="tools.html#cb2-1"></a></span>
+<span id="cb2-2"><a href="tools.html#cb2-2"></a>user_name &lt;-<span class="st"> </span><span class="kw">readline</span>(<span class="dt">prompt =</span> <span class="st">&quot;Your full name: &quot;</span>)</span>
+<span id="cb2-3"><a href="tools.html#cb2-3"></a>user_email &lt;-<span class="st"> </span><span class="kw">readline</span>(<span class="dt">prompt =</span> <span class="st">&quot;The address associated w your github account: &quot;</span>)</span>
+<span id="cb2-4"><a href="tools.html#cb2-4"></a></span>
+<span id="cb2-5"><a href="tools.html#cb2-5"></a><span class="cf">if</span> (<span class="op">!</span><span class="st">&quot;usethis&quot;</span> <span class="op">%in%</span><span class="st"> </span><span class="kw">installed.packages</span>()) <span class="kw">install.packages</span>(<span class="st">&quot;usethis&quot;</span>)</span>
+<span id="cb2-6"><a href="tools.html#cb2-6"></a></span>
+<span id="cb2-7"><a href="tools.html#cb2-7"></a><span class="kw">library</span>(usethis)</span>
+<span id="cb2-8"><a href="tools.html#cb2-8"></a></span>
+<span id="cb2-9"><a href="tools.html#cb2-9"></a><span class="kw">use_git_config</span>(<span class="dt">user.name =</span> user_name, <span class="dt">user.email =</span> user_email, <span class="dt">scope =</span> <span class="st">&quot;user&quot;</span>)</span>
+<span id="cb2-10"><a href="tools.html#cb2-10"></a></span>
+<span id="cb2-11"><a href="tools.html#cb2-11"></a><span class="co"># Tell git to ignore all files that are OS-dependent and don&#39;t have useful data.</span></span>
+<span id="cb2-12"><a href="tools.html#cb2-12"></a><span class="kw">git_vaccinate</span>() </span>
+<span id="cb2-13"><a href="tools.html#cb2-13"></a></span>
+<span id="cb2-14"><a href="tools.html#cb2-14"></a><span class="co"># Create a ssh key if one doesn&#39;t already exist</span></span>
+<span id="cb2-15"><a href="tools.html#cb2-15"></a><span class="cf">if</span> (<span class="op">!</span><span class="kw">file.exists</span>(git2r<span class="op">::</span><span class="kw">ssh_path</span>(<span class="st">&quot;id_rsa.pub&quot;</span>))) {</span>
+<span id="cb2-16"><a href="tools.html#cb2-16"></a>  <span class="kw">system</span>(<span class="st">&quot;ssh-keygen -t rsa -b 4096&quot;</span>) <span class="co"># Create an ssh key</span></span>
+<span id="cb2-17"><a href="tools.html#cb2-17"></a>  <span class="kw">system</span>(<span class="st">&quot;eval $(ssh-agent -s)&quot;</span>)</span>
+<span id="cb2-18"><a href="tools.html#cb2-18"></a>  <span class="kw">system</span>(<span class="st">&quot;ssh-add ~/.ssh/id_rsa&quot;</span>)</span>
+<span id="cb2-19"><a href="tools.html#cb2-19"></a>} </span></code></pre></div>
 <p>Then, in RStudio, go to Tools &gt; Global Options &gt; Git/SVN. View your public key, and copy it to the clipboard.</p>
-<p>Then, proceed to github. Make sure you’re signed into GitHub. Click on your profile pic in upper right corner and go Settings, then SSH and GPG keys. Click “New SSH key.” Paste your public key in the “Key” box. Give it an informative title. For example, you might use 2018-mbp to record the year and computer. Click “Add SSH key.”</p>
+<p>Then, proceed to github. Make sure you’re signed into GitHub. Click on your profile pic in upper right corner and go Settings, then SSH and GPG keys. Click “New SSH key”. Paste your public key in the “Key” box. Give it an informative title. For example, you might use 2018-mbp to record the year and computer. Click “Add SSH key”.</p>
 </div>
-<div id="optional-install-a-git-client" class="section level4" number="1.1.4.4">
+<div id="optional-install-a-git-client" class="section level4">
 <h4><span class="header-section-number">1.1.4.4</span> Optional: Install a git client</h4>
 <p><a href="https://happygitwithr.com/git-client.html">Instructions</a></p>
 <p>I don’t personally use a git client other than RStudio, but you may prefer to have a client, especially if you anticipate doing lots of work in SAS.</p>
 </div>
 </div>
-<div id="latex" class="section level3" number="1.1.5">
+<div id="setting-up-latex" class="section level3">
 <h3><span class="header-section-number">1.1.5</span> LaTeX</h3>
 <p>You will need to follow operating-system instructions to install LaTeX. If you are using R/RStudio/SAS on Parallels, install LaTeX in parallels using the windows instructions.</p>
 <ul>
@@ -665,17 +604,15 @@ You may find TeXLive in your package manager, but it’s usually easier to insta
 </ul>
 </div>
 </div>
-<div id="looking-around-your-environment" class="section level2" number="1.2">
+<div id="looking-around-your-environment" class="section level2">
 <h2><span class="header-section-number">1.2</span> Looking Around Your Environment</h2>
 <p>Now that you have the software installed, it’s useful to take a look at each program and learn just a little bit about each one. Where there is interesting history and commentary, I’ve added that in an expandable details section that you can read if you are interested.</p>
-<div id="r-and-rstudio" class="section level3" number="1.2.1">
+<div id="looking-around-Rstudio" class="section level3">
 <h3><span class="header-section-number">1.2.1</span> R and RStudio</h3>
 <p>R is an open-source statistical programming language. It is a domain-specific language – that is, it is optimized for doing statistics, and is NOT a general-purpose programming language like C or python. This means that R is very good for doing data-related tasks, but if you want to implement something that is not data related (or even not tabular data related), it may be harder than you expect.</p>
 <!-- Differences between R and RStudio -->
 <details>
-<summary>
-A short “history of R”
-</summary>
+<summary> A short “history of R” </summary>
 R is a statistical computing language which originated as an open-source clone of Bell labs S computing language. S was inspired by Scheme, but also has features which are similar to Lisp. It is a scripting language (you don’t have to compile the code before it runs) and is natively accessed using a command-line prompt. One feature of R that is relatively unique is that it uses vector-based math, which means that mathematical operations on vectors occur for the entire vector without having to use loops to iterate through the vector line-by-line (this feature is more common in languages designed for data manipulation, like Matlab and Julia; it is rare in more general-purpose computing languages). R is optimized for working on data: unlike more general programming languages such as Python, R was built with the idea of facilitating data analysis. As a result, data structures in R tend to be more natural for statistical work than similar structures in Python or C, which can feel unwieldy. From a computer science perspective, though, R seems like an extremely odd language because the design choices that make data analysis easier are unconventional for more general-purpose languages.
 </details>
 <p>For the most part, in this class, we will use R within RStudio.</p>
@@ -702,22 +639,22 @@ R is a statistical computing language which originated as an open-source clone o
 <p>Now, type 2+2 into the text editor and press the run button that is on the pane’s shortcut bar (or, you can hit Ctrl-Enter/CMD-Enter to send a single line to the console).</p>
 <p>If both of those things worked, you’re probably set up correctly!</p>
 <p>Next, try typing this into the text editor, then run the line. Look in the environment tab and see if you can see what has changed.</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="tools.html#cb7-1" aria-hidden="true" tabindex="-1"></a>a <span class="ot">&lt;-</span> <span class="dv">3</span> <span class="co"># store 3 in the variable a</span></span></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="tools.html#cb3-1"></a>a &lt;-<span class="st"> </span><span class="dv">3</span> <span class="co"># store 3 in the variable a</span></span></code></pre></div>
 <div class="figure">
 <img src="image/Rstudio_env_var.png" alt="" />
 <p class="caption">Your environment window should now look something like this (the .Last.value entry may not be there, and that’s ok)</p>
 </div>
 <p>You can use the environment window to preview your data, check on the status of variables, and more. Note that while R is running, the window doesn’t update (so you can’t check on the status of a loop while the loop is running using the window).</p>
 </div>
-<div id="sas-1" class="section level3" number="1.2.2">
+<div id="looking-around-sas" class="section level3">
 <h3><span class="header-section-number">1.2.2</span> SAS</h3>
 <p>SAS is another extensively used statistical programming language. It is primarily used for mixed models and in the biostatistics community (for e.g. drug trials).</p>
-<div id="note-1" class="section level4 unnumbered note">
+<div id="note" class="section level4 unnumbered note">
 <h4>Note</h4>
 <p>SAS looks different on different machines. On Linux, SAS looks like you took a time machine back to the early 1990s. Screenshots from SAS will likely look <em>very</em> different on your machine than on mine. I will try to integrate screenshots from other OS’s where it matters.^[As I write this in late July 2020, I do not yet have access to a Windows or Mac machine. Sigh. XXX TODO: Get Windows/Mac screenshots XXX.</p>
 <p>I still don’t have access to a Windows or Mac machine, and it’s now April 2021. Sigh.]</p>
 </div>
-<div id="sas-windowspanes" class="section level4" number="1.2.2.1">
+<div id="sas-windowspanes" class="section level4">
 <h4><span class="header-section-number">1.2.2.1</span> SAS Windows/Panes</h4>
 <div class="figure">
 <img src="image/sas_toolbox.png" alt="" />
@@ -759,13 +696,13 @@ R is a statistical computing language which originated as an open-source clone o
 </div>
 <p>You can then click on a dataset and you will get a spreadsheet-like view.</p>
 </div>
-<div id="sas-modules" class="section level4" number="1.2.2.2">
+<div id="sas-modules" class="section level4">
 <h4><span class="header-section-number">1.2.2.2</span> SAS Modules</h4>
-<p>SAS is a very large set of programs. In this class, we’re primarily working with base SAS (the underlying language and interpreter), SAS/STAT (the statistical procedures, like PROC GLM), and SAS/IML, which is SAS’s version of a scripting language. IML allows you to implement your own procedures “from scratch.”</p>
+<p>SAS is a very large set of programs. In this class, we’re primarily working with base SAS (the underlying language and interpreter), SAS/STAT (the statistical procedures, like PROC GLM), and SAS/IML, which is SAS’s version of a scripting language. IML allows you to implement your own procedures “from scratch”.</p>
 <p>Initially, we’ll primarily focus on SAS/IML, because it contains information parallel to what you need to know to start programming in R. It’s easier to teach general programming concepts at the same time, even if your typical SAS course would probably introduce you to the DATA step and simple PROC statements first.</p>
 </div>
 </div>
-<div id="version-control-with-git" class="section level3" number="1.2.3">
+<div id="version-control-with-git" class="section level3">
 <h3><span class="header-section-number">1.2.3</span> Version Control with Git</h3>
 <p>This section discusses what version control and git are. For information on how to actually USE git, see this <a href="#Using-Version-Control">subsection</a>.</p>
 <p><img alt="You don't want to end up here. Version control is the answer to this problem." src="http://www.phdcomics.com/comics/archive/phd101212s.gif" width = "50%"/></p>
@@ -773,48 +710,46 @@ R is a statistical computing language which originated as an open-source clone o
 <p>When writing papers, this means you can cut material out freely, so long as the paper is being tracked by git - you can always go back and get that paragraph you cut out if you need to. You also don’t have to rename files - you can confidently overwrite your files, so long as you remember to commit frequently.</p>
 <p>The git material in this chapter is just going to link directly to the book “Happy Git with R” by Jenny Bryan. It’s amazing, amusing, and generally well written. I’m not going to try to do better.</p>
 <p><a href="https://happygitwithr.com/big-picture.html">Go read Chapter 1, if you haven’t already.</a></p>
-<div id="git-and-github" class="section level4" number="1.2.3.1">
-<h4><span class="header-section-number">1.2.3.1</span> Git and Github</h4>
+<div id="git-vs-github" class="section level4">
+<h4><span class="header-section-number">1.2.3.1</span> Git vs Github</h4>
 <details>
-<summary>
-Slightly crude (but memorable) analogy (don’t click if you’re offended by PG13/R rated stuff)
-</summary>
+<summary>Slightly crude (but memorable) analogy (don’t click if you’re offended by PG13/R rated stuff)</summary>
 Git is to GitHub what Porn is to PornHub. Specifically, GitHub hosts git repositories publicly, while PornHub hosts porn publicly. But it would be silly to equate porn and PornHub, and it’s similarly silly to think of GitHub as the only place you can use git repositories.
 </details>
 <p>Git is a program that runs on your machine and keeps track of changes to files that you tell it to monitor. GitHub is a website that hosts people’s git repositories. You can use git without GitHub, but you can’t use GitHub without git.</p>
 <p>If you want, you can hook Git up to GitHub, and make a copy of your local git repository that lives in the cloud. Then, if you configure things correctly, your local repository will talk to GitHub without too much trouble. Using Github with Git allows you to <strong>easily make a cloud backup of your important code</strong>, so that even if your computer suddenly catches on fire, all of your important code files exist somewhere else.</p>
-<p>Remember: any data you don’t have in 3 different places is data you don’t care about.<a href="#fn2" class="footnote-ref" id="fnref2"><sup>2</sup></a></p>
+<p>Remember: any data you don’t have in 3 different places is data you don’t care about.<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a></p>
 </div>
 </div>
-<div id="latex-1" class="section level3" number="1.2.4">
+<div id="looking-around-latex" class="section level3">
 <h3><span class="header-section-number">1.2.4</span> LaTeX</h3>
 <p>LaTeX is a typesetting program, which makes it different from most other document creation software, such as MS Word, which is “WYSIWYG” - what you see is what you get. In LaTeX, you’ll type in code to create a document, and LaTeX will compile the document into something pretty. The goal is that you have to think less about formatting and what goes on which page - LaTeX will handle that part for you - so that you can think more about the content.</p>
 <details>
-<summary>
-Why use LaTeX?
-</summary>
-<p><img src="image/02_word_formatting.png" alt="using microsoft word: moves an image one mm to the left. all text and images shift. four new pages appear. paragraph breaks form a union. a swarm of commas buzzes at the window. In the distance, sirens." width="50%"/></p>
+<p><summary>Why use LaTeX?</summary>
+<img src="image/02_word_formatting.png" alt="using microsoft word: moves an image one mm to the left. all text and images shift. four new pages appear. paragraph breaks form a union. a swarm of commas buzzes at the window. In the distance, sirens." width="50%"/></p>
 <p>(shamelessly stolen from FB, which apparently stole it from Tumblr)</p>
 Latex is meant for you to focus on the content and not worry about the formatting - the computer optimizes figure placement according to directives you’ve given.
 </details>
 <p>In practice, it doesn’t usually work out like that, so there are programs like markdown which aim to simplify document creation even more to free you from the formatting that LaTeX requires.</p>
-<p>LaTeX is often used for typesetting statistical and mathematical papers because its equation editor is top notch. (It was actually written by Donald Knuth because he got so annoyed trying to write his dissertation that he took some time off to write TeX first, and then used it to write his dissertation).<a href="#fn3" class="footnote-ref" id="fnref3"><sup>3</sup></a></p>
+<p>LaTeX is often used for typesetting statistical and mathematical papers because its equation editor is top notch. (It was actually written by Donald Knuth because he got so annoyed trying to write his dissertation that he took some time off to write TeX first, and then used it to write his dissertation).<a href="#fn2" class="footnote-ref" id="fnref2"><sup>2</sup></a></p>
+<p>If you want to try to make a simple LaTeX document in RStudio, <a href="https://latex-tutorial.com/tutorials/first-document/">try out this LaTeX tutorial</a>.</p>
 </div>
-<div id="markdown" class="section level3" number="1.2.5">
+<div id="markdown" class="section level3">
 <h3><span class="header-section-number">1.2.5</span> Markdown</h3>
 <p>We’ll work with LaTeX later in the semester, but for now, we’ll be primarily working with Markdown, which is much simpler. <a href="https://rmarkdown.rstudio.com/authoring_basics.html">Here’s a quick cheatsheet</a>.</p>
 <p>When you use markdown within RStudio, you don’t have to worry about where pandoc lives on your computer (e.g. the path). You can just click the button at the top of the file that says “Knit” or “Preview” to see what your file looks like.</p>
+<p>If you want to try out some simple Markdown formatting, you can create a new Rmarkdown document by going to File &gt; New File &gt; Rmarkdown and testing out the simple document it starts you out with.</p>
 </div>
 </div>
-<div id="some-computer-basics" class="section level2" number="1.3">
+<div id="some-computer-basics" class="section level2">
 <h2><span class="header-section-number">1.3</span> Some Computer Basics</h2>
-<div id="file-systems" class="section level3" number="1.3.1">
+<div id="file-systems" class="section level3">
 <h3><span class="header-section-number">1.3.1</span> File Systems</h3>
 <p>File systems control how data is stored and accessed on your computer. You might be familiar with acronyms like NTFS, FAT32, etc. - basically, these systems help make sense of the storage on your computer, tracking where files start and end, how much space is left, directory structures, and so on.</p>
 <p>For this class, it will probably be important to distinguish between local file storage (your C:/ drive on <i class="fab fa-windows"></i>, /user/your-name/ on <i class="fab fa-apple"></i>, or /home/your-name/ on <i class="fab fa-linux"></i>) and network/virtual file systems, such as OneDrive and iCloud.</p>
 <p>You want to save your files in this class to your physical hard drive. This will save you a lot of troubleshooting time.</p>
 </div>
-<div id="system-paths" class="section level3" number="1.3.2">
+<div id="system-paths" class="section level3">
 <h3><span class="header-section-number">1.3.2</span> System Paths</h3>
 <p>When you install software, it is saved in a specific location on your computer, like C:/Program Files/ on <i class="fab fa-windows"></i>, /Applications/ on <i class="fab fa-apple"></i>, or /usr/local/bin/ on <i class="fab fa-linux"></i>. For the most part, you don’t need to keep track of where programs are installed, because the install process (usually) automatically creates icons on your desktop or in your start menu, and you find your programs there.</p>
 <p>Unfortunately, that isn’t sufficient when you’re programming, because you may need to know where a program is in order to reference that program – for instance, if you need to pop open a browser window as part of your program, you’re going to have to tell your computer where that browser executable file lives.</p>
@@ -829,7 +764,7 @@ Latex is meant for you to focus on the content and not worry about the formattin
 <p>If you want to locate where an executable is found (in this example, we’ll use <code>git</code>), you can run <code>where git</code> on windows, or <code>which git</code> on OSX/Linux.</p>
 <p>Some programs, like RStudio, have places where you can set the locations of common dependencies. If you go to Tools &gt; Global Options &gt; Git/SVN, you can set the path to git.</p>
 </div>
-<div id="working-directories" class="section level3" number="1.3.3">
+<div id="working-directories" class="section level3">
 <h3><span class="header-section-number">1.3.3</span> Working Directories</h3>
 <p>When you launch a program, that program starts up with a specific directory as its “location” - the place where it will look for files. Most of the time, we don’t think too much about this when using graphical programs, but it’s much more important to get this right when programming things ourselves.</p>
 <p>In RStudio, you can set your working directory in several ways:</p>
@@ -846,13 +781,13 @@ Latex is meant for you to focus on the content and not worry about the formattin
 <ol style="list-style-type: decimal">
 <li>Work in projects</li>
 <li>Store your data in your project folder</li>
-<li>Use local paths - if you’re in your project folder and trying to reference “data.xls,” then you would just use “data.xls” as the path. If your data is in a “code” folder, you would use “code/data.xls” as the path.</li>
+<li>Use local paths - if you’re in your project folder and trying to reference “data.xls”, then you would just use “data.xls” as the path. If your data is in a “code” folder, you would use “code/data.xls” as the path.</li>
 </ol>
 <p>This will ensure that your code should work on any other machine, as long as your data is in your git repository and your code uses local file paths.</p>
 <p>In SAS, you’ll want to store your .sas code file in the RStudio project folder as well, and I believe that should be sufficient to set your working directory for any SAS code you may write as part of e.g. a homework assignment.</p>
 </div>
 </div>
-<div id="using-version-control-with-rstudio" class="section level2" number="1.4">
+<div id="using-version-control-with-rstudio" class="section level2">
 <h2><span class="header-section-number">1.4</span> Using Version Control (with RStudio)</h2>
 <div class="figure">
 <img src="https://imgs.xkcd.com/comics/git.png" alt="" />
@@ -861,25 +796,25 @@ Latex is meant for you to focus on the content and not worry about the formattin
 <p>I’ve set this class up so that you’ll be using version control from the very beginning. Not only will this help you to learn good habits, it will also give you a platform for collaboration, hosting your work online, and more.</p>
 <p>In this class, we’ll be using Github Classroom. Basically, this allows me to set up a template repository for each assignment. You’ll accept the assignment, which will create a copy of the repository on your GitHub account, and then your work will be saved to your repository using a fairly standard workflow which will be discussed below. When you submit your assignment, you’ll copy the link to the commit you want to be graded, and upload that to Canvas. I will clone your repository, compile your files (I’ll change the SAS path if necessary), and grade the compiled result.</p>
 <p>So, what does your typical git/GitHub workflow look like? I’ll go through this in (roughly) chronological order. This is primarily my higher-level understanding of git - I do not have any idea how it works on the backend, but I’m pretty comfortable with the clone/push/pull/commit/add workflows, and I’ve used a few of the more complicated features (branches, pull requests) on occasion.</p>
-<div id="create-a-repository" class="section level3" number="1.4.1">
+<div id="create-a-repository" class="section level3">
 <h3><span class="header-section-number">1.4.1</span> Create a Repository</h3>
 <p><strong>Repositories</strong> are single-project containers. You may have code, documentation, data, TODO lists, and more associated with a project.</p>
 <p>To create a repository, you can start with your local computer first, or you can start with the online repository first.</p>
 <div class=".watch-out">
 <p>Both methods are relatively simple, but the options you choose depend on which method you’re using, so be careful not to get them confused.</p>
 </div>
-<div id="local-repository-first" class="section level4" number="1.4.1.1">
+<div id="local-repository-first" class="section level4">
 <h4><span class="header-section-number">1.4.1.1</span> Local repository first</h4>
 <p>Let’s suppose you already have a folder on your machine named <code>hello-world-1</code> (you may want to create this folder now). You’ve created a starter document, say, a text file named README with “hello world” written in it.</p>
 <p>If you want, you can use the following R code to set this up:</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="tools.html#cb8-1" aria-hidden="true" tabindex="-1"></a>dir <span class="ot">&lt;-</span> <span class="st">&quot;./hello-world-1&quot;</span></span>
-<span id="cb8-2"><a href="tools.html#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="sc">!</span><span class="fu">dir.exists</span>(dir)) {</span>
-<span id="cb8-3"><a href="tools.html#cb8-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">dir.create</span>(dir)</span>
-<span id="cb8-4"><a href="tools.html#cb8-4" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb8-5"><a href="tools.html#cb8-5" aria-hidden="true" tabindex="-1"></a>file <span class="ot">&lt;-</span> <span class="fu">file.path</span>(dir, <span class="st">&quot;README&quot;</span>)</span>
-<span id="cb8-6"><a href="tools.html#cb8-6" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="sc">!</span><span class="fu">file.exists</span>(file)) {</span>
-<span id="cb8-7"><a href="tools.html#cb8-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">writeLines</span>(<span class="st">&quot;hello world&quot;</span>, <span class="at">con =</span> file)</span>
-<span id="cb8-8"><a href="tools.html#cb8-8" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="tools.html#cb4-1"></a>dir &lt;-<span class="st"> &quot;./hello-world-1&quot;</span></span>
+<span id="cb4-2"><a href="tools.html#cb4-2"></a><span class="cf">if</span> (<span class="op">!</span><span class="kw">dir.exists</span>(dir)) {</span>
+<span id="cb4-3"><a href="tools.html#cb4-3"></a>  <span class="kw">dir.create</span>(dir)</span>
+<span id="cb4-4"><a href="tools.html#cb4-4"></a>}</span>
+<span id="cb4-5"><a href="tools.html#cb4-5"></a>file &lt;-<span class="st"> </span><span class="kw">file.path</span>(dir, <span class="st">&quot;README&quot;</span>)</span>
+<span id="cb4-6"><a href="tools.html#cb4-6"></a><span class="cf">if</span> (<span class="op">!</span><span class="kw">file.exists</span>(file)) {</span>
+<span id="cb4-7"><a href="tools.html#cb4-7"></a>  <span class="kw">writeLines</span>(<span class="st">&quot;hello world&quot;</span>, <span class="dt">con =</span> file)</span>
+<span id="cb4-8"><a href="tools.html#cb4-8"></a>}</span></code></pre></div>
 <p>To create a local git repository, we can go to the terminal (in Mac/Linux) or the git bash shell (in Windows), navigate to our repository folder (not shown, will be different on each computer), and type in</p>
 <pre><code>git init</code></pre>
 <p>Alternately, if you prefer a GUI (graphical user interface) approach, that will work too:</p>
@@ -907,7 +842,7 @@ Latex is meant for you to focus on the content and not worry about the formattin
 <p class="caption">Connect your local git repository to GitHub</p>
 </div>
 </div>
-<div id="github-repository-first" class="section level4" number="1.4.1.2">
+<div id="github-repository-first" class="section level4">
 <h4><span class="header-section-number">1.4.1.2</span> GitHub repository first</h4>
 <p>In the GitHub-first method, you’ll create a repository in GitHub and then clone it to your local machine (clone = create an exact copy locally).</p>
 <p>GUI method:</p>
@@ -937,30 +872,30 @@ Latex is meant for you to focus on the content and not worry about the formattin
 </ol>
 </div>
 </div>
-<div id="adding-files" class="section level3" number="1.4.2">
+<div id="adding-files" class="section level3">
 <h3><span class="header-section-number">1.4.2</span> Adding files</h3>
 <p><code>git add</code> tells git that you want it to track a particular file.</p>
 <div class="figure">
 <img src="image/git-add.png" alt="" />
 <p class="caption">git add diagram: add tells git to add the file to the index of files git monitors.</p>
 </div>
-<p>You don’t need to understand exactly what git is doing on the backend, but it is important to know that the actual <strong>contents</strong> of the file aren’t logged by <code>git add</code> - you have to <strong>commit</strong> your changes for the contents to change. <code>git add</code> deals solely with the index of files that git “knows about,” and what it thinks belongs in each commit.</p>
+<p>You don’t need to understand exactly what git is doing on the backend, but it is important to know that the actual <strong>contents</strong> of the file aren’t logged by <code>git add</code> - you have to <strong>commit</strong> your changes for the contents to change. <code>git add</code> deals solely with the index of files that git “knows about”, and what it thinks belongs in each commit.</p>
 <p>If you use the RStudio GUI for your git interface, you generally won’t have to do much with git add; it’s (sort-of, kind-of) equivalent to clicking the check box.</p>
-<div id="what-files-should-i-add-to-git" class="section level4" number="1.4.2.1">
+<div id="what-files-should-i-add-to-git" class="section level4">
 <h4><span class="header-section-number">1.4.2.1</span> What files should I add to git?</h4>
-<p>Git is built for tracking text files. It will (begrudgingly) deal with small binary files (e.g. images, PDFs) without complaining too much, but it is NOT meant for storing large files, and GitHub will not allow you to push anything that has a file larger than 100MB<a href="#fn4" class="footnote-ref" id="fnref4"><sup>4</sup></a>. Larger files can be handled with git-lfs (large file storage), but storing large files online is not something you can get for free.</p>
+<p>Git is built for tracking text files. It will (begrudgingly) deal with small binary files (e.g. images, PDFs) without complaining too much, but it is NOT meant for storing large files, and GitHub will not allow you to push anything that has a file larger than 100MB<a href="#fn3" class="footnote-ref" id="fnref3"><sup>3</sup></a>. Larger files can be handled with git-lfs (large file storage), but storing large files online is not something you can get for free.</p>
 <p>In general, you should only add a file to git if you created it by hand. If you compiled the result, that should not be in the git repository under normal conditions (there are exceptions to this rule – this book is hosted on GitHub, which means I’ve pushed the compiled book to the GitHub repository).</p>
 <p>You should also be cautious about adding files like .Rprog, .directory, .DS_Store, etc. These files are used by your operating system or by RStudio, and pushing them may cause problems for your collaborators (if you’re collaborating). Tracking changes to these files also doesn’t really do much good.</p>
 <p>I <strong>highly</strong> recommend that you make a point to only add and commit files which you consciously want to track.</p>
 </div>
 </div>
-<div id="staging-your-changes" class="section level3" number="1.4.3">
+<div id="staging-your-changes" class="section level3">
 <h3><span class="header-section-number">1.4.3</span> Staging your changes</h3>
 <p>In RStudio, when you check a box next to the file name in the git tab, you are effectively adding the file (if it is not already added) AND staging all of the changes you’ve made to the file. In practice, <code>git add</code> will both add and stage all of the changes to any given file, but it is also useful in some cases to stage only certain lines from a file.</p>
-<p>More formally, <strong>staging</strong> is saying “I’d like these changes to be added to the current version, I think.” Before you <strong>commit</strong> your changes, you have to first <strong>stage</strong> them. You can think of this like going to the grocery store: you have items in your cart, but you can put them back at any point before checkout. Staging changes is like adding items to your cart; committing those changes is like checking out.</p>
+<p>More formally, <strong>staging</strong> is saying “I’d like these changes to be added to the current version, I think”. Before you <strong>commit</strong> your changes, you have to first <strong>stage</strong> them. You can think of this like going to the grocery store: you have items in your cart, but you can put them back at any point before checkout. Staging changes is like adding items to your cart; committing those changes is like checking out.</p>
 <p>Individually staging lines of a file is most useful in situations where you’ve made changes which should be part of multiple commits. To stage individual lines of a file, you can use <code>git add -i</code> at the command line, or you can attempt to use RStudio’s “stage selection” interface. Both will work, though git can’t always separate changes quite as finely as you might want (and as a result, RStudio’s interface sometimes seems unresponsive, even though the underlying issue is with what git can do).</p>
 </div>
-<div id="committing-your-changes" class="section level3" number="1.4.4">
+<div id="committing-your-changes" class="section level3">
 <h3><span class="header-section-number">1.4.4</span> Committing your changes</h3>
 <p>A git <strong>commit</strong> is the equivalent of a log entry - it tells git to record the state of the file, along with a message about what that state means. On the back end, git will save a copy of the file in its current state to its cache.</p>
 <div class="figure">
@@ -973,7 +908,7 @@ Latex is meant for you to focus on the content and not worry about the formattin
 <li>When you mess up (or end up in a merge conflict) you will have a much easier time pinpointing the spot where things went bad, what code was there before, and (because you have nice, descriptive commit messages) how the error occurred.</li>
 </ol>
 </div>
-<div id="pushing-and-pulling" class="section level3" number="1.4.5">
+<div id="pushing-and-pulling" class="section level3">
 <h3><span class="header-section-number">1.4.5</span> Pushing and Pulling</h3>
 <p>When you’re working alone, you generally won’t need to worry about having to update your local copy of the repository (unless you’re using multiple machines). However, statistics is collaborative, and one of the most powerful parts of git is that you can use it to keep track of changes when multiple people are working on the same document.</p>
 <div class=".watch-out">
@@ -996,7 +931,7 @@ Latex is meant for you to focus on the content and not worry about the formattin
 <p>If you’re working alone, steps 5 and 6 are not likely to be necessary, but it is good practice to just pull before you push anyways.</p>
 </div>
 </div>
-<div id="topic-sequencing" class="section level2 note" number="1.5">
+<div id="topic-sequencing" class="section level2 note">
 <h2><span class="header-section-number">1.5</span> Topic Sequencing</h2>
 <p>In several places in this class, you’ll have to use material that you haven’t been formally taught yet. I will do my absolute best to provide thorough instructions, help you along as much as I can, and generally provide enough support that you can muddle through. But it’s going to be hard to teach you everything you need to e.g. analyze some data, before providing you the opportunity to SEE that data using visualization packages. And it’s silly to teach you plotting before you know how to read data in. But to teach you how to read data in, you need to be able to take a look at the data, and plots are the best way to do that. To do any of this stuff, you need to know about functions, but it can be easier to figure out how to run a function than to write a function.</p>
 <p>You see my problem.</p>
@@ -1007,7 +942,7 @@ Latex is meant for you to focus on the content and not worry about the formattin
 <li><a href="https://www.statmethods.net/">R quick start guide</a></li>
 </ul>
 </div>
-<div id="references" class="section level2" number="1.6">
+<div id="references" class="section level2">
 <h2><span class="header-section-number">1.6</span> References</h2>
 <ul>
 <li><p><a href="https://happygitwithr.com/index.html">Happy Git and GitHub for the useR</a> - Guide to using git, R, and RStudio together.</p></li>
@@ -1021,11 +956,11 @@ Latex is meant for you to focus on the content and not worry about the formattin
 </div>
 <div class="footnotes">
 <hr />
-<ol start="2">
-<li id="fn2"><p>Yes, I’m aware that this sounds paranoid. It’s been a very rare occasion that I’ve needed to restore something from another backup. You don’t want to take chances. I knew a guy who had to retype his entire masters thesis from the printed out version the night before it was due because he had stored it on a network drive that was decommissioned. You don’t want to be that person.<a href="tools.html#fnref2" class="footnote-back">↩︎</a></p></li>
-<li id="fn3"><p>Amusingly, <code>knitr</code> was written in much the same manner. Yihui Xie had to substitute-teach ISU’s version of 850 on the day we covered Sweave (a predecessor to knitr). He got so frustrated teaching the class that he went home and started writing <code>knitr</code>. Later, he developed Rmarkdown, bookdown, blogdown, and several other packages aimed at making writing documents + code easier to handle.<br />
-Moral of the story - if you get frustrated with the tools you have, you’re in good company. Use it as fuel to make better tools.<a href="tools.html#fnref3" class="footnote-back">↩︎</a></p></li>
-<li id="fn4"><p>Yes, I’m seriously pushing it with this book; several of the datasets are ~30 MB<a href="tools.html#fnref4" class="footnote-back">↩︎</a></p></li>
+<ol start="1">
+<li id="fn1"><p>Yes, I’m aware that this sounds paranoid. It’s been a very rare occasion that I’ve needed to restore something from another backup. You don’t want to take chances. I knew a guy who had to retype his entire masters thesis from the printed out version the night before it was due because he had stored it on a network drive that was decommissioned. You don’t want to be that person.<a href="tools.html#fnref1" class="footnote-back">↩︎</a></p></li>
+<li id="fn2"><p>Amusingly, <code>knitr</code> was written in much the same manner. Yihui Xie had to substitute-teach ISU’s version of 850 on the day we covered Sweave (a predecessor to knitr). He got so frustrated teaching the class that he went home and started writing <code>knitr</code>. Later, he developed Rmarkdown, bookdown, blogdown, and several other packages aimed at making writing documents + code easier to handle.<br />
+Moral of the story - if you get frustrated with the tools you have, you’re in good company. Use it as fuel to make better tools.<a href="tools.html#fnref2" class="footnote-back">↩︎</a></p></li>
+<li id="fn3"><p>Yes, I’m seriously pushing it with this book; several of the datasets are ~30 MB<a href="tools.html#fnref3" class="footnote-back">↩︎</a></p></li>
 </ol>
 </div>
             </section>
@@ -1084,20 +1019,6 @@ gitbook.start({
 });
 </script>
 
-<!-- dynamically load mathjax for compatibility with self-contained -->
-<script>
-  (function () {
-    var script = document.createElement("script");
-    script.type = "text/javascript";
-    var src = "true";
-    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
-    if (location.protocol !== "file:")
-      if (/^https?:/.test(src))
-        src = src.replace(/^https?:/, '');
-    script.src = src;
-    document.getElementsByTagName("head")[0].appendChild(script);
-  })();
-</script>
 </body>
 
 </html>
