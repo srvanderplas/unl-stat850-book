@@ -1,6 +1,7 @@
-```{r reset-8, include = F}
-.reset()
+
+```{r, child='in_all.Rmd'}
 ```
+
 # (PART) Applications {-}
 # Introduction to Data Visualization {#data-vis-intro}
 
@@ -30,6 +31,7 @@ library(readr)
 library(dplyr)
 library(tidyr)
 library(ggplot2)
+library(stringr)
 ```
 </details>
 

@@ -1,3 +1,7 @@
+
+```{r, child='in_all.Rmd'}
+```
+
 # Animated and Interactive Graphics
 
 Interactive and animated graphics are one of the major advantages of using the Rmarkdown ecosystem - because you can easily create web pages in markdown (without the pain of HTML), you aren't limited by paper any more. We'll cover two different technologies that allow you to create different types of interactive charts, graphs, and interfaces. 

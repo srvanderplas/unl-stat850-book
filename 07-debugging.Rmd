@@ -1,5 +1,5 @@
-```{r, include = F}
-.reset()
+
+```{r, child='in_all.Rmd'}
 ```
 
 # Principles of Debugging {#debugging}

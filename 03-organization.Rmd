@@ -1,69 +1,43 @@
-```{r book-functions3, include = F}
-.pkgkeeplist <- c("package:stats", "package:graphics", "package:grDevices", "package:utils", "package:datasets", "package:methods", "package:base", "package:SASmarkdown", "package:rmarkdown", "package:knitr", "package:magrittr")
 
-.objkeeplist <- c(".pkgkeeplist", ".objkeeplist", ".reset", "sasexe", "sasopts")
-
-.reset <- function() {
-  basic.packages <- .pkgkeeplist
-
-  package.list <- search()[ifelse(unlist(gregexpr("package:", search())) == 1, TRUE, FALSE)]
-
-  package.list <- setdiff(package.list, basic.packages)
-
-  obj.list <- setdiff(ls(), .objkeeplist)
-
-  if (length(package.list) > 0) for (package in package.list) detach(package, character.only = TRUE)
-  rm(list = obj.list)
-}
-```
-```{r load-libraries3, echo = F, message = F, warning = F, cache = F}
-library(SASmarkdown)
-sasexe <- "/usr/local/SASHome/SASFoundation/9.4/bin/sas_en"
-sasopts <- "-ls 75"
-```
-```{r clear-all-sas-output3, include=F, engine='saslog', engine = "sashtmllog", engine.path = sasexe, engine.opts = sasopts, collectcode = F}
-/* Clean log and output */
-dm log "clear";
-dm output "clear";
-ods html close;
-ods html;
+```{r, child='in_all.Rmd'}
 ```
 
 # Organization: Packages, Functions, Scripts, and Documents {#organization}
 
-## Organization: Module Objectives  {- #module-3-objectives}
+## Module Objectives  {- #module-3-objectives}
 
-- Use markdown to create dynamic documents which show code and results reproducibly
-- Create functions and scripts to accomplish simple tasks
-- Compare the structure and syntax of R and SAS programs
-- Know where to find external software packages or modules to provide additional functionality
+- Compose markdown documents with code and text
+- Write functions and scripts in R and SAS to solve basic problems 
+- Analyze additional software available from package and software repositories to determine whether it is suitable for the problem
 
-## Reproducibility
+## Reproducibility and Markdown
 
 <!-- Why reproducibility is important in science and statistics -->
-The concepts of **replication** and **reproducibility** is central to science - we do not trust studies whose results cannot be replicated by additional repetitions of the experiment, and we do not trust statistical analyses whose results are not backed up by valid methods that can be re-run to verify the reported results. While replication covers the lab methods, experimental design, and data collection procedures, reproducibility is concerned with the code and the data from an experiment which has already been run. Specifically, the idea is that the research paper is basically an advertisement - by exposing the code and data used in the analysis, readers can engage with the core of the analysis methods, leading to better peer feedback as well as easier adoption of the research for future work.
+The concepts of **replication** and **reproducibility** are central to science - we do not trust studies whose results cannot be replicated by additional repetitions of the experiment, and we do not trust statistical analyses whose results are not backed up by valid methods that can be re-run to verify the reported results. While replication covers the lab methods, experimental design, and data collection procedures, reproducibility is concerned with the code and the data from an experiment which has already been run. Specifically, the idea is that the research paper is basically an advertisement - by exposing the code and data used in the analysis, readers can engage with the core of the analysis methods, leading to better peer feedback as well as easier adoption of the research for future work.
 
 Reproducibility has several advantages:
 
-1. It allows you to show the correctness of your results    
+1. **It allows you to show the correctness of your results**    
 Trying to reproduce an analysis from the data and the description in the journal article is... challenging, if not impossible, in many cases. By providing the raw data and code to take the data from raw form to analysis results, readers can verify the legitimacy of each step in the analysis. This allows researchers to review each others methods, finding mistakes due to [bugs in the software used](https://www.sciencemag.org/news/2016/08/one-five-genetics-papers-contains-errors-thanks-microsoft-excel) or due to implementation errors. In one particularly prominent failure of reproducibility, a study used to support macroeconomic theories that shaped the response to the 2008-2009 recession [negatively correlating national debt with gdp growth](https://theconversation.com/the-reinhart-rogoff-error-or-how-not-to-excel-at-economics-13646) was found to be flawed due to an excel indexing mistake. Use of GUI-based (graphical user interface) statistical analysis software may make it harder to identify these mistakes, because the formulas and code are not visually displayed. 
 
-2. It allows others to use your results more easily    
+2. **It allows others to use your results more easily**    
 By sharing your code and raw data, you provide the wider scientific community with the ability to use your results to build new scientific studies. This increases the relevance of your work, the number of citations your papers get, and you also benefit from the community adopting a culture of openness and reproducibility.
 
-3. In 2 years, when you need to find the code you used for that analysis in XXX paper, you'll be able to find the code (and the data) to see how it worked and what you did. The code may or may not run as-is (depending on software versioning, package updates, etc.), but you will have the methods clearly documented along with the data (so it's easy to replicate the data format needed, etc.)
+3. **It allows you to use your results and code more easily**    
+In 2 years, when you need to find the code you used for that analysis in XXX paper, you'll be able to find the code (and the data) to see how it worked and what you did. The code may or may not run as-is (depending on software versioning, package updates, etc.), but you will have the methods clearly documented along with the data (so it's easy to replicate the data format needed, etc.)
 
 There are other advantages (personal and public) described in an issue of [Biostatistics](https://academic.oup.com/biostatistics/issue/11/3) dedicated to reproducibility. [David Donoho's response is particularly useful.](https://doi.org/10.1093/biostatistics/kxq028) 
 
 As you might expect, there are [many different](https://academic.oup.com/biostatistics/article/10/3/405/293660) [types of reproducibility](https://ropensci.github.io/reproducibility-guide/sections/introduction/). 
 
-- Code reproducibility - allows replication of the computing aspects of the study. Includes code, software, hardware, and implementation details.
-- Data reproducibility - allows replication of the non-computational parts of the study (e.g. experiment and data collection). This may include making protocols and data available.
-- Statistical reproducibility - allows replication of the statistical methods. Includes details about model parameters, thresholds, etc. and may also include study pre-registration to prevent p-hacking.
+- **Code reproducibility** - allows replication of the computing aspects of the study. Includes code, software, hardware, and implementation details.
+- **Data reproducibility** - allows replication of the non-computational parts of the study (e.g. experiment and data collection). This may include making protocols and data available.
+- **Statistical reproducibility** - allows replication of the statistical methods. Includes details about model parameters, thresholds, etc. and may also include study pre-registration to prevent p-hacking.
 
 There are also many levels of reproducibility. Much of the computer code written in the 1960s is no longer runnable today, because the computer architecture it was written for is not available anymore. Code which depends on URLs is vulnerable to website rearrangements or the content no longer being hosted. Archiving projects on GitHub is nice, but what happens if GitHub goes down? It's important to decide what type of reproducibility is important for a particular project, and then design the project's workflow around that process.
 
-For most of my projects, I don't worry about software versioning (I may archive my sessionInfo() so that package versions are documented) and storing the software packages alongside the code and data. As much as possible, I keep the code and the data (if it's small) on GitHub in a public repository for people to access, along with any manuscripts or presentations related to the project. Manuscripts are written in knitr or r markdown, so that the code is documented by the context of the project, and every image in the article generated by R has corresponding code available. This ensures that 
+<div class="my-opinion">
+For most of my projects, I don't worry about software versioning too much ^[I may archive my sessionInfo() so that package versions are documented]. As much as possible, I keep the **code and the data (if it's small) on GitHub** in a public repository for people to access, along with any manuscripts or presentations related to the project. Manuscripts are written in knitr or Rmarkdown, so that the code is documented by the context of the project, and every image in the article generated by R has corresponding code available. This ensures that 
 
 1. my code (and data) is stored somewhere off-site (backed up in the cloud)
 2. my code is available if others want to use it 
@@ -73,7 +47,8 @@ For most of my projects, I don't worry about software versioning (I may archive 
 6. I can reuse blocks of code easily (and find them easily on GitHub)
 
 
-In situations where I run experiments, I also make sure that any experimental stimuli or other code that would contribute to the execution and data collection part of the experiment is also included in the repository. This may involve archiving intermediate results that would not normally be archived so that exact stimuli can be regenerated "just in case". 
+In situations where I run experiments, I also make sure that **any experimental stimuli** or other code that would contribute to the execution and data collection part of the experiment are also included in the repository. This may involve archiving intermediate results that would not normally be archived so that exact stimuli can be regenerated "just in case". 
+</div>
 
 <!-- Why reproducibility is convenient -->
 
@@ -92,11 +67,13 @@ I highly recommend scanning these resources to get a good sense of the different
 
 ### Markdown and R {#rmarkdown}
 
-In this class, we're primarily going to use rmarkdown to create dynamic documents. Markdown itself is a special style of text that is intended to allow you to do basic formatting without having to pause to actually click the buttons (if you were writing in word). It integrates equation functionality (so you can type mathematical equations using LaTeX syntax) and also allows for the use of templates (so you can write whole journal articles in a text editor). Markdown is also program agnostic - it will allow you to compile your work into HTML, word, or PDF form. 
-
 ![Rmarkdown is magic. (image by Allison Horst)](https://github.com/allisonhorst/stats-illustrations/raw/master/rstats-artwork/rmarkdown_wizards.png)
 
-Markdown documents must be *compiled* - a computer program runs and transforms the text file into a full document. RStudio has markdown functionality built-in, and also supports `rmarkdown`, which is a markdown variant designed to make it easy to integrate R code with document creation (so-called literate programming). There are other markdown programs which extend markdown's functionality so that you can write a book (like this one), create presentations or posters, or maintain a blog in markdown.
+In this class, we're primarily going to use Rmarkdown to create dynamic documents. 
+
+Markdown itself (without the R) is a special style of text that is intended to allow you to do basic formatting without having to pause to actually click the buttons (if you were writing in word). Some versions of markdown integrate equation functionality (so you can type mathematical equations using LaTeX syntax) and also allows for the use of templates (so you can write whole journal articles in a text editor). Markdown is also program agnostic - it will allow you to compile your work into HTML, word, or PDF form. 
+
+Markdown documents must be *compiled* - a computer program runs and transforms the text file into a full document. RStudio has markdown functionality built-in, and also supports `Rmarkdown`, which is a markdown variant designed to make it easy to integrate R code and generated pictures with your text (this is called "literate programming"). There are other markdown packages in R which extend markdown's functionality so that you can write a book (like this one), create presentations or posters, or [maintain a blog](http://srvanderplas.netlify.app) using primarily Rmarkdown.
 
 Rmarkdown, despite the name, also allows you to integrate the results from code in other languages. As you saw in [the last chapter](#intro-prog), SAS code can be integrated into markdown as well. Other languages commonly used include python, julia, SQL, Bash, C++, and Stan.
 
@@ -104,13 +81,15 @@ Rmarkdown, despite the name, also allows you to integrate the results from code 
 There is a full set of [Rmarkdown tutorials](https://rmarkdown.rstudio.com/lesson-1.html) from RStudio. There is also a handy [cheatsheet](https://rmarkdown.rstudio.com/lesson-15.html). If you run into trouble or want to do something more complicated, [there is an Rmarkdown cookbook](https://bookdown.org/yihui/rmarkdown-cookbook/) which contains a number of useful tricks.
 :::
 
+<details><summary>Quick Anatomy of Rmarkdown documents</summary>
+![Explanation of Rmarkdown markup](image/Rmarkdown_doc_anatomy.png)
+</details>
+
 ::: tryitout
 Or, you can take the "jump right in" approach - open RStudio, File -> New -> Rmarkdown document. To compile it, click the knit button in the bar at the top of the text editor window. Make changes to the text and the R code, compile it, and see what happens. Voila! You're a markdow expert!
 :::
 
-Rmarkdown documents may contain code used to support an analysis, but they are usually not the best way to develop an analysis method - they are better for documentation, writing tutorials, and other scenarios where you need both text explanations and code/analysis/results. There are other "containers" for code, though, including functions, scripts, and packages. Each has their own advantages and disadvantages, and can be used together. 
-
-
+Rmarkdown documents may contain code used to support an analysis, but they are usually not the best way to develop an analysis method - they are better for documentation, writing tutorials, and other scenarios where you need both text explanations and code/analysis/results. There are other "containers" for code, though, including functions, scripts, and packages. Each has their own advantages and disadvantages, and most of them can be used together. 
 
 ### Rmarkdown with... SAS? 
 
@@ -121,15 +100,15 @@ Here's how that's set up.
 [SAS in Rmarkdown -- guide](http://ritsokiguess.site/docs/2018/08/20/sas-in-r-markdown/).
 :::
 
-It's really fairly easy, which surprised me -- I was expecting it to be a lot more involved to set SASmarkdown up. 
+It's really fairly easy (on Linux) and not too bad on Windows, which surprised me -- I was expecting it to be a lot more involved to set SASmarkdown up. Of course, I don't have a Mac, so I was surprised to learn that it is a pain in the ... to get SASmarkdown working on Macs because of the way SAS runs. 
 
-SASmarkdown will not work if you don't have the following setup(s):
+SASmarkdown works with the following setup(s):
 
 - Windows + SAS (not Community Edition) + R 
-- Mac + Parallels (with SAS and RStudio both installed in parallels)
+- Mac + Parallels + SAS + R (with SAS and RStudio both installed in parallels)
 - Linux + SAS + R
 
-If you're using Community Edition, you cannot use SASMarkdown. Instead, you'll have to submit SAS files separately from your Rmarkdown code, or use the server set up by HCC that has the correct configuration.
+If you're using SAS Community Edition, you cannot use SASMarkdown. Instead, you'll have to submit SAS files separately from your Rmarkdown code, or use the server set up by HCC that has the correct configuration.
 
 If you are using SAS Community Edition, you are still expected to ensure your code is fully reproducible on other computers.
 
@@ -154,16 +133,36 @@ my_function_name = function(param1, param2 = 3) {
 
 ````
 
-The first part of a function declaration (storing information in a named object) is the function's intended name, `my_function_name`. Then, we indicate that we are defining a function, and what **parameters** our function requires. For `param1`, we do not provide a default value, but for `param2`, we indicate that the **default value** is 3. Thus, if we call the function (tell the program to run this function with certain arguments and provide the result), we could either say `my_function_name(param1 = value1, param2 = value2)` or `my_function_name(param1 = value1)` (which is equivalent to `my_function_name(param1 = value1, param2 = 3)`). In R, you can even say `my_function_name(value1, value2)` and the assumption is that you've supplied the parameters in the correct order.^[It's a good idea to specify your parameter names when you're using functions you're unfamiliar with, which at this point, is probably all of them.] Inside the function block (indicated by `{}` here, but some languages may use `do ... end;`), we perform whatever steps we've decided to include in the function, and then at the end of the function, we **return** a value - the function exits, and leaves behind some information.
+1. The first part of a function declaration (storing information in a named object) is the function's intended name, `my_function_name`. 
+2. Then, we indicate that we are defining a function (with `= function()`), and what **parameters** our function requires. 
+    - For `param1`, we do not provide a default value, but for `param2`, we indicate that the **default value** is 3.     
+    If we call the function (tell the program to run this function with certain arguments and provide the result), we could either say `my_function_name(param1 = value1, param2 = value2)` or `my_function_name(param1 = value1)` (which is equivalent to `my_function_name(param1 = value1, param2 = 3)`).     
+    In R, you can even say `my_function_name(value1, value2)` and the assumption is that you've supplied the parameters in the correct order.^[It's a good idea to specify your parameter names when you're using functions you're unfamiliar with, which at this point, is probably all of them.] 
+    
+3. Inside the function block (indicated by `{}` here, but some languages may use `do ... end;`), we perform whatever steps we've decided to include in the function
+4. At the end of the function, we **return** a value - the function exits, and leaves behind some information.
+
+Inside the function, we refer to the values passed in using their function names - in this case, `param1` and `param2`. Outside the function, these values probably are assigned to variables with other names -- but inside the function, they have an alias that is only valid while we're working within the function.
+
 
 In R, functions look like this: 
 
-> `function( arglist ) {`    
+> `function_name <- function( arglist ) {`    
 > `   expr`    
 > `return(value)`    
 > `}`
 
-In SAS, functions are called modules. The documentation for a module is below:
+and we would call our function by writing the code `function_name(args)`. 
+
+In SAS, functions are called modules and look like this:
+
+> `START function_name arglist GLOBAL arglist2;`     
+> `   expr`    
+> `FINISH function_name;`
+
+and we would call the function using `RUN function_name args;`
+
+<details><summary>Module documentation</summary>
 ````
 Statements That Define and Execute Modules
 Modules are used to create a user-defined subroutine or function. 
@@ -182,10 +181,12 @@ The only difference between the RUN and CALL statements is the order of resoluti
 ````
 
 [Source: SAS function reference](https://support.sas.com/rnd/app/iml/programming.html)
+</details>
+
 
 Let's try functions out by writing a simple function that takes two numbers as arguments and adds them together.
 
-```{r function-demo}
+```{r function-demo, results = 'hold', collapse = T}
 adder <- function(a, b) {
   return(a + b)
 }
@@ -193,19 +194,20 @@ adder <- function(a, b) {
 adder(3, 4)
 ```
 
-```{r iml-function-demo, engine = "saslog", engine.path = sasexe, engine.opts = sasopts, collectcode = F}
+```{r iml-function-demo, engine = "sashtmllog", engine.path = sasexe, engine.opts = sasopts, collectcode = F}
 proc IML;
 
   start adder(a, b);
     return(a + b);
   finish;
 
-  c = adder(3, 4); /* In IML, you can use the function like this as well */
-  print c;
+  /* In IML, you can use the function like this as well */
+  c = adder(3, 4); 
+  print '3 + 4 = ' c;
 
 quit;
-
 ```
+
 
 Of course, it's not just important to be able to write your own functions. It's also helpful to be able to see how functions are written, both to explore how a method is implemented and for debugging purposes. In SAS, this is generally not an option, because SAS is closed source, but in R, you can see the code behind any function which is implemented in R (it is harder to see functions implemented in C or C++, but not impossible) by typing the function name (no parentheses) into the command prompt.
 
@@ -857,11 +859,8 @@ proc sgplot data=Koch;
    yaxis display=none;
 run;
 ```
-```{r sas-reset-snowflake, engine = "sashtml", engine.path = sasexe, engine.opts = sasopts, collectcode = F, fig.path = "image/", error = T}
-dm log "clear";
-dm output "clear";
-ods html close;
-ods html;
+
+```{r clear-all-sas-output, engine = "sashtmllog", engine.path = sasexe, engine.opts = sasopts, collectcode = F, include = F}
 ```
 </details>
 

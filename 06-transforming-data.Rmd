@@ -1,7 +1,6 @@
-```{r reset-6, include = F}
-.reset()
-```
 
+```{r, child='in_all.Rmd'}
+```
 # Transforming Data {#transforming-data}
 
 > Happy families are all alike; every unhappy family is unhappy in its own way. - Leo Tolstoy

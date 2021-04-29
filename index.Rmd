@@ -14,66 +14,15 @@ cover-image: images/cover.png
 url: https://srvanderplas.github.io/unl-stat850/
 ---
 
+```{r, child='in_all.Rmd'}
+```
 
 # Introduction {-}
 
-```{r setup, echo = F, message = F, warning = F}
-library(magrittr)
-library(knitr)
-library(SASmarkdown)
-sasexe <- "/usr/local/SASHome/SASFoundation/9.4/bin/sas_u8"
-sasopts <- "-ls 75"
-knitr::opts_chunk$set(collapse = T, cache = T, fig.path = "image/",
-                      engine.opts = list(
-                        "r" = list(tidy = "styler"), 
-                        "sashtmllog" = sasopts, 
-                        "saslog" = sasopts,
-                        "sas" = sasopts,
-                        "sashtml" = sasopts),
-                      engine.path = list(
-                        sashtmllog = sasexe,
-                        saslog = sasexe,
-                        sashtml = sasexe,
-                        sas = sasexe
-                      ),
-                      dpi = 300)
-```
-
-```{r book-functions, include = F}
-.pkgkeeplist <- c("package:stats", "package:graphics", "package:grDevices", "package:utils", "package:datasets", "package:methods", "package:base", "package:SASmarkdown", "package:rmarkdown", "package:knitr", "package:magrittr")
-
-.objkeeplist <- c(".pkgkeeplist", ".objkeeplist", ".reset", "sasexe", "sasopts")
-
-.reset <- function() {
-  basic.packages <- .pkgkeeplist
-
-  package.list <- search()[ifelse(unlist(gregexpr("package:", search())) == 1, TRUE, FALSE)]
-
-  package.list <- setdiff(package.list, basic.packages)
-
-  obj.list <- setdiff(ls(), .objkeeplist)
-
-  if (length(package.list) > 0) for (package in package.list) detach(package, character.only = TRUE)
-  rm(list = obj.list)
-}
-```
-
-
-```{r clear-all-sas-output, include=F, engine='saslog', engine = "sashtmllog", engine.path = sasexe, engine.opts = sasopts, collectcode = F}
-/* Clean log and output */
-dm log "clear";
-dm output "clear";
-ods html close;
-ods html;
-```
-
-```{r pkg-list-update, include = F, cache = F}
-# update package list
-source("code/collect_packages.R")
-```
-
 ```{r fa-setup, include=FALSE}
-htmltools::tagList(rmarkdown::html_dependency_font_awesome())
+library(fontawesome)
+fa_html_dependency()
+# htmltools::tagList(rmarkdown::html_dependency_font_awesome())
 ```
 ## Forward {-}
 
@@ -129,19 +78,16 @@ E. Document the data, methods, and results of an analysis using reproducible met
 I've made an effort to use some specific formatting and enable certain features that make this book a useful tool for this class.
 
 ### Header Buttons/Links {-}
-The header contains a number of buttons which should help - the TOC and search buttons are fairly obvious, but here's a look at what the others will do for you:
+The header contains a number of buttons which should help you use, customize, and navigate the textbook
 
-![The A button will let you set font size and white/sepia/dark mode](image/font-options-book.png)
-
-![You can suggest edits if you find a typo - please use this! You can submit a pull request in GitHub if you're signed in, and I can review and approve it easily.](image/edit-options-book.png)
-
-![You can download the entire (very long) Rmarkdown source code for the textbook](image/download-rmd-book.png)
-
-![The i button will remind you of keyboard shortcuts to navigate the book easily](image/keyboard-shortcuts-book.png)
-
-![You can also reference the book in tweets, if you really want to. Tag me if you do (\@srvanderplas)](image/tweet-about-book.png)
-
-![You can also find the book repository on GitHub quickly if you want to see code/data/etc. linked in the book](image/see-github-book.png)
+- <i class="fa fa-align-justify"></i> Open/close the sidebar TOC
+- <i class="fa fa-search"></i> Search the text
+- <i class="fa fa-font"></i> Set font size and white/sepia/dark mode
+- <i class="fa fa-edit"></i> Suggest edits if you find a typo. This will help you automatically submit a pull request in Github, and I can review and approve it easily.
+- <i class="fa fa-download"></i> Download the entire (very long) Rmarkdown source code for the textbook
+- <i class="fa fa-info"></i> See keyboard shortcuts to navigate the book
+- <i class="fa fa-twitter"></i> Reference the book in a tweet, if you really want to. Tag me if you do (\@srvanderplas)
+- <i class="fa fa-github"></i> Find the book repository on GitHub quickly if you want to see code/data/etc. linked in the book
 
 
 ### Special Sections {-}
