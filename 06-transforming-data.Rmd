@@ -826,6 +826,14 @@ RUN;
 
 It's fairly common for data to come in forms which are convenient for either human viewing or data entry. Unfortunately, these forms aren't necessarily the most friendly for analysis. 
 
+![](https://raw.githubusercontent.com/kelseygonzalez/tidyexplain/master/images/static/png/original-dfs-tidy.png)
+
+The two operations we'll learn here are wide -> long and long -> wide. 
+
+![](https://raw.githubusercontent.com/kelseygonzalez/tidyexplain/wider_longer/images/tidyr-pivot_wider_longer.gif)
+
+This animation uses the R functions pivot_wider() and pivot_longer() [Animation source](https://github.com/kelseygonzalez/tidyexplain/tree/wider_longer), but the concept is the same in both R and SAS. 
+
 ### Longer
 
 In many cases, the data come in what we might call "wide" form - some of the column names are not names of variables, but instead, are themselves values of another variable. 
@@ -1570,6 +1578,39 @@ Ex: adding birthday to the table of all individuals in a class
 **keys** are values that are found in multiple tables that can be used to connect the tables. A key (or set of keys) uniquely identify an observation. A **primary key** identifies an observation in its own table. A **foreign key** identifies an observation in another table.
 
 We're primarily going to focus on mutating joins, as filtering joins can be accomplished by ... filtering ... rather than by table joins. Feel free to read through the other types of joins [here](https://r4ds.had.co.nz/relational-data.html#filtering-joins)
+
+<details><summary>Animating different types of joins</summary>
+Note: all of these animations are stolen from https://github.com/gadenbuie/tidyexplain.
+
+If we start with two tables, x and y, 
+
+![](https://raw.githubusercontent.com/gadenbuie/tidyexplain/master/images/static/png/original-dfs.png)
+
+We can do a filtering `inner_join` to keep only rows which are in both tables (but we keep all columns)
+
+![](https://raw.githubusercontent.com/gadenbuie/tidyexplain/master/images/inner-join.gif)
+
+But what if we want to keep all of the rows in x? We would do a `left_join`
+
+![](https://raw.githubusercontent.com/gadenbuie/tidyexplain/master/images/left-join.gif)
+
+If there are multiple matches in the y table, though, we might have to duplicate rows in x. This is still a left join, just a more complicated one. 
+
+![](https://raw.githubusercontent.com/gadenbuie/tidyexplain/master/images/left-join-extra.gif)
+
+If we wanted to keep all of the rows in y, we would do a `right_join`: 
+
+![](https://raw.githubusercontent.com/gadenbuie/tidyexplain/master/images/right-join.gif)
+
+(or, we could do a left join with y and x, but... either way is fine).
+
+And finally, if we want to keep all of the rows, we'd do a `full_join`:
+
+![](https://raw.githubusercontent.com/gadenbuie/tidyexplain/master/images/full-join.gif)
+
+You can find other animations corresponding to filtering joins and set operations  [here](https://raw.githubusercontent.com/gadenbuie/tidyexplain/master/images/full-join.gif)
+
+</details>
 
 ### Demonstration dataset setup
 
