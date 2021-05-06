@@ -1,0 +1,67 @@
+
+```{r, child='in_all.Rmd'}
+```
+
+# (PART) Data Programming {-}
+
+# Basics {#data-programming-basics}
+
+## Module Objectives  {- #module4-objectives}
+
+- Write basic functions and procedures to create simple plots and data summaries
+- Apply syntax knowledge to reference variables and observations in common data structures
+- Create new variables and columns or reformat existing columns in provided data structures
+
+
+## Introduction
+
+At this point in the course, you've learned how to write functions. You know the basics of how to create new variables, how data frames and lists work, and how to use markdown.
+
+And yet... these are skills that take some practice when applied to new data. So this week, we're going to focus on working with datasets, but we're not going to learn much in the way of new material (though I'll provide sample code for tasks like basic plots and tables). This week is about reinforcing the skills you've already learned, and helping you find your feet a bit as you work through a data analysis. It will also provide a preview of some of the packages we're going to work with in the coming weeks (because I'm going to show you how to e.g. summarize a dataset and plot a few things, even without having covered that material). 
+
+
+As you've probably guessed by now, this week's reading will primarily be focused on examples.
+
+## Example 1: Art
+The Tate Art Museum assembled a collection of 70,000 artworks (last updated in 2014). They catalogued information including accession number, artwork dimensions, units, title, date, medium, inscription, and even URLs for images of the art. 
+
+```{r}
+library(readr)
+library(skimr)
+artwork <- read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2021/2021-01-12/artwork.csv')
+
+skim(artwork)
+
+```
+
+When you first access a new dataset, it's fun to explore it a bit. I've shown a summary of the variables (character variables summarized with completion rates and # unique values, numeric variables summarized with quantiles and mean/sd) generated using the `skimr` package (which we'll talk about next week). 
+
+<details class="ex"><summary>First, let's pull out the year for each piece of artwork in the dataset and see what we can do with it...</summary>
+```{r}
+head(artwork$year)
+```
+
+We reference a column of the dataset by name using `dataset_name$column_name`, and since our data is stored in `artwork`, and we want the column named `year`, we use `artwork$year` to get access to the data we want.
+
+I've used the `head` command to show only the first few values (so that the output isn't overwhelming). When we have output like this, it is useful to summarize the output in some way:
+
+```{r}
+summary(artwork$year)
+```
+
+That's much less output, but we might want to instead make a chart:
+```{r}
+hist(artwork$year)
+```
+Personally, I much prefer the graphical version. It's informative (though it does leave out NA values) and shows that there are pieces going back to the 1500s, but that most pieces were made in the early 1800s or late 1900s. 
+
+</details>
+
+<details class="ex"><summary>We might be interested in the aspect ratio of the artwork - let's take a look at the input variables and define new variables</summary>
+
+```{r}
+
+```
+
+
+</details>

@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Module 12 Lists, Nested Lists, and Functional Programming | Stat 850: Computing Tools for Statisticians</title>
+  <title>Module 13 Lists, Nested Lists, and Functional Programming | Stat 850: Computing Tools for Statisticians</title>
   <meta name="description" content="Introductions to statistical computing packages and document preparation software. Topics include: graphical techniques, data management, Monte Carlo simulation, dynamic document preparation, presentation software." />
   <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Module 12 Lists, Nested Lists, and Functional Programming | Stat 850: Computing Tools for Statisticians" />
+  <meta property="og:title" content="Module 13 Lists, Nested Lists, and Functional Programming | Stat 850: Computing Tools for Statisticians" />
   <meta property="og:type" content="book" />
   <meta property="og:url" content="https://srvanderplas.github.io/unl-stat850/" />
   <meta property="og:image" content="https://srvanderplas.github.io/unl-stat850/images/cover.png" />
@@ -16,7 +16,7 @@
   <meta name="github-repo" content="srvanderplas/unl-stat850" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Module 12 Lists, Nested Lists, and Functional Programming | Stat 850: Computing Tools for Statisticians" />
+  <meta name="twitter:title" content="Module 13 Lists, Nested Lists, and Functional Programming | Stat 850: Computing Tools for Statisticians" />
   
   <meta name="twitter:description" content="Introductions to statistical computing packages and document preparation software. Topics include: graphical techniques, data management, Monte Carlo simulation, dynamic document preparation, presentation software." />
   <meta name="twitter:image" content="https://srvanderplas.github.io/unl-stat850/images/cover.png" />
@@ -50,8 +50,6 @@
 
 
 
-<link href="libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
-<link href="libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
 <script src="libs/htmlwidgets-1.5.3/htmlwidgets.js"></script>
 <script src="libs/plotly-binding-4.9.3/plotly.js"></script>
 <script src="libs/typedarray-0.1/typedarray.min.js"></script>
@@ -84,6 +82,21 @@
     d.appendChild(code);
   }
 })();
+</script>
+<script>
+function unrolltab(evt, tabName) {
+  var i, tabcontent, tablinks;
+  tabcontent = document.getElementsByClassName("tabcontent");
+  for (i = 0; i < tabcontent.length; i++) {
+    tabcontent[i].style.display = "none";
+  }
+  tablinks = document.getElementsByClassName("tablinks");
+  for (i = 0; i < tablinks.length; i++) {
+    tablinks[i].className = tablinks[i].className.replace(" active", "");
+  }
+  document.getElementById(tabName).style.display = "block";
+  evt.currentTarget.className += " active";
+}
 </script>
 
 
@@ -187,19 +200,19 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="tools.html"><a href="tools.html#module-1-objectives"><i class="fa fa-check"></i>Module Objectives</a></li>
 <li class="chapter" data-level="1.1" data-path="tools.html"><a href="tools.html#setting-up-software"><i class="fa fa-check"></i><b>1.1</b> Setting Up Software</a>
 <ul>
-<li class="chapter" data-level="1.1.1" data-path="tools.html"><a href="tools.html#sas"><i class="fa fa-check"></i><b>1.1.1</b> SAS</a></li>
-<li class="chapter" data-level="1.1.2" data-path="tools.html"><a href="tools.html#r"><i class="fa fa-check"></i><b>1.1.2</b> R</a></li>
-<li class="chapter" data-level="1.1.3" data-path="tools.html"><a href="tools.html#rstudio"><i class="fa fa-check"></i><b>1.1.3</b> RStudio</a></li>
-<li class="chapter" data-level="1.1.4" data-path="tools.html"><a href="tools.html#git"><i class="fa fa-check"></i><b>1.1.4</b> git</a></li>
-<li class="chapter" data-level="1.1.5" data-path="tools.html"><a href="tools.html#latex"><i class="fa fa-check"></i><b>1.1.5</b> LaTeX</a></li>
+<li class="chapter" data-level="1.1.1" data-path="tools.html"><a href="tools.html#setting-up-sas"><i class="fa fa-check"></i><b>1.1.1</b> SAS</a></li>
+<li class="chapter" data-level="1.1.2" data-path="tools.html"><a href="tools.html#setting-up-R"><i class="fa fa-check"></i><b>1.1.2</b> R</a></li>
+<li class="chapter" data-level="1.1.3" data-path="tools.html"><a href="tools.html#setting-up-rstudio"><i class="fa fa-check"></i><b>1.1.3</b> RStudio</a></li>
+<li class="chapter" data-level="1.1.4" data-path="tools.html"><a href="tools.html#setting-up-git"><i class="fa fa-check"></i><b>1.1.4</b> git</a></li>
+<li class="chapter" data-level="1.1.5" data-path="tools.html"><a href="tools.html#setting-up-latex"><i class="fa fa-check"></i><b>1.1.5</b> LaTeX</a></li>
 </ul></li>
 <li class="chapter" data-level="1.2" data-path="tools.html"><a href="tools.html#looking-around-your-environment"><i class="fa fa-check"></i><b>1.2</b> Looking Around Your Environment</a>
 <ul>
-<li class="chapter" data-level="1.2.1" data-path="tools.html"><a href="tools.html#r-and-rstudio"><i class="fa fa-check"></i><b>1.2.1</b> R and RStudio</a></li>
+<li class="chapter" data-level="1.2.1" data-path="tools.html"><a href="tools.html#looking-around-Rstudio"><i class="fa fa-check"></i><b>1.2.1</b> R and RStudio</a></li>
 <li class="chapter" data-level="" data-path="tools.html"><a href="tools.html#try-it-out"><i class="fa fa-check"></i>Try It Out</a></li>
-<li class="chapter" data-level="1.2.2" data-path="tools.html"><a href="tools.html#sas-1"><i class="fa fa-check"></i><b>1.2.2</b> SAS</a></li>
+<li class="chapter" data-level="1.2.2" data-path="tools.html"><a href="tools.html#looking-around-sas"><i class="fa fa-check"></i><b>1.2.2</b> SAS</a></li>
 <li class="chapter" data-level="1.2.3" data-path="tools.html"><a href="tools.html#version-control-with-git"><i class="fa fa-check"></i><b>1.2.3</b> Version Control with Git</a></li>
-<li class="chapter" data-level="1.2.4" data-path="tools.html"><a href="tools.html#latex-1"><i class="fa fa-check"></i><b>1.2.4</b> LaTeX</a></li>
+<li class="chapter" data-level="1.2.4" data-path="tools.html"><a href="tools.html#looking-around-latex"><i class="fa fa-check"></i><b>1.2.4</b> LaTeX</a></li>
 <li class="chapter" data-level="1.2.5" data-path="tools.html"><a href="tools.html#markdown"><i class="fa fa-check"></i><b>1.2.5</b> Markdown</a></li>
 </ul></li>
 <li class="chapter" data-level="1.3" data-path="tools.html"><a href="tools.html#some-computer-basics"><i class="fa fa-check"></i><b>1.3</b> Some Computer Basics</a>
@@ -217,7 +230,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="1.4.5" data-path="tools.html"><a href="tools.html#pushing-and-pulling"><i class="fa fa-check"></i><b>1.4.5</b> Pushing and Pulling</a></li>
 </ul></li>
 <li class="chapter" data-level="1.5" data-path="tools.html"><a href="tools.html#topic-sequencing"><i class="fa fa-check"></i><b>1.5</b> Topic Sequencing</a></li>
-<li class="chapter" data-level="1.6" data-path="tools.html"><a href="tools.html#references"><i class="fa fa-check"></i><b>1.6</b> References</a></li>
+<li class="chapter" data-level="1.6" data-path="tools.html"><a href="tools.html#refs-module-1"><i class="fa fa-check"></i><b>1.6</b> References</a></li>
 </ul></li>
 <li class="chapter" data-level="2" data-path="intro-prog.html"><a href="intro-prog.html"><i class="fa fa-check"></i><b>2</b> Introduction to Statistical Programming</a>
 <ul>
@@ -230,8 +243,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="2.2" data-path="intro-prog.html"><a href="intro-prog.html#variable-types"><i class="fa fa-check"></i><b>2.2</b> Variable types</a>
 <ul>
-<li class="chapter" data-level="2.2.1" data-path="intro-prog.html"><a href="intro-prog.html#r-1"><i class="fa fa-check"></i><b>2.2.1</b> R</a></li>
-<li class="chapter" data-level="2.2.2" data-path="intro-prog.html"><a href="intro-prog.html#sas-2"><i class="fa fa-check"></i><b>2.2.2</b> SAS</a></li>
+<li class="chapter" data-level="2.2.1" data-path="intro-prog.html"><a href="intro-prog.html#r"><i class="fa fa-check"></i><b>2.2.1</b> R</a></li>
+<li class="chapter" data-level="2.2.2" data-path="intro-prog.html"><a href="intro-prog.html#sas"><i class="fa fa-check"></i><b>2.2.2</b> SAS</a></li>
 </ul></li>
 <li class="chapter" data-level="2.3" data-path="intro-prog.html"><a href="intro-prog.html#data-structures"><i class="fa fa-check"></i><b>2.3</b> Data structures</a>
 <ul>
@@ -285,223 +298,229 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="organization.html"><a href="organization.html#references-and-links-1"><i class="fa fa-check"></i>References and Links</a></li>
 </ul></li>
 <li class="part"><span><b>II Data Programming</b></span></li>
-<li class="chapter" data-level="4" data-path="reading-data.html"><a href="reading-data.html"><i class="fa fa-check"></i><b>4</b> External Data</a>
+<li class="chapter" data-level="4" data-path="data-programming-basics.html"><a href="data-programming-basics.html"><i class="fa fa-check"></i><b>4</b> Basics</a>
 <ul>
-<li class="chapter" data-level="" data-path="reading-data.html"><a href="reading-data.html#reading-data-module-objectives"><i class="fa fa-check"></i>Reading Data: Module Objectives</a></li>
-<li class="chapter" data-level="4.1" data-path="reading-data.html"><a href="reading-data.html#external-data-formats"><i class="fa fa-check"></i><b>4.1</b> External Data Formats</a></li>
-<li class="chapter" data-level="4.2" data-path="reading-data.html"><a href="reading-data.html#text-files"><i class="fa fa-check"></i><b>4.2</b> Text Files</a>
+<li class="chapter" data-level="" data-path="data-programming-basics.html"><a href="data-programming-basics.html#module4-objectives"><i class="fa fa-check"></i>Module Objectives</a></li>
+<li class="chapter" data-level="4.1" data-path="data-programming-basics.html"><a href="data-programming-basics.html#introduction-1"><i class="fa fa-check"></i><b>4.1</b> Introduction</a></li>
+<li class="chapter" data-level="4.2" data-path="data-programming-basics.html"><a href="data-programming-basics.html#example-1-art"><i class="fa fa-check"></i><b>4.2</b> Example 1: Art</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="reading-data.html"><a href="reading-data.html"><i class="fa fa-check"></i><b>5</b> External Data</a>
 <ul>
-<li class="chapter" data-level="4.2.1" data-path="reading-data.html"><a href="reading-data.html#fixed-width-files"><i class="fa fa-check"></i><b>4.2.1</b> Fixed-width files</a></li>
-<li class="chapter" data-level="4.2.2" data-path="reading-data.html"><a href="reading-data.html#delimited-text-files"><i class="fa fa-check"></i><b>4.2.2</b> Delimited Text Files</a></li>
+<li class="chapter" data-level="" data-path="reading-data.html"><a href="reading-data.html#module5-objectives"><i class="fa fa-check"></i>Module Objectives</a></li>
+<li class="chapter" data-level="5.1" data-path="reading-data.html"><a href="reading-data.html#external-data-formats"><i class="fa fa-check"></i><b>5.1</b> External Data Formats</a></li>
+<li class="chapter" data-level="5.2" data-path="reading-data.html"><a href="reading-data.html#text-files"><i class="fa fa-check"></i><b>5.2</b> Text Files</a>
+<ul>
+<li class="chapter" data-level="5.2.1" data-path="reading-data.html"><a href="reading-data.html#fixed-width-files"><i class="fa fa-check"></i><b>5.2.1</b> Fixed-width files</a></li>
+<li class="chapter" data-level="5.2.2" data-path="reading-data.html"><a href="reading-data.html#delimited-text-files"><i class="fa fa-check"></i><b>5.2.2</b> Delimited Text Files</a></li>
 <li class="chapter" data-level="" data-path="reading-data.html"><a href="reading-data.html#try-it-out-14"><i class="fa fa-check"></i>Try it out</a></li>
 </ul></li>
-<li class="chapter" data-level="4.3" data-path="reading-data.html"><a href="reading-data.html#spreadsheets"><i class="fa fa-check"></i><b>4.3</b> Spreadsheets</a>
+<li class="chapter" data-level="5.3" data-path="reading-data.html"><a href="reading-data.html#spreadsheets"><i class="fa fa-check"></i><b>5.3</b> Spreadsheets</a>
 <ul>
 <li class="chapter" data-level="" data-path="reading-data.html"><a href="reading-data.html#try-it-out-15"><i class="fa fa-check"></i>Try it out</a></li>
 </ul></li>
-<li class="chapter" data-level="4.4" data-path="reading-data.html"><a href="reading-data.html#binary-files"><i class="fa fa-check"></i><b>4.4</b> Binary Files</a>
+<li class="chapter" data-level="5.4" data-path="reading-data.html"><a href="reading-data.html#binary-files"><i class="fa fa-check"></i><b>5.4</b> Binary Files</a>
 <ul>
 <li class="chapter" data-level="" data-path="reading-data.html"><a href="reading-data.html#try-it-out-16"><i class="fa fa-check"></i>Try it out</a></li>
 </ul></li>
-<li class="chapter" data-level="4.5" data-path="reading-data.html"><a href="reading-data.html#databases"><i class="fa fa-check"></i><b>4.5</b> Databases</a>
+<li class="chapter" data-level="5.5" data-path="reading-data.html"><a href="reading-data.html#databases"><i class="fa fa-check"></i><b>5.5</b> Databases</a>
 <ul>
-<li class="chapter" data-level="4.5.1" data-path="reading-data.html"><a href="reading-data.html#microsoft-access"><i class="fa fa-check"></i><b>4.5.1</b> Microsoft Access</a></li>
-<li class="chapter" data-level="4.5.2" data-path="reading-data.html"><a href="reading-data.html#sqlite"><i class="fa fa-check"></i><b>4.5.2</b> SQLite</a></li>
+<li class="chapter" data-level="5.5.1" data-path="reading-data.html"><a href="reading-data.html#microsoft-access"><i class="fa fa-check"></i><b>5.5.1</b> Microsoft Access</a></li>
+<li class="chapter" data-level="5.5.2" data-path="reading-data.html"><a href="reading-data.html#sqlite"><i class="fa fa-check"></i><b>5.5.2</b> SQLite</a></li>
 </ul></li>
-<li class="chapter" data-level="4.6" data-path="reading-data.html"><a href="reading-data.html#exploratory-data-analysis"><i class="fa fa-check"></i><b>4.6</b> Exploratory Data Analysis</a>
+<li class="chapter" data-level="5.6" data-path="reading-data.html"><a href="reading-data.html#exploratory-data-analysis"><i class="fa fa-check"></i><b>5.6</b> Exploratory Data Analysis</a>
 <ul>
-<li class="chapter" data-level="4.6.1" data-path="reading-data.html"><a href="reading-data.html#sas-3"><i class="fa fa-check"></i><b>4.6.1</b> SAS</a></li>
-<li class="chapter" data-level="4.6.2" data-path="reading-data.html"><a href="reading-data.html#r-2"><i class="fa fa-check"></i><b>4.6.2</b> R</a></li>
-<li class="chapter" data-level="4.6.3" data-path="reading-data.html"><a href="reading-data.html#comparison"><i class="fa fa-check"></i><b>4.6.3</b> Comparison</a></li>
+<li class="chapter" data-level="5.6.1" data-path="reading-data.html"><a href="reading-data.html#sas-1"><i class="fa fa-check"></i><b>5.6.1</b> SAS</a></li>
+<li class="chapter" data-level="5.6.2" data-path="reading-data.html"><a href="reading-data.html#r-1"><i class="fa fa-check"></i><b>5.6.2</b> R</a></li>
+<li class="chapter" data-level="5.6.3" data-path="reading-data.html"><a href="reading-data.html#comparison"><i class="fa fa-check"></i><b>5.6.3</b> Comparison</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="reading-data.html"><a href="reading-data.html#references-and-links-2"><i class="fa fa-check"></i>References and Links</a></li>
 </ul></li>
-<li class="chapter" data-level="5" data-path="manipulating-data.html"><a href="manipulating-data.html"><i class="fa fa-check"></i><b>5</b> Manipulating Data</a>
+<li class="chapter" data-level="6" data-path="manipulating-data.html"><a href="manipulating-data.html"><i class="fa fa-check"></i><b>6</b> Manipulating Data</a>
 <ul>
 <li class="chapter" data-level="" data-path="manipulating-data.html"><a href="manipulating-data.html#manipulating-data-module-objectives"><i class="fa fa-check"></i>Manipulating Data: Module Objectives</a></li>
-<li class="chapter" data-level="5.1" data-path="manipulating-data.html"><a href="manipulating-data.html#tidy-data"><i class="fa fa-check"></i><b>5.1</b> Tidy Data</a></li>
-<li class="chapter" data-level="5.2" data-path="manipulating-data.html"><a href="manipulating-data.html#filter-pick-cases-rows-based-on-their-values"><i class="fa fa-check"></i><b>5.2</b> Filter: Pick cases (rows) based on their values</a>
+<li class="chapter" data-level="6.1" data-path="manipulating-data.html"><a href="manipulating-data.html#tidy-data"><i class="fa fa-check"></i><b>6.1</b> Tidy Data</a></li>
+<li class="chapter" data-level="6.2" data-path="manipulating-data.html"><a href="manipulating-data.html#filter-pick-cases-rows-based-on-their-values"><i class="fa fa-check"></i><b>6.2</b> Filter: Pick cases (rows) based on their values</a>
 <ul>
-<li class="chapter" data-level="5.2.1" data-path="manipulating-data.html"><a href="manipulating-data.html#common-filter-tasks"><i class="fa fa-check"></i><b>5.2.1</b> Common Filter() Tasks</a></li>
+<li class="chapter" data-level="6.2.1" data-path="manipulating-data.html"><a href="manipulating-data.html#common-filter-tasks"><i class="fa fa-check"></i><b>6.2.1</b> Common Filter() Tasks</a></li>
 <li class="chapter" data-level="" data-path="manipulating-data.html"><a href="manipulating-data.html#try-it-out-17"><i class="fa fa-check"></i>Try it out</a></li>
 </ul></li>
-<li class="chapter" data-level="5.3" data-path="manipulating-data.html"><a href="manipulating-data.html#select-pick-columns"><i class="fa fa-check"></i><b>5.3</b> Select: Pick columns</a></li>
-<li class="chapter" data-level="5.4" data-path="manipulating-data.html"><a href="manipulating-data.html#mutate-add-and-transform-variables"><i class="fa fa-check"></i><b>5.4</b> Mutate: Add and transform variables</a></li>
-<li class="chapter" data-level="5.5" data-path="manipulating-data.html"><a href="manipulating-data.html#summarize"><i class="fa fa-check"></i><b>5.5</b> Summarize</a></li>
-<li class="chapter" data-level="5.6" data-path="manipulating-data.html"><a href="manipulating-data.html#group-by-power"><i class="fa fa-check"></i><b>5.6</b> Group By + (?) = Power!</a></li>
-<li class="chapter" data-level="5.7" data-path="manipulating-data.html"><a href="manipulating-data.html#other-dplyr-functions-across-relocate"><i class="fa fa-check"></i><b>5.7</b> Other <code>dplyr</code> functions: across, relocate</a></li>
+<li class="chapter" data-level="6.3" data-path="manipulating-data.html"><a href="manipulating-data.html#select-pick-columns"><i class="fa fa-check"></i><b>6.3</b> Select: Pick columns</a></li>
+<li class="chapter" data-level="6.4" data-path="manipulating-data.html"><a href="manipulating-data.html#mutate-add-and-transform-variables"><i class="fa fa-check"></i><b>6.4</b> Mutate: Add and transform variables</a></li>
+<li class="chapter" data-level="6.5" data-path="manipulating-data.html"><a href="manipulating-data.html#summarize"><i class="fa fa-check"></i><b>6.5</b> Summarize</a></li>
+<li class="chapter" data-level="6.6" data-path="manipulating-data.html"><a href="manipulating-data.html#group-by-power"><i class="fa fa-check"></i><b>6.6</b> Group By + (?) = Power!</a></li>
+<li class="chapter" data-level="6.7" data-path="manipulating-data.html"><a href="manipulating-data.html#other-dplyr-functions-across-relocate"><i class="fa fa-check"></i><b>6.7</b> Other <code>dplyr</code> functions: across, relocate</a></li>
 <li class="chapter" data-level="" data-path="manipulating-data.html"><a href="manipulating-data.html#try-it-out-18"><i class="fa fa-check"></i>Try it out</a></li>
-<li class="chapter" data-level="" data-path="manipulating-data.html"><a href="manipulating-data.html#references-1"><i class="fa fa-check"></i>References</a></li>
+<li class="chapter" data-level="" data-path="manipulating-data.html"><a href="manipulating-data.html#references"><i class="fa fa-check"></i>References</a></li>
 </ul></li>
-<li class="chapter" data-level="6" data-path="transforming-data.html"><a href="transforming-data.html"><i class="fa fa-check"></i><b>6</b> Transforming Data</a>
+<li class="chapter" data-level="7" data-path="transforming-data.html"><a href="transforming-data.html"><i class="fa fa-check"></i><b>7</b> Transforming Data</a>
 <ul>
 <li class="chapter" data-level="" data-path="transforming-data.html"><a href="transforming-data.html#transforming-data-module-objectives"><i class="fa fa-check"></i>Transforming Data: Module Objectives</a></li>
-<li class="chapter" data-level="6.1" data-path="transforming-data.html"><a href="transforming-data.html#identifying-the-problem-messy-data"><i class="fa fa-check"></i><b>6.1</b> Identifying the problem: Messy data</a>
+<li class="chapter" data-level="7.1" data-path="transforming-data.html"><a href="transforming-data.html#identifying-the-problem-messy-data"><i class="fa fa-check"></i><b>7.1</b> Identifying the problem: Messy data</a>
 <ul>
 <li class="chapter" data-level="" data-path="transforming-data.html"><a href="transforming-data.html#try-it-out-19"><i class="fa fa-check"></i>Try it out</a></li>
 </ul></li>
-<li class="chapter" data-level="6.2" data-path="transforming-data.html"><a href="transforming-data.html#string-operations-creating-new-variables-and-separating-multi-variable-columns"><i class="fa fa-check"></i><b>6.2</b> String operations: Creating new variables and separating multi-variable columns</a>
+<li class="chapter" data-level="7.2" data-path="transforming-data.html"><a href="transforming-data.html#string-operations-creating-new-variables-and-separating-multi-variable-columns"><i class="fa fa-check"></i><b>7.2</b> String operations: Creating new variables and separating multi-variable columns</a>
 <ul>
-<li class="chapter" data-level="6.2.1" data-path="transforming-data.html"><a href="transforming-data.html#basic-string-operations"><i class="fa fa-check"></i><b>6.2.1</b> Basic String Operations</a></li>
-<li class="chapter" data-level="6.2.2" data-path="transforming-data.html"><a href="transforming-data.html#regular-expressions"><i class="fa fa-check"></i><b>6.2.2</b> Regular Expressions</a></li>
-<li class="chapter" data-level="6.2.3" data-path="transforming-data.html"><a href="transforming-data.html#joining-and-splitting-variables"><i class="fa fa-check"></i><b>6.2.3</b> Joining and Splitting Variables</a></li>
+<li class="chapter" data-level="7.2.1" data-path="transforming-data.html"><a href="transforming-data.html#basic-string-operations"><i class="fa fa-check"></i><b>7.2.1</b> Basic String Operations</a></li>
+<li class="chapter" data-level="7.2.2" data-path="transforming-data.html"><a href="transforming-data.html#regular-expressions"><i class="fa fa-check"></i><b>7.2.2</b> Regular Expressions</a></li>
+<li class="chapter" data-level="7.2.3" data-path="transforming-data.html"><a href="transforming-data.html#joining-and-splitting-variables"><i class="fa fa-check"></i><b>7.2.3</b> Joining and Splitting Variables</a></li>
 </ul></li>
-<li class="chapter" data-level="6.3" data-path="transforming-data.html"><a href="transforming-data.html#pivot-operations"><i class="fa fa-check"></i><b>6.3</b> Pivot operations</a>
+<li class="chapter" data-level="7.3" data-path="transforming-data.html"><a href="transforming-data.html#pivot-operations"><i class="fa fa-check"></i><b>7.3</b> Pivot operations</a>
 <ul>
-<li class="chapter" data-level="6.3.1" data-path="transforming-data.html"><a href="transforming-data.html#longer"><i class="fa fa-check"></i><b>6.3.1</b> Longer</a></li>
-<li class="chapter" data-level="6.3.2" data-path="transforming-data.html"><a href="transforming-data.html#wider"><i class="fa fa-check"></i><b>6.3.2</b> Wider</a></li>
+<li class="chapter" data-level="7.3.1" data-path="transforming-data.html"><a href="transforming-data.html#longer"><i class="fa fa-check"></i><b>7.3.1</b> Longer</a></li>
+<li class="chapter" data-level="7.3.2" data-path="transforming-data.html"><a href="transforming-data.html#wider"><i class="fa fa-check"></i><b>7.3.2</b> Wider</a></li>
 </ul></li>
-<li class="chapter" data-level="6.4" data-path="transforming-data.html"><a href="transforming-data.html#relational-data-and-joining-tables"><i class="fa fa-check"></i><b>6.4</b> Relational Data and Joining Tables</a>
+<li class="chapter" data-level="7.4" data-path="transforming-data.html"><a href="transforming-data.html#relational-data-and-joining-tables"><i class="fa fa-check"></i><b>7.4</b> Relational Data and Joining Tables</a>
 <ul>
-<li class="chapter" data-level="6.4.1" data-path="transforming-data.html"><a href="transforming-data.html#demonstration-dataset-setup"><i class="fa fa-check"></i><b>6.4.1</b> Demonstration dataset setup</a></li>
-<li class="chapter" data-level="6.4.2" data-path="transforming-data.html"><a href="transforming-data.html#mutating-joins"><i class="fa fa-check"></i><b>6.4.2</b> Mutating joins</a></li>
+<li class="chapter" data-level="7.4.1" data-path="transforming-data.html"><a href="transforming-data.html#demonstration-dataset-setup"><i class="fa fa-check"></i><b>7.4.1</b> Demonstration dataset setup</a></li>
+<li class="chapter" data-level="7.4.2" data-path="transforming-data.html"><a href="transforming-data.html#mutating-joins"><i class="fa fa-check"></i><b>7.4.2</b> Mutating joins</a></li>
 </ul></li>
-<li class="chapter" data-level="6.5" data-path="transforming-data.html"><a href="transforming-data.html#example-gas-prices-data"><i class="fa fa-check"></i><b>6.5</b> Example: Gas Prices Data</a>
+<li class="chapter" data-level="7.5" data-path="transforming-data.html"><a href="transforming-data.html#example-gas-prices-data"><i class="fa fa-check"></i><b>7.5</b> Example: Gas Prices Data</a>
 <ul>
-<li class="chapter" data-level="6.5.1" data-path="transforming-data.html"><a href="transforming-data.html#option-1-manual-formatting-in-excel"><i class="fa fa-check"></i><b>6.5.1</b> Option 1: Manual formatting in Excel</a></li>
-<li class="chapter" data-level="6.5.2" data-path="transforming-data.html"><a href="transforming-data.html#option-2-r"><i class="fa fa-check"></i><b>6.5.2</b> Option 2: R</a></li>
-<li class="chapter" data-level="6.5.3" data-path="transforming-data.html"><a href="transforming-data.html#option-3-sas"><i class="fa fa-check"></i><b>6.5.3</b> Option 3: SAS</a></li>
+<li class="chapter" data-level="7.5.1" data-path="transforming-data.html"><a href="transforming-data.html#option-1-manual-formatting-in-excel"><i class="fa fa-check"></i><b>7.5.1</b> Option 1: Manual formatting in Excel</a></li>
+<li class="chapter" data-level="7.5.2" data-path="transforming-data.html"><a href="transforming-data.html#option-2-r"><i class="fa fa-check"></i><b>7.5.2</b> Option 2: R</a></li>
+<li class="chapter" data-level="7.5.3" data-path="transforming-data.html"><a href="transforming-data.html#option-3-sas"><i class="fa fa-check"></i><b>7.5.3</b> Option 3: SAS</a></li>
 </ul></li>
-<li class="chapter" data-level="" data-path="transforming-data.html"><a href="transforming-data.html#references-2"><i class="fa fa-check"></i>References</a></li>
+<li class="chapter" data-level="" data-path="transforming-data.html"><a href="transforming-data.html#references-1"><i class="fa fa-check"></i>References</a></li>
 </ul></li>
-<li class="chapter" data-level="7" data-path="debugging.html"><a href="debugging.html"><i class="fa fa-check"></i><b>7</b> Principles of Debugging</a>
+<li class="chapter" data-level="8" data-path="debugging.html"><a href="debugging.html"><i class="fa fa-check"></i><b>8</b> Principles of Debugging</a>
 <ul>
 <li class="chapter" data-level="" data-path="debugging.html"><a href="debugging.html#debugging-module-objectives"><i class="fa fa-check"></i>Debugging: Module Objectives</a></li>
-<li class="chapter" data-level="7.1" data-path="debugging.html"><a href="debugging.html#step-1-check-your-spelling."><i class="fa fa-check"></i><b>7.1</b> Step 1: Check your spelling.</a></li>
-<li class="chapter" data-level="7.2" data-path="debugging.html"><a href="debugging.html#defensive-programming"><i class="fa fa-check"></i><b>7.2</b> Defensive Programming</a></li>
-<li class="chapter" data-level="7.3" data-path="debugging.html"><a href="debugging.html#general-debugging-strategies"><i class="fa fa-check"></i><b>7.3</b> General Debugging Strategies</a></li>
-<li class="chapter" data-level="7.4" data-path="debugging.html"><a href="debugging.html#debugging-tools-in-r"><i class="fa fa-check"></i><b>7.4</b> Debugging Tools in R</a>
+<li class="chapter" data-level="8.1" data-path="debugging.html"><a href="debugging.html#step-1-check-your-spelling."><i class="fa fa-check"></i><b>8.1</b> Step 1: Check your spelling.</a></li>
+<li class="chapter" data-level="8.2" data-path="debugging.html"><a href="debugging.html#defensive-programming"><i class="fa fa-check"></i><b>8.2</b> Defensive Programming</a></li>
+<li class="chapter" data-level="8.3" data-path="debugging.html"><a href="debugging.html#general-debugging-strategies"><i class="fa fa-check"></i><b>8.3</b> General Debugging Strategies</a></li>
+<li class="chapter" data-level="8.4" data-path="debugging.html"><a href="debugging.html#debugging-tools-in-r"><i class="fa fa-check"></i><b>8.4</b> Debugging Tools in R</a>
 <ul>
-<li class="chapter" data-level="7.4.1" data-path="debugging.html"><a href="debugging.html#low-tech-debugging-with-print-and-other-tools"><i class="fa fa-check"></i><b>7.4.1</b> Low tech debugging with print() and other tools</a></li>
-<li class="chapter" data-level="7.4.2" data-path="debugging.html"><a href="debugging.html#after-an-error-has-occurred---traceback"><i class="fa fa-check"></i><b>7.4.2</b> After an error has occurred - <code>traceback()</code></a></li>
-<li class="chapter" data-level="7.4.3" data-path="debugging.html"><a href="debugging.html#browser---debugging-your-own-code-interactively"><i class="fa fa-check"></i><b>7.4.3</b> <code>browser()</code> - debugging your own code, interactively</a></li>
-<li class="chapter" data-level="7.4.4" data-path="debugging.html"><a href="debugging.html#debug---the-general-debugging-workhorse"><i class="fa fa-check"></i><b>7.4.4</b> <code>debug()</code> - the general debugging workhorse</a></li>
+<li class="chapter" data-level="8.4.1" data-path="debugging.html"><a href="debugging.html#low-tech-debugging-with-print-and-other-tools"><i class="fa fa-check"></i><b>8.4.1</b> Low tech debugging with print() and other tools</a></li>
+<li class="chapter" data-level="8.4.2" data-path="debugging.html"><a href="debugging.html#after-an-error-has-occurred---traceback"><i class="fa fa-check"></i><b>8.4.2</b> After an error has occurred - <code>traceback()</code></a></li>
+<li class="chapter" data-level="8.4.3" data-path="debugging.html"><a href="debugging.html#browser---debugging-your-own-code-interactively"><i class="fa fa-check"></i><b>8.4.3</b> <code>browser()</code> - debugging your own code, interactively</a></li>
+<li class="chapter" data-level="8.4.4" data-path="debugging.html"><a href="debugging.html#debug---the-general-debugging-workhorse"><i class="fa fa-check"></i><b>8.4.4</b> <code>debug()</code> - the general debugging workhorse</a></li>
 <li class="chapter" data-level="" data-path="debugging.html"><a href="debugging.html#try-it-out-25"><i class="fa fa-check"></i>Try it out</a></li>
 </ul></li>
-<li class="chapter" data-level="7.5" data-path="debugging.html"><a href="debugging.html#debugging-tools-in-sas"><i class="fa fa-check"></i><b>7.5</b> Debugging Tools in SAS</a></li>
-<li class="chapter" data-level="7.6" data-path="debugging.html"><a href="debugging.html#minimal-working-examples"><i class="fa fa-check"></i><b>7.6</b> Minimal Working Examples</a>
+<li class="chapter" data-level="8.5" data-path="debugging.html"><a href="debugging.html#debugging-tools-in-sas"><i class="fa fa-check"></i><b>8.5</b> Debugging Tools in SAS</a></li>
+<li class="chapter" data-level="8.6" data-path="debugging.html"><a href="debugging.html#minimal-working-examples"><i class="fa fa-check"></i><b>8.6</b> Minimal Working Examples</a>
 <ul>
-<li class="chapter" data-level="7.6.1" data-path="debugging.html"><a href="debugging.html#example-mwes"><i class="fa fa-check"></i><b>7.6.1</b> Example: MWEs</a></li>
-<li class="chapter" data-level="7.6.2" data-path="debugging.html"><a href="debugging.html#try-it-out-26"><i class="fa fa-check"></i><b>7.6.2</b> Try It Out</a></li>
+<li class="chapter" data-level="8.6.1" data-path="debugging.html"><a href="debugging.html#example-mwes"><i class="fa fa-check"></i><b>8.6.1</b> Example: MWEs</a></li>
+<li class="chapter" data-level="8.6.2" data-path="debugging.html"><a href="debugging.html#try-it-out-26"><i class="fa fa-check"></i><b>8.6.2</b> Try It Out</a></li>
 </ul></li>
-<li class="chapter" data-level="" data-path="debugging.html"><a href="debugging.html#references-3"><i class="fa fa-check"></i>References</a></li>
+<li class="chapter" data-level="" data-path="debugging.html"><a href="debugging.html#references-2"><i class="fa fa-check"></i>References</a></li>
 </ul></li>
 <li class="part"><span><b>III Applications</b></span></li>
-<li class="chapter" data-level="8" data-path="data-vis-intro.html"><a href="data-vis-intro.html"><i class="fa fa-check"></i><b>8</b> Introduction to Data Visualization</a>
+<li class="chapter" data-level="9" data-path="data-vis-intro.html"><a href="data-vis-intro.html"><i class="fa fa-check"></i><b>9</b> Introduction to Data Visualization</a>
 <ul>
 <li class="chapter" data-level="" data-path="data-vis-intro.html"><a href="data-vis-intro.html#visualization-module-objectives"><i class="fa fa-check"></i>Visualization: Module Objectives</a></li>
-<li class="chapter" data-level="8.1" data-path="data-vis-intro.html"><a href="data-vis-intro.html#why-do-we-create-graphics"><i class="fa fa-check"></i><b>8.1</b> Why do we create graphics?</a></li>
-<li class="chapter" data-level="8.2" data-path="data-vis-intro.html"><a href="data-vis-intro.html#general-approaches-to-creating-graphics"><i class="fa fa-check"></i><b>8.2</b> General approaches to creating graphics</a></li>
-<li class="chapter" data-level="8.3" data-path="data-vis-intro.html"><a href="data-vis-intro.html#the-grammar-of-graphics"><i class="fa fa-check"></i><b>8.3</b> The Grammar of Graphics</a>
+<li class="chapter" data-level="9.1" data-path="data-vis-intro.html"><a href="data-vis-intro.html#why-do-we-create-graphics"><i class="fa fa-check"></i><b>9.1</b> Why do we create graphics?</a></li>
+<li class="chapter" data-level="9.2" data-path="data-vis-intro.html"><a href="data-vis-intro.html#general-approaches-to-creating-graphics"><i class="fa fa-check"></i><b>9.2</b> General approaches to creating graphics</a></li>
+<li class="chapter" data-level="9.3" data-path="data-vis-intro.html"><a href="data-vis-intro.html#the-grammar-of-graphics"><i class="fa fa-check"></i><b>9.3</b> The Grammar of Graphics</a>
 <ul>
-<li class="chapter" data-level="8.3.1" data-path="data-vis-intro.html"><a href="data-vis-intro.html#demonstration-aesthetic-mappings-and-basic-plots"><i class="fa fa-check"></i><b>8.3.1</b> Demonstration: Aesthetic Mappings and Basic Plots</a></li>
-<li class="chapter" data-level="8.3.2" data-path="data-vis-intro.html"><a href="data-vis-intro.html#syntax-and-general-structure-layers"><i class="fa fa-check"></i><b>8.3.2</b> Syntax and General Structure: Layers</a></li>
-<li class="chapter" data-level="8.3.3" data-path="data-vis-intro.html"><a href="data-vis-intro.html#statistics-and-different-types-of-plots"><i class="fa fa-check"></i><b>8.3.3</b> Statistics and Different Types of Plots</a></li>
-<li class="chapter" data-level="8.3.4" data-path="data-vis-intro.html"><a href="data-vis-intro.html#small-multiples"><i class="fa fa-check"></i><b>8.3.4</b> Small Multiples</a></li>
+<li class="chapter" data-level="9.3.1" data-path="data-vis-intro.html"><a href="data-vis-intro.html#demonstration-aesthetic-mappings-and-basic-plots"><i class="fa fa-check"></i><b>9.3.1</b> Demonstration: Aesthetic Mappings and Basic Plots</a></li>
+<li class="chapter" data-level="9.3.2" data-path="data-vis-intro.html"><a href="data-vis-intro.html#syntax-and-general-structure-layers"><i class="fa fa-check"></i><b>9.3.2</b> Syntax and General Structure: Layers</a></li>
+<li class="chapter" data-level="9.3.3" data-path="data-vis-intro.html"><a href="data-vis-intro.html#statistics-and-different-types-of-plots"><i class="fa fa-check"></i><b>9.3.3</b> Statistics and Different Types of Plots</a></li>
+<li class="chapter" data-level="9.3.4" data-path="data-vis-intro.html"><a href="data-vis-intro.html#small-multiples"><i class="fa fa-check"></i><b>9.3.4</b> Small Multiples</a></li>
 <li class="chapter" data-level="" data-path="data-vis-intro.html"><a href="data-vis-intro.html#try-it-out-30"><i class="fa fa-check"></i>Try it out</a></li>
 </ul></li>
-<li class="chapter" data-level="8.4" data-path="data-vis-intro.html"><a href="data-vis-intro.html#good-charts"><i class="fa fa-check"></i><b>8.4</b> Good charts</a>
+<li class="chapter" data-level="9.4" data-path="data-vis-intro.html"><a href="data-vis-intro.html#good-charts"><i class="fa fa-check"></i><b>9.4</b> Good charts</a>
 <ul>
-<li class="chapter" data-level="8.4.1" data-path="data-vis-intro.html"><a href="data-vis-intro.html#perceptual-and-cognitive-factors"><i class="fa fa-check"></i><b>8.4.1</b> Perceptual and Cognitive Factors</a></li>
-<li class="chapter" data-level="8.4.2" data-path="data-vis-intro.html"><a href="data-vis-intro.html#general-guidelines-for-accuracy"><i class="fa fa-check"></i><b>8.4.2</b> General guidelines for accuracy</a></li>
-<li class="chapter" data-level="8.4.3" data-path="data-vis-intro.html"><a href="data-vis-intro.html#how-do-we-know"><i class="fa fa-check"></i><b>8.4.3</b> How do we know?</a></li>
+<li class="chapter" data-level="9.4.1" data-path="data-vis-intro.html"><a href="data-vis-intro.html#perceptual-and-cognitive-factors"><i class="fa fa-check"></i><b>9.4.1</b> Perceptual and Cognitive Factors</a></li>
+<li class="chapter" data-level="9.4.2" data-path="data-vis-intro.html"><a href="data-vis-intro.html#general-guidelines-for-accuracy"><i class="fa fa-check"></i><b>9.4.2</b> General guidelines for accuracy</a></li>
+<li class="chapter" data-level="9.4.3" data-path="data-vis-intro.html"><a href="data-vis-intro.html#how-do-we-know"><i class="fa fa-check"></i><b>9.4.3</b> How do we know?</a></li>
 </ul></li>
-<li class="chapter" data-level="8.5" data-path="data-vis-intro.html"><a href="data-vis-intro.html#other-things-worth-exploring-and-future-expansions-for-this-chapter"><i class="fa fa-check"></i><b>8.5</b> Other things worth exploring (and future expansions for this chapter)</a></li>
-<li class="chapter" data-level="" data-path="data-vis-intro.html"><a href="data-vis-intro.html#references-4"><i class="fa fa-check"></i>References</a>
+<li class="chapter" data-level="9.5" data-path="data-vis-intro.html"><a href="data-vis-intro.html#other-things-worth-exploring-and-future-expansions-for-this-chapter"><i class="fa fa-check"></i><b>9.5</b> Other things worth exploring (and future expansions for this chapter)</a></li>
+<li class="chapter" data-level="" data-path="data-vis-intro.html"><a href="data-vis-intro.html#references-3"><i class="fa fa-check"></i>References</a>
 <ul>
-<li class="chapter" data-level="8.5.1" data-path="data-vis-intro.html"><a href="data-vis-intro.html#motivation"><i class="fa fa-check"></i><b>8.5.1</b> Motivation</a></li>
-<li class="chapter" data-level="8.5.2" data-path="data-vis-intro.html"><a href="data-vis-intro.html#r-graphics"><i class="fa fa-check"></i><b>8.5.2</b> R graphics</a></li>
-<li class="chapter" data-level="8.5.3" data-path="data-vis-intro.html"><a href="data-vis-intro.html#sas-graphics"><i class="fa fa-check"></i><b>8.5.3</b> SAS graphics</a></li>
-<li class="chapter" data-level="8.5.4" data-path="data-vis-intro.html"><a href="data-vis-intro.html#types-of-charts-and-chart-styling"><i class="fa fa-check"></i><b>8.5.4</b> Types of Charts and Chart Styling</a></li>
-<li class="chapter" data-level="8.5.5" data-path="data-vis-intro.html"><a href="data-vis-intro.html#other-graphics-packages"><i class="fa fa-check"></i><b>8.5.5</b> Other Graphics packages</a></li>
+<li class="chapter" data-level="9.5.1" data-path="data-vis-intro.html"><a href="data-vis-intro.html#motivation"><i class="fa fa-check"></i><b>9.5.1</b> Motivation</a></li>
+<li class="chapter" data-level="9.5.2" data-path="data-vis-intro.html"><a href="data-vis-intro.html#r-graphics"><i class="fa fa-check"></i><b>9.5.2</b> R graphics</a></li>
+<li class="chapter" data-level="9.5.3" data-path="data-vis-intro.html"><a href="data-vis-intro.html#sas-graphics"><i class="fa fa-check"></i><b>9.5.3</b> SAS graphics</a></li>
+<li class="chapter" data-level="9.5.4" data-path="data-vis-intro.html"><a href="data-vis-intro.html#types-of-charts-and-chart-styling"><i class="fa fa-check"></i><b>9.5.4</b> Types of Charts and Chart Styling</a></li>
+<li class="chapter" data-level="9.5.5" data-path="data-vis-intro.html"><a href="data-vis-intro.html#other-graphics-packages"><i class="fa fa-check"></i><b>9.5.5</b> Other Graphics packages</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="9" data-path="simulation.html"><a href="simulation.html"><i class="fa fa-check"></i><b>9</b> Simulation and Reproducibility</a>
+<li class="chapter" data-level="10" data-path="simulation.html"><a href="simulation.html"><i class="fa fa-check"></i><b>10</b> Simulation and Reproducibility</a>
 <ul>
 <li class="chapter" data-level="" data-path="simulation.html"><a href="simulation.html#simulation-module-objectives"><i class="fa fa-check"></i>Simulation: Module Objectives</a></li>
-<li class="chapter" data-level="9.1" data-path="simulation.html"><a href="simulation.html#pseudorandom-number-generation"><i class="fa fa-check"></i><b>9.1</b> Pseudorandom Number Generation</a></li>
-<li class="chapter" data-level="9.2" data-path="simulation.html"><a href="simulation.html#built-in-simulations-from-distributions"><i class="fa fa-check"></i><b>9.2</b> Built-in simulations from distributions</a>
+<li class="chapter" data-level="10.1" data-path="simulation.html"><a href="simulation.html#pseudorandom-number-generation"><i class="fa fa-check"></i><b>10.1</b> Pseudorandom Number Generation</a></li>
+<li class="chapter" data-level="10.2" data-path="simulation.html"><a href="simulation.html#built-in-simulations-from-distributions"><i class="fa fa-check"></i><b>10.2</b> Built-in simulations from distributions</a>
 <ul>
 <li class="chapter" data-level="" data-path="simulation.html"><a href="simulation.html#try-it-out-32"><i class="fa fa-check"></i>Try it out</a></li>
 </ul></li>
-<li class="chapter" data-level="9.3" data-path="simulation.html"><a href="simulation.html#simulation-to-test-model-assumptions"><i class="fa fa-check"></i><b>9.3</b> Simulation to test model assumptions</a>
+<li class="chapter" data-level="10.3" data-path="simulation.html"><a href="simulation.html#simulation-to-test-model-assumptions"><i class="fa fa-check"></i><b>10.3</b> Simulation to test model assumptions</a>
 <ul>
 <li class="chapter" data-level="" data-path="simulation.html"><a href="simulation.html#try-it-out-33"><i class="fa fa-check"></i>Try it out</a></li>
 </ul></li>
-<li class="chapter" data-level="9.4" data-path="simulation.html"><a href="simulation.html#monte-carlo-methods"><i class="fa fa-check"></i><b>9.4</b> Monte Carlo methods</a>
+<li class="chapter" data-level="10.4" data-path="simulation.html"><a href="simulation.html#monte-carlo-methods"><i class="fa fa-check"></i><b>10.4</b> Monte Carlo methods</a>
 <ul>
 <li class="chapter" data-level="" data-path="simulation.html"><a href="simulation.html#try-it-out-34"><i class="fa fa-check"></i>Try it out</a></li>
 </ul></li>
-<li class="chapter" data-level="9.5" data-path="simulation.html"><a href="simulation.html#references-5"><i class="fa fa-check"></i><b>9.5</b> References</a></li>
+<li class="chapter" data-level="10.5" data-path="simulation.html"><a href="simulation.html#references-4"><i class="fa fa-check"></i><b>10.5</b> References</a></li>
 </ul></li>
-<li class="chapter" data-level="10" data-path="docs-reports.html"><a href="docs-reports.html"><i class="fa fa-check"></i><b>10</b> Documents and Reports</a>
+<li class="chapter" data-level="11" data-path="docs-reports.html"><a href="docs-reports.html"><i class="fa fa-check"></i><b>11</b> Documents and Reports</a>
 <ul>
 <li class="chapter" data-level="" data-path="docs-reports.html"><a href="docs-reports.html#documents-and-reports-module-objectives"><i class="fa fa-check"></i>Documents and Reports: Module Objectives</a></li>
-<li class="chapter" data-level="10.1" data-path="docs-reports.html"><a href="docs-reports.html#literate-programming-knitr-and-rmarkdown"><i class="fa fa-check"></i><b>10.1</b> Literate Programming, <code>knitr</code>, and <code>rmarkdown</code></a></li>
-<li class="chapter" data-level="10.2" data-path="docs-reports.html"><a href="docs-reports.html#a-very-brief-introduction-to-latex"><i class="fa fa-check"></i><b>10.2</b> A Very Brief Introduction to LaTeX</a>
+<li class="chapter" data-level="11.1" data-path="docs-reports.html"><a href="docs-reports.html#literate-programming-knitr-and-rmarkdown"><i class="fa fa-check"></i><b>11.1</b> Literate Programming, <code>knitr</code>, and <code>rmarkdown</code></a></li>
+<li class="chapter" data-level="11.2" data-path="docs-reports.html"><a href="docs-reports.html#a-very-brief-introduction-to-latex"><i class="fa fa-check"></i><b>11.2</b> A Very Brief Introduction to LaTeX</a>
 <ul>
 <li class="chapter" data-level="" data-path="docs-reports.html"><a href="docs-reports.html#try-it-out-35"><i class="fa fa-check"></i>Try it out</a></li>
-<li class="chapter" data-level="10.2.1" data-path="docs-reports.html"><a href="docs-reports.html#knitr"><i class="fa fa-check"></i><b>10.2.1</b> Knitr</a></li>
+<li class="chapter" data-level="11.2.1" data-path="docs-reports.html"><a href="docs-reports.html#knitr"><i class="fa fa-check"></i><b>11.2.1</b> Knitr</a></li>
 </ul></li>
-<li class="chapter" data-level="10.3" data-path="docs-reports.html"><a href="docs-reports.html#slides"><i class="fa fa-check"></i><b>10.3</b> Slides</a>
+<li class="chapter" data-level="11.3" data-path="docs-reports.html"><a href="docs-reports.html#slides"><i class="fa fa-check"></i><b>11.3</b> Slides</a>
 <ul>
-<li class="chapter" data-level="10.3.1" data-path="docs-reports.html"><a href="docs-reports.html#beamer-latex-and-knitr"><i class="fa fa-check"></i><b>10.3.1</b> Beamer (LaTeX) and knitr</a></li>
-<li class="chapter" data-level="10.3.2" data-path="docs-reports.html"><a href="docs-reports.html#html-slides"><i class="fa fa-check"></i><b>10.3.2</b> HTML slides</a></li>
+<li class="chapter" data-level="11.3.1" data-path="docs-reports.html"><a href="docs-reports.html#beamer-latex-and-knitr"><i class="fa fa-check"></i><b>11.3.1</b> Beamer (LaTeX) and knitr</a></li>
+<li class="chapter" data-level="11.3.2" data-path="docs-reports.html"><a href="docs-reports.html#html-slides"><i class="fa fa-check"></i><b>11.3.2</b> HTML slides</a></li>
 <li class="chapter" data-level="" data-path="docs-reports.html"><a href="docs-reports.html#try-it-out-37"><i class="fa fa-check"></i>Try it out</a></li>
 </ul></li>
-<li class="chapter" data-level="10.4" data-path="docs-reports.html"><a href="docs-reports.html#posters"><i class="fa fa-check"></i><b>10.4</b> Posters</a>
+<li class="chapter" data-level="11.4" data-path="docs-reports.html"><a href="docs-reports.html#posters"><i class="fa fa-check"></i><b>11.4</b> Posters</a>
 <ul>
-<li class="chapter" data-level="10.4.1" data-path="docs-reports.html"><a href="docs-reports.html#latex-2"><i class="fa fa-check"></i><b>10.4.1</b> LaTeX</a></li>
-<li class="chapter" data-level="10.4.2" data-path="docs-reports.html"><a href="docs-reports.html#posterdown"><i class="fa fa-check"></i><b>10.4.2</b> Posterdown</a></li>
-<li class="chapter" data-level="10.4.3" data-path="docs-reports.html"><a href="docs-reports.html#pagedown"><i class="fa fa-check"></i><b>10.4.3</b> Pagedown</a></li>
+<li class="chapter" data-level="11.4.1" data-path="docs-reports.html"><a href="docs-reports.html#latex"><i class="fa fa-check"></i><b>11.4.1</b> LaTeX</a></li>
+<li class="chapter" data-level="11.4.2" data-path="docs-reports.html"><a href="docs-reports.html#posterdown"><i class="fa fa-check"></i><b>11.4.2</b> Posterdown</a></li>
+<li class="chapter" data-level="11.4.3" data-path="docs-reports.html"><a href="docs-reports.html#pagedown"><i class="fa fa-check"></i><b>11.4.3</b> Pagedown</a></li>
 </ul></li>
-<li class="chapter" data-level="10.5" data-path="docs-reports.html"><a href="docs-reports.html#resumecv"><i class="fa fa-check"></i><b>10.5</b> Resume/CV</a></li>
-<li class="chapter" data-level="10.6" data-path="docs-reports.html"><a href="docs-reports.html#using-github-pages"><i class="fa fa-check"></i><b>10.6</b> Using Github Pages</a></li>
-<li class="chapter" data-level="10.7" data-path="docs-reports.html"><a href="docs-reports.html#references-6"><i class="fa fa-check"></i><b>10.7</b> References</a></li>
+<li class="chapter" data-level="11.5" data-path="docs-reports.html"><a href="docs-reports.html#resumecv"><i class="fa fa-check"></i><b>11.5</b> Resume/CV</a></li>
+<li class="chapter" data-level="11.6" data-path="docs-reports.html"><a href="docs-reports.html#using-github-pages"><i class="fa fa-check"></i><b>11.6</b> Using Github Pages</a></li>
+<li class="chapter" data-level="11.7" data-path="docs-reports.html"><a href="docs-reports.html#references-5"><i class="fa fa-check"></i><b>11.7</b> References</a></li>
 </ul></li>
-<li class="chapter" data-level="11" data-path="animated-and-interactive-graphics.html"><a href="animated-and-interactive-graphics.html"><i class="fa fa-check"></i><b>11</b> Animated and Interactive Graphics</a>
+<li class="chapter" data-level="12" data-path="animated-and-interactive-graphics.html"><a href="animated-and-interactive-graphics.html"><i class="fa fa-check"></i><b>12</b> Animated and Interactive Graphics</a>
 <ul>
 <li class="chapter" data-level="" data-path="animated-and-interactive-graphics.html"><a href="animated-and-interactive-graphics.html#animated-and-interactive-graphics-module-objectives"><i class="fa fa-check"></i>Animated and Interactive Graphics: Module Objectives</a></li>
-<li class="chapter" data-level="11.1" data-path="animated-and-interactive-graphics.html"><a href="animated-and-interactive-graphics.html#plotly"><i class="fa fa-check"></i><b>11.1</b> Plotly</a>
+<li class="chapter" data-level="12.1" data-path="animated-and-interactive-graphics.html"><a href="animated-and-interactive-graphics.html#plotly"><i class="fa fa-check"></i><b>12.1</b> Plotly</a>
 <ul>
-<li class="chapter" data-level="11.1.1" data-path="animated-and-interactive-graphics.html"><a href="animated-and-interactive-graphics.html#ggplotly-ggplot2-to-plotly-conversions"><i class="fa fa-check"></i><b>11.1.1</b> <code>ggplotly</code>: ggplot2 to plotly conversions</a></li>
-<li class="chapter" data-level="11.1.2" data-path="animated-and-interactive-graphics.html"><a href="animated-and-interactive-graphics.html#plot_ly-like-base-plotting-but-interactive"><i class="fa fa-check"></i><b>11.1.2</b> <code>plot_ly</code>: Like base plotting, but interactive!</a></li>
-<li class="chapter" data-level="11.1.3" data-path="animated-and-interactive-graphics.html"><a href="animated-and-interactive-graphics.html#animation"><i class="fa fa-check"></i><b>11.1.3</b> Animation</a></li>
+<li class="chapter" data-level="12.1.1" data-path="animated-and-interactive-graphics.html"><a href="animated-and-interactive-graphics.html#ggplotly-ggplot2-to-plotly-conversions"><i class="fa fa-check"></i><b>12.1.1</b> <code>ggplotly</code>: ggplot2 to plotly conversions</a></li>
+<li class="chapter" data-level="12.1.2" data-path="animated-and-interactive-graphics.html"><a href="animated-and-interactive-graphics.html#plot_ly-like-base-plotting-but-interactive"><i class="fa fa-check"></i><b>12.1.2</b> <code>plot_ly</code>: Like base plotting, but interactive!</a></li>
+<li class="chapter" data-level="12.1.3" data-path="animated-and-interactive-graphics.html"><a href="animated-and-interactive-graphics.html#animation"><i class="fa fa-check"></i><b>12.1.3</b> Animation</a></li>
 </ul></li>
-<li class="chapter" data-level="11.2" data-path="animated-and-interactive-graphics.html"><a href="animated-and-interactive-graphics.html#leaflet-maps"><i class="fa fa-check"></i><b>11.2</b> Leaflet maps</a>
+<li class="chapter" data-level="12.2" data-path="animated-and-interactive-graphics.html"><a href="animated-and-interactive-graphics.html#leaflet-maps"><i class="fa fa-check"></i><b>12.2</b> Leaflet maps</a>
 <ul>
 <li class="chapter" data-level="" data-path="animated-and-interactive-graphics.html"><a href="animated-and-interactive-graphics.html#try-it-out-41"><i class="fa fa-check"></i>Try it out</a></li>
 </ul></li>
-<li class="chapter" data-level="11.3" data-path="animated-and-interactive-graphics.html"><a href="animated-and-interactive-graphics.html#shiny"><i class="fa fa-check"></i><b>11.3</b> Shiny</a></li>
-<li class="chapter" data-level="11.4" data-path="animated-and-interactive-graphics.html"><a href="animated-and-interactive-graphics.html#general-references"><i class="fa fa-check"></i><b>11.4</b> General References</a>
+<li class="chapter" data-level="12.3" data-path="animated-and-interactive-graphics.html"><a href="animated-and-interactive-graphics.html#shiny"><i class="fa fa-check"></i><b>12.3</b> Shiny</a></li>
+<li class="chapter" data-level="12.4" data-path="animated-and-interactive-graphics.html"><a href="animated-and-interactive-graphics.html#general-references"><i class="fa fa-check"></i><b>12.4</b> General References</a>
 <ul>
-<li class="chapter" data-level="11.4.1" data-path="animated-and-interactive-graphics.html"><a href="animated-and-interactive-graphics.html#other-interactive-tools"><i class="fa fa-check"></i><b>11.4.1</b> Other interactive tools</a></li>
-<li class="chapter" data-level="11.4.2" data-path="animated-and-interactive-graphics.html"><a href="animated-and-interactive-graphics.html#debugging-1"><i class="fa fa-check"></i><b>11.4.2</b> Debugging</a></li>
+<li class="chapter" data-level="12.4.1" data-path="animated-and-interactive-graphics.html"><a href="animated-and-interactive-graphics.html#other-interactive-tools"><i class="fa fa-check"></i><b>12.4.1</b> Other interactive tools</a></li>
+<li class="chapter" data-level="12.4.2" data-path="animated-and-interactive-graphics.html"><a href="animated-and-interactive-graphics.html#debugging-1"><i class="fa fa-check"></i><b>12.4.2</b> Debugging</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="12" data-path="lists-nested-lists-and-functional-programming.html"><a href="lists-nested-lists-and-functional-programming.html"><i class="fa fa-check"></i><b>12</b> Lists, Nested Lists, and Functional Programming</a>
+<li class="chapter" data-level="13" data-path="lists-nested-lists-and-functional-programming.html"><a href="lists-nested-lists-and-functional-programming.html"><i class="fa fa-check"></i><b>13</b> Lists, Nested Lists, and Functional Programming</a>
 <ul>
-<li class="chapter" data-level="12.1" data-path="lists-nested-lists-and-functional-programming.html"><a href="lists-nested-lists-and-functional-programming.html#review-lists-and-vectors"><i class="fa fa-check"></i><b>12.1</b> Review: Lists and Vectors</a></li>
-<li class="chapter" data-level="12.2" data-path="lists-nested-lists-and-functional-programming.html"><a href="lists-nested-lists-and-functional-programming.html#introduction-to-map"><i class="fa fa-check"></i><b>12.2</b> Introduction to <code>map</code></a></li>
-<li class="chapter" data-level="12.3" data-path="lists-nested-lists-and-functional-programming.html"><a href="lists-nested-lists-and-functional-programming.html#creating-and-using-list-columns"><i class="fa fa-check"></i><b>12.3</b> Creating (and Using) List-columns</a></li>
-<li class="chapter" data-level="12.4" data-path="lists-nested-lists-and-functional-programming.html"><a href="lists-nested-lists-and-functional-programming.html#ways-to-use-map"><i class="fa fa-check"></i><b>12.4</b> Ways to use <code>map</code></a>
+<li class="chapter" data-level="13.1" data-path="lists-nested-lists-and-functional-programming.html"><a href="lists-nested-lists-and-functional-programming.html#review-lists-and-vectors"><i class="fa fa-check"></i><b>13.1</b> Review: Lists and Vectors</a></li>
+<li class="chapter" data-level="13.2" data-path="lists-nested-lists-and-functional-programming.html"><a href="lists-nested-lists-and-functional-programming.html#introduction-to-map"><i class="fa fa-check"></i><b>13.2</b> Introduction to <code>map</code></a></li>
+<li class="chapter" data-level="13.3" data-path="lists-nested-lists-and-functional-programming.html"><a href="lists-nested-lists-and-functional-programming.html#creating-and-using-list-columns"><i class="fa fa-check"></i><b>13.3</b> Creating (and Using) List-columns</a></li>
+<li class="chapter" data-level="13.4" data-path="lists-nested-lists-and-functional-programming.html"><a href="lists-nested-lists-and-functional-programming.html#ways-to-use-map"><i class="fa fa-check"></i><b>13.4</b> Ways to use <code>map</code></a>
 <ul>
 <li class="chapter" data-level="" data-path="lists-nested-lists-and-functional-programming.html"><a href="lists-nested-lists-and-functional-programming.html#try-it-out-42"><i class="fa fa-check"></i>Try it out</a></li>
 </ul></li>
-<li class="chapter" data-level="12.5" data-path="lists-nested-lists-and-functional-programming.html"><a href="lists-nested-lists-and-functional-programming.html#beyond-map-functions-with-multiple-inputs"><i class="fa fa-check"></i><b>12.5</b> Beyond <code>map</code>: Functions with multiple inputs</a>
+<li class="chapter" data-level="13.5" data-path="lists-nested-lists-and-functional-programming.html"><a href="lists-nested-lists-and-functional-programming.html#beyond-map-functions-with-multiple-inputs"><i class="fa fa-check"></i><b>13.5</b> Beyond <code>map</code>: Functions with multiple inputs</a>
 <ul>
 <li class="chapter" data-level="" data-path="lists-nested-lists-and-functional-programming.html"><a href="lists-nested-lists-and-functional-programming.html#try-it-out-43"><i class="fa fa-check"></i>Try it out</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="lists-nested-lists-and-functional-programming.html"><a href="lists-nested-lists-and-functional-programming.html#purrr-references"><i class="fa fa-check"></i>Purrr References</a></li>
 </ul></li>
-<li class="chapter" data-level="13" data-path="high-performance-computing.html"><a href="high-performance-computing.html"><i class="fa fa-check"></i><b>13</b> High Performance Computing</a>
+<li class="chapter" data-level="14" data-path="high-performance-computing.html"><a href="high-performance-computing.html"><i class="fa fa-check"></i><b>14</b> High Performance Computing</a>
 <ul>
 <li class="chapter" data-level="" data-path="high-performance-computing.html"><a href="high-performance-computing.html#hpc-references"><i class="fa fa-check"></i>HPC References</a></li>
 </ul></li>
-<li class="chapter" data-level="14" data-path="tidy-models.html"><a href="tidy-models.html"><i class="fa fa-check"></i><b>14</b> Tidy Models</a></li>
-<li class="chapter" data-level="15" data-path="spatial-packages.html"><a href="spatial-packages.html"><i class="fa fa-check"></i><b>15</b> Spatial packages</a>
+<li class="chapter" data-level="15" data-path="tidy-models.html"><a href="tidy-models.html"><i class="fa fa-check"></i><b>15</b> Tidy Models</a></li>
+<li class="chapter" data-level="16" data-path="spatial-packages.html"><a href="spatial-packages.html"><i class="fa fa-check"></i><b>16</b> Spatial packages</a>
 <ul>
-<li class="chapter" data-level="" data-path="spatial-packages.html"><a href="spatial-packages.html#references-7"><i class="fa fa-check"></i>References</a></li>
+<li class="chapter" data-level="" data-path="spatial-packages.html"><a href="spatial-packages.html#references-6"><i class="fa fa-check"></i>References</a></li>
 </ul></li>
 <li class="appendix"><span><b>Appendix</b></span></li>
 <li class="chapter" data-level="A" data-path="common-problems-and-general-computing-topics.html"><a href="common-problems-and-general-computing-topics.html"><i class="fa fa-check"></i><b>A</b> Common Problems and General Computing Topics</a>
@@ -517,7 +536,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ul>
 <li class="chapter" data-level="B.1" data-path="other-resources-articles-and-food-for-thought.html"><a href="other-resources-articles-and-food-for-thought.html#comparing-languages"><i class="fa fa-check"></i><b>B.1</b> Comparing Languages</a></li>
 </ul></li>
-<li class="chapter" data-level="" data-path="references-8.html"><a href="references-8.html"><i class="fa fa-check"></i>References</a></li>
+<li class="chapter" data-level="" data-path="references-7.html"><a href="references-7.html"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
 
@@ -538,10 +557,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="lists-nested-lists-and-functional-programming" class="section level1" number="12">
-<h1><span class="header-section-number">Module 12</span> Lists, Nested Lists, and Functional Programming</h1>
-<div id="review-lists-and-vectors" class="section level2" number="12.1">
-<h2><span class="header-section-number">12.1</span> Review: Lists and Vectors</h2>
+<div id="lists-nested-lists-and-functional-programming" class="section level1" number="13">
+<h1><span class="header-section-number">Module 13</span> Lists, Nested Lists, and Functional Programming</h1>
+<div id="review-lists-and-vectors" class="section level2" number="13.1">
+<h2><span class="header-section-number">13.1</span> Review: Lists and Vectors</h2>
 <p>A <strong>vector</strong> is a 1-dimensional R data structure that contains items of the same simple (‘atomic’) type (character, logical, integer, factor).</p>
 <div class="sourceCode" id="cb522"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb522-1"><a href="lists-nested-lists-and-functional-programming.html#cb522-1" aria-hidden="true" tabindex="-1"></a>(logical_vec <span class="ot">&lt;-</span> <span class="fu">c</span>(T, F, T, T))</span>
 <span id="cb522-2"><a href="lists-nested-lists-and-functional-programming.html#cb522-2" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>]  <span class="cn">TRUE</span> <span class="cn">FALSE</span>  <span class="cn">TRUE</span>  <span class="cn">TRUE</span></span>
@@ -610,8 +629,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <p>Operations in R are <strong>vectorized</strong> - that is, by default, they operate on vectors. This is primarily a feature that applies to atomic vectors (and we don’t even think about it):</p>
 <div class="sourceCode" id="cb529"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb529-1"><a href="lists-nested-lists-and-functional-programming.html#cb529-1" aria-hidden="true" tabindex="-1"></a>(<span class="fu">rnorm</span>(<span class="dv">10</span>) <span class="sc">+</span> <span class="fu">rnorm</span>(<span class="dv">10</span>, <span class="at">mean =</span> <span class="dv">3</span>))</span>
-<span id="cb529-2"><a href="lists-nested-lists-and-functional-programming.html#cb529-2" aria-hidden="true" tabindex="-1"></a> [<span class="dv">1</span>] <span class="fl">4.4073810</span> <span class="fl">3.9157896</span> <span class="fl">1.8305964</span> <span class="fl">2.7800245</span> <span class="fl">0.3025860</span> <span class="fl">0.9649264</span> <span class="fl">4.5621696</span></span>
-<span id="cb529-3"><a href="lists-nested-lists-and-functional-programming.html#cb529-3" aria-hidden="true" tabindex="-1"></a> [<span class="dv">8</span>] <span class="fl">1.9377007</span> <span class="fl">3.2081697</span> <span class="fl">3.0798035</span></span></code></pre></div>
+<span id="cb529-2"><a href="lists-nested-lists-and-functional-programming.html#cb529-2" aria-hidden="true" tabindex="-1"></a> [<span class="dv">1</span>] <span class="fl">1.1336777</span> <span class="fl">1.7114025</span> <span class="fl">0.6687748</span> <span class="fl">6.3158537</span> <span class="fl">1.2916852</span> <span class="fl">4.3396155</span> <span class="fl">1.8819082</span></span>
+<span id="cb529-3"><a href="lists-nested-lists-and-functional-programming.html#cb529-3" aria-hidden="true" tabindex="-1"></a> [<span class="dv">8</span>] <span class="fl">3.1377086</span> <span class="fl">1.8833287</span> <span class="fl">4.9366963</span></span></code></pre></div>
 <p>We didn’t have to use a for loop to add these two vectors with 10 entries each together. In python (and SAS, and other languages), this might instead look like:</p>
 <div class="sourceCode" id="cb530"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb530-1"><a href="lists-nested-lists-and-functional-programming.html#cb530-1" aria-hidden="true" tabindex="-1"></a>a <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">10</span>)</span>
 <span id="cb530-2"><a href="lists-nested-lists-and-functional-programming.html#cb530-2" aria-hidden="true" tabindex="-1"></a>b <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">10</span>, <span class="at">mean =</span> <span class="dv">3</span>)</span>
@@ -620,17 +639,17 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb530-5"><a href="lists-nested-lists-and-functional-programming.html#cb530-5" aria-hidden="true" tabindex="-1"></a>  result[i] <span class="ot">&lt;-</span> a[i] <span class="sc">+</span> b[i]</span>
 <span id="cb530-6"><a href="lists-nested-lists-and-functional-programming.html#cb530-6" aria-hidden="true" tabindex="-1"></a>}</span>
 <span id="cb530-7"><a href="lists-nested-lists-and-functional-programming.html#cb530-7" aria-hidden="true" tabindex="-1"></a>result</span>
-<span id="cb530-8"><a href="lists-nested-lists-and-functional-programming.html#cb530-8" aria-hidden="true" tabindex="-1"></a> [<span class="dv">1</span>] <span class="fl">1.0895280</span> <span class="fl">2.3099028</span> <span class="fl">1.9114705</span> <span class="fl">3.7311217</span> <span class="fl">1.0533455</span> <span class="fl">4.4575380</span> <span class="fl">3.2243340</span></span>
-<span id="cb530-9"><a href="lists-nested-lists-and-functional-programming.html#cb530-9" aria-hidden="true" tabindex="-1"></a> [<span class="dv">8</span>] <span class="fl">3.8456680</span> <span class="fl">0.2653024</span> <span class="fl">2.5182217</span></span></code></pre></div>
+<span id="cb530-8"><a href="lists-nested-lists-and-functional-programming.html#cb530-8" aria-hidden="true" tabindex="-1"></a> [<span class="dv">1</span>] <span class="fl">5.088881</span> <span class="fl">3.594083</span> <span class="fl">2.975052</span> <span class="fl">2.035523</span> <span class="fl">4.754911</span> <span class="fl">2.662893</span> <span class="fl">3.433084</span> <span class="fl">3.733120</span></span>
+<span id="cb530-9"><a href="lists-nested-lists-and-functional-programming.html#cb530-9" aria-hidden="true" tabindex="-1"></a> [<span class="dv">9</span>] <span class="fl">3.719182</span> <span class="fl">3.373924</span></span></code></pre></div>
 <p>That is, we would apply or map the + function to each entry of a and b. For atomic vectors, it’s easy to do this by default; with a list, however, we need to be a bit more explicit (because everything that’s passed into the function may not be the same type).</p>
 <p>This logic is the basis behind the purrr package (and similar base functions <code>apply</code>, <code>lapply</code>, <code>sapply</code>, <code>tapply</code>, and <code>mapply</code> - I find the purrr package easier to work with, but you may use the base package versions if you want, and you can find a <a href="https://jennybc.github.io/purrr-tutorial/bk01_base-functions.html">side-by-side comparison in the purrr tutorial</a>).</p>
 </div>
-<div id="introduction-to-map" class="section level2" number="12.2">
-<h2><span class="header-section-number">12.2</span> Introduction to <code>map</code></h2>
+<div id="introduction-to-map" class="section level2" number="13.2">
+<h2><span class="header-section-number">13.2</span> Introduction to <code>map</code></h2>
 <div class="sourceCode" id="cb531"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb531-1"><a href="lists-nested-lists-and-functional-programming.html#cb531-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
 <span id="cb531-2"><a href="lists-nested-lists-and-functional-programming.html#cb531-2" aria-hidden="true" tabindex="-1"></a>── Attaching packages ─────────────────────────────────────── tidyverse <span class="dv">1</span>.<span class="fl">3.1</span> ──</span>
 <span id="cb531-3"><a href="lists-nested-lists-and-functional-programming.html#cb531-3" aria-hidden="true" tabindex="-1"></a>✓ ggplot2 <span class="dv">3</span>.<span class="dv">3</span>.<span class="fl">3.9000</span>     ✓ purrr   <span class="dv">0</span>.<span class="fl">3.4</span>     </span>
-<span id="cb531-4"><a href="lists-nested-lists-and-functional-programming.html#cb531-4" aria-hidden="true" tabindex="-1"></a>✓ tibble  <span class="dv">3</span>.<span class="fl">1.0</span>          ✓ dplyr   <span class="dv">1</span>.<span class="fl">0.5</span>     </span>
+<span id="cb531-4"><a href="lists-nested-lists-and-functional-programming.html#cb531-4" aria-hidden="true" tabindex="-1"></a>✓ tibble  <span class="dv">3</span>.<span class="fl">1.1</span>          ✓ dplyr   <span class="dv">1</span>.<span class="fl">0.5</span>     </span>
 <span id="cb531-5"><a href="lists-nested-lists-and-functional-programming.html#cb531-5" aria-hidden="true" tabindex="-1"></a>✓ tidyr   <span class="dv">1</span>.<span class="fl">1.3</span>          ✓ stringr <span class="dv">1</span>.<span class="fl">4.0</span>     </span>
 <span id="cb531-6"><a href="lists-nested-lists-and-functional-programming.html#cb531-6" aria-hidden="true" tabindex="-1"></a>✓ readr   <span class="dv">1</span>.<span class="fl">4.0</span>          ✓ forcats <span class="dv">0</span>.<span class="fl">5.1</span>     </span>
 <span id="cb531-7"><a href="lists-nested-lists-and-functional-programming.html#cb531-7" aria-hidden="true" tabindex="-1"></a>── Conflicts ────────────────────────────────────────── <span class="fu">tidyverse_conflicts</span>() ──</span>
@@ -1613,8 +1632,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb538-32"><a href="lists-nested-lists-and-functional-programming.html#cb538-32" aria-hidden="true" tabindex="-1"></a><span class="dv">10</span> Davos Seaworth     Male   <span class="st">&quot;In 260 AC or before, at King&#39;s Landing&quot;</span></span>
 <span id="cb538-33"><a href="lists-nested-lists-and-functional-programming.html#cb538-33" aria-hidden="true" tabindex="-1"></a><span class="co"># … with 20 more rows</span></span></code></pre></div>
 </div>
-<div id="creating-and-using-list-columns" class="section level2" number="12.3">
-<h2><span class="header-section-number">12.3</span> Creating (and Using) List-columns</h2>
+<div id="creating-and-using-list-columns" class="section level2" number="13.3">
+<h2><span class="header-section-number">13.3</span> Creating (and Using) List-columns</h2>
 <p>Data structures in R are typically list-based in one way or another. Sometimes, more complicated data structures are actually lists of lists, or tibbles with a list-column, or other variations on “list within a ____.” In combination with <code>purrr</code>, this is an <em>incredibly</em> powerful setup that can make working with simulations and data very easy.</p>
 <p>Suppose, for instance, I want to simulate some data for modeling purposes, where I can control the number of outliers in the dataset:</p>
 <div class="sourceCode" id="cb539"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb539-1"><a href="lists-nested-lists-and-functional-programming.html#cb539-1" aria-hidden="true" tabindex="-1"></a>data_sim <span class="ot">&lt;-</span> <span class="cf">function</span>(<span class="at">n_outliers =</span> <span class="dv">0</span>) {</span>
@@ -1635,16 +1654,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb539-16"><a href="lists-nested-lists-and-functional-programming.html#cb539-16" aria-hidden="true" tabindex="-1"></a><span class="co"># A tibble: 201 x 3</span></span>
 <span id="cb539-17"><a href="lists-nested-lists-and-functional-programming.html#cb539-17" aria-hidden="true" tabindex="-1"></a>       x      y is_outlier</span>
 <span id="cb539-18"><a href="lists-nested-lists-and-functional-programming.html#cb539-18" aria-hidden="true" tabindex="-1"></a>   <span class="sc">&lt;</span>dbl<span class="sc">&gt;</span>  <span class="er">&lt;</span>dbl<span class="sc">&gt;</span> <span class="er">&lt;</span>lgl<span class="sc">&gt;</span>     </span>
-<span id="cb539-19"><a href="lists-nested-lists-and-functional-programming.html#cb539-19" aria-hidden="true" tabindex="-1"></a> <span class="dv">1</span> <span class="sc">-</span><span class="dv">10</span>    <span class="sc">-</span><span class="fl">9.81</span> <span class="cn">FALSE</span>     </span>
-<span id="cb539-20"><a href="lists-nested-lists-and-functional-programming.html#cb539-20" aria-hidden="true" tabindex="-1"></a> <span class="dv">2</span>  <span class="sc">-</span><span class="fl">9.9</span>  <span class="sc">-</span><span class="fl">7.30</span> <span class="cn">FALSE</span>     </span>
-<span id="cb539-21"><a href="lists-nested-lists-and-functional-programming.html#cb539-21" aria-hidden="true" tabindex="-1"></a> <span class="dv">3</span>  <span class="sc">-</span><span class="fl">9.8</span> <span class="sc">-</span><span class="fl">10.2</span>  <span class="cn">FALSE</span>     </span>
-<span id="cb539-22"><a href="lists-nested-lists-and-functional-programming.html#cb539-22" aria-hidden="true" tabindex="-1"></a> <span class="dv">4</span>  <span class="sc">-</span><span class="fl">9.7</span>  <span class="sc">-</span><span class="fl">9.18</span> <span class="cn">FALSE</span>     </span>
-<span id="cb539-23"><a href="lists-nested-lists-and-functional-programming.html#cb539-23" aria-hidden="true" tabindex="-1"></a> <span class="dv">5</span>  <span class="sc">-</span><span class="fl">9.6</span>  <span class="sc">-</span><span class="fl">9.46</span> <span class="cn">FALSE</span>     </span>
-<span id="cb539-24"><a href="lists-nested-lists-and-functional-programming.html#cb539-24" aria-hidden="true" tabindex="-1"></a> <span class="dv">6</span>  <span class="sc">-</span><span class="fl">9.5</span> <span class="sc">-</span><span class="fl">10.2</span>  <span class="cn">FALSE</span>     </span>
-<span id="cb539-25"><a href="lists-nested-lists-and-functional-programming.html#cb539-25" aria-hidden="true" tabindex="-1"></a> <span class="dv">7</span>  <span class="sc">-</span><span class="fl">9.4</span> <span class="sc">-</span><span class="fl">11.7</span>  <span class="cn">FALSE</span>     </span>
-<span id="cb539-26"><a href="lists-nested-lists-and-functional-programming.html#cb539-26" aria-hidden="true" tabindex="-1"></a> <span class="dv">8</span>  <span class="sc">-</span><span class="fl">9.3</span>  <span class="sc">-</span><span class="fl">9.49</span> <span class="cn">FALSE</span>     </span>
-<span id="cb539-27"><a href="lists-nested-lists-and-functional-programming.html#cb539-27" aria-hidden="true" tabindex="-1"></a> <span class="dv">9</span>  <span class="sc">-</span><span class="fl">9.2</span>  <span class="sc">-</span><span class="fl">8.65</span> <span class="cn">FALSE</span>     </span>
-<span id="cb539-28"><a href="lists-nested-lists-and-functional-programming.html#cb539-28" aria-hidden="true" tabindex="-1"></a><span class="dv">10</span>  <span class="sc">-</span><span class="fl">9.1</span>  <span class="sc">-</span><span class="fl">9.16</span> <span class="cn">FALSE</span>     </span>
+<span id="cb539-19"><a href="lists-nested-lists-and-functional-programming.html#cb539-19" aria-hidden="true" tabindex="-1"></a> <span class="dv">1</span> <span class="sc">-</span><span class="dv">10</span>    <span class="sc">-</span><span class="fl">9.93</span> <span class="cn">FALSE</span>     </span>
+<span id="cb539-20"><a href="lists-nested-lists-and-functional-programming.html#cb539-20" aria-hidden="true" tabindex="-1"></a> <span class="dv">2</span>  <span class="sc">-</span><span class="fl">9.9</span>  <span class="sc">-</span><span class="fl">9.80</span> <span class="cn">FALSE</span>     </span>
+<span id="cb539-21"><a href="lists-nested-lists-and-functional-programming.html#cb539-21" aria-hidden="true" tabindex="-1"></a> <span class="dv">3</span>  <span class="sc">-</span><span class="fl">9.8</span>  <span class="sc">-</span><span class="fl">8.03</span> <span class="cn">FALSE</span>     </span>
+<span id="cb539-22"><a href="lists-nested-lists-and-functional-programming.html#cb539-22" aria-hidden="true" tabindex="-1"></a> <span class="dv">4</span>  <span class="sc">-</span><span class="fl">9.7</span>  <span class="sc">-</span><span class="fl">8.60</span> <span class="cn">FALSE</span>     </span>
+<span id="cb539-23"><a href="lists-nested-lists-and-functional-programming.html#cb539-23" aria-hidden="true" tabindex="-1"></a> <span class="dv">5</span>  <span class="sc">-</span><span class="fl">9.6</span>  <span class="sc">-</span><span class="fl">9.54</span> <span class="cn">FALSE</span>     </span>
+<span id="cb539-24"><a href="lists-nested-lists-and-functional-programming.html#cb539-24" aria-hidden="true" tabindex="-1"></a> <span class="dv">6</span>  <span class="sc">-</span><span class="fl">9.5</span>  <span class="sc">-</span><span class="fl">9.64</span> <span class="cn">FALSE</span>     </span>
+<span id="cb539-25"><a href="lists-nested-lists-and-functional-programming.html#cb539-25" aria-hidden="true" tabindex="-1"></a> <span class="dv">7</span>  <span class="sc">-</span><span class="fl">9.4</span>  <span class="sc">-</span><span class="fl">8.76</span> <span class="cn">FALSE</span>     </span>
+<span id="cb539-26"><a href="lists-nested-lists-and-functional-programming.html#cb539-26" aria-hidden="true" tabindex="-1"></a> <span class="dv">8</span>  <span class="sc">-</span><span class="fl">9.3</span>  <span class="sc">-</span><span class="fl">9.36</span> <span class="cn">FALSE</span>     </span>
+<span id="cb539-27"><a href="lists-nested-lists-and-functional-programming.html#cb539-27" aria-hidden="true" tabindex="-1"></a> <span class="dv">9</span>  <span class="sc">-</span><span class="fl">9.2</span>  <span class="sc">-</span><span class="fl">9.42</span> <span class="cn">FALSE</span>     </span>
+<span id="cb539-28"><a href="lists-nested-lists-and-functional-programming.html#cb539-28" aria-hidden="true" tabindex="-1"></a><span class="dv">10</span>  <span class="sc">-</span><span class="fl">9.1</span> <span class="sc">-</span><span class="fl">10.8</span>  <span class="cn">FALSE</span>     </span>
 <span id="cb539-29"><a href="lists-nested-lists-and-functional-programming.html#cb539-29" aria-hidden="true" tabindex="-1"></a><span class="co"># … with 191 more rows</span></span></code></pre></div>
 <p>Now, lets suppose that I want 100 replicates of each of 0, 5, 10, and 20 outliers.</p>
 <div class="sourceCode" id="cb540"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb540-1"><a href="lists-nested-lists-and-functional-programming.html#cb540-1" aria-hidden="true" tabindex="-1"></a>sim <span class="ot">&lt;-</span> <span class="fu">crossing</span>(<span class="at">rep =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">100</span>, <span class="at">n_outliers =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">5</span>, <span class="dv">10</span>, <span class="dv">20</span>)) <span class="sc">%&gt;%</span></span>
@@ -1657,14 +1676,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>It can be helpful to examine one of the objects just to see what you’re dealing with:</p>
 <div class="sourceCode" id="cb542"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb542-1"><a href="lists-nested-lists-and-functional-programming.html#cb542-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(sim<span class="sc">$</span>reg[[<span class="dv">1</span>]])</span>
 <span id="cb542-2"><a href="lists-nested-lists-and-functional-programming.html#cb542-2" aria-hidden="true" tabindex="-1"></a>List of <span class="dv">12</span></span>
-<span id="cb542-3"><a href="lists-nested-lists-and-functional-programming.html#cb542-3" aria-hidden="true" tabindex="-1"></a> <span class="sc">$</span> coefficients <span class="sc">:</span> Named num [<span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>] <span class="fl">0.0173</span> <span class="fl">0.9913</span></span>
+<span id="cb542-3"><a href="lists-nested-lists-and-functional-programming.html#cb542-3" aria-hidden="true" tabindex="-1"></a> <span class="sc">$</span> coefficients <span class="sc">:</span> Named num [<span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>] <span class="fl">0.207</span> <span class="fl">1.008</span></span>
 <span id="cb542-4"><a href="lists-nested-lists-and-functional-programming.html#cb542-4" aria-hidden="true" tabindex="-1"></a>  ..<span class="sc">-</span> <span class="fu">attr</span>(<span class="sc">*</span>, <span class="st">&quot;names&quot;</span>)<span class="ot">=</span> chr [<span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>] <span class="st">&quot;(Intercept)&quot;</span> <span class="st">&quot;x&quot;</span></span>
-<span id="cb542-5"><a href="lists-nested-lists-and-functional-programming.html#cb542-5" aria-hidden="true" tabindex="-1"></a> <span class="sc">$</span> residuals    <span class="sc">:</span> Named num [<span class="dv">1</span><span class="sc">:</span><span class="dv">201</span>] <span class="sc">-</span><span class="fl">1.6952</span> <span class="sc">-</span><span class="fl">0.3309</span> <span class="sc">-</span><span class="fl">0.0336</span> <span class="sc">-</span><span class="fl">0.7816</span> <span class="fl">0.2898</span> ...</span>
+<span id="cb542-5"><a href="lists-nested-lists-and-functional-programming.html#cb542-5" aria-hidden="true" tabindex="-1"></a> <span class="sc">$</span> residuals    <span class="sc">:</span> Named num [<span class="dv">1</span><span class="sc">:</span><span class="dv">201</span>] <span class="fl">0.6461</span> <span class="sc">-</span><span class="fl">1.4697</span> <span class="sc">-</span><span class="fl">1.245</span> <span class="fl">0.3034</span> <span class="fl">0.0164</span> ...</span>
 <span id="cb542-6"><a href="lists-nested-lists-and-functional-programming.html#cb542-6" aria-hidden="true" tabindex="-1"></a>  ..<span class="sc">-</span> <span class="fu">attr</span>(<span class="sc">*</span>, <span class="st">&quot;names&quot;</span>)<span class="ot">=</span> chr [<span class="dv">1</span><span class="sc">:</span><span class="dv">201</span>] <span class="st">&quot;1&quot;</span> <span class="st">&quot;2&quot;</span> <span class="st">&quot;3&quot;</span> <span class="st">&quot;4&quot;</span> ...</span>
-<span id="cb542-7"><a href="lists-nested-lists-and-functional-programming.html#cb542-7" aria-hidden="true" tabindex="-1"></a> <span class="sc">$</span> effects      <span class="sc">:</span> Named num [<span class="dv">1</span><span class="sc">:</span><span class="dv">201</span>] <span class="sc">-</span><span class="fl">0.246</span> <span class="fl">81.548</span> <span class="fl">0.1</span> <span class="sc">-</span><span class="fl">0.648</span> <span class="fl">0.423</span> ...</span>
+<span id="cb542-7"><a href="lists-nested-lists-and-functional-programming.html#cb542-7" aria-hidden="true" tabindex="-1"></a> <span class="sc">$</span> effects      <span class="sc">:</span> Named num [<span class="dv">1</span><span class="sc">:</span><span class="dv">201</span>] <span class="sc">-</span><span class="fl">2.935</span> <span class="fl">82.928</span> <span class="sc">-</span><span class="fl">1.136</span> <span class="fl">0.41</span> <span class="fl">0.122</span> ...</span>
 <span id="cb542-8"><a href="lists-nested-lists-and-functional-programming.html#cb542-8" aria-hidden="true" tabindex="-1"></a>  ..<span class="sc">-</span> <span class="fu">attr</span>(<span class="sc">*</span>, <span class="st">&quot;names&quot;</span>)<span class="ot">=</span> chr [<span class="dv">1</span><span class="sc">:</span><span class="dv">201</span>] <span class="st">&quot;(Intercept)&quot;</span> <span class="st">&quot;x&quot;</span> <span class="st">&quot;&quot;</span> <span class="st">&quot;&quot;</span> ...</span>
 <span id="cb542-9"><a href="lists-nested-lists-and-functional-programming.html#cb542-9" aria-hidden="true" tabindex="-1"></a> <span class="sc">$</span> rank         <span class="sc">:</span> int <span class="dv">2</span></span>
-<span id="cb542-10"><a href="lists-nested-lists-and-functional-programming.html#cb542-10" aria-hidden="true" tabindex="-1"></a> <span class="sc">$</span> fitted.values<span class="sc">:</span> Named num [<span class="dv">1</span><span class="sc">:</span><span class="dv">201</span>] <span class="sc">-</span><span class="fl">9.9</span> <span class="sc">-</span><span class="fl">9.8</span> <span class="sc">-</span><span class="fl">9.7</span> <span class="sc">-</span><span class="fl">9.6</span> <span class="sc">-</span><span class="fl">9.5</span> ...</span>
+<span id="cb542-10"><a href="lists-nested-lists-and-functional-programming.html#cb542-10" aria-hidden="true" tabindex="-1"></a> <span class="sc">$</span> fitted.values<span class="sc">:</span> Named num [<span class="dv">1</span><span class="sc">:</span><span class="dv">201</span>] <span class="sc">-</span><span class="fl">9.87</span> <span class="sc">-</span><span class="fl">9.77</span> <span class="sc">-</span><span class="fl">9.67</span> <span class="sc">-</span><span class="fl">9.57</span> <span class="sc">-</span><span class="fl">9.47</span> ...</span>
 <span id="cb542-11"><a href="lists-nested-lists-and-functional-programming.html#cb542-11" aria-hidden="true" tabindex="-1"></a>  ..<span class="sc">-</span> <span class="fu">attr</span>(<span class="sc">*</span>, <span class="st">&quot;names&quot;</span>)<span class="ot">=</span> chr [<span class="dv">1</span><span class="sc">:</span><span class="dv">201</span>] <span class="st">&quot;1&quot;</span> <span class="st">&quot;2&quot;</span> <span class="st">&quot;3&quot;</span> <span class="st">&quot;4&quot;</span> ...</span>
 <span id="cb542-12"><a href="lists-nested-lists-and-functional-programming.html#cb542-12" aria-hidden="true" tabindex="-1"></a> <span class="sc">$</span> assign       <span class="sc">:</span> int [<span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>] <span class="dv">0</span> <span class="dv">1</span></span>
 <span id="cb542-13"><a href="lists-nested-lists-and-functional-programming.html#cb542-13" aria-hidden="true" tabindex="-1"></a> <span class="sc">$</span> qr           <span class="sc">:</span>List of <span class="dv">5</span></span>
@@ -1691,12 +1710,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb542-34"><a href="lists-nested-lists-and-functional-programming.html#cb542-34" aria-hidden="true" tabindex="-1"></a>  .. ..<span class="sc">-</span> <span class="fu">attr</span>(<span class="sc">*</span>, <span class="st">&quot;order&quot;</span>)<span class="ot">=</span> int <span class="dv">1</span></span>
 <span id="cb542-35"><a href="lists-nested-lists-and-functional-programming.html#cb542-35" aria-hidden="true" tabindex="-1"></a>  .. ..<span class="sc">-</span> <span class="fu">attr</span>(<span class="sc">*</span>, <span class="st">&quot;intercept&quot;</span>)<span class="ot">=</span> int <span class="dv">1</span></span>
 <span id="cb542-36"><a href="lists-nested-lists-and-functional-programming.html#cb542-36" aria-hidden="true" tabindex="-1"></a>  .. ..<span class="sc">-</span> <span class="fu">attr</span>(<span class="sc">*</span>, <span class="st">&quot;response&quot;</span>)<span class="ot">=</span> int <span class="dv">1</span></span>
-<span id="cb542-37"><a href="lists-nested-lists-and-functional-programming.html#cb542-37" aria-hidden="true" tabindex="-1"></a>  .. ..<span class="sc">-</span> <span class="fu">attr</span>(<span class="sc">*</span>, <span class="st">&quot;.Environment&quot;</span>)<span class="ot">=</span><span class="er">&lt;</span>environment<span class="sc">:</span> <span class="dv">0x5555c4b2b2c8</span><span class="sc">&gt;</span> </span>
+<span id="cb542-37"><a href="lists-nested-lists-and-functional-programming.html#cb542-37" aria-hidden="true" tabindex="-1"></a>  .. ..<span class="sc">-</span> <span class="fu">attr</span>(<span class="sc">*</span>, <span class="st">&quot;.Environment&quot;</span>)<span class="ot">=</span><span class="er">&lt;</span>environment<span class="sc">:</span> <span class="dv">0x563b54e74aa0</span><span class="sc">&gt;</span> </span>
 <span id="cb542-38"><a href="lists-nested-lists-and-functional-programming.html#cb542-38" aria-hidden="true" tabindex="-1"></a>  .. ..<span class="sc">-</span> <span class="fu">attr</span>(<span class="sc">*</span>, <span class="st">&quot;predvars&quot;</span>)<span class="ot">=</span> language <span class="fu">list</span>(y, x)</span>
 <span id="cb542-39"><a href="lists-nested-lists-and-functional-programming.html#cb542-39" aria-hidden="true" tabindex="-1"></a>  .. ..<span class="sc">-</span> <span class="fu">attr</span>(<span class="sc">*</span>, <span class="st">&quot;dataClasses&quot;</span>)<span class="ot">=</span> Named chr [<span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>] <span class="st">&quot;numeric&quot;</span> <span class="st">&quot;numeric&quot;</span></span>
 <span id="cb542-40"><a href="lists-nested-lists-and-functional-programming.html#cb542-40" aria-hidden="true" tabindex="-1"></a>  .. .. ..<span class="sc">-</span> <span class="fu">attr</span>(<span class="sc">*</span>, <span class="st">&quot;names&quot;</span>)<span class="ot">=</span> chr [<span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>] <span class="st">&quot;y&quot;</span> <span class="st">&quot;x&quot;</span></span>
 <span id="cb542-41"><a href="lists-nested-lists-and-functional-programming.html#cb542-41" aria-hidden="true" tabindex="-1"></a> <span class="sc">$</span> model        <span class="sc">:</span><span class="st">&#39;data.frame&#39;</span><span class="sc">:</span>  <span class="dv">201</span> obs. of  <span class="dv">2</span> variables<span class="sc">:</span></span>
-<span id="cb542-42"><a href="lists-nested-lists-and-functional-programming.html#cb542-42" aria-hidden="true" tabindex="-1"></a>  ..<span class="sc">$</span> y<span class="sc">:</span> num [<span class="dv">1</span><span class="sc">:</span><span class="dv">201</span>] <span class="sc">-</span><span class="fl">11.59</span> <span class="sc">-</span><span class="fl">10.13</span> <span class="sc">-</span><span class="fl">9.73</span> <span class="sc">-</span><span class="fl">10.38</span> <span class="sc">-</span><span class="fl">9.21</span> ...</span>
+<span id="cb542-42"><a href="lists-nested-lists-and-functional-programming.html#cb542-42" aria-hidden="true" tabindex="-1"></a>  ..<span class="sc">$</span> y<span class="sc">:</span> num [<span class="dv">1</span><span class="sc">:</span><span class="dv">201</span>] <span class="sc">-</span><span class="fl">9.23</span> <span class="sc">-</span><span class="fl">11.24</span> <span class="sc">-</span><span class="fl">10.92</span> <span class="sc">-</span><span class="fl">9.27</span> <span class="sc">-</span><span class="fl">9.45</span> ...</span>
 <span id="cb542-43"><a href="lists-nested-lists-and-functional-programming.html#cb542-43" aria-hidden="true" tabindex="-1"></a>  ..<span class="sc">$</span> x<span class="sc">:</span> num [<span class="dv">1</span><span class="sc">:</span><span class="dv">201</span>] <span class="sc">-</span><span class="dv">10</span> <span class="sc">-</span><span class="fl">9.9</span> <span class="sc">-</span><span class="fl">9.8</span> <span class="sc">-</span><span class="fl">9.7</span> <span class="sc">-</span><span class="fl">9.6</span> <span class="sc">-</span><span class="fl">9.5</span> <span class="sc">-</span><span class="fl">9.4</span> <span class="sc">-</span><span class="fl">9.3</span> <span class="sc">-</span><span class="fl">9.2</span> <span class="sc">-</span><span class="fl">9.1</span> ...</span>
 <span id="cb542-44"><a href="lists-nested-lists-and-functional-programming.html#cb542-44" aria-hidden="true" tabindex="-1"></a>  ..<span class="sc">-</span> <span class="fu">attr</span>(<span class="sc">*</span>, <span class="st">&quot;terms&quot;</span>)<span class="ot">=</span>Classes <span class="st">&#39;terms&#39;</span>, <span class="st">&#39;formula&#39;</span>  language y <span class="sc">~</span> x</span>
 <span id="cb542-45"><a href="lists-nested-lists-and-functional-programming.html#cb542-45" aria-hidden="true" tabindex="-1"></a>  .. .. ..<span class="sc">-</span> <span class="fu">attr</span>(<span class="sc">*</span>, <span class="st">&quot;variables&quot;</span>)<span class="ot">=</span> language <span class="fu">list</span>(y, x)</span>
@@ -1708,7 +1727,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb542-51"><a href="lists-nested-lists-and-functional-programming.html#cb542-51" aria-hidden="true" tabindex="-1"></a>  .. .. ..<span class="sc">-</span> <span class="fu">attr</span>(<span class="sc">*</span>, <span class="st">&quot;order&quot;</span>)<span class="ot">=</span> int <span class="dv">1</span></span>
 <span id="cb542-52"><a href="lists-nested-lists-and-functional-programming.html#cb542-52" aria-hidden="true" tabindex="-1"></a>  .. .. ..<span class="sc">-</span> <span class="fu">attr</span>(<span class="sc">*</span>, <span class="st">&quot;intercept&quot;</span>)<span class="ot">=</span> int <span class="dv">1</span></span>
 <span id="cb542-53"><a href="lists-nested-lists-and-functional-programming.html#cb542-53" aria-hidden="true" tabindex="-1"></a>  .. .. ..<span class="sc">-</span> <span class="fu">attr</span>(<span class="sc">*</span>, <span class="st">&quot;response&quot;</span>)<span class="ot">=</span> int <span class="dv">1</span></span>
-<span id="cb542-54"><a href="lists-nested-lists-and-functional-programming.html#cb542-54" aria-hidden="true" tabindex="-1"></a>  .. .. ..<span class="sc">-</span> <span class="fu">attr</span>(<span class="sc">*</span>, <span class="st">&quot;.Environment&quot;</span>)<span class="ot">=</span><span class="er">&lt;</span>environment<span class="sc">:</span> <span class="dv">0x5555c4b2b2c8</span><span class="sc">&gt;</span> </span>
+<span id="cb542-54"><a href="lists-nested-lists-and-functional-programming.html#cb542-54" aria-hidden="true" tabindex="-1"></a>  .. .. ..<span class="sc">-</span> <span class="fu">attr</span>(<span class="sc">*</span>, <span class="st">&quot;.Environment&quot;</span>)<span class="ot">=</span><span class="er">&lt;</span>environment<span class="sc">:</span> <span class="dv">0x563b54e74aa0</span><span class="sc">&gt;</span> </span>
 <span id="cb542-55"><a href="lists-nested-lists-and-functional-programming.html#cb542-55" aria-hidden="true" tabindex="-1"></a>  .. .. ..<span class="sc">-</span> <span class="fu">attr</span>(<span class="sc">*</span>, <span class="st">&quot;predvars&quot;</span>)<span class="ot">=</span> language <span class="fu">list</span>(y, x)</span>
 <span id="cb542-56"><a href="lists-nested-lists-and-functional-programming.html#cb542-56" aria-hidden="true" tabindex="-1"></a>  .. .. ..<span class="sc">-</span> <span class="fu">attr</span>(<span class="sc">*</span>, <span class="st">&quot;dataClasses&quot;</span>)<span class="ot">=</span> Named chr [<span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>] <span class="st">&quot;numeric&quot;</span> <span class="st">&quot;numeric&quot;</span></span>
 <span id="cb542-57"><a href="lists-nested-lists-and-functional-programming.html#cb542-57" aria-hidden="true" tabindex="-1"></a>  .. .. .. ..<span class="sc">-</span> <span class="fu">attr</span>(<span class="sc">*</span>, <span class="st">&quot;names&quot;</span>)<span class="ot">=</span> chr [<span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>] <span class="st">&quot;y&quot;</span> <span class="st">&quot;x&quot;</span></span>
@@ -1718,7 +1737,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb543-2"><a href="lists-nested-lists-and-functional-programming.html#cb543-2" aria-hidden="true" tabindex="-1"></a><span class="co"># A tibble: 1 x 2</span></span>
 <span id="cb543-3"><a href="lists-nested-lists-and-functional-programming.html#cb543-3" aria-hidden="true" tabindex="-1"></a>  <span class="st">`</span><span class="at">(Intercept)</span><span class="st">`</span>     x</span>
 <span id="cb543-4"><a href="lists-nested-lists-and-functional-programming.html#cb543-4" aria-hidden="true" tabindex="-1"></a>          <span class="sc">&lt;</span>dbl<span class="sc">&gt;</span> <span class="er">&lt;</span>dbl<span class="sc">&gt;</span></span>
-<span id="cb543-5"><a href="lists-nested-lists-and-functional-programming.html#cb543-5" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span>        <span class="fl">0.0173</span> <span class="fl">0.991</span></span></code></pre></div>
+<span id="cb543-5"><a href="lists-nested-lists-and-functional-programming.html#cb543-5" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span>         <span class="fl">0.207</span>  <span class="fl">1.01</span></span></code></pre></div>
 <p>This will make our formatting a lot easier and prevent any duplication that might occur if we unnest a vector that has length &gt; 1.</p>
 <div class="sourceCode" id="cb544"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb544-1"><a href="lists-nested-lists-and-functional-programming.html#cb544-1" aria-hidden="true" tabindex="-1"></a>sim <span class="ot">&lt;-</span> sim <span class="sc">%&gt;%</span></span>
 <span id="cb544-2"><a href="lists-nested-lists-and-functional-programming.html#cb544-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">coefs =</span> purrr<span class="sc">::</span><span class="fu">map</span>(reg, <span class="st">&quot;coefficients&quot;</span>) <span class="sc">%&gt;%</span></span>
@@ -1729,31 +1748,31 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb544-7"><a href="lists-nested-lists-and-functional-programming.html#cb544-7" aria-hidden="true" tabindex="-1"></a><span class="co"># A tibble: 1 x 2</span></span>
 <span id="cb544-8"><a href="lists-nested-lists-and-functional-programming.html#cb544-8" aria-hidden="true" tabindex="-1"></a>  <span class="st">`</span><span class="at">(Intercept)</span><span class="st">`</span>     x</span>
 <span id="cb544-9"><a href="lists-nested-lists-and-functional-programming.html#cb544-9" aria-hidden="true" tabindex="-1"></a>          <span class="sc">&lt;</span>dbl<span class="sc">&gt;</span> <span class="er">&lt;</span>dbl<span class="sc">&gt;</span></span>
-<span id="cb544-10"><a href="lists-nested-lists-and-functional-programming.html#cb544-10" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span>        <span class="fl">0.0173</span> <span class="fl">0.991</span></span>
+<span id="cb544-10"><a href="lists-nested-lists-and-functional-programming.html#cb544-10" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span>         <span class="fl">0.207</span>  <span class="fl">1.01</span></span>
 <span id="cb544-11"><a href="lists-nested-lists-and-functional-programming.html#cb544-11" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb544-12"><a href="lists-nested-lists-and-functional-programming.html#cb544-12" aria-hidden="true" tabindex="-1"></a>[[<span class="dv">2</span>]]</span>
 <span id="cb544-13"><a href="lists-nested-lists-and-functional-programming.html#cb544-13" aria-hidden="true" tabindex="-1"></a><span class="co"># A tibble: 1 x 2</span></span>
 <span id="cb544-14"><a href="lists-nested-lists-and-functional-programming.html#cb544-14" aria-hidden="true" tabindex="-1"></a>  <span class="st">`</span><span class="at">(Intercept)</span><span class="st">`</span>     x</span>
 <span id="cb544-15"><a href="lists-nested-lists-and-functional-programming.html#cb544-15" aria-hidden="true" tabindex="-1"></a>          <span class="sc">&lt;</span>dbl<span class="sc">&gt;</span> <span class="er">&lt;</span>dbl<span class="sc">&gt;</span></span>
-<span id="cb544-16"><a href="lists-nested-lists-and-functional-programming.html#cb544-16" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span>       <span class="sc">-</span><span class="fl">0.0863</span>  <span class="fl">1.03</span></span>
+<span id="cb544-16"><a href="lists-nested-lists-and-functional-programming.html#cb544-16" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span>        <span class="fl">0.0669</span> <span class="fl">0.972</span></span>
 <span id="cb544-17"><a href="lists-nested-lists-and-functional-programming.html#cb544-17" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb544-18"><a href="lists-nested-lists-and-functional-programming.html#cb544-18" aria-hidden="true" tabindex="-1"></a>[[<span class="dv">3</span>]]</span>
 <span id="cb544-19"><a href="lists-nested-lists-and-functional-programming.html#cb544-19" aria-hidden="true" tabindex="-1"></a><span class="co"># A tibble: 1 x 2</span></span>
 <span id="cb544-20"><a href="lists-nested-lists-and-functional-programming.html#cb544-20" aria-hidden="true" tabindex="-1"></a>  <span class="st">`</span><span class="at">(Intercept)</span><span class="st">`</span>     x</span>
 <span id="cb544-21"><a href="lists-nested-lists-and-functional-programming.html#cb544-21" aria-hidden="true" tabindex="-1"></a>          <span class="sc">&lt;</span>dbl<span class="sc">&gt;</span> <span class="er">&lt;</span>dbl<span class="sc">&gt;</span></span>
-<span id="cb544-22"><a href="lists-nested-lists-and-functional-programming.html#cb544-22" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span>       <span class="fl">0.00903</span> <span class="fl">0.992</span></span>
+<span id="cb544-22"><a href="lists-nested-lists-and-functional-programming.html#cb544-22" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span>        <span class="fl">0.0531</span> <span class="fl">0.959</span></span>
 <span id="cb544-23"><a href="lists-nested-lists-and-functional-programming.html#cb544-23" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb544-24"><a href="lists-nested-lists-and-functional-programming.html#cb544-24" aria-hidden="true" tabindex="-1"></a>[[<span class="dv">4</span>]]</span>
 <span id="cb544-25"><a href="lists-nested-lists-and-functional-programming.html#cb544-25" aria-hidden="true" tabindex="-1"></a><span class="co"># A tibble: 1 x 2</span></span>
 <span id="cb544-26"><a href="lists-nested-lists-and-functional-programming.html#cb544-26" aria-hidden="true" tabindex="-1"></a>  <span class="st">`</span><span class="at">(Intercept)</span><span class="st">`</span>     x</span>
 <span id="cb544-27"><a href="lists-nested-lists-and-functional-programming.html#cb544-27" aria-hidden="true" tabindex="-1"></a>          <span class="sc">&lt;</span>dbl<span class="sc">&gt;</span> <span class="er">&lt;</span>dbl<span class="sc">&gt;</span></span>
-<span id="cb544-28"><a href="lists-nested-lists-and-functional-programming.html#cb544-28" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span>        <span class="sc">-</span><span class="fl">0.182</span>  <span class="fl">1.02</span></span>
+<span id="cb544-28"><a href="lists-nested-lists-and-functional-programming.html#cb544-28" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span>         <span class="fl">0.121</span>  <span class="fl">1.03</span></span>
 <span id="cb544-29"><a href="lists-nested-lists-and-functional-programming.html#cb544-29" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb544-30"><a href="lists-nested-lists-and-functional-programming.html#cb544-30" aria-hidden="true" tabindex="-1"></a>[[<span class="dv">5</span>]]</span>
 <span id="cb544-31"><a href="lists-nested-lists-and-functional-programming.html#cb544-31" aria-hidden="true" tabindex="-1"></a><span class="co"># A tibble: 1 x 2</span></span>
 <span id="cb544-32"><a href="lists-nested-lists-and-functional-programming.html#cb544-32" aria-hidden="true" tabindex="-1"></a>  <span class="st">`</span><span class="at">(Intercept)</span><span class="st">`</span>     x</span>
 <span id="cb544-33"><a href="lists-nested-lists-and-functional-programming.html#cb544-33" aria-hidden="true" tabindex="-1"></a>          <span class="sc">&lt;</span>dbl<span class="sc">&gt;</span> <span class="er">&lt;</span>dbl<span class="sc">&gt;</span></span>
-<span id="cb544-34"><a href="lists-nested-lists-and-functional-programming.html#cb544-34" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span>       <span class="fl">0.00403</span>  <span class="fl">1.02</span></span></code></pre></div>
+<span id="cb544-34"><a href="lists-nested-lists-and-functional-programming.html#cb544-34" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span>       <span class="sc">-</span><span class="fl">0.0219</span> <span class="fl">0.999</span></span></code></pre></div>
 <p>Then, we can plot our results:</p>
 <div class="sourceCode" id="cb545"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb545-1"><a href="lists-nested-lists-and-functional-programming.html#cb545-1" aria-hidden="true" tabindex="-1"></a>sim <span class="sc">%&gt;%</span></span>
 <span id="cb545-2"><a href="lists-nested-lists-and-functional-programming.html#cb545-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">unnest</span>(coefs) <span class="sc">%&gt;%</span></span>
@@ -1765,8 +1784,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>So as there are more and more outliers, the coefficient estimates get a wider distribution, but remain (relatively) centered on the “true” values of 0 and 1, respectively.</p>
 <p>Notice that we keep our data in list column form right up until it is time to actually unnest it - which means that we have at the ready the simulated data, the simulated model, and the conditions under which it was simulated, all in the same data structure. It’s a really nice, organized system.</p>
 </div>
-<div id="ways-to-use-map" class="section level2" number="12.4">
-<h2><span class="header-section-number">12.4</span> Ways to use <code>map</code></h2>
+<div id="ways-to-use-map" class="section level2" number="13.4">
+<h2><span class="header-section-number">13.4</span> Ways to use <code>map</code></h2>
 <p>There are 3 main use cases for <code>map</code> (and its cousins <code>pmap</code>, <code>map2</code>, etc.):</p>
 <ol style="list-style-type: decimal">
 <li>Use with an existing function</li>
@@ -1789,7 +1808,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb547-3"><a href="lists-nested-lists-and-functional-programming.html#cb547-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
 <span id="cb547-4"><a href="lists-nested-lists-and-functional-programming.html#cb547-4" aria-hidden="true" tabindex="-1"></a>── Attaching packages ─────────────────────────────────────── tidyverse <span class="dv">1</span>.<span class="fl">3.1</span> ──</span>
 <span id="cb547-5"><a href="lists-nested-lists-and-functional-programming.html#cb547-5" aria-hidden="true" tabindex="-1"></a>✓ ggplot2 <span class="dv">3</span>.<span class="dv">3</span>.<span class="fl">3.9000</span>     ✓ purrr   <span class="dv">0</span>.<span class="fl">3.4</span>     </span>
-<span id="cb547-6"><a href="lists-nested-lists-and-functional-programming.html#cb547-6" aria-hidden="true" tabindex="-1"></a>✓ tibble  <span class="dv">3</span>.<span class="fl">1.0</span>          ✓ dplyr   <span class="dv">1</span>.<span class="fl">0.5</span>     </span>
+<span id="cb547-6"><a href="lists-nested-lists-and-functional-programming.html#cb547-6" aria-hidden="true" tabindex="-1"></a>✓ tibble  <span class="dv">3</span>.<span class="fl">1.1</span>          ✓ dplyr   <span class="dv">1</span>.<span class="fl">0.5</span>     </span>
 <span id="cb547-7"><a href="lists-nested-lists-and-functional-programming.html#cb547-7" aria-hidden="true" tabindex="-1"></a>✓ tidyr   <span class="dv">1</span>.<span class="fl">1.3</span>          ✓ stringr <span class="dv">1</span>.<span class="fl">4.0</span>     </span>
 <span id="cb547-8"><a href="lists-nested-lists-and-functional-programming.html#cb547-8" aria-hidden="true" tabindex="-1"></a>✓ readr   <span class="dv">1</span>.<span class="fl">4.0</span>          ✓ forcats <span class="dv">0</span>.<span class="fl">5.1</span>     </span>
 <span id="cb547-9"><a href="lists-nested-lists-and-functional-programming.html#cb547-9" aria-hidden="true" tabindex="-1"></a>── Conflicts ────────────────────────────────────────── <span class="fu">tidyverse_conflicts</span>() ──</span>
@@ -1854,8 +1873,8 @@ Solution
 <!-- ## Other Purrr functions -->
 </div>
 </div>
-<div id="beyond-map-functions-with-multiple-inputs" class="section level2" number="12.5">
-<h2><span class="header-section-number">12.5</span> Beyond <code>map</code>: Functions with multiple inputs</h2>
+<div id="beyond-map-functions-with-multiple-inputs" class="section level2" number="13.5">
+<h2><span class="header-section-number">13.5</span> Beyond <code>map</code>: Functions with multiple inputs</h2>
 <p>Sometimes, you might need to map a function over two vectors/lists in parallel. <code>purrr</code> has you covered with the <code>map2</code> function. As with <code>map</code>, the syntax is <code>map2(thing1, thing2, function, other.args)</code>; the big difference is that <code>function</code> takes two arguments.</p>
 <p>Let’s create a simple times-table:</p>
 <div class="sourceCode" id="cb551"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb551-1"><a href="lists-nested-lists-and-functional-programming.html#cb551-1" aria-hidden="true" tabindex="-1"></a><span class="fu">crossing</span>(<span class="at">x =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>, <span class="at">y =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>) <span class="sc">%&gt;%</span></span>
@@ -1965,7 +1984,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/srvanderplas/unl-stat850/edit/master/12-purrr.Rmd",
+"link": "https://github.com/srvanderplas/unl-stat850/edit/master/13-purrr.Rmd",
 "text": "Suggest an edit"
 },
 "history": {
@@ -1976,7 +1995,7 @@ gitbook.start({
 "link": null,
 "text": null
 },
-"download": ["https://github.com/srvanderplas/unl-stat850/raw/master/12-purrr.Rmd"],
+"download": ["https://github.com/srvanderplas/unl-stat850/raw/master/13-purrr.Rmd"],
 "toc": {
 "collapse": "section"
 }

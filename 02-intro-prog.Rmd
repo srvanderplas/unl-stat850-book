@@ -175,7 +175,7 @@ Our program flow map would look something like this:
 
 Variable types are sufficiently different in R and SAS that we will cover R first, then SAS. For a general overview, though, [this video, titled 'Why TRUE + TRUE = 2'](https://youtu.be/6otW6OXjR8c?list=PL96C35uN7xGLLeET0dOWaKHkAlPsrkcha) is an excellent introduction. 
 
-### R {#variable-types-R}
+### R
 
 In R, there are 4 commonly-used types: 
 
@@ -256,9 +256,9 @@ A fifth common "type"^[`numeric` is not really a type, it's a mode. Run `?mode` 
 The `numeric` category exists because when doing math, we can add an integer and a double, but adding an integer and a string is ... trickier. Testing for numeric variables guarantees that we'll be able to do math with those variables. `is.numeric()` and `as.numeric()` work as you would expect them to work.
 
 The general case of this property of a language is called **implicit type conversion** - that is, R will implicitly (behind the scenes) convert your integer to a double and then add the other double, so that the result is unambiguously a double. 
+</details>
 
-
-#### Type Conversions {#type-conversions-R}
+#### Type Conversions {-}
 R will generally work hard to seamlessly convert variables to different types. So, for instance, 
 ```{r, error = T, collapse = T, hold = T}
 TRUE + 2
@@ -298,7 +298,7 @@ typeof(z)
 ```
 
 
-#### Factors { #introfactors}
+#### Factors {- #introfactors}
 
 In R, there is one other type of variable to know about, and that is a factor. Factors are basically labeled integers. Instead of storing the data as a string or character, R instead stores the data as a series of integers, and then stores a separate table mapping the integers to labels. This is technically more efficient (which was important when computers had extremely limited memory), but it is also a pain in the rear (that's a technical term). 
 
@@ -419,11 +419,11 @@ TRUE + TRUE
 In R, adding a string to a string creates an error ("non-numeric argument to binary operator"). Adding a logical to a logical, e.g. TRUE + TRUE, results in `r TRUE + TRUE`, which is a numeric value.
 </details>
 
-### SAS {#variable-types-sas}
+### SAS
 
 In SAS, there are two basic variable types: numeric and character variables. SAS does not differentiate between integers and floats and doubles. Functionally, though, the same basic operations can be performed in SAS. As with R, SAS does attempt to implicitly convert variable types, and will notify you that the conversion has taken place in the log file.
 
-#### Type Conversions {- #type-conversions-sas}
+#### Type Conversions {-}
 SAS will attempt to implicitly convert variables when:
 
 - a character value is assigned to a previously defined numeric variable
@@ -566,7 +566,7 @@ Vector (1D) | Matrix (2D) | Array (3D)
 
 The heterogeneous data types are not much harder to grasp, as they're mostly different ways to combine various homogeneous data types.
 
-#### Lists {#list-data-structure}
+#### Lists 
 
 A **list** is, well, a list - a sequence of potentially different-typed values. Unlike when concatenating values, the `list()` command in R allows each value to keep its natural type. You can access elements of a list using `[]` (this will extract a subset of the list items) or `[[]]`, which will extract a single item from the list. (there will be more on this in the [Indexing section](#indexing) below)
 
@@ -852,7 +852,7 @@ run;
 The last two blocks are SAS procedures (PROCs). In the first block, I'm asking SAS to describe the contents of the mathMJ dataset. In the second block, I'm telling SAS to print the whole mathMJ dataset out. 
 </details>
 
-### Indexing {#indexing-data-structures}
+### Indexing
 
 The 1, 2, and multi-dimensional homogeneous data types should be familiar from e.g. linear algebra and calculus. Single elements of a vector can be extracted using single square brackets, e.g. `x[1]` will get the first element of the vector `x`. In a matrix, elements are indexed as row, column, so to get the (2, 2) entry of a matrix x, you would use `x[2,2]`. This is extended for multi-dimensional arrays in R, with each dimension added, e.g. `x[3,1,2]` or `x[4, 3, 2, 1]`. 
 
@@ -959,9 +959,9 @@ If you have trouble distinguishing between `$`, `[`, and `[[`, you're not alone.
 </details>
 
 
-## Control structures {#control-structures-ch2}
+## Control structures
 
-### If statements {#if-statements-control}
+### If statements
 
 If statements are just about as simple in programming as they are in real life. 
 
@@ -1296,7 +1296,7 @@ run;
 See [this](https://www.oreilly.com/library/view/sas-certification-prep/9781607649243/p12osnn9d1s4hgn12yf8ffocxhw7.htm) to understand how the print statement works and how to add column summary values. 
 </details>
 
-### Loops {#loops-control}
+### Loops
 Often, we need to do a single task many times - for instance, we may need to calculate the average data value for each week, using daily data. Rather than typing out 52 different iterations of the same code, it is likely easier to type out one single block of code which contains the steps necessary to complete one instance of the task, and then leverage variables to ensure that each task is completed the correct number of times, using the correct inputs.
 
 Let us start with the most generic loop written in pseudocode (code that won't work, but provides the general idea of the steps which are taken)
@@ -1310,7 +1310,7 @@ loop_invocation(iteration variable, exit condition) {
 We use the `loop_invocation` function to indicate what type of loop we use. We have at least one `iteration variable` that indicates where in the looping process we currently are. This may be an index (if we want to do something 500 times, it would take values from 1 to 500), or it may take a more complicated sequence of values (for instance, if we are testing convergence, we might put some sort of delta variable as the iteration variable). Most loops also have an explicit exit condition that is part of the loop invocation; more rarely, a loop may depend on `break` statements that cause the control flow of the code to exit. Without some sort of exit condition, our program would run forever, which is... not optimal.
 
 
-#### Count controlled loops (FOR loops) {#for-loops}
+#### Count controlled loops (FOR loops)
 
 In a for loop, the steps in the loop body repeat a specified number of times. That is, *for* each value in a sequence, the steps within the loop are repeated. 
 
@@ -1551,7 +1551,7 @@ quit;
 ```
 </details>
 
-#### Condition-controlled loops (WHILE, DO WHILE) {#while-loops}
+#### Condition-controlled loops (WHILE, DO WHILE)
 
 Frequently, we do not know how many times a loop will need to execute a priori. We might be converging on a value, and want to repeat the calculation until the new value is within an acceptably epsilon of the previous iteration. In these cases, it can be helpful to use a [WHILE loop](https://en.wikipedia.org/wiki/While_loop), which loops while the condition is true (another variant, the do-while loop, is similar, except that a do-while loop will always execute once, and checks the condition at the end of the iteration). 
 
@@ -1665,12 +1665,12 @@ quit;
 ```
 </details>
 
-#### Other Loops and Interative Structures {#other-loops}
+#### Other Loops and Interative Structures
 
-There are many different ways to implement iteration in any language, including very low-level controls like `repeat` (in R). Higher level iteration may include a FOREACH loop, where a series of commands is applied to a list or vector (the `*apply` commands in R are examples of this). An additional method of iteration that requires functions is the recursion (where a function calls itself). In every case, these alternative loop structures can be translated to for or while loops, if you're thoughtful about it (though it may be more convenient for some problems to use e.g. recursion). At this point, I suspect you're probably overwhelmed enough, so we'll skip the other types of iteration for the moment.
+There are many different ways to implement iteration in any language, including very low-level controls like `repeat` (in R). Higher level iteration may include a FOREACH loop, where a series of commands is applied to a list or vector (the `*apply` commands in R are examples of this). An additional method of iteration that requires functions is the recursion (where a function calls itself). In every case, these alternative loop structures can be translated to for or while loops. 
 
 
-## Overgrown Calculators {#calculations-in-r-sas}
+## Overgrown Calculators
 
 While R and SAS are both extremely powerful statistical programming languages, the core of both languages is the ability to do basic calculations and matrix arithmetic. As almost every dataset is stored as a matrix-like structure (data sets and data frames both allow for multiple types, which isn't quite compatible with more canonical matrices), it is useful to know how to do matrix-level calculations in R and SAS. 
 
@@ -1781,13 +1781,7 @@ quit;
 </details>
 
 
-## If you made it this far...
-
-![You can do it!](https://raw.githubusercontent.com/allisonhorst/stats-illustrations/master/rstats-artwork/r_first_then.png)
-
-This is probably pretty overwhelming, but remember -- at this point, your job is to be able to remember where you saw the material and go back and look it up before applying it to a new problem. You can use a cheat-sheet, you can take notes, or you can just look through the book when doing your homework - but just like learning a spoken language, it's going to be kinda slow and challenging at first and you'll make lots of mistakes. I promise, you will get there :)
-
-## References and Links {- .learn-more #refs-module-2}
+## References and Links {- .learn-more}
 Non-exhaustive list of general R and SAS references used in this chapter:
 
 - [SAS Matrix reference](http://www.math.wpi.edu/saspdf/iml/chap4.pdf)

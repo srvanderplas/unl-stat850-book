@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Module 6 Transforming Data | Stat 850: Computing Tools for Statisticians</title>
+  <title>Module 7 Transforming Data | Stat 850: Computing Tools for Statisticians</title>
   <meta name="description" content="Introductions to statistical computing packages and document preparation software. Topics include: graphical techniques, data management, Monte Carlo simulation, dynamic document preparation, presentation software." />
   <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Module 6 Transforming Data | Stat 850: Computing Tools for Statisticians" />
+  <meta property="og:title" content="Module 7 Transforming Data | Stat 850: Computing Tools for Statisticians" />
   <meta property="og:type" content="book" />
   <meta property="og:url" content="https://srvanderplas.github.io/unl-stat850/" />
   <meta property="og:image" content="https://srvanderplas.github.io/unl-stat850/images/cover.png" />
@@ -16,7 +16,7 @@
   <meta name="github-repo" content="srvanderplas/unl-stat850" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Module 6 Transforming Data | Stat 850: Computing Tools for Statisticians" />
+  <meta name="twitter:title" content="Module 7 Transforming Data | Stat 850: Computing Tools for Statisticians" />
   
   <meta name="twitter:description" content="Introductions to statistical computing packages and document preparation software. Topics include: graphical techniques, data management, Monte Carlo simulation, dynamic document preparation, presentation software." />
   <meta name="twitter:image" content="https://srvanderplas.github.io/unl-stat850/images/cover.png" />
@@ -50,8 +50,6 @@
 
 
 
-<link href="libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
-<link href="libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
 <script src="libs/htmlwidgets-1.5.3/htmlwidgets.js"></script>
 <script src="libs/plotly-binding-4.9.3/plotly.js"></script>
 <script src="libs/typedarray-0.1/typedarray.min.js"></script>
@@ -84,6 +82,21 @@
     d.appendChild(code);
   }
 })();
+</script>
+<script>
+function unrolltab(evt, tabName) {
+  var i, tabcontent, tablinks;
+  tabcontent = document.getElementsByClassName("tabcontent");
+  for (i = 0; i < tabcontent.length; i++) {
+    tabcontent[i].style.display = "none";
+  }
+  tablinks = document.getElementsByClassName("tablinks");
+  for (i = 0; i < tablinks.length; i++) {
+    tablinks[i].className = tablinks[i].className.replace(" active", "");
+  }
+  document.getElementById(tabName).style.display = "block";
+  evt.currentTarget.className += " active";
+}
 </script>
 
 
@@ -187,19 +200,19 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="tools.html"><a href="tools.html#module-1-objectives"><i class="fa fa-check"></i>Module Objectives</a></li>
 <li class="chapter" data-level="1.1" data-path="tools.html"><a href="tools.html#setting-up-software"><i class="fa fa-check"></i><b>1.1</b> Setting Up Software</a>
 <ul>
-<li class="chapter" data-level="1.1.1" data-path="tools.html"><a href="tools.html#sas"><i class="fa fa-check"></i><b>1.1.1</b> SAS</a></li>
-<li class="chapter" data-level="1.1.2" data-path="tools.html"><a href="tools.html#r"><i class="fa fa-check"></i><b>1.1.2</b> R</a></li>
-<li class="chapter" data-level="1.1.3" data-path="tools.html"><a href="tools.html#rstudio"><i class="fa fa-check"></i><b>1.1.3</b> RStudio</a></li>
-<li class="chapter" data-level="1.1.4" data-path="tools.html"><a href="tools.html#git"><i class="fa fa-check"></i><b>1.1.4</b> git</a></li>
-<li class="chapter" data-level="1.1.5" data-path="tools.html"><a href="tools.html#latex"><i class="fa fa-check"></i><b>1.1.5</b> LaTeX</a></li>
+<li class="chapter" data-level="1.1.1" data-path="tools.html"><a href="tools.html#setting-up-sas"><i class="fa fa-check"></i><b>1.1.1</b> SAS</a></li>
+<li class="chapter" data-level="1.1.2" data-path="tools.html"><a href="tools.html#setting-up-R"><i class="fa fa-check"></i><b>1.1.2</b> R</a></li>
+<li class="chapter" data-level="1.1.3" data-path="tools.html"><a href="tools.html#setting-up-rstudio"><i class="fa fa-check"></i><b>1.1.3</b> RStudio</a></li>
+<li class="chapter" data-level="1.1.4" data-path="tools.html"><a href="tools.html#setting-up-git"><i class="fa fa-check"></i><b>1.1.4</b> git</a></li>
+<li class="chapter" data-level="1.1.5" data-path="tools.html"><a href="tools.html#setting-up-latex"><i class="fa fa-check"></i><b>1.1.5</b> LaTeX</a></li>
 </ul></li>
 <li class="chapter" data-level="1.2" data-path="tools.html"><a href="tools.html#looking-around-your-environment"><i class="fa fa-check"></i><b>1.2</b> Looking Around Your Environment</a>
 <ul>
-<li class="chapter" data-level="1.2.1" data-path="tools.html"><a href="tools.html#r-and-rstudio"><i class="fa fa-check"></i><b>1.2.1</b> R and RStudio</a></li>
+<li class="chapter" data-level="1.2.1" data-path="tools.html"><a href="tools.html#looking-around-Rstudio"><i class="fa fa-check"></i><b>1.2.1</b> R and RStudio</a></li>
 <li class="chapter" data-level="" data-path="tools.html"><a href="tools.html#try-it-out"><i class="fa fa-check"></i>Try It Out</a></li>
-<li class="chapter" data-level="1.2.2" data-path="tools.html"><a href="tools.html#sas-1"><i class="fa fa-check"></i><b>1.2.2</b> SAS</a></li>
+<li class="chapter" data-level="1.2.2" data-path="tools.html"><a href="tools.html#looking-around-sas"><i class="fa fa-check"></i><b>1.2.2</b> SAS</a></li>
 <li class="chapter" data-level="1.2.3" data-path="tools.html"><a href="tools.html#version-control-with-git"><i class="fa fa-check"></i><b>1.2.3</b> Version Control with Git</a></li>
-<li class="chapter" data-level="1.2.4" data-path="tools.html"><a href="tools.html#latex-1"><i class="fa fa-check"></i><b>1.2.4</b> LaTeX</a></li>
+<li class="chapter" data-level="1.2.4" data-path="tools.html"><a href="tools.html#looking-around-latex"><i class="fa fa-check"></i><b>1.2.4</b> LaTeX</a></li>
 <li class="chapter" data-level="1.2.5" data-path="tools.html"><a href="tools.html#markdown"><i class="fa fa-check"></i><b>1.2.5</b> Markdown</a></li>
 </ul></li>
 <li class="chapter" data-level="1.3" data-path="tools.html"><a href="tools.html#some-computer-basics"><i class="fa fa-check"></i><b>1.3</b> Some Computer Basics</a>
@@ -217,7 +230,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="1.4.5" data-path="tools.html"><a href="tools.html#pushing-and-pulling"><i class="fa fa-check"></i><b>1.4.5</b> Pushing and Pulling</a></li>
 </ul></li>
 <li class="chapter" data-level="1.5" data-path="tools.html"><a href="tools.html#topic-sequencing"><i class="fa fa-check"></i><b>1.5</b> Topic Sequencing</a></li>
-<li class="chapter" data-level="1.6" data-path="tools.html"><a href="tools.html#references"><i class="fa fa-check"></i><b>1.6</b> References</a></li>
+<li class="chapter" data-level="1.6" data-path="tools.html"><a href="tools.html#refs-module-1"><i class="fa fa-check"></i><b>1.6</b> References</a></li>
 </ul></li>
 <li class="chapter" data-level="2" data-path="intro-prog.html"><a href="intro-prog.html"><i class="fa fa-check"></i><b>2</b> Introduction to Statistical Programming</a>
 <ul>
@@ -230,8 +243,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="2.2" data-path="intro-prog.html"><a href="intro-prog.html#variable-types"><i class="fa fa-check"></i><b>2.2</b> Variable types</a>
 <ul>
-<li class="chapter" data-level="2.2.1" data-path="intro-prog.html"><a href="intro-prog.html#r-1"><i class="fa fa-check"></i><b>2.2.1</b> R</a></li>
-<li class="chapter" data-level="2.2.2" data-path="intro-prog.html"><a href="intro-prog.html#sas-2"><i class="fa fa-check"></i><b>2.2.2</b> SAS</a></li>
+<li class="chapter" data-level="2.2.1" data-path="intro-prog.html"><a href="intro-prog.html#r"><i class="fa fa-check"></i><b>2.2.1</b> R</a></li>
+<li class="chapter" data-level="2.2.2" data-path="intro-prog.html"><a href="intro-prog.html#sas"><i class="fa fa-check"></i><b>2.2.2</b> SAS</a></li>
 </ul></li>
 <li class="chapter" data-level="2.3" data-path="intro-prog.html"><a href="intro-prog.html#data-structures"><i class="fa fa-check"></i><b>2.3</b> Data structures</a>
 <ul>
@@ -285,223 +298,229 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="organization.html"><a href="organization.html#references-and-links-1"><i class="fa fa-check"></i>References and Links</a></li>
 </ul></li>
 <li class="part"><span><b>II Data Programming</b></span></li>
-<li class="chapter" data-level="4" data-path="reading-data.html"><a href="reading-data.html"><i class="fa fa-check"></i><b>4</b> External Data</a>
+<li class="chapter" data-level="4" data-path="data-programming-basics.html"><a href="data-programming-basics.html"><i class="fa fa-check"></i><b>4</b> Basics</a>
 <ul>
-<li class="chapter" data-level="" data-path="reading-data.html"><a href="reading-data.html#reading-data-module-objectives"><i class="fa fa-check"></i>Reading Data: Module Objectives</a></li>
-<li class="chapter" data-level="4.1" data-path="reading-data.html"><a href="reading-data.html#external-data-formats"><i class="fa fa-check"></i><b>4.1</b> External Data Formats</a></li>
-<li class="chapter" data-level="4.2" data-path="reading-data.html"><a href="reading-data.html#text-files"><i class="fa fa-check"></i><b>4.2</b> Text Files</a>
+<li class="chapter" data-level="" data-path="data-programming-basics.html"><a href="data-programming-basics.html#module4-objectives"><i class="fa fa-check"></i>Module Objectives</a></li>
+<li class="chapter" data-level="4.1" data-path="data-programming-basics.html"><a href="data-programming-basics.html#introduction-1"><i class="fa fa-check"></i><b>4.1</b> Introduction</a></li>
+<li class="chapter" data-level="4.2" data-path="data-programming-basics.html"><a href="data-programming-basics.html#example-1-art"><i class="fa fa-check"></i><b>4.2</b> Example 1: Art</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="reading-data.html"><a href="reading-data.html"><i class="fa fa-check"></i><b>5</b> External Data</a>
 <ul>
-<li class="chapter" data-level="4.2.1" data-path="reading-data.html"><a href="reading-data.html#fixed-width-files"><i class="fa fa-check"></i><b>4.2.1</b> Fixed-width files</a></li>
-<li class="chapter" data-level="4.2.2" data-path="reading-data.html"><a href="reading-data.html#delimited-text-files"><i class="fa fa-check"></i><b>4.2.2</b> Delimited Text Files</a></li>
+<li class="chapter" data-level="" data-path="reading-data.html"><a href="reading-data.html#module5-objectives"><i class="fa fa-check"></i>Module Objectives</a></li>
+<li class="chapter" data-level="5.1" data-path="reading-data.html"><a href="reading-data.html#external-data-formats"><i class="fa fa-check"></i><b>5.1</b> External Data Formats</a></li>
+<li class="chapter" data-level="5.2" data-path="reading-data.html"><a href="reading-data.html#text-files"><i class="fa fa-check"></i><b>5.2</b> Text Files</a>
+<ul>
+<li class="chapter" data-level="5.2.1" data-path="reading-data.html"><a href="reading-data.html#fixed-width-files"><i class="fa fa-check"></i><b>5.2.1</b> Fixed-width files</a></li>
+<li class="chapter" data-level="5.2.2" data-path="reading-data.html"><a href="reading-data.html#delimited-text-files"><i class="fa fa-check"></i><b>5.2.2</b> Delimited Text Files</a></li>
 <li class="chapter" data-level="" data-path="reading-data.html"><a href="reading-data.html#try-it-out-14"><i class="fa fa-check"></i>Try it out</a></li>
 </ul></li>
-<li class="chapter" data-level="4.3" data-path="reading-data.html"><a href="reading-data.html#spreadsheets"><i class="fa fa-check"></i><b>4.3</b> Spreadsheets</a>
+<li class="chapter" data-level="5.3" data-path="reading-data.html"><a href="reading-data.html#spreadsheets"><i class="fa fa-check"></i><b>5.3</b> Spreadsheets</a>
 <ul>
 <li class="chapter" data-level="" data-path="reading-data.html"><a href="reading-data.html#try-it-out-15"><i class="fa fa-check"></i>Try it out</a></li>
 </ul></li>
-<li class="chapter" data-level="4.4" data-path="reading-data.html"><a href="reading-data.html#binary-files"><i class="fa fa-check"></i><b>4.4</b> Binary Files</a>
+<li class="chapter" data-level="5.4" data-path="reading-data.html"><a href="reading-data.html#binary-files"><i class="fa fa-check"></i><b>5.4</b> Binary Files</a>
 <ul>
 <li class="chapter" data-level="" data-path="reading-data.html"><a href="reading-data.html#try-it-out-16"><i class="fa fa-check"></i>Try it out</a></li>
 </ul></li>
-<li class="chapter" data-level="4.5" data-path="reading-data.html"><a href="reading-data.html#databases"><i class="fa fa-check"></i><b>4.5</b> Databases</a>
+<li class="chapter" data-level="5.5" data-path="reading-data.html"><a href="reading-data.html#databases"><i class="fa fa-check"></i><b>5.5</b> Databases</a>
 <ul>
-<li class="chapter" data-level="4.5.1" data-path="reading-data.html"><a href="reading-data.html#microsoft-access"><i class="fa fa-check"></i><b>4.5.1</b> Microsoft Access</a></li>
-<li class="chapter" data-level="4.5.2" data-path="reading-data.html"><a href="reading-data.html#sqlite"><i class="fa fa-check"></i><b>4.5.2</b> SQLite</a></li>
+<li class="chapter" data-level="5.5.1" data-path="reading-data.html"><a href="reading-data.html#microsoft-access"><i class="fa fa-check"></i><b>5.5.1</b> Microsoft Access</a></li>
+<li class="chapter" data-level="5.5.2" data-path="reading-data.html"><a href="reading-data.html#sqlite"><i class="fa fa-check"></i><b>5.5.2</b> SQLite</a></li>
 </ul></li>
-<li class="chapter" data-level="4.6" data-path="reading-data.html"><a href="reading-data.html#exploratory-data-analysis"><i class="fa fa-check"></i><b>4.6</b> Exploratory Data Analysis</a>
+<li class="chapter" data-level="5.6" data-path="reading-data.html"><a href="reading-data.html#exploratory-data-analysis"><i class="fa fa-check"></i><b>5.6</b> Exploratory Data Analysis</a>
 <ul>
-<li class="chapter" data-level="4.6.1" data-path="reading-data.html"><a href="reading-data.html#sas-3"><i class="fa fa-check"></i><b>4.6.1</b> SAS</a></li>
-<li class="chapter" data-level="4.6.2" data-path="reading-data.html"><a href="reading-data.html#r-2"><i class="fa fa-check"></i><b>4.6.2</b> R</a></li>
-<li class="chapter" data-level="4.6.3" data-path="reading-data.html"><a href="reading-data.html#comparison"><i class="fa fa-check"></i><b>4.6.3</b> Comparison</a></li>
+<li class="chapter" data-level="5.6.1" data-path="reading-data.html"><a href="reading-data.html#sas-1"><i class="fa fa-check"></i><b>5.6.1</b> SAS</a></li>
+<li class="chapter" data-level="5.6.2" data-path="reading-data.html"><a href="reading-data.html#r-1"><i class="fa fa-check"></i><b>5.6.2</b> R</a></li>
+<li class="chapter" data-level="5.6.3" data-path="reading-data.html"><a href="reading-data.html#comparison"><i class="fa fa-check"></i><b>5.6.3</b> Comparison</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="reading-data.html"><a href="reading-data.html#references-and-links-2"><i class="fa fa-check"></i>References and Links</a></li>
 </ul></li>
-<li class="chapter" data-level="5" data-path="manipulating-data.html"><a href="manipulating-data.html"><i class="fa fa-check"></i><b>5</b> Manipulating Data</a>
+<li class="chapter" data-level="6" data-path="manipulating-data.html"><a href="manipulating-data.html"><i class="fa fa-check"></i><b>6</b> Manipulating Data</a>
 <ul>
 <li class="chapter" data-level="" data-path="manipulating-data.html"><a href="manipulating-data.html#manipulating-data-module-objectives"><i class="fa fa-check"></i>Manipulating Data: Module Objectives</a></li>
-<li class="chapter" data-level="5.1" data-path="manipulating-data.html"><a href="manipulating-data.html#tidy-data"><i class="fa fa-check"></i><b>5.1</b> Tidy Data</a></li>
-<li class="chapter" data-level="5.2" data-path="manipulating-data.html"><a href="manipulating-data.html#filter-pick-cases-rows-based-on-their-values"><i class="fa fa-check"></i><b>5.2</b> Filter: Pick cases (rows) based on their values</a>
+<li class="chapter" data-level="6.1" data-path="manipulating-data.html"><a href="manipulating-data.html#tidy-data"><i class="fa fa-check"></i><b>6.1</b> Tidy Data</a></li>
+<li class="chapter" data-level="6.2" data-path="manipulating-data.html"><a href="manipulating-data.html#filter-pick-cases-rows-based-on-their-values"><i class="fa fa-check"></i><b>6.2</b> Filter: Pick cases (rows) based on their values</a>
 <ul>
-<li class="chapter" data-level="5.2.1" data-path="manipulating-data.html"><a href="manipulating-data.html#common-filter-tasks"><i class="fa fa-check"></i><b>5.2.1</b> Common Filter() Tasks</a></li>
+<li class="chapter" data-level="6.2.1" data-path="manipulating-data.html"><a href="manipulating-data.html#common-filter-tasks"><i class="fa fa-check"></i><b>6.2.1</b> Common Filter() Tasks</a></li>
 <li class="chapter" data-level="" data-path="manipulating-data.html"><a href="manipulating-data.html#try-it-out-17"><i class="fa fa-check"></i>Try it out</a></li>
 </ul></li>
-<li class="chapter" data-level="5.3" data-path="manipulating-data.html"><a href="manipulating-data.html#select-pick-columns"><i class="fa fa-check"></i><b>5.3</b> Select: Pick columns</a></li>
-<li class="chapter" data-level="5.4" data-path="manipulating-data.html"><a href="manipulating-data.html#mutate-add-and-transform-variables"><i class="fa fa-check"></i><b>5.4</b> Mutate: Add and transform variables</a></li>
-<li class="chapter" data-level="5.5" data-path="manipulating-data.html"><a href="manipulating-data.html#summarize"><i class="fa fa-check"></i><b>5.5</b> Summarize</a></li>
-<li class="chapter" data-level="5.6" data-path="manipulating-data.html"><a href="manipulating-data.html#group-by-power"><i class="fa fa-check"></i><b>5.6</b> Group By + (?) = Power!</a></li>
-<li class="chapter" data-level="5.7" data-path="manipulating-data.html"><a href="manipulating-data.html#other-dplyr-functions-across-relocate"><i class="fa fa-check"></i><b>5.7</b> Other <code>dplyr</code> functions: across, relocate</a></li>
+<li class="chapter" data-level="6.3" data-path="manipulating-data.html"><a href="manipulating-data.html#select-pick-columns"><i class="fa fa-check"></i><b>6.3</b> Select: Pick columns</a></li>
+<li class="chapter" data-level="6.4" data-path="manipulating-data.html"><a href="manipulating-data.html#mutate-add-and-transform-variables"><i class="fa fa-check"></i><b>6.4</b> Mutate: Add and transform variables</a></li>
+<li class="chapter" data-level="6.5" data-path="manipulating-data.html"><a href="manipulating-data.html#summarize"><i class="fa fa-check"></i><b>6.5</b> Summarize</a></li>
+<li class="chapter" data-level="6.6" data-path="manipulating-data.html"><a href="manipulating-data.html#group-by-power"><i class="fa fa-check"></i><b>6.6</b> Group By + (?) = Power!</a></li>
+<li class="chapter" data-level="6.7" data-path="manipulating-data.html"><a href="manipulating-data.html#other-dplyr-functions-across-relocate"><i class="fa fa-check"></i><b>6.7</b> Other <code>dplyr</code> functions: across, relocate</a></li>
 <li class="chapter" data-level="" data-path="manipulating-data.html"><a href="manipulating-data.html#try-it-out-18"><i class="fa fa-check"></i>Try it out</a></li>
-<li class="chapter" data-level="" data-path="manipulating-data.html"><a href="manipulating-data.html#references-1"><i class="fa fa-check"></i>References</a></li>
+<li class="chapter" data-level="" data-path="manipulating-data.html"><a href="manipulating-data.html#references"><i class="fa fa-check"></i>References</a></li>
 </ul></li>
-<li class="chapter" data-level="6" data-path="transforming-data.html"><a href="transforming-data.html"><i class="fa fa-check"></i><b>6</b> Transforming Data</a>
+<li class="chapter" data-level="7" data-path="transforming-data.html"><a href="transforming-data.html"><i class="fa fa-check"></i><b>7</b> Transforming Data</a>
 <ul>
 <li class="chapter" data-level="" data-path="transforming-data.html"><a href="transforming-data.html#transforming-data-module-objectives"><i class="fa fa-check"></i>Transforming Data: Module Objectives</a></li>
-<li class="chapter" data-level="6.1" data-path="transforming-data.html"><a href="transforming-data.html#identifying-the-problem-messy-data"><i class="fa fa-check"></i><b>6.1</b> Identifying the problem: Messy data</a>
+<li class="chapter" data-level="7.1" data-path="transforming-data.html"><a href="transforming-data.html#identifying-the-problem-messy-data"><i class="fa fa-check"></i><b>7.1</b> Identifying the problem: Messy data</a>
 <ul>
 <li class="chapter" data-level="" data-path="transforming-data.html"><a href="transforming-data.html#try-it-out-19"><i class="fa fa-check"></i>Try it out</a></li>
 </ul></li>
-<li class="chapter" data-level="6.2" data-path="transforming-data.html"><a href="transforming-data.html#string-operations-creating-new-variables-and-separating-multi-variable-columns"><i class="fa fa-check"></i><b>6.2</b> String operations: Creating new variables and separating multi-variable columns</a>
+<li class="chapter" data-level="7.2" data-path="transforming-data.html"><a href="transforming-data.html#string-operations-creating-new-variables-and-separating-multi-variable-columns"><i class="fa fa-check"></i><b>7.2</b> String operations: Creating new variables and separating multi-variable columns</a>
 <ul>
-<li class="chapter" data-level="6.2.1" data-path="transforming-data.html"><a href="transforming-data.html#basic-string-operations"><i class="fa fa-check"></i><b>6.2.1</b> Basic String Operations</a></li>
-<li class="chapter" data-level="6.2.2" data-path="transforming-data.html"><a href="transforming-data.html#regular-expressions"><i class="fa fa-check"></i><b>6.2.2</b> Regular Expressions</a></li>
-<li class="chapter" data-level="6.2.3" data-path="transforming-data.html"><a href="transforming-data.html#joining-and-splitting-variables"><i class="fa fa-check"></i><b>6.2.3</b> Joining and Splitting Variables</a></li>
+<li class="chapter" data-level="7.2.1" data-path="transforming-data.html"><a href="transforming-data.html#basic-string-operations"><i class="fa fa-check"></i><b>7.2.1</b> Basic String Operations</a></li>
+<li class="chapter" data-level="7.2.2" data-path="transforming-data.html"><a href="transforming-data.html#regular-expressions"><i class="fa fa-check"></i><b>7.2.2</b> Regular Expressions</a></li>
+<li class="chapter" data-level="7.2.3" data-path="transforming-data.html"><a href="transforming-data.html#joining-and-splitting-variables"><i class="fa fa-check"></i><b>7.2.3</b> Joining and Splitting Variables</a></li>
 </ul></li>
-<li class="chapter" data-level="6.3" data-path="transforming-data.html"><a href="transforming-data.html#pivot-operations"><i class="fa fa-check"></i><b>6.3</b> Pivot operations</a>
+<li class="chapter" data-level="7.3" data-path="transforming-data.html"><a href="transforming-data.html#pivot-operations"><i class="fa fa-check"></i><b>7.3</b> Pivot operations</a>
 <ul>
-<li class="chapter" data-level="6.3.1" data-path="transforming-data.html"><a href="transforming-data.html#longer"><i class="fa fa-check"></i><b>6.3.1</b> Longer</a></li>
-<li class="chapter" data-level="6.3.2" data-path="transforming-data.html"><a href="transforming-data.html#wider"><i class="fa fa-check"></i><b>6.3.2</b> Wider</a></li>
+<li class="chapter" data-level="7.3.1" data-path="transforming-data.html"><a href="transforming-data.html#longer"><i class="fa fa-check"></i><b>7.3.1</b> Longer</a></li>
+<li class="chapter" data-level="7.3.2" data-path="transforming-data.html"><a href="transforming-data.html#wider"><i class="fa fa-check"></i><b>7.3.2</b> Wider</a></li>
 </ul></li>
-<li class="chapter" data-level="6.4" data-path="transforming-data.html"><a href="transforming-data.html#relational-data-and-joining-tables"><i class="fa fa-check"></i><b>6.4</b> Relational Data and Joining Tables</a>
+<li class="chapter" data-level="7.4" data-path="transforming-data.html"><a href="transforming-data.html#relational-data-and-joining-tables"><i class="fa fa-check"></i><b>7.4</b> Relational Data and Joining Tables</a>
 <ul>
-<li class="chapter" data-level="6.4.1" data-path="transforming-data.html"><a href="transforming-data.html#demonstration-dataset-setup"><i class="fa fa-check"></i><b>6.4.1</b> Demonstration dataset setup</a></li>
-<li class="chapter" data-level="6.4.2" data-path="transforming-data.html"><a href="transforming-data.html#mutating-joins"><i class="fa fa-check"></i><b>6.4.2</b> Mutating joins</a></li>
+<li class="chapter" data-level="7.4.1" data-path="transforming-data.html"><a href="transforming-data.html#demonstration-dataset-setup"><i class="fa fa-check"></i><b>7.4.1</b> Demonstration dataset setup</a></li>
+<li class="chapter" data-level="7.4.2" data-path="transforming-data.html"><a href="transforming-data.html#mutating-joins"><i class="fa fa-check"></i><b>7.4.2</b> Mutating joins</a></li>
 </ul></li>
-<li class="chapter" data-level="6.5" data-path="transforming-data.html"><a href="transforming-data.html#example-gas-prices-data"><i class="fa fa-check"></i><b>6.5</b> Example: Gas Prices Data</a>
+<li class="chapter" data-level="7.5" data-path="transforming-data.html"><a href="transforming-data.html#example-gas-prices-data"><i class="fa fa-check"></i><b>7.5</b> Example: Gas Prices Data</a>
 <ul>
-<li class="chapter" data-level="6.5.1" data-path="transforming-data.html"><a href="transforming-data.html#option-1-manual-formatting-in-excel"><i class="fa fa-check"></i><b>6.5.1</b> Option 1: Manual formatting in Excel</a></li>
-<li class="chapter" data-level="6.5.2" data-path="transforming-data.html"><a href="transforming-data.html#option-2-r"><i class="fa fa-check"></i><b>6.5.2</b> Option 2: R</a></li>
-<li class="chapter" data-level="6.5.3" data-path="transforming-data.html"><a href="transforming-data.html#option-3-sas"><i class="fa fa-check"></i><b>6.5.3</b> Option 3: SAS</a></li>
+<li class="chapter" data-level="7.5.1" data-path="transforming-data.html"><a href="transforming-data.html#option-1-manual-formatting-in-excel"><i class="fa fa-check"></i><b>7.5.1</b> Option 1: Manual formatting in Excel</a></li>
+<li class="chapter" data-level="7.5.2" data-path="transforming-data.html"><a href="transforming-data.html#option-2-r"><i class="fa fa-check"></i><b>7.5.2</b> Option 2: R</a></li>
+<li class="chapter" data-level="7.5.3" data-path="transforming-data.html"><a href="transforming-data.html#option-3-sas"><i class="fa fa-check"></i><b>7.5.3</b> Option 3: SAS</a></li>
 </ul></li>
-<li class="chapter" data-level="" data-path="transforming-data.html"><a href="transforming-data.html#references-2"><i class="fa fa-check"></i>References</a></li>
+<li class="chapter" data-level="" data-path="transforming-data.html"><a href="transforming-data.html#references-1"><i class="fa fa-check"></i>References</a></li>
 </ul></li>
-<li class="chapter" data-level="7" data-path="debugging.html"><a href="debugging.html"><i class="fa fa-check"></i><b>7</b> Principles of Debugging</a>
+<li class="chapter" data-level="8" data-path="debugging.html"><a href="debugging.html"><i class="fa fa-check"></i><b>8</b> Principles of Debugging</a>
 <ul>
 <li class="chapter" data-level="" data-path="debugging.html"><a href="debugging.html#debugging-module-objectives"><i class="fa fa-check"></i>Debugging: Module Objectives</a></li>
-<li class="chapter" data-level="7.1" data-path="debugging.html"><a href="debugging.html#step-1-check-your-spelling."><i class="fa fa-check"></i><b>7.1</b> Step 1: Check your spelling.</a></li>
-<li class="chapter" data-level="7.2" data-path="debugging.html"><a href="debugging.html#defensive-programming"><i class="fa fa-check"></i><b>7.2</b> Defensive Programming</a></li>
-<li class="chapter" data-level="7.3" data-path="debugging.html"><a href="debugging.html#general-debugging-strategies"><i class="fa fa-check"></i><b>7.3</b> General Debugging Strategies</a></li>
-<li class="chapter" data-level="7.4" data-path="debugging.html"><a href="debugging.html#debugging-tools-in-r"><i class="fa fa-check"></i><b>7.4</b> Debugging Tools in R</a>
+<li class="chapter" data-level="8.1" data-path="debugging.html"><a href="debugging.html#step-1-check-your-spelling."><i class="fa fa-check"></i><b>8.1</b> Step 1: Check your spelling.</a></li>
+<li class="chapter" data-level="8.2" data-path="debugging.html"><a href="debugging.html#defensive-programming"><i class="fa fa-check"></i><b>8.2</b> Defensive Programming</a></li>
+<li class="chapter" data-level="8.3" data-path="debugging.html"><a href="debugging.html#general-debugging-strategies"><i class="fa fa-check"></i><b>8.3</b> General Debugging Strategies</a></li>
+<li class="chapter" data-level="8.4" data-path="debugging.html"><a href="debugging.html#debugging-tools-in-r"><i class="fa fa-check"></i><b>8.4</b> Debugging Tools in R</a>
 <ul>
-<li class="chapter" data-level="7.4.1" data-path="debugging.html"><a href="debugging.html#low-tech-debugging-with-print-and-other-tools"><i class="fa fa-check"></i><b>7.4.1</b> Low tech debugging with print() and other tools</a></li>
-<li class="chapter" data-level="7.4.2" data-path="debugging.html"><a href="debugging.html#after-an-error-has-occurred---traceback"><i class="fa fa-check"></i><b>7.4.2</b> After an error has occurred - <code>traceback()</code></a></li>
-<li class="chapter" data-level="7.4.3" data-path="debugging.html"><a href="debugging.html#browser---debugging-your-own-code-interactively"><i class="fa fa-check"></i><b>7.4.3</b> <code>browser()</code> - debugging your own code, interactively</a></li>
-<li class="chapter" data-level="7.4.4" data-path="debugging.html"><a href="debugging.html#debug---the-general-debugging-workhorse"><i class="fa fa-check"></i><b>7.4.4</b> <code>debug()</code> - the general debugging workhorse</a></li>
+<li class="chapter" data-level="8.4.1" data-path="debugging.html"><a href="debugging.html#low-tech-debugging-with-print-and-other-tools"><i class="fa fa-check"></i><b>8.4.1</b> Low tech debugging with print() and other tools</a></li>
+<li class="chapter" data-level="8.4.2" data-path="debugging.html"><a href="debugging.html#after-an-error-has-occurred---traceback"><i class="fa fa-check"></i><b>8.4.2</b> After an error has occurred - <code>traceback()</code></a></li>
+<li class="chapter" data-level="8.4.3" data-path="debugging.html"><a href="debugging.html#browser---debugging-your-own-code-interactively"><i class="fa fa-check"></i><b>8.4.3</b> <code>browser()</code> - debugging your own code, interactively</a></li>
+<li class="chapter" data-level="8.4.4" data-path="debugging.html"><a href="debugging.html#debug---the-general-debugging-workhorse"><i class="fa fa-check"></i><b>8.4.4</b> <code>debug()</code> - the general debugging workhorse</a></li>
 <li class="chapter" data-level="" data-path="debugging.html"><a href="debugging.html#try-it-out-25"><i class="fa fa-check"></i>Try it out</a></li>
 </ul></li>
-<li class="chapter" data-level="7.5" data-path="debugging.html"><a href="debugging.html#debugging-tools-in-sas"><i class="fa fa-check"></i><b>7.5</b> Debugging Tools in SAS</a></li>
-<li class="chapter" data-level="7.6" data-path="debugging.html"><a href="debugging.html#minimal-working-examples"><i class="fa fa-check"></i><b>7.6</b> Minimal Working Examples</a>
+<li class="chapter" data-level="8.5" data-path="debugging.html"><a href="debugging.html#debugging-tools-in-sas"><i class="fa fa-check"></i><b>8.5</b> Debugging Tools in SAS</a></li>
+<li class="chapter" data-level="8.6" data-path="debugging.html"><a href="debugging.html#minimal-working-examples"><i class="fa fa-check"></i><b>8.6</b> Minimal Working Examples</a>
 <ul>
-<li class="chapter" data-level="7.6.1" data-path="debugging.html"><a href="debugging.html#example-mwes"><i class="fa fa-check"></i><b>7.6.1</b> Example: MWEs</a></li>
-<li class="chapter" data-level="7.6.2" data-path="debugging.html"><a href="debugging.html#try-it-out-26"><i class="fa fa-check"></i><b>7.6.2</b> Try It Out</a></li>
+<li class="chapter" data-level="8.6.1" data-path="debugging.html"><a href="debugging.html#example-mwes"><i class="fa fa-check"></i><b>8.6.1</b> Example: MWEs</a></li>
+<li class="chapter" data-level="8.6.2" data-path="debugging.html"><a href="debugging.html#try-it-out-26"><i class="fa fa-check"></i><b>8.6.2</b> Try It Out</a></li>
 </ul></li>
-<li class="chapter" data-level="" data-path="debugging.html"><a href="debugging.html#references-3"><i class="fa fa-check"></i>References</a></li>
+<li class="chapter" data-level="" data-path="debugging.html"><a href="debugging.html#references-2"><i class="fa fa-check"></i>References</a></li>
 </ul></li>
 <li class="part"><span><b>III Applications</b></span></li>
-<li class="chapter" data-level="8" data-path="data-vis-intro.html"><a href="data-vis-intro.html"><i class="fa fa-check"></i><b>8</b> Introduction to Data Visualization</a>
+<li class="chapter" data-level="9" data-path="data-vis-intro.html"><a href="data-vis-intro.html"><i class="fa fa-check"></i><b>9</b> Introduction to Data Visualization</a>
 <ul>
 <li class="chapter" data-level="" data-path="data-vis-intro.html"><a href="data-vis-intro.html#visualization-module-objectives"><i class="fa fa-check"></i>Visualization: Module Objectives</a></li>
-<li class="chapter" data-level="8.1" data-path="data-vis-intro.html"><a href="data-vis-intro.html#why-do-we-create-graphics"><i class="fa fa-check"></i><b>8.1</b> Why do we create graphics?</a></li>
-<li class="chapter" data-level="8.2" data-path="data-vis-intro.html"><a href="data-vis-intro.html#general-approaches-to-creating-graphics"><i class="fa fa-check"></i><b>8.2</b> General approaches to creating graphics</a></li>
-<li class="chapter" data-level="8.3" data-path="data-vis-intro.html"><a href="data-vis-intro.html#the-grammar-of-graphics"><i class="fa fa-check"></i><b>8.3</b> The Grammar of Graphics</a>
+<li class="chapter" data-level="9.1" data-path="data-vis-intro.html"><a href="data-vis-intro.html#why-do-we-create-graphics"><i class="fa fa-check"></i><b>9.1</b> Why do we create graphics?</a></li>
+<li class="chapter" data-level="9.2" data-path="data-vis-intro.html"><a href="data-vis-intro.html#general-approaches-to-creating-graphics"><i class="fa fa-check"></i><b>9.2</b> General approaches to creating graphics</a></li>
+<li class="chapter" data-level="9.3" data-path="data-vis-intro.html"><a href="data-vis-intro.html#the-grammar-of-graphics"><i class="fa fa-check"></i><b>9.3</b> The Grammar of Graphics</a>
 <ul>
-<li class="chapter" data-level="8.3.1" data-path="data-vis-intro.html"><a href="data-vis-intro.html#demonstration-aesthetic-mappings-and-basic-plots"><i class="fa fa-check"></i><b>8.3.1</b> Demonstration: Aesthetic Mappings and Basic Plots</a></li>
-<li class="chapter" data-level="8.3.2" data-path="data-vis-intro.html"><a href="data-vis-intro.html#syntax-and-general-structure-layers"><i class="fa fa-check"></i><b>8.3.2</b> Syntax and General Structure: Layers</a></li>
-<li class="chapter" data-level="8.3.3" data-path="data-vis-intro.html"><a href="data-vis-intro.html#statistics-and-different-types-of-plots"><i class="fa fa-check"></i><b>8.3.3</b> Statistics and Different Types of Plots</a></li>
-<li class="chapter" data-level="8.3.4" data-path="data-vis-intro.html"><a href="data-vis-intro.html#small-multiples"><i class="fa fa-check"></i><b>8.3.4</b> Small Multiples</a></li>
+<li class="chapter" data-level="9.3.1" data-path="data-vis-intro.html"><a href="data-vis-intro.html#demonstration-aesthetic-mappings-and-basic-plots"><i class="fa fa-check"></i><b>9.3.1</b> Demonstration: Aesthetic Mappings and Basic Plots</a></li>
+<li class="chapter" data-level="9.3.2" data-path="data-vis-intro.html"><a href="data-vis-intro.html#syntax-and-general-structure-layers"><i class="fa fa-check"></i><b>9.3.2</b> Syntax and General Structure: Layers</a></li>
+<li class="chapter" data-level="9.3.3" data-path="data-vis-intro.html"><a href="data-vis-intro.html#statistics-and-different-types-of-plots"><i class="fa fa-check"></i><b>9.3.3</b> Statistics and Different Types of Plots</a></li>
+<li class="chapter" data-level="9.3.4" data-path="data-vis-intro.html"><a href="data-vis-intro.html#small-multiples"><i class="fa fa-check"></i><b>9.3.4</b> Small Multiples</a></li>
 <li class="chapter" data-level="" data-path="data-vis-intro.html"><a href="data-vis-intro.html#try-it-out-30"><i class="fa fa-check"></i>Try it out</a></li>
 </ul></li>
-<li class="chapter" data-level="8.4" data-path="data-vis-intro.html"><a href="data-vis-intro.html#good-charts"><i class="fa fa-check"></i><b>8.4</b> Good charts</a>
+<li class="chapter" data-level="9.4" data-path="data-vis-intro.html"><a href="data-vis-intro.html#good-charts"><i class="fa fa-check"></i><b>9.4</b> Good charts</a>
 <ul>
-<li class="chapter" data-level="8.4.1" data-path="data-vis-intro.html"><a href="data-vis-intro.html#perceptual-and-cognitive-factors"><i class="fa fa-check"></i><b>8.4.1</b> Perceptual and Cognitive Factors</a></li>
-<li class="chapter" data-level="8.4.2" data-path="data-vis-intro.html"><a href="data-vis-intro.html#general-guidelines-for-accuracy"><i class="fa fa-check"></i><b>8.4.2</b> General guidelines for accuracy</a></li>
-<li class="chapter" data-level="8.4.3" data-path="data-vis-intro.html"><a href="data-vis-intro.html#how-do-we-know"><i class="fa fa-check"></i><b>8.4.3</b> How do we know?</a></li>
+<li class="chapter" data-level="9.4.1" data-path="data-vis-intro.html"><a href="data-vis-intro.html#perceptual-and-cognitive-factors"><i class="fa fa-check"></i><b>9.4.1</b> Perceptual and Cognitive Factors</a></li>
+<li class="chapter" data-level="9.4.2" data-path="data-vis-intro.html"><a href="data-vis-intro.html#general-guidelines-for-accuracy"><i class="fa fa-check"></i><b>9.4.2</b> General guidelines for accuracy</a></li>
+<li class="chapter" data-level="9.4.3" data-path="data-vis-intro.html"><a href="data-vis-intro.html#how-do-we-know"><i class="fa fa-check"></i><b>9.4.3</b> How do we know?</a></li>
 </ul></li>
-<li class="chapter" data-level="8.5" data-path="data-vis-intro.html"><a href="data-vis-intro.html#other-things-worth-exploring-and-future-expansions-for-this-chapter"><i class="fa fa-check"></i><b>8.5</b> Other things worth exploring (and future expansions for this chapter)</a></li>
-<li class="chapter" data-level="" data-path="data-vis-intro.html"><a href="data-vis-intro.html#references-4"><i class="fa fa-check"></i>References</a>
+<li class="chapter" data-level="9.5" data-path="data-vis-intro.html"><a href="data-vis-intro.html#other-things-worth-exploring-and-future-expansions-for-this-chapter"><i class="fa fa-check"></i><b>9.5</b> Other things worth exploring (and future expansions for this chapter)</a></li>
+<li class="chapter" data-level="" data-path="data-vis-intro.html"><a href="data-vis-intro.html#references-3"><i class="fa fa-check"></i>References</a>
 <ul>
-<li class="chapter" data-level="8.5.1" data-path="data-vis-intro.html"><a href="data-vis-intro.html#motivation"><i class="fa fa-check"></i><b>8.5.1</b> Motivation</a></li>
-<li class="chapter" data-level="8.5.2" data-path="data-vis-intro.html"><a href="data-vis-intro.html#r-graphics"><i class="fa fa-check"></i><b>8.5.2</b> R graphics</a></li>
-<li class="chapter" data-level="8.5.3" data-path="data-vis-intro.html"><a href="data-vis-intro.html#sas-graphics"><i class="fa fa-check"></i><b>8.5.3</b> SAS graphics</a></li>
-<li class="chapter" data-level="8.5.4" data-path="data-vis-intro.html"><a href="data-vis-intro.html#types-of-charts-and-chart-styling"><i class="fa fa-check"></i><b>8.5.4</b> Types of Charts and Chart Styling</a></li>
-<li class="chapter" data-level="8.5.5" data-path="data-vis-intro.html"><a href="data-vis-intro.html#other-graphics-packages"><i class="fa fa-check"></i><b>8.5.5</b> Other Graphics packages</a></li>
+<li class="chapter" data-level="9.5.1" data-path="data-vis-intro.html"><a href="data-vis-intro.html#motivation"><i class="fa fa-check"></i><b>9.5.1</b> Motivation</a></li>
+<li class="chapter" data-level="9.5.2" data-path="data-vis-intro.html"><a href="data-vis-intro.html#r-graphics"><i class="fa fa-check"></i><b>9.5.2</b> R graphics</a></li>
+<li class="chapter" data-level="9.5.3" data-path="data-vis-intro.html"><a href="data-vis-intro.html#sas-graphics"><i class="fa fa-check"></i><b>9.5.3</b> SAS graphics</a></li>
+<li class="chapter" data-level="9.5.4" data-path="data-vis-intro.html"><a href="data-vis-intro.html#types-of-charts-and-chart-styling"><i class="fa fa-check"></i><b>9.5.4</b> Types of Charts and Chart Styling</a></li>
+<li class="chapter" data-level="9.5.5" data-path="data-vis-intro.html"><a href="data-vis-intro.html#other-graphics-packages"><i class="fa fa-check"></i><b>9.5.5</b> Other Graphics packages</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="9" data-path="simulation.html"><a href="simulation.html"><i class="fa fa-check"></i><b>9</b> Simulation and Reproducibility</a>
+<li class="chapter" data-level="10" data-path="simulation.html"><a href="simulation.html"><i class="fa fa-check"></i><b>10</b> Simulation and Reproducibility</a>
 <ul>
 <li class="chapter" data-level="" data-path="simulation.html"><a href="simulation.html#simulation-module-objectives"><i class="fa fa-check"></i>Simulation: Module Objectives</a></li>
-<li class="chapter" data-level="9.1" data-path="simulation.html"><a href="simulation.html#pseudorandom-number-generation"><i class="fa fa-check"></i><b>9.1</b> Pseudorandom Number Generation</a></li>
-<li class="chapter" data-level="9.2" data-path="simulation.html"><a href="simulation.html#built-in-simulations-from-distributions"><i class="fa fa-check"></i><b>9.2</b> Built-in simulations from distributions</a>
+<li class="chapter" data-level="10.1" data-path="simulation.html"><a href="simulation.html#pseudorandom-number-generation"><i class="fa fa-check"></i><b>10.1</b> Pseudorandom Number Generation</a></li>
+<li class="chapter" data-level="10.2" data-path="simulation.html"><a href="simulation.html#built-in-simulations-from-distributions"><i class="fa fa-check"></i><b>10.2</b> Built-in simulations from distributions</a>
 <ul>
 <li class="chapter" data-level="" data-path="simulation.html"><a href="simulation.html#try-it-out-32"><i class="fa fa-check"></i>Try it out</a></li>
 </ul></li>
-<li class="chapter" data-level="9.3" data-path="simulation.html"><a href="simulation.html#simulation-to-test-model-assumptions"><i class="fa fa-check"></i><b>9.3</b> Simulation to test model assumptions</a>
+<li class="chapter" data-level="10.3" data-path="simulation.html"><a href="simulation.html#simulation-to-test-model-assumptions"><i class="fa fa-check"></i><b>10.3</b> Simulation to test model assumptions</a>
 <ul>
 <li class="chapter" data-level="" data-path="simulation.html"><a href="simulation.html#try-it-out-33"><i class="fa fa-check"></i>Try it out</a></li>
 </ul></li>
-<li class="chapter" data-level="9.4" data-path="simulation.html"><a href="simulation.html#monte-carlo-methods"><i class="fa fa-check"></i><b>9.4</b> Monte Carlo methods</a>
+<li class="chapter" data-level="10.4" data-path="simulation.html"><a href="simulation.html#monte-carlo-methods"><i class="fa fa-check"></i><b>10.4</b> Monte Carlo methods</a>
 <ul>
 <li class="chapter" data-level="" data-path="simulation.html"><a href="simulation.html#try-it-out-34"><i class="fa fa-check"></i>Try it out</a></li>
 </ul></li>
-<li class="chapter" data-level="9.5" data-path="simulation.html"><a href="simulation.html#references-5"><i class="fa fa-check"></i><b>9.5</b> References</a></li>
+<li class="chapter" data-level="10.5" data-path="simulation.html"><a href="simulation.html#references-4"><i class="fa fa-check"></i><b>10.5</b> References</a></li>
 </ul></li>
-<li class="chapter" data-level="10" data-path="docs-reports.html"><a href="docs-reports.html"><i class="fa fa-check"></i><b>10</b> Documents and Reports</a>
+<li class="chapter" data-level="11" data-path="docs-reports.html"><a href="docs-reports.html"><i class="fa fa-check"></i><b>11</b> Documents and Reports</a>
 <ul>
 <li class="chapter" data-level="" data-path="docs-reports.html"><a href="docs-reports.html#documents-and-reports-module-objectives"><i class="fa fa-check"></i>Documents and Reports: Module Objectives</a></li>
-<li class="chapter" data-level="10.1" data-path="docs-reports.html"><a href="docs-reports.html#literate-programming-knitr-and-rmarkdown"><i class="fa fa-check"></i><b>10.1</b> Literate Programming, <code>knitr</code>, and <code>rmarkdown</code></a></li>
-<li class="chapter" data-level="10.2" data-path="docs-reports.html"><a href="docs-reports.html#a-very-brief-introduction-to-latex"><i class="fa fa-check"></i><b>10.2</b> A Very Brief Introduction to LaTeX</a>
+<li class="chapter" data-level="11.1" data-path="docs-reports.html"><a href="docs-reports.html#literate-programming-knitr-and-rmarkdown"><i class="fa fa-check"></i><b>11.1</b> Literate Programming, <code>knitr</code>, and <code>rmarkdown</code></a></li>
+<li class="chapter" data-level="11.2" data-path="docs-reports.html"><a href="docs-reports.html#a-very-brief-introduction-to-latex"><i class="fa fa-check"></i><b>11.2</b> A Very Brief Introduction to LaTeX</a>
 <ul>
 <li class="chapter" data-level="" data-path="docs-reports.html"><a href="docs-reports.html#try-it-out-35"><i class="fa fa-check"></i>Try it out</a></li>
-<li class="chapter" data-level="10.2.1" data-path="docs-reports.html"><a href="docs-reports.html#knitr"><i class="fa fa-check"></i><b>10.2.1</b> Knitr</a></li>
+<li class="chapter" data-level="11.2.1" data-path="docs-reports.html"><a href="docs-reports.html#knitr"><i class="fa fa-check"></i><b>11.2.1</b> Knitr</a></li>
 </ul></li>
-<li class="chapter" data-level="10.3" data-path="docs-reports.html"><a href="docs-reports.html#slides"><i class="fa fa-check"></i><b>10.3</b> Slides</a>
+<li class="chapter" data-level="11.3" data-path="docs-reports.html"><a href="docs-reports.html#slides"><i class="fa fa-check"></i><b>11.3</b> Slides</a>
 <ul>
-<li class="chapter" data-level="10.3.1" data-path="docs-reports.html"><a href="docs-reports.html#beamer-latex-and-knitr"><i class="fa fa-check"></i><b>10.3.1</b> Beamer (LaTeX) and knitr</a></li>
-<li class="chapter" data-level="10.3.2" data-path="docs-reports.html"><a href="docs-reports.html#html-slides"><i class="fa fa-check"></i><b>10.3.2</b> HTML slides</a></li>
+<li class="chapter" data-level="11.3.1" data-path="docs-reports.html"><a href="docs-reports.html#beamer-latex-and-knitr"><i class="fa fa-check"></i><b>11.3.1</b> Beamer (LaTeX) and knitr</a></li>
+<li class="chapter" data-level="11.3.2" data-path="docs-reports.html"><a href="docs-reports.html#html-slides"><i class="fa fa-check"></i><b>11.3.2</b> HTML slides</a></li>
 <li class="chapter" data-level="" data-path="docs-reports.html"><a href="docs-reports.html#try-it-out-37"><i class="fa fa-check"></i>Try it out</a></li>
 </ul></li>
-<li class="chapter" data-level="10.4" data-path="docs-reports.html"><a href="docs-reports.html#posters"><i class="fa fa-check"></i><b>10.4</b> Posters</a>
+<li class="chapter" data-level="11.4" data-path="docs-reports.html"><a href="docs-reports.html#posters"><i class="fa fa-check"></i><b>11.4</b> Posters</a>
 <ul>
-<li class="chapter" data-level="10.4.1" data-path="docs-reports.html"><a href="docs-reports.html#latex-2"><i class="fa fa-check"></i><b>10.4.1</b> LaTeX</a></li>
-<li class="chapter" data-level="10.4.2" data-path="docs-reports.html"><a href="docs-reports.html#posterdown"><i class="fa fa-check"></i><b>10.4.2</b> Posterdown</a></li>
-<li class="chapter" data-level="10.4.3" data-path="docs-reports.html"><a href="docs-reports.html#pagedown"><i class="fa fa-check"></i><b>10.4.3</b> Pagedown</a></li>
+<li class="chapter" data-level="11.4.1" data-path="docs-reports.html"><a href="docs-reports.html#latex"><i class="fa fa-check"></i><b>11.4.1</b> LaTeX</a></li>
+<li class="chapter" data-level="11.4.2" data-path="docs-reports.html"><a href="docs-reports.html#posterdown"><i class="fa fa-check"></i><b>11.4.2</b> Posterdown</a></li>
+<li class="chapter" data-level="11.4.3" data-path="docs-reports.html"><a href="docs-reports.html#pagedown"><i class="fa fa-check"></i><b>11.4.3</b> Pagedown</a></li>
 </ul></li>
-<li class="chapter" data-level="10.5" data-path="docs-reports.html"><a href="docs-reports.html#resumecv"><i class="fa fa-check"></i><b>10.5</b> Resume/CV</a></li>
-<li class="chapter" data-level="10.6" data-path="docs-reports.html"><a href="docs-reports.html#using-github-pages"><i class="fa fa-check"></i><b>10.6</b> Using Github Pages</a></li>
-<li class="chapter" data-level="10.7" data-path="docs-reports.html"><a href="docs-reports.html#references-6"><i class="fa fa-check"></i><b>10.7</b> References</a></li>
+<li class="chapter" data-level="11.5" data-path="docs-reports.html"><a href="docs-reports.html#resumecv"><i class="fa fa-check"></i><b>11.5</b> Resume/CV</a></li>
+<li class="chapter" data-level="11.6" data-path="docs-reports.html"><a href="docs-reports.html#using-github-pages"><i class="fa fa-check"></i><b>11.6</b> Using Github Pages</a></li>
+<li class="chapter" data-level="11.7" data-path="docs-reports.html"><a href="docs-reports.html#references-5"><i class="fa fa-check"></i><b>11.7</b> References</a></li>
 </ul></li>
-<li class="chapter" data-level="11" data-path="animated-and-interactive-graphics.html"><a href="animated-and-interactive-graphics.html"><i class="fa fa-check"></i><b>11</b> Animated and Interactive Graphics</a>
+<li class="chapter" data-level="12" data-path="animated-and-interactive-graphics.html"><a href="animated-and-interactive-graphics.html"><i class="fa fa-check"></i><b>12</b> Animated and Interactive Graphics</a>
 <ul>
 <li class="chapter" data-level="" data-path="animated-and-interactive-graphics.html"><a href="animated-and-interactive-graphics.html#animated-and-interactive-graphics-module-objectives"><i class="fa fa-check"></i>Animated and Interactive Graphics: Module Objectives</a></li>
-<li class="chapter" data-level="11.1" data-path="animated-and-interactive-graphics.html"><a href="animated-and-interactive-graphics.html#plotly"><i class="fa fa-check"></i><b>11.1</b> Plotly</a>
+<li class="chapter" data-level="12.1" data-path="animated-and-interactive-graphics.html"><a href="animated-and-interactive-graphics.html#plotly"><i class="fa fa-check"></i><b>12.1</b> Plotly</a>
 <ul>
-<li class="chapter" data-level="11.1.1" data-path="animated-and-interactive-graphics.html"><a href="animated-and-interactive-graphics.html#ggplotly-ggplot2-to-plotly-conversions"><i class="fa fa-check"></i><b>11.1.1</b> <code>ggplotly</code>: ggplot2 to plotly conversions</a></li>
-<li class="chapter" data-level="11.1.2" data-path="animated-and-interactive-graphics.html"><a href="animated-and-interactive-graphics.html#plot_ly-like-base-plotting-but-interactive"><i class="fa fa-check"></i><b>11.1.2</b> <code>plot_ly</code>: Like base plotting, but interactive!</a></li>
-<li class="chapter" data-level="11.1.3" data-path="animated-and-interactive-graphics.html"><a href="animated-and-interactive-graphics.html#animation"><i class="fa fa-check"></i><b>11.1.3</b> Animation</a></li>
+<li class="chapter" data-level="12.1.1" data-path="animated-and-interactive-graphics.html"><a href="animated-and-interactive-graphics.html#ggplotly-ggplot2-to-plotly-conversions"><i class="fa fa-check"></i><b>12.1.1</b> <code>ggplotly</code>: ggplot2 to plotly conversions</a></li>
+<li class="chapter" data-level="12.1.2" data-path="animated-and-interactive-graphics.html"><a href="animated-and-interactive-graphics.html#plot_ly-like-base-plotting-but-interactive"><i class="fa fa-check"></i><b>12.1.2</b> <code>plot_ly</code>: Like base plotting, but interactive!</a></li>
+<li class="chapter" data-level="12.1.3" data-path="animated-and-interactive-graphics.html"><a href="animated-and-interactive-graphics.html#animation"><i class="fa fa-check"></i><b>12.1.3</b> Animation</a></li>
 </ul></li>
-<li class="chapter" data-level="11.2" data-path="animated-and-interactive-graphics.html"><a href="animated-and-interactive-graphics.html#leaflet-maps"><i class="fa fa-check"></i><b>11.2</b> Leaflet maps</a>
+<li class="chapter" data-level="12.2" data-path="animated-and-interactive-graphics.html"><a href="animated-and-interactive-graphics.html#leaflet-maps"><i class="fa fa-check"></i><b>12.2</b> Leaflet maps</a>
 <ul>
 <li class="chapter" data-level="" data-path="animated-and-interactive-graphics.html"><a href="animated-and-interactive-graphics.html#try-it-out-41"><i class="fa fa-check"></i>Try it out</a></li>
 </ul></li>
-<li class="chapter" data-level="11.3" data-path="animated-and-interactive-graphics.html"><a href="animated-and-interactive-graphics.html#shiny"><i class="fa fa-check"></i><b>11.3</b> Shiny</a></li>
-<li class="chapter" data-level="11.4" data-path="animated-and-interactive-graphics.html"><a href="animated-and-interactive-graphics.html#general-references"><i class="fa fa-check"></i><b>11.4</b> General References</a>
+<li class="chapter" data-level="12.3" data-path="animated-and-interactive-graphics.html"><a href="animated-and-interactive-graphics.html#shiny"><i class="fa fa-check"></i><b>12.3</b> Shiny</a></li>
+<li class="chapter" data-level="12.4" data-path="animated-and-interactive-graphics.html"><a href="animated-and-interactive-graphics.html#general-references"><i class="fa fa-check"></i><b>12.4</b> General References</a>
 <ul>
-<li class="chapter" data-level="11.4.1" data-path="animated-and-interactive-graphics.html"><a href="animated-and-interactive-graphics.html#other-interactive-tools"><i class="fa fa-check"></i><b>11.4.1</b> Other interactive tools</a></li>
-<li class="chapter" data-level="11.4.2" data-path="animated-and-interactive-graphics.html"><a href="animated-and-interactive-graphics.html#debugging-1"><i class="fa fa-check"></i><b>11.4.2</b> Debugging</a></li>
+<li class="chapter" data-level="12.4.1" data-path="animated-and-interactive-graphics.html"><a href="animated-and-interactive-graphics.html#other-interactive-tools"><i class="fa fa-check"></i><b>12.4.1</b> Other interactive tools</a></li>
+<li class="chapter" data-level="12.4.2" data-path="animated-and-interactive-graphics.html"><a href="animated-and-interactive-graphics.html#debugging-1"><i class="fa fa-check"></i><b>12.4.2</b> Debugging</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="12" data-path="lists-nested-lists-and-functional-programming.html"><a href="lists-nested-lists-and-functional-programming.html"><i class="fa fa-check"></i><b>12</b> Lists, Nested Lists, and Functional Programming</a>
+<li class="chapter" data-level="13" data-path="lists-nested-lists-and-functional-programming.html"><a href="lists-nested-lists-and-functional-programming.html"><i class="fa fa-check"></i><b>13</b> Lists, Nested Lists, and Functional Programming</a>
 <ul>
-<li class="chapter" data-level="12.1" data-path="lists-nested-lists-and-functional-programming.html"><a href="lists-nested-lists-and-functional-programming.html#review-lists-and-vectors"><i class="fa fa-check"></i><b>12.1</b> Review: Lists and Vectors</a></li>
-<li class="chapter" data-level="12.2" data-path="lists-nested-lists-and-functional-programming.html"><a href="lists-nested-lists-and-functional-programming.html#introduction-to-map"><i class="fa fa-check"></i><b>12.2</b> Introduction to <code>map</code></a></li>
-<li class="chapter" data-level="12.3" data-path="lists-nested-lists-and-functional-programming.html"><a href="lists-nested-lists-and-functional-programming.html#creating-and-using-list-columns"><i class="fa fa-check"></i><b>12.3</b> Creating (and Using) List-columns</a></li>
-<li class="chapter" data-level="12.4" data-path="lists-nested-lists-and-functional-programming.html"><a href="lists-nested-lists-and-functional-programming.html#ways-to-use-map"><i class="fa fa-check"></i><b>12.4</b> Ways to use <code>map</code></a>
+<li class="chapter" data-level="13.1" data-path="lists-nested-lists-and-functional-programming.html"><a href="lists-nested-lists-and-functional-programming.html#review-lists-and-vectors"><i class="fa fa-check"></i><b>13.1</b> Review: Lists and Vectors</a></li>
+<li class="chapter" data-level="13.2" data-path="lists-nested-lists-and-functional-programming.html"><a href="lists-nested-lists-and-functional-programming.html#introduction-to-map"><i class="fa fa-check"></i><b>13.2</b> Introduction to <code>map</code></a></li>
+<li class="chapter" data-level="13.3" data-path="lists-nested-lists-and-functional-programming.html"><a href="lists-nested-lists-and-functional-programming.html#creating-and-using-list-columns"><i class="fa fa-check"></i><b>13.3</b> Creating (and Using) List-columns</a></li>
+<li class="chapter" data-level="13.4" data-path="lists-nested-lists-and-functional-programming.html"><a href="lists-nested-lists-and-functional-programming.html#ways-to-use-map"><i class="fa fa-check"></i><b>13.4</b> Ways to use <code>map</code></a>
 <ul>
 <li class="chapter" data-level="" data-path="lists-nested-lists-and-functional-programming.html"><a href="lists-nested-lists-and-functional-programming.html#try-it-out-42"><i class="fa fa-check"></i>Try it out</a></li>
 </ul></li>
-<li class="chapter" data-level="12.5" data-path="lists-nested-lists-and-functional-programming.html"><a href="lists-nested-lists-and-functional-programming.html#beyond-map-functions-with-multiple-inputs"><i class="fa fa-check"></i><b>12.5</b> Beyond <code>map</code>: Functions with multiple inputs</a>
+<li class="chapter" data-level="13.5" data-path="lists-nested-lists-and-functional-programming.html"><a href="lists-nested-lists-and-functional-programming.html#beyond-map-functions-with-multiple-inputs"><i class="fa fa-check"></i><b>13.5</b> Beyond <code>map</code>: Functions with multiple inputs</a>
 <ul>
 <li class="chapter" data-level="" data-path="lists-nested-lists-and-functional-programming.html"><a href="lists-nested-lists-and-functional-programming.html#try-it-out-43"><i class="fa fa-check"></i>Try it out</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="lists-nested-lists-and-functional-programming.html"><a href="lists-nested-lists-and-functional-programming.html#purrr-references"><i class="fa fa-check"></i>Purrr References</a></li>
 </ul></li>
-<li class="chapter" data-level="13" data-path="high-performance-computing.html"><a href="high-performance-computing.html"><i class="fa fa-check"></i><b>13</b> High Performance Computing</a>
+<li class="chapter" data-level="14" data-path="high-performance-computing.html"><a href="high-performance-computing.html"><i class="fa fa-check"></i><b>14</b> High Performance Computing</a>
 <ul>
 <li class="chapter" data-level="" data-path="high-performance-computing.html"><a href="high-performance-computing.html#hpc-references"><i class="fa fa-check"></i>HPC References</a></li>
 </ul></li>
-<li class="chapter" data-level="14" data-path="tidy-models.html"><a href="tidy-models.html"><i class="fa fa-check"></i><b>14</b> Tidy Models</a></li>
-<li class="chapter" data-level="15" data-path="spatial-packages.html"><a href="spatial-packages.html"><i class="fa fa-check"></i><b>15</b> Spatial packages</a>
+<li class="chapter" data-level="15" data-path="tidy-models.html"><a href="tidy-models.html"><i class="fa fa-check"></i><b>15</b> Tidy Models</a></li>
+<li class="chapter" data-level="16" data-path="spatial-packages.html"><a href="spatial-packages.html"><i class="fa fa-check"></i><b>16</b> Spatial packages</a>
 <ul>
-<li class="chapter" data-level="" data-path="spatial-packages.html"><a href="spatial-packages.html#references-7"><i class="fa fa-check"></i>References</a></li>
+<li class="chapter" data-level="" data-path="spatial-packages.html"><a href="spatial-packages.html#references-6"><i class="fa fa-check"></i>References</a></li>
 </ul></li>
 <li class="appendix"><span><b>Appendix</b></span></li>
 <li class="chapter" data-level="A" data-path="common-problems-and-general-computing-topics.html"><a href="common-problems-and-general-computing-topics.html"><i class="fa fa-check"></i><b>A</b> Common Problems and General Computing Topics</a>
@@ -517,7 +536,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ul>
 <li class="chapter" data-level="B.1" data-path="other-resources-articles-and-food-for-thought.html"><a href="other-resources-articles-and-food-for-thought.html#comparing-languages"><i class="fa fa-check"></i><b>B.1</b> Comparing Languages</a></li>
 </ul></li>
-<li class="chapter" data-level="" data-path="references-8.html"><a href="references-8.html"><i class="fa fa-check"></i>References</a></li>
+<li class="chapter" data-level="" data-path="references-7.html"><a href="references-7.html"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
 
@@ -538,8 +557,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="transforming-data" class="section level1" number="6">
-<h1><span class="header-section-number">Module 6</span> Transforming Data</h1>
+<div id="transforming-data" class="section level1" number="7">
+<h1><span class="header-section-number">Module 7</span> Transforming Data</h1>
 <blockquote>
 <p>Happy families are all alike; every unhappy family is unhappy in its own way. - Leo Tolstoy</p>
 </blockquote>
@@ -568,11 +587,11 @@ Load initial packages
 <span id="cb248-3"><a href="transforming-data.html#cb248-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tibble) <span class="co"># data table</span></span></code></pre></div>
 </details>
 </div>
-<div id="identifying-the-problem-messy-data" class="section level2" number="6.1">
-<h2><span class="header-section-number">6.1</span> Identifying the problem: Messy data</h2>
+<div id="identifying-the-problem-messy-data" class="section level2" number="7.1">
+<h2><span class="header-section-number">7.1</span> Identifying the problem: Messy data</h2>
 <p>These datasets all display the same data: TB cases documented by the WHO in Afghanistan, Brazil, and China, between 1999 and 2000. There are 4 variables: country, year, cases, and population, but each table has a different layout.</p>
 <table>
-<caption><span id="tab:tidy1">Table 6.1: </span>Table 1</caption>
+<caption><span id="tab:tidy1">Table 7.1: </span>Table 1</caption>
 <thead>
 <tr class="header">
 <th align="left">country</th>
@@ -622,7 +641,7 @@ Load initial packages
 </table>
 <p>Here, each observation is a single row, each variable is a column, and everything is nicely arranged for e.g. regression or statistical analysis. We can easily compute another measure, such as cases per 100,000 population, by taking cases/population * 100000 (this would define a new column).</p>
 <table>
-<caption><span id="tab:tidy2">Table 6.2: </span>Table 2</caption>
+<caption><span id="tab:tidy2">Table 7.2: </span>Table 2</caption>
 <thead>
 <tr class="header">
 <th align="left">country</th>
@@ -708,7 +727,7 @@ Load initial packages
 </table>
 <p>Here, we have 4 columns again, but we now have 12 rows: one of the columns is an indicator of which of two numerical observations is recorded in that row; a second column stores the value. This form of the data is more easily plotted in e.g. ggplot2, if we want to show lines for both cases and population, but computing per capita cases would be much more difficult in this form than in the arrangement in table 1.</p>
 <table>
-<caption><span id="tab:tidy3">Table 6.3: </span>Table 3</caption>
+<caption><span id="tab:tidy3">Table 7.3: </span>Table 3</caption>
 <thead>
 <tr class="header">
 <th align="left">country</th>
@@ -751,7 +770,7 @@ Load initial packages
 </table>
 <p>This form has only 3 columns, because the rate variable (which is a character) stores both the case count and the population. We can’t do <em>anything</em> with this format as it stands, because we can’t do math on data stored as characters. However, this form might be easier to read and record for a human being.</p>
 <table>
-<caption><span id="tab:tidy4">Table 6.4: </span>Table 4a</caption>
+<caption><span id="tab:tidy4">Table 7.4: </span>Table 4a</caption>
 <thead>
 <tr class="header">
 <th align="left">country</th>
@@ -778,7 +797,7 @@ Load initial packages
 </tbody>
 </table>
 <table>
-<caption><span id="tab:tidy4">Table 6.4: </span>Table 4b</caption>
+<caption><span id="tab:tidy4">Table 7.4: </span>Table 4b</caption>
 <thead>
 <tr class="header">
 <th align="left">country</th>
@@ -806,7 +825,7 @@ Load initial packages
 </table>
 <p>In this form, we have two tables - one for population, and one for cases. Each year’s observations are in a separate column. This format is often found in separate sheets of an excel workbook. To work with this data, we’ll need to transform each table so that there is a column indicating which year an observation is from, and then merge the two tables together by country and year.</p>
 <table>
-<caption><span id="tab:tidy5">Table 6.5: </span>Table 5</caption>
+<caption><span id="tab:tidy5">Table 7.5: </span>Table 5</caption>
 <thead>
 <tr class="header">
 <th align="left">country</th>
@@ -882,8 +901,8 @@ Solution
 </ol>
 <p>By the end of this module, you should have the skills to “tidy” each of these tables.</p>
 </div>
-<div id="string-operations-creating-new-variables-and-separating-multi-variable-columns" class="section level2" number="6.2">
-<h2><span class="header-section-number">6.2</span> String operations: Creating new variables and separating multi-variable columns</h2>
+<div id="string-operations-creating-new-variables-and-separating-multi-variable-columns" class="section level2" number="7.2">
+<h2><span class="header-section-number">7.2</span> String operations: Creating new variables and separating multi-variable columns</h2>
 <p>Nearly always, when multiple variables are stored in a single column, they are stored as character variables. There are many different “levels” of working with strings in programming, from simple find-and-replaced of fixed (constant) strings to regular expressions, which are extremely powerful (and extremely complicated).</p>
 <blockquote>
 <p>Some people, when confronted with a problem, think “I know, I’ll use regular expressions.” Now they have two problems. - Jamie Zawinski</p>
@@ -1288,8 +1307,8 @@ Alabama
 <br>
 </div>
 </details>
-<div id="basic-string-operations" class="section level3" number="6.2.1">
-<h3><span class="header-section-number">6.2.1</span> Basic String Operations</h3>
+<div id="basic-string-operations" class="section level3" number="7.2.1">
+<h3><span class="header-section-number">7.2.1</span> Basic String Operations</h3>
 <details>
 <summary>
 What proportion of the schools operating in each state have the state’s name in the school name?
@@ -2711,8 +2730,8 @@ The first 30 levels are displayed.
 </div>
 </details>
 </div>
-<div id="regular-expressions" class="section level3" number="6.2.2">
-<h3><span class="header-section-number">6.2.2</span> Regular Expressions</h3>
+<div id="regular-expressions" class="section level3" number="7.2.2">
+<h3><span class="header-section-number">7.2.2</span> Regular Expressions</h3>
 <p>Matching exact strings is easy - it’s just like using find and replace.</p>
 <div class="sourceCode" id="cb257"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb257-1"><a href="transforming-data.html#cb257-1" aria-hidden="true" tabindex="-1"></a>human_talk <span class="ot">&lt;-</span> <span class="st">&quot;blah, blah, blah. Do you want to go for a walk?&quot;</span></span>
 <span id="cb257-2"><a href="transforming-data.html#cb257-2" aria-hidden="true" tabindex="-1"></a>dog_hears <span class="ot">&lt;-</span> <span class="fu">str_extract</span>(human_talk, <span class="st">&quot;walk&quot;</span>)</span>
@@ -3657,7 +3676,7 @@ Problems were detected with provided names.  See LOG.
 15          *   PRODUCT:   SAS
 16          *   VERSION:   9.4
 17          *   CREATOR:   External File Interface
-18          *   DATE:      28APR21
+18          *   DATE:      06MAY21
 19          *   DESC:      Generated SAS Datastep Code
 20          *   TEMPLATE SOURCE:  (None Specified.)
 21          ***************************************************************
@@ -3795,8 +3814,8 @@ NOTE: 3023 records were read from the infile FILELOC.
 NOTE: The data set CLASSDAT.SQUIRREL has 3023 observations and 36 
       variables.
 NOTE: DATA statement used (Total process time):
-      real time           0.00 seconds
-      cpu time            0.01 seconds
+      real time           0.01 seconds
+      cpu time            0.02 seconds
       
 
 3023 rows created in CLASSDAT.SQUIRREL from FILELOC.
@@ -3808,7 +3827,7 @@ NOTE: The data set CLASSDAT.SQUIRREL has 3023 observations and 36
       variables.
 NOTE: PROCEDURE IMPORT used (Total process time):
       real time           0.28 seconds
-      cpu time            0.28 seconds
+      cpu time            0.29 seconds
       
 
 137        
@@ -3915,7 +3934,7 @@ Indexes
 Created
 </th>
 <td class="l data">
-04/28/2021 12:12:06
+05/06/2021 12:25:59
 </td>
 <th class="l rowheader" scope="row">
 Observation Length
@@ -3929,7 +3948,7 @@ Observation Length
 Last Modified
 </th>
 <td class="l data">
-04/28/2021 12:12:06
+05/06/2021 12:25:59
 </td>
 <th class="l rowheader" scope="row">
 Deleted Observations
@@ -5039,13 +5058,13 @@ ERROR: Errors printed on page 9.</code></pre>
 </details>
 </div>
 </div>
-<div id="joining-and-splitting-variables" class="section level3" number="6.2.3">
-<h3><span class="header-section-number">6.2.3</span> Joining and Splitting Variables</h3>
+<div id="joining-and-splitting-variables" class="section level3" number="7.2.3">
+<h3><span class="header-section-number">7.2.3</span> Joining and Splitting Variables</h3>
 There’s another string-related task that is fairly commonly encountered: separating variables into two different columns (as in Table 3 above).
 <div class="figure"><span id="fig:tidy-separate-pic"></span>
 <img src="image/tidyr_separate.png" alt="A visual representation of what separating variables means for data set operations." width="50%" />
 <p class="caption">
-Figure 6.1: A visual representation of what separating variables means for data set operations.
+Figure 7.1: A visual representation of what separating variables means for data set operations.
 </p>
 </div>
 <details>
@@ -5082,7 +5101,7 @@ NOTE: PROCEDURE SQL used (Total process time):
 NOTE: The data set WORK.TABLE3 has 0 observations and 3 variables.
 NOTE: DATA statement used (Total process time):
       real time           0.00 seconds
-      cpu time            0.01 seconds
+      cpu time            0.00 seconds
       
 
 16         ;
@@ -5112,7 +5131,7 @@ And, of course, there is a complementary operation, which is when it’s necessa
 <div class="figure"><span id="fig:tidyr-unite-pic"></span>
 <img src="image/tidyr_unite.png" alt="A visual representation of what uniting variables means for data set operations." width="50%" />
 <p class="caption">
-Figure 6.2: A visual representation of what uniting variables means for data set operations.
+Figure 7.2: A visual representation of what uniting variables means for data set operations.
 </p>
 </div>
 <details>
@@ -5209,11 +5228,15 @@ ERROR: Errors printed on page 9.</code></pre>
 </details>
 </div>
 </div>
-<div id="pivot-operations" class="section level2" number="6.3">
-<h2><span class="header-section-number">6.3</span> Pivot operations</h2>
+<div id="pivot-operations" class="section level2" number="7.3">
+<h2><span class="header-section-number">7.3</span> Pivot operations</h2>
 <p>It’s fairly common for data to come in forms which are convenient for either human viewing or data entry. Unfortunately, these forms aren’t necessarily the most friendly for analysis.</p>
-<div id="longer" class="section level3" number="6.3.1">
-<h3><span class="header-section-number">6.3.1</span> Longer</h3>
+<p><img src="https://raw.githubusercontent.com/kelseygonzalez/tidyexplain/master/images/static/png/original-dfs-tidy.png" /></p>
+<p>The two operations we’ll learn here are wide -&gt; long and long -&gt; wide.</p>
+<p><img src="https://raw.githubusercontent.com/kelseygonzalez/tidyexplain/wider_longer/images/tidyr-pivot_wider_longer.gif" /></p>
+<p>This animation uses the R functions pivot_wider() and pivot_longer() <a href="https://github.com/kelseygonzalez/tidyexplain/tree/wider_longer">Animation source</a>, but the concept is the same in both R and SAS.</p>
+<div id="longer" class="section level3" number="7.3.1">
+<h3><span class="header-section-number">7.3.1</span> Longer</h3>
 <p>In many cases, the data come in what we might call “wide” form - some of the column names are not names of variables, but instead, are themselves values of another variable.</p>
 <p>Tables 4a and 4b are good examples of data which is in “wide” form and should be in long(er) form: the years, which are variables, are column names, and the values are cases and population respectively.</p>
 <div class="sourceCode" id="cb278"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb278-1"><a href="transforming-data.html#cb278-1" aria-hidden="true" tabindex="-1"></a>table4a</span>
@@ -5234,7 +5257,7 @@ ERROR: Errors printed on page 9.</code></pre>
 <div class="figure"><span id="fig:tidyr-pivot-longer-pic"></span>
 <img src="image/tidyr_pivot_longer.png" alt="A visual representation of what the pivot_longer operation looks like in practice." width="50%" />
 <p class="caption">
-Figure 6.3: A visual representation of what the pivot_longer operation looks like in practice.
+Figure 7.3: A visual representation of what the pivot_longer operation looks like in practice.
 </p>
 </div>
 <p>Once our data are in long form, we can (if necessary) separate values that once served as column labels into actual variables, and we’ll have tidy(er) data.</p>
@@ -5398,7 +5421,7 @@ NOTE: Numeric values have been converted to character
 NOTE: The data set WORK.TABLE4CLEAN has 0 observations and 2 variables.
 NOTE: DATA statement used (Total process time):
       real time           0.00 seconds
-      cpu time            0.00 seconds
+      cpu time            0.01 seconds
       
 
 46         
@@ -5444,7 +5467,7 @@ WARNING: Data set WORK.TABLE4ATMP was not replaced because this step was
          stopped.
 NOTE: PROCEDURE TRANSPOSE used (Total process time):
       real time           0.00 seconds
-      cpu time            0.01 seconds
+      cpu time            0.00 seconds
       
 22         
 
@@ -5822,7 +5845,7 @@ WARNING: Data set CLASSDAT.HIVTIDY was not replaced because of NOREPLACE
          option.
 NOTE: PROCEDURE TRANSPOSE used (Total process time):
       real time           0.00 seconds
-      cpu time            0.00 seconds
+      cpu time            0.01 seconds
       
 
 16         
@@ -5835,7 +5858,7 @@ NOTE: Data file CLASSDAT.HIVTIDY.DATA is in a format that is native to
 
 NOTE: PROCEDURE PRINT used (Total process time):
       real time           0.00 seconds
-      cpu time            0.01 seconds
+      cpu time            0.00 seconds
       
 
 19         
@@ -5890,7 +5913,7 @@ WARNING: Data set CLASSDAT.HIVTIDY was not replaced because this step was
          stopped.
 NOTE: DATA statement used (Total process time):
       real time           0.00 seconds
-      cpu time            0.00 seconds
+      cpu time            0.01 seconds
       
 
 43         
@@ -6121,14 +6144,14 @@ ERROR: Errors printed on pages 9,11,12,13,15.</code></pre>
 </details>
 </div>
 </div>
-<div id="wider" class="section level3" number="6.3.2">
-<h3><span class="header-section-number">6.3.2</span> Wider</h3>
+<div id="wider" class="section level3" number="7.3.2">
+<h3><span class="header-section-number">7.3.2</span> Wider</h3>
 <p>While it’s very common to need to transform data into a longer format, it’s not that uncommon to need to do the reverse operation. When an observation is scattered across multiple rows, your data is too long and needs to be made wider again.</p>
 <p>Table 2 is an example of a table that is in long format but needs to be converted to a wider layout to be “tidy” - there are separate rows for cases and population, which means that a single observation (one year, one country) has two rows.</p>
 <div class="figure"><span id="fig:pivot-wider-pic"></span>
 <img src="image/tidyr_pivot_wider.png" alt="A visual representation of what the pivot_wider operation looks like in practice." width="50%" />
 <p class="caption">
-Figure 6.4: A visual representation of what the pivot_wider operation looks like in practice.
+Figure 7.4: A visual representation of what the pivot_wider operation looks like in practice.
 </p>
 </div>
 <details>
@@ -6185,7 +6208,7 @@ NOTE: PROCEDURE TRANSPOSE used (Total process time):
 
 NOTE: PROCEDURE PRINT used (Total process time):
       real time           0.00 seconds
-      cpu time            0.01 seconds
+      cpu time            0.00 seconds
       
 
 ERROR: Errors printed on pages 9,11,12,13,15,16.</code></pre>
@@ -6381,7 +6404,7 @@ NOTE: There were 0 observations read from the data set CLASSDAT.HIVTIDY.
 NOTE: The data set WORK.HIVTMP has 3 observations and 3 variables.
 NOTE: PROCEDURE TRANSPOSE used (Total process time):
       real time           0.00 seconds
-      cpu time            0.01 seconds
+      cpu time            0.00 seconds
       
 
 17         
@@ -6436,7 +6459,7 @@ NOTE: Data file CLASSDAT.DISEASE_LONG.DATA is in a format that is native
 NOTE: The data set WORK.DIS_LONG has 0 observations and 0 variables.
 NOTE: PROCEDURE SORT used (Total process time):
       real time           0.00 seconds
-      cpu time            0.01 seconds
+      cpu time            0.00 seconds
       
 
 11         
@@ -6462,7 +6485,7 @@ WARNING: Data set CLASSDAT.DISEASE_WIDE was not replaced because this step
          was stopped.
 NOTE: PROCEDURE TRANSPOSE used (Total process time):
       real time           0.00 seconds
-      cpu time            0.00 seconds
+      cpu time            0.01 seconds
       
 17         
 18         title &#39;Polio incidence&#39;;
@@ -6504,8 +6527,8 @@ ERROR: Errors printed on pages 9,11,12,13,15,16,18.</code></pre>
 </div>
 </div>
 </div>
-<div id="relational-data-and-joining-tables" class="section level2" number="6.4">
-<h2><span class="header-section-number">6.4</span> Relational Data and Joining Tables</h2>
+<div id="relational-data-and-joining-tables" class="section level2" number="7.4">
+<h2><span class="header-section-number">7.4</span> Relational Data and Joining Tables</h2>
 <p>We now know how to work extensively on one table at a time, but data doesn’t always come organized in one table at a time. Instead, some data may be organized relationally - that is, certain aspects of the data apply to a group of data points, and certain aspects apply to individual data points, and there are relationships between individuals that have to be documented.</p>
 <details>
 <summary>
@@ -6581,8 +6604,28 @@ Ex: adding birthday to the table of all individuals in a class</p></li>
 </ul>
 <p><strong>keys</strong> are values that are found in multiple tables that can be used to connect the tables. A key (or set of keys) uniquely identify an observation. A <strong>primary key</strong> identifies an observation in its own table. A <strong>foreign key</strong> identifies an observation in another table.</p>
 <p>We’re primarily going to focus on mutating joins, as filtering joins can be accomplished by … filtering … rather than by table joins. Feel free to read through the other types of joins <a href="https://r4ds.had.co.nz/relational-data.html#filtering-joins">here</a></p>
-<div id="demonstration-dataset-setup" class="section level3" number="6.4.1">
-<h3><span class="header-section-number">6.4.1</span> Demonstration dataset setup</h3>
+<details>
+<summary>
+Animating different types of joins
+</summary>
+<p>Note: all of these animations are stolen from <a href="https://github.com/gadenbuie/tidyexplain" class="uri">https://github.com/gadenbuie/tidyexplain</a>.</p>
+<p>If we start with two tables, x and y,</p>
+<p><img src="https://raw.githubusercontent.com/gadenbuie/tidyexplain/master/images/static/png/original-dfs.png" /></p>
+<p>We can do a filtering <code>inner_join</code> to keep only rows which are in both tables (but we keep all columns)</p>
+<p><img src="https://raw.githubusercontent.com/gadenbuie/tidyexplain/master/images/inner-join.gif" /></p>
+<p>But what if we want to keep all of the rows in x? We would do a <code>left_join</code></p>
+<p><img src="https://raw.githubusercontent.com/gadenbuie/tidyexplain/master/images/left-join.gif" /></p>
+<p>If there are multiple matches in the y table, though, we might have to duplicate rows in x. This is still a left join, just a more complicated one.</p>
+<p><img src="https://raw.githubusercontent.com/gadenbuie/tidyexplain/master/images/left-join-extra.gif" /></p>
+<p>If we wanted to keep all of the rows in y, we would do a <code>right_join</code>:</p>
+<p><img src="https://raw.githubusercontent.com/gadenbuie/tidyexplain/master/images/right-join.gif" /></p>
+<p>(or, we could do a left join with y and x, but… either way is fine).</p>
+<p>And finally, if we want to keep all of the rows, we’d do a <code>full_join</code>:</p>
+<p><img src="https://raw.githubusercontent.com/gadenbuie/tidyexplain/master/images/full-join.gif" /></p>
+<p>You can find other animations corresponding to filtering joins and set operations <a href="https://raw.githubusercontent.com/gadenbuie/tidyexplain/master/images/full-join.gif">here</a></p>
+</details>
+<div id="demonstration-dataset-setup" class="section level3" number="7.4.1">
+<h3><span class="header-section-number">7.4.1</span> Demonstration dataset setup</h3>
 We’ll use the <code>nycflights13</code> package in R. Unfortunately, the data in this package are too big for me to reasonably store on github (you’ll recall, I had to use a small sample the last time we played with this data…). So before we can work with this data, we have to load the tables into SAS, which means saving them out from R.
 <details>
 <summary>
@@ -6616,8 +6659,8 @@ Database = data/nycflights13.sqlite
 <p>You can find the solution <a href="https://r4ds.had.co.nz/relational-data.html#nycflights13-relational">here</a> (scroll down a bit).</p>
 </div>
 </div>
-<div id="mutating-joins" class="section level3" number="6.4.2">
-<h3><span class="header-section-number">6.4.2</span> Mutating joins</h3>
+<div id="mutating-joins" class="section level3" number="7.4.2">
+<h3><span class="header-section-number">7.4.2</span> Mutating joins</h3>
 <p>A mutating join combines variables in two tables. There are excellent visual representations of the types of mutating joins <a href="https://r4ds.had.co.nz/relational-data.html#mutating-joins">here</a>.</p>
 <p>Every join has a “left side” and a “right side” - so in <code>some_join(A, B)</code>, A is the left side, B is the right side.</p>
 <p>Joins are differentiated based on how they treat the rows and columns of each side. In mutating joins, the columns from both sides are always kept.</p>
@@ -6838,7 +6881,7 @@ NOTE: Statement not executed due to NOEXEC option.
 NOTE: The SAS System stopped processing this step because of errors.
 NOTE: PROCEDURE SQL used (Total process time):
       real time           0.00 seconds
-      cpu time            0.00 seconds
+      cpu time            0.01 seconds
       
 
 
@@ -6948,7 +6991,7 @@ Data Step Mutating joins
 <pre class="sashtml"><code>NOTE: The SAS System stopped processing this step because of errors.
 NOTE: PROCEDURE SQL used (Total process time):
       real time           0.01 seconds
-      cpu time            0.01 seconds
+      cpu time            0.02 seconds
       
 
 
@@ -6973,7 +7016,7 @@ NOTE: The data set WORK.T2 has 0 observations and 2 variables.
 WARNING: Data set WORK.T2 was not replaced because this step was stopped.
 NOTE: DATA statement used (Total process time):
       real time           0.00 seconds
-      cpu time            0.01 seconds
+      cpu time            0.00 seconds
       
 
 20         ;
@@ -7029,7 +7072,7 @@ NOTE: PROCEDURE PRINT used (Total process time):
 NOTE: The data set WORK.RIGHT has 0 observations and 3 variables.
 NOTE: DATA statement used (Total process time):
       real time           0.00 seconds
-      cpu time            0.00 seconds
+      cpu time            0.01 seconds
       
 
 43         
@@ -7134,7 +7177,7 @@ ERROR: Errors printed on pages 9,11,12,13,15,16,18,19,22.</code></pre>
 NOTE: The SAS System stopped processing this step because of errors.
 NOTE: PROCEDURE SQL used (Total process time):
       real time           0.01 seconds
-      cpu time            0.02 seconds
+      cpu time            0.01 seconds
       
 
 
@@ -7241,8 +7284,8 @@ It’s also entirely possible that planes between 5-15 years of age have more me
 </details>
 </div>
 </div>
-<div id="example-gas-prices-data" class="section level2 tryitout tabset" number="6.5">
-<h2><span class="header-section-number">6.5</span> Example: Gas Prices Data</h2>
+<div id="example-gas-prices-data" class="section level2 tryitout tabset" number="7.5">
+<h2><span class="header-section-number">7.5</span> Example: Gas Prices Data</h2>
 <p>The US Energy Information Administration tracks gasoline prices, with data available on a weekly level since late 1994. You can go to <a href="https://www.eia.gov/dnav/pet/hist/LeafHandler.ashx?n=pet&amp;s=emm_epm0u_pte_nus_dpg&amp;f=w">this site</a> to see a nice graph of gas prices, along with a corresponding table (or you can look at the screenshot below, as I don’t really trust that the site design will stay the same…)</p>
 <div class="figure">
 <img src="image/06_gas_prices_screenshot.png" alt="" />
@@ -7250,8 +7293,8 @@ It’s also entirely possible that planes between 5-15 years of age have more me
 </div>
 <p>The data in the table is structured in a fairly easy to read form: each row is a month; each week in the month is a set of two columns: one for the date, one for the average gas price. While this data is definitely not tidy, it is readable.</p>
 <p>But looking at the chart at the top of the page, it’s not clear how we might get that chart from the data in the format it’s presented here: to get a chart like that, we would need a table where each row was a single date, and there were columns for date and price. That would be tidy form data, and so we have to get from the wide, human-readable form into the long, tidier form that we can graph.</p>
-<div id="option-1-manual-formatting-in-excel" class="section level3" number="6.5.1">
-<h3><span class="header-section-number">6.5.1</span> Option 1: Manual formatting in Excel</h3>
+<div id="option-1-manual-formatting-in-excel" class="section level3" number="7.5.1">
+<h3><span class="header-section-number">7.5.1</span> Option 1: Manual formatting in Excel</h3>
 <p>An excel spreadsheet of the data as downloaded in Sept 2020 is available <a href="data/gas_prices.xlsx">here</a>. Can you manually format the data (or even just the first year or two of data) into a long, skinny format?</p>
 <details>
 <summary>
@@ -7267,8 +7310,8 @@ What steps are involved?
 <a href="https://youtu.be/n70eAKJmzRo">Here is a video of me doing most of these steps</a>. I skipped out on the data cleaning stage because Excel is miserable for working with dates.
 </details>
 </div>
-<div id="option-2-r" class="section level3" number="6.5.2">
-<h3><span class="header-section-number">6.5.2</span> Option 2: R</h3>
+<div id="option-2-r" class="section level3" number="7.5.2">
+<h3><span class="header-section-number">7.5.2</span> Option 2: R</h3>
 <p>This section shows you how to clean the data up without any sort of database merges, but with 2 pivot operations. The SAS section shows how to clean the data up with database merges and a single pivot operation. You can, of course, use either approach in either language.</p>
 <p>If you want to try this for yourself first, there is a skeleton file <a href="code/06_gas_prices_start.R">here</a> that you can fill in. Use the intermediate datasets shown to guide you through the steps, then click on the expandable sections to see the code that was used.</p>
 <details>
@@ -7358,9 +7401,9 @@ Separate year and month into different columns
 </summary>
 <div class="sourceCode" id="cb319"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb319-1"><a href="transforming-data.html#cb319-1" aria-hidden="true" tabindex="-1"></a>gas_prices_raw <span class="ot">&lt;-</span> gas_prices_raw <span class="sc">%&gt;%</span></span>
 <span id="cb319-2"><a href="transforming-data.html#cb319-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">separate</span>(Year.Month, <span class="at">into =</span> <span class="fu">c</span>(<span class="st">&quot;year&quot;</span>, <span class="st">&quot;month&quot;</span>), <span class="at">sep =</span> <span class="st">&quot;-&quot;</span>)</span>
-<span id="cb319-3"><a href="transforming-data.html#cb319-3" aria-hidden="true" tabindex="-1"></a>Warning<span class="sc">:</span> Expected <span class="dv">2</span> pieces. Additional pieces discarded <span class="cf">in</span> <span class="dv">1</span> rows [<span class="dv">319</span>].</span>
-<span id="cb319-4"><a href="transforming-data.html#cb319-4" aria-hidden="true" tabindex="-1"></a>Warning<span class="sc">:</span> Expected <span class="dv">2</span> pieces. Missing pieces filled with <span class="st">`</span><span class="at">NA</span><span class="st">`</span> <span class="cf">in</span> <span class="dv">2</span> rows [<span class="dv">320</span>,</span>
-<span id="cb319-5"><a href="transforming-data.html#cb319-5" aria-hidden="true" tabindex="-1"></a><span class="dv">321</span>].</span></code></pre></div>
+<span id="cb319-3"><a href="transforming-data.html#cb319-3" aria-hidden="true" tabindex="-1"></a>Warning<span class="sc">:</span> Expected <span class="dv">2</span> pieces. Additional pieces discarded <span class="cf">in</span> <span class="dv">1</span> rows [<span class="dv">320</span>].</span>
+<span id="cb319-4"><a href="transforming-data.html#cb319-4" aria-hidden="true" tabindex="-1"></a>Warning<span class="sc">:</span> Expected <span class="dv">2</span> pieces. Missing pieces filled with <span class="st">`</span><span class="at">NA</span><span class="st">`</span> <span class="cf">in</span> <span class="dv">2</span> rows [<span class="dv">321</span>,</span>
+<span id="cb319-5"><a href="transforming-data.html#cb319-5" aria-hidden="true" tabindex="-1"></a><span class="dv">322</span>].</span></code></pre></div>
 </details>
 <div class="sourceCode" id="cb320"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb320-1"><a href="transforming-data.html#cb320-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(gas_prices_raw)</span>
 <span id="cb320-2"><a href="transforming-data.html#cb320-2" aria-hidden="true" tabindex="-1"></a><span class="co"># A tibble: 6 x 14</span></span>
@@ -7402,7 +7445,7 @@ Move from wide to long format (part 2: data cleaning and pivot long-to-wide)
 <span id="cb323-3"><a href="transforming-data.html#cb323-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">variable =</span> <span class="fu">str_remove</span>(variable, <span class="st">&quot;Week</span><span class="sc">\\</span><span class="st">.&quot;</span>)) <span class="sc">%&gt;%</span></span>
 <span id="cb323-4"><a href="transforming-data.html#cb323-4" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Then separate the two values</span></span>
 <span id="cb323-5"><a href="transforming-data.html#cb323-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">separate</span>(variable, <span class="at">into =</span> <span class="fu">c</span>(<span class="st">&quot;week&quot;</span>, <span class="st">&quot;variable&quot;</span>), <span class="at">sep =</span> <span class="st">&quot;</span><span class="sc">\\</span><span class="st">.&quot;</span>)</span>
-<span id="cb323-6"><a href="transforming-data.html#cb323-6" aria-hidden="true" tabindex="-1"></a>Warning<span class="sc">:</span> Expected <span class="dv">2</span> pieces. Missing pieces filled with <span class="st">`</span><span class="at">NA</span><span class="st">`</span> <span class="cf">in</span> <span class="dv">642</span> rows [<span class="dv">11</span>,</span>
+<span id="cb323-6"><a href="transforming-data.html#cb323-6" aria-hidden="true" tabindex="-1"></a>Warning<span class="sc">:</span> Expected <span class="dv">2</span> pieces. Missing pieces filled with <span class="st">`</span><span class="at">NA</span><span class="st">`</span> <span class="cf">in</span> <span class="dv">644</span> rows [<span class="dv">11</span>,</span>
 <span id="cb323-7"><a href="transforming-data.html#cb323-7" aria-hidden="true" tabindex="-1"></a><span class="dv">12</span>, <span class="dv">23</span>, <span class="dv">24</span>, <span class="dv">35</span>, <span class="dv">36</span>, <span class="dv">47</span>, <span class="dv">48</span>, <span class="dv">59</span>, <span class="dv">60</span>, <span class="dv">71</span>, <span class="dv">72</span>, <span class="dv">83</span>, <span class="dv">84</span>, <span class="dv">95</span>, <span class="dv">96</span>, <span class="dv">107</span>, <span class="dv">108</span>, <span class="dv">119</span>,</span>
 <span id="cb323-8"><a href="transforming-data.html#cb323-8" aria-hidden="true" tabindex="-1"></a><span class="dv">120</span>, ...].</span></code></pre></div>
 <div class="sourceCode" id="cb324"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb324-1"><a href="transforming-data.html#cb324-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(gas_prices_long)</span>
@@ -7470,8 +7513,8 @@ Clean up dates and format variables properly
 <p><img src="image/cleaning-up-dates-view-1.png" width="2100" /></p>
 <p>The full code file for this analysis is <a href="code/06_gas_prices.R">here</a>.</p>
 </div>
-<div id="option-3-sas" class="section level3" number="6.5.3">
-<h3><span class="header-section-number">6.5.3</span> Option 3: SAS</h3>
+<div id="option-3-sas" class="section level3" number="7.5.3">
+<h3><span class="header-section-number">7.5.3</span> Option 3: SAS</h3>
 <p>If you want to try this for yourself first, there is a skeleton file <a href="code/06_gas_prices_start.sas">here</a> that you can fill in. Use the intermediate datasets shown to guide you through the steps, then click on the expandable sections to see the code that was used.</p>
 <div class="note">
 <p>I spent quite a while trying to get collectcode = T to run so that I could put the SAS code in in smaller bites, but couldn’t get it to work. Please forgive the screenshots, but ugh, I’m tired of fooling with SAS at the moment.</p>
@@ -7515,7 +7558,7 @@ Read in the data
 NOTE: The data set WORK.GAS_RAW has 0 observations and 11 variables.
 NOTE: DATA statement used (Total process time):
       real time           0.00 seconds
-      cpu time            0.00 seconds
+      cpu time            0.01 seconds
       
 
 33         
@@ -7577,7 +7620,7 @@ WARNING: Data set WORK.GAS_RAW was not replaced because this step was
          stopped.
 NOTE: DATA statement used (Total process time):
       real time           0.00 seconds
-      cpu time            0.00 seconds
+      cpu time            0.01 seconds
       
 
 22         
@@ -7625,7 +7668,7 @@ WARNING: The data set WORK.SPLIT_LONG1 may be incomplete.  When this step
          was stopped there were 0 observations and 0 variables.
 NOTE: PROCEDURE TRANSPOSE used (Total process time):
       real time           0.00 seconds
-      cpu time            0.01 seconds
+      cpu time            0.00 seconds
       
 12         
 
@@ -7758,7 +7801,7 @@ WARNING: Data set WORK.SPLIT_LONG2 was not replaced because this step was
          stopped.
 NOTE: PROCEDURE SORT used (Total process time):
       real time           0.00 seconds
-      cpu time            0.01 seconds
+      cpu time            0.00 seconds
       
 28         
 
@@ -7887,7 +7930,7 @@ ERROR: Variable PRICE not found.
 NOTE: The SAS System stopped processing this step because of errors.
 NOTE: PROCEDURE SGPLOT used (Total process time):
       real time           0.00 seconds
-      cpu time            0.00 seconds
+      cpu time            0.01 seconds
       
 
 ERROR: Errors printed on pages 9,11,12,13,15,16,18,19,22,23,24,25,26,27.</code></pre>
@@ -7895,7 +7938,7 @@ ERROR: Errors printed on pages 9,11,12,13,15,16,18,19,22,23,24,25,26,27.</code><
 <p>You can see the full script <a href="code/06_gas_prices.sas">here</a>.</p>
 </div>
 </div>
-<div id="references-2" class="section level2 unnumbered learn-more">
+<div id="references-1" class="section level2 unnumbered learn-more">
 <h2>References</h2>
 <p>String manipulation</p>
 <ul>
@@ -7977,7 +8020,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/srvanderplas/unl-stat850/edit/master/06-transforming-data.Rmd",
+"link": "https://github.com/srvanderplas/unl-stat850/edit/master/07-transforming-data.Rmd",
 "text": "Suggest an edit"
 },
 "history": {
@@ -7988,7 +8031,7 @@ gitbook.start({
 "link": null,
 "text": null
 },
-"download": ["https://github.com/srvanderplas/unl-stat850/raw/master/06-transforming-data.Rmd"],
+"download": ["https://github.com/srvanderplas/unl-stat850/raw/master/07-transforming-data.Rmd"],
 "toc": {
 "collapse": "section"
 }

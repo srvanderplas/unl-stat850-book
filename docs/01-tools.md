@@ -543,7 +543,7 @@ If you're confused, please post on the class message boards so that those who ha
 - [SAS quick start guide](https://towardsdatascience.com/getting-started-with-sas-beginner-354a94a48f08)
 - [R quick start guide](https://www.statmethods.net/)
 
-## References
+## References {#refs-module-1}
 
 - [Happy Git and GitHub for the useR](https://happygitwithr.com/index.html) - Guide to using git, R, and RStudio together. 
 

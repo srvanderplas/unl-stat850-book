@@ -4,13 +4,13 @@
 
 # Organization: Packages, Functions, Scripts, and Documents {#organization}
 
-## Module Objectives  {- #module-3-objectives}
+## Module Objectives{- #module-3-objectives}
 
 - Compose markdown documents with code and text
 - Write functions and scripts in R and SAS to solve basic problems 
 - Analyze additional software available from package and software repositories to determine whether it is suitable for the problem
 
-## Reproducibility and RMarkdown
+## Reproducibility and Markdown
 
 <!-- Why reproducibility is important in science and statistics -->
 The concepts of **replication** and **reproducibility** are central to science - we do not trust studies whose results cannot be replicated by additional repetitions of the experiment, and we do not trust statistical analyses whose results are not backed up by valid methods that can be re-run to verify the reported results. While replication covers the lab methods, experimental design, and data collection procedures, reproducibility is concerned with the code and the data from an experiment which has already been run. Specifically, the idea is that the research paper is basically an advertisement - by exposing the code and data used in the analysis, readers can engage with the core of the analysis methods, leading to better peer feedback as well as easier adoption of the research for future work.
@@ -18,7 +18,7 @@ The concepts of **replication** and **reproducibility** are central to science -
 Reproducibility has several advantages:
 
 1. **It allows you to show the correctness of your results**    
-Trying to reproduce an analysis from the data and the description in the journal article is... challenging, if not impossible, in many cases. By providing the raw data and code to take the data from raw form to analysis results, readers can verify the legitimacy of each step in the analysis. This allows researchers to review each others methods, finding mistakes due to [bugs in the software used](https://www.sciencemag.org/news/2016/08/one-five-genetics-papers-contains-errors-thanks-microsoft-excel) or due to implementation errors. In one particularly prominent failure of reproducibility, a study used to support macroeconomic theories that shaped the response to the 2008-2009 recession [negatively correlating national debt with gdp growth](https://theconversation.com/the-reinhart-rogoff-error-or-how-not-to-excel-at-economics-13646) was found to be flawed due to an excel indexing mistake. Use of GUI-based (graphical user interface) statistical analysis software may make it harder to identify these mistakes, because the formulas and code are not visually displayed. 
+Trying to reproduce an analysis from the data and the description in the journal article is... challenging, if not impossible. By providing the raw data and code to take the data from raw form to analysis results, readers can verify the legitimacy of each step in the analysis. This allows researchers to review each others' methods, finding mistakes due to [bugs in the software used](https://www.sciencemag.org/news/2016/08/one-five-genetics-papers-contains-errors-thanks-microsoft-excel) or due to implementation errors. In one particularly prominent failure of reproducibility, a study used to support macroeconomic theories that shaped the response to the 2008-2009 recession [negatively correlating national debt with gdp growth](https://theconversation.com/the-reinhart-rogoff-error-or-how-not-to-excel-at-economics-13646) was found to be flawed due to an excel indexing mistake. Use of GUI-based (graphical user interface) statistical analysis software may make it harder to identify these mistakes, because the formulas and code are not visually displayed. 
 
 2. **It allows others to use your results more easily**    
 By sharing your code and raw data, you provide the wider scientific community with the ability to use your results to build new scientific studies. This increases the relevance of your work, the number of citations your papers get, and you also benefit from the community adopting a culture of openness and reproducibility.
@@ -34,7 +34,7 @@ As you might expect, there are [many different](https://academic.oup.com/biostat
 - **Data reproducibility** - allows replication of the non-computational parts of the study (e.g. experiment and data collection). This may include making protocols and data available.
 - **Statistical reproducibility** - allows replication of the statistical methods. Includes details about model parameters, thresholds, etc. and may also include study pre-registration to prevent p-hacking.
 
-There are also many levels of reproducibility. Much of the computer code written in the 1960s is no longer runnable today, because the computer architecture it was written for is not available anymore. Code which depends on URLs is vulnerable to website rearrangements or the content no longer being hosted. Archiving projects on GitHub is nice, but what happens if GitHub goes down? It's important to decide what type of reproducibility is important for a particular project, and then design the project's workflow around that process.
+There are also many levels of reproducibility. Much of the computer code written in the 1960s is no longer runnable today, because the computer architecture it was written for is not available anymore. Code which depends on URLs is vulnerable to website rearrangements or the content no longer being hosted. Archiving projects on GitHub is nice, but what happens if GitHub goes down? Even small package version updates can break code so that it no longer runs as it once did. It's important to decide what type of reproducibility is important for a particular project, and then design the project's workflow around that process.
 
 <div class="my-opinion">
 For most of my projects, I don't worry about software versioning too much ^[I may archive my sessionInfo() so that package versions are documented]. As much as possible, I keep the **code and the data (if it's small) on GitHub** in a public repository for people to access, along with any manuscripts or presentations related to the project. Manuscripts are written in knitr or Rmarkdown, so that the code is documented by the context of the project, and every image in the article generated by R has corresponding code available. This ensures that 
@@ -53,10 +53,6 @@ In situations where I run experiments, I also make sure that **any experimental 
 <!-- Why reproducibility is convenient -->
 
 The github reproducibility work flow is convenient - it allows for me to easily collaborate with others, without emailing versions of code and documents back and forth or dealing with Dropbox version conflicts. I can revert changes that are made that had unintentional effects fairly easily. I can sync my files across multiple machines effortlessly. And if necessary, I can look back at the changes I've made and see why I made them, or what I've already tried.
-
-Most importantly, though, having code, text, and outputs in the same document helps me keep track of what I'm doing, which is a real help for not losing files or getting sidetracked. 
-
-![Rmarkdown - get text, code, outputs in the same place. By Allison Horst](https://raw.githubusercontent.com/allisonhorst/stats-illustrations/master/rstats-artwork/rmarkdown_rockstar.png)
 
 ### Reproducibility References and Reading {- .learn-more}
 
@@ -119,6 +115,8 @@ If you are using SAS Community Edition, you are still expected to ensure your co
 ## Functions and Modules
 
 A function (or a module, in SAS) is a block of code which is only run when it is called. It takes arguments (known as parameters) and returns data or some other value. 
+
+You should write a function if you're written similar code more than 2x - this will reduce the amount of code you have to wade through, and will make changing your code easier. 
 
 ::: learn-more
 There is some extensive material on this subject in [R for Data Science on functions](https://r4ds.had.co.nz/functions.html). If you aren't familiar with functions, you should read that material before proceeding.
@@ -187,7 +185,7 @@ The only difference between the RUN and CALL statements is the order of resoluti
 [Source: SAS function reference](https://support.sas.com/rnd/app/iml/programming.html)
 </details>
 
-### Function example: Adding things together {.ex -}
+
 Let's try functions out by writing a simple function that takes two numbers as arguments and adds them together.
 
 ```{r function-demo, results = 'hold', collapse = T}
@@ -212,7 +210,6 @@ proc IML;
 quit;
 ```
 
-### {-}
 
 Of course, it's not just important to be able to write your own functions. It's also helpful to be able to see how functions are written, both to explore how a method is implemented and for debugging purposes. In SAS, this is generally not an option, because SAS is closed source, but in R, you can see the code behind any function which is implemented in R (it is harder to see functions implemented in C or C++, but not impossible) by typing the function name (no parentheses) into the command prompt.
 
@@ -232,7 +229,8 @@ The `.Internal(colSums(x...))` part is calling a C function - basically, functio
 Then there are statements that transfer dimension names over to the summed object. At the end of the function, the last value computed is returned automatically (in this case, z). 
 </details>
 
-### Try it out {- .tryitout}
+<div class="tryitout">
+### Try it out {-}
 Write a function named `circle_area` which computes the area of a circle given the radius. Make sure to use reasonable parameter names! (Note: in R, pi is conveniently stored in the variable of the same name - it can be overwritten if you want to do so, but why would you want to do that? In SAS, you can get the value of pi using `constant("pi")`)
 
 <details><summary>Solution</summary>
@@ -271,12 +269,11 @@ quit;
 
 ```
 </details>
-
-### {-}
+</div>
 
 One last trick to note: functions generally can only return one object. If you need to return more than one thing, put the objects into a list or another data structure, and return that - then you can take the list/structure apart outside the function to use the returned values separately. 
 
-### Function Scope
+### Scope
 
 The scope of a variable is the space in the program where a variable is defined and can be accessed. A **local** variable is one which can only be accessed within a function or block of code - it does not exist outside of that code. A **global** variable is one which is available to the entire program. 
 
