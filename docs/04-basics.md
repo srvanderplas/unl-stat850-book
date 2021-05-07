@@ -55,7 +55,7 @@ skim(artwork)
 ```
 
 
-Table: (\#tab:unnamed-chunk-2)Data summary
+Table: (\#tab:read-art-data)Data summary
 
 |                         |        |
 |:------------------------|:-------|
@@ -110,7 +110,7 @@ Table: (\#tab:unnamed-chunk-2)Data summary
 
 When you first access a new dataset, it's fun to explore it a bit. I've shown a summary of the variables (character variables summarized with completion rates and # unique values, numeric variables summarized with quantiles and mean/sd) generated using the `skimr` package (which we'll talk about next week). 
 
-<details class="ex"><summary>First, let's pull out the year for each piece of artwork in the dataset</summary>
+<details class="ex"><summary>First, let's pull out the year for each piece of artwork in the dataset and see what we can do with it...</summary>
 
 ```r
 head(artwork$year)
@@ -134,8 +134,60 @@ That's much less output, but we might want to instead make a chart:
 hist(artwork$year)
 ```
 
-<img src="image/unnamed-chunk-5-1.png" width="2100" />
+<img src="image/hist-data-col-1.png" width="2100" />
 Personally, I much prefer the graphical version. It's informative (though it does leave out NA values) and shows that there are pieces going back to the 1500s, but that most pieces were made in the early 1800s or late 1900s. 
 
 </details>
+
+<details class="ex"><summary>We might be interested in the aspect ratio of the artwork - let's take a look at the input variables and define new variables related to aspect ratio(s)</summary>
+
+
+```r
+hist(artwork$width)
+hist(artwork$depth)
+hist(artwork$height)
+```
+
+<img src="image/hist-dims-art-1.png" width="33%" /><img src="image/hist-dims-art-2.png" width="33%" /><img src="image/hist-dims-art-3.png" width="33%" />
+
+So all of our variables are skewed quite a bit, and we know from the existence of the `units` column that they may not be in the same unit, either...
+
+
+```r
+table(artwork$units)
+
+   mm 
+65860 
+```
+
+Except apparently they are, so ... cool. That does make life easier.
+
+To define a new variable that exists on its own, we might do something like this:
+
+```r
+aspect_hw <- artwork$height/artwork$width
+hist(aspect_hw)
+hist(log(aspect_hw))
+```
+
+<img src="image/hist-aspect-ratio-calc-1.png" width="49%" /><img src="image/hist-aspect-ratio-calc-2.png" width="49%" />
+
+Ok, interesting. Most things are pretty square-ish, but there are obviously quite a few exceptions in both directions.
+
+The one problem with how we've done this is that we now have a data frame with all of our data in it, and a separate variable `aspect_hw`, that is not attached to our data frame. That's not ideal - it's easy to lose track of the variable, it's easy to accidentally "sort" the variable so that the row order isn't the same as in the original data frame... there are all sorts of potential issues.
+
+So, the better way to define a new variable is to add a new **column** to the data frame:
+
+```r
+artwork$aspect_hw <- artwork$height/artwork$width
+```
+
+(We'll learn an easier way to do this later, but this is functional, if not pretty, for now).
+
+The downside to this is that we have to write out `artwork$aspect_hw` each time we want to reference the variable. That is a pain, but one that's relatively temporary (we'll get to a better way to do this in a couple of weeks). A little bit of extra typing is definitely worth it if you don't lose data you want to keep.
+
+</details>
+
+One mistake I see people make frequently is to calculate `artwork$height/artwork$width`, but then not assign that value to a variable. If you're not using `<-` (or `=` or `->` if you're a total heathen) then you're not saving that information to be referenced later - you're just calculating values temporarily. It's important to keep track of where you're putting the pieces you create during an analysis - just as important as keeping track of the different sub-components when you're putting a lego set together or making a complex recipe in the kitchen. Forgetting to assign your calculation to a variable is like dumping your mixture down the sink or throwing that small lego component into the trash.
+
 
