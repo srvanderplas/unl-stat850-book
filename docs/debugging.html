@@ -32,7 +32,7 @@
   <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon" />
 <link rel="prev" href="transforming-data.html"/>
 <link rel="next" href="data-vis-intro.html"/>
-<script src="libs/header-attrs-2.7/header-attrs.js"></script>
+<script src="libs/header-attrs-2.7.3/header-attrs.js"></script>
 <script src="libs/jquery-3.5.1/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -104,7 +104,6 @@ function unrolltab(evt, tabName) {
 pre > code.sourceCode { white-space: pre; position: relative; }
 pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
 pre.sourceCode { margin: 0; }
 @media screen {
@@ -642,46 +641,46 @@ Figure 8.1: You may find it helpful to procure a rubber duck expert for each lan
 Simple example
 </summary>
 <p>Imagine we start with this:</p>
-<div class="sourceCode" id="cb336"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb336-1"><a href="debugging.html#cb336-1" aria-hidden="true" tabindex="-1"></a>a <span class="ot">&lt;-</span> <span class="cf">function</span>(x) {</span>
-<span id="cb336-2"><a href="debugging.html#cb336-2" aria-hidden="true" tabindex="-1"></a>  b <span class="ot">&lt;-</span> <span class="cf">function</span>(y) {</span>
-<span id="cb336-3"><a href="debugging.html#cb336-3" aria-hidden="true" tabindex="-1"></a>    c <span class="ot">&lt;-</span> <span class="cf">function</span>(z) {</span>
-<span id="cb336-4"><a href="debugging.html#cb336-4" aria-hidden="true" tabindex="-1"></a>      z <span class="sc">+</span> y</span>
-<span id="cb336-5"><a href="debugging.html#cb336-5" aria-hidden="true" tabindex="-1"></a>    }</span>
-<span id="cb336-6"><a href="debugging.html#cb336-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">c</span>(<span class="dv">3</span>)</span>
-<span id="cb336-7"><a href="debugging.html#cb336-7" aria-hidden="true" tabindex="-1"></a>  }</span>
-<span id="cb336-8"><a href="debugging.html#cb336-8" aria-hidden="true" tabindex="-1"></a>  x <span class="sc">+</span> <span class="fu">b</span>(<span class="dv">4</span>)</span>
-<span id="cb336-9"><a href="debugging.html#cb336-9" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb336-10"><a href="debugging.html#cb336-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb336-11"><a href="debugging.html#cb336-11" aria-hidden="true" tabindex="-1"></a><span class="fu">a</span>(<span class="dv">5</span>)</span>
-<span id="cb336-12"><a href="debugging.html#cb336-12" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="dv">12</span></span></code></pre></div>
+<div class="sourceCode" id="cb340"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb340-1"><a href="debugging.html#cb340-1" aria-hidden="true" tabindex="-1"></a>a <span class="ot">&lt;-</span> <span class="cf">function</span>(x) {</span>
+<span id="cb340-2"><a href="debugging.html#cb340-2" aria-hidden="true" tabindex="-1"></a>  b <span class="ot">&lt;-</span> <span class="cf">function</span>(y) {</span>
+<span id="cb340-3"><a href="debugging.html#cb340-3" aria-hidden="true" tabindex="-1"></a>    c <span class="ot">&lt;-</span> <span class="cf">function</span>(z) {</span>
+<span id="cb340-4"><a href="debugging.html#cb340-4" aria-hidden="true" tabindex="-1"></a>      z <span class="sc">+</span> y</span>
+<span id="cb340-5"><a href="debugging.html#cb340-5" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb340-6"><a href="debugging.html#cb340-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">c</span>(<span class="dv">3</span>)</span>
+<span id="cb340-7"><a href="debugging.html#cb340-7" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb340-8"><a href="debugging.html#cb340-8" aria-hidden="true" tabindex="-1"></a>  x <span class="sc">+</span> <span class="fu">b</span>(<span class="dv">4</span>)</span>
+<span id="cb340-9"><a href="debugging.html#cb340-9" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb340-10"><a href="debugging.html#cb340-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb340-11"><a href="debugging.html#cb340-11" aria-hidden="true" tabindex="-1"></a><span class="fu">a</span>(<span class="dv">5</span>)</span>
+<span id="cb340-12"><a href="debugging.html#cb340-12" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] 12</span></span></code></pre></div>
 <p>and the goal is to understand what’s happening in the code. We might add some lines:</p>
-<div class="sourceCode" id="cb337"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb337-1"><a href="debugging.html#cb337-1" aria-hidden="true" tabindex="-1"></a>a <span class="ot">&lt;-</span> <span class="cf">function</span>(x) {</span>
-<span id="cb337-2"><a href="debugging.html#cb337-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>(<span class="fu">paste</span>(<span class="st">&quot;Entering a(). x = &quot;</span>, x))</span>
-<span id="cb337-3"><a href="debugging.html#cb337-3" aria-hidden="true" tabindex="-1"></a>  b <span class="ot">&lt;-</span> <span class="cf">function</span>(y) {</span>
-<span id="cb337-4"><a href="debugging.html#cb337-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">print</span>(<span class="fu">paste</span>(<span class="st">&quot;Entering b(). x = &quot;</span>, x, <span class="st">&quot;y = &quot;</span>, y))</span>
-<span id="cb337-5"><a href="debugging.html#cb337-5" aria-hidden="true" tabindex="-1"></a>    c <span class="ot">&lt;-</span> <span class="cf">function</span>(z) {</span>
-<span id="cb337-6"><a href="debugging.html#cb337-6" aria-hidden="true" tabindex="-1"></a>      <span class="fu">print</span>(<span class="fu">paste</span>(<span class="st">&quot;Entering c(). x = &quot;</span>, x, <span class="st">&quot;y = &quot;</span>, y, <span class="st">&quot;z = &quot;</span>, z))</span>
-<span id="cb337-7"><a href="debugging.html#cb337-7" aria-hidden="true" tabindex="-1"></a>      cres <span class="ot">&lt;-</span> z <span class="sc">+</span> y</span>
-<span id="cb337-8"><a href="debugging.html#cb337-8" aria-hidden="true" tabindex="-1"></a>      <span class="fu">print</span>(<span class="fu">paste</span>(<span class="st">&quot;Returning&quot;</span>, cres, <span class="st">&quot;from c()&quot;</span>))</span>
-<span id="cb337-9"><a href="debugging.html#cb337-9" aria-hidden="true" tabindex="-1"></a>      cres</span>
-<span id="cb337-10"><a href="debugging.html#cb337-10" aria-hidden="true" tabindex="-1"></a>    }</span>
-<span id="cb337-11"><a href="debugging.html#cb337-11" aria-hidden="true" tabindex="-1"></a>    bres <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">3</span>)</span>
-<span id="cb337-12"><a href="debugging.html#cb337-12" aria-hidden="true" tabindex="-1"></a>    <span class="fu">print</span>(<span class="fu">paste</span>(<span class="st">&quot;Returning&quot;</span>, bres, <span class="st">&quot;from b()&quot;</span>))</span>
-<span id="cb337-13"><a href="debugging.html#cb337-13" aria-hidden="true" tabindex="-1"></a>    bres</span>
-<span id="cb337-14"><a href="debugging.html#cb337-14" aria-hidden="true" tabindex="-1"></a>  }</span>
-<span id="cb337-15"><a href="debugging.html#cb337-15" aria-hidden="true" tabindex="-1"></a>  ares <span class="ot">&lt;-</span> x <span class="sc">+</span> <span class="fu">b</span>(<span class="dv">4</span>)</span>
-<span id="cb337-16"><a href="debugging.html#cb337-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>(<span class="fu">paste</span>(<span class="st">&quot;Returning&quot;</span>,ares, <span class="st">&quot;from a()&quot;</span>))</span>
-<span id="cb337-17"><a href="debugging.html#cb337-17" aria-hidden="true" tabindex="-1"></a>  ares</span>
-<span id="cb337-18"><a href="debugging.html#cb337-18" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb337-19"><a href="debugging.html#cb337-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb337-20"><a href="debugging.html#cb337-20" aria-hidden="true" tabindex="-1"></a><span class="fu">a</span>(<span class="dv">5</span>)</span>
-<span id="cb337-21"><a href="debugging.html#cb337-21" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;Entering a(). x =  5&quot;</span></span>
-<span id="cb337-22"><a href="debugging.html#cb337-22" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;Entering b(). x =  5 y =  4&quot;</span></span>
-<span id="cb337-23"><a href="debugging.html#cb337-23" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;Entering c(). x =  5 y =  4 z =  3&quot;</span></span>
-<span id="cb337-24"><a href="debugging.html#cb337-24" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;Returning 7 from c()&quot;</span></span>
-<span id="cb337-25"><a href="debugging.html#cb337-25" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;Returning 7 from b()&quot;</span></span>
-<span id="cb337-26"><a href="debugging.html#cb337-26" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;Returning 12 from a()&quot;</span></span>
-<span id="cb337-27"><a href="debugging.html#cb337-27" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="dv">12</span></span></code></pre></div>
+<div class="sourceCode" id="cb341"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb341-1"><a href="debugging.html#cb341-1" aria-hidden="true" tabindex="-1"></a>a <span class="ot">&lt;-</span> <span class="cf">function</span>(x) {</span>
+<span id="cb341-2"><a href="debugging.html#cb341-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>(<span class="fu">paste</span>(<span class="st">&quot;Entering a(). x = &quot;</span>, x))</span>
+<span id="cb341-3"><a href="debugging.html#cb341-3" aria-hidden="true" tabindex="-1"></a>  b <span class="ot">&lt;-</span> <span class="cf">function</span>(y) {</span>
+<span id="cb341-4"><a href="debugging.html#cb341-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">print</span>(<span class="fu">paste</span>(<span class="st">&quot;Entering b(). x = &quot;</span>, x, <span class="st">&quot;y = &quot;</span>, y))</span>
+<span id="cb341-5"><a href="debugging.html#cb341-5" aria-hidden="true" tabindex="-1"></a>    c <span class="ot">&lt;-</span> <span class="cf">function</span>(z) {</span>
+<span id="cb341-6"><a href="debugging.html#cb341-6" aria-hidden="true" tabindex="-1"></a>      <span class="fu">print</span>(<span class="fu">paste</span>(<span class="st">&quot;Entering c(). x = &quot;</span>, x, <span class="st">&quot;y = &quot;</span>, y, <span class="st">&quot;z = &quot;</span>, z))</span>
+<span id="cb341-7"><a href="debugging.html#cb341-7" aria-hidden="true" tabindex="-1"></a>      cres <span class="ot">&lt;-</span> z <span class="sc">+</span> y</span>
+<span id="cb341-8"><a href="debugging.html#cb341-8" aria-hidden="true" tabindex="-1"></a>      <span class="fu">print</span>(<span class="fu">paste</span>(<span class="st">&quot;Returning&quot;</span>, cres, <span class="st">&quot;from c()&quot;</span>))</span>
+<span id="cb341-9"><a href="debugging.html#cb341-9" aria-hidden="true" tabindex="-1"></a>      cres</span>
+<span id="cb341-10"><a href="debugging.html#cb341-10" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb341-11"><a href="debugging.html#cb341-11" aria-hidden="true" tabindex="-1"></a>    bres <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">3</span>)</span>
+<span id="cb341-12"><a href="debugging.html#cb341-12" aria-hidden="true" tabindex="-1"></a>    <span class="fu">print</span>(<span class="fu">paste</span>(<span class="st">&quot;Returning&quot;</span>, bres, <span class="st">&quot;from b()&quot;</span>))</span>
+<span id="cb341-13"><a href="debugging.html#cb341-13" aria-hidden="true" tabindex="-1"></a>    bres</span>
+<span id="cb341-14"><a href="debugging.html#cb341-14" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb341-15"><a href="debugging.html#cb341-15" aria-hidden="true" tabindex="-1"></a>  ares <span class="ot">&lt;-</span> x <span class="sc">+</span> <span class="fu">b</span>(<span class="dv">4</span>)</span>
+<span id="cb341-16"><a href="debugging.html#cb341-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>(<span class="fu">paste</span>(<span class="st">&quot;Returning&quot;</span>,ares, <span class="st">&quot;from a()&quot;</span>))</span>
+<span id="cb341-17"><a href="debugging.html#cb341-17" aria-hidden="true" tabindex="-1"></a>  ares</span>
+<span id="cb341-18"><a href="debugging.html#cb341-18" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb341-19"><a href="debugging.html#cb341-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb341-20"><a href="debugging.html#cb341-20" aria-hidden="true" tabindex="-1"></a><span class="fu">a</span>(<span class="dv">5</span>)</span>
+<span id="cb341-21"><a href="debugging.html#cb341-21" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] &quot;Entering a(). x =  5&quot;</span></span>
+<span id="cb341-22"><a href="debugging.html#cb341-22" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] &quot;Entering b(). x =  5 y =  4&quot;</span></span>
+<span id="cb341-23"><a href="debugging.html#cb341-23" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] &quot;Entering c(). x =  5 y =  4 z =  3&quot;</span></span>
+<span id="cb341-24"><a href="debugging.html#cb341-24" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] &quot;Returning 7 from c()&quot;</span></span>
+<span id="cb341-25"><a href="debugging.html#cb341-25" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] &quot;Returning 7 from b()&quot;</span></span>
+<span id="cb341-26"><a href="debugging.html#cb341-26" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] &quot;Returning 12 from a()&quot;</span></span>
+<span id="cb341-27"><a href="debugging.html#cb341-27" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] 12</span></span></code></pre></div>
 </details>
 <p>For more complex data structures, it can be useful to add <code>str()</code>, <code>head()</code>, or <code>summary()</code> functions.</p>
 <details>
@@ -690,210 +689,113 @@ Real world example
 </summary>
 <p>I was recently writing a webscraper to get election polling data from the RealClearPolitics site as part of the <a href="github.com/heike/electionViz"><code>electionViz</code> package</a>. I wrote the function <code>search_for_parent()</code> to get the parent HTML tag which matched the “tag” argument, that had the “node” argument as a descendant.</p>
 <p>I was assuming that the order of the parents would be “html,” “body,” “div,” “table,” “tbody,” “tr” - descending from outer to inner (if you know anything about HTML/XML structure).</p>
-<div class="sourceCode" id="cb338"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb338-1"><a href="debugging.html#cb338-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(xml2) <span class="co"># read html</span></span>
-<span id="cb338-2"><a href="debugging.html#cb338-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb338-3"><a href="debugging.html#cb338-3" aria-hidden="true" tabindex="-1"></a>search_for_parent <span class="ot">&lt;-</span> <span class="cf">function</span>(node, tag) {</span>
-<span id="cb338-4"><a href="debugging.html#cb338-4" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Get all of the parent nodes </span></span>
-<span id="cb338-5"><a href="debugging.html#cb338-5" aria-hidden="true" tabindex="-1"></a>  parents <span class="ot">&lt;-</span> xml2<span class="sc">::</span><span class="fu">xml_parents</span>(node)</span>
-<span id="cb338-6"><a href="debugging.html#cb338-6" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Get the tags of every parent node</span></span>
-<span id="cb338-7"><a href="debugging.html#cb338-7" aria-hidden="true" tabindex="-1"></a>  tags <span class="ot">&lt;-</span> purrr<span class="sc">::</span><span class="fu">map_chr</span>(parents, rvest<span class="sc">::</span>html_name)</span>
-<span id="cb338-8"><a href="debugging.html#cb338-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>(tags)</span>
-<span id="cb338-9"><a href="debugging.html#cb338-9" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb338-10"><a href="debugging.html#cb338-10" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Find matching taggs</span></span>
-<span id="cb338-11"><a href="debugging.html#cb338-11" aria-hidden="true" tabindex="-1"></a>  matches <span class="ot">&lt;-</span> <span class="fu">which</span>(tags <span class="sc">==</span> tag)</span>
-<span id="cb338-12"><a href="debugging.html#cb338-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>(matches)</span>
-<span id="cb338-13"><a href="debugging.html#cb338-13" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb338-14"><a href="debugging.html#cb338-14" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Take the minimum matching tag</span></span>
-<span id="cb338-15"><a href="debugging.html#cb338-15" aria-hidden="true" tabindex="-1"></a>  min_match <span class="ot">&lt;-</span> <span class="fu">min</span>(matches)</span>
-<span id="cb338-16"><a href="debugging.html#cb338-16" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (<span class="fu">length</span>(matches) <span class="sc">==</span> <span class="dv">1</span>) <span class="fu">return</span>(parents[min_match]) <span class="cf">else</span> <span class="fu">return</span>(<span class="cn">NULL</span>)</span>
-<span id="cb338-17"><a href="debugging.html#cb338-17" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb338-18"><a href="debugging.html#cb338-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb338-19"><a href="debugging.html#cb338-19" aria-hidden="true" tabindex="-1"></a>page <span class="ot">&lt;-</span> <span class="fu">read_html</span>(<span class="st">&quot;data/realclearpolitics_frag.html&quot;</span>)</span>
-<span id="cb338-20"><a href="debugging.html#cb338-20" aria-hidden="true" tabindex="-1"></a>node <span class="ot">&lt;-</span> <span class="fu">xml_find_all</span>(page, <span class="st">&quot;//td[@class=&#39;lp-results&#39;]&quot;</span>) <span class="co"># find all poll results in any table</span></span>
-<span id="cb338-21"><a href="debugging.html#cb338-21" aria-hidden="true" tabindex="-1"></a><span class="fu">search_for_parent</span>(node[<span class="dv">1</span>], <span class="st">&quot;table&quot;</span>) <span class="co"># find the table that contains it</span></span>
-<span id="cb338-22"><a href="debugging.html#cb338-22" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;tr&quot;</span>    <span class="st">&quot;tbody&quot;</span> <span class="st">&quot;table&quot;</span> <span class="st">&quot;div&quot;</span>   <span class="st">&quot;body&quot;</span>  <span class="st">&quot;html&quot;</span> </span>
-<span id="cb338-23"><a href="debugging.html#cb338-23" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="dv">3</span></span>
-<span id="cb338-24"><a href="debugging.html#cb338-24" aria-hidden="true" tabindex="-1"></a>{<span class="fu">xml_nodeset</span> (<span class="dv">1</span>)}</span>
-<span id="cb338-25"><a href="debugging.html#cb338-25" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="sc">&lt;</span>table cellpadding<span class="ot">=</span><span class="st">&quot;2&quot;</span> cellspacing<span class="ot">=</span><span class="st">&quot;0&quot;</span> class<span class="ot">=</span><span class="st">&quot;sortable&quot;</span><span class="sc">&gt;</span>\n<span class="sc">&lt;</span>thead<span class="sc">&gt;</span><span class="er">&lt;</span>tr clas ...</span></code></pre></div>
+<div class="sourceCode" id="cb342"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb342-1"><a href="debugging.html#cb342-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(xml2) <span class="co"># read html</span></span>
+<span id="cb342-2"><a href="debugging.html#cb342-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb342-3"><a href="debugging.html#cb342-3" aria-hidden="true" tabindex="-1"></a>search_for_parent <span class="ot">&lt;-</span> <span class="cf">function</span>(node, tag) {</span>
+<span id="cb342-4"><a href="debugging.html#cb342-4" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Get all of the parent nodes </span></span>
+<span id="cb342-5"><a href="debugging.html#cb342-5" aria-hidden="true" tabindex="-1"></a>  parents <span class="ot">&lt;-</span> xml2<span class="sc">::</span><span class="fu">xml_parents</span>(node)</span>
+<span id="cb342-6"><a href="debugging.html#cb342-6" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Get the tags of every parent node</span></span>
+<span id="cb342-7"><a href="debugging.html#cb342-7" aria-hidden="true" tabindex="-1"></a>  tags <span class="ot">&lt;-</span> purrr<span class="sc">::</span><span class="fu">map_chr</span>(parents, rvest<span class="sc">::</span>html_name)</span>
+<span id="cb342-8"><a href="debugging.html#cb342-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>(tags)</span>
+<span id="cb342-9"><a href="debugging.html#cb342-9" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb342-10"><a href="debugging.html#cb342-10" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Find matching taggs</span></span>
+<span id="cb342-11"><a href="debugging.html#cb342-11" aria-hidden="true" tabindex="-1"></a>  matches <span class="ot">&lt;-</span> <span class="fu">which</span>(tags <span class="sc">==</span> tag)</span>
+<span id="cb342-12"><a href="debugging.html#cb342-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>(matches)</span>
+<span id="cb342-13"><a href="debugging.html#cb342-13" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb342-14"><a href="debugging.html#cb342-14" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Take the minimum matching tag</span></span>
+<span id="cb342-15"><a href="debugging.html#cb342-15" aria-hidden="true" tabindex="-1"></a>  min_match <span class="ot">&lt;-</span> <span class="fu">min</span>(matches)</span>
+<span id="cb342-16"><a href="debugging.html#cb342-16" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (<span class="fu">length</span>(matches) <span class="sc">==</span> <span class="dv">1</span>) <span class="fu">return</span>(parents[min_match]) <span class="cf">else</span> <span class="fu">return</span>(<span class="cn">NULL</span>)</span>
+<span id="cb342-17"><a href="debugging.html#cb342-17" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb342-18"><a href="debugging.html#cb342-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb342-19"><a href="debugging.html#cb342-19" aria-hidden="true" tabindex="-1"></a>page <span class="ot">&lt;-</span> <span class="fu">read_html</span>(<span class="st">&quot;data/realclearpolitics_frag.html&quot;</span>)</span>
+<span id="cb342-20"><a href="debugging.html#cb342-20" aria-hidden="true" tabindex="-1"></a>node <span class="ot">&lt;-</span> <span class="fu">xml_find_all</span>(page, <span class="st">&quot;//td[@class=&#39;lp-results&#39;]&quot;</span>) <span class="co"># find all poll results in any table</span></span>
+<span id="cb342-21"><a href="debugging.html#cb342-21" aria-hidden="true" tabindex="-1"></a><span class="fu">search_for_parent</span>(node[<span class="dv">1</span>], <span class="st">&quot;table&quot;</span>) <span class="co"># find the table that contains it</span></span>
+<span id="cb342-22"><a href="debugging.html#cb342-22" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] &quot;tr&quot;    &quot;tbody&quot; &quot;table&quot; &quot;div&quot;   &quot;body&quot;  &quot;html&quot; </span></span>
+<span id="cb342-23"><a href="debugging.html#cb342-23" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] 3</span></span>
+<span id="cb342-24"><a href="debugging.html#cb342-24" aria-hidden="true" tabindex="-1"></a><span class="do">## {xml_nodeset (1)}</span></span>
+<span id="cb342-25"><a href="debugging.html#cb342-25" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] &lt;table cellpadding=&quot;2&quot; cellspacing=&quot;0&quot; class=&quot;sortable&quot;&gt;\n&lt;thead&gt;&lt;tr clas ...</span></span></code></pre></div>
 By printing out all of the tags that contain <code>node</code>, I could see the order – inner to outer. I asked the function to return the location of the first table node, so the index (2nd value printed out) should match table in the character vector that was printed out first. I could then see that the HTML node that is returned is in fact the table node.
 </details>
 <div id="try-it-out-23" class="section level4 unnumbered tryitout">
 <h4>Try it out</h4>
 <p>Not all bugs result in error messages, unfortunately, which makes higher-level techniques like <code>traceback()</code> less useful. The low-tech debugging tools, however, still work wonderfully.</p>
-<div class="sourceCode" id="cb339"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb339-1"><a href="debugging.html#cb339-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
-<span id="cb339-2"><a href="debugging.html#cb339-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
-<span id="cb339-3"><a href="debugging.html#cb339-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(magrittr)</span>
-<span id="cb339-4"><a href="debugging.html#cb339-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(maps)</span>
-<span id="cb339-5"><a href="debugging.html#cb339-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggthemes)</span>
-<span id="cb339-6"><a href="debugging.html#cb339-6" aria-hidden="true" tabindex="-1"></a>worldmap <span class="ot">&lt;-</span> <span class="fu">map_data</span>(<span class="st">&quot;world&quot;</span>)</span>
-<span id="cb339-7"><a href="debugging.html#cb339-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb339-8"><a href="debugging.html#cb339-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Load the data</span></span>
-<span id="cb339-9"><a href="debugging.html#cb339-9" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(storms, <span class="at">package =</span> <span class="st">&quot;dplyr&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb343"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb343-1"><a href="debugging.html#cb343-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb343-2"><a href="debugging.html#cb343-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb343-3"><a href="debugging.html#cb343-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(magrittr)</span>
+<span id="cb343-4"><a href="debugging.html#cb343-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(maps)</span>
+<span id="cb343-5"><a href="debugging.html#cb343-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggthemes)</span>
+<span id="cb343-6"><a href="debugging.html#cb343-6" aria-hidden="true" tabindex="-1"></a>worldmap <span class="ot">&lt;-</span> <span class="fu">map_data</span>(<span class="st">&quot;world&quot;</span>)</span>
+<span id="cb343-7"><a href="debugging.html#cb343-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb343-8"><a href="debugging.html#cb343-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Load the data</span></span>
+<span id="cb343-9"><a href="debugging.html#cb343-9" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(storms, <span class="at">package =</span> <span class="st">&quot;dplyr&quot;</span>)</span></code></pre></div>
 <p>The code below is supposed to print out a map of the tracks of all hurricanes of a specific category, 1 to 5, in 2013. Use print statements to figure out what’s wrong with my code.</p>
-<div class="sourceCode" id="cb340"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb340-1"><a href="debugging.html#cb340-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Make base map to be used for each iteration</span></span>
-<span id="cb340-2"><a href="debugging.html#cb340-2" aria-hidden="true" tabindex="-1"></a>basemap <span class="ot">&lt;-</span>  <span class="fu">ggplot</span>() <span class="sc">+</span> </span>
-<span id="cb340-3"><a href="debugging.html#cb340-3" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Country shapes</span></span>
-<span id="cb340-4"><a href="debugging.html#cb340-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_polygon</span>(<span class="fu">aes</span>(<span class="at">x =</span> long, <span class="at">y =</span> lat, <span class="at">group =</span> group), </span>
-<span id="cb340-5"><a href="debugging.html#cb340-5" aria-hidden="true" tabindex="-1"></a>               <span class="at">data =</span> worldmap, <span class="at">fill =</span> <span class="st">&quot;white&quot;</span>, <span class="at">color =</span> <span class="st">&quot;black&quot;</span>) <span class="sc">+</span> </span>
-<span id="cb340-6"><a href="debugging.html#cb340-6" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Zoom in </span></span>
-<span id="cb340-7"><a href="debugging.html#cb340-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_quickmap</span>(<span class="at">xlim =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">100</span>, <span class="sc">-</span><span class="dv">10</span>), <span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">10</span>, <span class="dv">50</span>)) <span class="sc">+</span> </span>
-<span id="cb340-8"><a href="debugging.html#cb340-8" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Don&#39;t need scales b/c maps provide their own geographic context...</span></span>
-<span id="cb340-9"><a href="debugging.html#cb340-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_map</span>()</span>
-<span id="cb340-10"><a href="debugging.html#cb340-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb340-11"><a href="debugging.html#cb340-11" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>) {</span>
-<span id="cb340-12"><a href="debugging.html#cb340-12" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Subset the data</span></span>
-<span id="cb340-13"><a href="debugging.html#cb340-13" aria-hidden="true" tabindex="-1"></a>  subdata <span class="ot">&lt;-</span> storms <span class="sc">%&gt;%</span></span>
-<span id="cb340-14"><a href="debugging.html#cb340-14" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(year <span class="sc">==</span> <span class="dv">2013</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb340-15"><a href="debugging.html#cb340-15" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(status <span class="sc">==</span> i)</span>
-<span id="cb340-16"><a href="debugging.html#cb340-16" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb340-17"><a href="debugging.html#cb340-17" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Plot the data - path + points to show the observations</span></span>
-<span id="cb340-18"><a href="debugging.html#cb340-18" aria-hidden="true" tabindex="-1"></a>  plot <span class="ot">&lt;-</span> basemap <span class="sc">+</span></span>
-<span id="cb340-19"><a href="debugging.html#cb340-19" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_path</span>(<span class="fu">aes</span>(<span class="at">x =</span> long, <span class="at">y =</span> lat, <span class="at">color =</span> name), <span class="at">data =</span> subdata) <span class="sc">+</span> </span>
-<span id="cb340-20"><a href="debugging.html#cb340-20" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">x =</span> long, <span class="at">y =</span> lat, <span class="at">color =</span> name), <span class="at">data =</span> subdata) <span class="sc">+</span> </span>
-<span id="cb340-21"><a href="debugging.html#cb340-21" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggtitle</span>(<span class="fu">paste0</span>(<span class="st">&quot;Category &quot;</span>, i, <span class="st">&quot; storms in 2013&quot;</span>))</span>
-<span id="cb340-22"><a href="debugging.html#cb340-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>(plot)</span>
-<span id="cb340-23"><a href="debugging.html#cb340-23" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb344"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb344-1"><a href="debugging.html#cb344-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Make base map to be used for each iteration</span></span>
+<span id="cb344-2"><a href="debugging.html#cb344-2" aria-hidden="true" tabindex="-1"></a>basemap <span class="ot">&lt;-</span>  <span class="fu">ggplot</span>() <span class="sc">+</span> </span>
+<span id="cb344-3"><a href="debugging.html#cb344-3" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Country shapes</span></span>
+<span id="cb344-4"><a href="debugging.html#cb344-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_polygon</span>(<span class="fu">aes</span>(<span class="at">x =</span> long, <span class="at">y =</span> lat, <span class="at">group =</span> group), </span>
+<span id="cb344-5"><a href="debugging.html#cb344-5" aria-hidden="true" tabindex="-1"></a>               <span class="at">data =</span> worldmap, <span class="at">fill =</span> <span class="st">&quot;white&quot;</span>, <span class="at">color =</span> <span class="st">&quot;black&quot;</span>) <span class="sc">+</span> </span>
+<span id="cb344-6"><a href="debugging.html#cb344-6" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Zoom in </span></span>
+<span id="cb344-7"><a href="debugging.html#cb344-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_quickmap</span>(<span class="at">xlim =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">100</span>, <span class="sc">-</span><span class="dv">10</span>), <span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">10</span>, <span class="dv">50</span>)) <span class="sc">+</span> </span>
+<span id="cb344-8"><a href="debugging.html#cb344-8" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Don&#39;t need scales b/c maps provide their own geographic context...</span></span>
+<span id="cb344-9"><a href="debugging.html#cb344-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_map</span>()</span>
+<span id="cb344-10"><a href="debugging.html#cb344-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb344-11"><a href="debugging.html#cb344-11" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>) {</span>
+<span id="cb344-12"><a href="debugging.html#cb344-12" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Subset the data</span></span>
+<span id="cb344-13"><a href="debugging.html#cb344-13" aria-hidden="true" tabindex="-1"></a>  subdata <span class="ot">&lt;-</span> storms <span class="sc">%&gt;%</span></span>
+<span id="cb344-14"><a href="debugging.html#cb344-14" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(year <span class="sc">==</span> <span class="dv">2013</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb344-15"><a href="debugging.html#cb344-15" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(status <span class="sc">==</span> i)</span>
+<span id="cb344-16"><a href="debugging.html#cb344-16" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb344-17"><a href="debugging.html#cb344-17" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Plot the data - path + points to show the observations</span></span>
+<span id="cb344-18"><a href="debugging.html#cb344-18" aria-hidden="true" tabindex="-1"></a>  plot <span class="ot">&lt;-</span> basemap <span class="sc">+</span></span>
+<span id="cb344-19"><a href="debugging.html#cb344-19" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_path</span>(<span class="fu">aes</span>(<span class="at">x =</span> long, <span class="at">y =</span> lat, <span class="at">color =</span> name), <span class="at">data =</span> subdata) <span class="sc">+</span> </span>
+<span id="cb344-20"><a href="debugging.html#cb344-20" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">x =</span> long, <span class="at">y =</span> lat, <span class="at">color =</span> name), <span class="at">data =</span> subdata) <span class="sc">+</span> </span>
+<span id="cb344-21"><a href="debugging.html#cb344-21" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggtitle</span>(<span class="fu">paste0</span>(<span class="st">&quot;Category &quot;</span>, i, <span class="st">&quot; storms in 2013&quot;</span>))</span>
+<span id="cb344-22"><a href="debugging.html#cb344-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>(plot)</span>
+<span id="cb344-23"><a href="debugging.html#cb344-23" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
 <p><img src="image/map-hurricane-tracks-1.png" width="18%" /><img src="image/map-hurricane-tracks-2.png" width="18%" /><img src="image/map-hurricane-tracks-3.png" width="18%" /><img src="image/map-hurricane-tracks-4.png" width="18%" /><img src="image/map-hurricane-tracks-5.png" width="18%" /></p>
 <details>
 <summary>
 Solution
 </summary>
 <p>First, lets split the setup from the loop.</p>
-<div class="sourceCode" id="cb341"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb341-1"><a href="debugging.html#cb341-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Make base map to be used for each iteration</span></span>
-<span id="cb341-2"><a href="debugging.html#cb341-2" aria-hidden="true" tabindex="-1"></a>basemap <span class="ot">&lt;-</span>  <span class="fu">ggplot</span>() <span class="sc">+</span> </span>
-<span id="cb341-3"><a href="debugging.html#cb341-3" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Country shapes</span></span>
-<span id="cb341-4"><a href="debugging.html#cb341-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_polygon</span>(<span class="fu">aes</span>(<span class="at">x =</span> long, <span class="at">y =</span> lat, <span class="at">group =</span> group), </span>
-<span id="cb341-5"><a href="debugging.html#cb341-5" aria-hidden="true" tabindex="-1"></a>               <span class="at">data =</span> worldmap, <span class="at">fill =</span> <span class="st">&quot;white&quot;</span>, <span class="at">color =</span> <span class="st">&quot;black&quot;</span>) <span class="sc">+</span> </span>
-<span id="cb341-6"><a href="debugging.html#cb341-6" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Zoom in </span></span>
-<span id="cb341-7"><a href="debugging.html#cb341-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_quickmap</span>(<span class="at">xlim =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">100</span>, <span class="sc">-</span><span class="dv">10</span>), <span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">10</span>, <span class="dv">50</span>)) <span class="sc">+</span> </span>
-<span id="cb341-8"><a href="debugging.html#cb341-8" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Don&#39;t need scales b/c maps provide their own geographic context...</span></span>
-<span id="cb341-9"><a href="debugging.html#cb341-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_map</span>()</span>
-<span id="cb341-10"><a href="debugging.html#cb341-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb341-11"><a href="debugging.html#cb341-11" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(basemap) <span class="co"># make sure the basemap is fine</span></span></code></pre></div>
+<div class="sourceCode" id="cb345"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb345-1"><a href="debugging.html#cb345-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Make base map to be used for each iteration</span></span>
+<span id="cb345-2"><a href="debugging.html#cb345-2" aria-hidden="true" tabindex="-1"></a>basemap <span class="ot">&lt;-</span>  <span class="fu">ggplot</span>() <span class="sc">+</span> </span>
+<span id="cb345-3"><a href="debugging.html#cb345-3" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Country shapes</span></span>
+<span id="cb345-4"><a href="debugging.html#cb345-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_polygon</span>(<span class="fu">aes</span>(<span class="at">x =</span> long, <span class="at">y =</span> lat, <span class="at">group =</span> group), </span>
+<span id="cb345-5"><a href="debugging.html#cb345-5" aria-hidden="true" tabindex="-1"></a>               <span class="at">data =</span> worldmap, <span class="at">fill =</span> <span class="st">&quot;white&quot;</span>, <span class="at">color =</span> <span class="st">&quot;black&quot;</span>) <span class="sc">+</span> </span>
+<span id="cb345-6"><a href="debugging.html#cb345-6" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Zoom in </span></span>
+<span id="cb345-7"><a href="debugging.html#cb345-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_quickmap</span>(<span class="at">xlim =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">100</span>, <span class="sc">-</span><span class="dv">10</span>), <span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">10</span>, <span class="dv">50</span>)) <span class="sc">+</span> </span>
+<span id="cb345-8"><a href="debugging.html#cb345-8" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Don&#39;t need scales b/c maps provide their own geographic context...</span></span>
+<span id="cb345-9"><a href="debugging.html#cb345-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_map</span>()</span>
+<span id="cb345-10"><a href="debugging.html#cb345-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb345-11"><a href="debugging.html#cb345-11" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(basemap) <span class="co"># make sure the basemap is fine</span></span></code></pre></div>
 <p><img src="image/map-hurricane-tracks-setup-1.png" width="2100" /></p>
-<div class="sourceCode" id="cb342"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb342-1"><a href="debugging.html#cb342-1" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb342-2"><a href="debugging.html#cb342-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Load the data</span></span>
-<span id="cb342-3"><a href="debugging.html#cb342-3" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(storms, <span class="at">package =</span> <span class="st">&quot;dplyr&quot;</span>)</span>
-<span id="cb342-4"><a href="debugging.html#cb342-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb342-5"><a href="debugging.html#cb342-5" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(storms) <span class="co"># make sure the data exists and is formatted as expected</span></span>
-<span id="cb342-6"><a href="debugging.html#cb342-6" aria-hidden="true" tabindex="-1"></a>tibble[,<span class="dv">13</span>] [<span class="dv">10</span>,<span class="dv">010</span> × <span class="dv">13</span>] (S3<span class="sc">:</span> tbl_df<span class="sc">/</span>tbl<span class="sc">/</span>data.frame)</span>
-<span id="cb342-7"><a href="debugging.html#cb342-7" aria-hidden="true" tabindex="-1"></a> <span class="sc">$</span> name       <span class="sc">:</span> chr [<span class="dv">1</span><span class="sc">:</span><span class="dv">10010</span>] <span class="st">&quot;Amy&quot;</span> <span class="st">&quot;Amy&quot;</span> <span class="st">&quot;Amy&quot;</span> <span class="st">&quot;Amy&quot;</span> ...</span>
-<span id="cb342-8"><a href="debugging.html#cb342-8" aria-hidden="true" tabindex="-1"></a> <span class="sc">$</span> year       <span class="sc">:</span> num [<span class="dv">1</span><span class="sc">:</span><span class="dv">10010</span>] <span class="dv">1975</span> <span class="dv">1975</span> <span class="dv">1975</span> <span class="dv">1975</span> <span class="dv">1975</span> ...</span>
-<span id="cb342-9"><a href="debugging.html#cb342-9" aria-hidden="true" tabindex="-1"></a> <span class="sc">$</span> month      <span class="sc">:</span> num [<span class="dv">1</span><span class="sc">:</span><span class="dv">10010</span>] <span class="dv">6</span> <span class="dv">6</span> <span class="dv">6</span> <span class="dv">6</span> <span class="dv">6</span> <span class="dv">6</span> <span class="dv">6</span> <span class="dv">6</span> <span class="dv">6</span> <span class="dv">6</span> ...</span>
-<span id="cb342-10"><a href="debugging.html#cb342-10" aria-hidden="true" tabindex="-1"></a> <span class="sc">$</span> day        <span class="sc">:</span> int [<span class="dv">1</span><span class="sc">:</span><span class="dv">10010</span>] <span class="dv">27</span> <span class="dv">27</span> <span class="dv">27</span> <span class="dv">27</span> <span class="dv">28</span> <span class="dv">28</span> <span class="dv">28</span> <span class="dv">28</span> <span class="dv">29</span> <span class="dv">29</span> ...</span>
-<span id="cb342-11"><a href="debugging.html#cb342-11" aria-hidden="true" tabindex="-1"></a> <span class="sc">$</span> hour       <span class="sc">:</span> num [<span class="dv">1</span><span class="sc">:</span><span class="dv">10010</span>] <span class="dv">0</span> <span class="dv">6</span> <span class="dv">12</span> <span class="dv">18</span> <span class="dv">0</span> <span class="dv">6</span> <span class="dv">12</span> <span class="dv">18</span> <span class="dv">0</span> <span class="dv">6</span> ...</span>
-<span id="cb342-12"><a href="debugging.html#cb342-12" aria-hidden="true" tabindex="-1"></a> <span class="sc">$</span> lat        <span class="sc">:</span> num [<span class="dv">1</span><span class="sc">:</span><span class="dv">10010</span>] <span class="fl">27.5</span> <span class="fl">28.5</span> <span class="fl">29.5</span> <span class="fl">30.5</span> <span class="fl">31.5</span> <span class="fl">32.4</span> <span class="fl">33.3</span> <span class="dv">34</span> <span class="fl">34.4</span> <span class="dv">34</span> ...</span>
-<span id="cb342-13"><a href="debugging.html#cb342-13" aria-hidden="true" tabindex="-1"></a> <span class="sc">$</span> long       <span class="sc">:</span> num [<span class="dv">1</span><span class="sc">:</span><span class="dv">10010</span>] <span class="sc">-</span><span class="dv">79</span> <span class="sc">-</span><span class="dv">79</span> <span class="sc">-</span><span class="dv">79</span> <span class="sc">-</span><span class="dv">79</span> <span class="sc">-</span><span class="fl">78.8</span> <span class="sc">-</span><span class="fl">78.7</span> <span class="sc">-</span><span class="dv">78</span> <span class="sc">-</span><span class="dv">77</span> <span class="sc">-</span><span class="fl">75.8</span> <span class="sc">-</span><span class="fl">74.8</span> ...</span>
-<span id="cb342-14"><a href="debugging.html#cb342-14" aria-hidden="true" tabindex="-1"></a> <span class="sc">$</span> status     <span class="sc">:</span> chr [<span class="dv">1</span><span class="sc">:</span><span class="dv">10010</span>] <span class="st">&quot;tropical depression&quot;</span> <span class="st">&quot;tropical depression&quot;</span> <span class="st">&quot;tropical depression&quot;</span> <span class="st">&quot;tropical depression&quot;</span> ...</span>
-<span id="cb342-15"><a href="debugging.html#cb342-15" aria-hidden="true" tabindex="-1"></a> <span class="sc">$</span> category   <span class="sc">:</span> Ord.factor w<span class="sc">/</span> <span class="dv">7</span> levels <span class="st">&quot;-1&quot;</span><span class="sc">&lt;</span><span class="st">&quot;0&quot;</span><span class="sc">&lt;</span><span class="st">&quot;1&quot;</span><span class="sc">&lt;</span><span class="st">&quot;2&quot;</span><span class="sc">&lt;</span>..<span class="sc">:</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">2</span> <span class="dv">2</span> ...</span>
-<span id="cb342-16"><a href="debugging.html#cb342-16" aria-hidden="true" tabindex="-1"></a> <span class="sc">$</span> wind       <span class="sc">:</span> int [<span class="dv">1</span><span class="sc">:</span><span class="dv">10010</span>] <span class="dv">25</span> <span class="dv">25</span> <span class="dv">25</span> <span class="dv">25</span> <span class="dv">25</span> <span class="dv">25</span> <span class="dv">25</span> <span class="dv">30</span> <span class="dv">35</span> <span class="dv">40</span> ...</span>
-<span id="cb342-17"><a href="debugging.html#cb342-17" aria-hidden="true" tabindex="-1"></a> <span class="sc">$</span> pressure   <span class="sc">:</span> int [<span class="dv">1</span><span class="sc">:</span><span class="dv">10010</span>] <span class="dv">1013</span> <span class="dv">1013</span> <span class="dv">1013</span> <span class="dv">1013</span> <span class="dv">1012</span> <span class="dv">1012</span> <span class="dv">1011</span> <span class="dv">1006</span> <span class="dv">1004</span> <span class="dv">1002</span> ...</span>
-<span id="cb342-18"><a href="debugging.html#cb342-18" aria-hidden="true" tabindex="-1"></a> <span class="sc">$</span> ts_diameter<span class="sc">:</span> num [<span class="dv">1</span><span class="sc">:</span><span class="dv">10010</span>] <span class="cn">NA</span> <span class="cn">NA</span> <span class="cn">NA</span> <span class="cn">NA</span> <span class="cn">NA</span> <span class="cn">NA</span> <span class="cn">NA</span> <span class="cn">NA</span> <span class="cn">NA</span> <span class="cn">NA</span> ...</span>
-<span id="cb342-19"><a href="debugging.html#cb342-19" aria-hidden="true" tabindex="-1"></a> <span class="sc">$</span> hu_diameter<span class="sc">:</span> num [<span class="dv">1</span><span class="sc">:</span><span class="dv">10010</span>] <span class="cn">NA</span> <span class="cn">NA</span> <span class="cn">NA</span> <span class="cn">NA</span> <span class="cn">NA</span> <span class="cn">NA</span> <span class="cn">NA</span> <span class="cn">NA</span> <span class="cn">NA</span> <span class="cn">NA</span> ...</span></code></pre></div>
+<div class="sourceCode" id="cb346"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb346-1"><a href="debugging.html#cb346-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb346-2"><a href="debugging.html#cb346-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Load the data</span></span>
+<span id="cb346-3"><a href="debugging.html#cb346-3" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(storms, <span class="at">package =</span> <span class="st">&quot;dplyr&quot;</span>)</span>
+<span id="cb346-4"><a href="debugging.html#cb346-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb346-5"><a href="debugging.html#cb346-5" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(storms) <span class="co"># make sure the data exists and is formatted as expected</span></span>
+<span id="cb346-6"><a href="debugging.html#cb346-6" aria-hidden="true" tabindex="-1"></a><span class="do">## tibble [10,010 × 13] (S3: tbl_df/tbl/data.frame)</span></span>
+<span id="cb346-7"><a href="debugging.html#cb346-7" aria-hidden="true" tabindex="-1"></a><span class="do">##  $ name       : chr [1:10010] &quot;Amy&quot; &quot;Amy&quot; &quot;Amy&quot; &quot;Amy&quot; ...</span></span>
+<span id="cb346-8"><a href="debugging.html#cb346-8" aria-hidden="true" tabindex="-1"></a><span class="do">##  $ year       : num [1:10010] 1975 1975 1975 1975 1975 ...</span></span>
+<span id="cb346-9"><a href="debugging.html#cb346-9" aria-hidden="true" tabindex="-1"></a><span class="do">##  $ month      : num [1:10010] 6 6 6 6 6 6 6 6 6 6 ...</span></span>
+<span id="cb346-10"><a href="debugging.html#cb346-10" aria-hidden="true" tabindex="-1"></a><span class="do">##  $ day        : int [1:10010] 27 27 27 27 28 28 28 28 29 29 ...</span></span>
+<span id="cb346-11"><a href="debugging.html#cb346-11" aria-hidden="true" tabindex="-1"></a><span class="do">##  $ hour       : num [1:10010] 0 6 12 18 0 6 12 18 0 6 ...</span></span>
+<span id="cb346-12"><a href="debugging.html#cb346-12" aria-hidden="true" tabindex="-1"></a><span class="do">##  $ lat        : num [1:10010] 27.5 28.5 29.5 30.5 31.5 32.4 33.3 34 34.4 34 ...</span></span>
+<span id="cb346-13"><a href="debugging.html#cb346-13" aria-hidden="true" tabindex="-1"></a><span class="do">##  $ long       : num [1:10010] -79 -79 -79 -79 -78.8 -78.7 -78 -77 -75.8 -74.8 ...</span></span>
+<span id="cb346-14"><a href="debugging.html#cb346-14" aria-hidden="true" tabindex="-1"></a><span class="do">##  $ status     : chr [1:10010] &quot;tropical depression&quot; &quot;tropical depression&quot; &quot;tropical depression&quot; &quot;tropical depression&quot; ...</span></span>
+<span id="cb346-15"><a href="debugging.html#cb346-15" aria-hidden="true" tabindex="-1"></a><span class="do">##  $ category   : Ord.factor w/ 7 levels &quot;-1&quot;&lt;&quot;0&quot;&lt;&quot;1&quot;&lt;&quot;2&quot;&lt;..: 1 1 1 1 1 1 1 1 2 2 ...</span></span>
+<span id="cb346-16"><a href="debugging.html#cb346-16" aria-hidden="true" tabindex="-1"></a><span class="do">##  $ wind       : int [1:10010] 25 25 25 25 25 25 25 30 35 40 ...</span></span>
+<span id="cb346-17"><a href="debugging.html#cb346-17" aria-hidden="true" tabindex="-1"></a><span class="do">##  $ pressure   : int [1:10010] 1013 1013 1013 1013 1012 1012 1011 1006 1004 1002 ...</span></span>
+<span id="cb346-18"><a href="debugging.html#cb346-18" aria-hidden="true" tabindex="-1"></a><span class="do">##  $ ts_diameter: num [1:10010] NA NA NA NA NA NA NA NA NA NA ...</span></span>
+<span id="cb346-19"><a href="debugging.html#cb346-19" aria-hidden="true" tabindex="-1"></a><span class="do">##  $ hu_diameter: num [1:10010] NA NA NA NA NA NA NA NA NA NA ...</span></span></code></pre></div>
 <p>Everything looks ok in the setup chunk…</p>
-<div class="sourceCode" id="cb343"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb343-1"><a href="debugging.html#cb343-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>) {</span>
-<span id="cb343-2"><a href="debugging.html#cb343-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>(<span class="fu">paste0</span>(<span class="st">&quot;Category &quot;</span>, i, <span class="st">&quot; storms&quot;</span>))</span>
-<span id="cb343-3"><a href="debugging.html#cb343-3" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Subset the data</span></span>
-<span id="cb343-4"><a href="debugging.html#cb343-4" aria-hidden="true" tabindex="-1"></a>  subdata <span class="ot">&lt;-</span> storms <span class="sc">%&gt;%</span></span>
-<span id="cb343-5"><a href="debugging.html#cb343-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(year <span class="sc">==</span> <span class="dv">2013</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb343-6"><a href="debugging.html#cb343-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(status <span class="sc">==</span> i)</span>
-<span id="cb343-7"><a href="debugging.html#cb343-7" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb343-8"><a href="debugging.html#cb343-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>(<span class="fu">paste0</span>(<span class="st">&quot;subdata dims: nrow &quot;</span>, <span class="fu">nrow</span>(subdata), <span class="st">&quot; ncol &quot;</span>, <span class="fu">ncol</span>(subdata)))</span>
-<span id="cb343-9"><a href="debugging.html#cb343-9" aria-hidden="true" tabindex="-1"></a>        <span class="co"># str(subdata) works too, but produces more clutter. I started</span></span>
-<span id="cb343-10"><a href="debugging.html#cb343-10" aria-hidden="true" tabindex="-1"></a>        <span class="co"># with str() and moved to dim() when I saw the problem</span></span>
-<span id="cb343-11"><a href="debugging.html#cb343-11" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb343-12"><a href="debugging.html#cb343-12" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Plot the data - path + points to show the observations</span></span>
-<span id="cb343-13"><a href="debugging.html#cb343-13" aria-hidden="true" tabindex="-1"></a>  plot <span class="ot">&lt;-</span> basemap <span class="sc">+</span></span>
-<span id="cb343-14"><a href="debugging.html#cb343-14" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_path</span>(<span class="fu">aes</span>(<span class="at">x =</span> long, <span class="at">y =</span> lat, <span class="at">color =</span> name), <span class="at">data =</span> subdata) <span class="sc">+</span> </span>
-<span id="cb343-15"><a href="debugging.html#cb343-15" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">x =</span> long, <span class="at">y =</span> lat, <span class="at">color =</span> name), <span class="at">data =</span> subdata) <span class="sc">+</span> </span>
-<span id="cb343-16"><a href="debugging.html#cb343-16" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggtitle</span>(<span class="fu">paste0</span>(<span class="st">&quot;Category &quot;</span>, i, <span class="st">&quot; storms in 2013&quot;</span>))</span>
-<span id="cb343-17"><a href="debugging.html#cb343-17" aria-hidden="true" tabindex="-1"></a>  <span class="co"># print(plot) # Don&#39;t print plots - clutters up output at the moment</span></span>
-<span id="cb343-18"><a href="debugging.html#cb343-18" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb343-19"><a href="debugging.html#cb343-19" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;Category 1 storms&quot;</span></span>
-<span id="cb343-20"><a href="debugging.html#cb343-20" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;subdata dims: nrow 0 ncol 13&quot;</span></span>
-<span id="cb343-21"><a href="debugging.html#cb343-21" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;Category 2 storms&quot;</span></span>
-<span id="cb343-22"><a href="debugging.html#cb343-22" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;subdata dims: nrow 0 ncol 13&quot;</span></span>
-<span id="cb343-23"><a href="debugging.html#cb343-23" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;Category 3 storms&quot;</span></span>
-<span id="cb343-24"><a href="debugging.html#cb343-24" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;subdata dims: nrow 0 ncol 13&quot;</span></span>
-<span id="cb343-25"><a href="debugging.html#cb343-25" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;Category 4 storms&quot;</span></span>
-<span id="cb343-26"><a href="debugging.html#cb343-26" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;subdata dims: nrow 0 ncol 13&quot;</span></span>
-<span id="cb343-27"><a href="debugging.html#cb343-27" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;Category 5 storms&quot;</span></span>
-<span id="cb343-28"><a href="debugging.html#cb343-28" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;subdata dims: nrow 0 ncol 13&quot;</span></span></code></pre></div>
-<p>Ok, so from this we can see that something is going wrong with our filter statement - we have no rows of data.</p>
-<div class="sourceCode" id="cb344"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb344-1"><a href="debugging.html#cb344-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(storms)</span>
-<span id="cb344-2"><a href="debugging.html#cb344-2" aria-hidden="true" tabindex="-1"></a><span class="co"># A tibble: 6 x 13</span></span>
-<span id="cb344-3"><a href="debugging.html#cb344-3" aria-hidden="true" tabindex="-1"></a>  name   year month   day  hour   lat  long status       category  wind pressure</span>
-<span id="cb344-4"><a href="debugging.html#cb344-4" aria-hidden="true" tabindex="-1"></a>  <span class="sc">&lt;</span>chr<span class="sc">&gt;</span> <span class="er">&lt;</span>dbl<span class="sc">&gt;</span> <span class="er">&lt;</span>dbl<span class="sc">&gt;</span> <span class="er">&lt;</span>int<span class="sc">&gt;</span> <span class="er">&lt;</span>dbl<span class="sc">&gt;</span> <span class="er">&lt;</span>dbl<span class="sc">&gt;</span> <span class="er">&lt;</span>dbl<span class="sc">&gt;</span> <span class="er">&lt;</span>chr<span class="sc">&gt;</span>        <span class="er">&lt;</span>ord<span class="sc">&gt;</span>    <span class="er">&lt;</span>int<span class="sc">&gt;</span>    <span class="er">&lt;</span>int<span class="sc">&gt;</span></span>
-<span id="cb344-5"><a href="debugging.html#cb344-5" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> Amy    <span class="dv">1975</span>     <span class="dv">6</span>    <span class="dv">27</span>     <span class="dv">0</span>  <span class="fl">27.5</span> <span class="sc">-</span><span class="dv">79</span>   tropical de… <span class="sc">-</span><span class="dv">1</span>          <span class="dv">25</span>     <span class="dv">1013</span></span>
-<span id="cb344-6"><a href="debugging.html#cb344-6" aria-hidden="true" tabindex="-1"></a><span class="dv">2</span> Amy    <span class="dv">1975</span>     <span class="dv">6</span>    <span class="dv">27</span>     <span class="dv">6</span>  <span class="fl">28.5</span> <span class="sc">-</span><span class="dv">79</span>   tropical de… <span class="sc">-</span><span class="dv">1</span>          <span class="dv">25</span>     <span class="dv">1013</span></span>
-<span id="cb344-7"><a href="debugging.html#cb344-7" aria-hidden="true" tabindex="-1"></a><span class="dv">3</span> Amy    <span class="dv">1975</span>     <span class="dv">6</span>    <span class="dv">27</span>    <span class="dv">12</span>  <span class="fl">29.5</span> <span class="sc">-</span><span class="dv">79</span>   tropical de… <span class="sc">-</span><span class="dv">1</span>          <span class="dv">25</span>     <span class="dv">1013</span></span>
-<span id="cb344-8"><a href="debugging.html#cb344-8" aria-hidden="true" tabindex="-1"></a><span class="dv">4</span> Amy    <span class="dv">1975</span>     <span class="dv">6</span>    <span class="dv">27</span>    <span class="dv">18</span>  <span class="fl">30.5</span> <span class="sc">-</span><span class="dv">79</span>   tropical de… <span class="sc">-</span><span class="dv">1</span>          <span class="dv">25</span>     <span class="dv">1013</span></span>
-<span id="cb344-9"><a href="debugging.html#cb344-9" aria-hidden="true" tabindex="-1"></a><span class="dv">5</span> Amy    <span class="dv">1975</span>     <span class="dv">6</span>    <span class="dv">28</span>     <span class="dv">0</span>  <span class="fl">31.5</span> <span class="sc">-</span><span class="fl">78.8</span> tropical de… <span class="sc">-</span><span class="dv">1</span>          <span class="dv">25</span>     <span class="dv">1012</span></span>
-<span id="cb344-10"><a href="debugging.html#cb344-10" aria-hidden="true" tabindex="-1"></a><span class="dv">6</span> Amy    <span class="dv">1975</span>     <span class="dv">6</span>    <span class="dv">28</span>     <span class="dv">6</span>  <span class="fl">32.4</span> <span class="sc">-</span><span class="fl">78.7</span> tropical de… <span class="sc">-</span><span class="dv">1</span>          <span class="dv">25</span>     <span class="dv">1012</span></span>
-<span id="cb344-11"><a href="debugging.html#cb344-11" aria-hidden="true" tabindex="-1"></a><span class="co"># … with 2 more variables: ts_diameter &lt;dbl&gt;, hu_diameter &lt;dbl&gt;</span></span></code></pre></div>
-<p>Whoops. I meant “category” when I typed “status.”</p>
-<div class="sourceCode" id="cb345"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb345-1"><a href="debugging.html#cb345-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>) {</span>
-<span id="cb345-2"><a href="debugging.html#cb345-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>(<span class="fu">paste0</span>(<span class="st">&quot;Category &quot;</span>, i, <span class="st">&quot; storms&quot;</span>))</span>
-<span id="cb345-3"><a href="debugging.html#cb345-3" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Subset the data</span></span>
-<span id="cb345-4"><a href="debugging.html#cb345-4" aria-hidden="true" tabindex="-1"></a>  subdata <span class="ot">&lt;-</span> storms <span class="sc">%&gt;%</span></span>
-<span id="cb345-5"><a href="debugging.html#cb345-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(year <span class="sc">==</span> <span class="dv">2013</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb345-6"><a href="debugging.html#cb345-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(category <span class="sc">==</span> i)</span>
-<span id="cb345-7"><a href="debugging.html#cb345-7" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb345-8"><a href="debugging.html#cb345-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>(<span class="fu">paste0</span>(<span class="st">&quot;subdata dims: nrow &quot;</span>, <span class="fu">nrow</span>(subdata), <span class="st">&quot; ncol &quot;</span>, <span class="fu">ncol</span>(subdata)))</span>
-<span id="cb345-9"><a href="debugging.html#cb345-9" aria-hidden="true" tabindex="-1"></a>        <span class="co"># str(subdata) works too, but produces more clutter. I started</span></span>
-<span id="cb345-10"><a href="debugging.html#cb345-10" aria-hidden="true" tabindex="-1"></a>        <span class="co"># with str() and moved to dim() when I saw the problem</span></span>
-<span id="cb345-11"><a href="debugging.html#cb345-11" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb345-12"><a href="debugging.html#cb345-12" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Plot the data - path + points to show the observations</span></span>
-<span id="cb345-13"><a href="debugging.html#cb345-13" aria-hidden="true" tabindex="-1"></a>  plot <span class="ot">&lt;-</span> basemap <span class="sc">+</span></span>
-<span id="cb345-14"><a href="debugging.html#cb345-14" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_path</span>(<span class="fu">aes</span>(<span class="at">x =</span> long, <span class="at">y =</span> lat, <span class="at">color =</span> name), <span class="at">data =</span> subdata) <span class="sc">+</span> </span>
-<span id="cb345-15"><a href="debugging.html#cb345-15" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">x =</span> long, <span class="at">y =</span> lat, <span class="at">color =</span> name), <span class="at">data =</span> subdata) <span class="sc">+</span> </span>
-<span id="cb345-16"><a href="debugging.html#cb345-16" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggtitle</span>(<span class="fu">paste0</span>(<span class="st">&quot;Category &quot;</span>, i, <span class="st">&quot; storms in 2013&quot;</span>))</span>
-<span id="cb345-17"><a href="debugging.html#cb345-17" aria-hidden="true" tabindex="-1"></a>  <span class="co"># print(plot) # Don&#39;t print plots - clutters up output at the moment</span></span>
-<span id="cb345-18"><a href="debugging.html#cb345-18" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb345-19"><a href="debugging.html#cb345-19" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;Category 1 storms&quot;</span></span>
-<span id="cb345-20"><a href="debugging.html#cb345-20" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;subdata dims: nrow 13 ncol 13&quot;</span></span>
-<span id="cb345-21"><a href="debugging.html#cb345-21" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;Category 2 storms&quot;</span></span>
-<span id="cb345-22"><a href="debugging.html#cb345-22" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;subdata dims: nrow 0 ncol 13&quot;</span></span>
-<span id="cb345-23"><a href="debugging.html#cb345-23" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;Category 3 storms&quot;</span></span>
-<span id="cb345-24"><a href="debugging.html#cb345-24" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;subdata dims: nrow 0 ncol 13&quot;</span></span>
-<span id="cb345-25"><a href="debugging.html#cb345-25" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;Category 4 storms&quot;</span></span>
-<span id="cb345-26"><a href="debugging.html#cb345-26" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;subdata dims: nrow 0 ncol 13&quot;</span></span>
-<span id="cb345-27"><a href="debugging.html#cb345-27" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;Category 5 storms&quot;</span></span>
-<span id="cb345-28"><a href="debugging.html#cb345-28" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;subdata dims: nrow 0 ncol 13&quot;</span></span></code></pre></div>
-<p>Ok, that’s something, at least. We now have some data for category 1 storms…</p>
-<div class="sourceCode" id="cb346"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb346-1"><a href="debugging.html#cb346-1" aria-hidden="true" tabindex="-1"></a><span class="fu">filter</span>(storms, year <span class="sc">==</span> <span class="dv">2013</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb346-2"><a href="debugging.html#cb346-2" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Get max category for each named storm</span></span>
-<span id="cb346-3"><a href="debugging.html#cb346-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(name) <span class="sc">%&gt;%</span></span>
-<span id="cb346-4"><a href="debugging.html#cb346-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(category <span class="sc">==</span> <span class="fu">max</span>(category)) <span class="sc">%&gt;%</span></span>
-<span id="cb346-5"><a href="debugging.html#cb346-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb346-6"><a href="debugging.html#cb346-6" aria-hidden="true" tabindex="-1"></a>  <span class="co"># See what categories exist</span></span>
-<span id="cb346-7"><a href="debugging.html#cb346-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(name, category) <span class="sc">%&gt;%</span></span>
-<span id="cb346-8"><a href="debugging.html#cb346-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">unique</span>()</span>
-<span id="cb346-9"><a href="debugging.html#cb346-9" aria-hidden="true" tabindex="-1"></a><span class="co"># A tibble: 14 x 2</span></span>
-<span id="cb346-10"><a href="debugging.html#cb346-10" aria-hidden="true" tabindex="-1"></a>   name      category</span>
-<span id="cb346-11"><a href="debugging.html#cb346-11" aria-hidden="true" tabindex="-1"></a>   <span class="sc">&lt;</span>chr<span class="sc">&gt;</span>     <span class="er">&lt;</span>ord<span class="sc">&gt;</span>   </span>
-<span id="cb346-12"><a href="debugging.html#cb346-12" aria-hidden="true" tabindex="-1"></a> <span class="dv">1</span> Andrea    <span class="dv">0</span>       </span>
-<span id="cb346-13"><a href="debugging.html#cb346-13" aria-hidden="true" tabindex="-1"></a> <span class="dv">2</span> Barry     <span class="dv">0</span>       </span>
-<span id="cb346-14"><a href="debugging.html#cb346-14" aria-hidden="true" tabindex="-1"></a> <span class="dv">3</span> Chantal   <span class="dv">0</span>       </span>
-<span id="cb346-15"><a href="debugging.html#cb346-15" aria-hidden="true" tabindex="-1"></a> <span class="dv">4</span> Dorian    <span class="dv">0</span>       </span>
-<span id="cb346-16"><a href="debugging.html#cb346-16" aria-hidden="true" tabindex="-1"></a> <span class="dv">5</span> Erin      <span class="dv">0</span>       </span>
-<span id="cb346-17"><a href="debugging.html#cb346-17" aria-hidden="true" tabindex="-1"></a> <span class="dv">6</span> Fernand   <span class="dv">0</span>       </span>
-<span id="cb346-18"><a href="debugging.html#cb346-18" aria-hidden="true" tabindex="-1"></a> <span class="dv">7</span> Gabrielle <span class="dv">0</span>       </span>
-<span id="cb346-19"><a href="debugging.html#cb346-19" aria-hidden="true" tabindex="-1"></a> <span class="dv">8</span> Eight     <span class="sc">-</span><span class="dv">1</span>      </span>
-<span id="cb346-20"><a href="debugging.html#cb346-20" aria-hidden="true" tabindex="-1"></a> <span class="dv">9</span> Humberto  <span class="dv">1</span>       </span>
-<span id="cb346-21"><a href="debugging.html#cb346-21" aria-hidden="true" tabindex="-1"></a><span class="dv">10</span> Ingrid    <span class="dv">1</span>       </span>
-<span id="cb346-22"><a href="debugging.html#cb346-22" aria-hidden="true" tabindex="-1"></a><span class="dv">11</span> Jerry     <span class="dv">0</span>       </span>
-<span id="cb346-23"><a href="debugging.html#cb346-23" aria-hidden="true" tabindex="-1"></a><span class="dv">12</span> Karen     <span class="dv">0</span>       </span>
-<span id="cb346-24"><a href="debugging.html#cb346-24" aria-hidden="true" tabindex="-1"></a><span class="dv">13</span> Lorenzo   <span class="dv">0</span>       </span>
-<span id="cb346-25"><a href="debugging.html#cb346-25" aria-hidden="true" tabindex="-1"></a><span class="dv">14</span> Melissa   <span class="dv">0</span>       </span></code></pre></div>
-<p>It looks like 2013 was just an incredibly quiet year for tropical activity.</p>
-<p>2004, however, was not. So let’s just make sure our code works by checking out 2004.</p>
 <div class="sourceCode" id="cb347"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb347-1"><a href="debugging.html#cb347-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>) {</span>
 <span id="cb347-2"><a href="debugging.html#cb347-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>(<span class="fu">paste0</span>(<span class="st">&quot;Category &quot;</span>, i, <span class="st">&quot; storms&quot;</span>))</span>
 <span id="cb347-3"><a href="debugging.html#cb347-3" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Subset the data</span></span>
 <span id="cb347-4"><a href="debugging.html#cb347-4" aria-hidden="true" tabindex="-1"></a>  subdata <span class="ot">&lt;-</span> storms <span class="sc">%&gt;%</span></span>
-<span id="cb347-5"><a href="debugging.html#cb347-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(year <span class="sc">==</span> <span class="dv">2004</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb347-6"><a href="debugging.html#cb347-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(category <span class="sc">==</span> i)</span>
+<span id="cb347-5"><a href="debugging.html#cb347-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(year <span class="sc">==</span> <span class="dv">2013</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb347-6"><a href="debugging.html#cb347-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(status <span class="sc">==</span> i)</span>
 <span id="cb347-7"><a href="debugging.html#cb347-7" aria-hidden="true" tabindex="-1"></a>  </span>
 <span id="cb347-8"><a href="debugging.html#cb347-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>(<span class="fu">paste0</span>(<span class="st">&quot;subdata dims: nrow &quot;</span>, <span class="fu">nrow</span>(subdata), <span class="st">&quot; ncol &quot;</span>, <span class="fu">ncol</span>(subdata)))</span>
 <span id="cb347-9"><a href="debugging.html#cb347-9" aria-hidden="true" tabindex="-1"></a>        <span class="co"># str(subdata) works too, but produces more clutter. I started</span></span>
@@ -904,44 +806,141 @@ Solution
 <span id="cb347-14"><a href="debugging.html#cb347-14" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_path</span>(<span class="fu">aes</span>(<span class="at">x =</span> long, <span class="at">y =</span> lat, <span class="at">color =</span> name), <span class="at">data =</span> subdata) <span class="sc">+</span> </span>
 <span id="cb347-15"><a href="debugging.html#cb347-15" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">x =</span> long, <span class="at">y =</span> lat, <span class="at">color =</span> name), <span class="at">data =</span> subdata) <span class="sc">+</span> </span>
 <span id="cb347-16"><a href="debugging.html#cb347-16" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggtitle</span>(<span class="fu">paste0</span>(<span class="st">&quot;Category &quot;</span>, i, <span class="st">&quot; storms in 2013&quot;</span>))</span>
-<span id="cb347-17"><a href="debugging.html#cb347-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>(plot) <span class="co"># Don&#39;t print plots - clutters up output at the moment</span></span>
+<span id="cb347-17"><a href="debugging.html#cb347-17" aria-hidden="true" tabindex="-1"></a>  <span class="co"># print(plot) # Don&#39;t print plots - clutters up output at the moment</span></span>
 <span id="cb347-18"><a href="debugging.html#cb347-18" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb347-19"><a href="debugging.html#cb347-19" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;Category 1 storms&quot;</span></span>
-<span id="cb347-20"><a href="debugging.html#cb347-20" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;subdata dims: nrow 45 ncol 13&quot;</span></span></code></pre></div>
+<span id="cb347-19"><a href="debugging.html#cb347-19" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] &quot;Category 1 storms&quot;</span></span>
+<span id="cb347-20"><a href="debugging.html#cb347-20" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] &quot;subdata dims: nrow 0 ncol 13&quot;</span></span>
+<span id="cb347-21"><a href="debugging.html#cb347-21" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] &quot;Category 2 storms&quot;</span></span>
+<span id="cb347-22"><a href="debugging.html#cb347-22" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] &quot;subdata dims: nrow 0 ncol 13&quot;</span></span>
+<span id="cb347-23"><a href="debugging.html#cb347-23" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] &quot;Category 3 storms&quot;</span></span>
+<span id="cb347-24"><a href="debugging.html#cb347-24" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] &quot;subdata dims: nrow 0 ncol 13&quot;</span></span>
+<span id="cb347-25"><a href="debugging.html#cb347-25" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] &quot;Category 4 storms&quot;</span></span>
+<span id="cb347-26"><a href="debugging.html#cb347-26" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] &quot;subdata dims: nrow 0 ncol 13&quot;</span></span>
+<span id="cb347-27"><a href="debugging.html#cb347-27" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] &quot;Category 5 storms&quot;</span></span>
+<span id="cb347-28"><a href="debugging.html#cb347-28" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] &quot;subdata dims: nrow 0 ncol 13&quot;</span></span></code></pre></div>
+<p>Ok, so from this we can see that something is going wrong with our filter statement - we have no rows of data.</p>
+<div class="sourceCode" id="cb348"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb348-1"><a href="debugging.html#cb348-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(storms)</span>
+<span id="cb348-2"><a href="debugging.html#cb348-2" aria-hidden="true" tabindex="-1"></a><span class="do">## # A tibble: 6 x 13</span></span>
+<span id="cb348-3"><a href="debugging.html#cb348-3" aria-hidden="true" tabindex="-1"></a><span class="do">##   name   year month   day  hour   lat  long status       category  wind pressure</span></span>
+<span id="cb348-4"><a href="debugging.html#cb348-4" aria-hidden="true" tabindex="-1"></a><span class="do">##   &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;        &lt;ord&gt;    &lt;int&gt;    &lt;int&gt;</span></span>
+<span id="cb348-5"><a href="debugging.html#cb348-5" aria-hidden="true" tabindex="-1"></a><span class="do">## 1 Amy    1975     6    27     0  27.5 -79   tropical de… -1          25     1013</span></span>
+<span id="cb348-6"><a href="debugging.html#cb348-6" aria-hidden="true" tabindex="-1"></a><span class="do">## 2 Amy    1975     6    27     6  28.5 -79   tropical de… -1          25     1013</span></span>
+<span id="cb348-7"><a href="debugging.html#cb348-7" aria-hidden="true" tabindex="-1"></a><span class="do">## 3 Amy    1975     6    27    12  29.5 -79   tropical de… -1          25     1013</span></span>
+<span id="cb348-8"><a href="debugging.html#cb348-8" aria-hidden="true" tabindex="-1"></a><span class="do">## 4 Amy    1975     6    27    18  30.5 -79   tropical de… -1          25     1013</span></span>
+<span id="cb348-9"><a href="debugging.html#cb348-9" aria-hidden="true" tabindex="-1"></a><span class="do">## 5 Amy    1975     6    28     0  31.5 -78.8 tropical de… -1          25     1012</span></span>
+<span id="cb348-10"><a href="debugging.html#cb348-10" aria-hidden="true" tabindex="-1"></a><span class="do">## 6 Amy    1975     6    28     6  32.4 -78.7 tropical de… -1          25     1012</span></span>
+<span id="cb348-11"><a href="debugging.html#cb348-11" aria-hidden="true" tabindex="-1"></a><span class="do">## # … with 2 more variables: ts_diameter &lt;dbl&gt;, hu_diameter &lt;dbl&gt;</span></span></code></pre></div>
+<p>Whoops. I meant “category” when I typed “status.”</p>
+<div class="sourceCode" id="cb349"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb349-1"><a href="debugging.html#cb349-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>) {</span>
+<span id="cb349-2"><a href="debugging.html#cb349-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>(<span class="fu">paste0</span>(<span class="st">&quot;Category &quot;</span>, i, <span class="st">&quot; storms&quot;</span>))</span>
+<span id="cb349-3"><a href="debugging.html#cb349-3" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Subset the data</span></span>
+<span id="cb349-4"><a href="debugging.html#cb349-4" aria-hidden="true" tabindex="-1"></a>  subdata <span class="ot">&lt;-</span> storms <span class="sc">%&gt;%</span></span>
+<span id="cb349-5"><a href="debugging.html#cb349-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(year <span class="sc">==</span> <span class="dv">2013</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb349-6"><a href="debugging.html#cb349-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(category <span class="sc">==</span> i)</span>
+<span id="cb349-7"><a href="debugging.html#cb349-7" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb349-8"><a href="debugging.html#cb349-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>(<span class="fu">paste0</span>(<span class="st">&quot;subdata dims: nrow &quot;</span>, <span class="fu">nrow</span>(subdata), <span class="st">&quot; ncol &quot;</span>, <span class="fu">ncol</span>(subdata)))</span>
+<span id="cb349-9"><a href="debugging.html#cb349-9" aria-hidden="true" tabindex="-1"></a>        <span class="co"># str(subdata) works too, but produces more clutter. I started</span></span>
+<span id="cb349-10"><a href="debugging.html#cb349-10" aria-hidden="true" tabindex="-1"></a>        <span class="co"># with str() and moved to dim() when I saw the problem</span></span>
+<span id="cb349-11"><a href="debugging.html#cb349-11" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb349-12"><a href="debugging.html#cb349-12" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Plot the data - path + points to show the observations</span></span>
+<span id="cb349-13"><a href="debugging.html#cb349-13" aria-hidden="true" tabindex="-1"></a>  plot <span class="ot">&lt;-</span> basemap <span class="sc">+</span></span>
+<span id="cb349-14"><a href="debugging.html#cb349-14" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_path</span>(<span class="fu">aes</span>(<span class="at">x =</span> long, <span class="at">y =</span> lat, <span class="at">color =</span> name), <span class="at">data =</span> subdata) <span class="sc">+</span> </span>
+<span id="cb349-15"><a href="debugging.html#cb349-15" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">x =</span> long, <span class="at">y =</span> lat, <span class="at">color =</span> name), <span class="at">data =</span> subdata) <span class="sc">+</span> </span>
+<span id="cb349-16"><a href="debugging.html#cb349-16" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggtitle</span>(<span class="fu">paste0</span>(<span class="st">&quot;Category &quot;</span>, i, <span class="st">&quot; storms in 2013&quot;</span>))</span>
+<span id="cb349-17"><a href="debugging.html#cb349-17" aria-hidden="true" tabindex="-1"></a>  <span class="co"># print(plot) # Don&#39;t print plots - clutters up output at the moment</span></span>
+<span id="cb349-18"><a href="debugging.html#cb349-18" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb349-19"><a href="debugging.html#cb349-19" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] &quot;Category 1 storms&quot;</span></span>
+<span id="cb349-20"><a href="debugging.html#cb349-20" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] &quot;subdata dims: nrow 13 ncol 13&quot;</span></span>
+<span id="cb349-21"><a href="debugging.html#cb349-21" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] &quot;Category 2 storms&quot;</span></span>
+<span id="cb349-22"><a href="debugging.html#cb349-22" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] &quot;subdata dims: nrow 0 ncol 13&quot;</span></span>
+<span id="cb349-23"><a href="debugging.html#cb349-23" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] &quot;Category 3 storms&quot;</span></span>
+<span id="cb349-24"><a href="debugging.html#cb349-24" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] &quot;subdata dims: nrow 0 ncol 13&quot;</span></span>
+<span id="cb349-25"><a href="debugging.html#cb349-25" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] &quot;Category 4 storms&quot;</span></span>
+<span id="cb349-26"><a href="debugging.html#cb349-26" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] &quot;subdata dims: nrow 0 ncol 13&quot;</span></span>
+<span id="cb349-27"><a href="debugging.html#cb349-27" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] &quot;Category 5 storms&quot;</span></span>
+<span id="cb349-28"><a href="debugging.html#cb349-28" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] &quot;subdata dims: nrow 0 ncol 13&quot;</span></span></code></pre></div>
+<p>Ok, that’s something, at least. We now have some data for category 1 storms…</p>
+<div class="sourceCode" id="cb350"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb350-1"><a href="debugging.html#cb350-1" aria-hidden="true" tabindex="-1"></a><span class="fu">filter</span>(storms, year <span class="sc">==</span> <span class="dv">2013</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb350-2"><a href="debugging.html#cb350-2" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Get max category for each named storm</span></span>
+<span id="cb350-3"><a href="debugging.html#cb350-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(name) <span class="sc">%&gt;%</span></span>
+<span id="cb350-4"><a href="debugging.html#cb350-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(category <span class="sc">==</span> <span class="fu">max</span>(category)) <span class="sc">%&gt;%</span></span>
+<span id="cb350-5"><a href="debugging.html#cb350-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb350-6"><a href="debugging.html#cb350-6" aria-hidden="true" tabindex="-1"></a>  <span class="co"># See what categories exist</span></span>
+<span id="cb350-7"><a href="debugging.html#cb350-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(name, category) <span class="sc">%&gt;%</span></span>
+<span id="cb350-8"><a href="debugging.html#cb350-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">unique</span>()</span>
+<span id="cb350-9"><a href="debugging.html#cb350-9" aria-hidden="true" tabindex="-1"></a><span class="do">## # A tibble: 14 x 2</span></span>
+<span id="cb350-10"><a href="debugging.html#cb350-10" aria-hidden="true" tabindex="-1"></a><span class="do">##    name      category</span></span>
+<span id="cb350-11"><a href="debugging.html#cb350-11" aria-hidden="true" tabindex="-1"></a><span class="do">##    &lt;chr&gt;     &lt;ord&gt;   </span></span>
+<span id="cb350-12"><a href="debugging.html#cb350-12" aria-hidden="true" tabindex="-1"></a><span class="do">##  1 Andrea    0       </span></span>
+<span id="cb350-13"><a href="debugging.html#cb350-13" aria-hidden="true" tabindex="-1"></a><span class="do">##  2 Barry     0       </span></span>
+<span id="cb350-14"><a href="debugging.html#cb350-14" aria-hidden="true" tabindex="-1"></a><span class="do">##  3 Chantal   0       </span></span>
+<span id="cb350-15"><a href="debugging.html#cb350-15" aria-hidden="true" tabindex="-1"></a><span class="do">##  4 Dorian    0       </span></span>
+<span id="cb350-16"><a href="debugging.html#cb350-16" aria-hidden="true" tabindex="-1"></a><span class="do">##  5 Erin      0       </span></span>
+<span id="cb350-17"><a href="debugging.html#cb350-17" aria-hidden="true" tabindex="-1"></a><span class="do">##  6 Fernand   0       </span></span>
+<span id="cb350-18"><a href="debugging.html#cb350-18" aria-hidden="true" tabindex="-1"></a><span class="do">##  7 Gabrielle 0       </span></span>
+<span id="cb350-19"><a href="debugging.html#cb350-19" aria-hidden="true" tabindex="-1"></a><span class="do">##  8 Eight     -1      </span></span>
+<span id="cb350-20"><a href="debugging.html#cb350-20" aria-hidden="true" tabindex="-1"></a><span class="do">##  9 Humberto  1       </span></span>
+<span id="cb350-21"><a href="debugging.html#cb350-21" aria-hidden="true" tabindex="-1"></a><span class="do">## 10 Ingrid    1       </span></span>
+<span id="cb350-22"><a href="debugging.html#cb350-22" aria-hidden="true" tabindex="-1"></a><span class="do">## 11 Jerry     0       </span></span>
+<span id="cb350-23"><a href="debugging.html#cb350-23" aria-hidden="true" tabindex="-1"></a><span class="do">## 12 Karen     0       </span></span>
+<span id="cb350-24"><a href="debugging.html#cb350-24" aria-hidden="true" tabindex="-1"></a><span class="do">## 13 Lorenzo   0       </span></span>
+<span id="cb350-25"><a href="debugging.html#cb350-25" aria-hidden="true" tabindex="-1"></a><span class="do">## 14 Melissa   0</span></span></code></pre></div>
+<p>It looks like 2013 was just an incredibly quiet year for tropical activity.</p>
+<p>2004, however, was not. So let’s just make sure our code works by checking out 2004.</p>
+<div class="sourceCode" id="cb351"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb351-1"><a href="debugging.html#cb351-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>) {</span>
+<span id="cb351-2"><a href="debugging.html#cb351-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>(<span class="fu">paste0</span>(<span class="st">&quot;Category &quot;</span>, i, <span class="st">&quot; storms&quot;</span>))</span>
+<span id="cb351-3"><a href="debugging.html#cb351-3" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Subset the data</span></span>
+<span id="cb351-4"><a href="debugging.html#cb351-4" aria-hidden="true" tabindex="-1"></a>  subdata <span class="ot">&lt;-</span> storms <span class="sc">%&gt;%</span></span>
+<span id="cb351-5"><a href="debugging.html#cb351-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(year <span class="sc">==</span> <span class="dv">2004</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb351-6"><a href="debugging.html#cb351-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(category <span class="sc">==</span> i)</span>
+<span id="cb351-7"><a href="debugging.html#cb351-7" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb351-8"><a href="debugging.html#cb351-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>(<span class="fu">paste0</span>(<span class="st">&quot;subdata dims: nrow &quot;</span>, <span class="fu">nrow</span>(subdata), <span class="st">&quot; ncol &quot;</span>, <span class="fu">ncol</span>(subdata)))</span>
+<span id="cb351-9"><a href="debugging.html#cb351-9" aria-hidden="true" tabindex="-1"></a>        <span class="co"># str(subdata) works too, but produces more clutter. I started</span></span>
+<span id="cb351-10"><a href="debugging.html#cb351-10" aria-hidden="true" tabindex="-1"></a>        <span class="co"># with str() and moved to dim() when I saw the problem</span></span>
+<span id="cb351-11"><a href="debugging.html#cb351-11" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb351-12"><a href="debugging.html#cb351-12" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Plot the data - path + points to show the observations</span></span>
+<span id="cb351-13"><a href="debugging.html#cb351-13" aria-hidden="true" tabindex="-1"></a>  plot <span class="ot">&lt;-</span> basemap <span class="sc">+</span></span>
+<span id="cb351-14"><a href="debugging.html#cb351-14" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_path</span>(<span class="fu">aes</span>(<span class="at">x =</span> long, <span class="at">y =</span> lat, <span class="at">color =</span> name), <span class="at">data =</span> subdata) <span class="sc">+</span> </span>
+<span id="cb351-15"><a href="debugging.html#cb351-15" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">x =</span> long, <span class="at">y =</span> lat, <span class="at">color =</span> name), <span class="at">data =</span> subdata) <span class="sc">+</span> </span>
+<span id="cb351-16"><a href="debugging.html#cb351-16" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggtitle</span>(<span class="fu">paste0</span>(<span class="st">&quot;Category &quot;</span>, i, <span class="st">&quot; storms in 2013&quot;</span>))</span>
+<span id="cb351-17"><a href="debugging.html#cb351-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>(plot) <span class="co"># Don&#39;t print plots - clutters up output at the moment</span></span>
+<span id="cb351-18"><a href="debugging.html#cb351-18" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb351-19"><a href="debugging.html#cb351-19" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] &quot;Category 1 storms&quot;</span></span>
+<span id="cb351-20"><a href="debugging.html#cb351-20" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] &quot;subdata dims: nrow 45 ncol 13&quot;</span></span></code></pre></div>
 <p><img src="image/hurricane-tracks-debugging-4-1.png" width="2100" /></p>
-<pre><code>[1] &quot;Category 2 storms&quot;
-[1] &quot;subdata dims: nrow 39 ncol 13&quot;</code></pre>
+<pre><code>## [1] &quot;Category 2 storms&quot;
+## [1] &quot;subdata dims: nrow 39 ncol 13&quot;</code></pre>
 <p><img src="image/hurricane-tracks-debugging-4-2.png" width="2100" /></p>
-<pre><code>[1] &quot;Category 3 storms&quot;
-[1] &quot;subdata dims: nrow 29 ncol 13&quot;</code></pre>
+<pre><code>## [1] &quot;Category 3 storms&quot;
+## [1] &quot;subdata dims: nrow 29 ncol 13&quot;</code></pre>
 <p><img src="image/hurricane-tracks-debugging-4-3.png" width="2100" /></p>
-<pre><code>[1] &quot;Category 4 storms&quot;
-[1] &quot;subdata dims: nrow 32 ncol 13&quot;</code></pre>
+<pre><code>## [1] &quot;Category 4 storms&quot;
+## [1] &quot;subdata dims: nrow 32 ncol 13&quot;</code></pre>
 <p><img src="image/hurricane-tracks-debugging-4-4.png" width="2100" /></p>
-<pre><code>[1] &quot;Category 5 storms&quot;
-[1] &quot;subdata dims: nrow 12 ncol 13&quot;</code></pre>
+<pre><code>## [1] &quot;Category 5 storms&quot;
+## [1] &quot;subdata dims: nrow 12 ncol 13&quot;</code></pre>
 <p><img src="image/hurricane-tracks-debugging-4-5.png" width="2100" /></p>
 <p>If we want to only print informative plots, we could add an if statement. Now that the code works, we can also comment out our print() statements (we could delete them, too, depending on whether we anticipate future problems with the code).</p>
-<div class="sourceCode" id="cb352"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb352-1"><a href="debugging.html#cb352-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>) {</span>
-<span id="cb352-2"><a href="debugging.html#cb352-2" aria-hidden="true" tabindex="-1"></a>  <span class="co"># print(paste0(&quot;Category &quot;, i, &quot; storms&quot;))</span></span>
-<span id="cb352-3"><a href="debugging.html#cb352-3" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb352-4"><a href="debugging.html#cb352-4" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Subset the data</span></span>
-<span id="cb352-5"><a href="debugging.html#cb352-5" aria-hidden="true" tabindex="-1"></a>  subdata <span class="ot">&lt;-</span> storms <span class="sc">%&gt;%</span></span>
-<span id="cb352-6"><a href="debugging.html#cb352-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(year <span class="sc">==</span> <span class="dv">2013</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb352-7"><a href="debugging.html#cb352-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(category <span class="sc">==</span> i)</span>
-<span id="cb352-8"><a href="debugging.html#cb352-8" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb352-9"><a href="debugging.html#cb352-9" aria-hidden="true" tabindex="-1"></a>  <span class="co"># print(paste0(&quot;subdata dims: nrow &quot;, nrow(subdata), &quot; ncol &quot;, ncol(subdata)))</span></span>
-<span id="cb352-10"><a href="debugging.html#cb352-10" aria-hidden="true" tabindex="-1"></a>  <span class="co">#       # str(subdata) works too, but produces more clutter. I started</span></span>
-<span id="cb352-11"><a href="debugging.html#cb352-11" aria-hidden="true" tabindex="-1"></a>  <span class="co">#       # with str() and moved to dim() when I saw the problem</span></span>
-<span id="cb352-12"><a href="debugging.html#cb352-12" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb352-13"><a href="debugging.html#cb352-13" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Plot the data - path + points to show the observations</span></span>
-<span id="cb352-14"><a href="debugging.html#cb352-14" aria-hidden="true" tabindex="-1"></a>  plot <span class="ot">&lt;-</span> basemap <span class="sc">+</span></span>
-<span id="cb352-15"><a href="debugging.html#cb352-15" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_path</span>(<span class="fu">aes</span>(<span class="at">x =</span> long, <span class="at">y =</span> lat, <span class="at">color =</span> name), <span class="at">data =</span> subdata) <span class="sc">+</span> </span>
-<span id="cb352-16"><a href="debugging.html#cb352-16" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">x =</span> long, <span class="at">y =</span> lat, <span class="at">color =</span> name), <span class="at">data =</span> subdata) <span class="sc">+</span> </span>
-<span id="cb352-17"><a href="debugging.html#cb352-17" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggtitle</span>(<span class="fu">paste0</span>(<span class="st">&quot;Category &quot;</span>, i, <span class="st">&quot; storms in 2013&quot;</span>))</span>
-<span id="cb352-18"><a href="debugging.html#cb352-18" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb352-19"><a href="debugging.html#cb352-19" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (<span class="fu">nrow</span>(subdata) <span class="sc">&gt;</span> <span class="dv">0</span>) <span class="fu">print</span>(plot) </span>
-<span id="cb352-20"><a href="debugging.html#cb352-20" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb356"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb356-1"><a href="debugging.html#cb356-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>) {</span>
+<span id="cb356-2"><a href="debugging.html#cb356-2" aria-hidden="true" tabindex="-1"></a>  <span class="co"># print(paste0(&quot;Category &quot;, i, &quot; storms&quot;))</span></span>
+<span id="cb356-3"><a href="debugging.html#cb356-3" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb356-4"><a href="debugging.html#cb356-4" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Subset the data</span></span>
+<span id="cb356-5"><a href="debugging.html#cb356-5" aria-hidden="true" tabindex="-1"></a>  subdata <span class="ot">&lt;-</span> storms <span class="sc">%&gt;%</span></span>
+<span id="cb356-6"><a href="debugging.html#cb356-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(year <span class="sc">==</span> <span class="dv">2013</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb356-7"><a href="debugging.html#cb356-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(category <span class="sc">==</span> i)</span>
+<span id="cb356-8"><a href="debugging.html#cb356-8" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb356-9"><a href="debugging.html#cb356-9" aria-hidden="true" tabindex="-1"></a>  <span class="co"># print(paste0(&quot;subdata dims: nrow &quot;, nrow(subdata), &quot; ncol &quot;, ncol(subdata)))</span></span>
+<span id="cb356-10"><a href="debugging.html#cb356-10" aria-hidden="true" tabindex="-1"></a>  <span class="co">#       # str(subdata) works too, but produces more clutter. I started</span></span>
+<span id="cb356-11"><a href="debugging.html#cb356-11" aria-hidden="true" tabindex="-1"></a>  <span class="co">#       # with str() and moved to dim() when I saw the problem</span></span>
+<span id="cb356-12"><a href="debugging.html#cb356-12" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb356-13"><a href="debugging.html#cb356-13" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Plot the data - path + points to show the observations</span></span>
+<span id="cb356-14"><a href="debugging.html#cb356-14" aria-hidden="true" tabindex="-1"></a>  plot <span class="ot">&lt;-</span> basemap <span class="sc">+</span></span>
+<span id="cb356-15"><a href="debugging.html#cb356-15" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_path</span>(<span class="fu">aes</span>(<span class="at">x =</span> long, <span class="at">y =</span> lat, <span class="at">color =</span> name), <span class="at">data =</span> subdata) <span class="sc">+</span> </span>
+<span id="cb356-16"><a href="debugging.html#cb356-16" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">x =</span> long, <span class="at">y =</span> lat, <span class="at">color =</span> name), <span class="at">data =</span> subdata) <span class="sc">+</span> </span>
+<span id="cb356-17"><a href="debugging.html#cb356-17" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggtitle</span>(<span class="fu">paste0</span>(<span class="st">&quot;Category &quot;</span>, i, <span class="st">&quot; storms in 2013&quot;</span>))</span>
+<span id="cb356-18"><a href="debugging.html#cb356-18" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb356-19"><a href="debugging.html#cb356-19" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (<span class="fu">nrow</span>(subdata) <span class="sc">&gt;</span> <span class="dv">0</span>) <span class="fu">print</span>(plot) </span>
+<span id="cb356-20"><a href="debugging.html#cb356-20" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
 <img src="image/hurricane-tracks-debugging-5-1.png" width="2100" />
 </details>
 </div>
@@ -953,20 +952,20 @@ Solution
 <summary>
 <code>traceback()</code> example
 </summary>
-<div class="sourceCode" id="cb353"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb353-1"><a href="debugging.html#cb353-1" aria-hidden="true" tabindex="-1"></a>a <span class="ot">&lt;-</span> <span class="cf">function</span>(x) {</span>
-<span id="cb353-2"><a href="debugging.html#cb353-2" aria-hidden="true" tabindex="-1"></a>  b <span class="ot">&lt;-</span> <span class="cf">function</span>(y) {</span>
-<span id="cb353-3"><a href="debugging.html#cb353-3" aria-hidden="true" tabindex="-1"></a>    c <span class="ot">&lt;-</span> <span class="cf">function</span>(z) {</span>
-<span id="cb353-4"><a href="debugging.html#cb353-4" aria-hidden="true" tabindex="-1"></a>     <span class="fu">stop</span>(<span class="st">&#39;there was a problem&#39;</span>)  <span class="co"># This generates an error</span></span>
-<span id="cb353-5"><a href="debugging.html#cb353-5" aria-hidden="true" tabindex="-1"></a>    }</span>
-<span id="cb353-6"><a href="debugging.html#cb353-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">c</span>()</span>
-<span id="cb353-7"><a href="debugging.html#cb353-7" aria-hidden="true" tabindex="-1"></a>  }</span>
-<span id="cb353-8"><a href="debugging.html#cb353-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">b</span>()</span>
-<span id="cb353-9"><a href="debugging.html#cb353-9" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb353-10"><a href="debugging.html#cb353-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb353-11"><a href="debugging.html#cb353-11" aria-hidden="true" tabindex="-1"></a><span class="fu">a</span>()</span>
-<span id="cb353-12"><a href="debugging.html#cb353-12" aria-hidden="true" tabindex="-1"></a>Error <span class="cf">in</span> <span class="fu">c</span>()<span class="sc">:</span> there was a problem</span></code></pre></div>
+<div class="sourceCode" id="cb357"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb357-1"><a href="debugging.html#cb357-1" aria-hidden="true" tabindex="-1"></a>a <span class="ot">&lt;-</span> <span class="cf">function</span>(x) {</span>
+<span id="cb357-2"><a href="debugging.html#cb357-2" aria-hidden="true" tabindex="-1"></a>  b <span class="ot">&lt;-</span> <span class="cf">function</span>(y) {</span>
+<span id="cb357-3"><a href="debugging.html#cb357-3" aria-hidden="true" tabindex="-1"></a>    c <span class="ot">&lt;-</span> <span class="cf">function</span>(z) {</span>
+<span id="cb357-4"><a href="debugging.html#cb357-4" aria-hidden="true" tabindex="-1"></a>     <span class="fu">stop</span>(<span class="st">&#39;there was a problem&#39;</span>)  <span class="co"># This generates an error</span></span>
+<span id="cb357-5"><a href="debugging.html#cb357-5" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb357-6"><a href="debugging.html#cb357-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">c</span>()</span>
+<span id="cb357-7"><a href="debugging.html#cb357-7" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb357-8"><a href="debugging.html#cb357-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">b</span>()</span>
+<span id="cb357-9"><a href="debugging.html#cb357-9" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb357-10"><a href="debugging.html#cb357-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb357-11"><a href="debugging.html#cb357-11" aria-hidden="true" tabindex="-1"></a><span class="fu">a</span>()</span>
+<span id="cb357-12"><a href="debugging.html#cb357-12" aria-hidden="true" tabindex="-1"></a><span class="do">## Error in c(): there was a problem</span></span></code></pre></div>
 <p>For more information, you could run traceback</p>
-<div class="sourceCode" id="cb354"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb354-1"><a href="debugging.html#cb354-1" aria-hidden="true" tabindex="-1"></a><span class="fu">traceback</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb358"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb358-1"><a href="debugging.html#cb358-1" aria-hidden="true" tabindex="-1"></a><span class="fu">traceback</span>()</span></code></pre></div>
 <p>Which will provide the following output:</p>
 <pre><code>4: stop(&quot;there was a problem&quot;) at #4
 3: c() at #6
@@ -993,49 +992,49 @@ Example of using browser()
 </summary>
 <p>Suppose that I want to write a function that will plot an xkcd comic in R.</p>
 <p>I start with</p>
-<div class="sourceCode" id="cb356"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb356-1"><a href="debugging.html#cb356-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(png)</span>
-<span id="cb356-2"><a href="debugging.html#cb356-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(xml2)</span>
-<span id="cb356-3"><a href="debugging.html#cb356-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb356-4"><a href="debugging.html#cb356-4" aria-hidden="true" tabindex="-1"></a><span class="co"># get the most current xkcd</span></span>
-<span id="cb356-5"><a href="debugging.html#cb356-5" aria-hidden="true" tabindex="-1"></a>get_xkcd <span class="ot">&lt;-</span> <span class="cf">function</span>(<span class="at">id =</span> <span class="cn">NULL</span>) {</span>
-<span id="cb356-6"><a href="debugging.html#cb356-6" aria-hidden="true" tabindex="-1"></a>  url <span class="ot">&lt;-</span> <span class="st">&quot;http://xkcd.com&quot;</span></span>
-<span id="cb356-7"><a href="debugging.html#cb356-7" aria-hidden="true" tabindex="-1"></a>  page <span class="ot">&lt;-</span> <span class="fu">read_html</span>(url)</span>
-<span id="cb356-8"><a href="debugging.html#cb356-8" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Find the comic</span></span>
-<span id="cb356-9"><a href="debugging.html#cb356-9" aria-hidden="true" tabindex="-1"></a>  image <span class="ot">&lt;-</span> <span class="fu">xml_find_first</span>(page, <span class="st">&quot;//div[@id=&#39;comic&#39;]/img&quot;</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb356-10"><a href="debugging.html#cb356-10" aria-hidden="true" tabindex="-1"></a>    <span class="co"># pull the address out of the tag</span></span>
-<span id="cb356-11"><a href="debugging.html#cb356-11" aria-hidden="true" tabindex="-1"></a>    <span class="fu">xml_attr</span>(<span class="st">&quot;src&quot;</span>)</span>
-<span id="cb356-12"><a href="debugging.html#cb356-12" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb356-13"><a href="debugging.html#cb356-13" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb356-14"><a href="debugging.html#cb356-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">readPNG</span>(<span class="at">source =</span> image)</span>
-<span id="cb356-15"><a href="debugging.html#cb356-15" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb360"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb360-1"><a href="debugging.html#cb360-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(png)</span>
+<span id="cb360-2"><a href="debugging.html#cb360-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(xml2)</span>
+<span id="cb360-3"><a href="debugging.html#cb360-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb360-4"><a href="debugging.html#cb360-4" aria-hidden="true" tabindex="-1"></a><span class="co"># get the most current xkcd</span></span>
+<span id="cb360-5"><a href="debugging.html#cb360-5" aria-hidden="true" tabindex="-1"></a>get_xkcd <span class="ot">&lt;-</span> <span class="cf">function</span>(<span class="at">id =</span> <span class="cn">NULL</span>) {</span>
+<span id="cb360-6"><a href="debugging.html#cb360-6" aria-hidden="true" tabindex="-1"></a>  url <span class="ot">&lt;-</span> <span class="st">&quot;http://xkcd.com&quot;</span></span>
+<span id="cb360-7"><a href="debugging.html#cb360-7" aria-hidden="true" tabindex="-1"></a>  page <span class="ot">&lt;-</span> <span class="fu">read_html</span>(url)</span>
+<span id="cb360-8"><a href="debugging.html#cb360-8" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Find the comic</span></span>
+<span id="cb360-9"><a href="debugging.html#cb360-9" aria-hidden="true" tabindex="-1"></a>  image <span class="ot">&lt;-</span> <span class="fu">xml_find_first</span>(page, <span class="st">&quot;//div[@id=&#39;comic&#39;]/img&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb360-10"><a href="debugging.html#cb360-10" aria-hidden="true" tabindex="-1"></a>    <span class="co"># pull the address out of the tag</span></span>
+<span id="cb360-11"><a href="debugging.html#cb360-11" aria-hidden="true" tabindex="-1"></a>    <span class="fu">xml_attr</span>(<span class="st">&quot;src&quot;</span>)</span>
+<span id="cb360-12"><a href="debugging.html#cb360-12" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb360-13"><a href="debugging.html#cb360-13" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb360-14"><a href="debugging.html#cb360-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">readPNG</span>(<span class="at">source =</span> image)</span>
+<span id="cb360-15"><a href="debugging.html#cb360-15" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
 <p>Watch this live-coding video to see how I use browser() to figure out what’s going on in the function and how to fix it. <a href="https://use.vg/j9CVIw">Vidgrid link</a>. <a href="https://youtu.be/YlMAAjRA7rM">Alternate YouTube Link</a></p>
 <p>Here’s the final function</p>
-<div class="sourceCode" id="cb357"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb357-1"><a href="debugging.html#cb357-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(png)</span>
-<span id="cb357-2"><a href="debugging.html#cb357-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(xml2)</span>
-<span id="cb357-3"><a href="debugging.html#cb357-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb357-4"><a href="debugging.html#cb357-4" aria-hidden="true" tabindex="-1"></a><span class="co"># get the most current xkcd</span></span>
-<span id="cb357-5"><a href="debugging.html#cb357-5" aria-hidden="true" tabindex="-1"></a>get_xkcd <span class="ot">&lt;-</span> <span class="cf">function</span>(<span class="at">id =</span> <span class="cn">NULL</span>) {</span>
-<span id="cb357-6"><a href="debugging.html#cb357-6" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb357-7"><a href="debugging.html#cb357-7" aria-hidden="true" tabindex="-1"></a>  url <span class="ot">&lt;-</span> <span class="st">&quot;http://xkcd.com&quot;</span></span>
-<span id="cb357-8"><a href="debugging.html#cb357-8" aria-hidden="true" tabindex="-1"></a>  page <span class="ot">&lt;-</span> <span class="fu">read_html</span>(url)</span>
-<span id="cb357-9"><a href="debugging.html#cb357-9" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Find the comic</span></span>
-<span id="cb357-10"><a href="debugging.html#cb357-10" aria-hidden="true" tabindex="-1"></a>  image <span class="ot">&lt;-</span> <span class="fu">xml_find_first</span>(page, <span class="st">&quot;//div[@id=&#39;comic&#39;]/img&quot;</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb357-11"><a href="debugging.html#cb357-11" aria-hidden="true" tabindex="-1"></a>    <span class="co"># pull the address out of the tag</span></span>
-<span id="cb357-12"><a href="debugging.html#cb357-12" aria-hidden="true" tabindex="-1"></a>    <span class="fu">xml_attr</span>(<span class="st">&quot;src&quot;</span>)</span>
-<span id="cb357-13"><a href="debugging.html#cb357-13" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb357-14"><a href="debugging.html#cb357-14" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Fix image address so that we can access the image</span></span>
-<span id="cb357-15"><a href="debugging.html#cb357-15" aria-hidden="true" tabindex="-1"></a>  image <span class="ot">&lt;-</span> <span class="fu">substr</span>(image, <span class="dv">3</span>, <span class="fu">nchar</span>(image))</span>
-<span id="cb357-16"><a href="debugging.html#cb357-16" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb357-17"><a href="debugging.html#cb357-17" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Download the file to a temp file and read from there</span></span>
-<span id="cb357-18"><a href="debugging.html#cb357-18" aria-hidden="true" tabindex="-1"></a>  file_location <span class="ot">&lt;-</span> <span class="fu">tempfile</span>(<span class="at">fileext =</span> <span class="st">&quot;.png&quot;</span>)</span>
-<span id="cb357-19"><a href="debugging.html#cb357-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">download.file</span>(image, <span class="at">destfile =</span> file_location, <span class="at">quiet =</span> T)</span>
-<span id="cb357-20"><a href="debugging.html#cb357-20" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb357-21"><a href="debugging.html#cb357-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">readPNG</span>(<span class="at">source =</span> file_location)</span>
-<span id="cb357-22"><a href="debugging.html#cb357-22" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb357-23"><a href="debugging.html#cb357-23" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb357-24"><a href="debugging.html#cb357-24" aria-hidden="true" tabindex="-1"></a><span class="fu">get_xkcd</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb357-25"><a href="debugging.html#cb357-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as.raster</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb357-26"><a href="debugging.html#cb357-26" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plot</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb361"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb361-1"><a href="debugging.html#cb361-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(png)</span>
+<span id="cb361-2"><a href="debugging.html#cb361-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(xml2)</span>
+<span id="cb361-3"><a href="debugging.html#cb361-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb361-4"><a href="debugging.html#cb361-4" aria-hidden="true" tabindex="-1"></a><span class="co"># get the most current xkcd</span></span>
+<span id="cb361-5"><a href="debugging.html#cb361-5" aria-hidden="true" tabindex="-1"></a>get_xkcd <span class="ot">&lt;-</span> <span class="cf">function</span>(<span class="at">id =</span> <span class="cn">NULL</span>) {</span>
+<span id="cb361-6"><a href="debugging.html#cb361-6" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb361-7"><a href="debugging.html#cb361-7" aria-hidden="true" tabindex="-1"></a>  url <span class="ot">&lt;-</span> <span class="st">&quot;http://xkcd.com&quot;</span></span>
+<span id="cb361-8"><a href="debugging.html#cb361-8" aria-hidden="true" tabindex="-1"></a>  page <span class="ot">&lt;-</span> <span class="fu">read_html</span>(url)</span>
+<span id="cb361-9"><a href="debugging.html#cb361-9" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Find the comic</span></span>
+<span id="cb361-10"><a href="debugging.html#cb361-10" aria-hidden="true" tabindex="-1"></a>  image <span class="ot">&lt;-</span> <span class="fu">xml_find_first</span>(page, <span class="st">&quot;//div[@id=&#39;comic&#39;]/img&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb361-11"><a href="debugging.html#cb361-11" aria-hidden="true" tabindex="-1"></a>    <span class="co"># pull the address out of the tag</span></span>
+<span id="cb361-12"><a href="debugging.html#cb361-12" aria-hidden="true" tabindex="-1"></a>    <span class="fu">xml_attr</span>(<span class="st">&quot;src&quot;</span>)</span>
+<span id="cb361-13"><a href="debugging.html#cb361-13" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb361-14"><a href="debugging.html#cb361-14" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Fix image address so that we can access the image</span></span>
+<span id="cb361-15"><a href="debugging.html#cb361-15" aria-hidden="true" tabindex="-1"></a>  image <span class="ot">&lt;-</span> <span class="fu">substr</span>(image, <span class="dv">3</span>, <span class="fu">nchar</span>(image))</span>
+<span id="cb361-16"><a href="debugging.html#cb361-16" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb361-17"><a href="debugging.html#cb361-17" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Download the file to a temp file and read from there</span></span>
+<span id="cb361-18"><a href="debugging.html#cb361-18" aria-hidden="true" tabindex="-1"></a>  file_location <span class="ot">&lt;-</span> <span class="fu">tempfile</span>(<span class="at">fileext =</span> <span class="st">&quot;.png&quot;</span>)</span>
+<span id="cb361-19"><a href="debugging.html#cb361-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">download.file</span>(image, <span class="at">destfile =</span> file_location, <span class="at">quiet =</span> T)</span>
+<span id="cb361-20"><a href="debugging.html#cb361-20" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb361-21"><a href="debugging.html#cb361-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">readPNG</span>(<span class="at">source =</span> file_location)</span>
+<span id="cb361-22"><a href="debugging.html#cb361-22" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb361-23"><a href="debugging.html#cb361-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb361-24"><a href="debugging.html#cb361-24" aria-hidden="true" tabindex="-1"></a><span class="fu">get_xkcd</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb361-25"><a href="debugging.html#cb361-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as.raster</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb361-26"><a href="debugging.html#cb361-26" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plot</span>()</span></code></pre></div>
 <img src="image/browser-demo-2-1.png" width="2100" />
 </details>
 <div id="try-it-out-24" class="section level4 unnumbered tryitout">
@@ -1046,42 +1045,42 @@ What things might you add to make this function “defensive programming” comp
 <summary>
 Solution
 </summary>
-<div class="sourceCode" id="cb358"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb358-1"><a href="debugging.html#cb358-1" aria-hidden="true" tabindex="-1"></a><span class="co"># get the most current xkcd or the specified number</span></span>
-<span id="cb358-2"><a href="debugging.html#cb358-2" aria-hidden="true" tabindex="-1"></a>get_xkcd <span class="ot">&lt;-</span> <span class="cf">function</span>(<span class="at">id =</span> <span class="cn">NULL</span>) {</span>
-<span id="cb358-3"><a href="debugging.html#cb358-3" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (<span class="fu">is.null</span>(id)) {</span>
-<span id="cb358-4"><a href="debugging.html#cb358-4" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Have to get the location of the image ourselves</span></span>
-<span id="cb358-5"><a href="debugging.html#cb358-5" aria-hidden="true" tabindex="-1"></a>    url <span class="ot">&lt;-</span> <span class="st">&quot;http://xkcd.com&quot;</span></span>
-<span id="cb358-6"><a href="debugging.html#cb358-6" aria-hidden="true" tabindex="-1"></a>  } <span class="cf">else</span> <span class="cf">if</span> (<span class="fu">is.numeric</span>(id)) {</span>
-<span id="cb358-7"><a href="debugging.html#cb358-7" aria-hidden="true" tabindex="-1"></a>    url <span class="ot">&lt;-</span> <span class="fu">paste0</span>(<span class="st">&quot;http://xkcd.com/&quot;</span>, id, <span class="st">&quot;/&quot;</span>)</span>
-<span id="cb358-8"><a href="debugging.html#cb358-8" aria-hidden="true" tabindex="-1"></a>  } <span class="cf">else</span> {</span>
-<span id="cb358-9"><a href="debugging.html#cb358-9" aria-hidden="true" tabindex="-1"></a>    <span class="co"># only allow numeric or null input</span></span>
-<span id="cb358-10"><a href="debugging.html#cb358-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">stop</span>(<span class="st">&quot;To get current xkcd, pass in NULL, otherwise, pass in a valid comic number&quot;</span>)</span>
-<span id="cb358-11"><a href="debugging.html#cb358-11" aria-hidden="true" tabindex="-1"></a>  }</span>
-<span id="cb358-12"><a href="debugging.html#cb358-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb358-13"><a href="debugging.html#cb358-13" aria-hidden="true" tabindex="-1"></a>  page <span class="ot">&lt;-</span> <span class="fu">read_html</span>(url)</span>
-<span id="cb358-14"><a href="debugging.html#cb358-14" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Find the comic</span></span>
-<span id="cb358-15"><a href="debugging.html#cb358-15" aria-hidden="true" tabindex="-1"></a>  image <span class="ot">&lt;-</span> <span class="fu">xml_find_first</span>(page, <span class="st">&quot;//div[@id=&#39;comic&#39;]/img&quot;</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb358-16"><a href="debugging.html#cb358-16" aria-hidden="true" tabindex="-1"></a>    <span class="co"># pull the address out of the tag</span></span>
-<span id="cb358-17"><a href="debugging.html#cb358-17" aria-hidden="true" tabindex="-1"></a>    <span class="fu">xml_attr</span>(<span class="st">&quot;src&quot;</span>)</span>
-<span id="cb358-18"><a href="debugging.html#cb358-18" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Fix image address so that we can access the image</span></span>
-<span id="cb358-19"><a href="debugging.html#cb358-19" aria-hidden="true" tabindex="-1"></a>  image <span class="ot">&lt;-</span> <span class="fu">substr</span>(image, <span class="dv">3</span>, <span class="fu">nchar</span>(image)) <span class="co"># cut the first 2 characters off</span></span>
-<span id="cb358-20"><a href="debugging.html#cb358-20" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb358-21"><a href="debugging.html#cb358-21" aria-hidden="true" tabindex="-1"></a>  <span class="co"># make temp file</span></span>
-<span id="cb358-22"><a href="debugging.html#cb358-22" aria-hidden="true" tabindex="-1"></a>  location <span class="ot">&lt;-</span> <span class="fu">tempfile</span>(<span class="at">fileext =</span> <span class="st">&quot;png&quot;</span>)</span>
-<span id="cb358-23"><a href="debugging.html#cb358-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">download.file</span>(image, <span class="at">destfile =</span> location, <span class="at">quiet =</span> T)</span>
-<span id="cb358-24"><a href="debugging.html#cb358-24" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb358-25"><a href="debugging.html#cb358-25" aria-hidden="true" tabindex="-1"></a>  <span class="co"># This checks to make sure we saved the file correctly</span></span>
-<span id="cb358-26"><a href="debugging.html#cb358-26" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (<span class="fu">file.exists</span>(location)) {</span>
-<span id="cb358-27"><a href="debugging.html#cb358-27" aria-hidden="true" tabindex="-1"></a>    <span class="fu">readPNG</span>(<span class="at">source =</span> location)</span>
-<span id="cb358-28"><a href="debugging.html#cb358-28" aria-hidden="true" tabindex="-1"></a>  } <span class="cf">else</span> {</span>
-<span id="cb358-29"><a href="debugging.html#cb358-29" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Give a good informative error message</span></span>
-<span id="cb358-30"><a href="debugging.html#cb358-30" aria-hidden="true" tabindex="-1"></a>    <span class="fu">stop</span>(<span class="fu">paste</span>(<span class="st">&quot;Something went wrong saving the image at &quot;</span>, image, <span class="st">&quot; to &quot;</span>, location))</span>
-<span id="cb358-31"><a href="debugging.html#cb358-31" aria-hidden="true" tabindex="-1"></a>  }</span>
-<span id="cb358-32"><a href="debugging.html#cb358-32" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb358-33"><a href="debugging.html#cb358-33" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb358-34"><a href="debugging.html#cb358-34" aria-hidden="true" tabindex="-1"></a><span class="fu">get_xkcd</span>(<span class="dv">2259</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb358-35"><a href="debugging.html#cb358-35" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as.raster</span>() <span class="sc">%&gt;%</span> </span>
-<span id="cb358-36"><a href="debugging.html#cb358-36" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plot</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb362"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb362-1"><a href="debugging.html#cb362-1" aria-hidden="true" tabindex="-1"></a><span class="co"># get the most current xkcd or the specified number</span></span>
+<span id="cb362-2"><a href="debugging.html#cb362-2" aria-hidden="true" tabindex="-1"></a>get_xkcd <span class="ot">&lt;-</span> <span class="cf">function</span>(<span class="at">id =</span> <span class="cn">NULL</span>) {</span>
+<span id="cb362-3"><a href="debugging.html#cb362-3" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (<span class="fu">is.null</span>(id)) {</span>
+<span id="cb362-4"><a href="debugging.html#cb362-4" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Have to get the location of the image ourselves</span></span>
+<span id="cb362-5"><a href="debugging.html#cb362-5" aria-hidden="true" tabindex="-1"></a>    url <span class="ot">&lt;-</span> <span class="st">&quot;http://xkcd.com&quot;</span></span>
+<span id="cb362-6"><a href="debugging.html#cb362-6" aria-hidden="true" tabindex="-1"></a>  } <span class="cf">else</span> <span class="cf">if</span> (<span class="fu">is.numeric</span>(id)) {</span>
+<span id="cb362-7"><a href="debugging.html#cb362-7" aria-hidden="true" tabindex="-1"></a>    url <span class="ot">&lt;-</span> <span class="fu">paste0</span>(<span class="st">&quot;http://xkcd.com/&quot;</span>, id, <span class="st">&quot;/&quot;</span>)</span>
+<span id="cb362-8"><a href="debugging.html#cb362-8" aria-hidden="true" tabindex="-1"></a>  } <span class="cf">else</span> {</span>
+<span id="cb362-9"><a href="debugging.html#cb362-9" aria-hidden="true" tabindex="-1"></a>    <span class="co"># only allow numeric or null input</span></span>
+<span id="cb362-10"><a href="debugging.html#cb362-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">stop</span>(<span class="st">&quot;To get current xkcd, pass in NULL, otherwise, pass in a valid comic number&quot;</span>)</span>
+<span id="cb362-11"><a href="debugging.html#cb362-11" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb362-12"><a href="debugging.html#cb362-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb362-13"><a href="debugging.html#cb362-13" aria-hidden="true" tabindex="-1"></a>  page <span class="ot">&lt;-</span> <span class="fu">read_html</span>(url)</span>
+<span id="cb362-14"><a href="debugging.html#cb362-14" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Find the comic</span></span>
+<span id="cb362-15"><a href="debugging.html#cb362-15" aria-hidden="true" tabindex="-1"></a>  image <span class="ot">&lt;-</span> <span class="fu">xml_find_first</span>(page, <span class="st">&quot;//div[@id=&#39;comic&#39;]/img&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb362-16"><a href="debugging.html#cb362-16" aria-hidden="true" tabindex="-1"></a>    <span class="co"># pull the address out of the tag</span></span>
+<span id="cb362-17"><a href="debugging.html#cb362-17" aria-hidden="true" tabindex="-1"></a>    <span class="fu">xml_attr</span>(<span class="st">&quot;src&quot;</span>)</span>
+<span id="cb362-18"><a href="debugging.html#cb362-18" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Fix image address so that we can access the image</span></span>
+<span id="cb362-19"><a href="debugging.html#cb362-19" aria-hidden="true" tabindex="-1"></a>  image <span class="ot">&lt;-</span> <span class="fu">substr</span>(image, <span class="dv">3</span>, <span class="fu">nchar</span>(image)) <span class="co"># cut the first 2 characters off</span></span>
+<span id="cb362-20"><a href="debugging.html#cb362-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb362-21"><a href="debugging.html#cb362-21" aria-hidden="true" tabindex="-1"></a>  <span class="co"># make temp file</span></span>
+<span id="cb362-22"><a href="debugging.html#cb362-22" aria-hidden="true" tabindex="-1"></a>  location <span class="ot">&lt;-</span> <span class="fu">tempfile</span>(<span class="at">fileext =</span> <span class="st">&quot;png&quot;</span>)</span>
+<span id="cb362-23"><a href="debugging.html#cb362-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">download.file</span>(image, <span class="at">destfile =</span> location, <span class="at">quiet =</span> T)</span>
+<span id="cb362-24"><a href="debugging.html#cb362-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb362-25"><a href="debugging.html#cb362-25" aria-hidden="true" tabindex="-1"></a>  <span class="co"># This checks to make sure we saved the file correctly</span></span>
+<span id="cb362-26"><a href="debugging.html#cb362-26" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (<span class="fu">file.exists</span>(location)) {</span>
+<span id="cb362-27"><a href="debugging.html#cb362-27" aria-hidden="true" tabindex="-1"></a>    <span class="fu">readPNG</span>(<span class="at">source =</span> location)</span>
+<span id="cb362-28"><a href="debugging.html#cb362-28" aria-hidden="true" tabindex="-1"></a>  } <span class="cf">else</span> {</span>
+<span id="cb362-29"><a href="debugging.html#cb362-29" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Give a good informative error message</span></span>
+<span id="cb362-30"><a href="debugging.html#cb362-30" aria-hidden="true" tabindex="-1"></a>    <span class="fu">stop</span>(<span class="fu">paste</span>(<span class="st">&quot;Something went wrong saving the image at &quot;</span>, image, <span class="st">&quot; to &quot;</span>, location))</span>
+<span id="cb362-31"><a href="debugging.html#cb362-31" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb362-32"><a href="debugging.html#cb362-32" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb362-33"><a href="debugging.html#cb362-33" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb362-34"><a href="debugging.html#cb362-34" aria-hidden="true" tabindex="-1"></a><span class="fu">get_xkcd</span>(<span class="dv">2259</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb362-35"><a href="debugging.html#cb362-35" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as.raster</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb362-36"><a href="debugging.html#cb362-36" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plot</span>()</span></code></pre></div>
 <img src="image/xkcd-tryitout-solution-1.png" width="2100" />
 </details>
 </div>
@@ -1094,28 +1093,28 @@ Solution
 <summary>
 Example of using debug
 </summary>
-<div class="sourceCode" id="cb359"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb359-1"><a href="debugging.html#cb359-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(iris)</span>
-<span id="cb359-2"><a href="debugging.html#cb359-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb359-3"><a href="debugging.html#cb359-3" aria-hidden="true" tabindex="-1"></a>tmp <span class="ot">&lt;-</span> <span class="fu">lm</span>(Species <span class="sc">~</span> ., <span class="at">data =</span> iris)</span>
-<span id="cb359-4"><a href="debugging.html#cb359-4" aria-hidden="true" tabindex="-1"></a>Warning <span class="cf">in</span> <span class="fu">model.response</span>(mf, <span class="st">&quot;numeric&quot;</span>)<span class="sc">:</span> using type <span class="ot">=</span> <span class="st">&quot;numeric&quot;</span> with a factor</span>
-<span id="cb359-5"><a href="debugging.html#cb359-5" aria-hidden="true" tabindex="-1"></a>response will be ignored</span>
-<span id="cb359-6"><a href="debugging.html#cb359-6" aria-hidden="true" tabindex="-1"></a>Warning <span class="cf">in</span> <span class="fu">Ops.factor</span>(y, z<span class="sc">$</span>residuals)<span class="sc">:</span> <span class="st">&#39;-&#39;</span> not meaningful <span class="cf">for</span> factors</span>
-<span id="cb359-7"><a href="debugging.html#cb359-7" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(tmp)</span>
-<span id="cb359-8"><a href="debugging.html#cb359-8" aria-hidden="true" tabindex="-1"></a>Warning <span class="cf">in</span> <span class="fu">Ops.factor</span>(r, <span class="dv">2</span>)<span class="sc">:</span> <span class="st">&#39;^&#39;</span> not meaningful <span class="cf">for</span> factors</span>
-<span id="cb359-9"><a href="debugging.html#cb359-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb359-10"><a href="debugging.html#cb359-10" aria-hidden="true" tabindex="-1"></a>Call<span class="sc">:</span></span>
-<span id="cb359-11"><a href="debugging.html#cb359-11" aria-hidden="true" tabindex="-1"></a><span class="fu">lm</span>(<span class="at">formula =</span> Species <span class="sc">~</span> ., <span class="at">data =</span> iris)</span>
-<span id="cb359-12"><a href="debugging.html#cb359-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb359-13"><a href="debugging.html#cb359-13" aria-hidden="true" tabindex="-1"></a>Residuals<span class="sc">:</span></span>
-<span id="cb359-14"><a href="debugging.html#cb359-14" aria-hidden="true" tabindex="-1"></a>Error <span class="cf">in</span> <span class="fu">quantile.default</span>(resid)<span class="sc">:</span> (unordered) factors are not allowed</span></code></pre></div>
+<div class="sourceCode" id="cb363"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb363-1"><a href="debugging.html#cb363-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(iris)</span>
+<span id="cb363-2"><a href="debugging.html#cb363-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb363-3"><a href="debugging.html#cb363-3" aria-hidden="true" tabindex="-1"></a>tmp <span class="ot">&lt;-</span> <span class="fu">lm</span>(Species <span class="sc">~</span> ., <span class="at">data =</span> iris)</span>
+<span id="cb363-4"><a href="debugging.html#cb363-4" aria-hidden="true" tabindex="-1"></a><span class="do">## Warning in model.response(mf, &quot;numeric&quot;): using type = &quot;numeric&quot; with a factor</span></span>
+<span id="cb363-5"><a href="debugging.html#cb363-5" aria-hidden="true" tabindex="-1"></a><span class="do">## response will be ignored</span></span>
+<span id="cb363-6"><a href="debugging.html#cb363-6" aria-hidden="true" tabindex="-1"></a><span class="do">## Warning in Ops.factor(y, z$residuals): &#39;-&#39; not meaningful for factors</span></span>
+<span id="cb363-7"><a href="debugging.html#cb363-7" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(tmp)</span>
+<span id="cb363-8"><a href="debugging.html#cb363-8" aria-hidden="true" tabindex="-1"></a><span class="do">## Warning in Ops.factor(r, 2): &#39;^&#39; not meaningful for factors</span></span>
+<span id="cb363-9"><a href="debugging.html#cb363-9" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span>
+<span id="cb363-10"><a href="debugging.html#cb363-10" aria-hidden="true" tabindex="-1"></a><span class="do">## Call:</span></span>
+<span id="cb363-11"><a href="debugging.html#cb363-11" aria-hidden="true" tabindex="-1"></a><span class="do">## lm(formula = Species ~ ., data = iris)</span></span>
+<span id="cb363-12"><a href="debugging.html#cb363-12" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span>
+<span id="cb363-13"><a href="debugging.html#cb363-13" aria-hidden="true" tabindex="-1"></a><span class="do">## Residuals:</span></span>
+<span id="cb363-14"><a href="debugging.html#cb363-14" aria-hidden="true" tabindex="-1"></a><span class="do">## Error in quantile.default(resid): (unordered) factors are not allowed</span></span></code></pre></div>
 <p>We get this weird warning, and then an error about factors when we use summary() to look at the coefficients.</p>
-<div class="sourceCode" id="cb360"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb360-1"><a href="debugging.html#cb360-1" aria-hidden="true" tabindex="-1"></a><span class="fu">debug</span>(lm) <span class="co"># turn debugging on</span></span>
-<span id="cb360-2"><a href="debugging.html#cb360-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb360-3"><a href="debugging.html#cb360-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb360-4"><a href="debugging.html#cb360-4" aria-hidden="true" tabindex="-1"></a>tmp <span class="ot">&lt;-</span> <span class="fu">lm</span>(Species <span class="sc">~</span> ., <span class="at">data =</span> iris)</span>
-<span id="cb360-5"><a href="debugging.html#cb360-5" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(tmp)</span>
-<span id="cb360-6"><a href="debugging.html#cb360-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb360-7"><a href="debugging.html#cb360-7" aria-hidden="true" tabindex="-1"></a><span class="fu">undebug</span>(lm) <span class="co"># turn debugging off)</span></span></code></pre></div>
+<div class="sourceCode" id="cb364"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb364-1"><a href="debugging.html#cb364-1" aria-hidden="true" tabindex="-1"></a><span class="fu">debug</span>(lm) <span class="co"># turn debugging on</span></span>
+<span id="cb364-2"><a href="debugging.html#cb364-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb364-3"><a href="debugging.html#cb364-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb364-4"><a href="debugging.html#cb364-4" aria-hidden="true" tabindex="-1"></a>tmp <span class="ot">&lt;-</span> <span class="fu">lm</span>(Species <span class="sc">~</span> ., <span class="at">data =</span> iris)</span>
+<span id="cb364-5"><a href="debugging.html#cb364-5" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(tmp)</span>
+<span id="cb364-6"><a href="debugging.html#cb364-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb364-7"><a href="debugging.html#cb364-7" aria-hidden="true" tabindex="-1"></a><span class="fu">undebug</span>(lm) <span class="co"># turn debugging off)</span></span></code></pre></div>
 <div class="figure">
 <img src="image/07_debug_init.png" alt="" />
 <p class="caption">The first thing I see when I run lm after turning on debug (screenshot)</p>
@@ -1139,40 +1138,40 @@ But, until I run <code>undebug(lm)</code>, every call to <code>lm</code> will ta
 <div id="try-it-out-25" class="section level3 unnumbered tryitout">
 <h3>Try it out</h3>
 <p>larger(x, y) is supposed to return the elementwise maximum of two vectors.</p>
-<div class="sourceCode" id="cb361"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb361-1"><a href="debugging.html#cb361-1" aria-hidden="true" tabindex="-1"></a>larger <span class="ot">&lt;-</span> <span class="cf">function</span>(x, y) { </span>
-<span id="cb361-2"><a href="debugging.html#cb361-2" aria-hidden="true" tabindex="-1"></a>  y.is.bigger <span class="ot">&lt;-</span> y <span class="sc">&gt;</span> x </span>
-<span id="cb361-3"><a href="debugging.html#cb361-3" aria-hidden="true" tabindex="-1"></a>  x[y.is.bigger] <span class="ot">&lt;-</span> y[y.is.bigger] </span>
-<span id="cb361-4"><a href="debugging.html#cb361-4" aria-hidden="true" tabindex="-1"></a>  x</span>
-<span id="cb361-5"><a href="debugging.html#cb361-5" aria-hidden="true" tabindex="-1"></a>} </span>
-<span id="cb361-6"><a href="debugging.html#cb361-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb361-7"><a href="debugging.html#cb361-7" aria-hidden="true" tabindex="-1"></a><span class="fu">larger</span>(<span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">5</span>, <span class="dv">10</span>), <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">4</span>, <span class="dv">11</span>))</span>
-<span id="cb361-8"><a href="debugging.html#cb361-8" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>]  <span class="dv">2</span>  <span class="dv">5</span> <span class="dv">11</span></span></code></pre></div>
-<div class="sourceCode" id="cb362"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb362-1"><a href="debugging.html#cb362-1" aria-hidden="true" tabindex="-1"></a><span class="fu">larger</span>(<span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">5</span>, <span class="dv">10</span>), <span class="dv">6</span>)</span>
-<span id="cb362-2"><a href="debugging.html#cb362-2" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>]  <span class="dv">6</span> <span class="cn">NA</span> <span class="dv">10</span></span></code></pre></div>
+<div class="sourceCode" id="cb365"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb365-1"><a href="debugging.html#cb365-1" aria-hidden="true" tabindex="-1"></a>larger <span class="ot">&lt;-</span> <span class="cf">function</span>(x, y) { </span>
+<span id="cb365-2"><a href="debugging.html#cb365-2" aria-hidden="true" tabindex="-1"></a>  y.is.bigger <span class="ot">&lt;-</span> y <span class="sc">&gt;</span> x </span>
+<span id="cb365-3"><a href="debugging.html#cb365-3" aria-hidden="true" tabindex="-1"></a>  x[y.is.bigger] <span class="ot">&lt;-</span> y[y.is.bigger] </span>
+<span id="cb365-4"><a href="debugging.html#cb365-4" aria-hidden="true" tabindex="-1"></a>  x</span>
+<span id="cb365-5"><a href="debugging.html#cb365-5" aria-hidden="true" tabindex="-1"></a>} </span>
+<span id="cb365-6"><a href="debugging.html#cb365-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb365-7"><a href="debugging.html#cb365-7" aria-hidden="true" tabindex="-1"></a><span class="fu">larger</span>(<span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">5</span>, <span class="dv">10</span>), <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">4</span>, <span class="dv">11</span>))</span>
+<span id="cb365-8"><a href="debugging.html#cb365-8" aria-hidden="true" tabindex="-1"></a><span class="do">## [1]  2  5 11</span></span></code></pre></div>
+<div class="sourceCode" id="cb366"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb366-1"><a href="debugging.html#cb366-1" aria-hidden="true" tabindex="-1"></a><span class="fu">larger</span>(<span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">5</span>, <span class="dv">10</span>), <span class="dv">6</span>)</span>
+<span id="cb366-2"><a href="debugging.html#cb366-2" aria-hidden="true" tabindex="-1"></a><span class="do">## [1]  6 NA 10</span></span></code></pre></div>
 <p>Why is there an NA in the second example? It should be a 6. Figure out why this happens, then try to fix it.</p>
 <details>
 <summary>
 Solution
 </summary>
 <p>I’ll replicate “debug” in non-interactive mode by setting up an environment where x and y are defined</p>
-<div class="sourceCode" id="cb363"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb363-1"><a href="debugging.html#cb363-1" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb363-2"><a href="debugging.html#cb363-2" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">5</span>, <span class="dv">10</span>)</span>
-<span id="cb363-3"><a href="debugging.html#cb363-3" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="dv">6</span></span>
-<span id="cb363-4"><a href="debugging.html#cb363-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb363-5"><a href="debugging.html#cb363-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Inside of larger() with x = c(1, 5, 10), y = 6</span></span>
-<span id="cb363-6"><a href="debugging.html#cb363-6" aria-hidden="true" tabindex="-1"></a>(y.is.bigger <span class="ot">&lt;-</span> y <span class="sc">&gt;</span> x ) <span class="co"># putting something in () prints it out</span></span>
-<span id="cb363-7"><a href="debugging.html#cb363-7" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>]  <span class="cn">TRUE</span>  <span class="cn">TRUE</span> <span class="cn">FALSE</span></span>
-<span id="cb363-8"><a href="debugging.html#cb363-8" aria-hidden="true" tabindex="-1"></a>y[y.is.bigger] <span class="co"># This isn&#39;t quite what we were going for, but it&#39;s what&#39;s causing the issue</span></span>
-<span id="cb363-9"><a href="debugging.html#cb363-9" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>]  <span class="dv">6</span> <span class="cn">NA</span></span>
-<span id="cb363-10"><a href="debugging.html#cb363-10" aria-hidden="true" tabindex="-1"></a>x[y.is.bigger] <span class="co"># What gets replaced</span></span>
-<span id="cb363-11"><a href="debugging.html#cb363-11" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="dv">1</span> <span class="dv">5</span></span>
-<span id="cb363-12"><a href="debugging.html#cb363-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb363-13"><a href="debugging.html#cb363-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb363-14"><a href="debugging.html#cb363-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Better option</span></span>
-<span id="cb363-15"><a href="debugging.html#cb363-15" aria-hidden="true" tabindex="-1"></a>larger <span class="ot">&lt;-</span> <span class="cf">function</span>(x, y) { </span>
-<span id="cb363-16"><a href="debugging.html#cb363-16" aria-hidden="true" tabindex="-1"></a>  y.is.bigger <span class="ot">&lt;-</span> y <span class="sc">&gt;</span> x </span>
-<span id="cb363-17"><a href="debugging.html#cb363-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ifelse</span>(y.is.bigger, y, x)</span>
-<span id="cb363-18"><a href="debugging.html#cb363-18" aria-hidden="true" tabindex="-1"></a>} </span></code></pre></div>
+<div class="sourceCode" id="cb367"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb367-1"><a href="debugging.html#cb367-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb367-2"><a href="debugging.html#cb367-2" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">5</span>, <span class="dv">10</span>)</span>
+<span id="cb367-3"><a href="debugging.html#cb367-3" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="dv">6</span></span>
+<span id="cb367-4"><a href="debugging.html#cb367-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb367-5"><a href="debugging.html#cb367-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Inside of larger() with x = c(1, 5, 10), y = 6</span></span>
+<span id="cb367-6"><a href="debugging.html#cb367-6" aria-hidden="true" tabindex="-1"></a>(y.is.bigger <span class="ot">&lt;-</span> y <span class="sc">&gt;</span> x ) <span class="co"># putting something in () prints it out</span></span>
+<span id="cb367-7"><a href="debugging.html#cb367-7" aria-hidden="true" tabindex="-1"></a><span class="do">## [1]  TRUE  TRUE FALSE</span></span>
+<span id="cb367-8"><a href="debugging.html#cb367-8" aria-hidden="true" tabindex="-1"></a>y[y.is.bigger] <span class="co"># This isn&#39;t quite what we were going for, but it&#39;s what&#39;s causing the issue</span></span>
+<span id="cb367-9"><a href="debugging.html#cb367-9" aria-hidden="true" tabindex="-1"></a><span class="do">## [1]  6 NA</span></span>
+<span id="cb367-10"><a href="debugging.html#cb367-10" aria-hidden="true" tabindex="-1"></a>x[y.is.bigger] <span class="co"># What gets replaced</span></span>
+<span id="cb367-11"><a href="debugging.html#cb367-11" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] 1 5</span></span>
+<span id="cb367-12"><a href="debugging.html#cb367-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb367-13"><a href="debugging.html#cb367-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb367-14"><a href="debugging.html#cb367-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Better option</span></span>
+<span id="cb367-15"><a href="debugging.html#cb367-15" aria-hidden="true" tabindex="-1"></a>larger <span class="ot">&lt;-</span> <span class="cf">function</span>(x, y) { </span>
+<span id="cb367-16"><a href="debugging.html#cb367-16" aria-hidden="true" tabindex="-1"></a>  y.is.bigger <span class="ot">&lt;-</span> y <span class="sc">&gt;</span> x </span>
+<span id="cb367-17"><a href="debugging.html#cb367-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ifelse</span>(y.is.bigger, y, x)</span>
+<span id="cb367-18"><a href="debugging.html#cb367-18" aria-hidden="true" tabindex="-1"></a>} </span></code></pre></div>
 </details>
 </div>
 </div>

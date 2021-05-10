@@ -154,7 +154,8 @@ In `dplyr`, there are a few helper functions which may be useful when constructi
 <details><summary>
 `row_number()` - this is only used inside of another dplyr function (e.g. filter). You might want to keep only even rows, or only the first 10 rows in a table.  </summary>
 ```{r filter-poke}
-filter(poke, (row_number() %% 2 == 0))
+poke <- read_csv("data/pokemon_ascii.csv")
+filter(poke, (row_number() %% 2 == 0)) 
 # There are several pokemon who have multiple entries in the table,
 # so the pokedex_number doesn't line up with the row number.
 ```

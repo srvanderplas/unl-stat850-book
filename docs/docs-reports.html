@@ -32,7 +32,7 @@
   <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon" />
 <link rel="prev" href="simulation.html"/>
 <link rel="next" href="animated-and-interactive-graphics.html"/>
-<script src="libs/header-attrs-2.7/header-attrs.js"></script>
+<script src="libs/header-attrs-2.7.3/header-attrs.js"></script>
 <script src="libs/jquery-3.5.1/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -104,7 +104,6 @@ function unrolltab(evt, tabName) {
 pre > code.sourceCode { white-space: pre; position: relative; }
 pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
 pre.sourceCode { margin: 0; }
 @media screen {
@@ -678,7 +677,7 @@ You can see the compiled pdf <a href="other/test.pdf">here</a>.
 <p>What happens when you remove the <code>[fragile]</code> from each frame declaration?</p>
 <p>Can you change the theme of the presentation?</p>
 <p>Add another slide, and on that slide, show an appropriate style ggplot2 graph of the distribution of board game ratings, reading in the board game ratings using the following code:</p>
-<div class="sourceCode" id="cb497"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb497-1"><a href="docs-reports.html#cb497-1" aria-hidden="true" tabindex="-1"></a>board_games <span class="ot">&lt;-</span> readr<span class="sc">::</span><span class="fu">read_csv</span>(<span class="st">&quot;https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2019/2019-03-12/board_games.csv&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb501"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb501-1"><a href="docs-reports.html#cb501-1" aria-hidden="true" tabindex="-1"></a>board_games <span class="ot">&lt;-</span> readr<span class="sc">::</span><span class="fu">read_csv</span>(<span class="st">&quot;https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2019/2019-03-12/board_games.csv&quot;</span>)</span></code></pre></div>
 <p><a href="https://kbroman.org/Tools4RR/assets/lectures/12_talks_posters_withnotes.pdf">Karl Broman has a set of slides that show how to use beamer + knitr to make reproducible slides with notes.</a></p>
 <p>You can also create Beamer slides using Rmarkdown, if you want, but you’ll probably have more control over the fine details if you go straight to the Rnw file without going through Rmd first. It’s a trade-off – the file will probably be simpler in Rmarkdown, but you won’t have nearly as much control.</p>
 </div>

@@ -69,24 +69,24 @@ data <- read.fwf(url,
          skip = 3, # Skip the first 2 lines (useless) + header line
          widths = c(5, 6, 6, 7, 7, 7, 7, 6, 7, 7, 7, 8, 9, 6, 7, 7, 7, 7, 7, 7, 
 7, 8, 8, 8)) # There is a row with the column names specified
-Warning in readLines(file, n = thisblock): incomplete final line found on 'data/
-mesodata.txt'
+## Warning in readLines(file, n = thisblock): incomplete final line found on 'data/
+## mesodata.txt'
 
 data[1:6,] # first 6 rows
-     V1     V2 V3 V4   V5  V6  V7  V8   V9 V10  V11 V12    V13 V14  V15 V16
-1  ACME    110  0 53 31.8 5.2 5.1 146  8.5 0.7  6.9   0 964.79 272 31.8 4.0
-2  ADAX      1  0 55 32.4 1.0 0.8 108 36.5 0.4  2.2   0 976.20 245 32.0 0.2
-3  ALTU      2  0 31 35.6 8.9 8.7 147 10.9 1.1 11.5   0 960.94 296 34.7 6.8
-4  ALV2    116  0 27 35.8 6.7 6.7 145  8.2 1.2  9.0   0 957.45 298 35.5 5.4
-5  ANT2    135  0 73 27.8 0.0 0.0   0  0.0 0.0  0.0   0 990.11 213 27.8 0.0
-6  APAC    111  0 52 32.3 6.2 6.1 133  9.8 0.8  7.9   0 959.54 277 31.9 4.6
-   V17  V18  V19  V20    V21  V22  V23     V24
-1 29.2 36.2 31.6 25.2   21.7 3.09 2.22    1.48
-2 28.8 38.2 29.6 26.8 -998.0 2.61 1.88 -998.00
-3 29.3 34.1 30.7 26.1 -998.0 3.39 2.47 -998.00
-4 24.7 34.7 25.6 22.6 -998.0 2.70 1.60 -998.00
-5 29.5 31.1 30.2 26.8   23.8 1.96 1.73    1.33
-6 30.4 35.2 34.7 28.2   22.8 1.79 1.53    1.78
+##      V1     V2 V3 V4   V5  V6  V7  V8   V9 V10  V11 V12    V13 V14  V15 V16
+## 1  ACME    110  0 53 31.8 5.2 5.1 146  8.5 0.7  6.9   0 964.79 272 31.8 4.0
+## 2  ADAX      1  0 55 32.4 1.0 0.8 108 36.5 0.4  2.2   0 976.20 245 32.0 0.2
+## 3  ALTU      2  0 31 35.6 8.9 8.7 147 10.9 1.1 11.5   0 960.94 296 34.7 6.8
+## 4  ALV2    116  0 27 35.8 6.7 6.7 145  8.2 1.2  9.0   0 957.45 298 35.5 5.4
+## 5  ANT2    135  0 73 27.8 0.0 0.0   0  0.0 0.0  0.0   0 990.11 213 27.8 0.0
+## 6  APAC    111  0 52 32.3 6.2 6.1 133  9.8 0.8  7.9   0 959.54 277 31.9 4.6
+##    V17  V18  V19  V20    V21  V22  V23     V24
+## 1 29.2 36.2 31.6 25.2   21.7 3.09 2.22    1.48
+## 2 28.8 38.2 29.6 26.8 -998.0 2.61 1.88 -998.00
+## 3 29.3 34.1 30.7 26.1 -998.0 3.39 2.47 -998.00
+## 4 24.7 34.7 25.6 22.6 -998.0 2.70 1.60 -998.00
+## 5 29.5 31.1 30.2 26.8   23.8 1.96 1.73    1.33
+## 6 30.4 35.2 34.7 28.2   22.8 1.79 1.53    1.78
 ```
 </details>
 
@@ -122,8 +122,8 @@ widths <- diff(c(0, breaks))
 
 # Now we're ready to go
 mesodata <- read.fwf(url, skip = 3, widths = widths, header = F)
-Warning in readLines(file, n = thisblock): incomplete final line found on 'data/
-mesodata.txt'
+## Warning in readLines(file, n = thisblock): incomplete final line found on 'data/
+## mesodata.txt'
 # read header separately - if you use header = T, it errors for some reason.
 # It's easier just to work around the error than to fix it :)
 mesodata_names <- read.fwf(url, skip = 2, n = 1, widths = widths, header = F, 
@@ -131,27 +131,27 @@ mesodata_names <- read.fwf(url, skip = 2, n = 1, widths = widths, header = F,
 names(mesodata) <- as.character(mesodata_names)
 
 mesodata[1:6,] # first 6 rows
-   STID   STNM   TIME    RELH    TAIR    WSPD    WVEC   WDIR    WDSD    WSSD
-1  ACME    110      0      53    31.8     5.2     5.1    146     8.5     0.7
-2  ADAX      1      0      55    32.4     1.0     0.8    108    36.5     0.4
-3  ALTU      2      0      31    35.6     8.9     8.7    147    10.9     1.1
-4  ALV2    116      0      27    35.8     6.7     6.7    145     8.2     1.2
-5  ANT2    135      0      73    27.8     0.0     0.0      0     0.0     0.0
-6  APAC    111      0      52    32.3     6.2     6.1    133     9.8     0.8
-     WMAX     RAIN      PRES   SRAD    TA9M    WS2M    TS10    TB10    TS05
-1     6.9        0    964.79    272    31.8     4.0    29.2    36.2    31.6
-2     2.2        0    976.20    245    32.0     0.2    28.8    38.2    29.6
-3    11.5        0    960.94    296    34.7     6.8    29.3    34.1    30.7
-4     9.0        0    957.45    298    35.5     5.4    24.7    34.7    25.6
-5     0.0        0    990.11    213    27.8     0.0    29.5    31.1    30.2
-6     7.9        0    959.54    277    31.9     4.6    30.4    35.2    34.7
-     TS25    TS60     TR05     TR25     TR60
-1    25.2    21.7     3.09     2.22     1.48
-2    26.8  -998.0     2.61     1.88  -998.00
-3    26.1  -998.0     3.39     2.47  -998.00
-4    22.6  -998.0     2.70     1.60  -998.00
-5    26.8    23.8     1.96     1.73     1.33
-6    28.2    22.8     1.79     1.53     1.78
+##    STID   STNM   TIME    RELH    TAIR    WSPD    WVEC   WDIR    WDSD    WSSD
+## 1  ACME    110      0      53    31.8     5.2     5.1    146     8.5     0.7
+## 2  ADAX      1      0      55    32.4     1.0     0.8    108    36.5     0.4
+## 3  ALTU      2      0      31    35.6     8.9     8.7    147    10.9     1.1
+## 4  ALV2    116      0      27    35.8     6.7     6.7    145     8.2     1.2
+## 5  ANT2    135      0      73    27.8     0.0     0.0      0     0.0     0.0
+## 6  APAC    111      0      52    32.3     6.2     6.1    133     9.8     0.8
+##      WMAX     RAIN      PRES   SRAD    TA9M    WS2M    TS10    TB10    TS05
+## 1     6.9        0    964.79    272    31.8     4.0    29.2    36.2    31.6
+## 2     2.2        0    976.20    245    32.0     0.2    28.8    38.2    29.6
+## 3    11.5        0    960.94    296    34.7     6.8    29.3    34.1    30.7
+## 4     9.0        0    957.45    298    35.5     5.4    24.7    34.7    25.6
+## 5     0.0        0    990.11    213    27.8     0.0    29.5    31.1    30.2
+## 6     7.9        0    959.54    277    31.9     4.6    30.4    35.2    34.7
+##      TS25    TS60     TR05     TR25     TR60
+## 1    25.2    21.7     3.09     2.22     1.48
+## 2    26.8  -998.0     2.61     1.88  -998.00
+## 3    26.1  -998.0     3.39     2.47  -998.00
+## 4    22.6  -998.0     2.70     1.60  -998.00
+## 5    26.8    23.8     1.96     1.73     1.33
+## 6    28.2    22.8     1.79     1.53     1.78
 ```
 </details>
 
@@ -164,22 +164,22 @@ The `readr` package creates data-frame like objects called tibbles (really, they
 library(readr) # Better data importing in R
 
 read_table(url, skip = 2) # Gosh, that was much easier!
-# A tibble: 121 x 24
-   STID   STNM  TIME  RELH  TAIR  WSPD  WVEC  WDIR  WDSD  WSSD  WMAX  RAIN  PRES
-   <chr> <dbl> <dbl> <dbl> <dbl> <dbl> <dbl> <dbl> <dbl> <dbl> <dbl> <dbl> <dbl>
- 1 ACME    110     0    53  31.8   5.2   5.1   146   8.5   0.7   6.9     0  965.
- 2 ADAX      1     0    55  32.4   1     0.8   108  36.5   0.4   2.2     0  976.
- 3 ALTU      2     0    31  35.6   8.9   8.7   147  10.9   1.1  11.5     0  961.
- 4 ALV2    116     0    27  35.8   6.7   6.7   145   8.2   1.2   9       0  957.
- 5 ANT2    135     0    73  27.8   0     0       0   0     0     0       0  990.
- 6 APAC    111     0    52  32.3   6.2   6.1   133   9.8   0.8   7.9     0  960.
- 7 ARD2    126     0    46  32.9   2.6   2.5   150  11.8   0.5   3.6     0  979.
- 8 ARNE      6     0    28  33.5   6.5   6.3   163  11.9   1.5  10       0  927.
- 9 BEAV      8     0    23  34.9  11.2  11.1   165   7.3   1.4  15.2     0  921.
-10 BESS      9     0    37  33.8   8.3   8.3   156   6.6   1.3  11.2     0  951.
-# … with 111 more rows, and 11 more variables: SRAD <dbl>, TA9M <dbl>,
-#   WS2M <dbl>, TS10 <dbl>, TB10 <dbl>, TS05 <dbl>, TS25 <dbl>, TS60 <dbl>,
-#   TR05 <dbl>, TR25 <dbl>, TR60 <dbl>
+## # A tibble: 121 x 24
+##    STID   STNM  TIME  RELH  TAIR  WSPD  WVEC  WDIR  WDSD  WSSD  WMAX  RAIN  PRES
+##    <chr> <dbl> <dbl> <dbl> <dbl> <dbl> <dbl> <dbl> <dbl> <dbl> <dbl> <dbl> <dbl>
+##  1 ACME    110     0    53  31.8   5.2   5.1   146   8.5   0.7   6.9     0  965.
+##  2 ADAX      1     0    55  32.4   1     0.8   108  36.5   0.4   2.2     0  976.
+##  3 ALTU      2     0    31  35.6   8.9   8.7   147  10.9   1.1  11.5     0  961.
+##  4 ALV2    116     0    27  35.8   6.7   6.7   145   8.2   1.2   9       0  957.
+##  5 ANT2    135     0    73  27.8   0     0       0   0     0     0       0  990.
+##  6 APAC    111     0    52  32.3   6.2   6.1   133   9.8   0.8   7.9     0  960.
+##  7 ARD2    126     0    46  32.9   2.6   2.5   150  11.8   0.5   3.6     0  979.
+##  8 ARNE      6     0    28  33.5   6.5   6.3   163  11.9   1.5  10       0  927.
+##  9 BEAV      8     0    23  34.9  11.2  11.1   165   7.3   1.4  15.2     0  921.
+## 10 BESS      9     0    37  33.8   8.3   8.3   156   6.6   1.3  11.2     0  951.
+## # … with 111 more rows, and 11 more variables: SRAD <dbl>, TA9M <dbl>,
+## #   WS2M <dbl>, TS10 <dbl>, TB10 <dbl>, TS05 <dbl>, TS25 <dbl>, TS60 <dbl>,
+## #   TR05 <dbl>, TR25 <dbl>, TR60 <dbl>
 ```
 
 You can also write fixed-width files if you *really* want to: 
@@ -222,8 +222,8 @@ write.fwf(mtcars, file = "data/04_mtcars-fixed-width.txt")
 
 NOTE: The infile "data/mesodata.txt" is:
       
-      Filename=/home/susan/Projects/Class/unl-stat850/stat850-textbook/data
-      /mesodata.txt,
+      Filename=/home/susan/Projects/Class/unl-stat850/2020-stat850/data/mes
+      odata.txt,
       Owner Name=susan,Group Name=susan,
       Access Permission=-rw-rw-r--,
       Last Modified=07Jun2020:16:59:37,
@@ -240,8 +240,8 @@ NOTE: SAS went to a new line when INPUT statement reached past the end of
       a line.
 NOTE: The data set WORK.MESODATA has 120 observations and 24 variables.
 NOTE: DATA statement used (Total process time):
-      real time           0.01 seconds
-      cpu time            0.00 seconds
+      real time           0.00 seconds
+      cpu time            0.01 seconds
       
 
 22         
@@ -251,8 +251,8 @@ NOTE: DATA statement used (Total process time):
 
 NOTE: There were 10 observations read from the data set WORK.MESODATA.
 NOTE: PROCEDURE PRINT used (Total process time):
-      real time           0.01 seconds
-      cpu time            0.01 seconds
+      real time           0.05 seconds
+      cpu time            0.05 seconds
       
 ```
 
@@ -615,64 +615,64 @@ As long as you know the delimiter, it's pretty easy to read in data from these f
 url <- "https://raw.githubusercontent.com/shahinrostami/pokemon_dataset/master/pokemon_gen_1_to_8.csv"
 
 pokemon_info <- read_csv(url)
-Warning: Missing column names filled in: 'X1' [1]
-
-── Column specification ────────────────────────────────────────────────────────
-cols(
-  .default = col_double(),
-  name = col_character(),
-  german_name = col_character(),
-  japanese_name = col_character(),
-  status = col_character(),
-  species = col_character(),
-  type_1 = col_character(),
-  type_2 = col_character(),
-  ability_1 = col_character(),
-  ability_2 = col_character(),
-  ability_hidden = col_character(),
-  growth_rate = col_character(),
-  egg_type_1 = col_character(),
-  egg_type_2 = col_character()
-)
-ℹ Use `spec()` for the full column specifications.
+## Warning: Missing column names filled in: 'X1' [1]
+## 
+## ── Column specification ────────────────────────────────────────────────────────
+## cols(
+##   .default = col_double(),
+##   name = col_character(),
+##   german_name = col_character(),
+##   japanese_name = col_character(),
+##   status = col_character(),
+##   species = col_character(),
+##   type_1 = col_character(),
+##   type_2 = col_character(),
+##   ability_1 = col_character(),
+##   ability_2 = col_character(),
+##   ability_hidden = col_character(),
+##   growth_rate = col_character(),
+##   egg_type_1 = col_character(),
+##   egg_type_2 = col_character()
+## )
+## ℹ Use `spec()` for the full column specifications.
 pokemon_info[1:6, 1:6] # Show only the first 6 lines & cols
-# A tibble: 6 x 6
-     X1 pokedex_number name         german_name japanese_name         generation
-  <dbl>          <dbl> <chr>        <chr>       <chr>                      <dbl>
-1     0              1 Bulbasaur    Bisasam     フシギダネ (Fushigid…          1
-2     1              2 Ivysaur      Bisaknosp   フシギソウ (Fushigis…          1
-3     2              3 Venusaur     Bisaflor    フシギバナ (Fushigib…          1
-4     3              3 Mega Venusa… Bisaflor    フシギバナ (Fushigib…          1
-5     4              4 Charmander   Glumanda    ヒトカゲ (Hitokage)            1
-6     5              5 Charmeleon   Glutexo     リザード (Lizardo)             1
+## # A tibble: 6 x 6
+##      X1 pokedex_number name         german_name japanese_name         generation
+##   <dbl>          <dbl> <chr>        <chr>       <chr>                      <dbl>
+## 1     0              1 Bulbasaur    Bisasam     フシギダネ (Fushigidane)…          1
+## 2     1              2 Ivysaur      Bisaknosp   フシギソウ (Fushigisou)…          1
+## 3     2              3 Venusaur     Bisaflor    フシギバナ (Fushigibana)…          1
+## 4     3              3 Mega Venusa… Bisaflor    フシギバナ (Fushigibana)…          1
+## 5     4              4 Charmander   Glumanda    ヒトカゲ (Hitokage)            1
+## 6     5              5 Charmeleon   Glutexo     リザード (Lizardo)             1
 
 # a file delimited with |
 
 url <- "https://raw.githubusercontent.com/srvanderplas/unl-stat850/master/data/NE_Features_20200501.txt"
 nebraska_locations <- read_delim(url, delim = "|")
-
-── Column specification ────────────────────────────────────────────────────────
-cols(
-  .default = col_character(),
-  FEATURE_ID = col_double(),
-  PRIM_LAT_DEC = col_double(),
-  PRIM_LONG_DEC = col_double(),
-  SOURCE_LAT_DEC = col_double(),
-  SOURCE_LONG_DEC = col_double(),
-  ELEV_IN_M = col_double(),
-  ELEV_IN_FT = col_double()
-)
-ℹ Use `spec()` for the full column specifications.
+## 
+## ── Column specification ────────────────────────────────────────────────────────
+## cols(
+##   .default = col_character(),
+##   FEATURE_ID = col_double(),
+##   PRIM_LAT_DEC = col_double(),
+##   PRIM_LONG_DEC = col_double(),
+##   SOURCE_LAT_DEC = col_double(),
+##   SOURCE_LONG_DEC = col_double(),
+##   ELEV_IN_M = col_double(),
+##   ELEV_IN_FT = col_double()
+## )
+## ℹ Use `spec()` for the full column specifications.
 nebraska_locations[1:6, 1:6]
-# A tibble: 6 x 6
-  FEATURE_ID FEATURE_NAME    FEATURE_CLASS STATE_ALPHA STATE_NUMERIC COUNTY_NAME
-       <dbl> <chr>           <chr>         <chr>       <chr>         <chr>      
-1     171013 Peetz Table     Area          CO          08            Logan      
-2     171029 Sidney Draw     Valley        NE          31            Cheyenne   
-3     182687 Highline Canal  Canal         CO          08            Sedgwick   
-4     182688 Cottonwood Cre… Stream        CO          08            Sedgwick   
-5     182689 Sand Draw       Valley        CO          08            Sedgwick   
-6     182690 Sedgwick Draw   Valley        CO          08            Sedgwick   
+## # A tibble: 6 x 6
+##   FEATURE_ID FEATURE_NAME    FEATURE_CLASS STATE_ALPHA STATE_NUMERIC COUNTY_NAME
+##        <dbl> <chr>           <chr>         <chr>       <chr>         <chr>      
+## 1     171013 Peetz Table     Area          CO          08            Logan      
+## 2     171029 Sidney Draw     Valley        NE          31            Cheyenne   
+## 3     182687 Highline Canal  Canal         CO          08            Sedgwick   
+## 4     182688 Cottonwood Cre… Stream        CO          08            Sedgwick   
+## 5     182689 Sand Draw       Valley        CO          08            Sedgwick   
+## 6     182690 Sedgwick Draw   Valley        CO          08            Sedgwick
 ```
 </details>
 
@@ -684,20 +684,20 @@ url <- "https://raw.githubusercontent.com/shahinrostami/pokemon_dataset/master/p
 
 pokemon_info <- read.csv(url, header = T, stringsAsFactors = F)
 pokemon_info[1:6, 1:6] # Show only the first 6 lines & cols
-  X pokedex_number          name german_name            japanese_name
-1 0              1     Bulbasaur     Bisasam フシギダネ (Fushigidane)
-2 1              2       Ivysaur   Bisaknosp  フシギソウ (Fushigisou)
-3 2              3      Venusaur    Bisaflor フシギバナ (Fushigibana)
-4 3              3 Mega Venusaur    Bisaflor フシギバナ (Fushigibana)
-5 4              4    Charmander    Glumanda      ヒトカゲ (Hitokage)
-6 5              5    Charmeleon     Glutexo       リザード (Lizardo)
-  generation
-1          1
-2          1
-3          1
-4          1
-5          1
-6          1
+##   X pokedex_number          name german_name            japanese_name
+## 1 0              1     Bulbasaur     Bisasam フシギダネ (Fushigidane)
+## 2 1              2       Ivysaur   Bisaknosp  フシギソウ (Fushigisou)
+## 3 2              3      Venusaur    Bisaflor フシギバナ (Fushigibana)
+## 4 3              3 Mega Venusaur    Bisaflor フシギバナ (Fushigibana)
+## 5 4              4    Charmander    Glumanda      ヒトカゲ (Hitokage)
+## 6 5              5    Charmeleon     Glutexo       リザード (Lizardo)
+##   generation
+## 1          1
+## 2          1
+## 3          1
+## 4          1
+## 5          1
+## 6          1
 
 
 # a file delimited with |
@@ -705,20 +705,20 @@ pokemon_info[1:6, 1:6] # Show only the first 6 lines & cols
 url <- "https://raw.githubusercontent.com/srvanderplas/unl-stat850/master/data/NE_Features_20200501.txt"
 nebraska_locations <- read.delim(url, sep = "|", header = T)
 nebraska_locations[1:6, 1:6]
-  FEATURE_ID     FEATURE_NAME FEATURE_CLASS STATE_ALPHA STATE_NUMERIC
-1     171013      Peetz Table          Area          CO             8
-2     171029      Sidney Draw        Valley          NE            31
-3     182687   Highline Canal         Canal          CO             8
-4     182688 Cottonwood Creek        Stream          CO             8
-5     182689        Sand Draw        Valley          CO             8
-6     182690    Sedgwick Draw        Valley          CO             8
-  COUNTY_NAME
-1       Logan
-2    Cheyenne
-3    Sedgwick
-4    Sedgwick
-5    Sedgwick
-6    Sedgwick
+##   FEATURE_ID     FEATURE_NAME FEATURE_CLASS STATE_ALPHA STATE_NUMERIC
+## 1     171013      Peetz Table          Area          CO             8
+## 2     171029      Sidney Draw        Valley          NE            31
+## 3     182687   Highline Canal         Canal          CO             8
+## 4     182688 Cottonwood Creek        Stream          CO             8
+## 5     182689        Sand Draw        Valley          CO             8
+## 6     182690    Sedgwick Draw        Valley          CO             8
+##   COUNTY_NAME
+## 1       Logan
+## 2    Cheyenne
+## 3    Sedgwick
+## 4    Sedgwick
+## 5    Sedgwick
+## 6    Sedgwick
 ```
 </details>
 
@@ -1422,38 +1422,38 @@ If I fix the file in R (because I know how to fix it there... another option is 
 ```r
 library(readr)
 library(dplyr)
-
-Attaching package: 'dplyr'
-The following objects are masked from 'package:gdata':
-
-    combine, first, last
-The following objects are masked from 'package:stats':
-
-    filter, lag
-The following objects are masked from 'package:base':
-
-    intersect, setdiff, setequal, union
+## 
+## Attaching package: 'dplyr'
+## The following objects are masked from 'package:gdata':
+## 
+##     combine, first, last
+## The following objects are masked from 'package:stats':
+## 
+##     filter, lag
+## The following objects are masked from 'package:base':
+## 
+##     intersect, setdiff, setequal, union
 tmp <- read_csv("data/pokemon.csv")[,-1]
-Warning: Missing column names filled in: 'X1' [1]
-
-── Column specification ────────────────────────────────────────────────────────
-cols(
-  .default = col_double(),
-  name = col_character(),
-  german_name = col_character(),
-  japanese_name = col_character(),
-  status = col_character(),
-  species = col_character(),
-  type_1 = col_character(),
-  type_2 = col_character(),
-  ability_1 = col_character(),
-  ability_2 = col_character(),
-  ability_hidden = col_character(),
-  growth_rate = col_character(),
-  egg_type_1 = col_character(),
-  egg_type_2 = col_character()
-)
-ℹ Use `spec()` for the full column specifications.
+## Warning: Missing column names filled in: 'X1' [1]
+## 
+## ── Column specification ────────────────────────────────────────────────────────
+## cols(
+##   .default = col_double(),
+##   name = col_character(),
+##   german_name = col_character(),
+##   japanese_name = col_character(),
+##   status = col_character(),
+##   species = col_character(),
+##   type_1 = col_character(),
+##   type_2 = col_character(),
+##   ability_1 = col_character(),
+##   ability_2 = col_character(),
+##   ability_hidden = col_character(),
+##   growth_rate = col_character(),
+##   egg_type_1 = col_character(),
+##   egg_type_2 = col_character()
+## )
+## ℹ Use `spec()` for the full column specifications.
 # You'll learn how to do this later
 tmp <- select(tmp, -japanese_name) %>%
   mutate_all(iconv, from="UTF-8", to = "ASCII//TRANSLIT")
@@ -1467,7 +1467,7 @@ Then, reading in the new file allows us to actually see the output.
 NOTE: Libref CLASSDAT was successfully assigned as follows: 
       Engine:        V9 
       Physical Name: 
-      /home/susan/Projects/Class/unl-stat850/stat850-textbook/sas
+      /home/susan/Projects/Class/unl-stat850/2020-stat850/sas
 7          /* Create a library of class data */
 8          
 9          filename pokeloc  "data/pokemon_ascii.csv";
@@ -1487,7 +1487,7 @@ NOTE: Libref CLASSDAT was successfully assigned as follows:
 19          *   PRODUCT:   SAS
 20          *   VERSION:   9.4
 21          *   CREATOR:   External File Interface
-22          *   DATE:      06MAY21
+22          *   DATE:      09MAY21
 23          *   DESC:      Generated SAS Datastep Code
 24          *   TEMPLATE SOURCE:  (None Specified.)
 25          ***************************************************************
@@ -1651,11 +1651,11 @@ NOTE: Libref CLASSDAT was successfully assigned as follows:
 
 NOTE: The infile POKELOC is:
       
-      Filename=/home/susan/Projects/Class/unl-stat850/stat850-textbook/data
-      /pokemon_ascii.csv,
+      Filename=/home/susan/Projects/Class/unl-stat850/2020-stat850/data/pok
+      emon_ascii.csv,
       Owner Name=susan,Group Name=susan,
       Access Permission=-rw-rw-r--,
-      Last Modified=06May2021:12:19:40,
+      Last Modified=09May2021:10:33:17,
       File Size (bytes)=207032
 
 NOTE: 1028 records were read from the infile POKELOC.
@@ -1674,15 +1674,15 @@ NOTE: DATA statement used (Total process time):
 NOTE: CLASSDAT.POKE data set was successfully created.
 NOTE: The data set CLASSDAT.POKE has 1028 observations and 49 variables.
 NOTE: PROCEDURE IMPORT used (Total process time):
-      real time           0.63 seconds
-      cpu time            0.63 seconds
+      real time           1.37 seconds
+      cpu time            1.35 seconds
       
 
 180          run;
 
 NOTE: There were 10 observations read from the data set CLASSDAT.POKE.
 NOTE: PROCEDURE PRINT used (Total process time):
-      real time           0.01 seconds
+      real time           0.03 seconds
       cpu time            0.02 seconds
       
 
@@ -2361,7 +2361,7 @@ writeLines(tmp_ascii, "data/NE_Features_ascii.txt")
 15          *   PRODUCT:   SAS
 16          *   VERSION:   9.4
 17          *   CREATOR:   External File Interface
-18          *   DATE:      06MAY21
+18          *   DATE:      09MAY21
 19          *   DESC:      Generated SAS Datastep Code
 20          *   TEMPLATE SOURCE:  (None Specified.)
 21          ***************************************************************
@@ -2439,11 +2439,11 @@ writeLines(tmp_ascii, "data/NE_Features_ascii.txt")
 
 NOTE: The infile 'data/NE_Features_ascii.txt' is:
       
-      Filename=/home/susan/Projects/Class/unl-stat850/stat850-textbook/data
-      /NE_Features_ascii.txt,
+      Filename=/home/susan/Projects/Class/unl-stat850/2020-stat850/data/NE_
+      Features_ascii.txt,
       Owner Name=susan,Group Name=susan,
       Access Permission=-rw-rw-r--,
-      Last Modified=06May2021:12:19:41,
+      Last Modified=09May2021:10:33:19,
       File Size (bytes)=4227269
 
 NOTE: 31582 records were read from the infile 'data/NE_Features_ascii.txt'.
@@ -2451,8 +2451,8 @@ NOTE: 31582 records were read from the infile 'data/NE_Features_ascii.txt'.
       The maximum record length was 204.
 NOTE: The data set WORK.NEFEATURES has 31582 observations and 20 variables.
 NOTE: DATA statement used (Total process time):
-      real time           0.04 seconds
-      cpu time            0.04 seconds
+      real time           0.06 seconds
+      cpu time            0.07 seconds
       
 
 31582 rows created in WORK.NEFEATURES from data/NE_Features_ascii.txt.
@@ -2462,8 +2462,8 @@ NOTE: DATA statement used (Total process time):
 NOTE: WORK.NEFEATURES data set was successfully created.
 NOTE: The data set WORK.NEFEATURES has 31582 observations and 20 variables.
 NOTE: PROCEDURE IMPORT used (Total process time):
-      real time           9.67 seconds
-      cpu time            9.66 seconds
+      real time           18.77 seconds
+      cpu time            18.76 seconds
       
 
 89         
@@ -2474,7 +2474,7 @@ NOTE: PROCEDURE IMPORT used (Total process time):
 NOTE: There were 10 observations read from the data set WORK.NEFEATURES.
 NOTE: PROCEDURE PRINT used (Total process time):
       real time           0.01 seconds
-      cpu time            0.01 seconds
+      cpu time            0.02 seconds
       
 
 92         
@@ -2816,11 +2816,11 @@ Under the hood, proc import is just writing code for a data step. So when proc i
 
 NOTE: The infile "data/NE_Features_ascii.txt" is:
       
-      Filename=/home/susan/Projects/Class/unl-stat850/stat850-textbook/data
-      /NE_Features_ascii.txt,
+      Filename=/home/susan/Projects/Class/unl-stat850/2020-stat850/data/NE_
+      Features_ascii.txt,
       Owner Name=susan,Group Name=susan,
       Access Permission=-rw-rw-r--,
-      Last Modified=06May2021:12:19:41,
+      Last Modified=09May2021:10:33:19,
       File Size (bytes)=4227269
 
 NOTE: 31582 records were read from the infile "data/NE_Features_ascii.txt".
@@ -2828,8 +2828,8 @@ NOTE: 31582 records were read from the infile "data/NE_Features_ascii.txt".
       The maximum record length was 204.
 NOTE: The data set WORK.NEFEATURES has 31582 observations and 20 variables.
 NOTE: DATA statement used (Total process time):
-      real time           0.04 seconds
-      cpu time            0.04 seconds
+      real time           0.13 seconds
+      cpu time            0.15 seconds
       
 
 40         
@@ -2839,8 +2839,8 @@ NOTE: DATA statement used (Total process time):
 
 NOTE: There were 10 observations read from the data set WORK.NEFEATURES.
 NOTE: PROCEDURE PRINT used (Total process time):
-      real time           0.01 seconds
-      cpu time            0.02 seconds
+      real time           0.04 seconds
+      cpu time            0.04 seconds
       
 ```
 
@@ -3181,7 +3181,7 @@ run;
 NOTE: Libref CLASSDAT was successfully assigned as follows: 
       Engine:        V9 
       Physical Name: 
-      /home/susan/Projects/Class/unl-stat850/stat850-textbook/sas
+      /home/susan/Projects/Class/unl-stat850/2020-stat850/sas
 7          /* Work with the library of class data */
 8          
 9          filename legofile ZIP "data/lego_sets.csv.gz" GZIP;
@@ -3199,11 +3199,11 @@ NOTE: The infile LEGOFILE is:
 
 NOTE: The file TARGET is:
       
-      Filename=/home/susan/Projects/Class/unl-stat850/stat850-textbook/data
-      /lego_sets.csv,
+      Filename=/home/susan/Projects/Class/unl-stat850/2020-stat850/data/leg
+      o_sets.csv,
       Owner Name=susan,Group Name=susan,
       Access Permission=-rw-rw-r--,
-      Last Modified=06May2021:12:20:13
+      Last Modified=09May2021:10:34:22
 
 NOTE: 15425 records were read from the infile LEGOFILE.
       The minimum record length was 20.
@@ -3212,8 +3212,8 @@ NOTE: 15425 records were written to the file TARGET.
       The minimum record length was 20.
       The maximum record length was 116.
 NOTE: DATA statement used (Total process time):
-      real time           0.01 seconds
-      cpu time            0.01 seconds
+      real time           0.02 seconds
+      cpu time            0.03 seconds
       
 
 18         
@@ -3228,7 +3228,7 @@ NOTE: DATA statement used (Total process time):
 24          *   PRODUCT:   SAS
 25          *   VERSION:   9.4
 26          *   CREATOR:   External File Interface
-27          *   DATE:      06MAY21
+27          *   DATE:      09MAY21
 28          *   DESC:      Generated SAS Datastep Code
 29          *   TEMPLATE SOURCE:  (None Specified.)
 30          ***************************************************************
@@ -3260,11 +3260,11 @@ NOTE: DATA statement used (Total process time):
 
 NOTE: The infile TARGET is:
       
-      Filename=/home/susan/Projects/Class/unl-stat850/stat850-textbook/data
-      /lego_sets.csv,
+      Filename=/home/susan/Projects/Class/unl-stat850/2020-stat850/data/leg
+      o_sets.csv,
       Owner Name=susan,Group Name=susan,
       Access Permission=-rw-rw-r--,
-      Last Modified=06May2021:12:20:13,
+      Last Modified=09May2021:10:34:22,
       File Size (bytes)=633877
 
 NOTE: 15424 records were read from the infile TARGET.
@@ -3273,7 +3273,7 @@ NOTE: 15424 records were read from the infile TARGET.
 NOTE: The data set CLASSDAT.LEGOSET has 15424 observations and 5 variables.
 NOTE: DATA statement used (Total process time):
       real time           0.01 seconds
-      cpu time            0.01 seconds
+      cpu time            0.02 seconds
       
 
 15424 rows created in CLASSDAT.LEGOSET from TARGET.
@@ -3283,8 +3283,8 @@ NOTE: DATA statement used (Total process time):
 NOTE: CLASSDAT.LEGOSET data set was successfully created.
 NOTE: The data set CLASSDAT.LEGOSET has 15424 observations and 5 variables.
 NOTE: PROCEDURE IMPORT used (Total process time):
-      real time           1.73 seconds
-      cpu time            1.71 seconds
+      real time           3.40 seconds
+      cpu time            3.40 seconds
       
 
 53         
@@ -3306,7 +3306,7 @@ NOTE: 15424 records were read from the infile LEGOFILE.
 NOTE: The data set WORK.LEGOSET2 has 15424 observations and 5 variables.
 NOTE: DATA statement used (Total process time):
       real time           0.01 seconds
-      cpu time            0.02 seconds
+      cpu time            0.01 seconds
       
 
 62         
@@ -3316,7 +3316,7 @@ NOTE: DATA statement used (Total process time):
 NOTE: There were 10 observations read from the data set CLASSDAT.LEGOSET.
 NOTE: PROCEDURE PRINT used (Total process time):
       real time           0.00 seconds
-      cpu time            0.00 seconds
+      cpu time            0.01 seconds
       
 
 65         
@@ -3572,21 +3572,21 @@ if (!file.exists(path)) download.file("https://mappingpoliceviolence.org/s/MPVDa
 
 police_violence <- read_xlsx("data/police_violence.xlsx", sheet = 1)
 police_violence[1:10, 1:6]
-# A tibble: 10 x 6
-   `Victim's name`         `Victim's age` `Victim's gender` `Victim's race`
-   <chr>                            <dbl> <chr>             <chr>          
- 1 Eric M. Tellez                      28 Male              White          
- 2 Name withheld by police             NA Male              Unknown race   
- 3 Terry Hudson                        57 Male              Black          
- 4 Malik Williams                      23 Male              Black          
- 5 Frederick Perkins                   37 Male              Black          
- 6 Michael Vincent Davis               49 Male              White          
- 7 Brian Elkins                        47 Male              Unknown race   
- 8 Debra D. Arbuckle                   51 Female            White          
- 9 Name withheld by police             NA Male              Unknown race   
-10 Cody McCaulou                       27 Male              White          
-# … with 2 more variables: URL of image of victim <chr>,
-#   Date of Incident (month/day/year) <dttm>
+## # A tibble: 10 x 6
+##    `Victim's name`         `Victim's age` `Victim's gender` `Victim's race`
+##    <chr>                            <dbl> <chr>             <chr>          
+##  1 Eric M. Tellez                      28 Male              White          
+##  2 Name withheld by police             NA Male              Unknown race   
+##  3 Terry Hudson                        57 Male              Black          
+##  4 Malik Williams                      23 Male              Black          
+##  5 Frederick Perkins                   37 Male              Black          
+##  6 Michael Vincent Davis               49 Male              White          
+##  7 Brian Elkins                        47 Male              Unknown race   
+##  8 Debra D. Arbuckle                   51 Female            White          
+##  9 Name withheld by police             NA Male              Unknown race   
+## 10 Cody McCaulou                       27 Male              White          
+## # … with 2 more variables: URL of image of victim <chr>,
+## #   Date of Incident (month/day/year) <dttm>
 ```
 
 
@@ -3598,7 +3598,7 @@ In SAS, PROC IMPORT is one easy way to read in xlsx files. In this code chunk, w
 NOTE: Libref CLASSDAT was successfully assigned as follows: 
       Engine:        V9 
       Physical Name: 
-      /home/susan/Projects/Class/unl-stat850/stat850-textbook/sas
+      /home/susan/Projects/Class/unl-stat850/2020-stat850/sas
 7          
 8          PROC IMPORT OUT=classdat.police
 9              DATAFILE="data/police_violence.xlsx"
@@ -3660,8 +3660,8 @@ NOTE: One or more variables were converted because the data type is not
 NOTE: The import data set has 7663 observations and 27 variables.
 NOTE: CLASSDAT.POLICE data set was successfully created.
 NOTE: PROCEDURE IMPORT used (Total process time):
-      real time           1.21 seconds
-      cpu time            1.22 seconds
+      real time           3.54 seconds
+      cpu time            3.53 seconds
       
 
 16         
@@ -4120,8 +4120,8 @@ NOTE: Mathematical operations could not be performed at the following
 NOTE: There were 7663 observations read from the data set CLASSDAT.POLICE.
 NOTE: The data set CLASSDAT.POLICE has 7663 observations and 25 variables.
 NOTE: DATA statement used (Total process time):
-      real time           0.03 seconds
-      cpu time            0.03 seconds
+      real time           0.07 seconds
+      cpu time            0.06 seconds
       
 
 33         
@@ -4280,27 +4280,27 @@ url <- "https://dmv.nebraska.gov/sites/dmv.nebraska.gov/files/doc/2019_Veh_Reg_b
 download.file(url, destfile = "data/2019_Vehicle_Registration_Plates_NE.xlsx", mode = "wb")
 library(readxl)
 ne_plates <- read_xlsx(path = "data/2019_Vehicle_Registration_Plates_NE.xlsx", skip = 1)
-New names:
-* County -> County...1
-* County -> County...34
+## New names:
+## * County -> County...1
+## * County -> County...34
 ne_plates[1:10,1:6]
-Warning in fansi::strwrap_ctl(x, width = max(width, 0), indent = indent, :
-Encountered a C0 control character, see `?unhandled_ctl`; you can use
-`warn=FALSE` to turn off these warnings.
-# A tibble: 10 x 6
-   County...1      `Amateur\r\nRadio` `Apport-\r\nioned` `Apport\r\nTrlr`    AC
-   <chr>                        <dbl>              <dbl>            <dbl> <dbl>
- 1 C01 - DOUGLAS                  148                  0                0    10
- 2 C02 - LANCASTER                244                  0                0     2
- 3 C03 - GAGE                      10                  0                0     1
- 4 C04 - CUSTER                     6                  0                0     0
- 5 C05 - DODGE                     28                  0                0     0
- 6 C06 - SAUNDERS                  18                  0                0     0
- 7 C07 - MADISON                   19                  0                0     0
- 8 C08 - HALL                      16                  0                0     0
- 9 C09 - BUFFALO                   26                  0                0     2
-10 C10 - PLATTE                    12                  0                0     2
-# … with 1 more variable: Breast Cancer <dbl>
+## Warning in fansi::strwrap_ctl(x, width = max(width, 0), indent = indent, :
+## Encountered a C0 control character, see `?unhandled_ctl`; you can use
+## `warn=FALSE` to turn off these warnings.
+## # A tibble: 10 x 6
+##    County...1      `Amateur\r\nRadio` `Apport-\r\nioned` `Apport\r\nTrlr`    AC
+##    <chr>                        <dbl>              <dbl>            <dbl> <dbl>
+##  1 C01 - DOUGLAS                  148                  0                0    10
+##  2 C02 - LANCASTER                244                  0                0     2
+##  3 C03 - GAGE                      10                  0                0     1
+##  4 C04 - CUSTER                     6                  0                0     0
+##  5 C05 - DODGE                     28                  0                0     0
+##  6 C06 - SAUNDERS                  18                  0                0     0
+##  7 C07 - MADISON                   19                  0                0     0
+##  8 C08 - HALL                      16                  0                0     0
+##  9 C09 - BUFFALO                   26                  0                0     2
+## 10 C10 - PLATTE                    12                  0                0     2
+## # … with 1 more variable: Breast Cancer <dbl>
 ```
 
 
@@ -4457,8 +4457,8 @@ NOTE: One or more variables were converted because the data type is not
 NOTE: The import data set has 95 observations and 64 variables.
 NOTE: WORK.LICPLATE data set was successfully created.
 NOTE: PROCEDURE IMPORT used (Total process time):
-      real time           0.03 seconds
-      cpu time            0.04 seconds
+      real time           0.06 seconds
+      cpu time            0.06 seconds
       
 
 13         
@@ -4472,7 +4472,7 @@ NOTE: PROCEDURE IMPORT used (Total process time):
 NOTE: There were 10 observations read from the data set WORK.LICPLATE.
 NOTE: PROCEDURE PRINT used (Total process time):
       real time           0.00 seconds
-      cpu time            0.00 seconds
+      cpu time            0.01 seconds
       
 
 ERROR: Errors printed on page 23.
@@ -4642,7 +4642,7 @@ Let's read in the data from the 2009 National Household Travel Survey:
 NOTE: Libref CLASSDAT was successfully assigned as follows: 
       Engine:        V9 
       Physical Name: 
-      /home/susan/Projects/Class/unl-stat850/stat850-textbook/data
+      /home/susan/Projects/Class/unl-stat850/2020-stat850/data
 7          /* this tells SAS where to look for (a bunch of) data files */
 8          
 9          proc contents data=classdat.cen10pub; /* This tells sas to
@@ -4654,7 +4654,7 @@ NOTE: Data file CLASSDAT.CEN10PUB.DATA is in a format that is native to
 10         run;
 
 NOTE: PROCEDURE CONTENTS used (Total process time):
-      real time           0.06 seconds
+      real time           0.01 seconds
       cpu time            0.02 seconds
       
 
@@ -4779,7 +4779,7 @@ ERROR: Errors printed on page 23.
 </tr>
 <tr>
 <th class="l rowheader" scope="row">Filename</th>
-<td class="l data">/home/susan/Projects/Class/unl-stat850/stat850-textbook/data/cen10pub.sas7bdat</td>
+<td class="l data">/home/susan/Projects/Class/unl-stat850/2020-stat850/data/cen10pub.sas7bdat</td>
 </tr>
 <tr>
 <th class="l rowheader" scope="row">Release Created</th>
@@ -4791,7 +4791,7 @@ ERROR: Errors printed on page 23.
 </tr>
 <tr>
 <th class="l rowheader" scope="row">Inode Number</th>
-<td class="l data">39064453</td>
+<td class="l data">39985763</td>
 </tr>
 <tr>
 <th class="l rowheader" scope="row">Access Permission</th>
@@ -4931,13 +4931,13 @@ if (!"sas7bdat" %in% installed.packages()) install.packages("sas7bdat")
 library(sas7bdat)
 data <- read.sas7bdat("https://github.com/srvanderplas/unl-stat850/raw/master/data/cen10pub.sas7bdat")
 head(data)
-   HOUSEID HH_CBSA10 RAIL10 CBSASIZE10 CBSACAT10 URBAN10 URBSIZE10 URBRUR10
-1 20000017     XXXXX     02         02        03      04        06       02
-2 20000231     XXXXX     02         03        03      01        03       01
-3 20000521     XXXXX     02         03        03      01        03       01
-4 20001283     35620     01         05        01      01        05       01
-5 20001603        -1     02         06        04      04        06       02
-6 20001649     XXXXX     02         03        03      01        02       01
+##    HOUSEID HH_CBSA10 RAIL10 CBSASIZE10 CBSACAT10 URBAN10 URBSIZE10 URBRUR10
+## 1 20000017     XXXXX     02         02        03      04        06       02
+## 2 20000231     XXXXX     02         03        03      01        03       01
+## 3 20000521     XXXXX     02         03        03      01        03       01
+## 4 20001283     35620     01         05        01      01        05       01
+## 5 20001603        -1     02         06        04      04        06       02
+## 6 20001649     XXXXX     02         03        03      01        02       01
 ```
 If you are curious about what this data means, then by all means, take a look at the [codebook](https://github.com/srvanderplas/unl-stat850/raw/master/data/cen10_codebook.xlsx) (XLSX file). For now, it's enough that we can see roughly how it's structured.
 
@@ -4950,15 +4950,15 @@ There are [theoretically ways to read R data into SAS via the R subsystem](https
 
 ```r
 legos <- read_csv("data/lego_sets.csv")
-
-── Column specification ────────────────────────────────────────────────────────
-cols(
-  set_num = col_character(),
-  name = col_character(),
-  year = col_double(),
-  theme_id = col_double(),
-  num_parts = col_double()
-)
+## 
+## ── Column specification ────────────────────────────────────────────────────────
+## cols(
+##   set_num = col_character(),
+##   name = col_character(),
+##   year = col_double(),
+##   theme_id = col_double(),
+##   num_parts = col_double()
+## )
 my_var <- "This variable contains a string"
 save(legos, my_var, file = "data/R_binary.Rdata")
 ```
@@ -4973,24 +4973,23 @@ If we look at the file sizes of `lego_sets.csv` (619 KB) and `R_binary.Rdata`(22
 rm(legos, my_var) # clear the files out
 
 ls() # all objects in the working environment
- [1] "alert"              "breaks"             "data"              
- [4] "mesodata"           "mesodata_names"     "ne_plates"         
- [7] "nebraska_locations" "path"               "pokemon_info"      
-[10] "police_violence"    "sasexe"             "sasopts"           
-[13] "tmp"                "tmp_ascii"          "tmp_chars"         
-[16] "tmp_chars_space"    "tmp_space"          "url"               
-[19] "widths"            
+##  [1] "breaks"             "data"               "mesodata"          
+##  [4] "mesodata_names"     "ne_plates"          "nebraska_locations"
+##  [7] "path"               "pokemon_info"       "police_violence"   
+## [10] "sasexe"             "sasopts"            "tmp"               
+## [13] "tmp_ascii"          "tmp_chars"          "tmp_chars_space"   
+## [16] "tmp_space"          "url"                "widths"
 
 load("data/R_binary.Rdata")
 
 ls() # all objects in the working environment
- [1] "alert"              "breaks"             "data"              
- [4] "legos"              "mesodata"           "mesodata_names"    
- [7] "my_var"             "ne_plates"          "nebraska_locations"
-[10] "path"               "pokemon_info"       "police_violence"   
-[13] "sasexe"             "sasopts"            "tmp"               
-[16] "tmp_ascii"          "tmp_chars"          "tmp_chars_space"   
-[19] "tmp_space"          "url"                "widths"            
+##  [1] "breaks"             "data"               "legos"             
+##  [4] "mesodata"           "mesodata_names"     "my_var"            
+##  [7] "ne_plates"          "nebraska_locations" "path"              
+## [10] "pokemon_info"       "police_violence"    "sasexe"            
+## [13] "sasopts"            "tmp"                "tmp_ascii"         
+## [16] "tmp_chars"          "tmp_chars_space"    "tmp_space"         
+## [19] "url"                "widths"
 ```
 </details>
 
@@ -5037,9 +5036,9 @@ pv2 <- readRDS("data/04_Try_Binary2.rds")
 load("data/04_Try_Binary.Rdata")
 
 all.equal(police_violence, pv1)
-[1] TRUE
+## [1] TRUE
 all.equal(police_violence2, pv2)
-[1] TRUE
+## [1] TRUE
 ```
 
 </details>
@@ -5063,60 +5062,60 @@ In R, we can read in MS Access files using the `Hmisc` package, as long as the m
 ```r
 if (!"Hmisc" %in% installed.packages()) install.packages("Hmisc")
 library(Hmisc)
-Loading required package: lattice
-Loading required package: survival
-Loading required package: Formula
-Loading required package: ggplot2
-
-Attaching package: 'Hmisc'
-The following objects are masked from 'package:dplyr':
-
-    src, summarize
-The following objects are masked from 'package:base':
-
-    format.pval, units
+## Loading required package: lattice
+## Loading required package: survival
+## Loading required package: Formula
+## Loading required package: ggplot2
+## 
+## Attaching package: 'Hmisc'
+## The following objects are masked from 'package:dplyr':
+## 
+##     src, summarize
+## The following objects are masked from 'package:base':
+## 
+##     format.pval, units
 db_loc <- "data/Witchcraftsurvey_download.mdb"
 
 mdb.get(db_loc, tables = TRUE) # get table list
- [1] "WDB_Accused"             "WDB_Accused_family"     
- [3] "WDB_Appeal"              "WDB_CalendarCustom"     
- [5] "WDB_Case"                "WDB_Case_person"        
- [7] "WDB_Commission"          "WDB_Complaint"          
- [9] "WDB_Confession"          "WDB_CounterStrategy"    
-[11] "WDB_DemonicPact"         "WDB_Denunciation"       
-[13] "WDB_DevilAppearance"     "WDB_Elf_FairyElements"  
-[15] "WDB_Imprisonment"        "WDB_LinkedTrial"        
-[17] "WDB_Malice"              "WDB_MentionedAsWitch"   
-[19] "WDB_MovestoHLA"          "WDB_MusicalInstrument"  
-[21] "WDB_Ordeal"              "WDB_OtherCharges"       
-[23] "WDB_OtherNamedwitch"     "WDB_Person"             
-[25] "WDB_PrevCommission"      "WDB_PropertyDamage"     
-[27] "WDB_Ref_Parish"          "WDB_Reference"          
-[29] "WDB_ReligiousMotif"      "WDB_RitualObject"       
-[31] "WDB_ShapeChanging"       "WDB_Source"             
-[33] "WDB_Torture"             "WDB_Trial"              
-[35] "WDB_Trial_Person"        "WDB_WeatherModification"
-[37] "WDB_WhiteMagic"          "WDB_WitchesMeetingPlace"
+##  [1] "WDB_Accused"             "WDB_Accused_family"     
+##  [3] "WDB_Appeal"              "WDB_CalendarCustom"     
+##  [5] "WDB_Case"                "WDB_Case_person"        
+##  [7] "WDB_Commission"          "WDB_Complaint"          
+##  [9] "WDB_Confession"          "WDB_CounterStrategy"    
+## [11] "WDB_DemonicPact"         "WDB_Denunciation"       
+## [13] "WDB_DevilAppearance"     "WDB_Elf_FairyElements"  
+## [15] "WDB_Imprisonment"        "WDB_LinkedTrial"        
+## [17] "WDB_Malice"              "WDB_MentionedAsWitch"   
+## [19] "WDB_MovestoHLA"          "WDB_MusicalInstrument"  
+## [21] "WDB_Ordeal"              "WDB_OtherCharges"       
+## [23] "WDB_OtherNamedwitch"     "WDB_Person"             
+## [25] "WDB_PrevCommission"      "WDB_PropertyDamage"     
+## [27] "WDB_Ref_Parish"          "WDB_Reference"          
+## [29] "WDB_ReligiousMotif"      "WDB_RitualObject"       
+## [31] "WDB_ShapeChanging"       "WDB_Source"             
+## [33] "WDB_Torture"             "WDB_Trial"              
+## [35] "WDB_Trial_Person"        "WDB_WeatherModification"
+## [37] "WDB_WhiteMagic"          "WDB_WitchesMeetingPlace"
 mdb.get(db_loc, tables = "WDB_Trial")[1:6,1:10] # get table of trials, print first 6 rows and 10 cols
-   Trialref TrialId TrialSystemId    CaseRef TrialType Trial.settlement
-1    T/JO/1       1            JO C/EGD/2120         2                 
-2  T/JO/100     100            JO  C/JO/2669         2                 
-3 T/JO/1000    1000            JO C/EGD/1474         2                 
-4 T/JO/1001    1001            JO C/EGD/1558         2                 
-5 T/JO/1002    1002            JO C/EGD/1681         2                 
-6 T/JO/1003    1003            JO C/EGD/1680         2                 
-  Trial.parish Trial.presbytery Trial.county Trial.burgh
-1                      Aberdeen     Aberdeen    Aberdeen
-2                                                       
-3                                                       
-4                                                       
-5                                                       
-6                                                       
+##    Trialref TrialId TrialSystemId    CaseRef TrialType Trial.settlement
+## 1    T/JO/1       1            JO C/EGD/2120         2                 
+## 2  T/JO/100     100            JO  C/JO/2669         2                 
+## 3 T/JO/1000    1000            JO C/EGD/1474         2                 
+## 4 T/JO/1001    1001            JO C/EGD/1558         2                 
+## 5 T/JO/1002    1002            JO C/EGD/1681         2                 
+## 6 T/JO/1003    1003            JO C/EGD/1680         2                 
+##   Trial.parish Trial.presbytery Trial.county Trial.burgh
+## 1                      Aberdeen     Aberdeen    Aberdeen
+## 2                                                       
+## 3                                                       
+## 4                                                       
+## 5                                                       
+## 6
 ```
 Many databases have multiple tables with **keys** that connect information in each table. We'll spend more time on databases later in the semester - for now, it's enough to be able to get data out of one. 
 
 
-Unfortunately, it appears that SAS on Linux doesn't allow you to read in Access files. So I can't demonstrate that for you. But, since you know how to do it in R, worst case you can open up R and export all of the tables to separate CSV files, then read those into SAS. 😭
+Unfortunately, it appears that SAS on Linux doesn't allow you to read in Access files. So I can't demonstrate that for you. But, since you know how to do it in R, worst case you can open up R and export all of the tables to separate CSV files, then read those into SAS. 😿
 
 ### SQLite
 
@@ -5131,20 +5130,20 @@ library(RSQLite)
 library(DBI)
 con <- dbConnect(RSQLite::SQLite(), "data/ssa-babynames-for-2015.sqlite")
 dbListTables(con) # List all the tables
-[1] "babynames"
+## [1] "babynames"
 babyname <- dbReadTable(con, "babynames")
 head(babyname, 10) # show the first 10 obs
-   state year    name sex count rank_within_sex per_100k_within_sex
-1     AK 2015  Olivia   F    56               1              2367.9
-2     AK 2015    Liam   M    53               1              1590.6
-3     AK 2015    Emma   F    49               2              2071.9
-4     AK 2015    Noah   M    46               2              1380.6
-5     AK 2015  Aurora   F    46               3              1945.0
-6     AK 2015   James   M    45               3              1350.5
-7     AK 2015  Amelia   F    39               4              1649.0
-8     AK 2015     Ava   F    39               4              1649.0
-9     AK 2015 William   M    44               4              1320.5
-10    AK 2015  Oliver   M    41               5              1230.5
+##    state year    name sex count rank_within_sex per_100k_within_sex
+## 1     AK 2015  Olivia   F    56               1              2367.9
+## 2     AK 2015    Liam   M    53               1              1590.6
+## 3     AK 2015    Emma   F    49               2              2071.9
+## 4     AK 2015    Noah   M    46               2              1380.6
+## 5     AK 2015  Aurora   F    46               3              1945.0
+## 6     AK 2015   James   M    45               3              1350.5
+## 7     AK 2015  Amelia   F    39               4              1649.0
+## 8     AK 2015     Ava   F    39               4              1649.0
+## 9     AK 2015 William   M    44               4              1320.5
+## 10    AK 2015  Oliver   M    41               5              1230.5
 ```
 </details>
 
@@ -5173,12 +5172,12 @@ Database = data/ssa-babynames-for-2015.sqlite
 9          
 10         libname mydata odbc complete =
 10       ! XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX;
-ERROR: CLI error trying to establish connection: [unixODBC][Driver 
-       Manager]Can't open lib 'libsqlite3odbc.so' : file not found
-ERROR: Error in the LIBNAME statement.
+NOTE: Libref MYDATA was successfully assigned as follows: 
+      Engine:        ODBC 
+      Physical Name: babyname
 11         
 12         proc print data=mydata.babynames (obs=10);
-ERROR: Libref MYDATA is not assigned.
+ERROR: File MYDATA.babynames.DATA does not exist.
 13         run;
 
 NOTE: The SAS System stopped processing this step because of errors.
@@ -5219,7 +5218,7 @@ This can help you to see whether there is missing information. Using those frequ
 NOTE: Libref CLASSDAT was successfully assigned as follows: 
       Engine:        V9 
       Physical Name: 
-      /home/susan/Projects/Class/unl-stat850/stat850-textbook/sas
+      /home/susan/Projects/Class/unl-stat850/2020-stat850/sas
 7          
 8          ODS GRAPHICS ON;
 
@@ -5230,8 +5229,8 @@ NOTE: Libref CLASSDAT was successfully assigned as follows:
 
 NOTE: There were 1028 observations read from the data set CLASSDAT.POKE.
 NOTE: PROCEDURE FREQ used (Total process time):
-      real time           2.23 seconds
-      cpu time            0.07 seconds
+      real time           3.32 seconds
+      cpu time            0.12 seconds
       
 
 12         PROC FREQ DATA=classdat.poke ORDER=FREQ;
@@ -5243,8 +5242,8 @@ NOTE: MAXLEVELS=10 is greater than or equal to the total number of levels,
       4. The table of status displays all levels.
 NOTE: There were 1028 observations read from the data set CLASSDAT.POKE.
 NOTE: PROCEDURE FREQ used (Total process time):
-      real time           0.16 seconds
-      cpu time            0.04 seconds
+      real time           0.47 seconds
+      cpu time            0.12 seconds
       
 
 15         ODS GRAPHICS OFF;
@@ -5575,15 +5574,15 @@ Proc Means can be used to get more useful summary statistics for numeric variabl
 NOTE: Libref CLASSDAT was successfully assigned as follows: 
       Engine:        V9 
       Physical Name: 
-      /home/susan/Projects/Class/unl-stat850/stat850-textbook/sas
+      /home/susan/Projects/Class/unl-stat850/2020-stat850/sas
 7          
 8          PROC MEANS DATA = classdat.poke;
 9          run;
 
 NOTE: There were 1028 observations read from the data set CLASSDAT.POKE.
 NOTE: PROCEDURE MEANS used (Total process time):
-      real time           0.02 seconds
-      cpu time            0.02 seconds
+      real time           0.03 seconds
+      cpu time            0.03 seconds
       
 
 10         
@@ -5593,8 +5592,8 @@ NOTE: PROCEDURE MEANS used (Total process time):
 
 NOTE: There were 1028 observations read from the data set CLASSDAT.POKE.
 NOTE: PROCEDURE MEANS used (Total process time):
-      real time           0.03 seconds
-      cpu time            0.04 seconds
+      real time           0.06 seconds
+      cpu time            0.07 seconds
       
 
 ERROR: Errors printed on pages 23,25.
@@ -9090,7 +9089,7 @@ You can also get histograms for variables, even specifying distributions you'd l
 NOTE: Libref CLASSDAT was successfully assigned as follows: 
       Engine:        V9 
       Physical Name: 
-      /home/susan/Projects/Class/unl-stat850/stat850-textbook/sas
+      /home/susan/Projects/Class/unl-stat850/2020-stat850/sas
 7          
 8          ODS GRAPHICS ON;
 9          PROC UNIVARIATE DATA = classdat.poke;
@@ -9099,8 +9098,8 @@ NOTE: Libref CLASSDAT was successfully assigned as follows:
 12         RUN;
 
 NOTE: PROCEDURE UNIVARIATE used (Total process time):
-      real time           0.32 seconds
-      cpu time            0.15 seconds
+      real time           0.77 seconds
+      cpu time            0.38 seconds
       
 
 13         ODS GRAPHICS OFF;
@@ -10594,7 +10593,7 @@ ERROR: Errors printed on pages 23,25.
 NOTE: Libref CLASSDAT was successfully assigned as follows: 
       Engine:        V9 
       Physical Name: 
-      /home/susan/Projects/Class/unl-stat850/stat850-textbook/sas
+      /home/susan/Projects/Class/unl-stat850/2020-stat850/sas
 7          
 8          ODS GRAPHICS ON;
 9          PROC CORR DATA = classdat.poke PLOTS(
@@ -10603,8 +10602,8 @@ NOTE: Libref CLASSDAT was successfully assigned as follows:
 11         RUN;
 
 NOTE: PROCEDURE CORR used (Total process time):
-      real time           0.41 seconds
-      cpu time            0.05 seconds
+      real time           1.07 seconds
+      cpu time            0.14 seconds
       
 
 12         ODS GRAPHICS OFF;
@@ -10987,7 +10986,7 @@ It is useful to memorize the SAS PROC options you use most frequently, but it's 
 NOTE: Libref CLASSDAT was successfully assigned as follows: 
       Engine:        V9 
       Physical Name: 
-      /home/susan/Projects/Class/unl-stat850/stat850-textbook/sas
+      /home/susan/Projects/Class/unl-stat850/2020-stat850/sas
 7          
 8          ODS GRAPHICS ON;
 9          PROC CONTENTS DATA = classdat.police; /* see what's in the
@@ -10996,7 +10995,7 @@ NOTE: Libref CLASSDAT was successfully assigned as follows:
 
 NOTE: PROCEDURE CONTENTS used (Total process time):
       real time           0.01 seconds
-      cpu time            0.01 seconds
+      cpu time            0.02 seconds
       
 
 11         
@@ -11017,8 +11016,8 @@ NOTE: MAXLEVELS=10 is greater than or equal to the total number of levels,
       4. The table of Geography__via_Trulia_methodolog displays all levels.
 NOTE: There were 7663 observations read from the data set CLASSDAT.POLICE.
 NOTE: PROCEDURE FREQ used (Total process time):
-      real time           0.01 seconds
-      cpu time            0.01 seconds
+      real time           0.03 seconds
+      cpu time            0.04 seconds
       
 
 16         
@@ -11030,8 +11029,8 @@ NOTE: PROCEDURE FREQ used (Total process time):
 
 NOTE: There were 7663 observations read from the data set CLASSDAT.POLICE.
 NOTE: PROCEDURE FREQ used (Total process time):
-      real time           0.02 seconds
-      cpu time            0.03 seconds
+      real time           0.16 seconds
+      cpu time            0.15 seconds
       
 
 20         
@@ -11042,8 +11041,8 @@ NOTE: PROCEDURE FREQ used (Total process time):
 
 NOTE: There were 7663 observations read from the data set CLASSDAT.POLICE.
 NOTE: PROCEDURE MEANS used (Total process time):
-      real time           0.00 seconds
-      cpu time            0.01 seconds
+      real time           0.02 seconds
+      cpu time            0.02 seconds
       
 
 24         
@@ -11053,8 +11052,8 @@ NOTE: PROCEDURE MEANS used (Total process time):
 27         RUN;
 
 NOTE: PROCEDURE UNIVARIATE used (Total process time):
-      real time           0.17 seconds
-      cpu time            0.08 seconds
+      real time           0.39 seconds
+      cpu time            0.21 seconds
       
 
 28         ODS GRAPHICS OFF;
@@ -11094,13 +11093,13 @@ ERROR: Errors printed on pages 23,25.
 </tr>
 <tr>
 <th class="l rowheader" scope="row">Created</th>
-<td class="l data">05/06/2021 12:24:09</td>
+<td class="l data">05/09/2021 10:42:50</td>
 <th class="l rowheader" scope="row">Observation Length</th>
 <td class="l data">896</td>
 </tr>
 <tr>
 <th class="l rowheader" scope="row">Last Modified</th>
-<td class="l data">05/06/2021 12:24:09</td>
+<td class="l data">05/09/2021 10:42:50</td>
 <th class="l rowheader" scope="row">Deleted Observations</th>
 <td class="l data">0</td>
 </tr>
@@ -11179,7 +11178,7 @@ ERROR: Errors printed on pages 23,25.
 </tr>
 <tr>
 <th class="l rowheader" scope="row">Filename</th>
-<td class="l data">/home/susan/Projects/Class/unl-stat850/stat850-textbook/sas/police.sas7bdat</td>
+<td class="l data">/home/susan/Projects/Class/unl-stat850/2020-stat850/sas/police.sas7bdat</td>
 </tr>
 <tr>
 <th class="l rowheader" scope="row">Release Created</th>
@@ -11191,7 +11190,7 @@ ERROR: Errors printed on pages 23,25.
 </tr>
 <tr>
 <th class="l rowheader" scope="row">Inode Number</th>
-<td class="l data">39068025</td>
+<td class="l data">40408714</td>
 </tr>
 <tr>
 <th class="l rowheader" scope="row">Access Permission</th>
@@ -14156,136 +14155,136 @@ For numeric variables, `summary` provides 5-number summaries plus the mean. For 
 library(readr)
 url <- "https://raw.githubusercontent.com/shahinrostami/pokemon_dataset/master/pokemon_gen_1_to_8.csv"
 poke <- read_csv(url)
-Warning: Missing column names filled in: 'X1' [1]
-
-── Column specification ────────────────────────────────────────────────────────
-cols(
-  .default = col_double(),
-  name = col_character(),
-  german_name = col_character(),
-  japanese_name = col_character(),
-  status = col_character(),
-  species = col_character(),
-  type_1 = col_character(),
-  type_2 = col_character(),
-  ability_1 = col_character(),
-  ability_2 = col_character(),
-  ability_hidden = col_character(),
-  growth_rate = col_character(),
-  egg_type_1 = col_character(),
-  egg_type_2 = col_character()
-)
-ℹ Use `spec()` for the full column specifications.
+## Warning: Missing column names filled in: 'X1' [1]
+## 
+## ── Column specification ────────────────────────────────────────────────────────
+## cols(
+##   .default = col_double(),
+##   name = col_character(),
+##   german_name = col_character(),
+##   japanese_name = col_character(),
+##   status = col_character(),
+##   species = col_character(),
+##   type_1 = col_character(),
+##   type_2 = col_character(),
+##   ability_1 = col_character(),
+##   ability_2 = col_character(),
+##   ability_hidden = col_character(),
+##   growth_rate = col_character(),
+##   egg_type_1 = col_character(),
+##   egg_type_2 = col_character()
+## )
+## ℹ Use `spec()` for the full column specifications.
 
 # Make types into factors to demonstrate the difference
 poke$type_1 <- factor(poke$type_1)
 poke$type_2 <- factor(poke$type_2)
 
 summary(poke)
-       X1         pokedex_number      name           german_name       
- Min.   :   0.0   Min.   :  1.0   Length:1028        Length:1028       
- 1st Qu.: 256.8   1st Qu.:213.8   Class :character   Class :character  
- Median : 513.5   Median :433.5   Mode  :character   Mode  :character  
- Mean   : 513.5   Mean   :437.7                                        
- 3rd Qu.: 770.2   3rd Qu.:663.2                                        
- Max.   :1027.0   Max.   :890.0                                        
-                                                                       
- japanese_name        generation       status            species         
- Length:1028        Min.   :1.000   Length:1028        Length:1028       
- Class :character   1st Qu.:2.000   Class :character   Class :character  
- Mode  :character   Median :4.000   Mode  :character   Mode  :character  
-                    Mean   :4.034                                        
-                    3rd Qu.:6.000                                        
-                    Max.   :8.000                                        
-                                                                         
-  type_number        type_1        type_2       height_m         weight_kg     
- Min.   :1.000   Water  :134   Flying :109   Min.   :  0.100   Min.   :  0.10  
- 1st Qu.:1.000   Normal :115   Fairy  : 41   1st Qu.:  0.600   1st Qu.:  8.80  
- Median :2.000   Grass  : 91   Ground : 39   Median :  1.000   Median : 28.50  
- Mean   :1.527   Bug    : 81   Poison : 38   Mean   :  1.368   Mean   : 69.75  
- 3rd Qu.:2.000   Psychic: 76   Psychic: 38   3rd Qu.:  1.500   3rd Qu.: 69.10  
- Max.   :2.000   Fire   : 65   (Other):277   Max.   :100.000   Max.   :999.90  
-                 (Other):466   NA's   :486                     NA's   :1       
- abilities_number  ability_1          ability_2         ability_hidden    
- Min.   :0.000    Length:1028        Length:1028        Length:1028       
- 1st Qu.:2.000    Class :character   Class :character   Class :character  
- Median :2.000    Mode  :character   Mode  :character   Mode  :character  
- Mean   :2.284                                                            
- 3rd Qu.:3.000                                                            
- Max.   :3.000                                                            
-                                                                          
-  total_points          hp             attack          defense      
- Min.   : 175.0   Min.   :  1.00   Min.   :  5.00   Min.   :  5.00  
- 1st Qu.: 330.0   1st Qu.: 50.00   1st Qu.: 55.00   1st Qu.: 50.00  
- Median : 455.0   Median : 66.50   Median : 76.00   Median : 70.00  
- Mean   : 437.6   Mean   : 69.58   Mean   : 80.12   Mean   : 74.48  
- 3rd Qu.: 510.0   3rd Qu.: 80.00   3rd Qu.:100.00   3rd Qu.: 90.00  
- Max.   :1125.0   Max.   :255.00   Max.   :190.00   Max.   :250.00  
-                                                                    
-   sp_attack        sp_defense         speed          catch_rate    
- Min.   : 10.00   Min.   : 20.00   Min.   :  5.00   Min.   :  3.00  
- 1st Qu.: 50.00   1st Qu.: 50.00   1st Qu.: 45.00   1st Qu.: 45.00  
- Median : 65.00   Median : 70.00   Median : 65.00   Median : 60.00  
- Mean   : 72.73   Mean   : 72.13   Mean   : 68.53   Mean   : 93.17  
- 3rd Qu.: 95.00   3rd Qu.: 90.00   3rd Qu.: 90.00   3rd Qu.:127.00  
- Max.   :194.00   Max.   :250.00   Max.   :180.00   Max.   :255.00  
-                                                    NA's   :104     
- base_friendship  base_experience growth_rate        egg_type_number
- Min.   :  0.00   Min.   : 36.0   Length:1028        Min.   :0.000  
- 1st Qu.: 70.00   1st Qu.: 67.0   Class :character   1st Qu.:1.000  
- Median : 70.00   Median :159.0   Mode  :character   Median :1.000  
- Mean   : 64.14   Mean   :153.8                      Mean   :1.271  
- 3rd Qu.: 70.00   3rd Qu.:201.5                      3rd Qu.:2.000  
- Max.   :140.00   Max.   :608.0                      Max.   :2.000  
- NA's   :104      NA's   :104                                       
-  egg_type_1         egg_type_2        percentage_male   egg_cycles    
- Length:1028        Length:1028        Min.   :  0     Min.   :  5.00  
- Class :character   Class :character   1st Qu.: 50     1st Qu.: 20.00  
- Mode  :character   Mode  :character   Median : 50     Median : 20.00  
-                                       Mean   : 55     Mean   : 30.32  
-                                       3rd Qu.: 50     3rd Qu.: 25.00  
-                                       Max.   :100     Max.   :120.00  
-                                       NA's   :236     NA's   :1       
- against_normal    against_fire   against_water   against_electric
- Min.   :0.0000   Min.   :0.000   Min.   :0.000   Min.   :0.000   
- 1st Qu.:1.0000   1st Qu.:0.500   1st Qu.:0.500   1st Qu.:0.500   
- Median :1.0000   Median :1.000   Median :1.000   Median :1.000   
- Mean   :0.8684   Mean   :1.125   Mean   :1.054   Mean   :1.034   
- 3rd Qu.:1.0000   3rd Qu.:2.000   3rd Qu.:1.000   3rd Qu.:1.000   
- Max.   :1.0000   Max.   :4.000   Max.   :4.000   Max.   :4.000   
-                                                                  
- against_grass    against_ice    against_fight   against_poison  
- Min.   :0.000   Min.   :0.000   Min.   :0.000   Min.   :0.0000  
- 1st Qu.:0.500   1st Qu.:0.500   1st Qu.:0.500   1st Qu.:0.5000  
- Median :1.000   Median :1.000   Median :1.000   Median :1.0000  
- Mean   :1.004   Mean   :1.196   Mean   :1.079   Mean   :0.9523  
- 3rd Qu.:1.000   3rd Qu.:2.000   3rd Qu.:2.000   3rd Qu.:1.0000  
- Max.   :4.000   Max.   :4.000   Max.   :4.000   Max.   :4.0000  
-                                                                 
- against_ground  against_flying  against_psychic   against_bug    
- Min.   :0.000   Min.   :0.250   Min.   :0.0000   Min.   :0.0000  
- 1st Qu.:0.500   1st Qu.:1.000   1st Qu.:1.0000   1st Qu.:0.5000  
- Median :1.000   Median :1.000   Median :1.0000   Median :1.0000  
- Mean   :1.085   Mean   :1.166   Mean   :0.9793   Mean   :0.9925  
- 3rd Qu.:1.625   3rd Qu.:1.000   3rd Qu.:1.0000   3rd Qu.:1.0000  
- Max.   :4.000   Max.   :4.000   Max.   :4.0000   Max.   :4.0000  
-                                                                  
-  against_rock  against_ghost   against_dragon    against_dark  
- Min.   :0.25   Min.   :0.000   Min.   :0.0000   Min.   :0.250  
- 1st Qu.:1.00   1st Qu.:1.000   1st Qu.:1.0000   1st Qu.:1.000  
- Median :1.00   Median :1.000   Median :1.0000   Median :1.000  
- Mean   :1.24   Mean   :1.011   Mean   :0.9757   Mean   :1.066  
- 3rd Qu.:2.00   3rd Qu.:1.000   3rd Qu.:1.0000   3rd Qu.:1.000  
- Max.   :4.00   Max.   :4.000   Max.   :2.0000   Max.   :4.000  
-                                                                
- against_steel    against_fairy  
- Min.   :0.0000   Min.   :0.000  
- 1st Qu.:0.5000   1st Qu.:1.000  
- Median :1.0000   Median :1.000  
- Mean   :0.9803   Mean   :1.085  
- 3rd Qu.:1.0000   3rd Qu.:1.000  
- Max.   :4.0000   Max.   :4.000  
-                                 
+##        X1         pokedex_number      name           german_name       
+##  Min.   :   0.0   Min.   :  1.0   Length:1028        Length:1028       
+##  1st Qu.: 256.8   1st Qu.:213.8   Class :character   Class :character  
+##  Median : 513.5   Median :433.5   Mode  :character   Mode  :character  
+##  Mean   : 513.5   Mean   :437.7                                        
+##  3rd Qu.: 770.2   3rd Qu.:663.2                                        
+##  Max.   :1027.0   Max.   :890.0                                        
+##                                                                        
+##  japanese_name        generation       status            species         
+##  Length:1028        Min.   :1.000   Length:1028        Length:1028       
+##  Class :character   1st Qu.:2.000   Class :character   Class :character  
+##  Mode  :character   Median :4.000   Mode  :character   Mode  :character  
+##                     Mean   :4.034                                        
+##                     3rd Qu.:6.000                                        
+##                     Max.   :8.000                                        
+##                                                                          
+##   type_number        type_1        type_2       height_m         weight_kg     
+##  Min.   :1.000   Water  :134   Flying :109   Min.   :  0.100   Min.   :  0.10  
+##  1st Qu.:1.000   Normal :115   Fairy  : 41   1st Qu.:  0.600   1st Qu.:  8.80  
+##  Median :2.000   Grass  : 91   Ground : 39   Median :  1.000   Median : 28.50  
+##  Mean   :1.527   Bug    : 81   Poison : 38   Mean   :  1.368   Mean   : 69.75  
+##  3rd Qu.:2.000   Psychic: 76   Psychic: 38   3rd Qu.:  1.500   3rd Qu.: 69.10  
+##  Max.   :2.000   Fire   : 65   (Other):277   Max.   :100.000   Max.   :999.90  
+##                  (Other):466   NA's   :486                     NA's   :1       
+##  abilities_number  ability_1          ability_2         ability_hidden    
+##  Min.   :0.000    Length:1028        Length:1028        Length:1028       
+##  1st Qu.:2.000    Class :character   Class :character   Class :character  
+##  Median :2.000    Mode  :character   Mode  :character   Mode  :character  
+##  Mean   :2.284                                                            
+##  3rd Qu.:3.000                                                            
+##  Max.   :3.000                                                            
+##                                                                           
+##   total_points          hp             attack          defense      
+##  Min.   : 175.0   Min.   :  1.00   Min.   :  5.00   Min.   :  5.00  
+##  1st Qu.: 330.0   1st Qu.: 50.00   1st Qu.: 55.00   1st Qu.: 50.00  
+##  Median : 455.0   Median : 66.50   Median : 76.00   Median : 70.00  
+##  Mean   : 437.6   Mean   : 69.58   Mean   : 80.12   Mean   : 74.48  
+##  3rd Qu.: 510.0   3rd Qu.: 80.00   3rd Qu.:100.00   3rd Qu.: 90.00  
+##  Max.   :1125.0   Max.   :255.00   Max.   :190.00   Max.   :250.00  
+##                                                                     
+##    sp_attack        sp_defense         speed          catch_rate    
+##  Min.   : 10.00   Min.   : 20.00   Min.   :  5.00   Min.   :  3.00  
+##  1st Qu.: 50.00   1st Qu.: 50.00   1st Qu.: 45.00   1st Qu.: 45.00  
+##  Median : 65.00   Median : 70.00   Median : 65.00   Median : 60.00  
+##  Mean   : 72.73   Mean   : 72.13   Mean   : 68.53   Mean   : 93.17  
+##  3rd Qu.: 95.00   3rd Qu.: 90.00   3rd Qu.: 90.00   3rd Qu.:127.00  
+##  Max.   :194.00   Max.   :250.00   Max.   :180.00   Max.   :255.00  
+##                                                     NA's   :104     
+##  base_friendship  base_experience growth_rate        egg_type_number
+##  Min.   :  0.00   Min.   : 36.0   Length:1028        Min.   :0.000  
+##  1st Qu.: 70.00   1st Qu.: 67.0   Class :character   1st Qu.:1.000  
+##  Median : 70.00   Median :159.0   Mode  :character   Median :1.000  
+##  Mean   : 64.14   Mean   :153.8                      Mean   :1.271  
+##  3rd Qu.: 70.00   3rd Qu.:201.5                      3rd Qu.:2.000  
+##  Max.   :140.00   Max.   :608.0                      Max.   :2.000  
+##  NA's   :104      NA's   :104                                       
+##   egg_type_1         egg_type_2        percentage_male   egg_cycles    
+##  Length:1028        Length:1028        Min.   :  0     Min.   :  5.00  
+##  Class :character   Class :character   1st Qu.: 50     1st Qu.: 20.00  
+##  Mode  :character   Mode  :character   Median : 50     Median : 20.00  
+##                                        Mean   : 55     Mean   : 30.32  
+##                                        3rd Qu.: 50     3rd Qu.: 25.00  
+##                                        Max.   :100     Max.   :120.00  
+##                                        NA's   :236     NA's   :1       
+##  against_normal    against_fire   against_water   against_electric
+##  Min.   :0.0000   Min.   :0.000   Min.   :0.000   Min.   :0.000   
+##  1st Qu.:1.0000   1st Qu.:0.500   1st Qu.:0.500   1st Qu.:0.500   
+##  Median :1.0000   Median :1.000   Median :1.000   Median :1.000   
+##  Mean   :0.8684   Mean   :1.125   Mean   :1.054   Mean   :1.034   
+##  3rd Qu.:1.0000   3rd Qu.:2.000   3rd Qu.:1.000   3rd Qu.:1.000   
+##  Max.   :1.0000   Max.   :4.000   Max.   :4.000   Max.   :4.000   
+##                                                                   
+##  against_grass    against_ice    against_fight   against_poison  
+##  Min.   :0.000   Min.   :0.000   Min.   :0.000   Min.   :0.0000  
+##  1st Qu.:0.500   1st Qu.:0.500   1st Qu.:0.500   1st Qu.:0.5000  
+##  Median :1.000   Median :1.000   Median :1.000   Median :1.0000  
+##  Mean   :1.004   Mean   :1.196   Mean   :1.079   Mean   :0.9523  
+##  3rd Qu.:1.000   3rd Qu.:2.000   3rd Qu.:2.000   3rd Qu.:1.0000  
+##  Max.   :4.000   Max.   :4.000   Max.   :4.000   Max.   :4.0000  
+##                                                                  
+##  against_ground  against_flying  against_psychic   against_bug    
+##  Min.   :0.000   Min.   :0.250   Min.   :0.0000   Min.   :0.0000  
+##  1st Qu.:0.500   1st Qu.:1.000   1st Qu.:1.0000   1st Qu.:0.5000  
+##  Median :1.000   Median :1.000   Median :1.0000   Median :1.0000  
+##  Mean   :1.085   Mean   :1.166   Mean   :0.9793   Mean   :0.9925  
+##  3rd Qu.:1.625   3rd Qu.:1.000   3rd Qu.:1.0000   3rd Qu.:1.0000  
+##  Max.   :4.000   Max.   :4.000   Max.   :4.0000   Max.   :4.0000  
+##                                                                   
+##   against_rock  against_ghost   against_dragon    against_dark  
+##  Min.   :0.25   Min.   :0.000   Min.   :0.0000   Min.   :0.250  
+##  1st Qu.:1.00   1st Qu.:1.000   1st Qu.:1.0000   1st Qu.:1.000  
+##  Median :1.00   Median :1.000   Median :1.0000   Median :1.000  
+##  Mean   :1.24   Mean   :1.011   Mean   :0.9757   Mean   :1.066  
+##  3rd Qu.:2.00   3rd Qu.:1.000   3rd Qu.:1.0000   3rd Qu.:1.000  
+##  Max.   :4.00   Max.   :4.000   Max.   :2.0000   Max.   :4.000  
+##                                                                 
+##  against_steel    against_fairy  
+##  Min.   :0.0000   Min.   :0.000  
+##  1st Qu.:0.5000   1st Qu.:1.000  
+##  Median :1.0000   Median :1.000  
+##  Mean   :0.9803   Mean   :1.085  
+##  3rd Qu.:1.0000   3rd Qu.:1.000  
+##  Max.   :4.0000   Max.   :4.000  
+## 
 ```
 </details>
 
@@ -14295,24 +14294,24 @@ There is one pokemon who appears to not have a weight specified. Let's investiga
 
 ```r
 poke[is.na(poke$weight_kg),] # Show any rows where weight.kg is NA
-# A tibble: 1 x 51
-     X1 pokedex_number name  german_name japanese_name generation status species
-  <dbl>          <dbl> <chr> <chr>       <chr>              <dbl> <chr>  <chr>  
-1  1027            890 Eter… <NA>        <NA>                   8 Legen… Gigant…
-# … with 43 more variables: type_number <dbl>, type_1 <fct>, type_2 <fct>,
-#   height_m <dbl>, weight_kg <dbl>, abilities_number <dbl>, ability_1 <chr>,
-#   ability_2 <chr>, ability_hidden <chr>, total_points <dbl>, hp <dbl>,
-#   attack <dbl>, defense <dbl>, sp_attack <dbl>, sp_defense <dbl>,
-#   speed <dbl>, catch_rate <dbl>, base_friendship <dbl>,
-#   base_experience <dbl>, growth_rate <chr>, egg_type_number <dbl>,
-#   egg_type_1 <chr>, egg_type_2 <chr>, percentage_male <dbl>,
-#   egg_cycles <dbl>, against_normal <dbl>, against_fire <dbl>,
-#   against_water <dbl>, against_electric <dbl>, against_grass <dbl>,
-#   against_ice <dbl>, against_fight <dbl>, against_poison <dbl>,
-#   against_ground <dbl>, against_flying <dbl>, against_psychic <dbl>,
-#   against_bug <dbl>, against_rock <dbl>, against_ghost <dbl>,
-#   against_dragon <dbl>, against_dark <dbl>, against_steel <dbl>,
-#   against_fairy <dbl>
+## # A tibble: 1 x 51
+##      X1 pokedex_number name  german_name japanese_name generation status species
+##   <dbl>          <dbl> <chr> <chr>       <chr>              <dbl> <chr>  <chr>  
+## 1  1027            890 Eter… <NA>        <NA>                   8 Legen… Gigant…
+## # … with 43 more variables: type_number <dbl>, type_1 <fct>, type_2 <fct>,
+## #   height_m <dbl>, weight_kg <dbl>, abilities_number <dbl>, ability_1 <chr>,
+## #   ability_2 <chr>, ability_hidden <chr>, total_points <dbl>, hp <dbl>,
+## #   attack <dbl>, defense <dbl>, sp_attack <dbl>, sp_defense <dbl>,
+## #   speed <dbl>, catch_rate <dbl>, base_friendship <dbl>,
+## #   base_experience <dbl>, growth_rate <chr>, egg_type_number <dbl>,
+## #   egg_type_1 <chr>, egg_type_2 <chr>, percentage_male <dbl>,
+## #   egg_cycles <dbl>, against_normal <dbl>, against_fire <dbl>,
+## #   against_water <dbl>, against_electric <dbl>, against_grass <dbl>,
+## #   against_ice <dbl>, against_fight <dbl>, against_poison <dbl>,
+## #   against_ground <dbl>, against_flying <dbl>, against_psychic <dbl>,
+## #   against_bug <dbl>, against_rock <dbl>, against_ghost <dbl>,
+## #   against_dragon <dbl>, against_dark <dbl>, against_steel <dbl>,
+## #   against_fairy <dbl>
 ```
 This is the last row of our data frame, and this pokemon appears to have many missing values. 
 </details>
@@ -14322,9 +14321,9 @@ We can generate cross-tabs for variables that we know are discrete (such as gene
 
 ```r
 table(poke$generation)
-
-  1   2   3   4   5   6   7   8 
-192 107 165 121 171  85  99  88 
+## 
+##   1   2   3   4   5   6   7   8 
+## 192 107 165 121 171  85  99  88
 plot(table(poke$generation)) # bar plot
 ```
 
@@ -14334,46 +14333,46 @@ plot(table(poke$generation)) # bar plot
 
 
 table(poke$type_1, poke$type_2)
-          
-           Bug Dark Dragon Electric Fairy Fighting Fire Flying Ghost Grass
-  Bug        0    0      0        4     2        4    2     14     1     6
-  Dark       0    0      4        0     3        2    3      5     2     0
-  Dragon     0    0      0        1     1        2    1      6     3     0
-  Electric   0    2      2        0     2        0    1      6     1     1
-  Fairy      0    0      0        0     0        0    0      2     0     0
-  Fighting   0    1      0        0     0        0    0      1     1     0
-  Fire       2    1      2        0     0        7    0      7     2     0
-  Flying     0    0      2        0     0        0    0      0     0     0
-  Ghost      0    1      2        0     1        0    3      3     0    11
-  Grass      0    3      5        0     5        3    0      7     1     0
-  Ground     0    3      2        1     0        0    1      4     4     0
-  Ice        2    0      0        0     1        0    1      2     1     0
-  Normal     0    0      1        0     5        4    0     27     0     2
-  Poison     1    5      4        0     1        2    2      3     0     0
-  Psychic    0    1      1        0     9        3    1      7     3     1
-  Rock       2    2      2        3     3        1    2      6     0     2
-  Steel      0    0      2        0     4        1    0      2     4     0
-  Water      2    7      3        2     4        3    0      7     2     3
-          
-           Ground Ice Normal Poison Psychic Rock Steel Water
-  Bug           2   0      0     12       2    3     7     3
-  Dark          0   2      5      0       2    0     2     0
-  Dragon        7   3      0      0       4    0     0     0
-  Electric      0   2      2      3       1    0     4     1
-  Fairy         0   0      0      0       0    0     1     0
-  Fighting      0   1      0      0       3    0     3     0
-  Fire          3   0      2      0       2    1     1     1
-  Flying        0   0      0      0       0    0     1     1
-  Ghost         2   0      0      4       0    0     0     0
-  Grass         1   3      0     15       2    0     3     0
-  Ground        0   0      0      0       2    3     4     0
-  Ice           3   0      0      0       2    0     2     3
-  Normal        1   0      0      0       3    0     0     1
-  Poison        2   0      0      0       0    0     0     3
-  Psychic       0   2      2      0       0    0     2     0
-  Rock          6   2      0      1       2    0     4     6
-  Steel         2   0      0      0       7    3     0     0
-  Water        10   4      0      3       6    5     1     0
+##           
+##            Bug Dark Dragon Electric Fairy Fighting Fire Flying Ghost Grass
+##   Bug        0    0      0        4     2        4    2     14     1     6
+##   Dark       0    0      4        0     3        2    3      5     2     0
+##   Dragon     0    0      0        1     1        2    1      6     3     0
+##   Electric   0    2      2        0     2        0    1      6     1     1
+##   Fairy      0    0      0        0     0        0    0      2     0     0
+##   Fighting   0    1      0        0     0        0    0      1     1     0
+##   Fire       2    1      2        0     0        7    0      7     2     0
+##   Flying     0    0      2        0     0        0    0      0     0     0
+##   Ghost      0    1      2        0     1        0    3      3     0    11
+##   Grass      0    3      5        0     5        3    0      7     1     0
+##   Ground     0    3      2        1     0        0    1      4     4     0
+##   Ice        2    0      0        0     1        0    1      2     1     0
+##   Normal     0    0      1        0     5        4    0     27     0     2
+##   Poison     1    5      4        0     1        2    2      3     0     0
+##   Psychic    0    1      1        0     9        3    1      7     3     1
+##   Rock       2    2      2        3     3        1    2      6     0     2
+##   Steel      0    0      2        0     4        1    0      2     4     0
+##   Water      2    7      3        2     4        3    0      7     2     3
+##           
+##            Ground Ice Normal Poison Psychic Rock Steel Water
+##   Bug           2   0      0     12       2    3     7     3
+##   Dark          0   2      5      0       2    0     2     0
+##   Dragon        7   3      0      0       4    0     0     0
+##   Electric      0   2      2      3       1    0     4     1
+##   Fairy         0   0      0      0       0    0     1     0
+##   Fighting      0   1      0      0       3    0     3     0
+##   Fire          3   0      2      0       2    1     1     1
+##   Flying        0   0      0      0       0    0     1     1
+##   Ghost         2   0      0      4       0    0     0     0
+##   Grass         1   3      0     15       2    0     3     0
+##   Ground        0   0      0      0       2    3     4     0
+##   Ice           3   0      0      0       2    0     2     3
+##   Normal        1   0      0      0       3    0     0     1
+##   Poison        2   0      0      0       0    0     0     3
+##   Psychic       0   2      2      0       0    0     2     0
+##   Rock          6   2      0      1       2    0     4     6
+##   Steel         2   0      0      0       7    3     0     0
+##   Water        10   4      0      3       6    5     1     0
 plot(table(poke$type_1, poke$type_2)) # mosaic plot - hard to read b/c too many categories
 ```
 
@@ -14465,7 +14464,7 @@ In the second boxplot, there are far too many categories to be able to resolve t
 plot(defense ~ attack, data = poke, type = "p")
 
 cor(poke$defense, poke$attack)
-[1] 0.4507656
+## [1] 0.4507656
 ```
 
 <img src="image/unnamed-chunk-2-1.png" width="48%" />
@@ -14502,121 +14501,121 @@ library(readxl)
 police_violence <- read_xlsx("data/police_violence.xlsx", sheet = 1, guess_max = 7000)
 
 police_violence$`Victim's age` <- as.numeric(police_violence$`Victim's age`)
-Warning: NAs introduced by coercion
+## Warning: NAs introduced by coercion
 
 summary(police_violence)
- Victim's name       Victim's age   Victim's gender    Victim's race     
- Length:7663        Min.   :  1.0   Length:7663        Length:7663       
- Class :character   1st Qu.: 27.0   Class :character   Class :character  
- Mode  :character   Median : 34.0   Mode  :character   Mode  :character  
-                    Mean   : 36.8                                        
-                    3rd Qu.: 45.0                                        
-                    Max.   :107.0                                        
-                    NA's   :206                                          
- URL of image of victim Date of Incident (month/day/year)
- Length:7663            Min.   :2013-01-01 00:00:00      
- Class :character       1st Qu.:2014-10-07 00:00:00      
- Mode  :character       Median :2016-07-07 00:00:00      
-                        Mean   :2016-07-06 23:33:18      
-                        3rd Qu.:2018-04-04 00:00:00      
-                        Max.   :2019-12-31 00:00:00      
-                                                         
- Street Address of Incident     City              State          
- Length:7663                Length:7663        Length:7663       
- Class :character           Class :character   Class :character  
- Mode  :character           Mode  :character   Mode  :character  
-                                                                 
-                                                                 
-                                                                 
-                                                                 
-   Zipcode             County          Agency responsible for death
- Length:7663        Length:7663        Length:7663                 
- Class :character   Class :character   Class :character            
- Mode  :character   Mode  :character   Mode  :character            
-                                                                   
-                                                                   
-                                                                   
-                                                                   
- Cause of death    
- Length:7663       
- Class :character  
- Mode  :character  
-                   
-                   
-                   
-                   
- A brief description of the circumstances surrounding the death
- Length:7663                                                   
- Class :character                                              
- Mode  :character                                              
-                                                               
-                                                               
-                                                               
-                                                               
- Official disposition of death (justified or other) Criminal Charges? 
- Length:7663                                        Length:7663       
- Class :character                                   Class :character  
- Mode  :character                                   Mode  :character  
-                                                                      
-                                                                      
-                                                                      
-                                                                      
- Link to news article or photo of official document Symptoms of mental illness?
- Length:7663                                        Length:7663                
- Class :character                                   Class :character           
- Mode  :character                                   Mode  :character           
-                                                                               
-                                                                               
-                                                                               
-                                                                               
-   Unarmed          Alleged Weapon (Source: WaPo)
- Length:7663        Length:7663                  
- Class :character   Class :character             
- Mode  :character   Mode  :character             
-                                                 
-                                                 
-                                                 
-                                                 
- Alleged Threat Level (Source: WaPo) Fleeing (Source: WaPo)
- Length:7663                         Length:7663           
- Class :character                    Class :character      
- Mode  :character                    Mode  :character      
-                                                           
-                                                           
-                                                           
-                                                           
- Body Camera (Source: WaPo) WaPo ID (If included in WaPo database)
- Length:7663                Min.   :   3                          
- Class :character           1st Qu.:1402                          
- Mode  :character           Median :2722                          
-                            Mean   :2724                          
-                            3rd Qu.:4051                          
-                            Max.   :5439                          
-                            NA's   :2785                          
- Off-Duty Killing? 
- Length:7663       
- Class :character  
- Mode  :character  
-                   
-                   
-                   
-                   
- Geography (via Trulia methodology based on zipcode population density: http://jedkolko.com/wp-content/uploads/2015/05/full-ZCTA-urban-suburban-rural-classification.xlsx )
- Length:7663                                                                                                                                                               
- Class :character                                                                                                                                                          
- Mode  :character                                                                                                                                                          
-                                                                                                                                                                           
-                                                                                                                                                                           
-                                                                                                                                                                           
-                                                                                                                                                                           
-       ID      
- Min.   :   1  
- 1st Qu.:1916  
- Median :3832  
- Mean   :3833  
- 3rd Qu.:5750  
- Max.   :7667  
-               
+##  Victim's name       Victim's age   Victim's gender    Victim's race     
+##  Length:7663        Min.   :  1.0   Length:7663        Length:7663       
+##  Class :character   1st Qu.: 27.0   Class :character   Class :character  
+##  Mode  :character   Median : 34.0   Mode  :character   Mode  :character  
+##                     Mean   : 36.8                                        
+##                     3rd Qu.: 45.0                                        
+##                     Max.   :107.0                                        
+##                     NA's   :206                                          
+##  URL of image of victim Date of Incident (month/day/year)
+##  Length:7663            Min.   :2013-01-01 00:00:00      
+##  Class :character       1st Qu.:2014-10-07 00:00:00      
+##  Mode  :character       Median :2016-07-07 00:00:00      
+##                         Mean   :2016-07-06 23:33:18      
+##                         3rd Qu.:2018-04-04 00:00:00      
+##                         Max.   :2019-12-31 00:00:00      
+##                                                          
+##  Street Address of Incident     City              State          
+##  Length:7663                Length:7663        Length:7663       
+##  Class :character           Class :character   Class :character  
+##  Mode  :character           Mode  :character   Mode  :character  
+##                                                                  
+##                                                                  
+##                                                                  
+##                                                                  
+##    Zipcode             County          Agency responsible for death
+##  Length:7663        Length:7663        Length:7663                 
+##  Class :character   Class :character   Class :character            
+##  Mode  :character   Mode  :character   Mode  :character            
+##                                                                    
+##                                                                    
+##                                                                    
+##                                                                    
+##  Cause of death    
+##  Length:7663       
+##  Class :character  
+##  Mode  :character  
+##                    
+##                    
+##                    
+##                    
+##  A brief description of the circumstances surrounding the death
+##  Length:7663                                                   
+##  Class :character                                              
+##  Mode  :character                                              
+##                                                                
+##                                                                
+##                                                                
+##                                                                
+##  Official disposition of death (justified or other) Criminal Charges? 
+##  Length:7663                                        Length:7663       
+##  Class :character                                   Class :character  
+##  Mode  :character                                   Mode  :character  
+##                                                                       
+##                                                                       
+##                                                                       
+##                                                                       
+##  Link to news article or photo of official document Symptoms of mental illness?
+##  Length:7663                                        Length:7663                
+##  Class :character                                   Class :character           
+##  Mode  :character                                   Mode  :character           
+##                                                                                
+##                                                                                
+##                                                                                
+##                                                                                
+##    Unarmed          Alleged Weapon (Source: WaPo)
+##  Length:7663        Length:7663                  
+##  Class :character   Class :character             
+##  Mode  :character   Mode  :character             
+##                                                  
+##                                                  
+##                                                  
+##                                                  
+##  Alleged Threat Level (Source: WaPo) Fleeing (Source: WaPo)
+##  Length:7663                         Length:7663           
+##  Class :character                    Class :character      
+##  Mode  :character                    Mode  :character      
+##                                                            
+##                                                            
+##                                                            
+##                                                            
+##  Body Camera (Source: WaPo) WaPo ID (If included in WaPo database)
+##  Length:7663                Min.   :   3                          
+##  Class :character           1st Qu.:1402                          
+##  Mode  :character           Median :2722                          
+##                             Mean   :2724                          
+##                             3rd Qu.:4051                          
+##                             Max.   :5439                          
+##                             NA's   :2785                          
+##  Off-Duty Killing? 
+##  Length:7663       
+##  Class :character  
+##  Mode  :character  
+##                    
+##                    
+##                    
+##                    
+##  Geography (via Trulia methodology based on zipcode population density: http://jedkolko.com/wp-content/uploads/2015/05/full-ZCTA-urban-suburban-rural-classification.xlsx )
+##  Length:7663                                                                                                                                                               
+##  Class :character                                                                                                                                                          
+##  Mode  :character                                                                                                                                                          
+##                                                                                                                                                                            
+##                                                                                                                                                                            
+##                                                                                                                                                                            
+##                                                                                                                                                                            
+##        ID      
+##  Min.   :   1  
+##  1st Qu.:1916  
+##  Median :3832  
+##  Mean   :3833  
+##  3rd Qu.:5750  
+##  Max.   :7667  
+## 
 ```
 
 Let's examine the numeric and date variables first:
@@ -14636,7 +14635,7 @@ hist(police_violence$`Victim's age`)
 library(ggplot2)
 ggplot(police_violence, aes(x = `Date of Incident (month/day/year)`)) + 
   geom_histogram()
-`stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
+## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
 ```
 
 <img src="image/police-violence-numeric-date-2.png" width="2100" />
@@ -14652,26 +14651,26 @@ Let's look at the victims' gender and race:
 
 ```r
 table(police_violence$`Victim's race`, useNA = 'ifany')
-
-           Asian            Black         Hispanic  Native American 
-             118             1944             1335              112 
-Pacific Islander     Unknown race     Unknown Race            White 
-              42              670               64             3378 
+## 
+##            Asian            Black         Hispanic  Native American 
+##              118             1944             1335              112 
+## Pacific Islander     Unknown race     Unknown Race            White 
+##               42              670               64             3378
 table(police_violence$`Victim's gender`)
-
-     Female        Male Transgender     Unknown 
-        391        7253           7           4 
+## 
+##      Female        Male Transgender     Unknown 
+##         391        7253           7           4
 table(police_violence$`Victim's race`, police_violence$`Victim's gender`)
-                  
-                   Female Male Transgender Unknown
-  Asian                 6  111           0       1
-  Black                69 1871           2       1
-  Hispanic             49 1283           1       0
-  Native American       7  104           0       0
-  Pacific Islander      2   40           0       0
-  Unknown race         33  632           1       2
-  Unknown Race          2   62           0       0
-  White               223 3150           3       0
+##                   
+##                    Female Male Transgender Unknown
+##   Asian                 6  111           0       1
+##   Black                69 1871           2       1
+##   Hispanic             49 1283           1       0
+##   Native American       7  104           0       0
+##   Pacific Islander      2   40           0       0
+##   Unknown race         33  632           1       2
+##   Unknown Race          2   62           0       0
+##   White               223 3150           3       0
 
 plot(table(police_violence$`Victim's race`, police_violence$`Victim's gender`),
      main = "Police Killing by Race, Gender")

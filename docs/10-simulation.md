@@ -35,15 +35,15 @@ set.seed(342512)
 
 # Get 10 numbers after the seed is set
 sample(1:100, 10)
- [1] 65 51 64 21 45 53  3  6 43  8
+##  [1] 65 51 64 21 45 53  3  6 43  8
 
 # Compute something else that depends on randomness
 mean(rnorm(50))
-[1] -0.1095366
+## [1] -0.1095366
 
 # Get 10 more numbers
 sample(1:100, 10)
- [1]  4 57 69 10 76 15 67  1  3 91
+##  [1]  4 57 69 10 76 15 67  1  3 91
 ```
 
 Compare the results above to these results:
@@ -54,15 +54,15 @@ set.seed(342512)
 
 # Get 10 numbers after the seed is set
 sample(1:100, 10)
- [1] 65 51 64 21 45 53  3  6 43  8
+##  [1] 65 51 64 21 45 53  3  6 43  8
 
 # Compute something else that depends on randomness
 mean(rnorm(30))
-[1] -0.1936645
+## [1] -0.1936645
 
 # Get 10 more numbers
 sample(1:100, 10)
- [1]  49  37   6  34   9   3 100  43   7  29
+##  [1]  49  37   6  34   9   3 100  43   7  29
 ```
 
 Notice how the results have changed? To make my documents more reproducible, I will sometimes set a new seed at the start of an important chunk, even if I've already set the seed earlier. This introduces certain "fixed points" where results won't change immediately after I've re-set the seed. This is particularly important when I'm generating bootstrap estimates, fitting models, or simulating data for graphics experiments.
@@ -80,20 +80,20 @@ You can see the various distribution options using `?Distributions`. In general,
 ```r
 library(tibble)
 library(dplyr)
-
-Attaching package: 'dplyr'
-The following objects are masked from 'package:stats':
-
-    filter, lag
-The following objects are masked from 'package:base':
-
-    intersect, setdiff, setequal, union
+## 
+## Attaching package: 'dplyr'
+## The following objects are masked from 'package:stats':
+## 
+##     filter, lag
+## The following objects are masked from 'package:base':
+## 
+##     intersect, setdiff, setequal, union
 library(tidyr)
-
-Attaching package: 'tidyr'
-The following object is masked from 'package:magrittr':
-
-    extract
+## 
+## Attaching package: 'tidyr'
+## The following object is masked from 'package:magrittr':
+## 
+##     extract
 library(ggplot2)
 set.seed(109025879)
 
@@ -166,24 +166,24 @@ data <- tibble(x = seq(-10, 10, .1),
                y = x + rnorm(length(x)))
 regression <- lm(y ~ x, data = data)
 summary(regression)
-
-Call:
-lm(formula = y ~ x, data = data)
-
-Residuals:
-     Min       1Q   Median       3Q      Max 
--3.14575 -0.70986  0.03186  0.65429  2.40305 
-
-Coefficients:
-            Estimate Std. Error t value Pr(>|t|)    
-(Intercept) -0.01876    0.06869  -0.273    0.785    
-x            0.99230    0.01184  83.823   <2e-16 ***
----
-Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
-
-Residual standard error: 0.9738 on 199 degrees of freedom
-Multiple R-squared:  0.9725,	Adjusted R-squared:  0.9723 
-F-statistic:  7026 on 1 and 199 DF,  p-value: < 2.2e-16
+## 
+## Call:
+## lm(formula = y ~ x, data = data)
+## 
+## Residuals:
+##      Min       1Q   Median       3Q      Max 
+## -3.14575 -0.70986  0.03186  0.65429  2.40305 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(>|t|)    
+## (Intercept) -0.01876    0.06869  -0.273    0.785    
+## x            0.99230    0.01184  83.823   <2e-16 ***
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 0.9738 on 199 degrees of freedom
+## Multiple R-squared:  0.9725,	Adjusted R-squared:  0.9723 
+## F-statistic:  7026 on 1 and 199 DF,  p-value: < 2.2e-16
 ```
 </details>
 <details><summary>In SAS</summary>
@@ -419,30 +419,30 @@ sim <- tibble(
   nest(data = c(x, ln_x))
   
 head(sim)
-# A tibble: 6 x 2
-     id data                 
-  <int> <list>               
-1     1 <tibble[,2] [25 × 2]>
-2     2 <tibble[,2] [25 × 2]>
-3     3 <tibble[,2] [25 × 2]>
-4     4 <tibble[,2] [25 × 2]>
-5     5 <tibble[,2] [25 × 2]>
-6     6 <tibble[,2] [25 × 2]>
+## # A tibble: 6 x 2
+##      id data             
+##   <int> <list>           
+## 1     1 <tibble [25 × 2]>
+## 2     2 <tibble [25 × 2]>
+## 3     3 <tibble [25 × 2]>
+## 4     4 <tibble [25 × 2]>
+## 5     5 <tibble [25 × 2]>
+## 6     6 <tibble [25 × 2]>
 sim$data[[1]]
-# A tibble: 25 x 2
-       x    ln_x
-   <dbl>   <dbl>
- 1 0.310 -1.17  
- 2 0.622 -0.475 
- 3 0.303 -1.19  
- 4 1.05   0.0525
- 5 0.529 -0.636 
- 6 1.09   0.0891
- 7 1.97   0.676 
- 8 8.94   2.19  
- 9 0.598 -0.514 
-10 0.183 -1.70  
-# … with 15 more rows
+## # A tibble: 25 x 2
+##        x    ln_x
+##    <dbl>   <dbl>
+##  1 0.310 -1.17  
+##  2 0.622 -0.475 
+##  3 0.303 -1.19  
+##  4 1.05   0.0525
+##  5 0.529 -0.636 
+##  6 1.09   0.0891
+##  7 1.97   0.676 
+##  8 8.94   2.19  
+##  9 0.598 -0.514 
+## 10 0.183 -1.70  
+## # … with 15 more rows
 ```
 
 
@@ -451,9 +451,9 @@ You want to assess the coverage probability of a confidence interval computed un
 1. Working with the log-transformed values, ln(x), and then transform the computed interval back
 2. Working with the raw values, x, compute an interval assuming the data are symmetric, essentially treating the lognormal distribution as if it were normal.
 
-Under scenario 1, our theoretical interval should be exp((-1.96/5, 1.96/5)) (because $\mu$ is 0, and $\sigma$ is 1, so $SE(\overline x) = 1/\sqrt{25} = 1/5$). $(0.676,1.48)$
+Under scenario 1, our theoretical interval should be exp((-1.96/5, 1.96/5)) (because $\mu$ is 0, and $\sigma$ is 1, so $SE(\overline x) = 1/\sqrt{25} = 1/5$). $(0.6757041,1.4799377)$
 
-Under scenario 2, the expected value of the lognormal distribution is $\exp(1/2) = 1.649$, the variance is $(\exp(1) - 1)(\exp(1)) = 4.671$ and our theoretical interval should be $(0.802, 2.496)$. This interval contains 0, which is implausible for lognormally distributed data. 
+Under scenario 2, the expected value of the lognormal distribution is $\exp(1/2) = 1.6487213$, the variance is $(\exp(1) - 1)(\exp(1)) = 4.6707743$ and our theoretical interval should be $(0.8015319, 2.4959107)$. This interval contains 0, which is implausible for lognormally distributed data. 
 
 Our expected values are different under scenario 1 and scenario 2: in scenario 1 we are computing an interval for $\mu$, in scenario 2, we are computing an interval for the population mean, which is $\exp(\mu + .5\sigma^2)$. Both are valid quantities we might be interested in, but they do not mean the same thing. 
 
@@ -531,15 +531,15 @@ sim_data <- tibble(
 )
 
 head(sim_data)
-# A tibble: 6 x 3
-     id     o data                 
-  <int> <int> <list>               
-1     1     0 <tibble[,2] [30 × 2]>
-2     2     0 <tibble[,2] [30 × 2]>
-3     3     0 <tibble[,2] [30 × 2]>
-4     4     0 <tibble[,2] [30 × 2]>
-5     5     0 <tibble[,2] [30 × 2]>
-6     6     0 <tibble[,2] [30 × 2]>
+## # A tibble: 6 x 3
+##      id     o data             
+##   <int> <int> <list>           
+## 1     1     0 <tibble [30 × 2]>
+## 2     2     0 <tibble [30 × 2]>
+## 3     3     0 <tibble [30 × 2]>
+## 4     4     0 <tibble [30 × 2]>
+## 5     5     0 <tibble [30 × 2]>
+## 6     6     0 <tibble [30 × 2]>
 
 # plot a few datasets just to check they look like we expect:
 sim_data %>%
@@ -710,10 +710,10 @@ dogtemp <- tibble(
 ) 
 dogtemp %>%
   summarize_all(mean)
-# A tibble: 1 x 2
-  actual  read
-   <dbl> <dbl>
-1   102.  102.
+## # A tibble: 1 x 2
+##   actual  read
+##    <dbl> <dbl>
+## 1   102.  102.
 ```
 The effect of the thermometer's censoring in both cases is around 0.06 degrees F. 
 </details>
@@ -758,7 +758,7 @@ set.seed(302497852)
 res <- tibble(k = replicate(1000, sim_fcn(), simplify = T))
 
 mean(res$k)
-[1] 2.717
+## [1] 2.717
 ```
 If we want to see whether the result converges to something, we can increase the number of trials we run:
 
@@ -799,7 +799,7 @@ fn <- function(x) exp(-x^3)
 sim_data <- tibble(x = runif(100000),
                    y = fn(x))
 mean(sim_data$y)
-[1] 0.8076082
+## [1] 0.8076082
 ```
 
 
@@ -898,10 +898,10 @@ needle_sim <- function(sticks = 100) {
 }
 
 needle_sim(10)
-$est
-[1] 2.8571429
-
-$plot
+## $est
+## [1] 2.8571429
+## 
+## $plot
 ```
 
 <img src="image/unnamed-chunk-15-1.png" width="2100" />
@@ -909,10 +909,10 @@ $plot
 ```r
 
 needle_sim(100)
-$est
-[1] 2.8985507
-
-$plot
+## $est
+## [1] 2.8985507
+## 
+## $plot
 ```
 
 <img src="image/unnamed-chunk-15-2.png" width="2100" />
@@ -920,10 +920,10 @@ $plot
 ```r
 
 needle_sim(1000)
-$est
-[1] 3.1298905
-
-$plot
+## $est
+## [1] 3.1298905
+## 
+## $plot
 ```
 
 <img src="image/unnamed-chunk-15-3.png" width="2100" />
@@ -931,10 +931,10 @@ $plot
 ```r
 
 needle_sim(10000)
-$est
-[1] 3.1235358
-
-$plot
+## $est
+## [1] 3.1235358
+## 
+## $plot
 ```
 
 <img src="image/unnamed-chunk-15-4.png" width="2100" />

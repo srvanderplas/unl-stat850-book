@@ -17,33 +17,33 @@ A **vector** is a 1-dimensional R data structure that contains items of the same
 
 ```r
 (logical_vec <- c(T, F, T, T))
-[1]  TRUE FALSE  TRUE  TRUE
+## [1]  TRUE FALSE  TRUE  TRUE
 (numeric_vec <- c(3, 1, 4, 5))
-[1] 3 1 4 5
+## [1] 3 1 4 5
 (char_vec <- c("A", "AB", "ABC", "ABCD"))
-[1] "A"    "AB"   "ABC"  "ABCD"
+## [1] "A"    "AB"   "ABC"  "ABCD"
 ```
 
 You **index** a vector using brackets: to get the 3rd element of the vector `x`, you would use `x[3]`.
 
 ```r
 logical_vec[3]
-[1] TRUE
+## [1] TRUE
 numeric_vec[3]
-[1] 4
+## [1] 4
 char_vec[3]
-[1] "ABC"
+## [1] "ABC"
 ```
 
 You can also index a vector using a logical vector:
 
 ```r
 numeric_vec[logical_vec]
-[1] 3 4 5
+## [1] 3 4 5
 char_vec[logical_vec]
-[1] "A"    "ABC"  "ABCD"
+## [1] "A"    "ABC"  "ABCD"
 logical_vec[logical_vec]
-[1] TRUE TRUE TRUE
+## [1] TRUE TRUE TRUE
 ```
 
 
@@ -52,14 +52,14 @@ A **list** is a 1-dimensional R data structure that has no restrictions on what 
 
 ```r
 (mylist <- list(logical_vec, numeric_vec, third_thing = char_vec[1:2]))
-[[1]]
-[1]  TRUE FALSE  TRUE  TRUE
-
-[[2]]
-[1] 3 1 4 5
-
-$third_thing
-[1] "A"  "AB"
+## [[1]]
+## [1]  TRUE FALSE  TRUE  TRUE
+## 
+## [[2]]
+## [1] 3 1 4 5
+## 
+## $third_thing
+## [1] "A"  "AB"
 ```
 
 A list is a vector, but it is not an atomic vector - that is, it does not necessarily contain things that are all the same type. List components may have names (or not), be homogeneous (or not), have the same length (or not). 
@@ -71,36 +71,36 @@ There are 3 ways to index a list:
 
 ```r
 mylist[1]
-[[1]]
-[1]  TRUE FALSE  TRUE  TRUE
+## [[1]]
+## [1]  TRUE FALSE  TRUE  TRUE
 
 mylist[2]
-[[1]]
-[1] 3 1 4 5
+## [[1]]
+## [1] 3 1 4 5
 
 mylist[c(T, F, T)]
-[[1]]
-[1]  TRUE FALSE  TRUE  TRUE
-
-$third_thing
-[1] "A"  "AB"
+## [[1]]
+## [1]  TRUE FALSE  TRUE  TRUE
+## 
+## $third_thing
+## [1] "A"  "AB"
 ```
 - With double square brackets. In this case, the return value is the thing inside the specified position in the list, but you also can only get one entry in the main list at a time. You can also get things by name.
 
 
 ```r
 mylist[[1]]
-[1]  TRUE FALSE  TRUE  TRUE
+## [1]  TRUE FALSE  TRUE  TRUE
 
 mylist[["third_thing"]]
-[1] "A"  "AB"
+## [1] "A"  "AB"
 ```
 - Using `x$name`. This is equivalent to using `x[["name"]]`. Note that this does not work on unnamed entries in the list.
 
 
 ```r
 mylist$third_thing
-[1] "A"  "AB"
+## [1] "A"  "AB"
 ```
 
 ::: learn-more
@@ -112,8 +112,8 @@ Operations in R are **vectorized** - that is, by default, they operate on vector
 
 ```r
 (rnorm(10) + rnorm(10, mean = 3))
- [1] 1.1336777 1.7114025 0.6687748 6.3158537 1.2916852 4.3396155 1.8819082
- [8] 3.1377086 1.8833287 4.9366963
+##  [1] 2.172953 2.129084 2.265086 5.978046 5.472891 4.402667 2.468631 2.763687
+##  [9] 4.506722 1.036752
 ```
 
 We didn't have to use a for loop to add these two vectors with 10 entries each together. In python (and SAS, and other languages), this might instead look like:
@@ -127,8 +127,8 @@ for(i in 1:10) {
   result[i] <- a[i] + b[i]
 }
 result
- [1] 5.088881 3.594083 2.975052 2.035523 4.754911 2.662893 3.433084 3.733120
- [9] 3.719182 3.373924
+##  [1] 4.520750 1.497100 4.696924 5.482570 1.420313 4.879504 2.137498 2.309878
+##  [9] 2.457079 1.382129
 ```
 
 That is, we would apply or map the + function to each entry of a and b. For atomic vectors, it's easy to do this by default; with a list, however, we need to be a bit more explicit (because everything that's passed into the function may not be the same type). 
@@ -141,16 +141,16 @@ This logic is the basis behind the purrr package (and similar base functions `ap
 
 ```r
 library(tidyverse)
-── Attaching packages ─────────────────────────────────────── tidyverse 1.3.1 ──
-✓ ggplot2 3.3.3.9000     ✓ purrr   0.3.4     
-✓ tibble  3.1.1          ✓ dplyr   1.0.5     
-✓ tidyr   1.1.3          ✓ stringr 1.4.0     
-✓ readr   1.4.0          ✓ forcats 0.5.1     
-── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
-x tidyr::extract()   masks magrittr::extract()
-x dplyr::filter()    masks stats::filter()
-x dplyr::lag()       masks stats::lag()
-x purrr::set_names() masks magrittr::set_names()
+## ── Attaching packages ─────────────────────────────────────── tidyverse 1.3.0 ──
+## ✓ ggplot2 3.3.3     ✓ purrr   0.3.4
+## ✓ tibble  3.1.0     ✓ dplyr   1.0.5
+## ✓ tidyr   1.1.3     ✓ stringr 1.4.0
+## ✓ readr   1.4.0     ✓ forcats 0.5.1
+## ── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
+## x tidyr::extract()   masks magrittr::extract()
+## x dplyr::filter()    masks stats::filter()
+## x dplyr::lag()       masks stats::lag()
+## x purrr::set_names() masks magrittr::set_names()
 library(purrr) # list functions
 library(repurrrsive) # examples
 ```
@@ -160,63 +160,63 @@ We'll use one of the datasets in `repurrsive`, `got_chars`, to start playing wit
 ```r
 data(got_chars)
 length(got_chars)
-[1] 30
+## [1] 30
 got_chars[[1]]
-$url
-[1] "https://www.anapioficeandfire.com/api/characters/1022"
-
-$id
-[1] 1022
-
-$name
-[1] "Theon Greyjoy"
-
-$gender
-[1] "Male"
-
-$culture
-[1] "Ironborn"
-
-$born
-[1] "In 278 AC or 279 AC, at Pyke"
-
-$died
-[1] ""
-
-$alive
-[1] TRUE
-
-$titles
-[1] "Prince of Winterfell"                                
-[2] "Captain of Sea Bitch"                                
-[3] "Lord of the Iron Islands (by law of the green lands)"
-
-$aliases
-[1] "Prince of Fools" "Theon Turncloak" "Reek"            "Theon Kinslayer"
-
-$father
-[1] ""
-
-$mother
-[1] ""
-
-$spouse
-[1] ""
-
-$allegiances
-[1] "House Greyjoy of Pyke"
-
-$books
-[1] "A Game of Thrones" "A Storm of Swords" "A Feast for Crows"
-
-$povBooks
-[1] "A Clash of Kings"     "A Dance with Dragons"
-
-$tvSeries
-[1] "Season 1" "Season 2" "Season 3" "Season 4" "Season 5" "Season 6"
-
-$playedBy
-[1] "Alfie Allen"
+## $url
+## [1] "https://www.anapioficeandfire.com/api/characters/1022"
+## 
+## $id
+## [1] 1022
+## 
+## $name
+## [1] "Theon Greyjoy"
+## 
+## $gender
+## [1] "Male"
+## 
+## $culture
+## [1] "Ironborn"
+## 
+## $born
+## [1] "In 278 AC or 279 AC, at Pyke"
+## 
+## $died
+## [1] ""
+## 
+## $alive
+## [1] TRUE
+## 
+## $titles
+## [1] "Prince of Winterfell"                                
+## [2] "Captain of Sea Bitch"                                
+## [3] "Lord of the Iron Islands (by law of the green lands)"
+## 
+## $aliases
+## [1] "Prince of Fools" "Theon Turncloak" "Reek"            "Theon Kinslayer"
+## 
+## $father
+## [1] ""
+## 
+## $mother
+## [1] ""
+## 
+## $spouse
+## [1] ""
+## 
+## $allegiances
+## [1] "House Greyjoy of Pyke"
+## 
+## $books
+## [1] "A Game of Thrones" "A Storm of Swords" "A Feast for Crows"
+## 
+## $povBooks
+## [1] "A Clash of Kings"     "A Dance with Dragons"
+## 
+## $tvSeries
+## [1] "Season 1" "Season 2" "Season 3" "Season 4" "Season 5" "Season 6"
+## 
+## $playedBy
+## [1] "Alfie Allen"
 ```
 
 It appears that each entry in this 30-item list is a character from Game of Thrones, and there are several sub-fields for each character.
@@ -232,224 +232,224 @@ There are several packages with map() functions including functions that are mea
 
 ```r
 purrr::map(got_chars, "name")
-[[1]]
-[1] "Theon Greyjoy"
-
-[[2]]
-[1] "Tyrion Lannister"
-
-[[3]]
-[1] "Victarion Greyjoy"
-
-[[4]]
-[1] "Will"
-
-[[5]]
-[1] "Areo Hotah"
-
-[[6]]
-[1] "Chett"
-
-[[7]]
-[1] "Cressen"
-
-[[8]]
-[1] "Arianne Martell"
-
-[[9]]
-[1] "Daenerys Targaryen"
-
-[[10]]
-[1] "Davos Seaworth"
-
-[[11]]
-[1] "Arya Stark"
-
-[[12]]
-[1] "Arys Oakheart"
-
-[[13]]
-[1] "Asha Greyjoy"
-
-[[14]]
-[1] "Barristan Selmy"
-
-[[15]]
-[1] "Varamyr"
-
-[[16]]
-[1] "Brandon Stark"
-
-[[17]]
-[1] "Brienne of Tarth"
-
-[[18]]
-[1] "Catelyn Stark"
-
-[[19]]
-[1] "Cersei Lannister"
-
-[[20]]
-[1] "Eddard Stark"
-
-[[21]]
-[1] "Jaime Lannister"
-
-[[22]]
-[1] "Jon Connington"
-
-[[23]]
-[1] "Jon Snow"
-
-[[24]]
-[1] "Aeron Greyjoy"
-
-[[25]]
-[1] "Kevan Lannister"
-
-[[26]]
-[1] "Melisandre"
-
-[[27]]
-[1] "Merrett Frey"
-
-[[28]]
-[1] "Quentyn Martell"
-
-[[29]]
-[1] "Samwell Tarly"
-
-[[30]]
-[1] "Sansa Stark"
+## [[1]]
+## [1] "Theon Greyjoy"
+## 
+## [[2]]
+## [1] "Tyrion Lannister"
+## 
+## [[3]]
+## [1] "Victarion Greyjoy"
+## 
+## [[4]]
+## [1] "Will"
+## 
+## [[5]]
+## [1] "Areo Hotah"
+## 
+## [[6]]
+## [1] "Chett"
+## 
+## [[7]]
+## [1] "Cressen"
+## 
+## [[8]]
+## [1] "Arianne Martell"
+## 
+## [[9]]
+## [1] "Daenerys Targaryen"
+## 
+## [[10]]
+## [1] "Davos Seaworth"
+## 
+## [[11]]
+## [1] "Arya Stark"
+## 
+## [[12]]
+## [1] "Arys Oakheart"
+## 
+## [[13]]
+## [1] "Asha Greyjoy"
+## 
+## [[14]]
+## [1] "Barristan Selmy"
+## 
+## [[15]]
+## [1] "Varamyr"
+## 
+## [[16]]
+## [1] "Brandon Stark"
+## 
+## [[17]]
+## [1] "Brienne of Tarth"
+## 
+## [[18]]
+## [1] "Catelyn Stark"
+## 
+## [[19]]
+## [1] "Cersei Lannister"
+## 
+## [[20]]
+## [1] "Eddard Stark"
+## 
+## [[21]]
+## [1] "Jaime Lannister"
+## 
+## [[22]]
+## [1] "Jon Connington"
+## 
+## [[23]]
+## [1] "Jon Snow"
+## 
+## [[24]]
+## [1] "Aeron Greyjoy"
+## 
+## [[25]]
+## [1] "Kevan Lannister"
+## 
+## [[26]]
+## [1] "Melisandre"
+## 
+## [[27]]
+## [1] "Merrett Frey"
+## 
+## [[28]]
+## [1] "Quentyn Martell"
+## 
+## [[29]]
+## [1] "Samwell Tarly"
+## 
+## [[30]]
+## [1] "Sansa Stark"
 purrr::map_chr(got_chars, "name")
- [1] "Theon Greyjoy"      "Tyrion Lannister"   "Victarion Greyjoy" 
- [4] "Will"               "Areo Hotah"         "Chett"             
- [7] "Cressen"            "Arianne Martell"    "Daenerys Targaryen"
-[10] "Davos Seaworth"     "Arya Stark"         "Arys Oakheart"     
-[13] "Asha Greyjoy"       "Barristan Selmy"    "Varamyr"           
-[16] "Brandon Stark"      "Brienne of Tarth"   "Catelyn Stark"     
-[19] "Cersei Lannister"   "Eddard Stark"       "Jaime Lannister"   
-[22] "Jon Connington"     "Jon Snow"           "Aeron Greyjoy"     
-[25] "Kevan Lannister"    "Melisandre"         "Merrett Frey"      
-[28] "Quentyn Martell"    "Samwell Tarly"      "Sansa Stark"       
+##  [1] "Theon Greyjoy"      "Tyrion Lannister"   "Victarion Greyjoy" 
+##  [4] "Will"               "Areo Hotah"         "Chett"             
+##  [7] "Cressen"            "Arianne Martell"    "Daenerys Targaryen"
+## [10] "Davos Seaworth"     "Arya Stark"         "Arys Oakheart"     
+## [13] "Asha Greyjoy"       "Barristan Selmy"    "Varamyr"           
+## [16] "Brandon Stark"      "Brienne of Tarth"   "Catelyn Stark"     
+## [19] "Cersei Lannister"   "Eddard Stark"       "Jaime Lannister"   
+## [22] "Jon Connington"     "Jon Snow"           "Aeron Greyjoy"     
+## [25] "Kevan Lannister"    "Melisandre"         "Merrett Frey"      
+## [28] "Quentyn Martell"    "Samwell Tarly"      "Sansa Stark"
 ```
 
 Similar shortcuts work to get the nth item in each sub list:
 
 ```r
 purrr::map_chr(got_chars, 4)
- [1] "Male"   "Male"   "Male"   "Male"   "Male"   "Male"   "Male"   "Female"
- [9] "Female" "Male"   "Female" "Male"   "Female" "Male"   "Male"   "Male"  
-[17] "Female" "Female" "Female" "Male"   "Male"   "Male"   "Male"   "Male"  
-[25] "Male"   "Female" "Male"   "Male"   "Male"   "Female"
+##  [1] "Male"   "Male"   "Male"   "Male"   "Male"   "Male"   "Male"   "Female"
+##  [9] "Female" "Male"   "Female" "Male"   "Female" "Male"   "Male"   "Male"  
+## [17] "Female" "Female" "Female" "Male"   "Male"   "Male"   "Male"   "Male"  
+## [25] "Male"   "Female" "Male"   "Male"   "Male"   "Female"
 ```
 Specifying the output type using e.g. `map_chr` works if each item in the list is an atomic vector of length 1. If the list is more complicated, though, these shortcuts will issue an error:
 
 
 ```r
 purrr::map(got_chars, "books")
-[[1]]
-[1] "A Game of Thrones" "A Storm of Swords" "A Feast for Crows"
-
-[[2]]
-[1] "A Feast for Crows"         "The World of Ice and Fire"
-
-[[3]]
-[1] "A Game of Thrones" "A Clash of Kings"  "A Storm of Swords"
-
-[[4]]
-[1] "A Clash of Kings"
-
-[[5]]
-[1] "A Game of Thrones" "A Clash of Kings"  "A Storm of Swords"
-
-[[6]]
-[1] "A Game of Thrones" "A Clash of Kings" 
-
-[[7]]
-[1] "A Storm of Swords" "A Feast for Crows"
-
-[[8]]
-[1] "A Game of Thrones"    "A Clash of Kings"     "A Storm of Swords"   
-[4] "A Dance with Dragons"
-
-[[9]]
-[1] "A Feast for Crows"
-
-[[10]]
-[1] "A Feast for Crows"
-
-[[11]]
-NULL
-
-[[12]]
-[1] "A Game of Thrones"    "A Clash of Kings"     "A Storm of Swords"   
-[4] "A Dance with Dragons"
-
-[[13]]
-[1] "A Game of Thrones" "A Clash of Kings" 
-
-[[14]]
-[1] "A Game of Thrones"         "A Clash of Kings"         
-[3] "A Storm of Swords"         "A Feast for Crows"        
-[5] "The World of Ice and Fire"
-
-[[15]]
-[1] "A Storm of Swords"
-
-[[16]]
-[1] "A Feast for Crows"
-
-[[17]]
-[1] "A Clash of Kings"     "A Storm of Swords"    "A Dance with Dragons"
-
-[[18]]
-[1] "A Feast for Crows"    "A Dance with Dragons"
-
-[[19]]
-[1] "A Game of Thrones" "A Clash of Kings"  "A Storm of Swords"
-
-[[20]]
-[1] "A Clash of Kings"          "A Storm of Swords"        
-[3] "A Feast for Crows"         "A Dance with Dragons"     
-[5] "The World of Ice and Fire"
-
-[[21]]
-[1] "A Game of Thrones" "A Clash of Kings" 
-
-[[22]]
-[1] "A Storm of Swords"         "A Feast for Crows"        
-[3] "The World of Ice and Fire"
-
-[[23]]
-[1] "A Feast for Crows"
-
-[[24]]
-[1] "A Game of Thrones"    "A Clash of Kings"     "A Storm of Swords"   
-[4] "A Dance with Dragons"
-
-[[25]]
-[1] "A Game of Thrones" "A Clash of Kings"  "A Storm of Swords"
-[4] "A Feast for Crows"
-
-[[26]]
-[1] "A Clash of Kings"  "A Storm of Swords" "A Feast for Crows"
-
-[[27]]
-[1] "A Game of Thrones"    "A Clash of Kings"     "A Feast for Crows"   
-[4] "A Dance with Dragons"
-
-[[28]]
-[1] "A Game of Thrones" "A Clash of Kings"  "A Storm of Swords"
-[4] "A Feast for Crows"
-
-[[29]]
-[1] "A Game of Thrones"    "A Clash of Kings"     "A Dance with Dragons"
-
-[[30]]
-[1] "A Dance with Dragons"
+## [[1]]
+## [1] "A Game of Thrones" "A Storm of Swords" "A Feast for Crows"
+## 
+## [[2]]
+## [1] "A Feast for Crows"         "The World of Ice and Fire"
+## 
+## [[3]]
+## [1] "A Game of Thrones" "A Clash of Kings"  "A Storm of Swords"
+## 
+## [[4]]
+## [1] "A Clash of Kings"
+## 
+## [[5]]
+## [1] "A Game of Thrones" "A Clash of Kings"  "A Storm of Swords"
+## 
+## [[6]]
+## [1] "A Game of Thrones" "A Clash of Kings" 
+## 
+## [[7]]
+## [1] "A Storm of Swords" "A Feast for Crows"
+## 
+## [[8]]
+## [1] "A Game of Thrones"    "A Clash of Kings"     "A Storm of Swords"   
+## [4] "A Dance with Dragons"
+## 
+## [[9]]
+## [1] "A Feast for Crows"
+## 
+## [[10]]
+## [1] "A Feast for Crows"
+## 
+## [[11]]
+## NULL
+## 
+## [[12]]
+## [1] "A Game of Thrones"    "A Clash of Kings"     "A Storm of Swords"   
+## [4] "A Dance with Dragons"
+## 
+## [[13]]
+## [1] "A Game of Thrones" "A Clash of Kings" 
+## 
+## [[14]]
+## [1] "A Game of Thrones"         "A Clash of Kings"         
+## [3] "A Storm of Swords"         "A Feast for Crows"        
+## [5] "The World of Ice and Fire"
+## 
+## [[15]]
+## [1] "A Storm of Swords"
+## 
+## [[16]]
+## [1] "A Feast for Crows"
+## 
+## [[17]]
+## [1] "A Clash of Kings"     "A Storm of Swords"    "A Dance with Dragons"
+## 
+## [[18]]
+## [1] "A Feast for Crows"    "A Dance with Dragons"
+## 
+## [[19]]
+## [1] "A Game of Thrones" "A Clash of Kings"  "A Storm of Swords"
+## 
+## [[20]]
+## [1] "A Clash of Kings"          "A Storm of Swords"        
+## [3] "A Feast for Crows"         "A Dance with Dragons"     
+## [5] "The World of Ice and Fire"
+## 
+## [[21]]
+## [1] "A Game of Thrones" "A Clash of Kings" 
+## 
+## [[22]]
+## [1] "A Storm of Swords"         "A Feast for Crows"        
+## [3] "The World of Ice and Fire"
+## 
+## [[23]]
+## [1] "A Feast for Crows"
+## 
+## [[24]]
+## [1] "A Game of Thrones"    "A Clash of Kings"     "A Storm of Swords"   
+## [4] "A Dance with Dragons"
+## 
+## [[25]]
+## [1] "A Game of Thrones" "A Clash of Kings"  "A Storm of Swords"
+## [4] "A Feast for Crows"
+## 
+## [[26]]
+## [1] "A Clash of Kings"  "A Storm of Swords" "A Feast for Crows"
+## 
+## [[27]]
+## [1] "A Game of Thrones"    "A Clash of Kings"     "A Feast for Crows"   
+## [4] "A Dance with Dragons"
+## 
+## [[28]]
+## [1] "A Game of Thrones" "A Clash of Kings"  "A Storm of Swords"
+## [4] "A Feast for Crows"
+## 
+## [[29]]
+## [1] "A Game of Thrones"    "A Clash of Kings"     "A Dance with Dragons"
+## 
+## [[30]]
+## [1] "A Dance with Dragons"
 purrr::map_chr(got_chars, "books")
-Error: Result 1 must be a single string, not a character vector of length 3
+## Error: Result 1 must be a single string, not a character vector of length 3
 ```
 
 What if we want to extract several things? This trick works off of the idea that `[` is a function: that is, the single brackets we used before are actually a special type of function. In R functions, there is often the argument `...`, which is a convention that allows us to pass arguments to other functions that are called within the main function we are using (you'll see ... used in plotting and regression functions frequently as well). 
@@ -459,334 +459,334 @@ Here, we use `...` to pass in our list of 3 things we want to pull from each ite
 
 ```r
 purrr::map(got_chars, `[`, c("name", "gender", "born"))
-[[1]]
-[[1]]$name
-[1] "Theon Greyjoy"
-
-[[1]]$gender
-[1] "Male"
-
-[[1]]$born
-[1] "In 278 AC or 279 AC, at Pyke"
-
-
-[[2]]
-[[2]]$name
-[1] "Tyrion Lannister"
-
-[[2]]$gender
-[1] "Male"
-
-[[2]]$born
-[1] "In 273 AC, at Casterly Rock"
-
-
-[[3]]
-[[3]]$name
-[1] "Victarion Greyjoy"
-
-[[3]]$gender
-[1] "Male"
-
-[[3]]$born
-[1] "In 268 AC or before, at Pyke"
-
-
-[[4]]
-[[4]]$name
-[1] "Will"
-
-[[4]]$gender
-[1] "Male"
-
-[[4]]$born
-[1] ""
-
-
-[[5]]
-[[5]]$name
-[1] "Areo Hotah"
-
-[[5]]$gender
-[1] "Male"
-
-[[5]]$born
-[1] "In 257 AC or before, at Norvos"
-
-
-[[6]]
-[[6]]$name
-[1] "Chett"
-
-[[6]]$gender
-[1] "Male"
-
-[[6]]$born
-[1] "At Hag's Mire"
-
-
-[[7]]
-[[7]]$name
-[1] "Cressen"
-
-[[7]]$gender
-[1] "Male"
-
-[[7]]$born
-[1] "In 219 AC or 220 AC"
-
-
-[[8]]
-[[8]]$name
-[1] "Arianne Martell"
-
-[[8]]$gender
-[1] "Female"
-
-[[8]]$born
-[1] "In 276 AC, at Sunspear"
-
-
-[[9]]
-[[9]]$name
-[1] "Daenerys Targaryen"
-
-[[9]]$gender
-[1] "Female"
-
-[[9]]$born
-[1] "In 284 AC, at Dragonstone"
-
-
-[[10]]
-[[10]]$name
-[1] "Davos Seaworth"
-
-[[10]]$gender
-[1] "Male"
-
-[[10]]$born
-[1] "In 260 AC or before, at King's Landing"
-
-
-[[11]]
-[[11]]$name
-[1] "Arya Stark"
-
-[[11]]$gender
-[1] "Female"
-
-[[11]]$born
-[1] "In 289 AC, at Winterfell"
-
-
-[[12]]
-[[12]]$name
-[1] "Arys Oakheart"
-
-[[12]]$gender
-[1] "Male"
-
-[[12]]$born
-[1] "At Old Oak"
-
-
-[[13]]
-[[13]]$name
-[1] "Asha Greyjoy"
-
-[[13]]$gender
-[1] "Female"
-
-[[13]]$born
-[1] "In 275 AC or 276 AC, at Pyke"
-
-
-[[14]]
-[[14]]$name
-[1] "Barristan Selmy"
-
-[[14]]$gender
-[1] "Male"
-
-[[14]]$born
-[1] "In 237 AC"
-
-
-[[15]]
-[[15]]$name
-[1] "Varamyr"
-
-[[15]]$gender
-[1] "Male"
-
-[[15]]$born
-[1] "At a village Beyond the Wall"
-
-
-[[16]]
-[[16]]$name
-[1] "Brandon Stark"
-
-[[16]]$gender
-[1] "Male"
-
-[[16]]$born
-[1] "In 290 AC, at Winterfell"
-
-
-[[17]]
-[[17]]$name
-[1] "Brienne of Tarth"
-
-[[17]]$gender
-[1] "Female"
-
-[[17]]$born
-[1] "In 280 AC"
-
-
-[[18]]
-[[18]]$name
-[1] "Catelyn Stark"
-
-[[18]]$gender
-[1] "Female"
-
-[[18]]$born
-[1] "In 264 AC, at Riverrun"
-
-
-[[19]]
-[[19]]$name
-[1] "Cersei Lannister"
-
-[[19]]$gender
-[1] "Female"
-
-[[19]]$born
-[1] "In 266 AC, at Casterly Rock"
-
-
-[[20]]
-[[20]]$name
-[1] "Eddard Stark"
-
-[[20]]$gender
-[1] "Male"
-
-[[20]]$born
-[1] "In 263 AC, at Winterfell"
-
-
-[[21]]
-[[21]]$name
-[1] "Jaime Lannister"
-
-[[21]]$gender
-[1] "Male"
-
-[[21]]$born
-[1] "In 266 AC, at Casterly Rock"
-
-
-[[22]]
-[[22]]$name
-[1] "Jon Connington"
-
-[[22]]$gender
-[1] "Male"
-
-[[22]]$born
-[1] "In or between 263 AC and 265 AC"
-
-
-[[23]]
-[[23]]$name
-[1] "Jon Snow"
-
-[[23]]$gender
-[1] "Male"
-
-[[23]]$born
-[1] "In 283 AC"
-
-
-[[24]]
-[[24]]$name
-[1] "Aeron Greyjoy"
-
-[[24]]$gender
-[1] "Male"
-
-[[24]]$born
-[1] "In or between 269 AC and 273 AC, at Pyke"
-
-
-[[25]]
-[[25]]$name
-[1] "Kevan Lannister"
-
-[[25]]$gender
-[1] "Male"
-
-[[25]]$born
-[1] "In 244 AC"
-
-
-[[26]]
-[[26]]$name
-[1] "Melisandre"
-
-[[26]]$gender
-[1] "Female"
-
-[[26]]$born
-[1] "At Unknown"
-
-
-[[27]]
-[[27]]$name
-[1] "Merrett Frey"
-
-[[27]]$gender
-[1] "Male"
-
-[[27]]$born
-[1] "In 262 AC"
-
-
-[[28]]
-[[28]]$name
-[1] "Quentyn Martell"
-
-[[28]]$gender
-[1] "Male"
-
-[[28]]$born
-[1] "In 281 AC, at Sunspear, Dorne"
-
-
-[[29]]
-[[29]]$name
-[1] "Samwell Tarly"
-
-[[29]]$gender
-[1] "Male"
-
-[[29]]$born
-[1] "In 283 AC, at Horn Hill"
-
-
-[[30]]
-[[30]]$name
-[1] "Sansa Stark"
-
-[[30]]$gender
-[1] "Female"
-
-[[30]]$born
-[1] "In 286 AC, at Winterfell"
+## [[1]]
+## [[1]]$name
+## [1] "Theon Greyjoy"
+## 
+## [[1]]$gender
+## [1] "Male"
+## 
+## [[1]]$born
+## [1] "In 278 AC or 279 AC, at Pyke"
+## 
+## 
+## [[2]]
+## [[2]]$name
+## [1] "Tyrion Lannister"
+## 
+## [[2]]$gender
+## [1] "Male"
+## 
+## [[2]]$born
+## [1] "In 273 AC, at Casterly Rock"
+## 
+## 
+## [[3]]
+## [[3]]$name
+## [1] "Victarion Greyjoy"
+## 
+## [[3]]$gender
+## [1] "Male"
+## 
+## [[3]]$born
+## [1] "In 268 AC or before, at Pyke"
+## 
+## 
+## [[4]]
+## [[4]]$name
+## [1] "Will"
+## 
+## [[4]]$gender
+## [1] "Male"
+## 
+## [[4]]$born
+## [1] ""
+## 
+## 
+## [[5]]
+## [[5]]$name
+## [1] "Areo Hotah"
+## 
+## [[5]]$gender
+## [1] "Male"
+## 
+## [[5]]$born
+## [1] "In 257 AC or before, at Norvos"
+## 
+## 
+## [[6]]
+## [[6]]$name
+## [1] "Chett"
+## 
+## [[6]]$gender
+## [1] "Male"
+## 
+## [[6]]$born
+## [1] "At Hag's Mire"
+## 
+## 
+## [[7]]
+## [[7]]$name
+## [1] "Cressen"
+## 
+## [[7]]$gender
+## [1] "Male"
+## 
+## [[7]]$born
+## [1] "In 219 AC or 220 AC"
+## 
+## 
+## [[8]]
+## [[8]]$name
+## [1] "Arianne Martell"
+## 
+## [[8]]$gender
+## [1] "Female"
+## 
+## [[8]]$born
+## [1] "In 276 AC, at Sunspear"
+## 
+## 
+## [[9]]
+## [[9]]$name
+## [1] "Daenerys Targaryen"
+## 
+## [[9]]$gender
+## [1] "Female"
+## 
+## [[9]]$born
+## [1] "In 284 AC, at Dragonstone"
+## 
+## 
+## [[10]]
+## [[10]]$name
+## [1] "Davos Seaworth"
+## 
+## [[10]]$gender
+## [1] "Male"
+## 
+## [[10]]$born
+## [1] "In 260 AC or before, at King's Landing"
+## 
+## 
+## [[11]]
+## [[11]]$name
+## [1] "Arya Stark"
+## 
+## [[11]]$gender
+## [1] "Female"
+## 
+## [[11]]$born
+## [1] "In 289 AC, at Winterfell"
+## 
+## 
+## [[12]]
+## [[12]]$name
+## [1] "Arys Oakheart"
+## 
+## [[12]]$gender
+## [1] "Male"
+## 
+## [[12]]$born
+## [1] "At Old Oak"
+## 
+## 
+## [[13]]
+## [[13]]$name
+## [1] "Asha Greyjoy"
+## 
+## [[13]]$gender
+## [1] "Female"
+## 
+## [[13]]$born
+## [1] "In 275 AC or 276 AC, at Pyke"
+## 
+## 
+## [[14]]
+## [[14]]$name
+## [1] "Barristan Selmy"
+## 
+## [[14]]$gender
+## [1] "Male"
+## 
+## [[14]]$born
+## [1] "In 237 AC"
+## 
+## 
+## [[15]]
+## [[15]]$name
+## [1] "Varamyr"
+## 
+## [[15]]$gender
+## [1] "Male"
+## 
+## [[15]]$born
+## [1] "At a village Beyond the Wall"
+## 
+## 
+## [[16]]
+## [[16]]$name
+## [1] "Brandon Stark"
+## 
+## [[16]]$gender
+## [1] "Male"
+## 
+## [[16]]$born
+## [1] "In 290 AC, at Winterfell"
+## 
+## 
+## [[17]]
+## [[17]]$name
+## [1] "Brienne of Tarth"
+## 
+## [[17]]$gender
+## [1] "Female"
+## 
+## [[17]]$born
+## [1] "In 280 AC"
+## 
+## 
+## [[18]]
+## [[18]]$name
+## [1] "Catelyn Stark"
+## 
+## [[18]]$gender
+## [1] "Female"
+## 
+## [[18]]$born
+## [1] "In 264 AC, at Riverrun"
+## 
+## 
+## [[19]]
+## [[19]]$name
+## [1] "Cersei Lannister"
+## 
+## [[19]]$gender
+## [1] "Female"
+## 
+## [[19]]$born
+## [1] "In 266 AC, at Casterly Rock"
+## 
+## 
+## [[20]]
+## [[20]]$name
+## [1] "Eddard Stark"
+## 
+## [[20]]$gender
+## [1] "Male"
+## 
+## [[20]]$born
+## [1] "In 263 AC, at Winterfell"
+## 
+## 
+## [[21]]
+## [[21]]$name
+## [1] "Jaime Lannister"
+## 
+## [[21]]$gender
+## [1] "Male"
+## 
+## [[21]]$born
+## [1] "In 266 AC, at Casterly Rock"
+## 
+## 
+## [[22]]
+## [[22]]$name
+## [1] "Jon Connington"
+## 
+## [[22]]$gender
+## [1] "Male"
+## 
+## [[22]]$born
+## [1] "In or between 263 AC and 265 AC"
+## 
+## 
+## [[23]]
+## [[23]]$name
+## [1] "Jon Snow"
+## 
+## [[23]]$gender
+## [1] "Male"
+## 
+## [[23]]$born
+## [1] "In 283 AC"
+## 
+## 
+## [[24]]
+## [[24]]$name
+## [1] "Aeron Greyjoy"
+## 
+## [[24]]$gender
+## [1] "Male"
+## 
+## [[24]]$born
+## [1] "In or between 269 AC and 273 AC, at Pyke"
+## 
+## 
+## [[25]]
+## [[25]]$name
+## [1] "Kevan Lannister"
+## 
+## [[25]]$gender
+## [1] "Male"
+## 
+## [[25]]$born
+## [1] "In 244 AC"
+## 
+## 
+## [[26]]
+## [[26]]$name
+## [1] "Melisandre"
+## 
+## [[26]]$gender
+## [1] "Female"
+## 
+## [[26]]$born
+## [1] "At Unknown"
+## 
+## 
+## [[27]]
+## [[27]]$name
+## [1] "Merrett Frey"
+## 
+## [[27]]$gender
+## [1] "Male"
+## 
+## [[27]]$born
+## [1] "In 262 AC"
+## 
+## 
+## [[28]]
+## [[28]]$name
+## [1] "Quentyn Martell"
+## 
+## [[28]]$gender
+## [1] "Male"
+## 
+## [[28]]$born
+## [1] "In 281 AC, at Sunspear, Dorne"
+## 
+## 
+## [[29]]
+## [[29]]$name
+## [1] "Samwell Tarly"
+## 
+## [[29]]$gender
+## [1] "Male"
+## 
+## [[29]]$born
+## [1] "In 283 AC, at Horn Hill"
+## 
+## 
+## [[30]]
+## [[30]]$name
+## [1] "Sansa Stark"
+## 
+## [[30]]$gender
+## [1] "Female"
+## 
+## [[30]]$born
+## [1] "In 286 AC, at Winterfell"
 ```
 
 If this is ugly syntax to you, that's fine - the `magrittr` package also includes an `extract` function that works the same way.
@@ -794,334 +794,334 @@ If this is ugly syntax to you, that's fine - the `magrittr` package also include
 
 ```r
 purrr::map(got_chars, magrittr::extract, c("name", "gender", "born"))
-[[1]]
-[[1]]$name
-[1] "Theon Greyjoy"
-
-[[1]]$gender
-[1] "Male"
-
-[[1]]$born
-[1] "In 278 AC or 279 AC, at Pyke"
-
-
-[[2]]
-[[2]]$name
-[1] "Tyrion Lannister"
-
-[[2]]$gender
-[1] "Male"
-
-[[2]]$born
-[1] "In 273 AC, at Casterly Rock"
-
-
-[[3]]
-[[3]]$name
-[1] "Victarion Greyjoy"
-
-[[3]]$gender
-[1] "Male"
-
-[[3]]$born
-[1] "In 268 AC or before, at Pyke"
-
-
-[[4]]
-[[4]]$name
-[1] "Will"
-
-[[4]]$gender
-[1] "Male"
-
-[[4]]$born
-[1] ""
-
-
-[[5]]
-[[5]]$name
-[1] "Areo Hotah"
-
-[[5]]$gender
-[1] "Male"
-
-[[5]]$born
-[1] "In 257 AC or before, at Norvos"
-
-
-[[6]]
-[[6]]$name
-[1] "Chett"
-
-[[6]]$gender
-[1] "Male"
-
-[[6]]$born
-[1] "At Hag's Mire"
-
-
-[[7]]
-[[7]]$name
-[1] "Cressen"
-
-[[7]]$gender
-[1] "Male"
-
-[[7]]$born
-[1] "In 219 AC or 220 AC"
-
-
-[[8]]
-[[8]]$name
-[1] "Arianne Martell"
-
-[[8]]$gender
-[1] "Female"
-
-[[8]]$born
-[1] "In 276 AC, at Sunspear"
-
-
-[[9]]
-[[9]]$name
-[1] "Daenerys Targaryen"
-
-[[9]]$gender
-[1] "Female"
-
-[[9]]$born
-[1] "In 284 AC, at Dragonstone"
-
-
-[[10]]
-[[10]]$name
-[1] "Davos Seaworth"
-
-[[10]]$gender
-[1] "Male"
-
-[[10]]$born
-[1] "In 260 AC or before, at King's Landing"
-
-
-[[11]]
-[[11]]$name
-[1] "Arya Stark"
-
-[[11]]$gender
-[1] "Female"
-
-[[11]]$born
-[1] "In 289 AC, at Winterfell"
-
-
-[[12]]
-[[12]]$name
-[1] "Arys Oakheart"
-
-[[12]]$gender
-[1] "Male"
-
-[[12]]$born
-[1] "At Old Oak"
-
-
-[[13]]
-[[13]]$name
-[1] "Asha Greyjoy"
-
-[[13]]$gender
-[1] "Female"
-
-[[13]]$born
-[1] "In 275 AC or 276 AC, at Pyke"
-
-
-[[14]]
-[[14]]$name
-[1] "Barristan Selmy"
-
-[[14]]$gender
-[1] "Male"
-
-[[14]]$born
-[1] "In 237 AC"
-
-
-[[15]]
-[[15]]$name
-[1] "Varamyr"
-
-[[15]]$gender
-[1] "Male"
-
-[[15]]$born
-[1] "At a village Beyond the Wall"
-
-
-[[16]]
-[[16]]$name
-[1] "Brandon Stark"
-
-[[16]]$gender
-[1] "Male"
-
-[[16]]$born
-[1] "In 290 AC, at Winterfell"
-
-
-[[17]]
-[[17]]$name
-[1] "Brienne of Tarth"
-
-[[17]]$gender
-[1] "Female"
-
-[[17]]$born
-[1] "In 280 AC"
-
-
-[[18]]
-[[18]]$name
-[1] "Catelyn Stark"
-
-[[18]]$gender
-[1] "Female"
-
-[[18]]$born
-[1] "In 264 AC, at Riverrun"
-
-
-[[19]]
-[[19]]$name
-[1] "Cersei Lannister"
-
-[[19]]$gender
-[1] "Female"
-
-[[19]]$born
-[1] "In 266 AC, at Casterly Rock"
-
-
-[[20]]
-[[20]]$name
-[1] "Eddard Stark"
-
-[[20]]$gender
-[1] "Male"
-
-[[20]]$born
-[1] "In 263 AC, at Winterfell"
-
-
-[[21]]
-[[21]]$name
-[1] "Jaime Lannister"
-
-[[21]]$gender
-[1] "Male"
-
-[[21]]$born
-[1] "In 266 AC, at Casterly Rock"
-
-
-[[22]]
-[[22]]$name
-[1] "Jon Connington"
-
-[[22]]$gender
-[1] "Male"
-
-[[22]]$born
-[1] "In or between 263 AC and 265 AC"
-
-
-[[23]]
-[[23]]$name
-[1] "Jon Snow"
-
-[[23]]$gender
-[1] "Male"
-
-[[23]]$born
-[1] "In 283 AC"
-
-
-[[24]]
-[[24]]$name
-[1] "Aeron Greyjoy"
-
-[[24]]$gender
-[1] "Male"
-
-[[24]]$born
-[1] "In or between 269 AC and 273 AC, at Pyke"
-
-
-[[25]]
-[[25]]$name
-[1] "Kevan Lannister"
-
-[[25]]$gender
-[1] "Male"
-
-[[25]]$born
-[1] "In 244 AC"
-
-
-[[26]]
-[[26]]$name
-[1] "Melisandre"
-
-[[26]]$gender
-[1] "Female"
-
-[[26]]$born
-[1] "At Unknown"
-
-
-[[27]]
-[[27]]$name
-[1] "Merrett Frey"
-
-[[27]]$gender
-[1] "Male"
-
-[[27]]$born
-[1] "In 262 AC"
-
-
-[[28]]
-[[28]]$name
-[1] "Quentyn Martell"
-
-[[28]]$gender
-[1] "Male"
-
-[[28]]$born
-[1] "In 281 AC, at Sunspear, Dorne"
-
-
-[[29]]
-[[29]]$name
-[1] "Samwell Tarly"
-
-[[29]]$gender
-[1] "Male"
-
-[[29]]$born
-[1] "In 283 AC, at Horn Hill"
-
-
-[[30]]
-[[30]]$name
-[1] "Sansa Stark"
-
-[[30]]$gender
-[1] "Female"
-
-[[30]]$born
-[1] "In 286 AC, at Winterfell"
+## [[1]]
+## [[1]]$name
+## [1] "Theon Greyjoy"
+## 
+## [[1]]$gender
+## [1] "Male"
+## 
+## [[1]]$born
+## [1] "In 278 AC or 279 AC, at Pyke"
+## 
+## 
+## [[2]]
+## [[2]]$name
+## [1] "Tyrion Lannister"
+## 
+## [[2]]$gender
+## [1] "Male"
+## 
+## [[2]]$born
+## [1] "In 273 AC, at Casterly Rock"
+## 
+## 
+## [[3]]
+## [[3]]$name
+## [1] "Victarion Greyjoy"
+## 
+## [[3]]$gender
+## [1] "Male"
+## 
+## [[3]]$born
+## [1] "In 268 AC or before, at Pyke"
+## 
+## 
+## [[4]]
+## [[4]]$name
+## [1] "Will"
+## 
+## [[4]]$gender
+## [1] "Male"
+## 
+## [[4]]$born
+## [1] ""
+## 
+## 
+## [[5]]
+## [[5]]$name
+## [1] "Areo Hotah"
+## 
+## [[5]]$gender
+## [1] "Male"
+## 
+## [[5]]$born
+## [1] "In 257 AC or before, at Norvos"
+## 
+## 
+## [[6]]
+## [[6]]$name
+## [1] "Chett"
+## 
+## [[6]]$gender
+## [1] "Male"
+## 
+## [[6]]$born
+## [1] "At Hag's Mire"
+## 
+## 
+## [[7]]
+## [[7]]$name
+## [1] "Cressen"
+## 
+## [[7]]$gender
+## [1] "Male"
+## 
+## [[7]]$born
+## [1] "In 219 AC or 220 AC"
+## 
+## 
+## [[8]]
+## [[8]]$name
+## [1] "Arianne Martell"
+## 
+## [[8]]$gender
+## [1] "Female"
+## 
+## [[8]]$born
+## [1] "In 276 AC, at Sunspear"
+## 
+## 
+## [[9]]
+## [[9]]$name
+## [1] "Daenerys Targaryen"
+## 
+## [[9]]$gender
+## [1] "Female"
+## 
+## [[9]]$born
+## [1] "In 284 AC, at Dragonstone"
+## 
+## 
+## [[10]]
+## [[10]]$name
+## [1] "Davos Seaworth"
+## 
+## [[10]]$gender
+## [1] "Male"
+## 
+## [[10]]$born
+## [1] "In 260 AC or before, at King's Landing"
+## 
+## 
+## [[11]]
+## [[11]]$name
+## [1] "Arya Stark"
+## 
+## [[11]]$gender
+## [1] "Female"
+## 
+## [[11]]$born
+## [1] "In 289 AC, at Winterfell"
+## 
+## 
+## [[12]]
+## [[12]]$name
+## [1] "Arys Oakheart"
+## 
+## [[12]]$gender
+## [1] "Male"
+## 
+## [[12]]$born
+## [1] "At Old Oak"
+## 
+## 
+## [[13]]
+## [[13]]$name
+## [1] "Asha Greyjoy"
+## 
+## [[13]]$gender
+## [1] "Female"
+## 
+## [[13]]$born
+## [1] "In 275 AC or 276 AC, at Pyke"
+## 
+## 
+## [[14]]
+## [[14]]$name
+## [1] "Barristan Selmy"
+## 
+## [[14]]$gender
+## [1] "Male"
+## 
+## [[14]]$born
+## [1] "In 237 AC"
+## 
+## 
+## [[15]]
+## [[15]]$name
+## [1] "Varamyr"
+## 
+## [[15]]$gender
+## [1] "Male"
+## 
+## [[15]]$born
+## [1] "At a village Beyond the Wall"
+## 
+## 
+## [[16]]
+## [[16]]$name
+## [1] "Brandon Stark"
+## 
+## [[16]]$gender
+## [1] "Male"
+## 
+## [[16]]$born
+## [1] "In 290 AC, at Winterfell"
+## 
+## 
+## [[17]]
+## [[17]]$name
+## [1] "Brienne of Tarth"
+## 
+## [[17]]$gender
+## [1] "Female"
+## 
+## [[17]]$born
+## [1] "In 280 AC"
+## 
+## 
+## [[18]]
+## [[18]]$name
+## [1] "Catelyn Stark"
+## 
+## [[18]]$gender
+## [1] "Female"
+## 
+## [[18]]$born
+## [1] "In 264 AC, at Riverrun"
+## 
+## 
+## [[19]]
+## [[19]]$name
+## [1] "Cersei Lannister"
+## 
+## [[19]]$gender
+## [1] "Female"
+## 
+## [[19]]$born
+## [1] "In 266 AC, at Casterly Rock"
+## 
+## 
+## [[20]]
+## [[20]]$name
+## [1] "Eddard Stark"
+## 
+## [[20]]$gender
+## [1] "Male"
+## 
+## [[20]]$born
+## [1] "In 263 AC, at Winterfell"
+## 
+## 
+## [[21]]
+## [[21]]$name
+## [1] "Jaime Lannister"
+## 
+## [[21]]$gender
+## [1] "Male"
+## 
+## [[21]]$born
+## [1] "In 266 AC, at Casterly Rock"
+## 
+## 
+## [[22]]
+## [[22]]$name
+## [1] "Jon Connington"
+## 
+## [[22]]$gender
+## [1] "Male"
+## 
+## [[22]]$born
+## [1] "In or between 263 AC and 265 AC"
+## 
+## 
+## [[23]]
+## [[23]]$name
+## [1] "Jon Snow"
+## 
+## [[23]]$gender
+## [1] "Male"
+## 
+## [[23]]$born
+## [1] "In 283 AC"
+## 
+## 
+## [[24]]
+## [[24]]$name
+## [1] "Aeron Greyjoy"
+## 
+## [[24]]$gender
+## [1] "Male"
+## 
+## [[24]]$born
+## [1] "In or between 269 AC and 273 AC, at Pyke"
+## 
+## 
+## [[25]]
+## [[25]]$name
+## [1] "Kevan Lannister"
+## 
+## [[25]]$gender
+## [1] "Male"
+## 
+## [[25]]$born
+## [1] "In 244 AC"
+## 
+## 
+## [[26]]
+## [[26]]$name
+## [1] "Melisandre"
+## 
+## [[26]]$gender
+## [1] "Female"
+## 
+## [[26]]$born
+## [1] "At Unknown"
+## 
+## 
+## [[27]]
+## [[27]]$name
+## [1] "Merrett Frey"
+## 
+## [[27]]$gender
+## [1] "Male"
+## 
+## [[27]]$born
+## [1] "In 262 AC"
+## 
+## 
+## [[28]]
+## [[28]]$name
+## [1] "Quentyn Martell"
+## 
+## [[28]]$gender
+## [1] "Male"
+## 
+## [[28]]$born
+## [1] "In 281 AC, at Sunspear, Dorne"
+## 
+## 
+## [[29]]
+## [[29]]$name
+## [1] "Samwell Tarly"
+## 
+## [[29]]$gender
+## [1] "Male"
+## 
+## [[29]]$born
+## [1] "In 283 AC, at Horn Hill"
+## 
+## 
+## [[30]]
+## [[30]]$name
+## [1] "Sansa Stark"
+## 
+## [[30]]$gender
+## [1] "Female"
+## 
+## [[30]]$born
+## [1] "In 286 AC, at Winterfell"
 ```
 
 What if we want this to be a data frame instead? We can use `map_dfr` to get a data frame that is formed by row-binding each element in the list. 
@@ -1129,38 +1129,38 @@ What if we want this to be a data frame instead? We can use `map_dfr` to get a d
 
 ```r
 purrr::map_dfr(got_chars, `[`, c("name", "gender", "born")) 
-# A tibble: 30 x 3
-   name               gender born                                    
-   <chr>              <chr>  <chr>                                   
- 1 Theon Greyjoy      Male   "In 278 AC or 279 AC, at Pyke"          
- 2 Tyrion Lannister   Male   "In 273 AC, at Casterly Rock"           
- 3 Victarion Greyjoy  Male   "In 268 AC or before, at Pyke"          
- 4 Will               Male   ""                                      
- 5 Areo Hotah         Male   "In 257 AC or before, at Norvos"        
- 6 Chett              Male   "At Hag's Mire"                         
- 7 Cressen            Male   "In 219 AC or 220 AC"                   
- 8 Arianne Martell    Female "In 276 AC, at Sunspear"                
- 9 Daenerys Targaryen Female "In 284 AC, at Dragonstone"             
-10 Davos Seaworth     Male   "In 260 AC or before, at King's Landing"
-# … with 20 more rows
+## # A tibble: 30 x 3
+##    name               gender born                                    
+##    <chr>              <chr>  <chr>                                   
+##  1 Theon Greyjoy      Male   "In 278 AC or 279 AC, at Pyke"          
+##  2 Tyrion Lannister   Male   "In 273 AC, at Casterly Rock"           
+##  3 Victarion Greyjoy  Male   "In 268 AC or before, at Pyke"          
+##  4 Will               Male   ""                                      
+##  5 Areo Hotah         Male   "In 257 AC or before, at Norvos"        
+##  6 Chett              Male   "At Hag's Mire"                         
+##  7 Cressen            Male   "In 219 AC or 220 AC"                   
+##  8 Arianne Martell    Female "In 276 AC, at Sunspear"                
+##  9 Daenerys Targaryen Female "In 284 AC, at Dragonstone"             
+## 10 Davos Seaworth     Male   "In 260 AC or before, at King's Landing"
+## # … with 20 more rows
 
 # Equivalent to
 purrr::map(got_chars, `[`, c("name", "gender", "born")) %>%
   dplyr::bind_rows()
-# A tibble: 30 x 3
-   name               gender born                                    
-   <chr>              <chr>  <chr>                                   
- 1 Theon Greyjoy      Male   "In 278 AC or 279 AC, at Pyke"          
- 2 Tyrion Lannister   Male   "In 273 AC, at Casterly Rock"           
- 3 Victarion Greyjoy  Male   "In 268 AC or before, at Pyke"          
- 4 Will               Male   ""                                      
- 5 Areo Hotah         Male   "In 257 AC or before, at Norvos"        
- 6 Chett              Male   "At Hag's Mire"                         
- 7 Cressen            Male   "In 219 AC or 220 AC"                   
- 8 Arianne Martell    Female "In 276 AC, at Sunspear"                
- 9 Daenerys Targaryen Female "In 284 AC, at Dragonstone"             
-10 Davos Seaworth     Male   "In 260 AC or before, at King's Landing"
-# … with 20 more rows
+## # A tibble: 30 x 3
+##    name               gender born                                    
+##    <chr>              <chr>  <chr>                                   
+##  1 Theon Greyjoy      Male   "In 278 AC or 279 AC, at Pyke"          
+##  2 Tyrion Lannister   Male   "In 273 AC, at Casterly Rock"           
+##  3 Victarion Greyjoy  Male   "In 268 AC or before, at Pyke"          
+##  4 Will               Male   ""                                      
+##  5 Areo Hotah         Male   "In 257 AC or before, at Norvos"        
+##  6 Chett              Male   "At Hag's Mire"                         
+##  7 Cressen            Male   "In 219 AC or 220 AC"                   
+##  8 Arianne Martell    Female "In 276 AC, at Sunspear"                
+##  9 Daenerys Targaryen Female "In 284 AC, at Dragonstone"             
+## 10 Davos Seaworth     Male   "In 260 AC or before, at King's Landing"
+## # … with 20 more rows
 ```
 
 
@@ -1189,20 +1189,20 @@ data_sim <- function(n_outliers = 0) {
     )
 }
 data_sim()
-# A tibble: 201 x 3
-       x      y is_outlier
-   <dbl>  <dbl> <lgl>     
- 1 -10    -9.93 FALSE     
- 2  -9.9  -9.80 FALSE     
- 3  -9.8  -8.03 FALSE     
- 4  -9.7  -8.60 FALSE     
- 5  -9.6  -9.54 FALSE     
- 6  -9.5  -9.64 FALSE     
- 7  -9.4  -8.76 FALSE     
- 8  -9.3  -9.36 FALSE     
- 9  -9.2  -9.42 FALSE     
-10  -9.1 -10.8  FALSE     
-# … with 191 more rows
+## # A tibble: 201 x 3
+##        x      y is_outlier
+##    <dbl>  <dbl> <lgl>     
+##  1 -10   -11.6  FALSE     
+##  2  -9.9  -9.15 FALSE     
+##  3  -9.8 -10.6  FALSE     
+##  4  -9.7  -8.29 FALSE     
+##  5  -9.6 -10.2  FALSE     
+##  6  -9.5 -11.4  FALSE     
+##  7  -9.4  -9.68 FALSE     
+##  8  -9.3  -8.69 FALSE     
+##  9  -9.2  -7.26 FALSE     
+## 10  -9.1  -8.56 FALSE     
+## # … with 191 more rows
 ```
 Now, lets suppose that I want 100 replicates of each of 0, 5, 10, and 20 outliers. 
 
@@ -1228,63 +1228,63 @@ It can be helpful to examine one of the objects just to see what you're dealing 
 
 ```r
 str(sim$reg[[1]])
-List of 12
- $ coefficients : Named num [1:2] 0.207 1.008
-  ..- attr(*, "names")= chr [1:2] "(Intercept)" "x"
- $ residuals    : Named num [1:201] 0.6461 -1.4697 -1.245 0.3034 0.0164 ...
-  ..- attr(*, "names")= chr [1:201] "1" "2" "3" "4" ...
- $ effects      : Named num [1:201] -2.935 82.928 -1.136 0.41 0.122 ...
-  ..- attr(*, "names")= chr [1:201] "(Intercept)" "x" "" "" ...
- $ rank         : int 2
- $ fitted.values: Named num [1:201] -9.87 -9.77 -9.67 -9.57 -9.47 ...
-  ..- attr(*, "names")= chr [1:201] "1" "2" "3" "4" ...
- $ assign       : int [1:2] 0 1
- $ qr           :List of 5
-  ..$ qr   : num [1:201, 1:2] -14.1774 0.0705 0.0705 0.0705 0.0705 ...
-  .. ..- attr(*, "dimnames")=List of 2
-  .. .. ..$ : chr [1:201] "1" "2" "3" "4" ...
-  .. .. ..$ : chr [1:2] "(Intercept)" "x"
-  .. ..- attr(*, "assign")= int [1:2] 0 1
-  ..$ qraux: num [1:2] 1.07 1.11
-  ..$ pivot: int [1:2] 1 2
-  ..$ tol  : num 1e-07
-  ..$ rank : int 2
-  ..- attr(*, "class")= chr "qr"
- $ df.residual  : int 199
- $ xlevels      : Named list()
- $ call         : language lm(formula = y ~ x, data = .)
- $ terms        :Classes 'terms', 'formula'  language y ~ x
-  .. ..- attr(*, "variables")= language list(y, x)
-  .. ..- attr(*, "factors")= int [1:2, 1] 0 1
-  .. .. ..- attr(*, "dimnames")=List of 2
-  .. .. .. ..$ : chr [1:2] "y" "x"
-  .. .. .. ..$ : chr "x"
-  .. ..- attr(*, "term.labels")= chr "x"
-  .. ..- attr(*, "order")= int 1
-  .. ..- attr(*, "intercept")= int 1
-  .. ..- attr(*, "response")= int 1
-  .. ..- attr(*, ".Environment")=<environment: 0x563b54e74aa0> 
-  .. ..- attr(*, "predvars")= language list(y, x)
-  .. ..- attr(*, "dataClasses")= Named chr [1:2] "numeric" "numeric"
-  .. .. ..- attr(*, "names")= chr [1:2] "y" "x"
- $ model        :'data.frame':	201 obs. of  2 variables:
-  ..$ y: num [1:201] -9.23 -11.24 -10.92 -9.27 -9.45 ...
-  ..$ x: num [1:201] -10 -9.9 -9.8 -9.7 -9.6 -9.5 -9.4 -9.3 -9.2 -9.1 ...
-  ..- attr(*, "terms")=Classes 'terms', 'formula'  language y ~ x
-  .. .. ..- attr(*, "variables")= language list(y, x)
-  .. .. ..- attr(*, "factors")= int [1:2, 1] 0 1
-  .. .. .. ..- attr(*, "dimnames")=List of 2
-  .. .. .. .. ..$ : chr [1:2] "y" "x"
-  .. .. .. .. ..$ : chr "x"
-  .. .. ..- attr(*, "term.labels")= chr "x"
-  .. .. ..- attr(*, "order")= int 1
-  .. .. ..- attr(*, "intercept")= int 1
-  .. .. ..- attr(*, "response")= int 1
-  .. .. ..- attr(*, ".Environment")=<environment: 0x563b54e74aa0> 
-  .. .. ..- attr(*, "predvars")= language list(y, x)
-  .. .. ..- attr(*, "dataClasses")= Named chr [1:2] "numeric" "numeric"
-  .. .. .. ..- attr(*, "names")= chr [1:2] "y" "x"
- - attr(*, "class")= chr "lm"
+## List of 12
+##  $ coefficients : Named num [1:2] 0.0538 0.9818
+##   ..- attr(*, "names")= chr [1:2] "(Intercept)" "x"
+##  $ residuals    : Named num [1:201] -1.33 0.225 -1.668 0.91 0.452 ...
+##   ..- attr(*, "names")= chr [1:201] "1" "2" "3" "4" ...
+##  $ effects      : Named num [1:201] -0.762 80.767 -1.612 0.967 0.509 ...
+##   ..- attr(*, "names")= chr [1:201] "(Intercept)" "x" "" "" ...
+##  $ rank         : int 2
+##  $ fitted.values: Named num [1:201] -9.76 -9.67 -9.57 -9.47 -9.37 ...
+##   ..- attr(*, "names")= chr [1:201] "1" "2" "3" "4" ...
+##  $ assign       : int [1:2] 0 1
+##  $ qr           :List of 5
+##   ..$ qr   : num [1:201, 1:2] -14.1774 0.0705 0.0705 0.0705 0.0705 ...
+##   .. ..- attr(*, "dimnames")=List of 2
+##   .. .. ..$ : chr [1:201] "1" "2" "3" "4" ...
+##   .. .. ..$ : chr [1:2] "(Intercept)" "x"
+##   .. ..- attr(*, "assign")= int [1:2] 0 1
+##   ..$ qraux: num [1:2] 1.07 1.11
+##   ..$ pivot: int [1:2] 1 2
+##   ..$ tol  : num 1e-07
+##   ..$ rank : int 2
+##   ..- attr(*, "class")= chr "qr"
+##  $ df.residual  : int 199
+##  $ xlevels      : Named list()
+##  $ call         : language lm(formula = y ~ x, data = .)
+##  $ terms        :Classes 'terms', 'formula'  language y ~ x
+##   .. ..- attr(*, "variables")= language list(y, x)
+##   .. ..- attr(*, "factors")= int [1:2, 1] 0 1
+##   .. .. ..- attr(*, "dimnames")=List of 2
+##   .. .. .. ..$ : chr [1:2] "y" "x"
+##   .. .. .. ..$ : chr "x"
+##   .. ..- attr(*, "term.labels")= chr "x"
+##   .. ..- attr(*, "order")= int 1
+##   .. ..- attr(*, "intercept")= int 1
+##   .. ..- attr(*, "response")= int 1
+##   .. ..- attr(*, ".Environment")=<environment: 0x564d58199478> 
+##   .. ..- attr(*, "predvars")= language list(y, x)
+##   .. ..- attr(*, "dataClasses")= Named chr [1:2] "numeric" "numeric"
+##   .. .. ..- attr(*, "names")= chr [1:2] "y" "x"
+##  $ model        :'data.frame':	201 obs. of  2 variables:
+##   ..$ y: num [1:201] -11.09 -9.44 -11.24 -8.56 -8.92 ...
+##   ..$ x: num [1:201] -10 -9.9 -9.8 -9.7 -9.6 -9.5 -9.4 -9.3 -9.2 -9.1 ...
+##   ..- attr(*, "terms")=Classes 'terms', 'formula'  language y ~ x
+##   .. .. ..- attr(*, "variables")= language list(y, x)
+##   .. .. ..- attr(*, "factors")= int [1:2, 1] 0 1
+##   .. .. .. ..- attr(*, "dimnames")=List of 2
+##   .. .. .. .. ..$ : chr [1:2] "y" "x"
+##   .. .. .. .. ..$ : chr "x"
+##   .. .. ..- attr(*, "term.labels")= chr "x"
+##   .. .. ..- attr(*, "order")= int 1
+##   .. .. ..- attr(*, "intercept")= int 1
+##   .. .. ..- attr(*, "response")= int 1
+##   .. .. ..- attr(*, ".Environment")=<environment: 0x564d58199478> 
+##   .. .. ..- attr(*, "predvars")= language list(y, x)
+##   .. .. ..- attr(*, "dataClasses")= Named chr [1:2] "numeric" "numeric"
+##   .. .. .. ..- attr(*, "names")= chr [1:2] "y" "x"
+##  - attr(*, "class")= chr "lm"
 ```
 
 If we pull out the coefficients by name we get a vector of length two. So before we unnest, we need to change that so that R formats it as a row of a data frame.
@@ -1292,10 +1292,10 @@ If we pull out the coefficients by name we get a vector of length two. So before
 
 ```r
 sim$reg[[1]]$coefficients %>% as_tibble_row()
-# A tibble: 1 x 2
-  `(Intercept)`     x
-          <dbl> <dbl>
-1         0.207  1.01
+## # A tibble: 1 x 2
+##   `(Intercept)`     x
+##           <dbl> <dbl>
+## 1        0.0538 0.982
 ```
 
 This will make our formatting a lot easier and prevent any duplication that might occur if we unnest a vector that has length > 1. 
@@ -1307,35 +1307,35 @@ sim <- sim %>%
            purrr::map(as_tibble_row))
 
 sim$coefs[1:5]
-[[1]]
-# A tibble: 1 x 2
-  `(Intercept)`     x
-          <dbl> <dbl>
-1         0.207  1.01
-
-[[2]]
-# A tibble: 1 x 2
-  `(Intercept)`     x
-          <dbl> <dbl>
-1        0.0669 0.972
-
-[[3]]
-# A tibble: 1 x 2
-  `(Intercept)`     x
-          <dbl> <dbl>
-1        0.0531 0.959
-
-[[4]]
-# A tibble: 1 x 2
-  `(Intercept)`     x
-          <dbl> <dbl>
-1         0.121  1.03
-
-[[5]]
-# A tibble: 1 x 2
-  `(Intercept)`     x
-          <dbl> <dbl>
-1       -0.0219 0.999
+## [[1]]
+## # A tibble: 1 x 2
+##   `(Intercept)`     x
+##           <dbl> <dbl>
+## 1        0.0538 0.982
+## 
+## [[2]]
+## # A tibble: 1 x 2
+##   `(Intercept)`     x
+##           <dbl> <dbl>
+## 1         0.152  1.01
+## 
+## [[3]]
+## # A tibble: 1 x 2
+##   `(Intercept)`     x
+##           <dbl> <dbl>
+## 1        0.0912  1.01
+## 
+## [[4]]
+## # A tibble: 1 x 2
+##   `(Intercept)`     x
+##           <dbl> <dbl>
+## 1      -0.00991 0.973
+## 
+## [[5]]
+## # A tibble: 1 x 2
+##   `(Intercept)`     x
+##           <dbl> <dbl>
+## 1       -0.0764 0.992
 ```
 
 Then, we can plot our results:
@@ -1385,16 +1385,16 @@ It can be a bit tricky to differentiate between options 2 and 3 in practice - th
 .reset()
 
 library(tidyverse)
-── Attaching packages ─────────────────────────────────────── tidyverse 1.3.1 ──
-✓ ggplot2 3.3.3.9000     ✓ purrr   0.3.4     
-✓ tibble  3.1.1          ✓ dplyr   1.0.5     
-✓ tidyr   1.1.3          ✓ stringr 1.4.0     
-✓ readr   1.4.0          ✓ forcats 0.5.1     
-── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
-x tidyr::extract()   masks magrittr::extract()
-x dplyr::filter()    masks stats::filter()
-x dplyr::lag()       masks stats::lag()
-x purrr::set_names() masks magrittr::set_names()
+## ── Attaching packages ─────────────────────────────────────── tidyverse 1.3.0 ──
+## ✓ ggplot2 3.3.3     ✓ purrr   0.3.4
+## ✓ tibble  3.1.0     ✓ dplyr   1.0.5
+## ✓ tidyr   1.1.3     ✓ stringr 1.4.0
+## ✓ readr   1.4.0     ✓ forcats 0.5.1
+## ── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
+## x tidyr::extract()   masks magrittr::extract()
+## x dplyr::filter()    masks stats::filter()
+## x dplyr::lag()       masks stats::lag()
+## x purrr::set_names() masks magrittr::set_names()
 library(repurrrsive)
 ```
 
@@ -1405,7 +1405,7 @@ Use each of the 3 options for defining a method in purrr to pull out a single st
 
 ```r
 letters[1:10] %>% paste(collapse = "|")
-[1] "a|b|c|d|e|f|g|h|i|j"
+## [1] "a|b|c|d|e|f|g|h|i|j"
 ```
 Start with this data frame of character names and book list-columns:
 
@@ -1449,15 +1449,15 @@ got_df <- got_df %>%
   ) 
 
 head(got_df)
-# A tibble: 6 x 7
-  name      id books  fun_def_res   fun_base_res  fun_anon_res  fun_formula_res 
-  <chr>  <int> <list> <chr>         <chr>         <chr>         <chr>           
-1 Theon…  1022 <chr … A Game of Th… A Game of Th… A Game of Th… A Game of Thron…
-2 Tyrio…  1052 <chr … A Feast for … A Feast for … A Feast for … A Feast for Cro…
-3 Victa…  1074 <chr … A Game of Th… A Game of Th… A Game of Th… A Game of Thron…
-4 Will    1109 <chr … A Clash of K… A Clash of K… A Clash of K… A Clash of Kings
-5 Areo …  1166 <chr … A Game of Th… A Game of Th… A Game of Th… A Game of Thron…
-6 Chett   1267 <chr … A Game of Th… A Game of Th… A Game of Th… A Game of Thron…
+## # A tibble: 6 x 7
+##   name      id books  fun_def_res   fun_base_res  fun_anon_res  fun_formula_res 
+##   <chr>  <int> <list> <chr>         <chr>         <chr>         <chr>           
+## 1 Theon…  1022 <chr … A Game of Th… A Game of Th… A Game of Th… A Game of Thron…
+## 2 Tyrio…  1052 <chr … A Feast for … A Feast for … A Feast for … A Feast for Cro…
+## 3 Victa…  1074 <chr … A Game of Th… A Game of Th… A Game of Th… A Game of Thron…
+## 4 Will    1109 <chr … A Clash of K… A Clash of K… A Clash of K… A Clash of Kings
+## 5 Areo …  1166 <chr … A Game of Th… A Game of Th… A Game of Th… A Game of Thron…
+## 6 Chett   1267 <chr … A Game of Th… A Game of Th… A Game of Th… A Game of Thron…
 ```
 </details>
 
@@ -1473,19 +1473,19 @@ Let's create a simple times-table:
 crossing(x = 1:10, y = 1:10) %>%
   mutate(times = map2_int(x, y, `*`)) %>%
   pivot_wider(names_from = y, names_prefix = 'y=', values_from = times)
-# A tibble: 10 x 11
-       x `y=1` `y=2` `y=3` `y=4` `y=5` `y=6` `y=7` `y=8` `y=9` `y=10`
-   <int> <int> <int> <int> <int> <int> <int> <int> <int> <int>  <int>
- 1     1     1     2     3     4     5     6     7     8     9     10
- 2     2     2     4     6     8    10    12    14    16    18     20
- 3     3     3     6     9    12    15    18    21    24    27     30
- 4     4     4     8    12    16    20    24    28    32    36     40
- 5     5     5    10    15    20    25    30    35    40    45     50
- 6     6     6    12    18    24    30    36    42    48    54     60
- 7     7     7    14    21    28    35    42    49    56    63     70
- 8     8     8    16    24    32    40    48    56    64    72     80
- 9     9     9    18    27    36    45    54    63    72    81     90
-10    10    10    20    30    40    50    60    70    80    90    100
+## # A tibble: 10 x 11
+##        x `y=1` `y=2` `y=3` `y=4` `y=5` `y=6` `y=7` `y=8` `y=9` `y=10`
+##    <int> <int> <int> <int> <int> <int> <int> <int> <int> <int>  <int>
+##  1     1     1     2     3     4     5     6     7     8     9     10
+##  2     2     2     4     6     8    10    12    14    16    18     20
+##  3     3     3     6     9    12    15    18    21    24    27     30
+##  4     4     4     8    12    16    20    24    28    32    36     40
+##  5     5     5    10    15    20    25    30    35    40    45     50
+##  6     6     6    12    18    24    30    36    42    48    54     60
+##  7     7     7    14    21    28    35    42    49    56    63     70
+##  8     8     8    16    24    32    40    48    56    64    72     80
+##  9     9     9    18    27    36    45    54    63    72    81     90
+## 10    10    10    20    30    40    50    60    70    80    90    100
 # we could use `multiply_by` instead of `*` if we wanted to
 ```
 
@@ -1511,20 +1511,20 @@ got_names <- tibble(name = purrr::map_chr(got_chars, "name"),
 ```r
 got_names %>%
   mutate(more_titles = map2_lgl(titles, aliases, ~length(.x) > length(.y)))
-# A tibble: 30 x 4
-   name               titles    aliases    more_titles
-   <chr>              <list>    <list>     <lgl>      
- 1 Theon Greyjoy      <chr [3]> <chr [4]>  FALSE      
- 2 Tyrion Lannister   <chr [2]> <chr [11]> FALSE      
- 3 Victarion Greyjoy  <chr [2]> <chr [1]>  TRUE       
- 4 Will               <chr [1]> <chr [1]>  FALSE      
- 5 Areo Hotah         <chr [1]> <chr [1]>  FALSE      
- 6 Chett              <chr [1]> <chr [1]>  FALSE      
- 7 Cressen            <chr [1]> <chr [1]>  FALSE      
- 8 Arianne Martell    <chr [1]> <chr [1]>  FALSE      
- 9 Daenerys Targaryen <chr [5]> <chr [11]> FALSE      
-10 Davos Seaworth     <chr [4]> <chr [5]>  FALSE      
-# … with 20 more rows
+## # A tibble: 30 x 4
+##    name               titles    aliases    more_titles
+##    <chr>              <list>    <list>     <lgl>      
+##  1 Theon Greyjoy      <chr [3]> <chr [4]>  FALSE      
+##  2 Tyrion Lannister   <chr [2]> <chr [11]> FALSE      
+##  3 Victarion Greyjoy  <chr [2]> <chr [1]>  TRUE       
+##  4 Will               <chr [1]> <chr [1]>  FALSE      
+##  5 Areo Hotah         <chr [1]> <chr [1]>  FALSE      
+##  6 Chett              <chr [1]> <chr [1]>  FALSE      
+##  7 Cressen            <chr [1]> <chr [1]>  FALSE      
+##  8 Arianne Martell    <chr [1]> <chr [1]>  FALSE      
+##  9 Daenerys Targaryen <chr [5]> <chr [11]> FALSE      
+## 10 Davos Seaworth     <chr [4]> <chr [5]>  FALSE      
+## # … with 20 more rows
 ```
 </details>
 

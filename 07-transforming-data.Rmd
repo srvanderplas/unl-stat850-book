@@ -140,6 +140,9 @@ write_csv(college_data2, "data/College_Data_Abbrev.csv", na = '.')
 For this example, we'll use a subset of the US Department of Education College Scorecard data. [Documentation](https://collegescorecard.ed.gov/data/documentation/), [Data](https://collegescorecard.ed.gov/data/). I've selected a few columns from the institution-level data available on the College Scorecard site. 
 
 <details><summary>Let's take a look (Read in the data)</summary>
+```{r read-in-data, include = F}
+library(readr)
+```
 ```{r summary-college-data}
 college <- read_csv("data/College_Data_Abbrev.csv", guess_max = 5000, na = '.')
 str(college)
