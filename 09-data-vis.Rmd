@@ -1089,8 +1089,9 @@ ggplot(aes(x = x, y = y, group = x)) +
 boxplot(per_100k~crime, data = tmp)
 ```
 </details>
+
 <details><summary>Box plots in SAS</summary>
-```{r sas-boxplot-08, collectcode = F, fig.path = "image/", engine = "sashtml", error = T}
+```{r sas-boxplot-08, collectcode = F, fig.path = "image/", engine = "sashtml", engine.path = sasexe, engine.opts = sasopts, error = T}
 ODS HTML style= HTMLBlue; /* needed for color graphs in bookdown */
 libname classdat "sas/";
 

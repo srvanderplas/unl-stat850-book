@@ -32,7 +32,7 @@
   <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon" />
 <link rel="prev" href="intro-prog.html"/>
 <link rel="next" href="data-programming-basics.html"/>
-<script src="libs/header-attrs-2.7/header-attrs.js"></script>
+<script src="libs/header-attrs-2.7.3/header-attrs.js"></script>
 <script src="libs/jquery-3.5.1/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -104,7 +104,6 @@ function unrolltab(evt, tabName) {
 pre > code.sourceCode { white-space: pre; position: relative; }
 pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
 pre.sourceCode { margin: 0; }
 @media screen {
@@ -724,7 +723,7 @@ The only difference between the RUN and CALL statements is the order of resoluti
 <span id="cb91-3"><a href="organization.html#cb91-3" aria-hidden="true" tabindex="-1"></a>}</span>
 <span id="cb91-4"><a href="organization.html#cb91-4" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb91-5"><a href="organization.html#cb91-5" aria-hidden="true" tabindex="-1"></a><span class="fu">adder</span>(<span class="dv">3</span>, <span class="dv">4</span>)</span>
-<span id="cb91-6"><a href="organization.html#cb91-6" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="dv">7</span></span></code></pre></div>
+<span id="cb91-6"><a href="organization.html#cb91-6" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] 7</span></span></code></pre></div>
 <pre class="sashtmllog"><code>6          proc IML;
 NOTE: IML Ready
 7          
@@ -784,29 +783,29 @@ c
 Let’s examine how the colSums() function is implemented
 </summary>
 <div class="sourceCode" id="cb93"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb93-1"><a href="organization.html#cb93-1" aria-hidden="true" tabindex="-1"></a>colSums</span>
-<span id="cb93-2"><a href="organization.html#cb93-2" aria-hidden="true" tabindex="-1"></a><span class="cf">function</span> (x, <span class="at">na.rm =</span> <span class="cn">FALSE</span>, <span class="at">dims =</span> 1L) </span>
-<span id="cb93-3"><a href="organization.html#cb93-3" aria-hidden="true" tabindex="-1"></a>{</span>
-<span id="cb93-4"><a href="organization.html#cb93-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> (<span class="fu">is.data.frame</span>(x)) </span>
-<span id="cb93-5"><a href="organization.html#cb93-5" aria-hidden="true" tabindex="-1"></a>        x <span class="ot">&lt;-</span> <span class="fu">as.matrix</span>(x)</span>
-<span id="cb93-6"><a href="organization.html#cb93-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> (<span class="sc">!</span><span class="fu">is.array</span>(x) <span class="sc">||</span> <span class="fu">length</span>(dn <span class="ot">&lt;-</span> <span class="fu">dim</span>(x)) <span class="sc">&lt;</span> 2L) </span>
-<span id="cb93-7"><a href="organization.html#cb93-7" aria-hidden="true" tabindex="-1"></a>        <span class="fu">stop</span>(<span class="st">&quot;&#39;x&#39; must be an array of at least two dimensions&quot;</span>)</span>
-<span id="cb93-8"><a href="organization.html#cb93-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> (dims <span class="sc">&lt;</span> 1L <span class="sc">||</span> dims <span class="sc">&gt;</span> <span class="fu">length</span>(dn) <span class="sc">-</span> 1L) </span>
-<span id="cb93-9"><a href="organization.html#cb93-9" aria-hidden="true" tabindex="-1"></a>        <span class="fu">stop</span>(<span class="st">&quot;invalid &#39;dims&#39;&quot;</span>)</span>
-<span id="cb93-10"><a href="organization.html#cb93-10" aria-hidden="true" tabindex="-1"></a>    n <span class="ot">&lt;-</span> <span class="fu">prod</span>(dn[id <span class="ot">&lt;-</span> <span class="fu">seq_len</span>(dims)])</span>
-<span id="cb93-11"><a href="organization.html#cb93-11" aria-hidden="true" tabindex="-1"></a>    dn <span class="ot">&lt;-</span> dn[<span class="sc">-</span>id]</span>
-<span id="cb93-12"><a href="organization.html#cb93-12" aria-hidden="true" tabindex="-1"></a>    z <span class="ot">&lt;-</span> <span class="cf">if</span> (<span class="fu">is.complex</span>(x)) </span>
-<span id="cb93-13"><a href="organization.html#cb93-13" aria-hidden="true" tabindex="-1"></a>        <span class="fu">.Internal</span>(<span class="fu">colSums</span>(<span class="fu">Re</span>(x), n, <span class="fu">prod</span>(dn), na.rm)) <span class="sc">+</span> (<span class="dv">0</span><span class="sc">+</span>1i) <span class="sc">*</span> </span>
-<span id="cb93-14"><a href="organization.html#cb93-14" aria-hidden="true" tabindex="-1"></a>            <span class="fu">.Internal</span>(<span class="fu">colSums</span>(<span class="fu">Im</span>(x), n, <span class="fu">prod</span>(dn), na.rm))</span>
-<span id="cb93-15"><a href="organization.html#cb93-15" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span> <span class="fu">.Internal</span>(<span class="fu">colSums</span>(x, n, <span class="fu">prod</span>(dn), na.rm))</span>
-<span id="cb93-16"><a href="organization.html#cb93-16" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> (<span class="fu">length</span>(dn) <span class="sc">&gt;</span> 1L) {</span>
-<span id="cb93-17"><a href="organization.html#cb93-17" aria-hidden="true" tabindex="-1"></a>        <span class="fu">dim</span>(z) <span class="ot">&lt;-</span> dn</span>
-<span id="cb93-18"><a href="organization.html#cb93-18" aria-hidden="true" tabindex="-1"></a>        <span class="fu">dimnames</span>(z) <span class="ot">&lt;-</span> <span class="fu">dimnames</span>(x)[<span class="sc">-</span>id]</span>
-<span id="cb93-19"><a href="organization.html#cb93-19" aria-hidden="true" tabindex="-1"></a>    }</span>
-<span id="cb93-20"><a href="organization.html#cb93-20" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span> <span class="fu">names</span>(z) <span class="ot">&lt;-</span> <span class="fu">dimnames</span>(x)[[dims <span class="sc">+</span> 1L]]</span>
-<span id="cb93-21"><a href="organization.html#cb93-21" aria-hidden="true" tabindex="-1"></a>    z</span>
-<span id="cb93-22"><a href="organization.html#cb93-22" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb93-23"><a href="organization.html#cb93-23" aria-hidden="true" tabindex="-1"></a><span class="sc">&lt;</span>bytecode<span class="sc">:</span> <span class="dv">0x55c638bb3af0</span><span class="sc">&gt;</span></span>
-<span id="cb93-24"><a href="organization.html#cb93-24" aria-hidden="true" tabindex="-1"></a><span class="er">&lt;</span>environment<span class="sc">:</span> namespace<span class="sc">:</span>base<span class="sc">&gt;</span></span></code></pre></div>
+<span id="cb93-2"><a href="organization.html#cb93-2" aria-hidden="true" tabindex="-1"></a><span class="do">## function (x, na.rm = FALSE, dims = 1L) </span></span>
+<span id="cb93-3"><a href="organization.html#cb93-3" aria-hidden="true" tabindex="-1"></a><span class="do">## {</span></span>
+<span id="cb93-4"><a href="organization.html#cb93-4" aria-hidden="true" tabindex="-1"></a><span class="do">##     if (is.data.frame(x)) </span></span>
+<span id="cb93-5"><a href="organization.html#cb93-5" aria-hidden="true" tabindex="-1"></a><span class="do">##         x &lt;- as.matrix(x)</span></span>
+<span id="cb93-6"><a href="organization.html#cb93-6" aria-hidden="true" tabindex="-1"></a><span class="do">##     if (!is.array(x) || length(dn &lt;- dim(x)) &lt; 2L) </span></span>
+<span id="cb93-7"><a href="organization.html#cb93-7" aria-hidden="true" tabindex="-1"></a><span class="do">##         stop(&quot;&#39;x&#39; must be an array of at least two dimensions&quot;)</span></span>
+<span id="cb93-8"><a href="organization.html#cb93-8" aria-hidden="true" tabindex="-1"></a><span class="do">##     if (dims &lt; 1L || dims &gt; length(dn) - 1L) </span></span>
+<span id="cb93-9"><a href="organization.html#cb93-9" aria-hidden="true" tabindex="-1"></a><span class="do">##         stop(&quot;invalid &#39;dims&#39;&quot;)</span></span>
+<span id="cb93-10"><a href="organization.html#cb93-10" aria-hidden="true" tabindex="-1"></a><span class="do">##     n &lt;- prod(dn[id &lt;- seq_len(dims)])</span></span>
+<span id="cb93-11"><a href="organization.html#cb93-11" aria-hidden="true" tabindex="-1"></a><span class="do">##     dn &lt;- dn[-id]</span></span>
+<span id="cb93-12"><a href="organization.html#cb93-12" aria-hidden="true" tabindex="-1"></a><span class="do">##     z &lt;- if (is.complex(x)) </span></span>
+<span id="cb93-13"><a href="organization.html#cb93-13" aria-hidden="true" tabindex="-1"></a><span class="do">##         .Internal(colSums(Re(x), n, prod(dn), na.rm)) + (0+1i) * </span></span>
+<span id="cb93-14"><a href="organization.html#cb93-14" aria-hidden="true" tabindex="-1"></a><span class="do">##             .Internal(colSums(Im(x), n, prod(dn), na.rm))</span></span>
+<span id="cb93-15"><a href="organization.html#cb93-15" aria-hidden="true" tabindex="-1"></a><span class="do">##     else .Internal(colSums(x, n, prod(dn), na.rm))</span></span>
+<span id="cb93-16"><a href="organization.html#cb93-16" aria-hidden="true" tabindex="-1"></a><span class="do">##     if (length(dn) &gt; 1L) {</span></span>
+<span id="cb93-17"><a href="organization.html#cb93-17" aria-hidden="true" tabindex="-1"></a><span class="do">##         dim(z) &lt;- dn</span></span>
+<span id="cb93-18"><a href="organization.html#cb93-18" aria-hidden="true" tabindex="-1"></a><span class="do">##         dimnames(z) &lt;- dimnames(x)[-id]</span></span>
+<span id="cb93-19"><a href="organization.html#cb93-19" aria-hidden="true" tabindex="-1"></a><span class="do">##     }</span></span>
+<span id="cb93-20"><a href="organization.html#cb93-20" aria-hidden="true" tabindex="-1"></a><span class="do">##     else names(z) &lt;- dimnames(x)[[dims + 1L]]</span></span>
+<span id="cb93-21"><a href="organization.html#cb93-21" aria-hidden="true" tabindex="-1"></a><span class="do">##     z</span></span>
+<span id="cb93-22"><a href="organization.html#cb93-22" aria-hidden="true" tabindex="-1"></a><span class="do">## }</span></span>
+<span id="cb93-23"><a href="organization.html#cb93-23" aria-hidden="true" tabindex="-1"></a><span class="do">## &lt;bytecode: 0x55d952ef4c88&gt;</span></span>
+<span id="cb93-24"><a href="organization.html#cb93-24" aria-hidden="true" tabindex="-1"></a><span class="do">## &lt;environment: namespace:base&gt;</span></span></code></pre></div>
 <p>You can see that the first 3 steps in the function are if statements to test whether the inputs are acceptable - x must be a data frame, a matrix, or an array (with 2+ dimensions).</p>
 <p>The next couple of lines test to see whether there are additional “column” dimensions (don’t worry if you don’t understand what’s going on in this code - it’s highly optimized and a bit arcane).</p>
 <p>Then, the function checks to see if x is real-valued or complex, and if it’s complex, computes the real and imaginary sums separately.</p>
@@ -826,7 +825,7 @@ Solution
 <span id="cb94-3"><a href="organization.html#cb94-3" aria-hidden="true" tabindex="-1"></a>}</span>
 <span id="cb94-4"><a href="organization.html#cb94-4" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb94-5"><a href="organization.html#cb94-5" aria-hidden="true" tabindex="-1"></a><span class="fu">circle_area</span>(<span class="dv">5</span>)</span>
-<span id="cb94-6"><a href="organization.html#cb94-6" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="fl">78.53982</span></span></code></pre></div>
+<span id="cb94-6"><a href="organization.html#cb94-6" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] 78.53982</span></span></code></pre></div>
 <p>A more complete and robust answer might include a test for numeric <code>r</code>:</p>
 <div class="sourceCode" id="cb95"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb95-1"><a href="organization.html#cb95-1" aria-hidden="true" tabindex="-1"></a>circle_area <span class="ot">&lt;-</span> <span class="cf">function</span>(r) {</span>
 <span id="cb95-2"><a href="organization.html#cb95-2" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (<span class="sc">!</span><span class="fu">is.numeric</span>(r)) {</span>
@@ -835,7 +834,7 @@ Solution
 <span id="cb95-5"><a href="organization.html#cb95-5" aria-hidden="true" tabindex="-1"></a>  r<span class="sc">^</span><span class="dv">2</span><span class="sc">*</span>pi <span class="co"># automatically returned as the last computed value</span></span>
 <span id="cb95-6"><a href="organization.html#cb95-6" aria-hidden="true" tabindex="-1"></a>}</span>
 <span id="cb95-7"><a href="organization.html#cb95-7" aria-hidden="true" tabindex="-1"></a><span class="fu">circle_area</span>(<span class="dv">5</span>)</span>
-<span id="cb95-8"><a href="organization.html#cb95-8" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="fl">78.53982</span></span></code></pre></div>
+<span id="cb95-8"><a href="organization.html#cb95-8" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] 78.53982</span></span></code></pre></div>
 <pre class="sashtmllog"><code>6          proc IML;
 NOTE: IML Ready
 7          
@@ -852,7 +851,7 @@ NOTE: Module CIRCLE_AREA defined.
 NOTE: Exiting IML.
 NOTE: PROCEDURE IML used (Total process time):
       real time           0.00 seconds
-      cpu time            0.00 seconds
+      cpu time            0.01 seconds
       
 
 17         </code></pre>
@@ -905,11 +904,11 @@ Demonstration of scoping in R
 <span id="cb97-6"><a href="organization.html#cb97-6" aria-hidden="true" tabindex="-1"></a>}</span>
 <span id="cb97-7"><a href="organization.html#cb97-7" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb97-8"><a href="organization.html#cb97-8" aria-hidden="true" tabindex="-1"></a><span class="fu">myfun</span>(<span class="dv">5</span>, <span class="dv">6</span>) <span class="co"># a is 5 inside the function, so that overrides the </span></span>
-<span id="cb97-9"><a href="organization.html#cb97-9" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="dv">13</span></span>
+<span id="cb97-9"><a href="organization.html#cb97-9" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] 13</span></span>
 <span id="cb97-10"><a href="organization.html#cb97-10" aria-hidden="true" tabindex="-1"></a>            <span class="co"># a defined outside the function</span></span>
 <span id="cb97-11"><a href="organization.html#cb97-11" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb97-12"><a href="organization.html#cb97-12" aria-hidden="true" tabindex="-1"></a><span class="fu">myfun</span>(a, <span class="dv">3</span>) <span class="co"># this references the a outside the function</span></span>
-<span id="cb97-13"><a href="organization.html#cb97-13" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="dv">8</span></span></code></pre></div>
+<span id="cb97-13"><a href="organization.html#cb97-13" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] 8</span></span></code></pre></div>
 <div class="figure">
 <img src="image/03_myfun_scope.png" alt="" />
 <p class="caption">Scope diagram. When myfun() is called, the calling environment contains the two parameters a and b.</p>
@@ -921,7 +920,7 @@ Demonstration of scoping in R
 <span id="cb98-5"><a href="organization.html#cb98-5" aria-hidden="true" tabindex="-1"></a>}</span>
 <span id="cb98-6"><a href="organization.html#cb98-6" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb98-7"><a href="organization.html#cb98-7" aria-hidden="true" tabindex="-1"></a><span class="fu">myfun2</span>(<span class="dv">3</span>) <span class="co"># the only a in scope inside fun2 is the a defined at the top of the chunk</span></span>
-<span id="cb98-8"><a href="organization.html#cb98-8" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="dv">8</span></span></code></pre></div>
+<span id="cb98-8"><a href="organization.html#cb98-8" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] 8</span></span></code></pre></div>
 <div class="figure">
 <img src="image/03_myfun2_scope.png" alt="" />
 <p class="caption">Scope diagram. When myfun2() is called, the calling environment contains only a parameter <span class="math inline">\(d\)</span>. <span class="math inline">\(a\)</span> is pulled from the global environment, as there is no parameter <span class="math inline">\(a\)</span> in the myfun2 calling environment.</p>
@@ -935,14 +934,14 @@ Demonstration of scoping in R
 <span id="cb99-7"><a href="organization.html#cb99-7" aria-hidden="true" tabindex="-1"></a>}</span>
 <span id="cb99-8"><a href="organization.html#cb99-8" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb99-9"><a href="organization.html#cb99-9" aria-hidden="true" tabindex="-1"></a>a</span>
-<span id="cb99-10"><a href="organization.html#cb99-10" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="dv">3</span></span>
+<span id="cb99-10"><a href="organization.html#cb99-10" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] 3</span></span>
 <span id="cb99-11"><a href="organization.html#cb99-11" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb99-12"><a href="organization.html#cb99-12" aria-hidden="true" tabindex="-1"></a><span class="fu">myfun3</span>(<span class="dv">5</span>, <span class="dv">3</span>) <span class="co"># now, a is defined inside fun3 as a = 5, so there is an a in </span></span>
-<span id="cb99-13"><a href="organization.html#cb99-13" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="dv">10</span></span>
+<span id="cb99-13"><a href="organization.html#cb99-13" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] 10</span></span>
 <span id="cb99-14"><a href="organization.html#cb99-14" aria-hidden="true" tabindex="-1"></a>             <span class="co"># fun3&#39;s scope that isn&#39;t in the global environment.</span></span>
 <span id="cb99-15"><a href="organization.html#cb99-15" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb99-16"><a href="organization.html#cb99-16" aria-hidden="true" tabindex="-1"></a>a <span class="co"># value of a hasn&#39;t changed</span></span>
-<span id="cb99-17"><a href="organization.html#cb99-17" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="dv">3</span></span></code></pre></div>
+<span id="cb99-17"><a href="organization.html#cb99-17" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] 3</span></span></code></pre></div>
 <div class="figure">
 <img src="image/03_myfun3_scope.png" alt="" />
 <p class="caption">Scope diagram. When myfun3() is called, the calling environment contains parameters a and d, which are then copied into the calling environment of myfun as <span class="math inline">\(a\)</span> and <span class="math inline">\(b\)</span>. The variable <span class="math inline">\(a\)</span> in the global environment is ignored.</p>
@@ -977,28 +976,28 @@ NOTE: Exiting IML.
 NOTE: The PROCEDURE IML printed page 3.
 NOTE: PROCEDURE IML used (Total process time):
       real time           0.00 seconds
-      cpu time            0.00 seconds
+      cpu time            0.01 seconds
       
 
 18         
-                              The SAS System                              1
-                                      Wednesday, April 28, 2021 11:52:00 AM
-
-                                             c
-
-                            3 + 4 =          7
-                              The SAS System                              2
-                                      Wednesday, April 28, 2021 11:52:00 AM
-
-                                     c
-
-                                 78.539816
- 
-                                                                           
- 
-                                   r1        r2
-
-                                   13         8</code></pre>
+##                               The SAS System                              1
+##                                            Sunday, May  9, 2021 10:29:00 AM
+## 
+##                                              c
+## 
+##                             3 + 4 =          7
+##                               The SAS System                              2
+##                                            Sunday, May  9, 2021 10:29:00 AM
+## 
+##                                      c
+## 
+##                                  78.539816
+##  
+##                                                                            
+##  
+##                                    r1        r2
+## 
+##                                    13         8</code></pre>
 <p>In SAS, the equivalent version of the program used to demonstrate lexical scoping in R produces an error. In SAS, you cannot assume the function has access to values defined outside of that function that are not passed into the function as arguments.</p>
 <pre class="saslog"><code>2          PROC IML;
 NOTE: IML Ready
@@ -1048,24 +1047,24 @@ NOTE: PROCEDURE IML used (Total process time):
       
 
 ERROR: Errors printed on page 2.
-                              The SAS System                              1
-                                      Wednesday, April 28, 2021 11:52:00 AM
-
-                                             c
-
-                            3 + 4 =          7
-                              The SAS System                              2
-                                      Wednesday, April 28, 2021 11:52:00 AM
-
-                                     c
-
-                                 78.539816
-                              The SAS System                              3
-                                      Wednesday, April 28, 2021 11:52:00 AM
-
-                                   r1        r2
-
-                                   13         8</code></pre>
+##                               The SAS System                              1
+##                                            Sunday, May  9, 2021 10:29:00 AM
+## 
+##                                              c
+## 
+##                             3 + 4 =          7
+##                               The SAS System                              2
+##                                            Sunday, May  9, 2021 10:29:00 AM
+## 
+##                                      c
+## 
+##                                  78.539816
+##                               The SAS System                              3
+##                                            Sunday, May  9, 2021 10:29:00 AM
+## 
+##                                    r1        r2
+## 
+##                                    13         8</code></pre>
 </details>
 <p>First, let’s consider the similarities: like R, functions have a local scope, and changing a similarly named value inside the function doesn’t change the value outside the function.</p>
 <pre class="saslog"><code>
@@ -1089,40 +1088,41 @@ NOTE: Exiting IML.
 NOTE: The PROCEDURE IML printed page 4.
 NOTE: PROCEDURE IML used (Total process time):
       real time           0.00 seconds
-      cpu time            0.00 seconds
+      cpu time            0.02 seconds
       
 
 15         
 
 ERROR: Errors printed on page 2.
-                              The SAS System                              1
-                                      Wednesday, April 28, 2021 11:52:00 AM
-
-                                             c
-
-                            3 + 4 =          7
-                              The SAS System                              2
-                                      Wednesday, April 28, 2021 11:52:00 AM
-
-                                     c
-
-                                 78.539816
-                              The SAS System                              3
-                                      Wednesday, April 28, 2021 11:52:00 AM
-
-                                   r1        r2
-
-                                   13         8
- 
-                                                                           
- 
-                         y inside function (local)
-
-                     2         4         6         8        10
-
-                            y outside function
-
-                                             0</code></pre>
+##                               The SAS System                              1
+##                                            Sunday, May  9, 2021 10:29:00 AM
+## 
+##                                              c
+## 
+##                             3 + 4 =          7
+##                               The SAS System                              2
+##                                            Sunday, May  9, 2021 10:29:00 AM
+## 
+##                                      c
+## 
+##                                  78.539816
+##                               The SAS System                              3
+##                                            Sunday, May  9, 2021 10:29:00 AM
+## 
+##                                    r1        r2
+## 
+##                                    13         8
+##  
+##                                                                            
+##  
+##                          y inside function (local)
+## 
+##                      2         4         6         8        10
+## 
+## 
+##                             y outside function
+## 
+##                                              0</code></pre>
 <p>However, R’s environment feature and lexical scoping is not common to many other programming languages.
 When values are passed into the function as arguments, the behavior in SAS deviates from the equivalent behavior in R. In SAS, arguments to functions are passed by <strong>reference</strong>.</p>
 <p>An argument that is passed <strong>by value</strong> makes a copy of the value (to a new memory location) for the local function scope (this is what R does).</p>
@@ -1157,47 +1157,14 @@ NOTE: Module MYFUN defined.
 20       ! d[label=&quot;a after r2&quot;];
 21         quit;
 NOTE: Exiting IML.
-NOTE: The PROCEDURE IML printed page 5.
+NOTE: The PROCEDURE IML printed page 1.
 NOTE: PROCEDURE IML used (Total process time):
-      real time           0.00 seconds
-      cpu time            0.00 seconds
+      real time           0.03 seconds
+      cpu time            0.03 seconds
       
-
-ERROR: Errors printed on page 2.
-                              The SAS System                              1
-                                      Wednesday, April 28, 2021 11:52:00 AM
-
-                                             c
-
-                            3 + 4 =          7
-                              The SAS System                              2
-                                      Wednesday, April 28, 2021 11:52:00 AM
-
-                                     c
-
-                                 78.539816
-                              The SAS System                              3
-                                      Wednesday, April 28, 2021 11:52:00 AM
-
-                                   r1        r2
-
-                                   13         8
-                              The SAS System                              4
-                                      Wednesday, April 28, 2021 11:52:00 AM
-
-                         y inside function (local)
-
-                     2         4         6         8        10
-
-                            y outside function
-
-                                             0
- 
-                                                                           
- 
-           a before r1        r1 a after r1        r2 a after r2
-
-                     3        13          3         8          5</code></pre>
+##            a before r1        r1 a after r1        r2 a after r2
+## 
+##                      3        13          3         8          5</code></pre>
 <div class="note">
 <p>In SAS, be sure that if you are using a logical operator AND, <code>&amp;</code>, you put spaces around it (e.g. <code>&amp;</code>) - <code>&amp;var2</code> is a way to specify that you are passing an argument (<code>var2</code>) by reference, and SAS can get confused and issue weird warnings if you actually intended this to be a logical statement of <code>var1 &amp;var2</code>.</p>
 <p>I ran across this once and it thoroughly confused me until I remembered that &amp;var can mean “pass by reference” in some languages.</p>
@@ -1229,77 +1196,48 @@ NOTE: Module MYFUN defined.
 18         
 19         quit;
 NOTE: Exiting IML.
-NOTE: The PROCEDURE IML printed page 6.
+NOTE: The PROCEDURE IML printed page 2.
 NOTE: PROCEDURE IML used (Total process time):
       real time           0.00 seconds
       cpu time            0.00 seconds
       
 
 20         
-
-ERROR: Errors printed on page 2.
-                              The SAS System                              1
-                                      Wednesday, April 28, 2021 11:52:00 AM
-
-                                             c
-
-                            3 + 4 =          7
-                              The SAS System                              2
-                                      Wednesday, April 28, 2021 11:52:00 AM
-
-                                     c
-
-                                 78.539816
-                              The SAS System                              3
-                                      Wednesday, April 28, 2021 11:52:00 AM
-
-                                   r1        r2
-
-                                   13         8
-                              The SAS System                              4
-                                      Wednesday, April 28, 2021 11:52:00 AM
-
-                         y inside function (local)
-
-                     2         4         6         8        10
-
-                            y outside function
-
-                                             0
-                              The SAS System                              5
-                                      Wednesday, April 28, 2021 11:52:00 AM
-
-           a before r1        r1 a after r1        r2 a after r2
-
-                     3        13          3         8          5
- 
-                                                                           
- 
-                        y before function is called
-
-                                                  3
-                                                  1
-                                                  4
-                                                  1
-                                                  5
-                                                  9
-                                                  2
-                                                  6
-                                                  5
-                                                  4
-
-     original y y after function is called cumulative sum of sorted y
-
-              3                          1                          1
-              1                          1                          2
-              4                          2                          4
-              1                          3                          7
-              5                          4                         11
-              9                          4                         15
-              2                          5                         20
-              6                          5                         25
-              5                          6                         31
-              4                          9                         40</code></pre>
+##                               The SAS System                              1
+##                                            Sunday, May  9, 2021 10:29:00 AM
+## 
+##            a before r1        r1 a after r1        r2 a after r2
+## 
+##                      3        13          3         8          5
+##  
+##                                                                            
+##  
+##                         y before function is called
+## 
+##                                                   3
+##                                                   1
+##                                                   4
+##                                                   1
+##                                                   5
+##                                                   9
+##                                                   2
+##                                                   6
+##                                                   5
+##                                                   4
+## 
+## 
+##      original y y after function is called cumulative sum of sorted y
+## 
+##               3                          1                          1
+##               1                          1                          2
+##               4                          2                          4
+##               1                          3                          7
+##               5                          4                         11
+##               9                          4                         15
+##               2                          5                         20
+##               6                          5                         25
+##               5                          6                         31
+##               4                          9                         40</code></pre>
 <p>Because arguments in SAS are passed by reference, you can “trick” a function into returning multiple values by passing the variables in as arguments to the function, changing their values in the function, and returning. This is not necessarily a good practice - it can make code very difficult to debug, and may lead to non-obvious dependencies - but for short, simple programs, you can probably get away with it.</p>
 <pre class="saslog"><code>2          PROC IML;
 NOTE: IML Ready
@@ -1322,83 +1260,54 @@ NOTE: Module GETDESCRIPTIVE defined.
 16         
 17         quit;
 NOTE: Exiting IML.
-NOTE: The PROCEDURE IML printed page 7.
+NOTE: The PROCEDURE IML printed page 3.
 NOTE: PROCEDURE IML used (Total process time):
       real time           0.00 seconds
       cpu time            0.00 seconds
       
 
 18         
-
-ERROR: Errors printed on page 2.
-                              The SAS System                              1
-                                      Wednesday, April 28, 2021 11:52:00 AM
-
-                                             c
-
-                            3 + 4 =          7
-                              The SAS System                              2
-                                      Wednesday, April 28, 2021 11:52:00 AM
-
-                                     c
-
-                                 78.539816
-                              The SAS System                              3
-                                      Wednesday, April 28, 2021 11:52:00 AM
-
-                                   r1        r2
-
-                                   13         8
-                              The SAS System                              4
-                                      Wednesday, April 28, 2021 11:52:00 AM
-
-                         y inside function (local)
-
-                     2         4         6         8        10
-
-                            y outside function
-
-                                             0
-                              The SAS System                              5
-                                      Wednesday, April 28, 2021 11:52:00 AM
-
-           a before r1        r1 a after r1        r2 a after r2
-
-                     3        13          3         8          5
-                              The SAS System                              6
-                                      Wednesday, April 28, 2021 11:52:00 AM
-
-                        y before function is called
-
-                                                  3
-                                                  1
-                                                  4
-                                                  1
-                                                  5
-                                                  9
-                                                  2
-                                                  6
-                                                  5
-                                                  4
-
-     original y y after function is called cumulative sum of sorted y
-
-              3                          1                          1
-              1                          1                          2
-              4                          2                          4
-              1                          3                          7
-              5                          4                         11
-              9                          4                         15
-              2                          5                         20
-              6                          5                         25
-              5                          6                         31
-              4                          9                         40
- 
-                                                                           
- 
-                                    m         s
-
-                                    4 2.4494897</code></pre>
+##                               The SAS System                              1
+##                                            Sunday, May  9, 2021 10:29:00 AM
+## 
+##            a before r1        r1 a after r1        r2 a after r2
+## 
+##                      3        13          3         8          5
+##                               The SAS System                              2
+##                                            Sunday, May  9, 2021 10:29:00 AM
+## 
+##                         y before function is called
+## 
+##                                                   3
+##                                                   1
+##                                                   4
+##                                                   1
+##                                                   5
+##                                                   9
+##                                                   2
+##                                                   6
+##                                                   5
+##                                                   4
+## 
+## 
+##      original y y after function is called cumulative sum of sorted y
+## 
+##               3                          1                          1
+##               1                          1                          2
+##               4                          2                          4
+##               1                          3                          7
+##               5                          4                         11
+##               9                          4                         15
+##               2                          5                         20
+##               6                          5                         25
+##               5                          6                         31
+##               4                          9                         40
+##  
+##                                                                            
+##  
+##                                     m         s
+## 
+##                                     4 2.4494897</code></pre>
 If you want to avoid any of these side-effects of SAS’s pass-by-reference behavior, you can very easily do so: just don’t write any modules that modify input arguments. Always modify a copy of the variable instead.
 </details>
 </details>
@@ -1416,19 +1325,19 @@ Argument passing in R
 <span id="cb106-7"><a href="organization.html#cb106-7" aria-hidden="true" tabindex="-1"></a>}</span>
 <span id="cb106-8"><a href="organization.html#cb106-8" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb106-9"><a href="organization.html#cb106-9" aria-hidden="true" tabindex="-1"></a>a</span>
-<span id="cb106-10"><a href="organization.html#cb106-10" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="dv">3</span></span>
+<span id="cb106-10"><a href="organization.html#cb106-10" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] 3</span></span>
 <span id="cb106-11"><a href="organization.html#cb106-11" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb106-12"><a href="organization.html#cb106-12" aria-hidden="true" tabindex="-1"></a><span class="fu">myfun</span>(<span class="dv">5</span>, <span class="dv">6</span>)</span>
-<span id="cb106-13"><a href="organization.html#cb106-13" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="dv">13</span></span>
+<span id="cb106-13"><a href="organization.html#cb106-13" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] 13</span></span>
 <span id="cb106-14"><a href="organization.html#cb106-14" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb106-15"><a href="organization.html#cb106-15" aria-hidden="true" tabindex="-1"></a>a</span>
-<span id="cb106-16"><a href="organization.html#cb106-16" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="dv">3</span></span>
+<span id="cb106-16"><a href="organization.html#cb106-16" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] 3</span></span>
 <span id="cb106-17"><a href="organization.html#cb106-17" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb106-18"><a href="organization.html#cb106-18" aria-hidden="true" tabindex="-1"></a><span class="fu">myfun</span>(a, <span class="dv">3</span>) </span>
-<span id="cb106-19"><a href="organization.html#cb106-19" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="dv">8</span></span>
+<span id="cb106-19"><a href="organization.html#cb106-19" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] 8</span></span>
 <span id="cb106-20"><a href="organization.html#cb106-20" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb106-21"><a href="organization.html#cb106-21" aria-hidden="true" tabindex="-1"></a>a</span>
-<span id="cb106-22"><a href="organization.html#cb106-22" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="dv">3</span></span></code></pre></div>
+<span id="cb106-22"><a href="organization.html#cb106-22" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] 3</span></span></code></pre></div>
 </details>
 <div id="try-it-out-10" class="section level4 unnumbered tryitout">
 <h4>Try it out</h4>
@@ -1507,9 +1416,7 @@ NOTE: PROCEDURE IML used (Total process time):
       cpu time            0.00 seconds
       
 
-29         
-
-ERROR: Errors printed on page 2.</code></pre>
+29         </code></pre>
 <details>
 <summary>
 Solution
@@ -1560,7 +1467,7 @@ Infix operators
 <span id="cb112-3"><a href="organization.html#cb112-3" aria-hidden="true" tabindex="-1"></a>}</span>
 <span id="cb112-4"><a href="organization.html#cb112-4" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb112-5"><a href="organization.html#cb112-5" aria-hidden="true" tabindex="-1"></a><span class="dv">3</span> <span class="sc">%dosomething%</span> <span class="dv">4</span></span>
-<span id="cb112-6"><a href="organization.html#cb112-6" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="dv">82</span></span></code></pre></div>
+<span id="cb112-6"><a href="organization.html#cb112-6" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] 82</span></span></code></pre></div>
 <p>You can also call default infix operators using this syntax: `+`(3, 4) = 7</p>
 One of the most useful infix operators is the pipe, <code>%&gt;%</code>, which is a part of the <code>magrittr</code> library and is commonly included in other packages, such as <code>dplyr</code>, and <code>tidyr</code> (we will talk about packages later in this chapter, but pipes are useful to discuss now, so roll with it for a few minutes).
 </details>
@@ -1571,9 +1478,9 @@ One of the most useful infix operators is the pipe, <code>%&gt;%</code>, which i
 <div class="sourceCode" id="cb113"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb113-1"><a href="organization.html#cb113-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(magrittr)</span>
 <span id="cb113-2"><a href="organization.html#cb113-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb113-3"><a href="organization.html#cb113-3" aria-hidden="true" tabindex="-1"></a><span class="dv">3</span> <span class="sc">%&gt;%</span> <span class="fu">exp</span>()</span>
-<span id="cb113-4"><a href="organization.html#cb113-4" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="fl">20.08554</span></span>
+<span id="cb113-4"><a href="organization.html#cb113-4" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] 20.08554</span></span>
 <span id="cb113-5"><a href="organization.html#cb113-5" aria-hidden="true" tabindex="-1"></a><span class="fu">exp</span>(<span class="dv">3</span>)</span>
-<span id="cb113-6"><a href="organization.html#cb113-6" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="fl">20.08554</span></span></code></pre></div>
+<span id="cb113-6"><a href="organization.html#cb113-6" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] 20.08554</span></span></code></pre></div>
 <p>The pipe takes the left hand side and a function, and puts the left hand side as an argument to the function on the right hand side. It doesn’t sound very impressive, but it allows you to do a very cool thing: “chain” operations.</p>
 <p>Consider 3 functions:</p>
 <div class="sourceCode" id="cb114"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb114-1"><a href="organization.html#cb114-1" aria-hidden="true" tabindex="-1"></a>f1 <span class="ot">&lt;-</span> <span class="cf">function</span>(x, <span class="at">y =</span> <span class="dv">3</span>) {</span>
@@ -1589,7 +1496,7 @@ One of the most useful infix operators is the pipe, <code>%&gt;%</code>, which i
 <span id="cb114-11"><a href="organization.html#cb114-11" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
 <p>Normally, you’d write <code>f3(f2(f1(4)))</code>, which you have to read from the inside to the outside if you want to describe what this function call is doing. With pipes, you can write the same operation as:</p>
 <div class="sourceCode" id="cb115"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb115-1"><a href="organization.html#cb115-1" aria-hidden="true" tabindex="-1"></a><span class="dv">4</span> <span class="sc">%&gt;%</span> <span class="fu">f1</span>() <span class="sc">%&gt;%</span> <span class="fu">f2</span>() <span class="sc">%&gt;%</span> <span class="fu">f3</span>()</span>
-<span id="cb115-2"><a href="organization.html#cb115-2" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="fl">2.158362</span></span></code></pre></div>
+<span id="cb115-2"><a href="organization.html#cb115-2" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] 2.158362</span></span></code></pre></div>
 <p>This is much simpler to read - it’s like a recipe. “Take 4, do f1, then f2, then f3.”</p>
 <p>You don’t need to know how to define your own infix operators, but you will want to become familiar with the pipe. It’s a central component of writing “tidy” R code. Incidentally, SAS also has a use for the pipe: <a href="https://blogs.sas.com/content/sgf/2016/03/11/using-a-pipe-to-return-the-output-of-an-operating-system-command-to-sas-software/">leveraging the operating system to work with files</a>. In SAS, you just use the keyword <code>pipe</code>, which is hopefully pretty obvious.</p>
 </div>
@@ -1612,7 +1519,7 @@ SAS procedures can also be run with options that modify the statement.
 
 NOTE: There were 10 observations read from the data set SASHELP.CARS.
 NOTE: PROCEDURE PRINT used (Total process time):
-      real time           0.01 seconds
+      real time           0.02 seconds
       cpu time            0.02 seconds
       
 
@@ -1622,11 +1529,9 @@ NOTE: PROCEDURE PRINT used (Total process time):
 
 NOTE: There were 428 observations read from the data set SASHELP.CARS.
 NOTE: PROCEDURE MEANS used (Total process time):
-      real time           0.01 seconds
-      cpu time            0.01 seconds
-      
-
-ERROR: Errors printed on page 2.</code></pre>
+      real time           0.02 seconds
+      cpu time            0.03 seconds
+      </code></pre>
 <div class="branch">
 <a name="IDX"></a>
 <div>
@@ -2655,11 +2560,9 @@ Some procs also support additional statements: for instance, we can use the VAR 
 
 NOTE: There were 428 observations read from the data set SASHELP.CARS.
 NOTE: PROCEDURE MEANS used (Total process time):
-      real time           0.00 seconds
-      cpu time            0.02 seconds
-      
-
-ERROR: Errors printed on page 2.</code></pre>
+      real time           0.01 seconds
+      cpu time            0.01 seconds
+      </code></pre>
 <div class="branch">
 <a name="IDX"></a>
 <div>
@@ -2805,10 +2708,8 @@ Another statement, CLASS, tells SAS to run the procedure for each level of a nam
 NOTE: There were 428 observations read from the data set SASHELP.CARS.
 NOTE: PROCEDURE MEANS used (Total process time):
       real time           0.01 seconds
-      cpu time            0.02 seconds
-      
-
-ERROR: Errors printed on page 2.</code></pre>
+      cpu time            0.03 seconds
+      </code></pre>
 <div class="branch">
 <a name="IDX"></a>
 <div>
@@ -3454,119 +3355,64 @@ RUN;</code></pre>
 <summary>
 Snowflake.SAS
 </summary>
-<pre class="sashtml"><code>6          PROC IML;
-NOTE: IML Ready
-7            start KochDivide(A, E);
-7        !                                              /* (x,y) coords of
-7        ! endpoints */
-8               segs = j(5, 2, .);
-8        !                                              /* matrix to hold 4
-8        !  shorter segs */
-9               v = (E-A) / 3;
-9        !                                              /* vector 1/3 as
-9        ! long as orig */
-10              segs[{1 2 4 5}, ] = A + v @ T(0:3);
-10       !                                              /* endpoints of new
-10       !  segs */
-11              /* Now compute middle point. Use ATAN2 to find direction
-11       ! angle. */
-12              theta = -constant(&quot;pi&quot;)/3 + atan2(v[2], v[1]);
-12       !                                                     /* change
-12       ! angle by pi/3 */
-13              w = cos(theta) || sin(theta);
-13       !                                              /* vector to middle
-13       !  point */
-14              segs[3,] = segs[2,] + norm(v)*w;
-15              return segs;
-16           finish;
-NOTE: Module KOCHDIVIDE defined.
-17         
-18         
-19           /* create Koch Snowflake from an equilateral triangle */
-20           start KochPoly(P0, iters=5);
-21             P = P0;
-22             do j=1 to iters;
-23                N = nrow(P) - 1;
-23       !                                     /* old number of segments */
-24                newP = j(4*N+1, 2);
-24       !                                     /* new number of segments +
-24       ! 1 */
-25                do i=1 to N;
-25       !                                     /* for each segment... */
-26                   idx = (4*i-3):(4*i+1);
-26       !                                                     /* rows for
-26       ! 4 new segments */
-27                   newP[idx, ] = KochDivide(P[i,], P[i+1,]);
-27       !                                                     /* generate
-27       ! new segments */
-28                end;
-29                P = newP;
-29       !                                     /* update polygon and
-29       ! iterate */
-30             end;
-31             return P;
-32           finish;
-NOTE: Module KOCHPOLY defined.
-33         
-34           /* create equilateral triangle as base for snowflake */
-35           pi = constant(&quot;pi&quot;);
-36           angles = -pi/6 // pi/2 // 7*pi/6;
-36       !                                      /* angles for equilateral
-36       ! triangle */
-37           P = cos(angles) || sin(angles);
-37       !                                      /* vertices of equilateral
-37       ! triangle */
-38           P = P // P[1,];
-38       !                                      /* append first vertex to
-38       ! close triangle */
-39           K = KochPoly(P);
-39       !                                      /* create the Koch
-39       ! snowflake */
-40         
-41           S = j(nrow(K), 3, 1);
-41       !                              /* add ID variable with constant
-41       ! value 1 */
-42           S[ ,1:2] = K;
-43           create Koch from S[colname={X Y ID}];
-44           append from S;
-45           close;
-NOTE: Closing WORK.KOCH
-NOTE: The data set WORK.KOCH has 3073 observations and 3 variables.
-46         
-47         
-48           /* test KochDivide on line segment from (0,0) to (1,0) */
-49           s = KochDivide({0 0}, {1 0});
-50           title  &quot;Fundamental Step in the Koch Snowflake Construction&quot;;
-51           ods graphics / width=600  height=300;
-52           call series(s[,1], s[,2]) procopt=&quot;aspect=0.333&quot;;
-NOTE: Module SERIES loaded from the storage SASHELP.IMLMLIB.
-NOTE: Module ISEMPTY loaded from the storage SASHELP.IMLMLIB.
-NOTE: The data set WORK._SERIES has 5 observations and 2 variables.
-53         
-54         QUIT;
-NOTE: Exiting IML.
-NOTE: PROCEDURE IML used (Total process time):
-      real time           1.89 seconds
-      cpu time            0.06 seconds
-      
+<pre class="sashtml"><code>PROC IML;
+  start KochDivide(A, E);                    /* (x,y) coords of endpoints */
+     segs = j(5, 2, .);                      /* matrix to hold 4 shorter segs */
+     v = (E-A) / 3;                          /* vector 1/3 as long as orig */
+     segs[{1 2 4 5}, ] = A + v @ T(0:3);     /* endpoints of new segs */
+     /* Now compute middle point. Use ATAN2 to find direction angle. */
+     theta = -constant(&quot;pi&quot;)/3 + atan2(v[2], v[1]); /* change angle by pi/3 */
+     w = cos(theta) || sin(theta);           /* vector to middle point */
+     segs[3,] = segs[2,] + norm(v)*w;
+     return segs;
+  finish;
+ 
 
-55         
-56         ods graphics / width=400px height=400px;
-57         footnote justify=Center &quot;Koch Snowflake&quot;;
-58         proc sgplot data=Koch;
-59            styleattrs wallcolor=CXD6EAF8;               /* light blue */
-60            polygon x=x y=y ID=ID / outline fill fillattrs=(color=white);
-61            xaxis display=none;
-62            yaxis display=none;
-63         run;
+  /* create Koch Snowflake from an equilateral triangle */
+  start KochPoly(P0, iters=5);    
+    P = P0;
+    do j=1 to iters;
+       N = nrow(P) - 1;             /* old number of segments */
+       newP = j(4*N+1, 2);          /* new number of segments + 1 */
+       do i=1 to N;                 /* for each segment... */
+          idx = (4*i-3):(4*i+1);                    /* rows for 4 new segments */
+          newP[idx, ] = KochDivide(P[i,], P[i+1,]); /* generate new segments */
+       end;
+       P = newP;                    /* update polygon and iterate */
+    end;
+    return P;
+  finish;
 
-NOTE: PROCEDURE SGPLOT used (Total process time):
-      real time           0.13 seconds
-      cpu time            0.01 seconds
-      
-NOTE: There were 3073 observations read from the data set WORK.KOCH.
+  /* create equilateral triangle as base for snowflake */
+  pi = constant(&quot;pi&quot;);
+  angles = -pi/6 // pi/2 // 7*pi/6;  /* angles for equilateral triangle */
+  P = cos(angles) || sin(angles);    /* vertices of equilateral triangle */
+  P = P // P[1,];                    /* append first vertex to close triangle */
+  K = KochPoly(P);                   /* create the Koch snowflake */
+    
+  S = j(nrow(K), 3, 1);      /* add ID variable with constant value 1 */
+  S[ ,1:2] = K;
+  create Koch from S[colname={X Y ID}];  
+  append from S;  
+  close;
 
-ERROR: Errors printed on page 2.</code></pre>
+
+  /* test KochDivide on line segment from (0,0) to (1,0) */
+  s = KochDivide({0 0}, {1 0});
+  title  &quot;Fundamental Step in the Koch Snowflake Construction&quot;;
+  ods graphics / width=600  height=300; 
+  call series(s[,1], s[,2]) procopt=&quot;aspect=0.333&quot;;
+
+QUIT;
+ 
+ods graphics / width=400px height=400px;
+footnote justify=Center &quot;Koch Snowflake&quot;;
+proc sgplot data=Koch;
+   styleattrs wallcolor=CXD6EAF8;               /* light blue */
+   polygon x=x y=y ID=ID / outline fill fillattrs=(color=white);
+   xaxis display=none;
+   yaxis display=none;
+run;</code></pre>
 <div class="branch">
 <div class="branch">
 <a name="IDX"></a>
@@ -3610,7 +3456,7 @@ R packages
 </summary>
 <p>In R, there are two main sources for packages: CRAN (the Comprehensive R Archive Network) (and related archives, such as MRAN, which is Microsoft’s version of CRAN) and github. R packages published on CRAN go through a basic verification process that makes sure that the package meets certain <a href="https://cran.r-project.org/">standards</a> (for instance, packages must have proper dependencies specified, cannot conflict with previous package names, must have a software license, and cannot contain malicious code). Note that CRAN does not check the packages for statistical correctness!</p>
 <p>On github, packages go through less verification. Many packages use a system where the version in development is on github and available for installation, but the version on CRAN is considered “stable.” Sometimes, packages are never put on CRAN: I contribute to several packages which are too large for CRAN, and it’s not worth the hassle to get an exception or figure out a workaround.</p>
-<p>Currently, the CRAN package repository features 1.7498^{4} available packages. How do you navigate them to find the one you need? Sometimes, the <a href="https://cran.r-project.org/web/views/">CRAN Task Views</a> may be helpful - for instance, if you want to see all of the packages which are useful for Meta-Analysis, Finance, Bayesian statistics, etc. Other times, it’s useful to let Google help you navigate: searching for “R CRAN” + “what you want the package to do” can often narrow things down (I recommend adding CRAN in because Google results for “R” are not particularly useful.)</p>
+<p>Currently, the CRAN package repository features 1.7548^{4} available packages. How do you navigate them to find the one you need? Sometimes, the <a href="https://cran.r-project.org/web/views/">CRAN Task Views</a> may be helpful - for instance, if you want to see all of the packages which are useful for Meta-Analysis, Finance, Bayesian statistics, etc. Other times, it’s useful to let Google help you navigate: searching for “R CRAN” + “what you want the package to do” can often narrow things down (I recommend adding CRAN in because Google results for “R” are not particularly useful.)</p>
 <p>Once you find and install a package (<code>install.packages()</code> for CRAN packages, <code>devtools::install_github()</code> for GitHub packages), you have to figure out how to use it. Many R packages come with <strong>vignettes</strong>, which are short articles that demonstrate how a package is used.
 You can browse the available vignettes using <code>browseVignettes()</code> (if you provide a package name as an argument, you will get only vignettes from that package).</p>
 Another way to get help on a package is to use <code>?&lt;package name&gt;</code>, e.g. <code>?ggplot2</code>. That will take you to the main package description page, and there are often links to documentation. At the bottom of the description page, you can click on a link to get to the Index, which is a list of all functions that are provided in that package. From there, you can find the documentation for each function in the package.
@@ -3631,12 +3477,12 @@ Solution
 <span id="cb123-6"><a href="organization.html#cb123-6" aria-hidden="true" tabindex="-1"></a>        <span class="dv">1</span>, <span class="dv">2</span>, </span>
 <span id="cb123-7"><a href="organization.html#cb123-7" aria-hidden="true" tabindex="-1"></a>        <span class="dv">3</span>, <span class="dv">4</span>,</span>
 <span id="cb123-8"><a href="organization.html#cb123-8" aria-hidden="true" tabindex="-1"></a>        <span class="dv">5</span>, <span class="dv">6</span>)</span>
-<span id="cb123-9"><a href="organization.html#cb123-9" aria-hidden="true" tabindex="-1"></a><span class="co"># A tibble: 3 x 2</span></span>
-<span id="cb123-10"><a href="organization.html#cb123-10" aria-hidden="true" tabindex="-1"></a>   var1  var2</span>
-<span id="cb123-11"><a href="organization.html#cb123-11" aria-hidden="true" tabindex="-1"></a>  <span class="sc">&lt;</span>dbl<span class="sc">&gt;</span> <span class="er">&lt;</span>dbl<span class="sc">&gt;</span></span>
-<span id="cb123-12"><a href="organization.html#cb123-12" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span>     <span class="dv">1</span>     <span class="dv">2</span></span>
-<span id="cb123-13"><a href="organization.html#cb123-13" aria-hidden="true" tabindex="-1"></a><span class="dv">2</span>     <span class="dv">3</span>     <span class="dv">4</span></span>
-<span id="cb123-14"><a href="organization.html#cb123-14" aria-hidden="true" tabindex="-1"></a><span class="dv">3</span>     <span class="dv">5</span>     <span class="dv">6</span></span></code></pre></div>
+<span id="cb123-9"><a href="organization.html#cb123-9" aria-hidden="true" tabindex="-1"></a><span class="do">## # A tibble: 3 x 2</span></span>
+<span id="cb123-10"><a href="organization.html#cb123-10" aria-hidden="true" tabindex="-1"></a><span class="do">##    var1  var2</span></span>
+<span id="cb123-11"><a href="organization.html#cb123-11" aria-hidden="true" tabindex="-1"></a><span class="do">##   &lt;dbl&gt; &lt;dbl&gt;</span></span>
+<span id="cb123-12"><a href="organization.html#cb123-12" aria-hidden="true" tabindex="-1"></a><span class="do">## 1     1     2</span></span>
+<span id="cb123-13"><a href="organization.html#cb123-13" aria-hidden="true" tabindex="-1"></a><span class="do">## 2     3     4</span></span>
+<span id="cb123-14"><a href="organization.html#cb123-14" aria-hidden="true" tabindex="-1"></a><span class="do">## 3     5     6</span></span></code></pre></div>
 </details>
 </div>
 </div>

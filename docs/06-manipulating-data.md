@@ -53,31 +53,31 @@ This data set is included in the `dplyr` package, so we load that package and th
 
 ```r
 library(dplyr)
-
-Attaching package: 'dplyr'
-The following objects are masked from 'package:stats':
-
-    filter, lag
-The following objects are masked from 'package:base':
-
-    intersect, setdiff, setequal, union
+## 
+## Attaching package: 'dplyr'
+## The following objects are masked from 'package:stats':
+## 
+##     filter, lag
+## The following objects are masked from 'package:base':
+## 
+##     intersect, setdiff, setequal, union
 data(starwars)
 starwars
-# A tibble: 87 x 14
-   name    height  mass hair_color  skin_color eye_color birth_year sex   gender
-   <chr>    <int> <dbl> <chr>       <chr>      <chr>          <dbl> <chr> <chr> 
- 1 Luke S…    172    77 blond       fair       blue            19   male  mascu…
- 2 C-3PO      167    75 <NA>        gold       yellow         112   none  mascu…
- 3 R2-D2       96    32 <NA>        white, bl… red             33   none  mascu…
- 4 Darth …    202   136 none        white      yellow          41.9 male  mascu…
- 5 Leia O…    150    49 brown       light      brown           19   fema… femin…
- 6 Owen L…    178   120 brown, grey light      blue            52   male  mascu…
- 7 Beru W…    165    75 brown       light      blue            47   fema… femin…
- 8 R5-D4       97    32 <NA>        white, red red             NA   none  mascu…
- 9 Biggs …    183    84 black       light      brown           24   male  mascu…
-10 Obi-Wa…    182    77 auburn, wh… fair       blue-gray       57   male  mascu…
-# … with 77 more rows, and 5 more variables: homeworld <chr>, species <chr>,
-#   films <list>, vehicles <list>, starships <list>
+## # A tibble: 87 x 14
+##    name    height  mass hair_color  skin_color eye_color birth_year sex   gender
+##    <chr>    <int> <dbl> <chr>       <chr>      <chr>          <dbl> <chr> <chr> 
+##  1 Luke S…    172    77 blond       fair       blue            19   male  mascu…
+##  2 C-3PO      167    75 <NA>        gold       yellow         112   none  mascu…
+##  3 R2-D2       96    32 <NA>        white, bl… red             33   none  mascu…
+##  4 Darth …    202   136 none        white      yellow          41.9 male  mascu…
+##  5 Leia O…    150    49 brown       light      brown           19   fema… femin…
+##  6 Owen L…    178   120 brown, grey light      blue            52   male  mascu…
+##  7 Beru W…    165    75 brown       light      blue            47   fema… femin…
+##  8 R5-D4       97    32 <NA>        white, red red             NA   none  mascu…
+##  9 Biggs …    183    84 black       light      brown           24   male  mascu…
+## 10 Obi-Wa…    182    77 auburn, wh… fair       blue-gray       57   male  mascu…
+## # … with 77 more rows, and 5 more variables: homeworld <chr>, species <chr>,
+## #   films <list>, vehicles <list>, starships <list>
 ```
 
 In the interests of demonstrating the process on the same data, I've exported the starwars data to a CSV file using the `readr` package.
@@ -97,7 +97,7 @@ Let's set that data up first:
 NOTE: Libref CLASSDAT was successfully assigned as follows: 
       Engine:        V9 
       Physical Name: 
-      /home/susan/Projects/Class/unl-stat850/stat850-textbook/sas
+      /home/susan/Projects/Class/unl-stat850/2020-stat850/sas
 7          filename swdat "data/starwars.csv";
 8          
 9          PROC IMPORT DATAFILE = swdat OUT = classdat.starwars
@@ -111,7 +111,7 @@ NOTE: Libref CLASSDAT was successfully assigned as follows:
 15          *   PRODUCT:   SAS
 16          *   VERSION:   9.4
 17          *   CREATOR:   External File Interface
-18          *   DATE:      06MAY21
+18          *   DATE:      09MAY21
 19          *   DESC:      Generated SAS Datastep Code
 20          *   TEMPLATE SOURCE:  (None Specified.)
 21          ***************************************************************
@@ -161,8 +161,8 @@ NOTE: Libref CLASSDAT was successfully assigned as follows:
 
 NOTE: The infile SWDAT is:
       
-      Filename=/home/susan/Projects/Class/unl-stat850/stat850-textbook/data
-      /starwars.csv,
+      Filename=/home/susan/Projects/Class/unl-stat850/2020-stat850/data/sta
+      rwars.csv,
       Owner Name=susan,Group Name=susan,
       Access Permission=-rw-rw-r--,
       Last Modified=17Jun2020:11:59:52,
@@ -173,8 +173,8 @@ NOTE: 87 records were read from the infile SWDAT.
       The maximum record length was 102.
 NOTE: The data set CLASSDAT.STARWARS has 87 observations and 11 variables.
 NOTE: DATA statement used (Total process time):
-      real time           0.00 seconds
-      cpu time            0.00 seconds
+      real time           0.01 seconds
+      cpu time            0.02 seconds
       
 
 87 rows created in CLASSDAT.STARWARS from SWDAT.
@@ -184,8 +184,8 @@ NOTE: DATA statement used (Total process time):
 NOTE: CLASSDAT.STARWARS data set was successfully created.
 NOTE: The data set CLASSDAT.STARWARS has 87 observations and 11 variables.
 NOTE: PROCEDURE IMPORT used (Total process time):
-      real time           0.03 seconds
-      cpu time            0.04 seconds
+      real time           0.13 seconds
+      cpu time            0.12 seconds
       
 
 62         
@@ -194,8 +194,8 @@ NOTE: PROCEDURE IMPORT used (Total process time):
 
 NOTE: There were 10 observations read from the data set CLASSDAT.STARWARS.
 NOTE: PROCEDURE PRINT used (Total process time):
-      real time           0.00 seconds
-      cpu time            0.01 seconds
+      real time           0.03 seconds
+      cpu time            0.04 seconds
       
 ```
 
@@ -395,37 +395,37 @@ Once the data is set up, using `filter` is actually very simple.
 ```r
 # Get only the people
 filter(starwars, species == "Human")
-# A tibble: 35 x 14
-   name    height  mass hair_color  skin_color eye_color birth_year sex   gender
-   <chr>    <int> <dbl> <chr>       <chr>      <chr>          <dbl> <chr> <chr> 
- 1 Luke S…    172    77 blond       fair       blue            19   male  mascu…
- 2 Darth …    202   136 none        white      yellow          41.9 male  mascu…
- 3 Leia O…    150    49 brown       light      brown           19   fema… femin…
- 4 Owen L…    178   120 brown, grey light      blue            52   male  mascu…
- 5 Beru W…    165    75 brown       light      blue            47   fema… femin…
- 6 Biggs …    183    84 black       light      brown           24   male  mascu…
- 7 Obi-Wa…    182    77 auburn, wh… fair       blue-gray       57   male  mascu…
- 8 Anakin…    188    84 blond       fair       blue            41.9 male  mascu…
- 9 Wilhuf…    180    NA auburn, gr… fair       blue            64   male  mascu…
-10 Han So…    180    80 brown       fair       brown           29   male  mascu…
-# … with 25 more rows, and 5 more variables: homeworld <chr>, species <chr>,
-#   films <list>, vehicles <list>, starships <list>
+## # A tibble: 35 x 14
+##    name    height  mass hair_color  skin_color eye_color birth_year sex   gender
+##    <chr>    <int> <dbl> <chr>       <chr>      <chr>          <dbl> <chr> <chr> 
+##  1 Luke S…    172    77 blond       fair       blue            19   male  mascu…
+##  2 Darth …    202   136 none        white      yellow          41.9 male  mascu…
+##  3 Leia O…    150    49 brown       light      brown           19   fema… femin…
+##  4 Owen L…    178   120 brown, grey light      blue            52   male  mascu…
+##  5 Beru W…    165    75 brown       light      blue            47   fema… femin…
+##  6 Biggs …    183    84 black       light      brown           24   male  mascu…
+##  7 Obi-Wa…    182    77 auburn, wh… fair       blue-gray       57   male  mascu…
+##  8 Anakin…    188    84 blond       fair       blue            41.9 male  mascu…
+##  9 Wilhuf…    180    NA auburn, gr… fair       blue            64   male  mascu…
+## 10 Han So…    180    80 brown       fair       brown           29   male  mascu…
+## # … with 25 more rows, and 5 more variables: homeworld <chr>, species <chr>,
+## #   films <list>, vehicles <list>, starships <list>
 
 # Get only the people who come from Tatooine
 filter(starwars, species == "Human", homeworld == "Tatooine")
-# A tibble: 8 x 14
-  name     height  mass hair_color  skin_color eye_color birth_year sex   gender
-  <chr>     <int> <dbl> <chr>       <chr>      <chr>          <dbl> <chr> <chr> 
-1 Luke Sk…    172    77 blond       fair       blue            19   male  mascu…
-2 Darth V…    202   136 none        white      yellow          41.9 male  mascu…
-3 Owen La…    178   120 brown, grey light      blue            52   male  mascu…
-4 Beru Wh…    165    75 brown       light      blue            47   fema… femin…
-5 Biggs D…    183    84 black       light      brown           24   male  mascu…
-6 Anakin …    188    84 blond       fair       blue            41.9 male  mascu…
-7 Shmi Sk…    163    NA black       fair       brown           72   fema… femin…
-8 Cliegg …    183    NA brown       fair       blue            82   male  mascu…
-# … with 5 more variables: homeworld <chr>, species <chr>, films <list>,
-#   vehicles <list>, starships <list>
+## # A tibble: 8 x 14
+##   name     height  mass hair_color  skin_color eye_color birth_year sex   gender
+##   <chr>     <int> <dbl> <chr>       <chr>      <chr>          <dbl> <chr> <chr> 
+## 1 Luke Sk…    172    77 blond       fair       blue            19   male  mascu…
+## 2 Darth V…    202   136 none        white      yellow          41.9 male  mascu…
+## 3 Owen La…    178   120 brown, grey light      blue            52   male  mascu…
+## 4 Beru Wh…    165    75 brown       light      blue            47   fema… femin…
+## 5 Biggs D…    183    84 black       light      brown           24   male  mascu…
+## 6 Anakin …    188    84 blond       fair       blue            41.9 male  mascu…
+## 7 Shmi Sk…    163    NA black       fair       brown           72   fema… femin…
+## 8 Cliegg …    183    NA brown       fair       blue            82   male  mascu…
+## # … with 5 more variables: homeworld <chr>, species <chr>, films <list>,
+## #   vehicles <list>, starships <list>
 ```
 </details>
 
@@ -473,14 +473,14 @@ To limit the output I'm going to cheat a bit and use SELECT statements before I 
 NOTE: Libref CLASSDAT was successfully assigned as follows: 
       Engine:        V9 
       Physical Name: 
-      /home/susan/Projects/Class/unl-stat850/stat850-textbook/sas
+      /home/susan/Projects/Class/unl-stat850/2020-stat850/sas
 7          
 8          PROC SQL;
 9          SELECT pokedex_number, name, type_1, type_number FROM
 9        ! classdat.poke (obs=5)
 10         WHERE type_1 = "Water";
 NOTE: PROCEDURE SQL used (Total process time):
-      real time           0.00 seconds
+      real time           0.01 seconds
       cpu time            0.01 seconds
       
 ```
@@ -551,12 +551,12 @@ If we want to store the output of our query to a new table, we can do that by st
 NOTE: Libref CLASSDAT was successfully assigned as follows: 
       Engine:        V9 
       Physical Name: 
-      /home/susan/Projects/Class/unl-stat850/stat850-textbook/sas
+      /home/susan/Projects/Class/unl-stat850/2020-stat850/sas
 7          
 NOTE: The PROCEDURE SQL printed page 2.
 NOTE: PROCEDURE SQL used (Total process time):
-      real time           0.02 seconds
-      cpu time            0.03 seconds
+      real time           0.06 seconds
+      cpu time            0.06 seconds
       
 
 8          PROC SQL;
@@ -577,7 +577,7 @@ NOTE: PROCEDURE SQL used (Total process time):
 
 NOTE: There were 10 observations read from the data set WORK.AQUAPOKE.
 NOTE: PROCEDURE PRINT used (Total process time):
-      real time           0.00 seconds
+      real time           0.01 seconds
       cpu time            0.01 seconds
       
 ```
@@ -706,8 +706,60 @@ In `dplyr`, there are a few helper functions which may be useful when constructi
 `row_number()` - this is only used inside of another dplyr function (e.g. filter). You might want to keep only even rows, or only the first 10 rows in a table.  </summary>
 
 ```r
-filter(poke, (row_number() %% 2 == 0))
-Error in filter(poke, (row_number()%%2 == 0)): object 'poke' not found
+poke <- read_csv("data/pokemon_ascii.csv")
+## 
+## ── Column specification ────────────────────────────────────────────────────────
+## cols(
+##   .default = col_double(),
+##   name = col_character(),
+##   german_name = col_character(),
+##   status = col_character(),
+##   species = col_character(),
+##   type_1 = col_character(),
+##   type_2 = col_character(),
+##   ability_1 = col_character(),
+##   ability_2 = col_character(),
+##   ability_hidden = col_character(),
+##   catch_rate = col_character(),
+##   base_friendship = col_character(),
+##   base_experience = col_character(),
+##   growth_rate = col_character(),
+##   egg_type_1 = col_character(),
+##   egg_type_2 = col_character(),
+##   percentage_male = col_character(),
+##   egg_cycles = col_character()
+## )
+## ℹ Use `spec()` for the full column specifications.
+## Warning: 1 parsing failure.
+##  row       col expected actual                     file
+## 1028 weight_kg a double      . 'data/pokemon_ascii.csv'
+filter(poke, (row_number() %% 2 == 0)) 
+## # A tibble: 514 x 49
+##    pokedex_number name  german_name generation status species type_number type_1
+##             <dbl> <chr> <chr>            <dbl> <chr>  <chr>         <dbl> <chr> 
+##  1              2 Ivys… Bisaknosp            1 Normal Seed P…           2 Grass 
+##  2              3 Mega… Bisaflor             1 Normal Seed P…           2 Grass 
+##  3              5 Char… Glutexo              1 Normal Flame …           1 Fire  
+##  4              6 Mega… Glurak               1 Normal Flame …           2 Fire  
+##  5              7 Squi… Schiggy              1 Normal Tiny T…           1 Water 
+##  6              9 Blas… Turtok               1 Normal Shellf…           1 Water 
+##  7             10 Cate… Raupy                1 Normal Worm P…           1 Bug   
+##  8             12 Butt… Smettbo              1 Normal Butter…           2 Bug   
+##  9             14 Kaku… Kokuna               1 Normal Cocoon…           2 Bug   
+## 10             15 Mega… Bibor                1 Normal Poison…           2 Bug   
+## # … with 504 more rows, and 41 more variables: type_2 <chr>, height_m <dbl>,
+## #   weight_kg <dbl>, abilities_number <dbl>, ability_1 <chr>, ability_2 <chr>,
+## #   ability_hidden <chr>, total_points <dbl>, hp <dbl>, attack <dbl>,
+## #   defense <dbl>, sp_attack <dbl>, sp_defense <dbl>, speed <dbl>,
+## #   catch_rate <chr>, base_friendship <chr>, base_experience <chr>,
+## #   growth_rate <chr>, egg_type_number <dbl>, egg_type_1 <chr>,
+## #   egg_type_2 <chr>, percentage_male <chr>, egg_cycles <chr>,
+## #   against_normal <dbl>, against_fire <dbl>, against_water <dbl>,
+## #   against_electric <dbl>, against_grass <dbl>, against_ice <dbl>,
+## #   against_fight <dbl>, against_poison <dbl>, against_ground <dbl>,
+## #   against_flying <dbl>, against_psychic <dbl>, against_bug <dbl>,
+## #   against_rock <dbl>, against_ghost <dbl>, against_dragon <dbl>,
+## #   against_dark <dbl>, against_steel <dbl>, against_fairy <dbl>
 # There are several pokemon who have multiple entries in the table,
 # so the pokedex_number doesn't line up with the row number.
 ```
@@ -719,7 +771,32 @@ Error in filter(poke, (row_number()%%2 == 0)): object 'poke' not found
 
 ```r
 arrange(poke, desc(total_points))
-Error in arrange(poke, desc(total_points)): object 'poke' not found
+## # A tibble: 1,028 x 49
+##    pokedex_number name  german_name generation status species type_number type_1
+##             <dbl> <chr> <chr>            <dbl> <chr>  <chr>         <dbl> <chr> 
+##  1            890 Eter… .                    8 Legen… Gigant…           2 Poison
+##  2            150 Mega… Mewtu                1 Legen… Geneti…           2 Psych…
+##  3            150 Mega… Mewtu                1 Legen… Geneti…           1 Psych…
+##  4            384 Mega… Rayquaza             3 Legen… Sky Hi…           2 Dragon
+##  5            382 Prim… Kyogre               3 Legen… Sea Ba…           1 Water 
+##  6            383 Prim… Groudon              3 Legen… Contin…           2 Ground
+##  7            800 Ultr… Necrozma             7 Legen… Prism …           2 Psych…
+##  8            493 Arce… Arceus               4 Mythi… Alpha …           1 Normal
+##  9            888 Zaci… .                    8 Legen… Warrio…           2 Fairy 
+## 10            889 Zama… .                    8 Legen… Warrio…           2 Fight…
+## # … with 1,018 more rows, and 41 more variables: type_2 <chr>, height_m <dbl>,
+## #   weight_kg <dbl>, abilities_number <dbl>, ability_1 <chr>, ability_2 <chr>,
+## #   ability_hidden <chr>, total_points <dbl>, hp <dbl>, attack <dbl>,
+## #   defense <dbl>, sp_attack <dbl>, sp_defense <dbl>, speed <dbl>,
+## #   catch_rate <chr>, base_friendship <chr>, base_experience <chr>,
+## #   growth_rate <chr>, egg_type_number <dbl>, egg_type_1 <chr>,
+## #   egg_type_2 <chr>, percentage_male <chr>, egg_cycles <chr>,
+## #   against_normal <dbl>, against_fire <dbl>, against_water <dbl>,
+## #   against_electric <dbl>, against_grass <dbl>, against_ice <dbl>,
+## #   against_fight <dbl>, against_poison <dbl>, against_ground <dbl>,
+## #   against_flying <dbl>, against_psychic <dbl>, against_bug <dbl>,
+## #   against_rock <dbl>, against_ghost <dbl>, against_dragon <dbl>,
+## #   against_dark <dbl>, against_steel <dbl>, against_fairy <dbl>
 ```
 </details>
 
@@ -731,14 +808,55 @@ It's like a filter statement, but it's a shortcut built to handle a common task.
 ```r
 slice_max(poke, order_by = total_points, n = 5) %>%
   arrange(desc(total_points)) # Sort decreasing
-Error in slice_max(poke, order_by = total_points, n = 5): object 'poke' not found
+## # A tibble: 6 x 49
+##   pokedex_number name   german_name generation status species type_number type_1
+##            <dbl> <chr>  <chr>            <dbl> <chr>  <chr>         <dbl> <chr> 
+## 1            890 Etern… .                    8 Legen… Gigant…           2 Poison
+## 2            150 Mega … Mewtu                1 Legen… Geneti…           2 Psych…
+## 3            150 Mega … Mewtu                1 Legen… Geneti…           1 Psych…
+## 4            384 Mega … Rayquaza             3 Legen… Sky Hi…           2 Dragon
+## 5            382 Prima… Kyogre               3 Legen… Sea Ba…           1 Water 
+## 6            383 Prima… Groudon              3 Legen… Contin…           2 Ground
+## # … with 41 more variables: type_2 <chr>, height_m <dbl>, weight_kg <dbl>,
+## #   abilities_number <dbl>, ability_1 <chr>, ability_2 <chr>,
+## #   ability_hidden <chr>, total_points <dbl>, hp <dbl>, attack <dbl>,
+## #   defense <dbl>, sp_attack <dbl>, sp_defense <dbl>, speed <dbl>,
+## #   catch_rate <chr>, base_friendship <chr>, base_experience <chr>,
+## #   growth_rate <chr>, egg_type_number <dbl>, egg_type_1 <chr>,
+## #   egg_type_2 <chr>, percentage_male <chr>, egg_cycles <chr>,
+## #   against_normal <dbl>, against_fire <dbl>, against_water <dbl>,
+## #   against_electric <dbl>, against_grass <dbl>, against_ice <dbl>,
+## #   against_fight <dbl>, against_poison <dbl>, against_ground <dbl>,
+## #   against_flying <dbl>, against_psychic <dbl>, against_bug <dbl>,
+## #   against_rock <dbl>, against_ghost <dbl>, against_dragon <dbl>,
+## #   against_dark <dbl>, against_steel <dbl>, against_fairy <dbl>
 ```
 By default, `slice_max()` returns values tied with the nth value as well, which is why our result has 6 rows.
 
 ```r
 slice_max(poke, order_by = total_points, n = 5, with_ties = F) %>%
   arrange(desc(total_points)) # Sort decreasing
-Error in slice_max(poke, order_by = total_points, n = 5, with_ties = F): object 'poke' not found
+## # A tibble: 5 x 49
+##   pokedex_number name   german_name generation status species type_number type_1
+##            <dbl> <chr>  <chr>            <dbl> <chr>  <chr>         <dbl> <chr> 
+## 1            890 Etern… .                    8 Legen… Gigant…           2 Poison
+## 2            150 Mega … Mewtu                1 Legen… Geneti…           2 Psych…
+## 3            150 Mega … Mewtu                1 Legen… Geneti…           1 Psych…
+## 4            384 Mega … Rayquaza             3 Legen… Sky Hi…           2 Dragon
+## 5            382 Prima… Kyogre               3 Legen… Sea Ba…           1 Water 
+## # … with 41 more variables: type_2 <chr>, height_m <dbl>, weight_kg <dbl>,
+## #   abilities_number <dbl>, ability_1 <chr>, ability_2 <chr>,
+## #   ability_hidden <chr>, total_points <dbl>, hp <dbl>, attack <dbl>,
+## #   defense <dbl>, sp_attack <dbl>, sp_defense <dbl>, speed <dbl>,
+## #   catch_rate <chr>, base_friendship <chr>, base_experience <chr>,
+## #   growth_rate <chr>, egg_type_number <dbl>, egg_type_1 <chr>,
+## #   egg_type_2 <chr>, percentage_male <chr>, egg_cycles <chr>,
+## #   against_normal <dbl>, against_fire <dbl>, against_water <dbl>,
+## #   against_electric <dbl>, against_grass <dbl>, against_ice <dbl>,
+## #   against_fight <dbl>, against_poison <dbl>, against_ground <dbl>,
+## #   against_flying <dbl>, against_psychic <dbl>, against_bug <dbl>,
+## #   against_rock <dbl>, against_ghost <dbl>, against_dragon <dbl>,
+## #   against_dark <dbl>, against_steel <dbl>, against_fairy <dbl>
 ```
 </details>
 
@@ -753,7 +871,7 @@ In SAS, to use a variable, you have to define it in one data step, then make ano
 NOTE: Libref CLASSDAT was successfully assigned as follows: 
       Engine:        V9 
       Physical Name: 
-      /home/susan/Projects/Class/unl-stat850/stat850-textbook/sas
+      /home/susan/Projects/Class/unl-stat850/2020-stat850/sas
 7          
 8          DATA tmp;
 9          SET classdat.poke;
@@ -763,7 +881,7 @@ NOTE: Libref CLASSDAT was successfully assigned as follows:
 NOTE: There were 1028 observations read from the data set CLASSDAT.POKE.
 NOTE: The data set WORK.TMP has 1028 observations and 50 variables.
 NOTE: DATA statement used (Total process time):
-      real time           0.00 seconds
+      real time           0.01 seconds
       cpu time            0.01 seconds
       
 
@@ -779,7 +897,7 @@ NOTE: There were 514 observations read from the data set WORK.TMP.
 NOTE: The data set WORK.EVENROW has 514 observations and 49 variables.
 NOTE: DATA statement used (Total process time):
       real time           0.00 seconds
-      cpu time            0.00 seconds
+      cpu time            0.01 seconds
       
 ```
 </details>
@@ -793,7 +911,7 @@ According to [this](https://communities.sas.com/t5/General-SAS-Programming/if-an
 NOTE: Libref CLASSDAT was successfully assigned as follows: 
       Engine:        V9 
       Physical Name: 
-      /home/susan/Projects/Class/unl-stat850/stat850-textbook/sas
+      /home/susan/Projects/Class/unl-stat850/2020-stat850/sas
 7          
 8          PROC SORT DATA = classdat.poke
 9            OUT = pokesort;
@@ -832,7 +950,7 @@ NOTE: There were 5 observations read from the data set WORK.POKEN.
 NOTE: The data set WORK.POKEN has 5 observations and 49 variables.
 NOTE: DATA statement used (Total process time):
       real time           0.00 seconds
-      cpu time            0.00 seconds
+      cpu time            0.01 seconds
       
 
 23         
@@ -943,7 +1061,7 @@ SQL doesn't have an intrinsic notion of ordered rows, so in order to select even
 NOTE: Libref CLASSDAT was successfully assigned as follows: 
       Engine:        V9 
       Physical Name: 
-      /home/susan/Projects/Class/unl-stat850/stat850-textbook/sas
+      /home/susan/Projects/Class/unl-stat850/2020-stat850/sas
 7          
 8          DATA poke;
 9            SET classdat.poke;
@@ -954,7 +1072,7 @@ NOTE: There were 1028 observations read from the data set CLASSDAT.POKE.
 NOTE: The data set WORK.POKE has 1028 observations and 50 variables.
 NOTE: DATA statement used (Total process time):
       real time           0.00 seconds
-      cpu time            0.00 seconds
+      cpu time            0.01 seconds
       
 
 12         
@@ -963,7 +1081,7 @@ NOTE: DATA statement used (Total process time):
 15         WHERE mod(rownum, 2) = 0;
 NOTE: PROCEDURE SQL used (Total process time):
       real time           0.01 seconds
-      cpu time            0.01 seconds
+      cpu time            0.02 seconds
       
 ```
 
@@ -1357,12 +1475,12 @@ If we want the 5 pokemon with the highest total points, we can use ORDER BY to s
 NOTE: Libref CLASSDAT was successfully assigned as follows: 
       Engine:        V9 
       Physical Name: 
-      /home/susan/Projects/Class/unl-stat850/stat850-textbook/sas
+      /home/susan/Projects/Class/unl-stat850/2020-stat850/sas
 7          
-NOTE: The PROCEDURE SQL printed pages 5-6.
+NOTE: The PROCEDURE SQL printed pages 2-3.
 NOTE: PROCEDURE SQL used (Total process time):
-      real time           0.03 seconds
-      cpu time            0.02 seconds
+      real time           0.07 seconds
+      cpu time            0.07 seconds
       
 
 8          PROC SQL;
@@ -1371,7 +1489,7 @@ NOTE: PROCEDURE SQL used (Total process time):
 10         FROM classdat.poke(obs=5)
 11         ORDER BY total_points DESC;
 NOTE: PROCEDURE SQL used (Total process time):
-      real time           0.00 seconds
+      real time           0.01 seconds
       cpu time            0.01 seconds
       
 ```
@@ -1458,12 +1576,12 @@ As a reminder, if we want to store this new data into a new dataset, we have to 
 NOTE: Libref CLASSDAT was successfully assigned as follows: 
       Engine:        V9 
       Physical Name: 
-      /home/susan/Projects/Class/unl-stat850/stat850-textbook/sas
+      /home/susan/Projects/Class/unl-stat850/2020-stat850/sas
 7          
-NOTE: The PROCEDURE SQL printed page 7.
+NOTE: The PROCEDURE SQL printed page 4.
 NOTE: PROCEDURE SQL used (Total process time):
-      real time           0.03 seconds
-      cpu time            0.03 seconds
+      real time           0.07 seconds
+      cpu time            0.06 seconds
       
 
 8          PROC SQL;
@@ -1582,65 +1700,65 @@ Using the pokemon data, can you create a new data set or data frame (SAS and R, 
 
 ```r
 poke <- read_csv("data/pokemon_ascii.csv")
-Warning: 1 parsing failure.
- row       col expected actual                     file
-1028 weight_kg a double      . 'data/pokemon_ascii.csv'
+## Warning: 1 parsing failure.
+##  row       col expected actual                     file
+## 1028 weight_kg a double      . 'data/pokemon_ascii.csv'
 
 filter(poke, type_1 == "Water")
-# A tibble: 134 x 49
-   pokedex_number name  german_name generation status species type_number type_1
-            <dbl> <chr> <chr>            <dbl> <chr>  <chr>         <dbl> <chr> 
- 1              7 Squi… Schiggy              1 Normal Tiny T…           1 Water 
- 2              8 Wart… Schillok             1 Normal Turtle…           1 Water 
- 3              9 Blas… Turtok               1 Normal Shellf…           1 Water 
- 4              9 Mega… Turtok               1 Normal Shellf…           1 Water 
- 5             54 Psyd… Enton                1 Normal Duck P…           1 Water 
- 6             55 Gold… Entoron              1 Normal Duck P…           1 Water 
- 7             60 Poli… Quapsel              1 Normal Tadpol…           1 Water 
- 8             61 Poli… Quaputzi             1 Normal Tadpol…           1 Water 
- 9             62 Poli… Quappo               1 Normal Tadpol…           2 Water 
-10             72 Tent… Tentacha             1 Normal Jellyf…           2 Water 
-# … with 124 more rows, and 41 more variables: type_2 <chr>, height_m <dbl>,
-#   weight_kg <dbl>, abilities_number <dbl>, ability_1 <chr>, ability_2 <chr>,
-#   ability_hidden <chr>, total_points <dbl>, hp <dbl>, attack <dbl>,
-#   defense <dbl>, sp_attack <dbl>, sp_defense <dbl>, speed <dbl>,
-#   catch_rate <chr>, base_friendship <chr>, base_experience <chr>,
-#   growth_rate <chr>, egg_type_number <dbl>, egg_type_1 <chr>,
-#   egg_type_2 <chr>, percentage_male <chr>, egg_cycles <chr>,
-#   against_normal <dbl>, against_fire <dbl>, against_water <dbl>,
-#   against_electric <dbl>, against_grass <dbl>, against_ice <dbl>,
-#   against_fight <dbl>, against_poison <dbl>, against_ground <dbl>,
-#   against_flying <dbl>, against_psychic <dbl>, against_bug <dbl>,
-#   against_rock <dbl>, against_ghost <dbl>, against_dragon <dbl>,
-#   against_dark <dbl>, against_steel <dbl>, against_fairy <dbl>
+## # A tibble: 134 x 49
+##    pokedex_number name  german_name generation status species type_number type_1
+##             <dbl> <chr> <chr>            <dbl> <chr>  <chr>         <dbl> <chr> 
+##  1              7 Squi… Schiggy              1 Normal Tiny T…           1 Water 
+##  2              8 Wart… Schillok             1 Normal Turtle…           1 Water 
+##  3              9 Blas… Turtok               1 Normal Shellf…           1 Water 
+##  4              9 Mega… Turtok               1 Normal Shellf…           1 Water 
+##  5             54 Psyd… Enton                1 Normal Duck P…           1 Water 
+##  6             55 Gold… Entoron              1 Normal Duck P…           1 Water 
+##  7             60 Poli… Quapsel              1 Normal Tadpol…           1 Water 
+##  8             61 Poli… Quaputzi             1 Normal Tadpol…           1 Water 
+##  9             62 Poli… Quappo               1 Normal Tadpol…           2 Water 
+## 10             72 Tent… Tentacha             1 Normal Jellyf…           2 Water 
+## # … with 124 more rows, and 41 more variables: type_2 <chr>, height_m <dbl>,
+## #   weight_kg <dbl>, abilities_number <dbl>, ability_1 <chr>, ability_2 <chr>,
+## #   ability_hidden <chr>, total_points <dbl>, hp <dbl>, attack <dbl>,
+## #   defense <dbl>, sp_attack <dbl>, sp_defense <dbl>, speed <dbl>,
+## #   catch_rate <chr>, base_friendship <chr>, base_experience <chr>,
+## #   growth_rate <chr>, egg_type_number <dbl>, egg_type_1 <chr>,
+## #   egg_type_2 <chr>, percentage_male <chr>, egg_cycles <chr>,
+## #   against_normal <dbl>, against_fire <dbl>, against_water <dbl>,
+## #   against_electric <dbl>, against_grass <dbl>, against_ice <dbl>,
+## #   against_fight <dbl>, against_poison <dbl>, against_ground <dbl>,
+## #   against_flying <dbl>, against_psychic <dbl>, against_bug <dbl>,
+## #   against_rock <dbl>, against_ghost <dbl>, against_dragon <dbl>,
+## #   against_dark <dbl>, against_steel <dbl>, against_fairy <dbl>
 
 filter(poke, type_1 == "Water" | type_2 == "Water")
-# A tibble: 153 x 49
-   pokedex_number name  german_name generation status species type_number type_1
-            <dbl> <chr> <chr>            <dbl> <chr>  <chr>         <dbl> <chr> 
- 1              7 Squi… Schiggy              1 Normal Tiny T…           1 Water 
- 2              8 Wart… Schillok             1 Normal Turtle…           1 Water 
- 3              9 Blas… Turtok               1 Normal Shellf…           1 Water 
- 4              9 Mega… Turtok               1 Normal Shellf…           1 Water 
- 5             54 Psyd… Enton                1 Normal Duck P…           1 Water 
- 6             55 Gold… Entoron              1 Normal Duck P…           1 Water 
- 7             60 Poli… Quapsel              1 Normal Tadpol…           1 Water 
- 8             61 Poli… Quaputzi             1 Normal Tadpol…           1 Water 
- 9             62 Poli… Quappo               1 Normal Tadpol…           2 Water 
-10             72 Tent… Tentacha             1 Normal Jellyf…           2 Water 
-# … with 143 more rows, and 41 more variables: type_2 <chr>, height_m <dbl>,
-#   weight_kg <dbl>, abilities_number <dbl>, ability_1 <chr>, ability_2 <chr>,
-#   ability_hidden <chr>, total_points <dbl>, hp <dbl>, attack <dbl>,
-#   defense <dbl>, sp_attack <dbl>, sp_defense <dbl>, speed <dbl>,
-#   catch_rate <chr>, base_friendship <chr>, base_experience <chr>,
-#   growth_rate <chr>, egg_type_number <dbl>, egg_type_1 <chr>,
-#   egg_type_2 <chr>, percentage_male <chr>, egg_cycles <chr>,
-#   against_normal <dbl>, against_fire <dbl>, against_water <dbl>,
-#   against_electric <dbl>, against_grass <dbl>, against_ice <dbl>,
-#   against_fight <dbl>, against_poison <dbl>, against_ground <dbl>,
-#   against_flying <dbl>, against_psychic <dbl>, against_bug <dbl>,
-#   against_rock <dbl>, against_ghost <dbl>, against_dragon <dbl>,
-#   against_dark <dbl>, against_steel <dbl>, against_fairy <dbl>
+## # A tibble: 153 x 49
+##    pokedex_number name  german_name generation status species type_number type_1
+##             <dbl> <chr> <chr>            <dbl> <chr>  <chr>         <dbl> <chr> 
+##  1              7 Squi… Schiggy              1 Normal Tiny T…           1 Water 
+##  2              8 Wart… Schillok             1 Normal Turtle…           1 Water 
+##  3              9 Blas… Turtok               1 Normal Shellf…           1 Water 
+##  4              9 Mega… Turtok               1 Normal Shellf…           1 Water 
+##  5             54 Psyd… Enton                1 Normal Duck P…           1 Water 
+##  6             55 Gold… Entoron              1 Normal Duck P…           1 Water 
+##  7             60 Poli… Quapsel              1 Normal Tadpol…           1 Water 
+##  8             61 Poli… Quaputzi             1 Normal Tadpol…           1 Water 
+##  9             62 Poli… Quappo               1 Normal Tadpol…           2 Water 
+## 10             72 Tent… Tentacha             1 Normal Jellyf…           2 Water 
+## # … with 143 more rows, and 41 more variables: type_2 <chr>, height_m <dbl>,
+## #   weight_kg <dbl>, abilities_number <dbl>, ability_1 <chr>, ability_2 <chr>,
+## #   ability_hidden <chr>, total_points <dbl>, hp <dbl>, attack <dbl>,
+## #   defense <dbl>, sp_attack <dbl>, sp_defense <dbl>, speed <dbl>,
+## #   catch_rate <chr>, base_friendship <chr>, base_experience <chr>,
+## #   growth_rate <chr>, egg_type_number <dbl>, egg_type_1 <chr>,
+## #   egg_type_2 <chr>, percentage_male <chr>, egg_cycles <chr>,
+## #   against_normal <dbl>, against_fire <dbl>, against_water <dbl>,
+## #   against_electric <dbl>, against_grass <dbl>, against_ice <dbl>,
+## #   against_fight <dbl>, against_poison <dbl>, against_ground <dbl>,
+## #   against_flying <dbl>, against_psychic <dbl>, against_bug <dbl>,
+## #   against_rock <dbl>, against_ghost <dbl>, against_dragon <dbl>,
+## #   against_dark <dbl>, against_steel <dbl>, against_fairy <dbl>
 # The conditions have to be separated by |, which means "or"
 ```
 </details>
@@ -1733,26 +1851,26 @@ if (!"nycflights13" %in% installed.packages()) install.packages("nycflights13")
 library(nycflights13)
 data(flights)
 str(flights)
-tibble[,19] [336,776 × 19] (S3: tbl_df/tbl/data.frame)
- $ year          : int [1:336776] 2013 2013 2013 2013 2013 2013 2013 2013 2013 2013 ...
- $ month         : int [1:336776] 1 1 1 1 1 1 1 1 1 1 ...
- $ day           : int [1:336776] 1 1 1 1 1 1 1 1 1 1 ...
- $ dep_time      : int [1:336776] 517 533 542 544 554 554 555 557 557 558 ...
- $ sched_dep_time: int [1:336776] 515 529 540 545 600 558 600 600 600 600 ...
- $ dep_delay     : num [1:336776] 2 4 2 -1 -6 -4 -5 -3 -3 -2 ...
- $ arr_time      : int [1:336776] 830 850 923 1004 812 740 913 709 838 753 ...
- $ sched_arr_time: int [1:336776] 819 830 850 1022 837 728 854 723 846 745 ...
- $ arr_delay     : num [1:336776] 11 20 33 -18 -25 12 19 -14 -8 8 ...
- $ carrier       : chr [1:336776] "UA" "UA" "AA" "B6" ...
- $ flight        : int [1:336776] 1545 1714 1141 725 461 1696 507 5708 79 301 ...
- $ tailnum       : chr [1:336776] "N14228" "N24211" "N619AA" "N804JB" ...
- $ origin        : chr [1:336776] "EWR" "LGA" "JFK" "JFK" ...
- $ dest          : chr [1:336776] "IAH" "IAH" "MIA" "BQN" ...
- $ air_time      : num [1:336776] 227 227 160 183 116 150 158 53 140 138 ...
- $ distance      : num [1:336776] 1400 1416 1089 1576 762 ...
- $ hour          : num [1:336776] 5 5 5 5 6 5 6 6 6 6 ...
- $ minute        : num [1:336776] 15 29 40 45 0 58 0 0 0 0 ...
- $ time_hour     : POSIXct[1:336776], format: "2013-01-01 05:00:00" "2013-01-01 05:00:00" ...
+## tibble [336,776 × 19] (S3: tbl_df/tbl/data.frame)
+##  $ year          : int [1:336776] 2013 2013 2013 2013 2013 2013 2013 2013 2013 2013 ...
+##  $ month         : int [1:336776] 1 1 1 1 1 1 1 1 1 1 ...
+##  $ day           : int [1:336776] 1 1 1 1 1 1 1 1 1 1 ...
+##  $ dep_time      : int [1:336776] 517 533 542 544 554 554 555 557 557 558 ...
+##  $ sched_dep_time: int [1:336776] 515 529 540 545 600 558 600 600 600 600 ...
+##  $ dep_delay     : num [1:336776] 2 4 2 -1 -6 -4 -5 -3 -3 -2 ...
+##  $ arr_time      : int [1:336776] 830 850 923 1004 812 740 913 709 838 753 ...
+##  $ sched_arr_time: int [1:336776] 819 830 850 1022 837 728 854 723 846 745 ...
+##  $ arr_delay     : num [1:336776] 11 20 33 -18 -25 12 19 -14 -8 8 ...
+##  $ carrier       : chr [1:336776] "UA" "UA" "AA" "B6" ...
+##  $ flight        : int [1:336776] 1545 1714 1141 725 461 1696 507 5708 79 301 ...
+##  $ tailnum       : chr [1:336776] "N14228" "N24211" "N619AA" "N804JB" ...
+##  $ origin        : chr [1:336776] "EWR" "LGA" "JFK" "JFK" ...
+##  $ dest          : chr [1:336776] "IAH" "IAH" "MIA" "BQN" ...
+##  $ air_time      : num [1:336776] 227 227 160 183 116 150 158 53 140 138 ...
+##  $ distance      : num [1:336776] 1400 1416 1089 1576 762 ...
+##  $ hour          : num [1:336776] 5 5 5 5 6 5 6 6 6 6 ...
+##  $ minute        : num [1:336776] 15 29 40 45 0 58 0 0 0 0 ...
+##  $ time_hour     : POSIXct[1:336776], format: "2013-01-01 05:00:00" "2013-01-01 05:00:00" ...
 ```
 
 We'll start out with the `nycflights13` package, which contains information on all flights that left a NYC airport to destinations in the US, Puerto Rico, and the US Virgin Islands.
@@ -1766,20 +1884,20 @@ We could get a data frame of departure information for each flight:
 
 ```r
 select(flights, flight, year:day, tailnum, origin, matches("dep"))
-# A tibble: 336,776 x 9
-   flight  year month   day tailnum origin dep_time sched_dep_time dep_delay
-    <int> <int> <int> <int> <chr>   <chr>     <int>          <int>     <dbl>
- 1   1545  2013     1     1 N14228  EWR         517            515         2
- 2   1714  2013     1     1 N24211  LGA         533            529         4
- 3   1141  2013     1     1 N619AA  JFK         542            540         2
- 4    725  2013     1     1 N804JB  JFK         544            545        -1
- 5    461  2013     1     1 N668DN  LGA         554            600        -6
- 6   1696  2013     1     1 N39463  EWR         554            558        -4
- 7    507  2013     1     1 N516JB  EWR         555            600        -5
- 8   5708  2013     1     1 N829AS  LGA         557            600        -3
- 9     79  2013     1     1 N593JB  JFK         557            600        -3
-10    301  2013     1     1 N3ALAA  LGA         558            600        -2
-# … with 336,766 more rows
+## # A tibble: 336,776 x 9
+##    flight  year month   day tailnum origin dep_time sched_dep_time dep_delay
+##     <int> <int> <int> <int> <chr>   <chr>     <int>          <int>     <dbl>
+##  1   1545  2013     1     1 N14228  EWR         517            515         2
+##  2   1714  2013     1     1 N24211  LGA         533            529         4
+##  3   1141  2013     1     1 N619AA  JFK         542            540         2
+##  4    725  2013     1     1 N804JB  JFK         544            545        -1
+##  5    461  2013     1     1 N668DN  LGA         554            600        -6
+##  6   1696  2013     1     1 N39463  EWR         554            558        -4
+##  7    507  2013     1     1 N516JB  EWR         555            600        -5
+##  8   5708  2013     1     1 N829AS  LGA         557            600        -3
+##  9     79  2013     1     1 N593JB  JFK         557            600        -3
+## 10    301  2013     1     1 N3ALAA  LGA         558            600        -2
+## # … with 336,766 more rows
 ```
 
 Perhaps we want the plane and flight ID information to be the first columns:
@@ -1787,22 +1905,22 @@ Perhaps we want the plane and flight ID information to be the first columns:
 ```r
 flights %>%
   select(carrier:dest, everything())
-# A tibble: 336,776 x 19
-   carrier flight tailnum origin dest   year month   day dep_time sched_dep_time
-   <chr>    <int> <chr>   <chr>  <chr> <int> <int> <int>    <int>          <int>
- 1 UA        1545 N14228  EWR    IAH    2013     1     1      517            515
- 2 UA        1714 N24211  LGA    IAH    2013     1     1      533            529
- 3 AA        1141 N619AA  JFK    MIA    2013     1     1      542            540
- 4 B6         725 N804JB  JFK    BQN    2013     1     1      544            545
- 5 DL         461 N668DN  LGA    ATL    2013     1     1      554            600
- 6 UA        1696 N39463  EWR    ORD    2013     1     1      554            558
- 7 B6         507 N516JB  EWR    FLL    2013     1     1      555            600
- 8 EV        5708 N829AS  LGA    IAD    2013     1     1      557            600
- 9 B6          79 N593JB  JFK    MCO    2013     1     1      557            600
-10 AA         301 N3ALAA  LGA    ORD    2013     1     1      558            600
-# … with 336,766 more rows, and 9 more variables: dep_delay <dbl>,
-#   arr_time <int>, sched_arr_time <int>, arr_delay <dbl>, air_time <dbl>,
-#   distance <dbl>, hour <dbl>, minute <dbl>, time_hour <dttm>
+## # A tibble: 336,776 x 19
+##    carrier flight tailnum origin dest   year month   day dep_time sched_dep_time
+##    <chr>    <int> <chr>   <chr>  <chr> <int> <int> <int>    <int>          <int>
+##  1 UA        1545 N14228  EWR    IAH    2013     1     1      517            515
+##  2 UA        1714 N24211  LGA    IAH    2013     1     1      533            529
+##  3 AA        1141 N619AA  JFK    MIA    2013     1     1      542            540
+##  4 B6         725 N804JB  JFK    BQN    2013     1     1      544            545
+##  5 DL         461 N668DN  LGA    ATL    2013     1     1      554            600
+##  6 UA        1696 N39463  EWR    ORD    2013     1     1      554            558
+##  7 B6         507 N516JB  EWR    FLL    2013     1     1      555            600
+##  8 EV        5708 N829AS  LGA    IAD    2013     1     1      557            600
+##  9 B6          79 N593JB  JFK    MCO    2013     1     1      557            600
+## 10 AA         301 N3ALAA  LGA    ORD    2013     1     1      558            600
+## # … with 336,766 more rows, and 9 more variables: dep_delay <dbl>,
+## #   arr_time <int>, sched_arr_time <int>, arr_delay <dbl>, air_time <dbl>,
+## #   distance <dbl>, hour <dbl>, minute <dbl>, time_hour <dttm>
 ```
 
 Note that `everything()` won't duplicate columns you've already added.
@@ -1812,21 +1930,21 @@ Exploring the difference between bare name selection and `all_of()`/`any_of()`
 ```r
 flights %>%
   select(carrier, flight, tailnum, matches("time"))
-# A tibble: 336,776 x 9
-   carrier flight tailnum dep_time sched_dep_time arr_time sched_arr_time
-   <chr>    <int> <chr>      <int>          <int>    <int>          <int>
- 1 UA        1545 N14228       517            515      830            819
- 2 UA        1714 N24211       533            529      850            830
- 3 AA        1141 N619AA       542            540      923            850
- 4 B6         725 N804JB       544            545     1004           1022
- 5 DL         461 N668DN       554            600      812            837
- 6 UA        1696 N39463       554            558      740            728
- 7 B6         507 N516JB       555            600      913            854
- 8 EV        5708 N829AS       557            600      709            723
- 9 B6          79 N593JB       557            600      838            846
-10 AA         301 N3ALAA       558            600      753            745
-# … with 336,766 more rows, and 2 more variables: air_time <dbl>,
-#   time_hour <dttm>
+## # A tibble: 336,776 x 9
+##    carrier flight tailnum dep_time sched_dep_time arr_time sched_arr_time
+##    <chr>    <int> <chr>      <int>          <int>    <int>          <int>
+##  1 UA        1545 N14228       517            515      830            819
+##  2 UA        1714 N24211       533            529      850            830
+##  3 AA        1141 N619AA       542            540      923            850
+##  4 B6         725 N804JB       544            545     1004           1022
+##  5 DL         461 N668DN       554            600      812            837
+##  6 UA        1696 N39463       554            558      740            728
+##  7 B6         507 N516JB       555            600      913            854
+##  8 EV        5708 N829AS       557            600      709            723
+##  9 B6          79 N593JB       557            600      838            846
+## 10 AA         301 N3ALAA       558            600      753            745
+## # … with 336,766 more rows, and 2 more variables: air_time <dbl>,
+## #   time_hour <dttm>
 
 varlist <- c("carrier", "flight", "tailnum",
              "dep_time", "sched_dep_time", "arr_time", "sched_arr_time",
@@ -1834,44 +1952,44 @@ varlist <- c("carrier", "flight", "tailnum",
 
 flights %>%
   select(all_of(varlist))
-# A tibble: 336,776 x 8
-   carrier flight tailnum dep_time sched_dep_time arr_time sched_arr_time
-   <chr>    <int> <chr>      <int>          <int>    <int>          <int>
- 1 UA        1545 N14228       517            515      830            819
- 2 UA        1714 N24211       533            529      850            830
- 3 AA        1141 N619AA       542            540      923            850
- 4 B6         725 N804JB       544            545     1004           1022
- 5 DL         461 N668DN       554            600      812            837
- 6 UA        1696 N39463       554            558      740            728
- 7 B6         507 N516JB       555            600      913            854
- 8 EV        5708 N829AS       557            600      709            723
- 9 B6          79 N593JB       557            600      838            846
-10 AA         301 N3ALAA       558            600      753            745
-# … with 336,766 more rows, and 1 more variable: air_time <dbl>
+## # A tibble: 336,776 x 8
+##    carrier flight tailnum dep_time sched_dep_time arr_time sched_arr_time
+##    <chr>    <int> <chr>      <int>          <int>    <int>          <int>
+##  1 UA        1545 N14228       517            515      830            819
+##  2 UA        1714 N24211       533            529      850            830
+##  3 AA        1141 N619AA       542            540      923            850
+##  4 B6         725 N804JB       544            545     1004           1022
+##  5 DL         461 N668DN       554            600      812            837
+##  6 UA        1696 N39463       554            558      740            728
+##  7 B6         507 N516JB       555            600      913            854
+##  8 EV        5708 N829AS       557            600      709            723
+##  9 B6          79 N593JB       557            600      838            846
+## 10 AA         301 N3ALAA       558            600      753            745
+## # … with 336,766 more rows, and 1 more variable: air_time <dbl>
 
 varlist <- c(varlist, "whoops")
 
 flights %>%
   select(all_of(varlist)) # this errors out b/c whoops doesn't exist
-Error: Can't subset columns that don't exist.
-x Column `whoops` doesn't exist.
+## Error: Can't subset columns that don't exist.
+## x Column `whoops` doesn't exist.
 
 flights %>%
 select(any_of(varlist)) # this runs just fine
-# A tibble: 336,776 x 8
-   carrier flight tailnum dep_time sched_dep_time arr_time sched_arr_time
-   <chr>    <int> <chr>      <int>          <int>    <int>          <int>
- 1 UA        1545 N14228       517            515      830            819
- 2 UA        1714 N24211       533            529      850            830
- 3 AA        1141 N619AA       542            540      923            850
- 4 B6         725 N804JB       544            545     1004           1022
- 5 DL         461 N668DN       554            600      812            837
- 6 UA        1696 N39463       554            558      740            728
- 7 B6         507 N516JB       555            600      913            854
- 8 EV        5708 N829AS       557            600      709            723
- 9 B6          79 N593JB       557            600      838            846
-10 AA         301 N3ALAA       558            600      753            745
-# … with 336,766 more rows, and 1 more variable: air_time <dbl>
+## # A tibble: 336,776 x 8
+##    carrier flight tailnum dep_time sched_dep_time arr_time sched_arr_time
+##    <chr>    <int> <chr>      <int>          <int>    <int>          <int>
+##  1 UA        1545 N14228       517            515      830            819
+##  2 UA        1714 N24211       533            529      850            830
+##  3 AA        1141 N619AA       542            540      923            850
+##  4 B6         725 N804JB       544            545     1004           1022
+##  5 DL         461 N668DN       554            600      812            837
+##  6 UA        1696 N39463       554            558      740            728
+##  7 B6         507 N516JB       555            600      913            854
+##  8 EV        5708 N829AS       557            600      709            723
+##  9 B6          79 N593JB       557            600      838            846
+## 10 AA         301 N3ALAA       558            600      753            745
+## # … with 336,766 more rows, and 1 more variable: air_time <dbl>
 ```
 </details>
 
@@ -1894,7 +2012,7 @@ write_csv("data/flights.csv", na = ".")
 NOTE: Libref CLASSDAT was successfully assigned as follows: 
       Engine:        V9 
       Physical Name: 
-      /home/susan/Projects/Class/unl-stat850/stat850-textbook/sas
+      /home/susan/Projects/Class/unl-stat850/2020-stat850/sas
 8          filename fileloc
 8        ! '~/Projects/Class/unl-stat850/2020-stat850/data/flights.csv';
 9          PROC IMPORT  datafile = fileloc out=classdat.flights
@@ -1924,7 +2042,7 @@ Unfortunately, the wildcard doesn't work on both ends, so to get the equivalent 
 NOTE: Libref CLASSDAT was successfully assigned as follows: 
       Engine:        V9 
       Physical Name: 
-      /home/susan/Projects/Class/unl-stat850/stat850-textbook/sas
+      /home/susan/Projects/Class/unl-stat850/2020-stat850/sas
 7          
 
 
@@ -1941,8 +2059,8 @@ NOTE: There were 84194 observations read from the data set
       CLASSDAT.FLIGHTS.
 NOTE: The data set WORK.TMPFLY has 84194 observations and 9 variables.
 NOTE: DATA statement used (Total process time):
-      real time           0.09 seconds
-      cpu time            0.09 seconds
+      real time           0.18 seconds
+      cpu time            0.18 seconds
       
 
 12         
@@ -1952,7 +2070,7 @@ NOTE: DATA statement used (Total process time):
 NOTE: There were 10 observations read from the data set WORK.TMPFLY.
 NOTE: PROCEDURE PRINT used (Total process time):
       real time           0.01 seconds
-      cpu time            0.01 seconds
+      cpu time            0.02 seconds
       
 ```
 
@@ -2130,7 +2248,7 @@ If we'd prefer to carve out columns (rather than assembling a new dataset with t
 NOTE: Libref CLASSDAT was successfully assigned as follows: 
       Engine:        V9 
       Physical Name: 
-      /home/susan/Projects/Class/unl-stat850/stat850-textbook/sas
+      /home/susan/Projects/Class/unl-stat850/2020-stat850/sas
 7          
 8          DATA tmpfly;
 9            DROP flight year--day tailnum origin dep: sched_dep:;
@@ -2145,8 +2263,8 @@ NOTE: There were 84194 observations read from the data set
       CLASSDAT.FLIGHTS.
 NOTE: The data set WORK.TMPFLY has 84194 observations and 10 variables.
 NOTE: DATA statement used (Total process time):
-      real time           0.09 seconds
-      cpu time            0.09 seconds
+      real time           0.16 seconds
+      cpu time            0.17 seconds
       
 
 12         
@@ -2155,7 +2273,7 @@ NOTE: DATA statement used (Total process time):
 
 NOTE: There were 10 observations read from the data set WORK.TMPFLY.
 NOTE: PROCEDURE PRINT used (Total process time):
-      real time           0.01 seconds
+      real time           0.02 seconds
       cpu time            0.02 seconds
       
 ```
@@ -2344,7 +2462,7 @@ NOTE: PROCEDURE PRINT used (Total process time):
 NOTE: Libref CLASSDAT was successfully assigned as follows: 
       Engine:        V9 
       Physical Name: 
-      /home/susan/Projects/Class/unl-stat850/stat850-textbook/sas
+      /home/susan/Projects/Class/unl-stat850/2020-stat850/sas
 7          
 8          PROC SQL;
 9          CREATE TABLE tmpfly
@@ -2359,8 +2477,8 @@ NOTE: Table WORK.TMPFLY created, with 84194 rows and 6 columns.
 
 13         
 NOTE: PROCEDURE SQL used (Total process time):
-      real time           0.06 seconds
-      cpu time            0.06 seconds
+      real time           0.09 seconds
+      cpu time            0.10 seconds
       
 
 14         PROC PRINT DATA = tmpfly(obs=10);
@@ -2507,7 +2625,7 @@ Luckily, PROC SQL will also let us use some of the DATA step options, if we're c
 NOTE: Libref CLASSDAT was successfully assigned as follows: 
       Engine:        V9 
       Physical Name: 
-      /home/susan/Projects/Class/unl-stat850/stat850-textbook/sas
+      /home/susan/Projects/Class/unl-stat850/2020-stat850/sas
 7          
 8          PROC SQL;
 9          CREATE TABLE tmpfly
@@ -2523,8 +2641,8 @@ NOTE: Table WORK.TMPFLY created, with 84194 rows and 10 columns.
 
 13         
 NOTE: PROCEDURE SQL used (Total process time):
-      real time           0.08 seconds
-      cpu time            0.08 seconds
+      real time           0.15 seconds
+      cpu time            0.14 seconds
       
 
 14         PROC PRINT DATA = tmpfly(obs=10);
@@ -2532,8 +2650,8 @@ NOTE: PROCEDURE SQL used (Total process time):
 
 NOTE: There were 10 observations read from the data set WORK.TMPFLY.
 NOTE: PROCEDURE PRINT used (Total process time):
-      real time           0.01 seconds
-      cpu time            0.01 seconds
+      real time           0.02 seconds
+      cpu time            0.03 seconds
       
 ```
 
@@ -2733,22 +2851,22 @@ police_violence <- read_xlsx("data/police_violence.xlsx", guess_max = 7000)
 
 # There are two categories for "unknown race"
 table(police_violence$`Victim's race`, useNA = 'ifany')
-
-           Asian            Black         Hispanic  Native American 
-             118             1944             1335              112 
-Pacific Islander     Unknown race     Unknown Race            White 
-              42              670               64             3378 
+## 
+##            Asian            Black         Hispanic  Native American 
+##              118             1944             1335              112 
+## Pacific Islander     Unknown race     Unknown Race            White 
+##               42              670               64             3378
 
 # This line substitutes "race" for "Race" so that there's consistent capitalization
 police_violence$race <- gsub("Race", "race", police_violence$`Victim's race`)
 
 # Fixed!
 table(police_violence$race)
-
-           Asian            Black         Hispanic  Native American 
-             118             1944             1335              112 
-Pacific Islander     Unknown race            White 
-              42              734             3378 
+## 
+##            Asian            Black         Hispanic  Native American 
+##              118             1944             1335              112 
+## Pacific Islander     Unknown race            White 
+##               42              734             3378
 ```
 
 You could do a simple operation like that in a single line, but you had to use the name of the data multiple times, and it very quickly becomes a complicated operation.
@@ -2768,7 +2886,7 @@ Both are demonstrated below:
 NOTE: Libref CLASSDAT was successfully assigned as follows: 
       Engine:        V9 
       Physical Name: 
-      /home/susan/Projects/Class/unl-stat850/stat850-textbook/sas
+      /home/susan/Projects/Class/unl-stat850/2020-stat850/sas
 3          
 4          DATA pvtmp;
 5            SET classdat.police;
@@ -2780,8 +2898,8 @@ NOTE: Libref CLASSDAT was successfully assigned as follows:
 NOTE: There were 7663 observations read from the data set CLASSDAT.POLICE.
 NOTE: The data set WORK.PVTMP has 7663 observations and 27 variables.
 NOTE: DATA statement used (Total process time):
-      real time           0.01 seconds
-      cpu time            0.00 seconds
+      real time           0.02 seconds
+      cpu time            0.02 seconds
       
 
 10         
@@ -2791,497 +2909,416 @@ NOTE: DATA statement used (Total process time):
 14         RUN;
 
 NOTE: There were 7663 observations read from the data set WORK.PVTMP.
-NOTE: The PROCEDURE FREQ printed page 13.
+NOTE: The PROCEDURE FREQ printed page 10.
 NOTE: PROCEDURE FREQ used (Total process time):
-      real time           0.00 seconds
+      real time           0.01 seconds
       cpu time            0.02 seconds
       
-                              The SAS System                              1
-                                         Thursday, May  6, 2021 12:24:00 PM
-
-Obs   name                          height           mass   hair_color
-
-  1   Luke Skywalker                   172             77   blond          
-  2   C-3PO                            167             75                  
-  3   R2-D2                             96             32                  
-  4   Darth Vader                      202            136   none           
-  5   Leia Organa                      150             49   brown          
-  6   Owen Lars                        178            120   brown, grey    
-  7   Beru Whitesun lars               165             75   brown          
-  8   R5-D4                             97             32                  
-  9   Biggs Darklighter                183             84   black          
- 10   Obi-Wan Kenobi                   182             77   auburn, white  
-
-Obs   skin_color            eye_color      birth_year    sex
-
-  1   fair                  blue                   19    male          
-  2   gold                  yellow                112    none          
-  3   white, blue           red                    33    none          
-  4   white                 yellow               41.9    male          
-  5   light                 brown                  19    female        
-  6   light                 blue                   52    male          
-  7   light                 blue                   47    female        
-  8   white, red            red                     .    none          
-  9   light                 brown                  24    male          
- 10   fair                  blue-gray              57    male          
-
-Obs   gender       homeworld     species
-
-  1   masculine    Tatooine      Human         
-  2   masculine    Tatooine      Droid         
-  3   masculine    Naboo         Droid         
-  4   masculine    Tatooine      Human         
-  5   feminine     Alderaan      Human         
-  6   masculine    Tatooine      Human         
-  7   feminine     Tatooine      Human         
-  8   masculine    Tatooine      Droid         
-  9   masculine    Tatooine      Human         
- 10   masculine    Stewjon       Human         
-                              The SAS System                              2
-                                         Thursday, May  6, 2021 12:24:00 PM
-
-      pokedex_
-        number  name                               type_1     type_number
-  -----------------------------------------------------------------------
-             7  Squirtle                           Water                1
-             8  Wartortle                          Water                1
-             9  Blastoise                          Water                1
-             9  Mega Blastoise                     Water                1
-            54  Psyduck                            Water                1
-                              The SAS System                              3
-                                         Thursday, May  6, 2021 12:24:00 PM
-
-                    pokedex_
-         Obs          number    name
-
-           1               7    Squirtle                         
-           2               8    Wartortle                        
-           3               9    Blastoise                        
-           4               9    Mega Blastoise                   
-           5              54    Psyduck                          
-           6              55    Golduck                          
-           7              60    Poliwag                          
-           8              61    Poliwhirl                        
-           9              62    Poliwrath                        
-          10              72    Tentacool                        
-
- 
-         Obs    type_1      type_2       type_number
-
-           1    Water                              1
-           2    Water                              1
-           3    Water                              1
-           4    Water                              1
-           5    Water                              1
-           6    Water                              1
-           7    Water                              1
-           8    Water                              1
-           9    Water       Fighting               2
-          10    Water       Poison                 2
-                              The SAS System                              4
-                                         Thursday, May  6, 2021 12:24:00 PM
-
-            pokedex_
- Obs          number    name                                 status
-
-  1              890    Eternatus Eternamax                  Legendary    
-  2              150    Mega Mewtwo X                        Legendary    
-  3              150    Mega Mewtwo Y                        Legendary    
-  4              384    Mega Rayquaza                        Legendary    
-  5              382    Primal Kyogre                        Legendary    
-
- 
- Obs    species                  type_1      total_points
-
-  1     Gigantic Pokemon         Poison              1125
-  2     Genetic Pokemon          Psychic              780
-  3     Genetic Pokemon          Psychic              780
-  4     Sky High Pokemon         Dragon               780
-  5     Sea Basin Pokemon        Water                770
-                              The SAS System                              5
-                                         Thursday, May  6, 2021 12:24:00 PM
-
-    pokedex_
-      number  name                               german_name     generation
-status         species                 type_number  type_1    type_2
-                              abilities_
-    height_m     weight_kg        number  ability_1
-ability_2         ability_hidden    total_points            hp
-      attack       defense     sp_attack    sp_defense         speed
-                     base_         base_                  egg_type_
-  catch_rate    friendship    experience  growth_rate        number
-                           percentage_                    against_
-egg_type_1    egg_type_2          male    egg_cycles        normal
-                  against_      against_      against_
-against_fire         water      electric         grass   against_ice
-    against_      against_      against_      against_      against_
-       fight        poison        ground        flying       psychic
-                                against_      against_
- against_bug  against_rock         ghost        dragon  against_dark
-    against_      against_
-       steel         fairy    rownum
----------------------------------------------------------------------------
-           2  Ivysaur                            Bisaknosp                1
-Normal         Seed Pokemon                      2  Grass     Poison  
-           1            13             2  Overgrow        
-                  Chlorophyll                405            60
-          62            63            80            80            60
-          45            70           142  Medium Slow             2
-Grass         Monster             87.5            20             1
-           2           0.5           0.5          0.25             2
-         0.5             1             1             2             2
-           1             1             1             1             1
-           1           0.5         2
-
-           3  Mega Venusaur                      Bisaflor                 1
-Normal         Seed Pokemon                      2  Grass     Poison  
-         2.4         155.5             1  Thick Fat       
-                                             625            80
-         100           123           122           120            80
-          45            70           281  Medium Slow             2
-Grass         Monster             87.5            20             1
-           1           0.5           0.5          0.25             1
-         0.5             1             1             2             2
-           1             1             1             1             1
-           1           0.5         4
-
-           5  Charmeleon                         Glutexo                  1
-Normal         Flame Pokemon                     1  Fire              
-         1.1            19             2  Blaze           
-                  Solar Power                405            58
-          64            58            80            65            80
-          45            70           142  Medium Slow             2
-Dragon        Monster             87.5            20             1
-         0.5             2             1           0.5           0.5
-           1             1             2             1             1
-         0.5             2             1             1             1
-         0.5           0.5         6
-                              The SAS System                              6
-                                         Thursday, May  6, 2021 12:24:00 PM
-
-    pokedex_
-      number  name                               german_name     generation
-status         species                 type_number  type_1    type_2
-                              abilities_
-    height_m     weight_kg        number  ability_1
-ability_2         ability_hidden    total_points            hp
-      attack       defense     sp_attack    sp_defense         speed
-                     base_         base_                  egg_type_
-  catch_rate    friendship    experience  growth_rate        number
-                           percentage_                    against_
-egg_type_1    egg_type_2          male    egg_cycles        normal
-                  against_      against_      against_
-against_fire         water      electric         grass   against_ice
-    against_      against_      against_      against_      against_
-       fight        poison        ground        flying       psychic
-                                against_      against_
- against_bug  against_rock         ghost        dragon  against_dark
-    against_      against_
-       steel         fairy    rownum
----------------------------------------------------------------------------
-           6  Mega Charizard X                   Glurak                   1
-Normal         Flame Pokemon                     2  Fire      Dragon  
-         1.7         110.5             1  Tough Claws     
-                                             634            78
-         130           111           130            85           100
-          45            70           285  Medium Slow             2
-Dragon        Monster             87.5            20             1
-        0.25             1           0.5          0.25             1
-           1             1             2             1             1
-         0.5             2             1             2             1
-         0.5             1         8
-
-           7  Squirtle                           Schiggy                  1
-Normal         Tiny Turtle Pokemon               1  Water             
-         0.5             9             2  Torrent         
-                  Rain Dish                  314            44
-          48            65            50            64            43
-          45            70            63  Medium Slow             2
-Monster       Water 1             87.5            20             1
-         0.5           0.5             2             2           0.5
-           1             1             1             1             1
-           1             1             1             1             1
-         0.5             1        10
-                              The SAS System                              7
-                                         Thursday, May  6, 2021 12:24:00 PM
-
-          pokedex_
-            number  name                               status
-      species                type_1    total_points
-      --------------------------------------------------------------
-                 3  Mega Venusaur                      Normal       
-      Seed Pokemon           Grass              625
-
-                 3  Venusaur                           Normal       
-      Seed Pokemon           Grass              525
-
-                 2  Ivysaur                            Normal       
-      Seed Pokemon           Grass              405
-
-                 1  Bulbasaur                          Normal       
-      Seed Pokemon           Grass              318
-
-                 4  Charmander                         Normal       
-      Lizard Pokemon         Fire               309
-                              The SAS System                              8
-                                         Thursday, May  6, 2021 12:24:00 PM
-
-            pokedex_
- Obs          number    name                                 status
-
-  1                3    Mega Venusaur                        Normal       
-  2                3    Venusaur                             Normal       
-  3                2    Ivysaur                              Normal       
-  4                1    Bulbasaur                            Normal       
-  5                4    Charmander                           Normal       
-
- 
- Obs    species                  type_1      total_points
-
-  1     Seed Pokemon             Grass                625
-  2     Seed Pokemon             Grass                525
-  3     Seed Pokemon             Grass                405
-  4     Seed Pokemon             Grass                318
-  5     Lizard Pokemon           Fire                 309
-                              The SAS System                              9
-                                         Thursday, May  6, 2021 12:24:00 PM
-
-                                                                 sched_dep_
-  Obs          year         month           day      dep_time          time
-
-    1          2013             5             9          1855          1730
-    2          2013             9            11          1349          1355
-    3          2013             5            23          2109          1745
-    4          2013             3            30          1251          1300
-    5          2013            10            11          1555          1529
-    6          2013            11            20           659           705
-    7          2013             1             4           837           830
-    8          2013             2            12          1900          1855
-    9          2013             5            20          1137          1140
-   10          2013             9            22          2136          1930
-
- 
-  Obs     dep_delay          flight    tailnum    origin
-
-    1            85             419    N203FR      LGA  
-    2            -6             686    N667AW      EWR  
-    3           204             785    N3DSAA      LGA  
-    4            -9             315    N3752       JFK  
-    5            26            1246    N78524      EWR  
-    6            -6            1107    N3FUAA      LGA  
-    7             7             313    N4WWAA      LGA  
-    8             5            4649    N513MQ      LGA  
-    9            -3            1191    N355JB      JFK  
-   10           126            3497    N904XJ      JFK  
-                              The SAS System                             10
-                                         Thursday, May  6, 2021 12:24:00 PM
-
-                           sched_arr_
-   Obs       arr_time            time       arr_delay    carrier
-
-     1           2116            1956              80      F9   
-     2           1544            1602             -18      US   
-     3           2350            2050             180      AA   
-     4           1630            1649             -19      DL   
-     5           1851            1847               4      UA   
-     6            958             955               3      AA   
-     7           1044            1015              29      AA   
-     8           2042            2100             -18      MQ   
-     9           1239            1247              -8      B6   
-    10           2334            2125             129      9E   
-
- 
-   Obs   dest       air_time       distance           hour         minute
-
-     1   DEN             224           1620             17             30
-     2   PHX             272           2133             13             55
-     3   DFW             204           1389             17             45
-     4   SJU             200           1598             13              0
-     5   SFO             332           2565             15             29
-     6   DFW             201           1389              7              5
-     7   ORD             115            733              8             30
-     8   MSP             143           1020             18             55
-     9   ACK              45            199             11             40
-    10   RDU              68            427             19             30
-
- 
-   Obs   time_hour
-
-     1                  20130509T210000+0000
-     2                  20130911T170000+0000
-     3                  20130523T210000+0000
-     4                  20130330T170000+0000
-     5                  20131011T190000+0000
-     6                  20131120T120000+0000
-     7                  20130104T130000+0000
-     8                  20130212T230000+0000
-     9                  20130520T150000+0000
-    10                  20130922T230000+0000
-                              The SAS System                             11
-                                         Thursday, May  6, 2021 12:24:00 PM
-
-   Obs       flight         year        month          day tailnum origin
-
-     1          419         2013            5            9 N203FR   LGA  
-     2          686         2013            9           11 N667AW   EWR  
-     3          785         2013            5           23 N3DSAA   LGA  
-     4          315         2013            3           30 N3752    JFK  
-     5         1246         2013           10           11 N78524   EWR  
-     6         1107         2013           11           20 N3FUAA   LGA  
-     7          313         2013            1            4 N4WWAA   LGA  
-     8         4649         2013            2           12 N513MQ   LGA  
-     9         1191         2013            5           20 N355JB   JFK  
-    10         3497         2013            9           22 N904XJ   JFK  
-                              The SAS System                             12
-                                         Thursday, May  6, 2021 12:24:00 PM
-
-                           sched_arr_
-   Obs       arr_time            time       arr_delay    carrier
-
-     1           2116            1956              80      F9   
-     2           1544            1602             -18      US   
-     3           2350            2050             180      AA   
-     4           1630            1649             -19      DL   
-     5           1851            1847               4      UA   
-     6            958             955               3      AA   
-     7           1044            1015              29      AA   
-     8           2042            2100             -18      MQ   
-     9           1239            1247              -8      B6   
-    10           2334            2125             129      9E   
-
- 
-   Obs   dest       air_time       distance           hour         minute
-
-     1   DEN             224           1620             17             30
-     2   PHX             272           2133             13             55
-     3   DFW             204           1389             17             45
-     4   SJU             200           1598             13              0
-     5   SFO             332           2565             15             29
-     6   DFW             201           1389              7              5
-     7   ORD             115            733              8             30
-     8   MSP             143           1020             18             55
-     9   ACK              45            199             11             40
-    10   RDU              68            427             19             30
-
- 
-   Obs   time_hour
-
-     1                  20130509T210000+0000
-     2                  20130911T170000+0000
-     3                  20130523T210000+0000
-     4                  20130330T170000+0000
-     5                  20131011T190000+0000
-     6                  20131120T120000+0000
-     7                  20130104T130000+0000
-     8                  20130212T230000+0000
-     9                  20130520T150000+0000
-    10                  20130922T230000+0000
- 
-                                                                           
- 
-                            The FREQ Procedure
-
-                      Table of Victim_s_race by race
-
-       Victim_s_race(Victim's race)     race
-
-       Frequency        |White   |Black   |Hispanic|Unknown |  Total
-                        |        |        |        |race    |
-       -----------------+--------+--------+--------+--------+
-       White            |   3378 |      0 |      0 |      0 |   3378
-       -----------------+--------+--------+--------+--------+
-       Black            |      0 |   1944 |      0 |      0 |   1944
-       -----------------+--------+--------+--------+--------+
-       Hispanic         |      0 |      0 |   1335 |      0 |   1335
-       -----------------+--------+--------+--------+--------+
-       Unknown race     |      0 |      0 |      0 |    670 |    670
-       -----------------+--------+--------+--------+--------+
-       Asian            |      0 |      0 |      0 |      0 |    118
-       -----------------+--------+--------+--------+--------+
-       Native American  |      0 |      0 |      0 |      0 |    112
-       -----------------+--------+--------+--------+--------+
-       Unknown Race     |      0 |      0 |      0 |     64 |     64
-       -----------------+--------+--------+--------+--------+
-       Pacific Islander |      0 |      0 |      0 |      0 |     42
-       -----------------+--------+--------+--------+--------+
-       Total                3378     1944     1335      734     7663
-       (Continued)
-
-                      Table of Victim_s_race by race
-
-       Victim_s_race(Victim's race)     race
-
-       Frequency        |Asian   |Native A|Pacific |  Total
-                        |        |merican |Islander|
-       -----------------+--------+--------+--------+
-       White            |      0 |      0 |      0 |   3378
-       -----------------+--------+--------+--------+
-       Black            |      0 |      0 |      0 |   1944
-       -----------------+--------+--------+--------+
-       Hispanic         |      0 |      0 |      0 |   1335
-       -----------------+--------+--------+--------+
-       Unknown race     |      0 |      0 |      0 |    670
-       -----------------+--------+--------+--------+
-       Asian            |    118 |      0 |      0 |    118
-       -----------------+--------+--------+--------+
-       Native American  |      0 |    112 |      0 |    112
-       -----------------+--------+--------+--------+
-       Unknown Race     |      0 |      0 |      0 |     64
-       -----------------+--------+--------+--------+
-       Pacific Islander |      0 |      0 |     42 |     42
-       -----------------+--------+--------+--------+
-       Total                 118      112       42     7663
-
-                      Table of Victim_s_race by race2
-
-       Victim_s_race(Victim's race)     race2
-
-       Frequency        |White   |Black   |Hispanic|Unknown |  Total
-                        |        |        |        |race    |
-       -----------------+--------+--------+--------+--------+
-       White            |   3378 |      0 |      0 |      0 |   3378
-       -----------------+--------+--------+--------+--------+
-       Black            |      0 |   1944 |      0 |      0 |   1944
-       -----------------+--------+--------+--------+--------+
-       Hispanic         |      0 |      0 |   1335 |      0 |   1335
-       -----------------+--------+--------+--------+--------+
-       Unknown race     |      0 |      0 |      0 |    670 |    670
-       -----------------+--------+--------+--------+--------+
-       Asian            |      0 |      0 |      0 |      0 |    118
-       -----------------+--------+--------+--------+--------+
-       Native American  |      0 |      0 |      0 |      0 |    112
-       -----------------+--------+--------+--------+--------+
-       Unknown Race     |      0 |      0 |      0 |     64 |     64
-       -----------------+--------+--------+--------+--------+
-       Pacific Islander |      0 |      0 |      0 |      0 |     42
-       -----------------+--------+--------+--------+--------+
-       Total                3378     1944     1335      734     7663
-       (Continued)
-
-                      Table of Victim_s_race by race2
-
-       Victim_s_race(Victim's race)     race2
-
-       Frequency        |Asian   |Native A|Pacific |  Total
-                        |        |merican |Islander|
-       -----------------+--------+--------+--------+
-       White            |      0 |      0 |      0 |   3378
-       -----------------+--------+--------+--------+
-       Black            |      0 |      0 |      0 |   1944
-       -----------------+--------+--------+--------+
-       Hispanic         |      0 |      0 |      0 |   1335
-       -----------------+--------+--------+--------+
-       Unknown race     |      0 |      0 |      0 |    670
-       -----------------+--------+--------+--------+
-       Asian            |    118 |      0 |      0 |    118
-       -----------------+--------+--------+--------+
-       Native American  |      0 |    112 |      0 |    112
-       -----------------+--------+--------+--------+
-       Unknown Race     |      0 |      0 |      0 |     64
-       -----------------+--------+--------+--------+
-       Pacific Islander |      0 |      0 |     42 |     42
-       -----------------+--------+--------+--------+
-       Total                 118      112       42     7663
+##                               The SAS System                              1
+##                                            Sunday, May  9, 2021 10:47:00 AM
+## 
+##             pokedex_
+##  Obs          number    name                                 status
+## 
+##   1              890    Eternatus Eternamax                  Legendary    
+##   2              150    Mega Mewtwo X                        Legendary    
+##   3              150    Mega Mewtwo Y                        Legendary    
+##   4              384    Mega Rayquaza                        Legendary    
+##   5              382    Primal Kyogre                        Legendary    
+## 
+##  
+##  Obs    species                  type_1      total_points
+## 
+##   1     Gigantic Pokemon         Poison              1125
+##   2     Genetic Pokemon          Psychic              780
+##   3     Genetic Pokemon          Psychic              780
+##   4     Sky High Pokemon         Dragon               780
+##   5     Sea Basin Pokemon        Water                770
+##                               The SAS System                              2
+##                                            Sunday, May  9, 2021 10:47:00 AM
+## 
+##     pokedex_
+##       number  name                               german_name     generation
+## status         species                 type_number  type_1    type_2
+##                               abilities_
+##     height_m     weight_kg        number  ability_1
+## ability_2         ability_hidden    total_points            hp
+##       attack       defense     sp_attack    sp_defense         speed
+##                      base_         base_                  egg_type_
+##   catch_rate    friendship    experience  growth_rate        number
+##                            percentage_                    against_
+## egg_type_1    egg_type_2          male    egg_cycles        normal
+##                   against_      against_      against_
+## against_fire         water      electric         grass   against_ice
+##     against_      against_      against_      against_      against_
+##        fight        poison        ground        flying       psychic
+##                                 against_      against_
+##  against_bug  against_rock         ghost        dragon  against_dark
+##     against_      against_
+##        steel         fairy    rownum
+## ---------------------------------------------------------------------------
+##            2  Ivysaur                            Bisaknosp                1
+## Normal         Seed Pokemon                      2  Grass     Poison  
+##            1            13             2  Overgrow        
+##                   Chlorophyll                405            60
+##           62            63            80            80            60
+##           45            70           142  Medium Slow             2
+## Grass         Monster             87.5            20             1
+##            2           0.5           0.5          0.25             2
+##          0.5             1             1             2             2
+##            1             1             1             1             1
+##            1           0.5         2
+## 
+##            3  Mega Venusaur                      Bisaflor                 1
+## Normal         Seed Pokemon                      2  Grass     Poison  
+##          2.4         155.5             1  Thick Fat       
+##                                              625            80
+##          100           123           122           120            80
+##           45            70           281  Medium Slow             2
+## Grass         Monster             87.5            20             1
+##            1           0.5           0.5          0.25             1
+##          0.5             1             1             2             2
+##            1             1             1             1             1
+##            1           0.5         4
+## 
+##            5  Charmeleon                         Glutexo                  1
+## Normal         Flame Pokemon                     1  Fire              
+##          1.1            19             2  Blaze           
+##                   Solar Power                405            58
+##           64            58            80            65            80
+##           45            70           142  Medium Slow             2
+## Dragon        Monster             87.5            20             1
+##          0.5             2             1           0.5           0.5
+##            1             1             2             1             1
+##          0.5             2             1             1             1
+##          0.5           0.5         6
+##                               The SAS System                              3
+##                                            Sunday, May  9, 2021 10:47:00 AM
+## 
+##     pokedex_
+##       number  name                               german_name     generation
+## status         species                 type_number  type_1    type_2
+##                               abilities_
+##     height_m     weight_kg        number  ability_1
+## ability_2         ability_hidden    total_points            hp
+##       attack       defense     sp_attack    sp_defense         speed
+##                      base_         base_                  egg_type_
+##   catch_rate    friendship    experience  growth_rate        number
+##                            percentage_                    against_
+## egg_type_1    egg_type_2          male    egg_cycles        normal
+##                   against_      against_      against_
+## against_fire         water      electric         grass   against_ice
+##     against_      against_      against_      against_      against_
+##        fight        poison        ground        flying       psychic
+##                                 against_      against_
+##  against_bug  against_rock         ghost        dragon  against_dark
+##     against_      against_
+##        steel         fairy    rownum
+## ---------------------------------------------------------------------------
+##            6  Mega Charizard X                   Glurak                   1
+## Normal         Flame Pokemon                     2  Fire      Dragon  
+##          1.7         110.5             1  Tough Claws     
+##                                              634            78
+##          130           111           130            85           100
+##           45            70           285  Medium Slow             2
+## Dragon        Monster             87.5            20             1
+##         0.25             1           0.5          0.25             1
+##            1             1             2             1             1
+##          0.5             2             1             2             1
+##          0.5             1         8
+## 
+##            7  Squirtle                           Schiggy                  1
+## Normal         Tiny Turtle Pokemon               1  Water             
+##          0.5             9             2  Torrent         
+##                   Rain Dish                  314            44
+##           48            65            50            64            43
+##           45            70            63  Medium Slow             2
+## Monster       Water 1             87.5            20             1
+##          0.5           0.5             2             2           0.5
+##            1             1             1             1             1
+##            1             1             1             1             1
+##          0.5             1        10
+##                               The SAS System                              4
+##                                            Sunday, May  9, 2021 10:47:00 AM
+## 
+##           pokedex_
+##             number  name                               status
+##       species                type_1    total_points
+##       --------------------------------------------------------------
+##                  3  Mega Venusaur                      Normal       
+##       Seed Pokemon           Grass              625
+## 
+##                  3  Venusaur                           Normal       
+##       Seed Pokemon           Grass              525
+## 
+##                  2  Ivysaur                            Normal       
+##       Seed Pokemon           Grass              405
+## 
+##                  1  Bulbasaur                          Normal       
+##       Seed Pokemon           Grass              318
+## 
+##                  4  Charmander                         Normal       
+##       Lizard Pokemon         Fire               309
+##                               The SAS System                              5
+##                                            Sunday, May  9, 2021 10:47:00 AM
+## 
+##             pokedex_
+##  Obs          number    name                                 status
+## 
+##   1                3    Mega Venusaur                        Normal       
+##   2                3    Venusaur                             Normal       
+##   3                2    Ivysaur                              Normal       
+##   4                1    Bulbasaur                            Normal       
+##   5                4    Charmander                           Normal       
+## 
+##  
+##  Obs    species                  type_1      total_points
+## 
+##   1     Seed Pokemon             Grass                625
+##   2     Seed Pokemon             Grass                525
+##   3     Seed Pokemon             Grass                405
+##   4     Seed Pokemon             Grass                318
+##   5     Lizard Pokemon           Fire                 309
+##                               The SAS System                              6
+##                                            Sunday, May  9, 2021 10:47:00 AM
+## 
+##                                                                  sched_dep_
+##   Obs          year         month           day      dep_time          time
+## 
+##     1          2013             5             9          1855          1730
+##     2          2013             9            11          1349          1355
+##     3          2013             5            23          2109          1745
+##     4          2013             3            30          1251          1300
+##     5          2013            10            11          1555          1529
+##     6          2013            11            20           659           705
+##     7          2013             1             4           837           830
+##     8          2013             2            12          1900          1855
+##     9          2013             5            20          1137          1140
+##    10          2013             9            22          2136          1930
+## 
+##  
+##   Obs     dep_delay          flight    tailnum    origin
+## 
+##     1            85             419    N203FR      LGA  
+##     2            -6             686    N667AW      EWR  
+##     3           204             785    N3DSAA      LGA  
+##     4            -9             315    N3752       JFK  
+##     5            26            1246    N78524      EWR  
+##     6            -6            1107    N3FUAA      LGA  
+##     7             7             313    N4WWAA      LGA  
+##     8             5            4649    N513MQ      LGA  
+##     9            -3            1191    N355JB      JFK  
+##    10           126            3497    N904XJ      JFK  
+##                               The SAS System                              7
+##                                            Sunday, May  9, 2021 10:47:00 AM
+## 
+##                            sched_arr_
+##    Obs       arr_time            time       arr_delay    carrier
+## 
+##      1           2116            1956              80      F9   
+##      2           1544            1602             -18      US   
+##      3           2350            2050             180      AA   
+##      4           1630            1649             -19      DL   
+##      5           1851            1847               4      UA   
+##      6            958             955               3      AA   
+##      7           1044            1015              29      AA   
+##      8           2042            2100             -18      MQ   
+##      9           1239            1247              -8      B6   
+##     10           2334            2125             129      9E   
+## 
+##  
+##    Obs   dest       air_time       distance           hour         minute
+## 
+##      1   DEN             224           1620             17             30
+##      2   PHX             272           2133             13             55
+##      3   DFW             204           1389             17             45
+##      4   SJU             200           1598             13              0
+##      5   SFO             332           2565             15             29
+##      6   DFW             201           1389              7              5
+##      7   ORD             115            733              8             30
+##      8   MSP             143           1020             18             55
+##      9   ACK              45            199             11             40
+##     10   RDU              68            427             19             30
+## 
+##  
+##    Obs   time_hour
+## 
+##      1                  20130509T210000+0000
+##      2                  20130911T170000+0000
+##      3                  20130523T210000+0000
+##      4                  20130330T170000+0000
+##      5                  20131011T190000+0000
+##      6                  20131120T120000+0000
+##      7                  20130104T130000+0000
+##      8                  20130212T230000+0000
+##      9                  20130520T150000+0000
+##     10                  20130922T230000+0000
+##                               The SAS System                              8
+##                                            Sunday, May  9, 2021 10:47:00 AM
+## 
+##    Obs       flight         year        month          day tailnum origin
+## 
+##      1          419         2013            5            9 N203FR   LGA  
+##      2          686         2013            9           11 N667AW   EWR  
+##      3          785         2013            5           23 N3DSAA   LGA  
+##      4          315         2013            3           30 N3752    JFK  
+##      5         1246         2013           10           11 N78524   EWR  
+##      6         1107         2013           11           20 N3FUAA   LGA  
+##      7          313         2013            1            4 N4WWAA   LGA  
+##      8         4649         2013            2           12 N513MQ   LGA  
+##      9         1191         2013            5           20 N355JB   JFK  
+##     10         3497         2013            9           22 N904XJ   JFK  
+##                               The SAS System                              9
+##                                            Sunday, May  9, 2021 10:47:00 AM
+## 
+##                            sched_arr_
+##    Obs       arr_time            time       arr_delay    carrier
+## 
+##      1           2116            1956              80      F9   
+##      2           1544            1602             -18      US   
+##      3           2350            2050             180      AA   
+##      4           1630            1649             -19      DL   
+##      5           1851            1847               4      UA   
+##      6            958             955               3      AA   
+##      7           1044            1015              29      AA   
+##      8           2042            2100             -18      MQ   
+##      9           1239            1247              -8      B6   
+##     10           2334            2125             129      9E   
+## 
+##  
+##    Obs   dest       air_time       distance           hour         minute
+## 
+##      1   DEN             224           1620             17             30
+##      2   PHX             272           2133             13             55
+##      3   DFW             204           1389             17             45
+##      4   SJU             200           1598             13              0
+##      5   SFO             332           2565             15             29
+##      6   DFW             201           1389              7              5
+##      7   ORD             115            733              8             30
+##      8   MSP             143           1020             18             55
+##      9   ACK              45            199             11             40
+##     10   RDU              68            427             19             30
+## 
+##  
+##    Obs   time_hour
+## 
+##      1                  20130509T210000+0000
+##      2                  20130911T170000+0000
+##      3                  20130523T210000+0000
+##      4                  20130330T170000+0000
+##      5                  20131011T190000+0000
+##      6                  20131120T120000+0000
+##      7                  20130104T130000+0000
+##      8                  20130212T230000+0000
+##      9                  20130520T150000+0000
+##     10                  20130922T230000+0000
+##  
+##                                                                            
+##  
+##                             The FREQ Procedure
+## 
+##                       Table of Victim_s_race by race
+## 
+##        Victim_s_race(Victim's race)     race
+## 
+##        Frequency        |White   |Black   |Hispanic|Unknown |  Total
+##                         |        |        |        |race    |
+##        -----------------+--------+--------+--------+--------+
+##        White            |   3378 |      0 |      0 |      0 |   3378
+##        -----------------+--------+--------+--------+--------+
+##        Black            |      0 |   1944 |      0 |      0 |   1944
+##        -----------------+--------+--------+--------+--------+
+##        Hispanic         |      0 |      0 |   1335 |      0 |   1335
+##        -----------------+--------+--------+--------+--------+
+##        Unknown race     |      0 |      0 |      0 |    670 |    670
+##        -----------------+--------+--------+--------+--------+
+##        Asian            |      0 |      0 |      0 |      0 |    118
+##        -----------------+--------+--------+--------+--------+
+##        Native American  |      0 |      0 |      0 |      0 |    112
+##        -----------------+--------+--------+--------+--------+
+##        Unknown Race     |      0 |      0 |      0 |     64 |     64
+##        -----------------+--------+--------+--------+--------+
+##        Pacific Islander |      0 |      0 |      0 |      0 |     42
+##        -----------------+--------+--------+--------+--------+
+##        Total                3378     1944     1335      734     7663
+##        (Continued)
+## 
+##                       Table of Victim_s_race by race
+## 
+##        Victim_s_race(Victim's race)     race
+## 
+##        Frequency        |Asian   |Native A|Pacific |  Total
+##                         |        |merican |Islander|
+##        -----------------+--------+--------+--------+
+##        White            |      0 |      0 |      0 |   3378
+##        -----------------+--------+--------+--------+
+##        Black            |      0 |      0 |      0 |   1944
+##        -----------------+--------+--------+--------+
+##        Hispanic         |      0 |      0 |      0 |   1335
+##        -----------------+--------+--------+--------+
+##        Unknown race     |      0 |      0 |      0 |    670
+##        -----------------+--------+--------+--------+
+##        Asian            |    118 |      0 |      0 |    118
+##        -----------------+--------+--------+--------+
+##        Native American  |      0 |    112 |      0 |    112
+##        -----------------+--------+--------+--------+
+##        Unknown Race     |      0 |      0 |      0 |     64
+##        -----------------+--------+--------+--------+
+##        Pacific Islander |      0 |      0 |     42 |     42
+##        -----------------+--------+--------+--------+
+##        Total                 118      112       42     7663
+## 
+## 
+##                       Table of Victim_s_race by race2
+## 
+##        Victim_s_race(Victim's race)     race2
+## 
+##        Frequency        |White   |Black   |Hispanic|Unknown |  Total
+##                         |        |        |        |race    |
+##        -----------------+--------+--------+--------+--------+
+##        White            |   3378 |      0 |      0 |      0 |   3378
+##        -----------------+--------+--------+--------+--------+
+##        Black            |      0 |   1944 |      0 |      0 |   1944
+##        -----------------+--------+--------+--------+--------+
+##        Hispanic         |      0 |      0 |   1335 |      0 |   1335
+##        -----------------+--------+--------+--------+--------+
+##        Unknown race     |      0 |      0 |      0 |    670 |    670
+##        -----------------+--------+--------+--------+--------+
+##        Asian            |      0 |      0 |      0 |      0 |    118
+##        -----------------+--------+--------+--------+--------+
+##        Native American  |      0 |      0 |      0 |      0 |    112
+##        -----------------+--------+--------+--------+--------+
+##        Unknown Race     |      0 |      0 |      0 |     64 |     64
+##        -----------------+--------+--------+--------+--------+
+##        Pacific Islander |      0 |      0 |      0 |      0 |     42
+##        -----------------+--------+--------+--------+--------+
+##        Total                3378     1944     1335      734     7663
+##        (Continued)
+## 
+##                       Table of Victim_s_race by race2
+## 
+##        Victim_s_race(Victim's race)     race2
+## 
+##        Frequency        |Asian   |Native A|Pacific |  Total
+##                         |        |merican |Islander|
+##        -----------------+--------+--------+--------+
+##        White            |      0 |      0 |      0 |   3378
+##        -----------------+--------+--------+--------+
+##        Black            |      0 |      0 |      0 |   1944
+##        -----------------+--------+--------+--------+
+##        Hispanic         |      0 |      0 |      0 |   1335
+##        -----------------+--------+--------+--------+
+##        Unknown race     |      0 |      0 |      0 |    670
+##        -----------------+--------+--------+--------+
+##        Asian            |    118 |      0 |      0 |    118
+##        -----------------+--------+--------+--------+
+##        Native American  |      0 |    112 |      0 |    112
+##        -----------------+--------+--------+--------+
+##        Unknown Race     |      0 |      0 |      0 |     64
+##        -----------------+--------+--------+--------+
+##        Pacific Islander |      0 |      0 |     42 |     42
+##        -----------------+--------+--------+--------+
+##        Total                 118      112       42     7663
 ```
 In both cases we can see that the recode worked the way we wanted and we've now gotten rid of the extra "unknown" category".
 </details>
@@ -3300,7 +3337,7 @@ CASE WHEN is the if-else statement in SQL. When (`victim_s_race` = 'Unknown Race
 NOTE: Libref CLASSDAT was successfully assigned as follows: 
       Engine:        V9 
       Physical Name: 
-      /home/susan/Projects/Class/unl-stat850/stat850-textbook/sas
+      /home/susan/Projects/Class/unl-stat850/2020-stat850/sas
 7          
 8          PROC SQL;
 9          CREATE TABLE WORK.pvtmp AS
@@ -3313,8 +3350,8 @@ NOTE: Table WORK.PVTMP created, with 7663 rows and 26 columns.
 13         
 14         
 NOTE: PROCEDURE SQL used (Total process time):
-      real time           0.01 seconds
-      cpu time            0.00 seconds
+      real time           0.02 seconds
+      cpu time            0.02 seconds
       
 
 15         PROC FREQ DATA = pvtmp ORDER=FREQ; /* Combinations of vars */
@@ -3324,7 +3361,7 @@ NOTE: PROCEDURE SQL used (Total process time):
 
 NOTE: There were 7663 observations read from the data set WORK.PVTMP.
 NOTE: PROCEDURE FREQ used (Total process time):
-      real time           0.01 seconds
+      real time           0.02 seconds
       cpu time            0.02 seconds
       
 ```
@@ -3811,26 +3848,26 @@ police_violence %>%
   mutate(race = gsub("Race", "race", `Victim's race`)) %>%
   select(`Victim's race`, race) %>%
   table()
-                  race
-Victim's race      Asian Black Hispanic Native American Pacific Islander
-  Asian              118     0        0               0                0
-  Black                0  1944        0               0                0
-  Hispanic             0     0     1335               0                0
-  Native American      0     0        0             112                0
-  Pacific Islander     0     0        0               0               42
-  Unknown race         0     0        0               0                0
-  Unknown Race         0     0        0               0                0
-  White                0     0        0               0                0
-                  race
-Victim's race      Unknown race White
-  Asian                       0     0
-  Black                       0     0
-  Hispanic                    0     0
-  Native American             0     0
-  Pacific Islander            0     0
-  Unknown race              670     0
-  Unknown Race               64     0
-  White                       0  3378
+##                   race
+## Victim's race      Asian Black Hispanic Native American Pacific Islander
+##   Asian              118     0        0               0                0
+##   Black                0  1944        0               0                0
+##   Hispanic             0     0     1335               0                0
+##   Native American      0     0        0             112                0
+##   Pacific Islander     0     0        0               0               42
+##   Unknown race         0     0        0               0                0
+##   Unknown Race         0     0        0               0                0
+##   White                0     0        0               0                0
+##                   race
+## Victim's race      Unknown race White
+##   Asian                       0     0
+##   Black                       0     0
+##   Hispanic                    0     0
+##   Native American             0     0
+##   Pacific Islander            0     0
+##   Unknown race              670     0
+##   Unknown Race               64     0
+##   White                       0  3378
 ```
 The last 2 rows are just to organize the output - we keep only the two variables we're working with, and get a crosstab like PROC FREQ gave us in SAS.
 </details>
@@ -3882,11 +3919,11 @@ police_violence %>%
   mutate(age = as.numeric(`Victim's age`),
          name_length = nchar(`Victim's name`)) %>%
   summarize(age = mean(age, na.rm = T), name_length = mean(name_length))
-Warning in mask$eval_all_mutate(quo): NAs introduced by coercion
-# A tibble: 1 x 2
-    age name_length
-  <dbl>       <dbl>
-1  36.8        16.6
+## Warning in mask$eval_all_mutate(quo): NAs introduced by coercion
+## # A tibble: 1 x 2
+##     age name_length
+##   <dbl>       <dbl>
+## 1  36.8        16.6
 ```
 
 In SAS, we can do something similar:
@@ -3896,7 +3933,7 @@ In SAS, we can do something similar:
 NOTE: Libref CLASSDAT was successfully assigned as follows: 
       Engine:        V9 
       Physical Name: 
-      /home/susan/Projects/Class/unl-stat850/stat850-textbook/sas
+      /home/susan/Projects/Class/unl-stat850/2020-stat850/sas
 7          
 8          DATA pv;
 9            SET classdat.police;
@@ -4285,7 +4322,7 @@ Another option is to use PROC SQL in SAS, which will have a logical flow similar
 NOTE: Libref CLASSDAT was successfully assigned as follows: 
       Engine:        V9 
       Physical Name: 
-      /home/susan/Projects/Class/unl-stat850/stat850-textbook/sas
+      /home/susan/Projects/Class/unl-stat850/2020-stat850/sas
 8          
 9          DATA pv;
 10           SET classdat.police;
@@ -4573,7 +4610,7 @@ NOTE: DATA statement used (Total process time):
 17         FROM pv;
 NOTE: PROCEDURE SQL used (Total process time):
       real time           0.00 seconds
-      cpu time            0.00 seconds
+      cpu time            0.01 seconds
       
 ```
 
@@ -4627,7 +4664,7 @@ pv <- read_xlsx("data/police_violence.xlsx", guess_max = 7000) %>%
          age = as.numeric(`Victim's age`)) %>%
   select(name = `Victim's name`, age,  
          gender = `Victim's gender`, race) 
-Warning in mask$eval_all_mutate(quo): NAs introduced by coercion
+## Warning in mask$eval_all_mutate(quo): NAs introduced by coercion
 # You can rename variables with a select statement
 # I'm doing this b/c I don't like to use backticks if I can help it. 
 # Lazy coding = best coding. 
@@ -4635,21 +4672,21 @@ Warning in mask$eval_all_mutate(quo): NAs introduced by coercion
 grouped_pv <- pv  %>%
   group_by(race) 
 grouped_pv
-# A tibble: 7,663 x 4
-# Groups:   race [7]
-   name                      age gender race        
-   <chr>                   <dbl> <chr>  <chr>       
- 1 Eric M. Tellez             28 Male   White       
- 2 Name withheld by police    NA Male   Unknown race
- 3 Terry Hudson               57 Male   Black       
- 4 Malik Williams             23 Male   Black       
- 5 Frederick Perkins          37 Male   Black       
- 6 Michael Vincent Davis      49 Male   White       
- 7 Brian Elkins               47 Male   Unknown race
- 8 Debra D. Arbuckle          51 Female White       
- 9 Name withheld by police    NA Male   Unknown race
-10 Cody McCaulou              27 Male   White       
-# … with 7,653 more rows
+## # A tibble: 7,663 x 4
+## # Groups:   race [7]
+##    name                      age gender race        
+##    <chr>                   <dbl> <chr>  <chr>       
+##  1 Eric M. Tellez             28 Male   White       
+##  2 Name withheld by police    NA Male   Unknown race
+##  3 Terry Hudson               57 Male   Black       
+##  4 Malik Williams             23 Male   Black       
+##  5 Frederick Perkins          37 Male   Black       
+##  6 Michael Vincent Davis      49 Male   White       
+##  7 Brian Elkins               47 Male   Unknown race
+##  8 Debra D. Arbuckle          51 Female White       
+##  9 Name withheld by police    NA Male   Unknown race
+## 10 Cody McCaulou              27 Male   White       
+## # … with 7,653 more rows
 ```
 
 So we can see that the object has been somehow grouped by the categorical variable race, in that the grouping is attached to the stored object (strictly speaking, group_by adds an attribute to the table). What matters for our purposes, though, is that each sub-table is treated as a separate entity for calculation purposes. 
@@ -4662,16 +4699,16 @@ pv_race_sum <- grouped_pv %>%
   summarize(n = n()) # This counts the number of rows in each group
 
 pv_race_sum
-# A tibble: 7 x 2
-  race                 n
-  <chr>            <int>
-1 Asian              118
-2 Black             1944
-3 Hispanic          1335
-4 Native American    112
-5 Pacific Islander    42
-6 Unknown race       734
-7 White             3378
+## # A tibble: 7 x 2
+##   race                 n
+##   <chr>            <int>
+## 1 Asian              118
+## 2 Black             1944
+## 3 Hispanic          1335
+## 4 Native American    112
+## 5 Pacific Islander    42
+## 6 Unknown race       734
+## 7 White             3378
 ```
 When we run summarize, we get back a data frame that is not grouped, with one line for each of the previously existing groups. `summarize` removes one "layer" of grouping with each run. 
 
@@ -4683,62 +4720,62 @@ tmp <- pv %>%
   group_by(gender, race) 
 
 tmp
-# A tibble: 7,663 x 4
-# Groups:   gender, race [26]
-   name                      age gender race        
-   <chr>                   <dbl> <chr>  <chr>       
- 1 Eric M. Tellez             28 Male   White       
- 2 Name withheld by police    NA Male   Unknown race
- 3 Terry Hudson               57 Male   Black       
- 4 Malik Williams             23 Male   Black       
- 5 Frederick Perkins          37 Male   Black       
- 6 Michael Vincent Davis      49 Male   White       
- 7 Brian Elkins               47 Male   Unknown race
- 8 Debra D. Arbuckle          51 Female White       
- 9 Name withheld by police    NA Male   Unknown race
-10 Cody McCaulou              27 Male   White       
-# … with 7,653 more rows
+## # A tibble: 7,663 x 4
+## # Groups:   gender, race [26]
+##    name                      age gender race        
+##    <chr>                   <dbl> <chr>  <chr>       
+##  1 Eric M. Tellez             28 Male   White       
+##  2 Name withheld by police    NA Male   Unknown race
+##  3 Terry Hudson               57 Male   Black       
+##  4 Malik Williams             23 Male   Black       
+##  5 Frederick Perkins          37 Male   Black       
+##  6 Michael Vincent Davis      49 Male   White       
+##  7 Brian Elkins               47 Male   Unknown race
+##  8 Debra D. Arbuckle          51 Female White       
+##  9 Name withheld by police    NA Male   Unknown race
+## 10 Cody McCaulou              27 Male   White       
+## # … with 7,653 more rows
 
 tmp %>%
   summarize(min_age = min(age, na.rm = T), max_age = max(age, na.rm = T))
-Warning in min(age, na.rm = T): no non-missing arguments to min; returning Inf
+## Warning in min(age, na.rm = T): no non-missing arguments to min; returning Inf
 
-Warning in min(age, na.rm = T): no non-missing arguments to min; returning Inf
+## Warning in min(age, na.rm = T): no non-missing arguments to min; returning Inf
 
-Warning in min(age, na.rm = T): no non-missing arguments to min; returning Inf
+## Warning in min(age, na.rm = T): no non-missing arguments to min; returning Inf
 
-Warning in min(age, na.rm = T): no non-missing arguments to min; returning Inf
+## Warning in min(age, na.rm = T): no non-missing arguments to min; returning Inf
 
-Warning in min(age, na.rm = T): no non-missing arguments to min; returning Inf
+## Warning in min(age, na.rm = T): no non-missing arguments to min; returning Inf
 
-Warning in min(age, na.rm = T): no non-missing arguments to min; returning Inf
-Warning in max(age, na.rm = T): no non-missing arguments to max; returning -Inf
+## Warning in min(age, na.rm = T): no non-missing arguments to min; returning Inf
+## Warning in max(age, na.rm = T): no non-missing arguments to max; returning -Inf
 
-Warning in max(age, na.rm = T): no non-missing arguments to max; returning -Inf
+## Warning in max(age, na.rm = T): no non-missing arguments to max; returning -Inf
 
-Warning in max(age, na.rm = T): no non-missing arguments to max; returning -Inf
+## Warning in max(age, na.rm = T): no non-missing arguments to max; returning -Inf
 
-Warning in max(age, na.rm = T): no non-missing arguments to max; returning -Inf
+## Warning in max(age, na.rm = T): no non-missing arguments to max; returning -Inf
 
-Warning in max(age, na.rm = T): no non-missing arguments to max; returning -Inf
+## Warning in max(age, na.rm = T): no non-missing arguments to max; returning -Inf
 
-Warning in max(age, na.rm = T): no non-missing arguments to max; returning -Inf
-`summarise()` has grouped output by 'gender'. You can override using the `.groups` argument.
-# A tibble: 26 x 4
-# Groups:   gender [5]
-   gender race             min_age max_age
-   <chr>  <chr>              <dbl>   <dbl>
- 1 Female Asian                 27      49
- 2 Female Black                 20      93
- 3 Female Hispanic              16      57
- 4 Female Native American       23      52
- 5 Female Pacific Islander      26      50
- 6 Female Unknown race          23      74
- 7 Female White                  5      89
- 8 Male   Asian                 16      76
- 9 Male   Black                  1     107
-10 Male   Hispanic               1      80
-# … with 16 more rows
+## Warning in max(age, na.rm = T): no non-missing arguments to max; returning -Inf
+## `summarise()` has grouped output by 'gender'. You can override using the `.groups` argument.
+## # A tibble: 26 x 4
+## # Groups:   gender [5]
+##    gender race             min_age max_age
+##    <chr>  <chr>              <dbl>   <dbl>
+##  1 Female Asian                 27      49
+##  2 Female Black                 20      93
+##  3 Female Hispanic              16      57
+##  4 Female Native American       23      52
+##  5 Female Pacific Islander      26      50
+##  6 Female Unknown race          23      74
+##  7 Female White                  5      89
+##  8 Male   Asian                 16      76
+##  9 Male   Black                  1     107
+## 10 Male   Hispanic               1      80
+## # … with 16 more rows
 ```
 
 Apart from some warnings about how it's hard to take the minimum or maximum of a bunch of missing data (which is fair), we can see a message: 
@@ -4756,12 +4793,12 @@ We grouped pv by gender and race, then ran summarize, which created one row for 
 NOTE: Libref CLASSDAT was successfully assigned as follows: 
       Engine:        V9 
       Physical Name: 
-      /home/susan/Projects/Class/unl-stat850/stat850-textbook/sas
+      /home/susan/Projects/Class/unl-stat850/2020-stat850/sas
 7          
-NOTE: The PROCEDURE SQL printed page 17.
+NOTE: The PROCEDURE SQL printed page 14.
 NOTE: PROCEDURE SQL used (Total process time):
-      real time           0.03 seconds
-      cpu time            0.02 seconds
+      real time           0.06 seconds
+      cpu time            0.05 seconds
       
 
 8          DATA pv;
@@ -5044,7 +5081,7 @@ NOTE: There were 7663 observations read from the data set CLASSDAT.POLICE.
 NOTE: The data set WORK.PV has 7663 observations and 27 variables.
 NOTE: DATA statement used (Total process time):
       real time           0.01 seconds
-      cpu time            0.01 seconds
+      cpu time            0.02 seconds
       
 
 15         
@@ -5056,8 +5093,8 @@ NOTE: The query requires remerging summary statistics back with the
       original data.
 20         
 NOTE: PROCEDURE SQL used (Total process time):
-      real time           0.44 seconds
-      cpu time            0.44 seconds
+      real time           1.37 seconds
+      cpu time            1.37 seconds
       
 
 21         PROC SQL;
@@ -5066,7 +5103,7 @@ NOTE: PROCEDURE SQL used (Total process time):
 23           FROM pv
 24           GROUP BY gender, race;
 NOTE: PROCEDURE SQL used (Total process time):
-      real time           0.02 seconds
+      real time           0.03 seconds
       cpu time            0.03 seconds
       
 ```
@@ -43619,28 +43656,28 @@ Let's try a non-trivial example, using the `storms` dataset that is part of the 
 ```r
 library(dplyr)
 library(lubridate) # for the make_datetime() function
-
-Attaching package: 'lubridate'
-The following objects are masked from 'package:base':
-
-    date, intersect, setdiff, union
+## 
+## Attaching package: 'lubridate'
+## The following objects are masked from 'package:base':
+## 
+##     date, intersect, setdiff, union
 data(storms)
 storms
-# A tibble: 10,010 x 13
-   name   year month   day  hour   lat  long status      category  wind pressure
-   <chr> <dbl> <dbl> <int> <dbl> <dbl> <dbl> <chr>       <ord>    <int>    <int>
- 1 Amy    1975     6    27     0  27.5 -79   tropical d… -1          25     1013
- 2 Amy    1975     6    27     6  28.5 -79   tropical d… -1          25     1013
- 3 Amy    1975     6    27    12  29.5 -79   tropical d… -1          25     1013
- 4 Amy    1975     6    27    18  30.5 -79   tropical d… -1          25     1013
- 5 Amy    1975     6    28     0  31.5 -78.8 tropical d… -1          25     1012
- 6 Amy    1975     6    28     6  32.4 -78.7 tropical d… -1          25     1012
- 7 Amy    1975     6    28    12  33.3 -78   tropical d… -1          25     1011
- 8 Amy    1975     6    28    18  34   -77   tropical d… -1          30     1006
- 9 Amy    1975     6    29     0  34.4 -75.8 tropical s… 0           35     1004
-10 Amy    1975     6    29     6  34   -74.8 tropical s… 0           40     1002
-# … with 10,000 more rows, and 2 more variables: ts_diameter <dbl>,
-#   hu_diameter <dbl>
+## # A tibble: 10,010 x 13
+##    name   year month   day  hour   lat  long status      category  wind pressure
+##    <chr> <dbl> <dbl> <int> <dbl> <dbl> <dbl> <chr>       <ord>    <int>    <int>
+##  1 Amy    1975     6    27     0  27.5 -79   tropical d… -1          25     1013
+##  2 Amy    1975     6    27     6  28.5 -79   tropical d… -1          25     1013
+##  3 Amy    1975     6    27    12  29.5 -79   tropical d… -1          25     1013
+##  4 Amy    1975     6    27    18  30.5 -79   tropical d… -1          25     1013
+##  5 Amy    1975     6    28     0  31.5 -78.8 tropical d… -1          25     1012
+##  6 Amy    1975     6    28     6  32.4 -78.7 tropical d… -1          25     1012
+##  7 Amy    1975     6    28    12  33.3 -78   tropical d… -1          25     1011
+##  8 Amy    1975     6    28    18  34   -77   tropical d… -1          30     1006
+##  9 Amy    1975     6    29     0  34.4 -75.8 tropical s… 0           35     1004
+## 10 Amy    1975     6    29     6  34   -74.8 tropical s… 0           40     1002
+## # … with 10,000 more rows, and 2 more variables: ts_diameter <dbl>,
+## #   hu_diameter <dbl>
 
 storms <- storms %>%
   # Construct a time variable that behaves like a number but is formatted as a date
@@ -43653,12 +43690,12 @@ storms <- storms %>%
 NOTE: Libref CLASSDAT was successfully assigned as follows: 
       Engine:        V9 
       Physical Name: 
-      /home/susan/Projects/Class/unl-stat850/stat850-textbook/sas
+      /home/susan/Projects/Class/unl-stat850/2020-stat850/sas
 7          filename fileloc 'data/storms.csv';
-NOTE: The PROCEDURE SQL printed page 160.
+NOTE: The PROCEDURE SQL printed page 157.
 NOTE: PROCEDURE SQL used (Total process time):
-      real time           0.03 seconds
-      cpu time            0.04 seconds
+      real time           0.07 seconds
+      cpu time            0.07 seconds
       
 
 8          PROC IMPORT  datafile = fileloc out=classdat.storms REPLACE
@@ -43673,7 +43710,7 @@ NOTE: PROCEDURE SQL used (Total process time):
 14          *   PRODUCT:   SAS
 15          *   VERSION:   9.4
 16          *   CREATOR:   External File Interface
-17          *   DATE:      06MAY21
+17          *   DATE:      09MAY21
 18          *   DESC:      Generated SAS Datastep Code
 19          *   TEMPLATE SOURCE:  (None Specified.)
 20          ***************************************************************
@@ -43729,8 +43766,8 @@ NOTE: PROCEDURE SQL used (Total process time):
 
 NOTE: The infile FILELOC is:
       
-      Filename=/home/susan/Projects/Class/unl-stat850/stat850-textbook/data
-      /storms.csv,
+      Filename=/home/susan/Projects/Class/unl-stat850/2020-stat850/data/sto
+      rms.csv,
       Owner Name=susan,Group Name=susan,
       Access Permission=-rw-rw-r--,
       Last Modified=21Jun2020:16:26:50,
@@ -43741,8 +43778,8 @@ NOTE: 10010 records were read from the infile FILELOC.
       The maximum record length was 90.
 NOTE: The data set CLASSDAT.STORMS has 10010 observations and 13 variables.
 NOTE: DATA statement used (Total process time):
-      real time           0.01 seconds
-      cpu time            0.01 seconds
+      real time           0.02 seconds
+      cpu time            0.04 seconds
       
 
 10010 rows created in CLASSDAT.STORMS from FILELOC.
@@ -43752,8 +43789,8 @@ NOTE: DATA statement used (Total process time):
 NOTE: CLASSDAT.STORMS data set was successfully created.
 NOTE: The data set CLASSDAT.STORMS has 10010 observations and 13 variables.
 NOTE: PROCEDURE IMPORT used (Total process time):
-      real time           0.12 seconds
-      cpu time            0.12 seconds
+      real time           0.31 seconds
+      cpu time            0.30 seconds
       
 
 67         
@@ -43768,7 +43805,7 @@ NOTE: There were 10010 observations read from the data set CLASSDAT.STORMS.
 NOTE: The data set CLASSDAT.STORMS has 10010 observations and 15 variables.
 NOTE: DATA statement used (Total process time):
       real time           0.00 seconds
-      cpu time            0.00 seconds
+      cpu time            0.01 seconds
       
 ```
 
@@ -43800,22 +43837,22 @@ max_power_storm <- storms %>%
             time = mean(time)) %>%
   arrange(time) %>%
   ungroup()
-`summarise()` has grouped output by 'name'. You can override using the `.groups` argument.
+## `summarise()` has grouped output by 'name'. You can override using the `.groups` argument.
 max_power_storm
-# A tibble: 426 x 7
-   name      year pressure  wind category status         time               
-   <chr>    <dbl>    <dbl> <dbl> <ord>    <chr>          <dttm>             
- 1 Amy       1975      981    60 0        tropical storm 1975-07-02 12:00:00
- 2 Caroline  1975      963   100 3        hurricane      1975-08-31 06:00:00
- 3 Doris     1975      965    95 2        hurricane      1975-09-02 21:00:00
- 4 Belle     1976      957   105 3        hurricane      1976-08-09 00:00:00
- 5 Gloria    1976      970    80 1        hurricane      1976-09-30 00:00:00
- 6 Anita     1977      926   150 5        hurricane      1977-09-02 06:00:00
- 7 Clara     1977      993    65 1        hurricane      1977-09-08 12:00:00
- 8 Evelyn    1977      994    65 1        hurricane      1977-10-15 00:00:00
- 9 Amelia    1978     1005    45 0        tropical storm 1978-07-31 00:00:00
-10 Bess      1978     1005    40 0        tropical storm 1978-08-07 12:00:00
-# … with 416 more rows
+## # A tibble: 426 x 7
+##    name      year pressure  wind category status         time               
+##    <chr>    <dbl>    <dbl> <dbl> <ord>    <chr>          <dttm>             
+##  1 Amy       1975      981    60 0        tropical storm 1975-07-02 12:00:00
+##  2 Caroline  1975      963   100 3        hurricane      1975-08-31 06:00:00
+##  3 Doris     1975      965    95 2        hurricane      1975-09-02 21:00:00
+##  4 Belle     1976      957   105 3        hurricane      1976-08-09 00:00:00
+##  5 Gloria    1976      970    80 1        hurricane      1976-09-30 00:00:00
+##  6 Anita     1977      926   150 5        hurricane      1977-09-02 06:00:00
+##  7 Clara     1977      993    65 1        hurricane      1977-09-08 12:00:00
+##  8 Evelyn    1977      994    65 1        hurricane      1977-10-15 00:00:00
+##  9 Amelia    1978     1005    45 0        tropical storm 1978-07-31 00:00:00
+## 10 Bess      1978     1005    40 0        tropical storm 1978-08-07 12:00:00
+## # … with 416 more rows
 ```
 
 If we want to see a visual summary, we could plot a histogram of the minimum pressure of each storm. 
@@ -43824,7 +43861,7 @@ If we want to see a visual summary, we could plot a histogram of the minimum pre
 ```r
 library(ggplot2)
 ggplot(max_power_storm, aes(x = pressure)) + geom_histogram()
-`stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
+## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
 ```
 
 <img src="image/ggplot-storms-1.png" width="2100" />
@@ -43859,7 +43896,7 @@ We can think through the steps we need to take:
 NOTE: Libref CLASSDAT was successfully assigned as follows: 
       Engine:        V9 
       Physical Name: 
-      /home/susan/Projects/Class/unl-stat850/stat850-textbook/sas
+      /home/susan/Projects/Class/unl-stat850/2020-stat850/sas
 7          
 8          
 9          PROC SQL;
@@ -43893,8 +43930,8 @@ NOTE: Table WORK.MAXPWR created, with 381 rows and 7 columns.
 27         
 28         QUIT;
 NOTE: PROCEDURE SQL used (Total process time):
-      real time           0.01 seconds
-      cpu time            0.02 seconds
+      real time           0.05 seconds
+      cpu time            0.06 seconds
       
 
 29         
@@ -43903,7 +43940,7 @@ NOTE: PROCEDURE SQL used (Total process time):
 
 NOTE: There were 5 observations read from the data set WORK.MAXPWR.
 NOTE: PROCEDURE PRINT used (Total process time):
-      real time           0.00 seconds
+      real time           0.01 seconds
       cpu time            0.01 seconds
       
 
@@ -43926,8 +43963,8 @@ Template:   base.univariate.Graphics.Histogram
 Path:       Univariate.pressure.Histogram.Histogram
 -------------
 NOTE: PROCEDURE UNIVARIATE used (Total process time):
-      real time           1.84 seconds
-      cpu time            0.05 seconds
+      real time           3.91 seconds
+      cpu time            0.15 seconds
       
 
 40         ODS TRACE OFF;
@@ -43937,8 +43974,8 @@ NOTE: PROCEDURE UNIVARIATE used (Total process time):
 44         RUN;
 
 NOTE: PROCEDURE SGPLOT used (Total process time):
-      real time           0.18 seconds
-      cpu time            0.02 seconds
+      real time           0.47 seconds
+      cpu time            0.05 seconds
       
 NOTE: The column format DATETIME16 is replaced by an auto-generated format 
       on the axis.
@@ -44068,11 +44105,11 @@ storm_strength_duration <- storms %>%
             max_strength = max(category)) %>%
   ungroup() %>%
   arrange(desc(max_strength))
-`summarise()` has grouped output by 'name'. You can override using the `.groups` argument.
+## `summarise()` has grouped output by 'name'. You can override using the `.groups` argument.
 
 storm_strength_duration %>%
   ggplot(aes(x = max_strength, y = duration)) + geom_boxplot()
-Don't know how to automatically pick scale for object of type difftime. Defaulting to continuous.
+## Don't know how to automatically pick scale for object of type difftime. Defaulting to continuous.
 ```
 
 <img src="image/duration-storm-1.png" width="2100" />
@@ -44087,7 +44124,7 @@ In SAS, we have to know that [datetimes are stored in seconds](https://documenta
 NOTE: Libref CLASSDAT was successfully assigned as follows: 
       Engine:        V9 
       Physical Name: 
-      /home/susan/Projects/Class/unl-stat850/stat850-textbook/sas
+      /home/susan/Projects/Class/unl-stat850/2020-stat850/sas
 7          PROC SQL;
 8          CREATE TABLE stormlencat AS
 9          SELECT name, year, (max(time) - min(time))/86400 AS duration,
@@ -44099,8 +44136,8 @@ NOTE: Table WORK.STORMLENCAT created, with 426 rows and 4 columns.
 
 13         
 NOTE: PROCEDURE SQL used (Total process time):
-      real time           0.00 seconds
-      cpu time            0.01 seconds
+      real time           0.03 seconds
+      cpu time            0.04 seconds
       
 
 14         PROC BOXPLOT DATA=stormlencat;
@@ -44110,8 +44147,8 @@ NOTE: PROCEDURE SQL used (Total process time):
 NOTE: Processing beginning for PLOT statement number 1.
 NOTE: There were 426 observations read from the data set WORK.STORMLENCAT.
 NOTE: PROCEDURE BOXPLOT used (Total process time):
-      real time           0.21 seconds
-      cpu time            0.06 seconds
+      real time           0.64 seconds
+      cpu time            0.25 seconds
       
 
 17         QUIT;
@@ -44149,7 +44186,7 @@ ggplot(storm_evolution,
        aes(x = time_since_start, y = hu_diameter, 
            group = name)) + geom_line(alpha = .2) + 
   facet_wrap(~year, scales = "free_y")
-Don't know how to automatically pick scale for object of type difftime. Defaulting to continuous.
+## Don't know how to automatically pick scale for object of type difftime. Defaulting to continuous.
 ```
 
 <img src="image/storm-evo-1.png" width="2100" />
@@ -44160,46 +44197,21 @@ We can do something similar in SAS; this time, I decided to get rid of any storm
 
 
 ```sashtml
-6          libname classdat "sas/";
-NOTE: Libref CLASSDAT was successfully assigned as follows: 
-      Engine:        V9 
-      Physical Name: 
-      /home/susan/Projects/Class/unl-stat850/stat850-textbook/sas
-7          PROC SQL;
-8          CREATE TABLE stormevo AS
-9          SELECT name, year, (time - min(time))/86400 AS time_since_start,
-9        !  category, status, hu_diameter, ts_diameter, max(hu_diameter) AS
-9        !  max_hu_diameter
-10         FROM classdat.storms
-11         WHERE NOT MISSING(hu_diameter)
-12         GROUP BY year, name
-13         HAVING max_hu_diameter > 0
-14         ORDER BY year, name, time_since_start;
-NOTE: The query requires remerging summary statistics back with the 
-      original data.
-NOTE: Table WORK.STORMEVO created, with 2362 rows and 8 columns.
+libname classdat "sas/";
+PROC SQL;
+CREATE TABLE stormevo AS
+SELECT name, year, (time - min(time))/86400 AS time_since_start, category, status, hu_diameter, ts_diameter, max(hu_diameter) AS max_hu_diameter
+FROM classdat.storms
+WHERE NOT MISSING(hu_diameter)
+GROUP BY year, name
+HAVING max_hu_diameter > 0
+ORDER BY year, name, time_since_start;
 
-15         
-NOTE: PROCEDURE SQL used (Total process time):
-      real time           0.01 seconds
-      cpu time            0.02 seconds
-      
-
-16         PROC SGPANEL DATA=stormevo;
-17         PANELBY year / COLUMNS = 4 ROWS = 3;
-18         SERIES X = time_since_start Y = hu_diameter / GROUP = name;
-19         RUN;
-
-NOTE: PROCEDURE SGPANEL used (Total process time):
-      real time           0.52 seconds
-      cpu time            0.06 seconds
-      
-NOTE: Some graph legends have been dropped due to size constraints. Try 
-      adjusting the MAXLEGENDAREA=, WIDTH= and HEIGHT= options in the ODS 
-      GRAPHICS statement.
-NOTE: There were 2362 observations read from the data set WORK.STORMEVO.
-
-20         QUIT;
+PROC SGPANEL DATA=stormevo;
+PANELBY year / COLUMNS = 4 ROWS = 3;
+SERIES X = time_since_start Y = hu_diameter / GROUP = name;
+RUN;
+QUIT;
 ```
 
 
@@ -44223,21 +44235,21 @@ It seems that the vast majority of storms have a single bout of hurricane force 
 storm_evolution %>%
   filter(year == 2008) %>%
   arrange(desc(time_since_start))
-# A tibble: 327 x 15
-   name   year month   day  hour   lat  long status      category  wind pressure
-   <chr> <dbl> <dbl> <int> <dbl> <dbl> <dbl> <chr>       <ord>    <int>    <int>
- 1 Ike    2008     9    14     6  35.5 -93.7 tropical s… 0           35      985
- 2 Ike    2008     9    14     0  33.5 -94.9 tropical s… 0           35      980
- 3 Ike    2008     9    13    18  31.7 -95.3 tropical s… 0           50      974
- 4 Ike    2008     9    13    12  30.3 -95.2 hurricane   2           85      959
- 5 Ike    2008     9    13     7  29.3 -94.7 hurricane   2           95      950
- 6 Ike    2008     9    13     6  29.1 -94.6 hurricane   2           95      951
- 7 Ike    2008     9    13     0  28.3 -94   hurricane   2           95      952
- 8 Fay    2008     8    27     0  35   -85.8 tropical d… -1          15     1005
- 9 Ike    2008     9    12    18  27.5 -93.2 hurricane   2           95      954
-10 Fay    2008     8    26    18  34.6 -86.5 tropical d… -1          20     1004
-# … with 317 more rows, and 4 more variables: ts_diameter <dbl>,
-#   hu_diameter <dbl>, time <dttm>, time_since_start <drtn>
+## # A tibble: 327 x 15
+##    name   year month   day  hour   lat  long status      category  wind pressure
+##    <chr> <dbl> <dbl> <int> <dbl> <dbl> <dbl> <chr>       <ord>    <int>    <int>
+##  1 Ike    2008     9    14     6  35.5 -93.7 tropical s… 0           35      985
+##  2 Ike    2008     9    14     0  33.5 -94.9 tropical s… 0           35      980
+##  3 Ike    2008     9    13    18  31.7 -95.3 tropical s… 0           50      974
+##  4 Ike    2008     9    13    12  30.3 -95.2 hurricane   2           85      959
+##  5 Ike    2008     9    13     7  29.3 -94.7 hurricane   2           95      950
+##  6 Ike    2008     9    13     6  29.1 -94.6 hurricane   2           95      951
+##  7 Ike    2008     9    13     0  28.3 -94   hurricane   2           95      952
+##  8 Fay    2008     8    27     0  35   -85.8 tropical d… -1          15     1005
+##  9 Ike    2008     9    12    18  27.5 -93.2 hurricane   2           95      954
+## 10 Fay    2008     8    26    18  34.6 -86.5 tropical d… -1          20     1004
+## # … with 317 more rows, and 4 more variables: ts_diameter <dbl>,
+## #   hu_diameter <dbl>, time <dttm>, time_since_start <drtn>
 
 storm_evolution %>% filter(name == "Ike") %>%
   ggplot(aes(x = time, y = hu_diameter, color = category)) + geom_point()
@@ -44250,40 +44262,20 @@ The SAS code for this is fairly similar (though I'll admit to not having the fin
 
 
 ```sashtml
-6          libname classdat "sas/";
-NOTE: Libref CLASSDAT was successfully assigned as follows: 
-      Engine:        V9 
-      Physical Name: 
-      /home/susan/Projects/Class/unl-stat850/stat850-textbook/sas
-7          
-8          PROC SQL;
-9          CREATE TABLE ike AS
-10         SELECT * FROM classdat.storms WHERE name = "Ike"
-11         ORDER BY time;
-NOTE: Table WORK.IKE created, with 57 rows and 15 columns.
+libname classdat "sas/";
 
-12         
-NOTE: PROCEDURE SQL used (Total process time):
-      real time           0.00 seconds
-      cpu time            0.01 seconds
-      
+PROC SQL;
+CREATE TABLE ike AS
+SELECT * FROM classdat.storms WHERE name = "Ike"
+ORDER BY time;
 
-13         PROC SGPLOT DATA=ike;
-14         SCATTER X = time Y = hu_diameter /
-15           COLORRESPONSE=category /* color by another variable */
-16           MARKERATTRS=(symbol=CircleFilled) /* use circles for points */
-17           DATALABEL=category; /* label the circles with the value */
-18         RUN;
-
-NOTE: PROCEDURE SGPLOT used (Total process time):
-      real time           0.12 seconds
-      cpu time            0.03 seconds
-      
-NOTE: The column format DATETIME16 is replaced by an auto-generated format 
-      on the axis.
-NOTE: There were 57 observations read from the data set WORK.IKE.
-
-19         QUIT;
+PROC SGPLOT DATA=ike;
+SCATTER X = time Y = hu_diameter / 
+  COLORRESPONSE=category /* color by another variable */
+  MARKERATTRS=(symbol=CircleFilled) /* use circles for points */
+  DATALABEL=category; /* label the circles with the value */
+RUN;
+QUIT;
 ```
 
 
@@ -44357,38 +44349,38 @@ Another handy dplyr function is relocate; while you definitely can do this opera
 ```r
 avg_hurricane_intensity %>%
 relocate(c(wind, pressure), .after = month)
-# A tibble: 121 x 11
-   name      year month  wind pressure   day  hour   lat  long ts_diameter
-   <chr>    <dbl> <dbl> <dbl>    <dbl> <dbl> <dbl> <dbl> <dbl>       <dbl>
- 1 AL121991 1991  11     65       980.  1.5   9     38.8 -66.1        NaN 
- 2 Alberto  1999.  7.92  78.3     978. 13.4   8.82  30.8 -49.0        NaN 
- 3 Alex     2006.  7.38  83.1     966. 10     8.24  33   -77.1        304.
- 4 Alicia   1983   8     84.4     974. 17.5   7.62  28.4 -94.5        NaN 
- 5 Allison  1995   6     65       988.  4.33 10     26.2 -86.2        NaN 
- 6 Andrew   1992   8    118.      947. 24.0   9.09  26.4 -80.4        NaN 
- 7 Anita    1977   8.62  93.1     968. 12.8   9.69  25.3 -94.2        NaN 
- 8 Arthur   2014   7     77.3     978.  3.73  7.55  34.6 -76.1        209.
- 9 Barry    1983   8     68.3     988. 28    15.7   25.4 -97.1        NaN 
-10 Belle    1976   8     91       966.  8.5   9     31.2 -74.8        NaN 
-# … with 111 more rows, and 1 more variable: hu_diameter <dbl>
+## # A tibble: 121 x 11
+##    name      year month  wind pressure   day  hour   lat  long ts_diameter
+##    <chr>    <dbl> <dbl> <dbl>    <dbl> <dbl> <dbl> <dbl> <dbl>       <dbl>
+##  1 AL121991 1991  11     65       980.  1.5   9     38.8 -66.1        NaN 
+##  2 Alberto  1999.  7.92  78.3     978. 13.4   8.82  30.8 -49.0        NaN 
+##  3 Alex     2006.  7.38  83.1     966. 10     8.24  33   -77.1        304.
+##  4 Alicia   1983   8     84.4     974. 17.5   7.62  28.4 -94.5        NaN 
+##  5 Allison  1995   6     65       988.  4.33 10     26.2 -86.2        NaN 
+##  6 Andrew   1992   8    118.      947. 24.0   9.09  26.4 -80.4        NaN 
+##  7 Anita    1977   8.62  93.1     968. 12.8   9.69  25.3 -94.2        NaN 
+##  8 Arthur   2014   7     77.3     978.  3.73  7.55  34.6 -76.1        209.
+##  9 Barry    1983   8     68.3     988. 28    15.7   25.4 -97.1        NaN 
+## 10 Belle    1976   8     91       966.  8.5   9     31.2 -74.8        NaN 
+## # … with 111 more rows, and 1 more variable: hu_diameter <dbl>
 
 # move numeric variables to the front
 avg_hurricane_intensity %>%
 relocate(where(is.numeric))
-# A tibble: 121 x 11
-    year month   day  hour   lat  long  wind pressure ts_diameter hu_diameter
-   <dbl> <dbl> <dbl> <dbl> <dbl> <dbl> <dbl>    <dbl>       <dbl>       <dbl>
- 1 1991  11     1.5   9     38.8 -66.1  65       980.        NaN        NaN  
- 2 1999.  7.92 13.4   8.82  30.8 -49.0  78.3     978.        NaN        NaN  
- 3 2006.  7.38 10     8.24  33   -77.1  83.1     966.        304.        63.6
- 4 1983   8    17.5   7.62  28.4 -94.5  84.4     974.        NaN        NaN  
- 5 1995   6     4.33 10     26.2 -86.2  65       988.        NaN        NaN  
- 6 1992   8    24.0   9.09  26.4 -80.4 118.      947.        NaN        NaN  
- 7 1977   8.62 12.8   9.69  25.3 -94.2  93.1     968.        NaN        NaN  
- 8 2014   7     3.73  7.55  34.6 -76.1  77.3     978.        209.        58.1
- 9 1983   8    28    15.7   25.4 -97.1  68.3     988.        NaN        NaN  
-10 1976   8     8.5   9     31.2 -74.8  91       966.        NaN        NaN  
-# … with 111 more rows, and 1 more variable: name <chr>
+## # A tibble: 121 x 11
+##     year month   day  hour   lat  long  wind pressure ts_diameter hu_diameter
+##    <dbl> <dbl> <dbl> <dbl> <dbl> <dbl> <dbl>    <dbl>       <dbl>       <dbl>
+##  1 1991  11     1.5   9     38.8 -66.1  65       980.        NaN        NaN  
+##  2 1999.  7.92 13.4   8.82  30.8 -49.0  78.3     978.        NaN        NaN  
+##  3 2006.  7.38 10     8.24  33   -77.1  83.1     966.        304.        63.6
+##  4 1983   8    17.5   7.62  28.4 -94.5  84.4     974.        NaN        NaN  
+##  5 1995   6     4.33 10     26.2 -86.2  65       988.        NaN        NaN  
+##  6 1992   8    24.0   9.09  26.4 -80.4 118.      947.        NaN        NaN  
+##  7 1977   8.62 12.8   9.69  25.3 -94.2  93.1     968.        NaN        NaN  
+##  8 2014   7     3.73  7.55  34.6 -76.1  77.3     978.        209.        58.1
+##  9 1983   8    28    15.7   25.4 -97.1  68.3     988.        NaN        NaN  
+## 10 1976   8     8.5   9     31.2 -74.8  91       966.        NaN        NaN  
+## # … with 111 more rows, and 1 more variable: name <chr>
 ```
 
 
@@ -44399,20 +44391,20 @@ relocate(where(is.numeric))
 if (!"gapminder" %in% installed.packages()) install.packages("gapminder")
 library(gapminder)
 gapminder_unfiltered
-# A tibble: 3,313 x 6
-   country     continent  year lifeExp      pop gdpPercap
-   <fct>       <fct>     <int>   <dbl>    <int>     <dbl>
- 1 Afghanistan Asia       1952    28.8  8425333      779.
- 2 Afghanistan Asia       1957    30.3  9240934      821.
- 3 Afghanistan Asia       1962    32.0 10267083      853.
- 4 Afghanistan Asia       1967    34.0 11537966      836.
- 5 Afghanistan Asia       1972    36.1 13079460      740.
- 6 Afghanistan Asia       1977    38.4 14880372      786.
- 7 Afghanistan Asia       1982    39.9 12881816      978.
- 8 Afghanistan Asia       1987    40.8 13867957      852.
- 9 Afghanistan Asia       1992    41.7 16317921      649.
-10 Afghanistan Asia       1997    41.8 22227415      635.
-# … with 3,303 more rows
+## # A tibble: 3,313 x 6
+##    country     continent  year lifeExp      pop gdpPercap
+##    <fct>       <fct>     <int>   <dbl>    <int>     <dbl>
+##  1 Afghanistan Asia       1952    28.8  8425333      779.
+##  2 Afghanistan Asia       1957    30.3  9240934      821.
+##  3 Afghanistan Asia       1962    32.0 10267083      853.
+##  4 Afghanistan Asia       1967    34.0 11537966      836.
+##  5 Afghanistan Asia       1972    36.1 13079460      740.
+##  6 Afghanistan Asia       1977    38.4 14880372      786.
+##  7 Afghanistan Asia       1982    39.9 12881816      978.
+##  8 Afghanistan Asia       1987    40.8 13867957      852.
+##  9 Afghanistan Asia       1992    41.7 16317921      649.
+## 10 Afghanistan Asia       1997    41.8 22227415      635.
+## # … with 3,303 more rows
 ```
 
 
@@ -44426,7 +44418,7 @@ readr::write_csv(gapminder_unfiltered, "data/gapminder.csv", na = '.')
 NOTE: Libref CLASSDAT was successfully assigned as follows: 
       Engine:        V9 
       Physical Name: 
-      /home/susan/Projects/Class/unl-stat850/stat850-textbook/sas
+      /home/susan/Projects/Class/unl-stat850/2020-stat850/sas
 7          
 8          filename fileloc 'data/gapminder.csv';
 9          PROC IMPORT  datafile = fileloc out=classdat.gapminder REPLACE
@@ -44441,7 +44433,7 @@ NOTE: Libref CLASSDAT was successfully assigned as follows:
 15          *   PRODUCT:   SAS
 16          *   VERSION:   9.4
 17          *   CREATOR:   External File Interface
-18          *   DATE:      06MAY21
+18          *   DATE:      10MAY21
 19          *   DESC:      Generated SAS Datastep Code
 20          *   TEMPLATE SOURCE:  (None Specified.)
 21          ***************************************************************
@@ -44476,11 +44468,11 @@ NOTE: Libref CLASSDAT was successfully assigned as follows:
 
 NOTE: The infile FILELOC is:
       
-      Filename=/home/susan/Projects/Class/unl-stat850/stat850-textbook/data
-      /gapminder.csv,
+      Filename=/home/susan/Projects/Class/unl-stat850/2020-stat850/data/gap
+      minder.csv,
       Owner Name=susan,Group Name=susan,
       Access Permission=-rw-rw-r--,
-      Last Modified=06May2021:12:25:25,
+      Last Modified=10May2021:09:22:54,
       File Size (bytes)=157902
 
 NOTE: 3313 records were read from the infile FILELOC.
@@ -44489,7 +44481,7 @@ NOTE: 3313 records were read from the infile FILELOC.
 NOTE: The data set CLASSDAT.GAPMINDER has 3313 observations and 6 
       variables.
 NOTE: DATA statement used (Total process time):
-      real time           0.00 seconds
+      real time           0.04 seconds
       cpu time            0.01 seconds
       
 
@@ -44501,8 +44493,8 @@ NOTE: CLASSDAT.GAPMINDER data set was successfully created.
 NOTE: The data set CLASSDAT.GAPMINDER has 3313 observations and 6 
       variables.
 NOTE: PROCEDURE IMPORT used (Total process time):
-      real time           0.08 seconds
-      cpu time            0.08 seconds
+      real time           0.56 seconds
+      cpu time            0.27 seconds
       
 
 ```
@@ -44523,20 +44515,20 @@ gapminder_unfiltered %>%
             missingpop = sum(is.na(pop)),
             missingGDP = sum(is.na(gdpPercap))) %>%
   filter(n != length(seq(1952, 2007, by = 5)))
-# A tibble: 83 x 5
-   country        n missinglifeExp missingpop missingGDP
-   <fct>      <int>          <int>      <int>      <int>
- 1 Armenia        4              0          0          0
- 2 Aruba          8              0          0          0
- 3 Australia     56              0          0          0
- 4 Austria       57              0          0          0
- 5 Azerbaijan     4              0          0          0
- 6 Bahamas       10              0          0          0
- 7 Barbados      10              0          0          0
- 8 Belarus       18              0          0          0
- 9 Belgium       57              0          0          0
-10 Belize        11              0          0          0
-# … with 73 more rows
+## # A tibble: 83 x 5
+##    country        n missinglifeExp missingpop missingGDP
+##    <fct>      <int>          <int>      <int>      <int>
+##  1 Armenia        4              0          0          0
+##  2 Aruba          8              0          0          0
+##  3 Australia     56              0          0          0
+##  4 Austria       57              0          0          0
+##  5 Azerbaijan     4              0          0          0
+##  6 Bahamas       10              0          0          0
+##  7 Barbados      10              0          0          0
+##  8 Belarus       18              0          0          0
+##  9 Belgium       57              0          0          0
+## 10 Belize        11              0          0          0
+## # … with 73 more rows
 ```
 </details>
 
@@ -44547,7 +44539,7 @@ gapminder_unfiltered %>%
 NOTE: Libref CLASSDAT was successfully assigned as follows: 
       Engine:        V9 
       Physical Name: 
-      /home/susan/Projects/Class/unl-stat850/stat850-textbook/sas
+      /home/susan/Projects/Class/unl-stat850/2020-stat850/sas
 7          
 8          PROC SQL;
 9          CREATE TABLE gapsummary AS
@@ -44562,8 +44554,8 @@ NOTE: Table WORK.GAPSUMMARY created, with 187 rows and 5 columns.
 16         
 17         /* Print the problem countries only */
 NOTE: PROCEDURE SQL used (Total process time):
-      real time           0.00 seconds
-      cpu time            0.01 seconds
+      real time           0.01 seconds
+      cpu time            0.02 seconds
       
 
 18         PROC PRINT DATA = gapsummary;
@@ -44573,8 +44565,8 @@ NOTE: PROCEDURE SQL used (Total process time):
 NOTE: There were 83 observations read from the data set WORK.GAPSUMMARY.
       WHERE n not = 12;
 NOTE: PROCEDURE PRINT used (Total process time):
-      real time           0.01 seconds
-      cpu time            0.03 seconds
+      real time           0.04 seconds
+      cpu time            0.04 seconds
       
 ```
 
@@ -45286,20 +45278,20 @@ Task 2: Exclude any data which isn't at 5-year increments, starting in 1952 (so 
 ```r
 gapminder_unfiltered %>%
   filter(year %in% seq(1952, 2007, by = 5))
-# A tibble: 2,013 x 6
-   country     continent  year lifeExp      pop gdpPercap
-   <fct>       <fct>     <int>   <dbl>    <int>     <dbl>
- 1 Afghanistan Asia       1952    28.8  8425333      779.
- 2 Afghanistan Asia       1957    30.3  9240934      821.
- 3 Afghanistan Asia       1962    32.0 10267083      853.
- 4 Afghanistan Asia       1967    34.0 11537966      836.
- 5 Afghanistan Asia       1972    36.1 13079460      740.
- 6 Afghanistan Asia       1977    38.4 14880372      786.
- 7 Afghanistan Asia       1982    39.9 12881816      978.
- 8 Afghanistan Asia       1987    40.8 13867957      852.
- 9 Afghanistan Asia       1992    41.7 16317921      649.
-10 Afghanistan Asia       1997    41.8 22227415      635.
-# … with 2,003 more rows
+## # A tibble: 2,013 x 6
+##    country     continent  year lifeExp      pop gdpPercap
+##    <fct>       <fct>     <int>   <dbl>    <int>     <dbl>
+##  1 Afghanistan Asia       1952    28.8  8425333      779.
+##  2 Afghanistan Asia       1957    30.3  9240934      821.
+##  3 Afghanistan Asia       1962    32.0 10267083      853.
+##  4 Afghanistan Asia       1967    34.0 11537966      836.
+##  5 Afghanistan Asia       1972    36.1 13079460      740.
+##  6 Afghanistan Asia       1977    38.4 14880372      786.
+##  7 Afghanistan Asia       1982    39.9 12881816      978.
+##  8 Afghanistan Asia       1987    40.8 13867957      852.
+##  9 Afghanistan Asia       1992    41.7 16317921      649.
+## 10 Afghanistan Asia       1997    41.8 22227415      635.
+## # … with 2,003 more rows
 ```
 </details>
 
@@ -45310,7 +45302,7 @@ gapminder_unfiltered %>%
 NOTE: Libref CLASSDAT was successfully assigned as follows: 
       Engine:        V9 
       Physical Name: 
-      /home/susan/Projects/Class/unl-stat850/stat850-textbook/sas
+      /home/susan/Projects/Class/unl-stat850/2020-stat850/sas
 7          
 8          PROC SQL;
 9          CREATE TABLE gap5 AS
@@ -45334,8 +45326,8 @@ NOTE: PROCEDURE SQL used (Total process time):
 NOTE: There were 12 observations read from the data set WORK.GAP5.
       WHERE country='Australia';
 NOTE: PROCEDURE PRINT used (Total process time):
-      real time           0.00 seconds
-      cpu time            0.00 seconds
+      real time           0.01 seconds
+      cpu time            0.02 seconds
       
 ```
 
@@ -45495,21 +45487,21 @@ gapminder_unfiltered %>%
   mutate(nobs = n()) %>% # Use mutate instead of summarize so that all rows stay
   filter(nobs == 12) %>%
   select(-nobs)
-# A tibble: 1,704 x 6
-# Groups:   country [142]
-   country     continent  year lifeExp      pop gdpPercap
-   <fct>       <fct>     <int>   <dbl>    <int>     <dbl>
- 1 Afghanistan Asia       1952    28.8  8425333      779.
- 2 Afghanistan Asia       1957    30.3  9240934      821.
- 3 Afghanistan Asia       1962    32.0 10267083      853.
- 4 Afghanistan Asia       1967    34.0 11537966      836.
- 5 Afghanistan Asia       1972    36.1 13079460      740.
- 6 Afghanistan Asia       1977    38.4 14880372      786.
- 7 Afghanistan Asia       1982    39.9 12881816      978.
- 8 Afghanistan Asia       1987    40.8 13867957      852.
- 9 Afghanistan Asia       1992    41.7 16317921      649.
-10 Afghanistan Asia       1997    41.8 22227415      635.
-# … with 1,694 more rows
+## # A tibble: 1,704 x 6
+## # Groups:   country [142]
+##    country     continent  year lifeExp      pop gdpPercap
+##    <fct>       <fct>     <int>   <dbl>    <int>     <dbl>
+##  1 Afghanistan Asia       1952    28.8  8425333      779.
+##  2 Afghanistan Asia       1957    30.3  9240934      821.
+##  3 Afghanistan Asia       1962    32.0 10267083      853.
+##  4 Afghanistan Asia       1967    34.0 11537966      836.
+##  5 Afghanistan Asia       1972    36.1 13079460      740.
+##  6 Afghanistan Asia       1977    38.4 14880372      786.
+##  7 Afghanistan Asia       1982    39.9 12881816      978.
+##  8 Afghanistan Asia       1987    40.8 13867957      852.
+##  9 Afghanistan Asia       1992    41.7 16317921      649.
+## 10 Afghanistan Asia       1997    41.8 22227415      635.
+## # … with 1,694 more rows
 ```
 </details>
 
@@ -45520,7 +45512,7 @@ gapminder_unfiltered %>%
 NOTE: Libref CLASSDAT was successfully assigned as follows: 
       Engine:        V9 
       Physical Name: 
-      /home/susan/Projects/Class/unl-stat850/stat850-textbook/sas
+      /home/susan/Projects/Class/unl-stat850/2020-stat850/sas
 7          
 8          PROC SQL;
 9          CREATE TABLE gap5 AS
@@ -45546,7 +45538,7 @@ NOTE: Table WORK.GAP_CLEAN created, with 1704 rows and 7 columns.
 NOTE: Table WORK.GAP_CLEAN has been modified, with 6 columns.
 23         
 NOTE: PROCEDURE SQL used (Total process time):
-      real time           0.00 seconds
+      real time           0.01 seconds
       cpu time            0.01 seconds
       
 
@@ -45555,8 +45547,8 @@ NOTE: PROCEDURE SQL used (Total process time):
 
 NOTE: There were 1704 observations read from the data set WORK.GAP_CLEAN.
 NOTE: PROCEDURE PRINT used (Total process time):
-      real time           0.30 seconds
-      cpu time            0.29 seconds
+      real time           1.07 seconds
+      cpu time            1.03 seconds
       
 ```
 

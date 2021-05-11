@@ -201,7 +201,7 @@ adder <- function(a, b) {
 }
 
 adder(3, 4)
-[1] 7
+## [1] 7
 ```
 
 
@@ -261,29 +261,29 @@ Of course, it's not just important to be able to write your own functions. It's 
 
 ```r
 colSums
-function (x, na.rm = FALSE, dims = 1L) 
-{
-    if (is.data.frame(x)) 
-        x <- as.matrix(x)
-    if (!is.array(x) || length(dn <- dim(x)) < 2L) 
-        stop("'x' must be an array of at least two dimensions")
-    if (dims < 1L || dims > length(dn) - 1L) 
-        stop("invalid 'dims'")
-    n <- prod(dn[id <- seq_len(dims)])
-    dn <- dn[-id]
-    z <- if (is.complex(x)) 
-        .Internal(colSums(Re(x), n, prod(dn), na.rm)) + (0+1i) * 
-            .Internal(colSums(Im(x), n, prod(dn), na.rm))
-    else .Internal(colSums(x, n, prod(dn), na.rm))
-    if (length(dn) > 1L) {
-        dim(z) <- dn
-        dimnames(z) <- dimnames(x)[-id]
-    }
-    else names(z) <- dimnames(x)[[dims + 1L]]
-    z
-}
-<bytecode: 0x55c638bb3af0>
-<environment: namespace:base>
+## function (x, na.rm = FALSE, dims = 1L) 
+## {
+##     if (is.data.frame(x)) 
+##         x <- as.matrix(x)
+##     if (!is.array(x) || length(dn <- dim(x)) < 2L) 
+##         stop("'x' must be an array of at least two dimensions")
+##     if (dims < 1L || dims > length(dn) - 1L) 
+##         stop("invalid 'dims'")
+##     n <- prod(dn[id <- seq_len(dims)])
+##     dn <- dn[-id]
+##     z <- if (is.complex(x)) 
+##         .Internal(colSums(Re(x), n, prod(dn), na.rm)) + (0+1i) * 
+##             .Internal(colSums(Im(x), n, prod(dn), na.rm))
+##     else .Internal(colSums(x, n, prod(dn), na.rm))
+##     if (length(dn) > 1L) {
+##         dim(z) <- dn
+##         dimnames(z) <- dimnames(x)[-id]
+##     }
+##     else names(z) <- dimnames(x)[[dims + 1L]]
+##     z
+## }
+## <bytecode: 0x55d952ef4c88>
+## <environment: namespace:base>
 ```
 
 You can see that the first 3 steps in the function are if statements to test whether the inputs are acceptable - x must be a data frame, a matrix, or an array (with 2+ dimensions). 
@@ -309,7 +309,7 @@ circle_area <- function(r) {
 }
 
 circle_area(5)
-[1] 78.53982
+## [1] 78.53982
 ```
 
 A more complete and robust answer might include a test for numeric `r`:
@@ -322,7 +322,7 @@ circle_area <- function(r) {
   r^2*pi # automatically returned as the last computed value
 }
 circle_area(5)
-[1] 78.53982
+## [1] 78.53982
 ```
 
 
@@ -344,7 +344,7 @@ NOTE: Module CIRCLE_AREA defined.
 NOTE: Exiting IML.
 NOTE: PROCEDURE IML used (Total process time):
       real time           0.00 seconds
-      cpu time            0.00 seconds
+      cpu time            0.01 seconds
       
 
 17         
@@ -398,11 +398,11 @@ myfun <- function(a, b) {
 }
 
 myfun(5, 6) # a is 5 inside the function, so that overrides the 
-[1] 13
+## [1] 13
             # a defined outside the function
 
 myfun(a, 3) # this references the a outside the function
-[1] 8
+## [1] 8
 ```
 
 ![Scope diagram. When myfun() is called, the calling environment contains the two parameters a and b.](image/03_myfun_scope.png)
@@ -416,7 +416,7 @@ myfun2 <- function(d) {
 }
 
 myfun2(3) # the only a in scope inside fun2 is the a defined at the top of the chunk
-[1] 8
+## [1] 8
 ```
 
 
@@ -433,14 +433,14 @@ myfun3 <- function(a, d) {
 }
 
 a
-[1] 3
+## [1] 3
 
 myfun3(5, 3) # now, a is defined inside fun3 as a = 5, so there is an a in 
-[1] 10
+## [1] 10
              # fun3's scope that isn't in the global environment.
 
 a # value of a hasn't changed
-[1] 3
+## [1] 3
 ```
 
 ![Scope diagram. When myfun3() is called, the calling environment contains parameters a and d, which are then copied into the calling environment of myfun as $a$ and $b$. The variable $a$ in the global environment is ignored.](image/03_myfun3_scope.png)
@@ -479,28 +479,28 @@ NOTE: Exiting IML.
 NOTE: The PROCEDURE IML printed page 3.
 NOTE: PROCEDURE IML used (Total process time):
       real time           0.00 seconds
-      cpu time            0.00 seconds
+      cpu time            0.01 seconds
       
 
 18         
-                              The SAS System                              1
-                                      Wednesday, April 28, 2021 11:52:00 AM
-
-                                             c
-
-                            3 + 4 =          7
-                              The SAS System                              2
-                                      Wednesday, April 28, 2021 11:52:00 AM
-
-                                     c
-
-                                 78.539816
- 
-                                                                           
- 
-                                   r1        r2
-
-                                   13         8
+##                               The SAS System                              1
+##                                            Sunday, May  9, 2021 10:29:00 AM
+## 
+##                                              c
+## 
+##                             3 + 4 =          7
+##                               The SAS System                              2
+##                                            Sunday, May  9, 2021 10:29:00 AM
+## 
+##                                      c
+## 
+##                                  78.539816
+##  
+##                                                                            
+##  
+##                                    r1        r2
+## 
+##                                    13         8
 ```
 
 In SAS, the equivalent version of the program used to demonstrate lexical scoping in R produces an error. In SAS, you cannot assume the function has access to values defined outside of that function that are not passed into the function as arguments.
@@ -555,24 +555,24 @@ NOTE: PROCEDURE IML used (Total process time):
       
 
 ERROR: Errors printed on page 2.
-                              The SAS System                              1
-                                      Wednesday, April 28, 2021 11:52:00 AM
-
-                                             c
-
-                            3 + 4 =          7
-                              The SAS System                              2
-                                      Wednesday, April 28, 2021 11:52:00 AM
-
-                                     c
-
-                                 78.539816
-                              The SAS System                              3
-                                      Wednesday, April 28, 2021 11:52:00 AM
-
-                                   r1        r2
-
-                                   13         8
+##                               The SAS System                              1
+##                                            Sunday, May  9, 2021 10:29:00 AM
+## 
+##                                              c
+## 
+##                             3 + 4 =          7
+##                               The SAS System                              2
+##                                            Sunday, May  9, 2021 10:29:00 AM
+## 
+##                                      c
+## 
+##                                  78.539816
+##                               The SAS System                              3
+##                                            Sunday, May  9, 2021 10:29:00 AM
+## 
+##                                    r1        r2
+## 
+##                                    13         8
 ```
 </details>
 
@@ -601,40 +601,41 @@ NOTE: Exiting IML.
 NOTE: The PROCEDURE IML printed page 4.
 NOTE: PROCEDURE IML used (Total process time):
       real time           0.00 seconds
-      cpu time            0.00 seconds
+      cpu time            0.02 seconds
       
 
 15         
 
 ERROR: Errors printed on page 2.
-                              The SAS System                              1
-                                      Wednesday, April 28, 2021 11:52:00 AM
-
-                                             c
-
-                            3 + 4 =          7
-                              The SAS System                              2
-                                      Wednesday, April 28, 2021 11:52:00 AM
-
-                                     c
-
-                                 78.539816
-                              The SAS System                              3
-                                      Wednesday, April 28, 2021 11:52:00 AM
-
-                                   r1        r2
-
-                                   13         8
- 
-                                                                           
- 
-                         y inside function (local)
-
-                     2         4         6         8        10
-
-                            y outside function
-
-                                             0
+##                               The SAS System                              1
+##                                            Sunday, May  9, 2021 10:29:00 AM
+## 
+##                                              c
+## 
+##                             3 + 4 =          7
+##                               The SAS System                              2
+##                                            Sunday, May  9, 2021 10:29:00 AM
+## 
+##                                      c
+## 
+##                                  78.539816
+##                               The SAS System                              3
+##                                            Sunday, May  9, 2021 10:29:00 AM
+## 
+##                                    r1        r2
+## 
+##                                    13         8
+##  
+##                                                                            
+##  
+##                          y inside function (local)
+## 
+##                      2         4         6         8        10
+## 
+## 
+##                             y outside function
+## 
+##                                              0
 ```
 
 However, R's environment feature and lexical scoping is not common to many other programming languages. 
@@ -673,47 +674,14 @@ NOTE: Module MYFUN defined.
 20       ! d[label="a after r2"];
 21         quit;
 NOTE: Exiting IML.
-NOTE: The PROCEDURE IML printed page 5.
+NOTE: The PROCEDURE IML printed page 1.
 NOTE: PROCEDURE IML used (Total process time):
-      real time           0.00 seconds
-      cpu time            0.00 seconds
+      real time           0.03 seconds
+      cpu time            0.03 seconds
       
-
-ERROR: Errors printed on page 2.
-                              The SAS System                              1
-                                      Wednesday, April 28, 2021 11:52:00 AM
-
-                                             c
-
-                            3 + 4 =          7
-                              The SAS System                              2
-                                      Wednesday, April 28, 2021 11:52:00 AM
-
-                                     c
-
-                                 78.539816
-                              The SAS System                              3
-                                      Wednesday, April 28, 2021 11:52:00 AM
-
-                                   r1        r2
-
-                                   13         8
-                              The SAS System                              4
-                                      Wednesday, April 28, 2021 11:52:00 AM
-
-                         y inside function (local)
-
-                     2         4         6         8        10
-
-                            y outside function
-
-                                             0
- 
-                                                                           
- 
-           a before r1        r1 a after r1        r2 a after r2
-
-                     3        13          3         8          5
+##            a before r1        r1 a after r1        r2 a after r2
+## 
+##                      3        13          3         8          5
 ```
 
 
@@ -750,77 +718,48 @@ NOTE: Module MYFUN defined.
 18         
 19         quit;
 NOTE: Exiting IML.
-NOTE: The PROCEDURE IML printed page 6.
+NOTE: The PROCEDURE IML printed page 2.
 NOTE: PROCEDURE IML used (Total process time):
       real time           0.00 seconds
       cpu time            0.00 seconds
       
 
 20         
-
-ERROR: Errors printed on page 2.
-                              The SAS System                              1
-                                      Wednesday, April 28, 2021 11:52:00 AM
-
-                                             c
-
-                            3 + 4 =          7
-                              The SAS System                              2
-                                      Wednesday, April 28, 2021 11:52:00 AM
-
-                                     c
-
-                                 78.539816
-                              The SAS System                              3
-                                      Wednesday, April 28, 2021 11:52:00 AM
-
-                                   r1        r2
-
-                                   13         8
-                              The SAS System                              4
-                                      Wednesday, April 28, 2021 11:52:00 AM
-
-                         y inside function (local)
-
-                     2         4         6         8        10
-
-                            y outside function
-
-                                             0
-                              The SAS System                              5
-                                      Wednesday, April 28, 2021 11:52:00 AM
-
-           a before r1        r1 a after r1        r2 a after r2
-
-                     3        13          3         8          5
- 
-                                                                           
- 
-                        y before function is called
-
-                                                  3
-                                                  1
-                                                  4
-                                                  1
-                                                  5
-                                                  9
-                                                  2
-                                                  6
-                                                  5
-                                                  4
-
-     original y y after function is called cumulative sum of sorted y
-
-              3                          1                          1
-              1                          1                          2
-              4                          2                          4
-              1                          3                          7
-              5                          4                         11
-              9                          4                         15
-              2                          5                         20
-              6                          5                         25
-              5                          6                         31
-              4                          9                         40
+##                               The SAS System                              1
+##                                            Sunday, May  9, 2021 10:29:00 AM
+## 
+##            a before r1        r1 a after r1        r2 a after r2
+## 
+##                      3        13          3         8          5
+##  
+##                                                                            
+##  
+##                         y before function is called
+## 
+##                                                   3
+##                                                   1
+##                                                   4
+##                                                   1
+##                                                   5
+##                                                   9
+##                                                   2
+##                                                   6
+##                                                   5
+##                                                   4
+## 
+## 
+##      original y y after function is called cumulative sum of sorted y
+## 
+##               3                          1                          1
+##               1                          1                          2
+##               4                          2                          4
+##               1                          3                          7
+##               5                          4                         11
+##               9                          4                         15
+##               2                          5                         20
+##               6                          5                         25
+##               5                          6                         31
+##               4                          9                         40
 ```
 
 Because arguments in SAS are passed by reference, you can "trick" a function into returning multiple values by passing the variables in as arguments to the function, changing their values in the function, and returning. This is not necessarily a good practice - it can make code very difficult to debug, and may lead to non-obvious dependencies - but for short, simple programs, you can probably get away with it.
@@ -848,83 +787,54 @@ NOTE: Module GETDESCRIPTIVE defined.
 16         
 17         quit;
 NOTE: Exiting IML.
-NOTE: The PROCEDURE IML printed page 7.
+NOTE: The PROCEDURE IML printed page 3.
 NOTE: PROCEDURE IML used (Total process time):
       real time           0.00 seconds
       cpu time            0.00 seconds
       
 
 18         
-
-ERROR: Errors printed on page 2.
-                              The SAS System                              1
-                                      Wednesday, April 28, 2021 11:52:00 AM
-
-                                             c
-
-                            3 + 4 =          7
-                              The SAS System                              2
-                                      Wednesday, April 28, 2021 11:52:00 AM
-
-                                     c
-
-                                 78.539816
-                              The SAS System                              3
-                                      Wednesday, April 28, 2021 11:52:00 AM
-
-                                   r1        r2
-
-                                   13         8
-                              The SAS System                              4
-                                      Wednesday, April 28, 2021 11:52:00 AM
-
-                         y inside function (local)
-
-                     2         4         6         8        10
-
-                            y outside function
-
-                                             0
-                              The SAS System                              5
-                                      Wednesday, April 28, 2021 11:52:00 AM
-
-           a before r1        r1 a after r1        r2 a after r2
-
-                     3        13          3         8          5
-                              The SAS System                              6
-                                      Wednesday, April 28, 2021 11:52:00 AM
-
-                        y before function is called
-
-                                                  3
-                                                  1
-                                                  4
-                                                  1
-                                                  5
-                                                  9
-                                                  2
-                                                  6
-                                                  5
-                                                  4
-
-     original y y after function is called cumulative sum of sorted y
-
-              3                          1                          1
-              1                          1                          2
-              4                          2                          4
-              1                          3                          7
-              5                          4                         11
-              9                          4                         15
-              2                          5                         20
-              6                          5                         25
-              5                          6                         31
-              4                          9                         40
- 
-                                                                           
- 
-                                    m         s
-
-                                    4 2.4494897
+##                               The SAS System                              1
+##                                            Sunday, May  9, 2021 10:29:00 AM
+## 
+##            a before r1        r1 a after r1        r2 a after r2
+## 
+##                      3        13          3         8          5
+##                               The SAS System                              2
+##                                            Sunday, May  9, 2021 10:29:00 AM
+## 
+##                         y before function is called
+## 
+##                                                   3
+##                                                   1
+##                                                   4
+##                                                   1
+##                                                   5
+##                                                   9
+##                                                   2
+##                                                   6
+##                                                   5
+##                                                   4
+## 
+## 
+##      original y y after function is called cumulative sum of sorted y
+## 
+##               3                          1                          1
+##               1                          1                          2
+##               4                          2                          4
+##               1                          3                          7
+##               5                          4                         11
+##               9                          4                         15
+##               2                          5                         20
+##               6                          5                         25
+##               5                          6                         31
+##               4                          9                         40
+##  
+##                                                                            
+##  
+##                                     m         s
+## 
+##                                     4 2.4494897
 ```
 
 If you want to avoid any of these side-effects of SAS's pass-by-reference behavior, you can very easily do so: just don't write any modules that modify input arguments. Always modify a copy of the variable instead. 
@@ -946,19 +856,19 @@ myfun <- function(a, b) {
 }
 
 a
-[1] 3
+## [1] 3
 
 myfun(5, 6)
-[1] 13
+## [1] 13
 
 a
-[1] 3
+## [1] 3
 
 myfun(a, 3) 
-[1] 8
+## [1] 8
 
 a
-[1] 3
+## [1] 3
 ```
 </details>
 
@@ -1061,8 +971,6 @@ NOTE: PROCEDURE IML used (Total process time):
       
 
 29         
-
-ERROR: Errors printed on page 2.
 ```
 
 <details><summary>Solution</summary>
@@ -1119,7 +1027,7 @@ R has a number of infix functions, but you can also create your own. User-define
 }
 
 3 %dosomething% 4
-[1] 82
+## [1] 82
 ```
 
 You can also call default infix operators using this syntax: \`+\`(3, 4) = 7
@@ -1138,9 +1046,9 @@ There is an [entire chapter dedicated to discussing the pipe in R4DS](https://r4
 library(magrittr)
 
 3 %>% exp()
-[1] 20.08554
+## [1] 20.08554
 exp(3)
-[1] 20.08554
+## [1] 20.08554
 ```
 The pipe takes the left hand side and a function, and puts the left hand side as an argument to the function on the right hand side. It doesn't sound very impressive, but it allows you to do a very cool thing: "chain" operations.
 
@@ -1164,7 +1072,7 @@ Normally, you'd write `f3(f2(f1(4)))`, which you have to read from the inside to
 
 ```r
 4 %>% f1() %>% f2() %>% f3()
-[1] 2.158362
+## [1] 2.158362
 ```
 
 This is much simpler to read - it's like a recipe. "Take 4, do f1, then f2, then f3". 
@@ -1195,7 +1103,7 @@ By default, SAS will use the last dataset created to run this procedure.
 
 NOTE: There were 10 observations read from the data set SASHELP.CARS.
 NOTE: PROCEDURE PRINT used (Total process time):
-      real time           0.01 seconds
+      real time           0.02 seconds
       cpu time            0.02 seconds
       
 
@@ -1205,11 +1113,9 @@ NOTE: PROCEDURE PRINT used (Total process time):
 
 NOTE: There were 428 observations read from the data set SASHELP.CARS.
 NOTE: PROCEDURE MEANS used (Total process time):
-      real time           0.01 seconds
-      cpu time            0.01 seconds
+      real time           0.02 seconds
+      cpu time            0.03 seconds
       
-
-ERROR: Errors printed on page 2.
 ```
 
 
@@ -1718,11 +1624,9 @@ Some procs also support additional statements: for instance, we can use the VAR 
 
 NOTE: There were 428 observations read from the data set SASHELP.CARS.
 NOTE: PROCEDURE MEANS used (Total process time):
-      real time           0.00 seconds
-      cpu time            0.02 seconds
+      real time           0.01 seconds
+      cpu time            0.01 seconds
       
-
-ERROR: Errors printed on page 2.
 ```
 
 
@@ -1820,10 +1724,8 @@ ERROR: Errors printed on page 2.
 NOTE: There were 428 observations read from the data set SASHELP.CARS.
 NOTE: PROCEDURE MEANS used (Total process time):
       real time           0.01 seconds
-      cpu time            0.02 seconds
+      cpu time            0.03 seconds
       
-
-ERROR: Errors printed on page 2.
 ```
 
 
@@ -2232,119 +2134,64 @@ Use [this blog post](https://blogs.sas.com/content/iml/2016/12/12/koch-snowflake
 <details><summary>Snowflake.SAS</summary>
 
 ```sashtml
-6          PROC IML;
-NOTE: IML Ready
-7            start KochDivide(A, E);
-7        !                                              /* (x,y) coords of
-7        ! endpoints */
-8               segs = j(5, 2, .);
-8        !                                              /* matrix to hold 4
-8        !  shorter segs */
-9               v = (E-A) / 3;
-9        !                                              /* vector 1/3 as
-9        ! long as orig */
-10              segs[{1 2 4 5}, ] = A + v @ T(0:3);
-10       !                                              /* endpoints of new
-10       !  segs */
-11              /* Now compute middle point. Use ATAN2 to find direction
-11       ! angle. */
-12              theta = -constant("pi")/3 + atan2(v[2], v[1]);
-12       !                                                     /* change
-12       ! angle by pi/3 */
-13              w = cos(theta) || sin(theta);
-13       !                                              /* vector to middle
-13       !  point */
-14              segs[3,] = segs[2,] + norm(v)*w;
-15              return segs;
-16           finish;
-NOTE: Module KOCHDIVIDE defined.
-17         
-18         
-19           /* create Koch Snowflake from an equilateral triangle */
-20           start KochPoly(P0, iters=5);
-21             P = P0;
-22             do j=1 to iters;
-23                N = nrow(P) - 1;
-23       !                                     /* old number of segments */
-24                newP = j(4*N+1, 2);
-24       !                                     /* new number of segments +
-24       ! 1 */
-25                do i=1 to N;
-25       !                                     /* for each segment... */
-26                   idx = (4*i-3):(4*i+1);
-26       !                                                     /* rows for
-26       ! 4 new segments */
-27                   newP[idx, ] = KochDivide(P[i,], P[i+1,]);
-27       !                                                     /* generate
-27       ! new segments */
-28                end;
-29                P = newP;
-29       !                                     /* update polygon and
-29       ! iterate */
-30             end;
-31             return P;
-32           finish;
-NOTE: Module KOCHPOLY defined.
-33         
-34           /* create equilateral triangle as base for snowflake */
-35           pi = constant("pi");
-36           angles = -pi/6 // pi/2 // 7*pi/6;
-36       !                                      /* angles for equilateral
-36       ! triangle */
-37           P = cos(angles) || sin(angles);
-37       !                                      /* vertices of equilateral
-37       ! triangle */
-38           P = P // P[1,];
-38       !                                      /* append first vertex to
-38       ! close triangle */
-39           K = KochPoly(P);
-39       !                                      /* create the Koch
-39       ! snowflake */
-40         
-41           S = j(nrow(K), 3, 1);
-41       !                              /* add ID variable with constant
-41       ! value 1 */
-42           S[ ,1:2] = K;
-43           create Koch from S[colname={X Y ID}];
-44           append from S;
-45           close;
-NOTE: Closing WORK.KOCH
-NOTE: The data set WORK.KOCH has 3073 observations and 3 variables.
-46         
-47         
-48           /* test KochDivide on line segment from (0,0) to (1,0) */
-49           s = KochDivide({0 0}, {1 0});
-50           title  "Fundamental Step in the Koch Snowflake Construction";
-51           ods graphics / width=600  height=300;
-52           call series(s[,1], s[,2]) procopt="aspect=0.333";
-NOTE: Module SERIES loaded from the storage SASHELP.IMLMLIB.
-NOTE: Module ISEMPTY loaded from the storage SASHELP.IMLMLIB.
-NOTE: The data set WORK._SERIES has 5 observations and 2 variables.
-53         
-54         QUIT;
-NOTE: Exiting IML.
-NOTE: PROCEDURE IML used (Total process time):
-      real time           1.89 seconds
-      cpu time            0.06 seconds
-      
+PROC IML;
+  start KochDivide(A, E);                    /* (x,y) coords of endpoints */
+     segs = j(5, 2, .);                      /* matrix to hold 4 shorter segs */
+     v = (E-A) / 3;                          /* vector 1/3 as long as orig */
+     segs[{1 2 4 5}, ] = A + v @ T(0:3);     /* endpoints of new segs */
+     /* Now compute middle point. Use ATAN2 to find direction angle. */
+     theta = -constant("pi")/3 + atan2(v[2], v[1]); /* change angle by pi/3 */
+     w = cos(theta) || sin(theta);           /* vector to middle point */
+     segs[3,] = segs[2,] + norm(v)*w;
+     return segs;
+  finish;
+ 
 
-55         
-56         ods graphics / width=400px height=400px;
-57         footnote justify=Center "Koch Snowflake";
-58         proc sgplot data=Koch;
-59            styleattrs wallcolor=CXD6EAF8;               /* light blue */
-60            polygon x=x y=y ID=ID / outline fill fillattrs=(color=white);
-61            xaxis display=none;
-62            yaxis display=none;
-63         run;
+  /* create Koch Snowflake from an equilateral triangle */
+  start KochPoly(P0, iters=5);    
+    P = P0;
+    do j=1 to iters;
+       N = nrow(P) - 1;             /* old number of segments */
+       newP = j(4*N+1, 2);          /* new number of segments + 1 */
+       do i=1 to N;                 /* for each segment... */
+          idx = (4*i-3):(4*i+1);                    /* rows for 4 new segments */
+          newP[idx, ] = KochDivide(P[i,], P[i+1,]); /* generate new segments */
+       end;
+       P = newP;                    /* update polygon and iterate */
+    end;
+    return P;
+  finish;
 
-NOTE: PROCEDURE SGPLOT used (Total process time):
-      real time           0.13 seconds
-      cpu time            0.01 seconds
-      
-NOTE: There were 3073 observations read from the data set WORK.KOCH.
+  /* create equilateral triangle as base for snowflake */
+  pi = constant("pi");
+  angles = -pi/6 // pi/2 // 7*pi/6;  /* angles for equilateral triangle */
+  P = cos(angles) || sin(angles);    /* vertices of equilateral triangle */
+  P = P // P[1,];                    /* append first vertex to close triangle */
+  K = KochPoly(P);                   /* create the Koch snowflake */
+    
+  S = j(nrow(K), 3, 1);      /* add ID variable with constant value 1 */
+  S[ ,1:2] = K;
+  create Koch from S[colname={X Y ID}];  
+  append from S;  
+  close;
 
-ERROR: Errors printed on page 2.
+
+  /* test KochDivide on line segment from (0,0) to (1,0) */
+  s = KochDivide({0 0}, {1 0});
+  title  "Fundamental Step in the Koch Snowflake Construction";
+  ods graphics / width=600  height=300; 
+  call series(s[,1], s[,2]) procopt="aspect=0.333";
+
+QUIT;
+ 
+ods graphics / width=400px height=400px;
+footnote justify=Center "Koch Snowflake";
+proc sgplot data=Koch;
+   styleattrs wallcolor=CXD6EAF8;               /* light blue */
+   polygon x=x y=y ID=ID / outline fill fillattrs=(color=white);
+   xaxis display=none;
+   yaxis display=none;
+run;
 ```
 
 
@@ -2390,7 +2237,7 @@ On github, packages go through less verification. Many packages use a system whe
 
 
 
-Currently, the CRAN package repository features 1.7498\times 10^{4} available packages. How do you navigate them to find the one you need? Sometimes, the [CRAN Task Views](https://cran.r-project.org/web/views/) may be helpful - for instance, if you want to see all of the packages which are useful for Meta-Analysis, Finance, Bayesian statistics, etc. Other times, it's useful to let Google help you navigate: searching for "R CRAN" + "what you want the package to do" can often narrow things down (I recommend adding CRAN in because Google results for "R" are not particularly useful.)
+Currently, the CRAN package repository features 1.7548\times 10^{4} available packages. How do you navigate them to find the one you need? Sometimes, the [CRAN Task Views](https://cran.r-project.org/web/views/) may be helpful - for instance, if you want to see all of the packages which are useful for Meta-Analysis, Finance, Bayesian statistics, etc. Other times, it's useful to let Google help you navigate: searching for "R CRAN" + "what you want the package to do" can often narrow things down (I recommend adding CRAN in because Google results for "R" are not particularly useful.)
 
 Once you find and install a package (`install.packages()` for CRAN packages, `devtools::install_github()` for GitHub packages), you have to figure out how to use it. Many R packages come with **vignettes**, which are short articles that demonstrate how a package is used. 
 You can browse the available vignettes using `browseVignettes()` (if you provide a package name as an argument, you will get only vignettes from that package). 
@@ -2415,12 +2262,12 @@ tribble(~var1, ~var2,
         1, 2, 
         3, 4,
         5, 6)
-# A tibble: 3 x 2
-   var1  var2
-  <dbl> <dbl>
-1     1     2
-2     3     4
-3     5     6
+## # A tibble: 3 x 2
+##    var1  var2
+##   <dbl> <dbl>
+## 1     1     2
+## 2     3     4
+## 3     5     6
 ```
 </details>
 

@@ -308,20 +308,20 @@ if (!"classdata" %in% installed.packages()) devtools::install_github("heike/clas
 # A package of data sets which are useful for class demonstrations
 library(classdata)
 library(tidyr)
-
-Attaching package: 'tidyr'
-The following object is masked from 'package:magrittr':
-
-    extract
+## 
+## Attaching package: 'tidyr'
+## The following object is masked from 'package:magrittr':
+## 
+##     extract
 library(dplyr)
-
-Attaching package: 'dplyr'
-The following objects are masked from 'package:stats':
-
-    filter, lag
-The following objects are masked from 'package:base':
-
-    intersect, setdiff, setequal, union
+## 
+## Attaching package: 'dplyr'
+## The following objects are masked from 'package:stats':
+## 
+##     filter, lag
+## The following objects are masked from 'package:base':
+## 
+##     intersect, setdiff, setequal, union
 data(happy) # you'll use this for try it out sections
 data(fbi)
 
@@ -386,7 +386,7 @@ ggplot(fbiwide, aes(x = Burglary, y = Murder)) + geom_point()
 
 ```r
 plot(x = Burglary, y = Murder, data = fbiwide) # this doesn't work
-Error in plot(x = Burglary, y = Murder, data = fbiwide): object 'Burglary' not found
+## Error in plot(x = Burglary, y = Murder, data = fbiwide): object 'Burglary' not found
 
 plot(x = fbiwide$Burglary, y = fbiwide$Murder) # you can use numeric vector arguments
 ```
@@ -496,11 +496,11 @@ Base R doesn't support alpha blending by default, so we have to load the `scales
 
 ```r
 library(scales)
-
-Attaching package: 'scales'
-The following object is masked from 'package:readr':
-
-    col_factor
+## 
+## Attaching package: 'scales'
+## The following object is masked from 'package:readr':
+## 
+##     col_factor
 # Using constant alpha:
 plot(Assault ~ Population, 
      col = alpha("blue", .5),
@@ -554,7 +554,7 @@ In base R, you can also create scatter plots that have different plot aesthetics
 # This doesn't work because the values in Abb aren't actually colors
 # and plot() doesn't handle the mapping between color and abbreviation for us
 plot(Assault ~ Population, col = Abb, data = fbiwide) 
-Error in plot.xy(xy, type, ...): invalid color name 'AL'
+## Error in plot.xy(xy, type, ...): invalid color name 'AL'
 ```
 
 <img src="image/base-cat-aes-map-08-err-1.png" width="2100" />
@@ -765,7 +765,7 @@ Note that ggplot2 will create separate legends for size and height by default. I
 poke %>% 
   ggplot(aes(x = attack, y = sp_attack, size = weight_kg, alpha = weight_kg)) + 
   geom_point()
-Warning: Removed 1 rows containing missing values (geom_point).
+## Warning: Removed 1 rows containing missing values (geom_point).
 ```
 
 <img src="image/gg-numeric-aes-legend-combine-08-1.png" width="2100" />
@@ -840,7 +840,7 @@ wt_trans_alpha <- function(x) {
 }
   
 range(poke$weight_kg, na.rm = T) # get the range
-[1]   0.1 999.9
+## [1]   0.1 999.9
 
 # Make the legend variables
 leg_label <- seq(0, 1000, length.out = 5) # cut weight range into 5 
@@ -877,7 +877,7 @@ wt_trans_size <- function(x) {
 }
   
 range(poke$weight_kg, na.rm = T) # get the range
-[1]   0.1 999.9
+## [1]   0.1 999.9
 
 # Make the legend variables
 leg_label <- seq(0, 1000, length.out = 5) # cut weight range into 5 
@@ -971,49 +971,49 @@ states <- map_data("state")
 
 # Read in some data about places of worship in the US (compiled from IRS filings)
 worship <- read_csv("data/Places_of_Worship.csv", guess_max = 5000)
-
-── Column specification ────────────────────────────────────────────────────────
-cols(
-  EIN = col_double(),
-  NAME = col_character(),
-  STREET = col_character(),
-  CITY = col_character(),
-  STATE = col_character(),
-  ZIP = col_double(),
-  AFFILIATION = col_double(),
-  FOUNDATION = col_double(),
-  long = col_double(),
-  lat = col_double()
-)
+## 
+## ── Column specification ────────────────────────────────────────────────────────
+## cols(
+##   EIN = col_double(),
+##   NAME = col_character(),
+##   STREET = col_character(),
+##   CITY = col_character(),
+##   STATE = col_character(),
+##   ZIP = col_double(),
+##   AFFILIATION = col_double(),
+##   FOUNDATION = col_double(),
+##   long = col_double(),
+##   lat = col_double()
+## )
 ```
 
 Let's look at the map data first:
 
 ```r
 head(us_map)
-       long      lat group order region subregion
-1 -101.4078 29.74224     1     1   main      <NA>
-2 -101.3906 29.74224     1     2   main      <NA>
-3 -101.3620 29.65056     1     3   main      <NA>
-4 -101.3505 29.63911     1     4   main      <NA>
-5 -101.3219 29.63338     1     5   main      <NA>
-6 -101.3047 29.64484     1     6   main      <NA>
+##        long      lat group order region subregion
+## 1 -101.4078 29.74224     1     1   main      <NA>
+## 2 -101.3906 29.74224     1     2   main      <NA>
+## 3 -101.3620 29.65056     1     3   main      <NA>
+## 4 -101.3505 29.63911     1     4   main      <NA>
+## 5 -101.3219 29.63338     1     5   main      <NA>
+## 6 -101.3047 29.64484     1     6   main      <NA>
 ```
 It looks like we have longitude and latitude, group, and point order. What does group mean? 
 
 ```r
 select(us_map, group, region) %>% unique()
-     group            region
-1        1              main
-6888     2 martha's vineyard
-6925     3  nantucket island
-6956     4         manhattan
-6973     5     staten island
-6984     6       long island
-7153     7   san juan island
-7171     8      lopez island
-7189     9      orcas island
-7209    10    whidbey island
+##      group            region
+## 1        1              main
+## 6888     2 martha's vineyard
+## 6925     3  nantucket island
+## 6956     4         manhattan
+## 6973     5     staten island
+## 6984     6       long island
+## 7153     7   san juan island
+## 7171     8      lopez island
+## 7189     9      orcas island
+## 7209    10    whidbey island
 ```
 The regions are all islands, and group is a number that corresponds to each region. This is important because if we plot polygons, we have to worry about what to do when we jump from one "island" to another (sometimes, regions might be contiguous areas, such as states or zip codes). As long as we pass in a group argument (so `group = group`) we should avoid most of the complications of plotting spatial data. 
 
@@ -1021,28 +1021,28 @@ The state data is similarly structured:
 
 ```r
 head(states)
-       long      lat group order  region subregion
-1 -87.46201 30.38968     1     1 alabama      <NA>
-2 -87.48493 30.37249     1     2 alabama      <NA>
-3 -87.52503 30.37249     1     3 alabama      <NA>
-4 -87.53076 30.33239     1     4 alabama      <NA>
-5 -87.57087 30.32665     1     5 alabama      <NA>
-6 -87.58806 30.32665     1     6 alabama      <NA>
+##        long      lat group order  region subregion
+## 1 -87.46201 30.38968     1     1 alabama      <NA>
+## 2 -87.48493 30.37249     1     2 alabama      <NA>
+## 3 -87.52503 30.37249     1     3 alabama      <NA>
+## 4 -87.53076 30.33239     1     4 alabama      <NA>
+## 5 -87.57087 30.32665     1     5 alabama      <NA>
+## 6 -87.58806 30.32665     1     6 alabama      <NA>
 ```
 
 Now, let's look at our worship place data. The full data set was more extensive (and much larger), so I've reduced the number of columns so that I'm able to put it on GitHub. 
 
 ```r
 head(worship)
-# A tibble: 6 x 10
-      EIN NAME      STREET  CITY  STATE   ZIP AFFILIATION FOUNDATION  long   lat
-    <dbl> <chr>     <chr>   <chr> <chr> <dbl>       <dbl>      <dbl> <dbl> <dbl>
-1  2.92e4 ST GEORG… 523 E … SOUT… MA     2127           9         10 -71.0  42.3
-2  6.36e5 MINISTER… 454 ES… LAWR… MA     1840           3         10 -71.2  42.7
-3  2.03e6 CHURCH O… 569 BR… NEWA… NJ     7104           3         10 -74.2  40.8
-4  2.05e6 GENERAL … 3210 S… ORCH… NY    14127           9         10 -78.7  42.8
-5  1.02e7 CHILD EV… 431 CA… LIVE… ME     4254           9         15 -70.1  44.4
-6  1.02e7 BIBLE SO… 105 HA… PORT… ME     4103           3         16 -70.3  43.7
+## # A tibble: 6 x 10
+##       EIN NAME      STREET  CITY  STATE   ZIP AFFILIATION FOUNDATION  long   lat
+##     <dbl> <chr>     <chr>   <chr> <chr> <dbl>       <dbl>      <dbl> <dbl> <dbl>
+## 1  2.92e4 ST GEORG… 523 E … SOUT… MA     2127           9         10 -71.0  42.3
+## 2  6.36e5 MINISTER… 454 ES… LAWR… MA     1840           3         10 -71.2  42.7
+## 3  2.03e6 CHURCH O… 569 BR… NEWA… NJ     7104           3         10 -74.2  40.8
+## 4  2.05e6 GENERAL … 3210 S… ORCH… NY    14127           9         10 -78.7  42.8
+## 5  1.02e7 CHILD EV… 431 CA… LIVE… ME     4254           9         15 -70.1  44.4
+## 6  1.02e7 BIBLE SO… 105 HA… PORT… ME     4103           3         16 -70.3  43.7
 ```
 
 We have tax numbers, entity names, mailing address, affiliation, foundation, and latitude/longitude. [A codebook for the affiliation and foundation information is available from the IRS](https://www.irs.gov/pub/irs-soi/eo_info.pdf). 
@@ -1206,23 +1206,23 @@ common_words <- worship %>%
   table() %>%
   sort(decreasing = TRUE)
 common_words[1:40]
-.
-                     CHURCH            OF           INC       BAPTIST 
-      3427562        119645         79566         59809         25940 
-   MINISTRIES     CHRISTIAN           THE           GOD      LUTHERAN 
-        24719         21974         21039         17550         13004 
-       CENTER        CHRIST    FELLOWSHIP     COMMUNITY           NEW 
-        12385         12172         11256         10922         10915 
-        FIRST      ASSEMBLY INTERNATIONAL            ST          LIFE 
-        10106          9367          9150          8992          8923 
-        FAITH            DE            IN         BIBLE        UNITED 
-         7780          6513          6101          5915          5682 
-      IGLESIA     METHODIST      MINISTRY         GRACE    MISSIONARY 
-         5610          5440          5191          5167          5141 
-          AND        TEMPLE  PRESBYTERIAN        GOSPEL          HOPE 
-         4873          4635          4155          4144          3915 
-       CHAPEL      OUTREACH        LIVING           FOR     EPISCOPAL 
-         3909          3634          3607          3491          3464 
+## .
+##                      CHURCH            OF           INC       BAPTIST 
+##       3427562        119645         79566         59809         25940 
+##    MINISTRIES     CHRISTIAN           THE           GOD      LUTHERAN 
+##         24719         21974         21039         17550         13004 
+##        CENTER        CHRIST    FELLOWSHIP     COMMUNITY           NEW 
+##         12385         12172         11256         10922         10915 
+##         FIRST      ASSEMBLY INTERNATIONAL            ST          LIFE 
+##         10106          9367          9150          8992          8923 
+##         FAITH            DE            IN         BIBLE        UNITED 
+##          7780          6513          6101          5915          5682 
+##       IGLESIA     METHODIST      MINISTRY         GRACE    MISSIONARY 
+##          5610          5440          5191          5167          5141 
+##           AND        TEMPLE  PRESBYTERIAN        GOSPEL          HOPE 
+##          4873          4635          4155          4144          3915 
+##        CHAPEL      OUTREACH        LIVING           FOR     EPISCOPAL 
+##          3909          3634          3607          3491          3464
 ```
 Let's work with the following denominations: BAPTIST, LUTHERAN, METHODIST, PRESBYTERIAN, EPISCOPAL - I've left out CHRISTIAN, ASSEMBLY (because it could be ASSEMBLY OF GOD or a more generic term for a congregation), and TEMPLE because it could refer to any number of religions - Jewish, Hindu, etc. This will give us a very rough categorization (e.g. there are Methodist Episcopal churches which will be counted as one and not the other, and UMC is a common abbreviation for United Methodist Church but won't be counted as one this way). 
 
@@ -1318,7 +1318,7 @@ Unfortunately, in this map there is not an underlying polygon (the coastline is 
 library(ggplot2)
 library(ggthemes)
 library(sf)
-Linking to GEOS 3.8.0, GDAL 3.0.4, PROJ 6.3.1
+## Linking to GEOS 3.9.0, GDAL 3.2.1, PROJ 7.2.1
 
 if (!file.exists("data/MiddleEarthMap.zip")) {
   download.file("https://github.com/jvangeld/ME-GIS/archive/master.zip", "data/MiddleEarthMap.zip", mode = "wb")
@@ -1377,7 +1377,7 @@ fbi %>%
   ggplot(aes(x = crime, y = per_100k)) + 
   geom_boxplot() + 
   ggtitle(paste("Crimes per 100k people,", max(fbi$Year)))
-Warning: Removed 52 rows containing non-finite values (stat_boxplot).
+## Warning: Removed 52 rows containing non-finite values (stat_boxplot).
 ```
 
 <img src="image/gg-boxplot-08-1.png" width="2100" />
@@ -1411,7 +1411,7 @@ tmp %>%
   ggplot(aes(x = crime, y = per_100k, color = Violent.crime)) + 
   geom_boxplot() + 
   ggtitle(paste("Crimes per 100k people,", max(fbi$Year)))
-Warning: Removed 52 rows containing non-finite values (stat_boxplot).
+## Warning: Removed 52 rows containing non-finite values (stat_boxplot).
 ```
 
 <img src="image/gg-boxplot-sort-08-1.png" width="2100" />
@@ -1450,6 +1450,7 @@ boxplot(per_100k~crime, data = tmp)
 
 <img src="image/base-boxplot-08-1.png" width="2100" />
 </details>
+
 <details><summary>Box plots in SAS</summary>
 
 ```sashtml
@@ -1469,7 +1470,7 @@ QUIT;
 
 
 <div class="branch">
-<a name="IDX8"></a>
+<a name="IDX"></a>
 <div>
 <div  class="c">
 <img alt="The SGPlot Procedure" src=" image/sas-boxplot-08.png" style=" height: 480px; width: 640px;" border="0" class="c">
@@ -1490,9 +1491,9 @@ tmp %>%
                                # Otherwise, theft is too skinny to really see
               draw_quantiles = c(.25, .5, .75)) + 
   ggtitle(paste("Crimes per 100k people,", max(fbi$Year)))
-Warning: Removed 52 rows containing non-finite values (stat_ydensity).
-Warning in regularize.values(x, y, ties, missing(ties), na.rm = na.rm):
-collapsing to unique 'x' values
+## Warning: Removed 52 rows containing non-finite values (stat_ydensity).
+## Warning in regularize.values(x, y, ties, missing(ties), na.rm = na.rm):
+## collapsing to unique 'x' values
 ```
 
 <img src="image/gg-violin-08-1.png" width="2100" />
@@ -1509,7 +1510,7 @@ Usually, these ranges have constant width (but not always).
 poke %>%
   ggplot(aes(x = hp)) + 
   geom_histogram(color = "black", fill = "grey")
-`stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
+## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
 ```
 
 <img src="image/gg-hist-08-1.png" width="2100" />
@@ -1532,7 +1533,7 @@ In a histogram, the statistic that is computed is `stat_bin` - we break the x ra
 tibble(x = rnorm(100)) %>%
   ggplot(aes(x = x)) + 
   stat_bin(geom = "bar") # this is equivalent to geom_histogram
-`stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
+## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
 ```
 
 <img src="image/gg-hist-stat-08-1.png" width="2100" />
@@ -1559,7 +1560,7 @@ QUIT;
 
 
 <div class="branch">
-<a name="IDX"></a>
+<a name="IDX1"></a>
 <div>
 <div  class="c">
 <img alt="The SGPlot Procedure" src=" image/sas-hist-08.png" style=" height: 480px; width: 640px;" border="0" class="c">
@@ -1594,7 +1595,7 @@ If you try to create a density plot for a variable which has only a limited numb
 poke %>%
   ggplot(aes(x = catch_rate)) + 
   geom_density(color = "black", fill = "grey")
-Warning: Removed 104 rows containing non-finite values (stat_density).
+## Warning: Removed 104 rows containing non-finite values (stat_density).
 ```
 
 <img src="image/gg-kernel-dens-cat-08-1.png" width="2100" />
@@ -1621,7 +1622,7 @@ QUIT;
 
 
 <div class="branch">
-<a name="IDX1"></a>
+<a name="IDX2"></a>
 <div>
 <div  class="c">
 <img alt="The SGPlot Procedure" src=" image/sas-kernel-dens-08.png" style=" height: 480px; width: 640px;" border="0" class="c">
@@ -1646,9 +1647,9 @@ poke %>%
   ggplot(aes(x = catch_rate)) + 
   geom_histogram(aes(y = ..density..)) + 
   geom_density(color = "black", fill = "white", alpha = .25)
-`stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
-Warning: Removed 104 rows containing non-finite values (stat_bin).
-Warning: Removed 104 rows containing non-finite values (stat_density).
+## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
+## Warning: Removed 104 rows containing non-finite values (stat_bin).
+## Warning: Removed 104 rows containing non-finite values (stat_density).
 ```
 
 <img src="image/gg-hist-dens-08-1.png" width="2100" />
@@ -1660,9 +1661,9 @@ poke %>%
   ggplot(aes(x = catch_rate)) + 
   geom_histogram() + 
   geom_density(aes(y = ..count..), color = "black", fill = "white", alpha = .25)
-`stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
-Warning: Removed 104 rows containing non-finite values (stat_bin).
-Warning: Removed 104 rows containing non-finite values (stat_density).
+## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
+## Warning: Removed 104 rows containing non-finite values (stat_bin).
+## Warning: Removed 104 rows containing non-finite values (stat_density).
 ```
 
 <img src="image/gg-hist-dens-alt-08-1.png" width="2100" />
@@ -1688,7 +1689,7 @@ QUIT;
 
 
 <div class="branch">
-<a name="IDX2"></a>
+<a name="IDX3"></a>
 <div>
 <div  class="c">
 <img alt="The SGPlot Procedure" src=" image/sas-hist-dens-08.png" style=" height: 480px; width: 640px;" border="0" class="c">
@@ -1710,7 +1711,7 @@ poke %>%
   geom_bin2d(aes(fill = ..count..), bins = 18, drop = F) + 
   scale_x_log10() + 
   scale_y_log10()
-Warning: Removed 1 rows containing non-finite values (stat_bin2d).
+## Warning: Removed 1 rows containing non-finite values (stat_bin2d).
 ```
 
 <img src="image/gg-2d-bin-08-1.png" width="2100" />
@@ -1722,8 +1723,8 @@ poke %>%
   geom_hex(aes(fill = ..count..), drop = F) + 
   scale_x_log10() + 
   scale_y_log10()
-Warning: Ignoring unknown parameters: drop
-Warning: Removed 1 rows containing non-finite values (stat_binhex).
+## Warning: Ignoring unknown parameters: drop
+## Warning: Removed 1 rows containing non-finite values (stat_binhex).
 ```
 
 <img src="image/gg-2d-bin-08-2.png" width="2100" />
@@ -1735,7 +1736,7 @@ poke %>%
   geom_density2d_filled() + 
   scale_x_log10() + 
   scale_y_log10()
-Warning: Removed 1 rows containing non-finite values (stat_density2d_filled).
+## Warning: Removed 1 rows containing non-finite values (stat_density2d_filled).
 ```
 
 <img src="image/gg-2d-bin-08-3.png" width="2100" />
@@ -1748,7 +1749,7 @@ poke %>%
   geom_density2d(bins = 15) + 
   scale_x_log10() + 
   scale_y_log10()
-Warning: Removed 1 rows containing non-finite values (stat_density2d).
+## Warning: Removed 1 rows containing non-finite values (stat_density2d).
 ```
 
 <img src="image/gg-contour-08-1.png" width="2100" />
@@ -1873,7 +1874,7 @@ QUIT;
 
 
 <div class="branch">
-<a name="IDX3"></a>
+<a name="IDX4"></a>
 <div>
 <div  class="c">
 <img alt="The SGPlot Procedure" src=" image/sas-bar-08.png" style=" height: 480px; width: 640px;" border="0" class="c">
@@ -1883,7 +1884,7 @@ QUIT;
 </div>
 <div class="branch">
 <p style="page-break-after: always;"><br/></p><hr size="3"/>
-<a name="IDX4"></a>
+<a name="IDX5"></a>
 <div>
 <div  class="c">
 <img alt="The SGPlot Procedure" src=" image/sas-bar-081.png" style=" height: 480px; width: 640px;" border="0" class="c">
@@ -1918,7 +1919,7 @@ fbi %>%
   ggplot(aes(x = Year, y = Count/Population)) + 
   geom_col() + 
   facet_wrap(~Type)
-Warning: Removed 54 rows containing missing values (position_stack).
+## Warning: Removed 54 rows containing missing values (position_stack).
 ```
 
 <img src="image/gg-facet-08-1.png" width="2100" />
@@ -1935,7 +1936,7 @@ fbi %>%
   ggplot(aes(x = Year, y = Count/Population)) + 
   geom_col() + 
   facet_wrap(~Type, scales = "free_y")
-Warning: Removed 54 rows containing missing values (position_stack).
+## Warning: Removed 54 rows containing missing values (position_stack).
 ```
 
 <img src="image/gg-facet-scale-08-1.png" width="2100" />
@@ -1970,7 +1971,7 @@ QUIT;
 
 
 <div class="branch">
-<a name="IDX5"></a>
+<a name="IDX6"></a>
 <div>
 <div  class="c">
 <img alt="The SGPanel Procedure" src=" image/sas-facet-08.png" style=" height: 640px; width: 640px;" border="0" class="c">
@@ -1989,28 +1990,28 @@ The classdata package contains the `box` dataset, which has weekly box office nu
 ```r
 library(classdata)
 library(lubridate) # Work with dates and times
-
-Attaching package: 'lubridate'
-The following objects are masked from 'package:base':
-
-    date, intersect, setdiff, union
+## 
+## Attaching package: 'lubridate'
+## The following objects are masked from 'package:base':
+## 
+##     date, intersect, setdiff, union
 data(box)
 
 head(box)
-  Rank Rank.Last.Week             Movie        Distributor    Gross Change
-1    1              1             Joker       Warner Bros. 55861403    -42
-2    2             NA The Addams Family     United Artists 30300007     NA
-3    3             NA        Gemini Man Paramount Pictures 20552372     NA
-4    4              2        Abominable          Universal  6072235    -49
-5    5              3     Downton Abbey     Focus Features  4881075    -39
-6    6              4          Hustlers  STX Entertainment  3887018    -39
-  Thtrs. Per.Thtr. Total.Gross Week       Date
-1   4374     12771   193590190    2 2019-10-11
-2   4007      7562    30300007    1 2019-10-11
-3   3642      5643    20552372    1 2019-10-11
-4   3496      1737    47873585    3 2019-10-11
-5   3019      1617    82668665    4 2019-10-11
-6   2357      1649    98052357    5 2019-10-11
+##   Rank Rank.Last.Week             Movie        Distributor    Gross Change
+## 1    1              1             Joker       Warner Bros. 55861403    -42
+## 2    2             NA The Addams Family     United Artists 30300007     NA
+## 3    3             NA        Gemini Man Paramount Pictures 20552372     NA
+## 4    4              2        Abominable          Universal  6072235    -49
+## 5    5              3     Downton Abbey     Focus Features  4881075    -39
+## 6    6              4          Hustlers  STX Entertainment  3887018    -39
+##   Thtrs. Per.Thtr. Total.Gross Week       Date
+## 1   4374     12771   193590190    2 2019-10-11
+## 2   4007      7562    30300007    1 2019-10-11
+## 3   3642      5643    20552372    1 2019-10-11
+## 4   3496      1737    47873585    3 2019-10-11
+## 5   3019      1617    82668665    4 2019-10-11
+## 6   2357      1649    98052357    5 2019-10-11
 
 ggplot(box, aes(x = Week, y = Gross, group = Movie)) + 
   geom_line(alpha = .1)
@@ -2025,29 +2026,29 @@ filter(box, Week > 100) %>%
   group_by(Movie) %>% 
   summarize(max_week = max(Week)) %>%
   arrange(desc(max_week))
-# A tibble: 120 x 2
-   Movie                          max_week
-   <chr>                             <dbl>
- 1 Ghanchakkar                      105065
- 2 The Captive                        5186
- 3 The Wizard of Oz                   3869
- 4 Detour (1945) (Re-Release)         3812
- 5 Le Corbeau (1943) (Re-Release)     3681
- 6 The Fallen Idol                    3497
- 7 Monsieur Verdoux                   3456
- 8 The Third Man                      3434
- 9 Olivia                             3415
-10 Little Fugitive                    3138
-# … with 110 more rows
+## # A tibble: 120 x 2
+##    Movie                          max_week
+##    <chr>                             <dbl>
+##  1 Ghanchakkar                      105065
+##  2 The Captive                        5186
+##  3 The Wizard of Oz                   3869
+##  4 Detour (1945) (Re-Release)         3812
+##  5 Le Corbeau (1943) (Re-Release)     3681
+##  6 The Fallen Idol                    3497
+##  7 Monsieur Verdoux                   3456
+##  8 The Third Man                      3434
+##  9 Olivia                             3415
+## 10 Little Fugitive                    3138
+## # … with 110 more rows
 
 box %>%
   filter(Week < 100) %>%
   ggplot(aes(x = Week, y = Gross, group = Movie)) + 
   geom_line(alpha = .01) + 
   scale_y_log10()
-Warning in self$trans$transform(x): NaNs produced
-Warning: Transformation introduced infinite values in continuous y-axis
-Warning: Removed 2 row(s) containing missing values (geom_path).
+## Warning in self$trans$transform(x): NaNs produced
+## Warning: Transformation introduced infinite values in continuous y-axis
+## Warning: Removed 2 row(s) containing missing values (geom_path).
 ```
 
 <img src="image/gg-tryitout-boxoffice-08-2.png" width="2100" />
@@ -2070,10 +2071,10 @@ box %>%
   geom_line(alpha = .05) + 
   facet_wrap(~release_year) + 
   scale_y_log10()
-Joining, by = "Movie"
-Warning in self$trans$transform(x): NaNs produced
-Warning: Transformation introduced infinite values in continuous y-axis
-Warning: Removed 2 row(s) containing missing values (geom_path).
+## Joining, by = "Movie"
+## Warning in self$trans$transform(x): NaNs produced
+## Warning: Transformation introduced infinite values in continuous y-axis
+## Warning: Removed 2 row(s) containing missing values (geom_path).
 ```
 
 <img src="image/gg-tryitout-boxoffice-2-08-1.png" width="2100" />
@@ -2090,8 +2091,8 @@ box %>%
   geom_point(alpha = .05) + 
   scale_y_reverse() + 
   facet_wrap(~Week)
-Joining, by = "Movie"
-Warning: Removed 1979 rows containing missing values (geom_point).
+## Joining, by = "Movie"
+## Warning: Removed 1979 rows containing missing values (geom_point).
 ```
 
 <img src="image/gg-tryitout-boxoffice-rank-08-1.png" width="2100" />
@@ -2105,7 +2106,7 @@ box %>%
   geom_density2d_filled() + 
   scale_y_reverse() + 
   facet_wrap(~Week)
-Warning: Removed 1586 rows containing non-finite values (stat_density2d_filled).
+## Warning: Removed 1586 rows containing non-finite values (stat_density2d_filled).
 ```
 
 <img src="image/gg-tryitout-boxoffice-rank-dens-08-1.png" width="2100" />
@@ -2121,7 +2122,7 @@ box %>%
   ggplot(aes(x = Thtrs., y = Gross)) + 
   geom_density2d_filled() + 
   scale_y_log10()
-Joining, by = "Movie"
+## Joining, by = "Movie"
 ```
 
 <img src="image/gg-theater-receipts-08-1.png" width="2100" />
@@ -2136,19 +2137,19 @@ distributors <- box %>% group_by(Distributor, Movie) %>%
   arrange(desc(median.gross))
 
 head(distributors, 10)
-# A tibble: 10 x 3
-   Distributor            n median.gross
-   <chr>              <int>        <dbl>
- 1 Walt Disney           76   185808558.
- 2 Columbia               1   169077585 
- 3 Universal            118    66197380 
- 4 20th Century Fox     105    65007045 
- 5 Warner Bros.         150    53930748.
- 6 Paramount Pictures    81    52822418 
- 7 Sony Pictures        130    37709109 
- 8 MGM                    4    34693428 
- 9 Focus / Gramercy       1    26583369 
-10 IMAX Films             4    26349032 
+## # A tibble: 10 x 3
+##    Distributor            n median.gross
+##    <chr>              <int>        <dbl>
+##  1 Walt Disney           76   185808558.
+##  2 Columbia               1   169077585 
+##  3 Universal            118    66197380 
+##  4 20th Century Fox     105    65007045 
+##  5 Warner Bros.         150    53930748.
+##  6 Paramount Pictures    81    52822418 
+##  7 Sony Pictures        130    37709109 
+##  8 MGM                    4    34693428 
+##  9 Focus / Gramercy       1    26583369 
+## 10 IMAX Films             4    26349032
 
 distributors %>%
   filter(n >= 25) %>% # want distributors with at least 25 movies
@@ -2160,7 +2161,7 @@ distributors %>%
   geom_density2d_filled(contour_var = "ndensity") + 
   scale_y_log10() + 
   facet_wrap(~Distributor)
-Joining, by = "Distributor"
+## Joining, by = "Distributor"
 ```
 
 <img src="image/gg-theater-distributors-08-1.png" width="2100" />
