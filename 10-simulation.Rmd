@@ -1,4 +1,3 @@
-
 ```{r, child='in_all.Rmd'}
 ```
 
@@ -147,7 +146,10 @@ RUN;
 
 One of the more powerful ways to use simulation in practice is to use it to test the assumptions of your model. Suppose, for instance, that your data are highly skewed, but you want to use a method that assumes normally distributed errors. How bad will your results be? Where can you trust the results, and where should you be cautious?
 
-<details><summary>Example: Confidence Interval coverage rates</summary>
+
+Example from Telling Stories with Data: [Multilevel regression and post-stratification simulation with toddler bedtimes](https://www.tellingstorieswithdata.com/multilevel-regression-with-post-stratification.html#simulation---toddler-bedtimes). This example talks about how to take a biased sample and then recover the original unbiased estimates -- which is something you have to test using simulation to be sure it works, because you never actually know what the true population features are when you are working with real world data. When reading this example, you may not be all that interested with the specific model - but focus on the **process of simulating data for your analysis** so that you understand how and why you would want to simulate data in order to test a computational method.
+
+<details class="ex"><summary>Example: Confidence Interval coverage rates</summary>
 Suppose, for instance, that we have a lognormal distribution (highly skewed) and we want to compute a 95% confidence interval for the mean of our data. 
 ```{r}
 set.seed(40295023)
@@ -227,7 +229,7 @@ ggplot() +
 From this, we can see that working with the log-transformed, normally distributed results has better coverage probability than working with the raw data and computing the population mean: the estimates in the latter procedure have lower coverage probability, and many of the intervals are much wider than necessary; in some cases, the interval actually lies outside of the domain. 
 </details>
 
-<details><summary>Example: Regression and high-leverage points</summary>
+<details class="ex"><summary>Example: Regression and high-leverage points</summary>
 What happens if we have one high-leverage point (e.g. a point which is an outlier in both x and y)? How pathological do our regression coefficient estimates get?
 
 The challenging part here is to design a data generating mechanism.
@@ -398,7 +400,7 @@ You could set up Riemann integration and evaluate the integral using a sum over 
 
 Instead, let's observe that this is equivalent to $\int_0^1 e^{-x^3}\cdot 1 dx$, where $p(x) = 1$ for a uniform random variable. That is, this integral can be written as the expected value of the function over the interval $[0,1]$. What if we just generate a bunch of uniform(0,1) variables, evaluate the value of the function at that point, and average the result?
 
-<details><summary>Implementation</summary>
+<details class="ex"><summary>Implementation</summary>
 ```{r}
 set.seed(20491720)
 fn <- function(x) exp(-x^3)
