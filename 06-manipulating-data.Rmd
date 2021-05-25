@@ -435,6 +435,7 @@ select(any_of(varlist)) # this runs just fine
 
 So for now, at least in R, you know how to cut your data down to size rowwise (with `filter`) and column-wise (with `select`).
 
+<details class = "ex"><summary>Column selection in SAS</summary>
 Unfortunately, SAS doesn't make column selection *quite* as easy. It's still not hard, but it can be tedious. In SAS, there are two primary methods to select variables: KEEP selects variables, DROP removes variables.
 
 ```{r export-data-sas, eval = F}
@@ -456,8 +457,7 @@ RUN;
 
 In SAS, a partial variable name either preceded or followed by `:` serves as  a wildcard.
 Ranges of variables can be specified with two dashes, e.g. `var3 -- var5`.
-&nbsp;
-<details class = "ex"><summary>SAS KEEP statement</summary>
+
 Unfortunately, the wildcard doesn't work on both ends, so to get the equivalent of `matches("dep")`, we have to use two different options in our KEEP statement (plus the extra variables that don't have dep in them).
 
 ```{r matches-sas-data, engine = "sashtmllog", engine.path = sasexe, engine.opts = sasopts, collectcode = F, error = T, fig.path = "image/"}
@@ -473,12 +473,9 @@ RUN;
 ```
 
 Note also that SAS doesn't reorder the columns for us like `select()` does.
-</details>
 
 If we'd prefer to carve out columns (rather than assembling a new dataset with the columns we want to keep), we can use a DROP statement, which works exactly the same way. Let's see what columns we removed implicitly last time by dropping everything we'd previously kept:
 
-&nbsp;
-<details class = "ex"><summary>SAS DROP statement</summary>
 ```{r sas-select-drop, engine = "sashtmllog", engine.path = sasexe, engine.opts = sasopts, collectcode = F, error = T, fig.path = "image/"}
 libname classdat "sas/";
 
@@ -490,6 +487,7 @@ RUN;
 PROC PRINT DATA = tmpfly (obs=10);
 RUN;
 ```
+
 </details>
 
   As with the filter statements, we can also use PROC SQL instead of a SAS DATA step. There are even ways to (sort-of) use elements of both.
@@ -532,7 +530,7 @@ For the most part, that is what you need to functionally replicate `select()` sy
 
 ## Mutate: Add and transform variables
 
-Up to this point, we've been primarily focusing on how to decrease the dimensionality of our dataset in various ways. But frequently, we also need to add columns for derived measures (e.g. BMI from weight and height information), change units, and replace missing or erroneous observations. The tidyverse verb for this is `mutate`. However, it's probably best to start this section out with a very short demonstration of how this process worked in R before the tidyverse came around.
+Up to this point, we've been primarily focusing on how to decrease the dimensionality of our dataset in various ways. But frequently, we also need to add columns for derived measures (e.g. BMI from weight and height information), change units, and replace missing or erroneous observations. The tidyverse verb for this is `mutate`. However, it's probably best to start this section out with a very short demonstration of how this process worked in R before the tidyverse came around. Then, I'll show you how things work in SAS, and finally, we'll get to mutate() (and hopefully you'll see how big of an improvement it is!).
 
 &nbsp;
 <details class = "ex"><summary>Pre-tidyverse base R "mutating" a data frame</summary>
@@ -640,9 +638,10 @@ The last 2 rows are just to organize the output - we keep only the two variables
 
 The learning curve here isn't actually knowing how to use mutate (though that's important). The challenge comes when you want to do something *new* and have to figure out how to e.g. use find and replace in a string, or work with dates and times, or recode variables. 
 
+::: note
 I'm not going to be able to teach you how to handle every task you'll come across (people invent new ways to screw up data all the time!) but my goal is instead to teach you how to read documentation and google things intelligently, and to _understand what you're reading_ enough to actually implement it. This is something that comes with practice (and lots of googling, stack overflow searches, etc.).
 
-<details><summary>It's actually something of a common meme...</summary>
+<details><summary>Google and StackOverflow are very common programming meme topics</summary>
 
 ```{r tweets-ch5, echo = F}
 if (!"tweetrmd" %in% installed.packages()) devtools::install_github("gadenbuie/tweetrmd")
@@ -656,15 +655,15 @@ tweetrmd::tweet_screenshot(tweetrmd::tweet_url("cszhu", "1230954186520461312"))
 tweetrmd::tweet_screenshot(tweetrmd::tweet_url("grubes14", "1168946210868269057"))
 ```
 </details>
-
-
-In this class, my goal is to expose you to solutions to common problems; unfortunately, there are too many common problems for us to work through line-by-line. 
-Part of the goal of this class is for you to learn how to read through a package description and evaluate whether the package will do what you want; we're going to try to build some of those skills starting now. 
+&nbsp;
+In this class, the examples will expose you to solutions to common problems; unfortunately, there are too many common problems for us to work through line-by-line. 
+Part of the goal of this class is for you to **learn how to read through a package description and evaluate whether the package will do what you want**; we're going to try to build some of those skills starting now. 
 It would be relatively easy to teach you how to do a set list of tasks, but you'll be better statisticians and programmers if you learn the skills to solve niche problems on your own.
 
 ```{r tweets-more-ch5, echo = F, fig.cap = "Apologies for the noninclusive language, but the sentiment is real."}
 tweetrmd::tweet_screenshot(tweetrmd::tweet_url("abt_programming", "459414524303785984"))
 ```
+:::
 
 Here is a quick list of packages in R which will solve some of the more common problems. Between that and the R cheatsheet, you should be set. In SAS, there are fewer options, so it's less bewildering to google solutions (but I'll link you to relevant pieces for the common SAS stuff too).
 
@@ -1097,6 +1096,7 @@ The dplyr package is filled with other handy functions for accomplishing common 
 
 ![dplyr's across() function lets you apply a mutate or summarize statement to many columns (by Allison Horst)](https://github.com/allisonhorst/stats-illustrations/raw/master/rstats-artwork/dplyr_across.png)
 
+<details class="ex"><summary>dplyr's `across()` function demo </summary>
 Suppose we want to summarize the numerical columns of any storm which was a hurricane (over the entire period it was a hurricane). We don't want to write out all of the summarize statements individually, so we use across() instead. 
 
 ```{r storms-dplyr-other-functions}
@@ -1120,11 +1120,13 @@ avg_hurricane_intensity %>%
   filter(row_number() <= 10) %>%
   knitr::kable() # Make into a pretty table
 ```
+</details>
 
 Another handy dplyr function is relocate; while you definitely can do this operation in many, many different ways, it may be simpler to do it using relocate. But, I'm covering relocate here if only because it also comes with this handy cartoon illustration.
 
 ![relocate lets you rearrange columns (by Allison Horst)](https://github.com/allisonhorst/stats-illustrations/raw/master/rstats-artwork/dplyr_relocate.png)
 
+<details class="ex"><summary>`relocate()` demo</summary>
 ```{r relocate-dplyr}
 avg_hurricane_intensity %>%
 relocate(c(wind, pressure), .after = month)
@@ -1133,7 +1135,7 @@ relocate(c(wind, pressure), .after = month)
 avg_hurricane_intensity %>%
 relocate(where(is.numeric))
 ```
-
+</details>
 
 ## Try it out {.tryitout -}
 <details><summary>Data Setup </summary>
