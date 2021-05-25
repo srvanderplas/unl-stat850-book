@@ -4,22 +4,22 @@
 
 # Manipulating Data {#manipulating-data}
 
-In this section, we're going start learning how to work with data. Generally speaking, data doesn't come in a form suitable for analysis^[See [this twitter thread](https://twitter.com/JennyBryan/status/722954354198597632) for some horror stories. [This tweet](https://twitter.com/jengolbeck/status/1153064308483510272?s=20) is also pretty good at showing one type of messiness.] - you have to clean it up, create the variables you care about, get rid of those you don't care about, and so on. 
-
-In R, we'll be using the `tidyverse` for this. It's a meta-package (a package that just loads other packages) that collects packages designed with the same philosophy^[The philosophy includes a preference for pipes, but this preference stems from the belief that code should be readable in the same way that text is readable.] and interface (basically, the commands will use predictable argument names and structure). You've already been introduced to the tidyverse - specifically, `readr`. 
-
-In SAS, there is no tidyverse, but there is a relatively consistent structure for how to accomplish each task. Most data cleaning in SAS is accomplished in data steps. In the interests of not confusing terms too much between languages, I'm going to use the tidyverse "verbs" to describe operations in both SAS and R. 
-
-`dplyr` (one of the packages in the tidyverse) creates a "grammar of data manipulation" to make it easier to describe different operations. I find the `dplyr` grammar to be extremely useful when talking about data operations, so I'm going to attempt to show you how to do the same operations in R with dplyr, and in SAS (without the underlying framework). Each verb describes a common task when doing both exploratory data analysis and more formal statistical modeling. In all tidyverse functions, data comes first -- literally, as it's the first argument to any function. In addition, you don't use df$variable to access a variable - you refer to the variable by its name alone. This makes the syntax much cleaner and easier to read, which is another principle of the tidy philosophy. 
-
-<div class="learn-more">
-[There is an excellent dplyr cheatsheet available from RStudio](https://github.com/rstudio/cheatsheets/blob/master/data-transformation.pdf). You may want to print it out to have a copy to reference as you work through this chapter. </div>
-
 ## Module Objectives  {- #module6-objectives}
 
 - Filter, subset, and clean data to prepare a dataset for analysis
 - Describe and document operations performed on a data set transparently, and implement the operations using reproducible steps.
 - Create summaries of data appropriate for additional analysis or display
+
+In this section, we're going start learning how to work with data. Generally speaking, data doesn't come in a form suitable for analysis^[See [this twitter thread](https://twitter.com/JennyBryan/status/722954354198597632) for some horror stories. [This tweet](https://twitter.com/jengolbeck/status/1153064308483510272?s=20) is also pretty good at showing one type of messiness.] - you have to clean it up, create the variables you care about, get rid of those you don't care about, and so on. 
+
+In R, we'll be using the `tidyverse` for this. It's a meta-package (a package that just loads other packages) that collects packages designed with the same philosophy^[The philosophy includes a preference for pipes, but this preference stems from the belief that code should be readable in the same way that text is readable.] and interface (basically, the commands will use predictable argument names and structure). You've already been introduced to parts of the tidyverse - specifically, `readr` and `ggplot2`. 
+
+In SAS, there is no tidyverse, but there is a relatively consistent structure for how to accomplish each task. Most data cleaning in SAS is accomplished in data steps. In the interests of not confusing terms too much between languages, I'm going to use the tidyverse "verbs" to describe operations in both SAS and R. This will help all of us to focus on the essentials of the operations, instead of the specific language-based syntax.
+
+`dplyr` (one of the packages in the tidyverse) creates a "grammar of data manipulation" to make it easier to describe different operations. I find the `dplyr` grammar to be extremely useful when talking about data operations, so I'm going to attempt to show you how to do the same operations in R with dplyr, and in SAS (without the underlying framework). Each verb describes a common task when doing both exploratory data analysis and more formal statistical modeling. In all tidyverse functions, data comes first -- literally, as it's the first argument to any function. In addition, you don't use df$variable to access a variable - you refer to the variable by its name alone. This makes the syntax much cleaner and easier to read, which is another principle of the tidy philosophy. 
+
+<div class="learn-more">
+[There is an excellent dplyr cheatsheet available from RStudio](https://github.com/rstudio/cheatsheets/blob/master/data-transformation.pdf). You may want to print it out to have a copy to reference as you work through this chapter. </div>
 
 ## Tidy Data
 
@@ -40,7 +40,7 @@ Filter allows us to work with a subset of a larger data frame, keeping only the 
 ![dplyr filter() by Allison Horst](https://github.com/allisonhorst/stats-illustrations/raw/master/rstats-artwork/dplyr_filter.jpg)
 
 Let's explore how it works, using the `starwars` dataset, which contains a comprehensive list of the characters in the Star Wars movies. 
-<details><summary>Data set up</summary>
+<details class="ex"><summary>Data set up</summary>
 
 This data set is included in the `dplyr` package, so we load that package and then use the `data()` function to load dataset into memory. The loading isn't complete until we actually use the dataset though... so let's print the first few rows. 
 
@@ -79,7 +79,7 @@ If you want to directly load the SAS datafile, you can find it [here](sas/starwa
 
 Once the data is set up, using `filter` is actually very simple.
 
-<details><summary>Demonstration of `filter()` in R</summary>
+<details class = "ex"><summary>Demonstration of `filter()` in R</summary>
 ```{r r-filter-data}
 # Get only the people
 filter(starwars, species == "Human")
@@ -90,7 +90,8 @@ filter(starwars, species == "Human", homeworld == "Tatooine")
 </details>
 
 In SAS, as in SQL, the `filter()` operation is accomplished using a `where` clause. Multiple clauses can be connected using `and`, and compound statements can be grouped with parentheses. 
-<details><summary>Demonstration of `where` in SAS</summary>
+
+<details class = "ex"><summary>Demonstration of `where` in SAS</summary>
 Rather than output the whole data table (which would take up a lot of space), I've linked the log file from each chunk below the chunk. If you are running this code in SAS, you should NOT copy the `proc printto` line. 
 
 ```{r sas-filter1, engine = "sashtml", engine.path = sasexe, engine.opts = sasopts, collectcode = F, error = T, fig.path = "image/"}
@@ -121,7 +122,7 @@ See the log file [here](other/05-filter-2.log)
 
 At this point, you've seen the traditional SAS Data step options, but there is another SAS PROC that may be more useful (and more similar to `dplyr`). `dplyr` was developed to provide SQL-like syntax while enabling the use of more advanced computations than are supported in SQL. While SAS doesn't have anything quite the same as `dplyr`, it does have [PROC SQL](https://documentation.sas.com/?docsetId=sqlproc&docsetTarget=p07v6ho0hymhfvn1jboqfe38jnox.htm&docsetVersion=9.4&locale=en).
 
-<details><summary>SAS PROC SQL</summary>
+<details class = "ex"><summary>SAS PROC SQL</summary>
 In SQL, as in the SAS DATA step, `filter()` operations are performed using the keyword `WHERE`.
 
 To limit the output I'm going to cheat a bit and use SELECT statements before I officially teach them to you - this is mostly so you don't get a table with all 49 variables in it. Similarly, I'm limiting the dataset to the first 5 observations that meet the condition so that we don't have to see *all* the water type pokemon.
@@ -151,7 +152,7 @@ RUN;
 ### Common Filter() Tasks
 In `dplyr`, there are a few helper functions which may be useful when constructing filter statements.
 
-<details><summary>
+<details class = "ex"><summary>
 `row_number()` - this is only used inside of another dplyr function (e.g. filter). You might want to keep only even rows, or only the first 10 rows in a table.  </summary>
 ```{r filter-poke}
 poke <- read_csv("data/pokemon_ascii.csv")
@@ -161,15 +162,16 @@ filter(poke, (row_number() %% 2 == 0))
 ```
 </details>
 
+&nbsp;
 
-<details><summary>
+<details class = "ex"><summary>
 `arrange()` - sort rows in the table by one or more variables</summary>
 ```{r arrange-poke}
 arrange(poke, desc(total_points))
 ```
 </details>
-
-<details><summary>
+&nbsp;
+<details class = "ex"><summary>
 `slice_max()` - this will keep the top values of a specified variable.</summary>
 
 It's like a filter statement, but it's a shortcut built to handle a common task. You could write a filter statement that would do this, but it would take a lot more code.
@@ -186,7 +188,8 @@ slice_max(poke, order_by = total_points, n = 5, with_ties = F) %>%
 
 In SAS, these same tasks can sometimes require a bit more code.
 
-<details><summary>Keeping only certain rows in SAS</summary>
+&nbsp;
+<details class = "ex"><summary>Keeping only certain rows in SAS</summary>
 
 In SAS, to use a variable, you have to define it in one data step, then make another data step in order to use that variable. But, like `dplyr`, SAS has a row number counter that we can use for this purpose.
 ```{r rownumbers, engine = "sashtmllog", engine.path = sasexe, engine.opts = sasopts, collectcode = F, error = T, fig.path = "image/"}
@@ -205,7 +208,8 @@ RUN;
 ```
 </details>
 
-<details><summary>Top N values</summary>
+&nbsp;
+<details class = "ex"><summary>Top N values in SAS</summary>
 We're going to want to use PROC SORT to get the data arranged before we take the top N values.
 According to [this](https://communities.sas.com/t5/General-SAS-Programming/if-and-where-statement-for-n/td-p/237647), we can't use `_n_` in a where statement, and the proposed solution isn't reliable. So we'll do it the long way.
 ```{r topnvalues, engine = "sashtmllog", engine.path = sasexe, engine.opts = sasopts, collectcode = F, error = T, fig.path = "image/"}
@@ -239,7 +243,8 @@ In both cases, the SAS statements required to perform the task require a WHERE c
 The thing that makes the `tidyverse` philosophy so addictive is that it makes these common, everyday tasks both easy and concise (that is, few lines of code are required).
 :::
 
-<details><summary>PROC SQL filter statements </summary>
+&nbsp;
+<details class = "ex"><summary>PROC SQL filter statements </summary>
 SQL doesn't have an intrinsic notion of ordered rows, so in order to select even rows, we need to create a temporary dataset with `_n_` copied into a variable (just like last time).
 ```{r filter-sql-1, engine = "sashtmllog", engine.path = sasexe, engine.opts = sasopts, collectcode = F, error = T, fig.path = "image/"}
 libname classdat "sas/";
@@ -347,7 +352,7 @@ So as with just about every other tidyverse function, the first argument in a se
 
 So what can go in there?
 
-<details><summary>An exhaustive list of ways to select variables in `dplyr`</summary>
+<details><summary>An (I think) exhaustive list of ways to select variables in `dplyr`</summary>
   First, dplyr aims to work with standard R syntax, making it intuitive (and also, making it work with variable names instead of just variable indices).^[It accomplishes this through the magic of quasiquotation, which we will not cover in this course because it's basically witchcraft.]  Most `dplyr` commands work with "bare" variable names - you don't need to put the variable name in quotes to reference it. There are a few exceptions to this rule, but they're very explicitly exceptions.
 
 - `var3:var5`: `select(df, var3:var5)` will give you a data frame with columns var3, anything between var3 and var 5, and var5
@@ -376,8 +381,8 @@ There's one final selector -
 
 </details>
 
-<details>
-<summary>Let's try these selector functions out and see what we can accomplish!</summary>
+&nbsp;
+<details class = "ex"><summary>Let's try these selector functions out and see what we can accomplish!</summary>
 
 ```{r nycflightsinstall}
 if (!"nycflights13" %in% installed.packages()) install.packages("nycflights13")
@@ -451,7 +456,8 @@ RUN;
 
 In SAS, a partial variable name either preceded or followed by `:` serves as  a wildcard.
 Ranges of variables can be specified with two dashes, e.g. `var3 -- var5`.
-<details><summary>SAS KEEP statement</summary>
+&nbsp;
+<details class = "ex"><summary>SAS KEEP statement</summary>
 Unfortunately, the wildcard doesn't work on both ends, so to get the equivalent of `matches("dep")`, we have to use two different options in our KEEP statement (plus the extra variables that don't have dep in them).
 
 ```{r matches-sas-data, engine = "sashtmllog", engine.path = sasexe, engine.opts = sasopts, collectcode = F, error = T, fig.path = "image/"}
@@ -471,7 +477,8 @@ Note also that SAS doesn't reorder the columns for us like `select()` does.
 
 If we'd prefer to carve out columns (rather than assembling a new dataset with the columns we want to keep), we can use a DROP statement, which works exactly the same way. Let's see what columns we removed implicitly last time by dropping everything we'd previously kept:
 
-<details><summary>SAS DROP statement</summary>
+&nbsp;
+<details class = "ex"><summary>SAS DROP statement</summary>
 ```{r sas-select-drop, engine = "sashtmllog", engine.path = sasexe, engine.opts = sasopts, collectcode = F, error = T, fig.path = "image/"}
 libname classdat "sas/";
 
@@ -487,7 +494,8 @@ RUN;
 
   As with the filter statements, we can also use PROC SQL instead of a SAS DATA step. There are even ways to (sort-of) use elements of both.
 
-<details><summary>SAS PROC SQL SELECT statement </summary>
+&nbsp;
+<details class = "ex"><summary>SAS PROC SQL SELECT statement </summary>
 ```{r sas-select-sql, engine = "sashtmllog", engine.path = sasexe, engine.opts = sasopts, collectcode = F, error = T}
 libname classdat "sas/";
 
@@ -526,7 +534,8 @@ For the most part, that is what you need to functionally replicate `select()` sy
 
 Up to this point, we've been primarily focusing on how to decrease the dimensionality of our dataset in various ways. But frequently, we also need to add columns for derived measures (e.g. BMI from weight and height information), change units, and replace missing or erroneous observations. The tidyverse verb for this is `mutate`. However, it's probably best to start this section out with a very short demonstration of how this process worked in R before the tidyverse came around.
 
-<details><summary>Pre-tidyverse base R "mutating" a data frame</summary>
+&nbsp;
+<details class = "ex"><summary>Pre-tidyverse base R "mutating" a data frame</summary>
 Lets use the police violence data to demonstrate. Remember the issues you identified with the data during EDA in Module 4 ([in SAS](#police-violence-eda-sas))([in R](#police-violence-eda-r))?
 
 The `gsub` function is basically R's version of "find and replace".
@@ -550,7 +559,8 @@ You could do a simple operation like that in a single line, but you had to use t
 
 The process in SAS is very similar. It's recommended that you use one data step to read in your data, and then a separate data step to clean the data, so that you are separating the two operations.
 
-<details><summary>SAS DATA STEP - create a new variable</summary>
+&nbsp;
+<details class = "ex"><summary>SAS DATA STEP - create a new variable</summary>
 We can create our variable a couple of different ways in SAS:
 - Use the [TRANWRD function](https://v8doc.sas.com/sashtml/lgref/z0215027.htm) for find and replace.
 - Use an if statement and define the replacement ourselves
@@ -576,7 +586,8 @@ In both cases we can see that the recode worked the way we wanted and we've now 
 
 We can also use PROC SQL to create new variables using relatively complex logic if necessary.
 
-<details><summary>SAS PROC SQL - create a new variable</summary>
+&nbsp;
+<details class = "ex"><summary>SAS PROC SQL - create a new variable</summary>
 
 In SQL, you define new variables using AS. In SELECT statements, this definition has the computation on the left and the variable on the right^[This is equivalent to using right assignment in R with `->`, which you shouldn't do unless you have a *really* good reason, because it's hard to read.].
 
@@ -614,7 +625,8 @@ The fundamentals of `mutate` are very similar to the approaches above; the power
 
 ![Mutate (by Allison Horst)](https://github.com/allisonhorst/stats-illustrations/raw/master/rstats-artwork/dplyr_mutate.png)
 
-<details><summary>`mutate()` a new variable</summary>
+&nbsp;
+<details class = "ex"><summary>`mutate()` a new variable</summary>
 ```{r mutate-dplyr}
 # The data was read in above...
 library(dplyr)
@@ -656,8 +668,10 @@ tweetrmd::tweet_screenshot(tweetrmd::tweet_url("abt_programming", "4594145243037
 
 Here is a quick list of packages in R which will solve some of the more common problems. Between that and the R cheatsheet, you should be set. In SAS, there are fewer options, so it's less bewildering to google solutions (but I'll link you to relevant pieces for the common SAS stuff too).
 
-::: learn-more
-- Dates and times: `lubridate` package in R (esp. `ymd_hms()` and variants, `decimal_date()`, and other convenience functions). [SAS Dates and Times](https://documentation.sas.com/?docsetId=lrcon&docsetTarget=p1wj0wt2ebe2a0n1lv4lem9hdc0v.htm&docsetVersion=9.4&locale=en).
+::: go-read
+- Dates and times: 
+  - `lubridate` package in R (esp. `ymd_hms()` and variants, `decimal_date()`, and other convenience functions). 
+  - [SAS Dates and Times](https://documentation.sas.com/?docsetId=lrcon&docsetTarget=p1wj0wt2ebe2a0n1lv4lem9hdc0v.htm&docsetVersion=9.4&locale=en).
 - String manipulation:
   - `stringr` package in R (`str_replace()`, `str_remove()`, `str_detect()`, `str_split()`)
   - [Regular Expression Cheatsheet (R)](https://rstudio.com/wp-content/uploads/2016/09/RegExCheatsheet.pdf)
@@ -676,6 +690,10 @@ library(dplyr)
 ## Summarize
 
 The next verb is one that we've already implicitly seen in action: `summarize` takes a data frame with potentially many rows of data and reduces it down to one row of data using some function. You have used it to get single-row summaries of vectorized data in R, and in SAS, PROC MEANS is essentially the same thing.
+
+
+&nbsp;
+<details class = "ex"><summary>Summarize examples</summary>
 
 Here (in a trivial example), I compute the overall average age of a victim of police violence, and then also compute the average number of characters in their name. Admittedly, that last computation is a bit silly, but it's mostly for demonstration purposes.
 
@@ -721,6 +739,7 @@ PROC SQL;
 SELECT AVG(age) as age, AVG(name_len) as name_len
 FROM pv;
 ```
+</details>
 
 The real power of summarize, though, is in combination with Group By. We'll see more summarize examples, but it's easier to make good examples when you have all the tools - it's hard to demonstrate how to use a hammer if you don't also have a nail. 
 
@@ -734,7 +753,8 @@ Frequently, we have data that is more specific than the data we need - for insta
 
 `group_by` is the verb that accomplishes the first task. `summarize` accomplishes the second task and implicitly accomplishes the third as well.
 
-<details><summary>Replicating frequency tables using `dplyr`</summary>
+&nbsp;
+<details class = "ex"><summary>Replicating frequency tables using `dplyr`</summary>
 Let's start with a trivial example: Suppose we want to count up every occurrence of a variable in a dataset. We can already do this with e.g. `table()`, but work with me for a moment.
 
 ```{r group-by-demo}
@@ -786,7 +806,8 @@ What this message is saying is that it is essentially dropping one layer of grou
 We grouped pv by gender and race, then ran summarize, which created one row for each combination of gender and race and "glued" them together. The resulting data frame is still grouped by gender, but because there's only one row for each race (for each level/group of gender), there's no reason to have that level of grouping anymore. So it's dropped by default. 
 </details>
 
-<details><summary>Replicating PROC FREQ using PROC SQL</summary>
+&nbsp;
+<details class = "ex"><summary>Replicating PROC FREQ using PROC SQL</summary>
 ```{r proc-freq-sql, fig.path = "image/", engine = "sashtmllog", engine.path = sasexe, engine.opts = sasopts, collectcode = F, error = T}
 libname classdat "sas/";
 
@@ -812,7 +833,8 @@ PROC SQL;
 
 Let's try a non-trivial example, using the `storms` dataset that is part of the `dplyr` package:
 
-<details><summary>Reading in the data (R and SAS)</summary>
+&nbsp;
+<details class = "ex"><summary>Reading in the data (R and SAS)</summary>
 ```{r read-data-storms}
 library(dplyr)
 library(lubridate) # for the make_datetime() function
@@ -850,7 +872,8 @@ One thing we might want to know is at what point each storm was the strongest. L
 2. If there's a tie, we might want to know when the maximum wind speed occurred. 
 3. If that still doesn't get us a single row for each observation, lets just pick out the status and category (these are determined by wind speed, so they should be the same if maximum wind speed is the same) and compute the average time where this occurred. 
 
-<details><summary>group_by + filter + summary in R</summary> 
+&nbsp;
+<details class = "ex"><summary>group_by + filter + summary in R</summary> 
 ```{r max-power-storm}
 max_power_storm <- storms %>%
   # Storm names can be reused, so we need to have year to be sure it's the same instance
@@ -882,7 +905,8 @@ ggplot(max_power_storm, aes(x = time, y = pressure)) + geom_point()
 It seems to me that there are fewer high-pressure storms before 1990 or so, which may be due to the fact that some weak storms may not have been observed or recorded prior to widespread radar coverage in the Atlantic (see [this coverage map from 1995](image/weather_radar_graph_1995.gif)). 
 </details>
 
-<details><summary>Proc SQL in SAS</summary> 
+&nbsp;
+<details class = "ex"><summary>Proc SQL in SAS</summary> 
 In SAS, this is going to require some work. Specifically, while dplyr commands are stated in recipe order (do this, then this), SQL statements... aren't. WHERE comes after SELECT xxx FROM yyy, and GROUP BY comes after that again. 
 
 There are a couple of ways to handle that: sub-queries, and creating temporary tables. I think the temporary tables approach will be easier to demonstrate, read, and understand, so lets go with that. 
@@ -941,7 +965,8 @@ QUIT;
 ```
 </details>
 
-<details><summary>Another interesting way to look at this data would be to examine the duration of time a storm existed, as a function of its maximum category. Do stronger storms exist for a longer period of time?</summary>
+&nbsp;
+<details class = "ex"><summary>Another interesting way to look at this data would be to examine the duration of time a storm existed, as a function of its maximum category. Do stronger storms exist for a longer period of time?</summary>
 
 ```{r duration-storm}
 storm_strength_duration <- storms %>%
@@ -984,8 +1009,8 @@ ods html;
 ```
 
 </details>
-
-<details><summary>We could also look to see how a storm's diameter evolves over time, from when the storm is first identified (group_by + mutate) </summary>
+&nbsp;
+<details class = "ex"><summary>We could also look to see how a storm's diameter evolves over time, from when the storm is first identified (group_by + mutate) </summary>
 Diameter measurements don't exist for all storms, and they appear to measure the diameter of the wind field - that is, the region where the winds are hurricane or tropical storm force. (`?storms` documents the dataset and its variables). 
 
 Note the use of `as.numeric(as.character(max(category)))` to get the maximum (ordinal categorial) strength and convert that into something numeric that can be plotted. 
@@ -1063,7 +1088,7 @@ QUIT;
 While I'm tempted to plot out the diameter and location on a map, it's a bit excessive for this particular problem. Luckily, Wikipedia has us covered: 
 ![Hurricane Ike's path and strength over time](https://upload.wikimedia.org/wikipedia/commons/5/5f/Ike_2008_track.png)
 
-It looks like Ike went long-ways across Cuba, which weakened it. When hurricanes weaken, often their wind fields expand (as they no longer have the angular momentum to maintain a tight structure). Ike crossed into the Gulf of Mexico, restrengthened, and then hit Houston just about dead-on. (I was living just northwest of Houston when it hit (in College Station), and I can verify that it was not a fun time). 
+It looks like Ike went long-ways across Cuba, which weakened it. When hurricanes weaken, often their wind fields expand (as they no longer have the angular momentum to maintain a tight structure). Ike crossed into the Gulf of Mexico, restrengthened, and then hit Houston just about dead-on. I was living just northwest of Houston when it hit (in College Station), and I can verify that it was not a fun time. 
 </details>
 
 ## Other `dplyr` functions: across, relocate
