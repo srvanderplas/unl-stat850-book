@@ -10,15 +10,13 @@
 
 # Principles of Debugging {#debugging}
 
-## Debugging: Module Objectives  {-} 
+## Module Objectives  {- #module8-objectives}
 
-- Break down a complex procedure into simpler steps, mapping each step to a separate function which performs a single task.
+- Create reproducible examples of problems
 
-- Simplify a problem to the minimal components necessary to reproduce the error, and use that information to ask for help appropriately.
+- Use built in debugging tools to trace errors
 
-- Use built-in debugging tools to trace an error to its source
-
-- Use online forums and mailing lists to research error messages
+- Use online resources to research errors
 
 Note: The skills in this chapter take a lifetime to truly master. The real goal here is that you know how to ask for help appropriately (and in a way that people will respond positively to) and that you know how to do the research to get help yourself. 
 
@@ -117,7 +115,7 @@ a <- function(x) {
 }
 
 a(5)
-## [1] 12
+[1] 12
 ```
 
 and the goal is to understand what's happening in the code. We might add some lines:
@@ -144,13 +142,13 @@ a <- function(x) {
 }
 
 a(5)
-## [1] "Entering a(). x =  5"
-## [1] "Entering b(). x =  5 y =  4"
-## [1] "Entering c(). x =  5 y =  4 z =  3"
-## [1] "Returning 7 from c()"
-## [1] "Returning 7 from b()"
-## [1] "Returning 12 from a()"
-## [1] 12
+[1] "Entering a(). x =  5"
+[1] "Entering b(). x =  5 y =  4"
+[1] "Entering c(). x =  5 y =  4 z =  3"
+[1] "Returning 7 from c()"
+[1] "Returning 7 from b()"
+[1] "Returning 12 from a()"
+[1] 12
 ```
 </details>
 
@@ -184,10 +182,10 @@ search_for_parent <- function(node, tag) {
 page <- read_html("data/realclearpolitics_frag.html")
 node <- xml_find_all(page, "//td[@class='lp-results']") # find all poll results in any table
 search_for_parent(node[1], "table") # find the table that contains it
-## [1] "tr"    "tbody" "table" "div"   "body"  "html" 
-## [1] 3
-## {xml_nodeset (1)}
-## [1] <table cellpadding="2" cellspacing="0" class="sortable">\n<thead><tr clas ...
+[1] "tr"    "tbody" "table" "div"   "body"  "html" 
+[1] 3
+{xml_nodeset (1)}
+[1] <table cellpadding="2" cellspacing="0" class="sortable">\n<thead><tr clas ...
 ```
 By printing out all of the tags that contain `node`, I could see the order -- inner to outer. I asked the function to return the location of the first table node, so the index (2nd value printed out) should match table in the character vector that was printed out first. I could then see that the HTML node that is returned is in fact the table node. 
 </details>
@@ -266,20 +264,20 @@ print(basemap) # make sure the basemap is fine
 data(storms, package = "dplyr")
 
 str(storms) # make sure the data exists and is formatted as expected
-## tibble [10,010 × 13] (S3: tbl_df/tbl/data.frame)
-##  $ name       : chr [1:10010] "Amy" "Amy" "Amy" "Amy" ...
-##  $ year       : num [1:10010] 1975 1975 1975 1975 1975 ...
-##  $ month      : num [1:10010] 6 6 6 6 6 6 6 6 6 6 ...
-##  $ day        : int [1:10010] 27 27 27 27 28 28 28 28 29 29 ...
-##  $ hour       : num [1:10010] 0 6 12 18 0 6 12 18 0 6 ...
-##  $ lat        : num [1:10010] 27.5 28.5 29.5 30.5 31.5 32.4 33.3 34 34.4 34 ...
-##  $ long       : num [1:10010] -79 -79 -79 -79 -78.8 -78.7 -78 -77 -75.8 -74.8 ...
-##  $ status     : chr [1:10010] "tropical depression" "tropical depression" "tropical depression" "tropical depression" ...
-##  $ category   : Ord.factor w/ 7 levels "-1"<"0"<"1"<"2"<..: 1 1 1 1 1 1 1 1 2 2 ...
-##  $ wind       : int [1:10010] 25 25 25 25 25 25 25 30 35 40 ...
-##  $ pressure   : int [1:10010] 1013 1013 1013 1013 1012 1012 1011 1006 1004 1002 ...
-##  $ ts_diameter: num [1:10010] NA NA NA NA NA NA NA NA NA NA ...
-##  $ hu_diameter: num [1:10010] NA NA NA NA NA NA NA NA NA NA ...
+tibble[,13] [10,010 × 13] (S3: tbl_df/tbl/data.frame)
+ $ name       : chr [1:10010] "Amy" "Amy" "Amy" "Amy" ...
+ $ year       : num [1:10010] 1975 1975 1975 1975 1975 ...
+ $ month      : num [1:10010] 6 6 6 6 6 6 6 6 6 6 ...
+ $ day        : int [1:10010] 27 27 27 27 28 28 28 28 29 29 ...
+ $ hour       : num [1:10010] 0 6 12 18 0 6 12 18 0 6 ...
+ $ lat        : num [1:10010] 27.5 28.5 29.5 30.5 31.5 32.4 33.3 34 34.4 34 ...
+ $ long       : num [1:10010] -79 -79 -79 -79 -78.8 -78.7 -78 -77 -75.8 -74.8 ...
+ $ status     : chr [1:10010] "tropical depression" "tropical depression" "tropical depression" "tropical depression" ...
+ $ category   : Ord.factor w/ 7 levels "-1"<"0"<"1"<"2"<..: 1 1 1 1 1 1 1 1 2 2 ...
+ $ wind       : int [1:10010] 25 25 25 25 25 25 25 30 35 40 ...
+ $ pressure   : int [1:10010] 1013 1013 1013 1013 1012 1012 1011 1006 1004 1002 ...
+ $ ts_diameter: num [1:10010] NA NA NA NA NA NA NA NA NA NA ...
+ $ hu_diameter: num [1:10010] NA NA NA NA NA NA NA NA NA NA ...
 ```
 
 Everything looks ok in the setup chunk...
@@ -304,16 +302,16 @@ for (i in 1:5) {
     ggtitle(paste0("Category ", i, " storms in 2013"))
   # print(plot) # Don't print plots - clutters up output at the moment
 }
-## [1] "Category 1 storms"
-## [1] "subdata dims: nrow 0 ncol 13"
-## [1] "Category 2 storms"
-## [1] "subdata dims: nrow 0 ncol 13"
-## [1] "Category 3 storms"
-## [1] "subdata dims: nrow 0 ncol 13"
-## [1] "Category 4 storms"
-## [1] "subdata dims: nrow 0 ncol 13"
-## [1] "Category 5 storms"
-## [1] "subdata dims: nrow 0 ncol 13"
+[1] "Category 1 storms"
+[1] "subdata dims: nrow 0 ncol 13"
+[1] "Category 2 storms"
+[1] "subdata dims: nrow 0 ncol 13"
+[1] "Category 3 storms"
+[1] "subdata dims: nrow 0 ncol 13"
+[1] "Category 4 storms"
+[1] "subdata dims: nrow 0 ncol 13"
+[1] "Category 5 storms"
+[1] "subdata dims: nrow 0 ncol 13"
 ```
 
 Ok, so from this we can see that something is going wrong with our filter statement - we have no rows of data.
@@ -321,16 +319,16 @@ Ok, so from this we can see that something is going wrong with our filter statem
 
 ```r
 head(storms)
-## # A tibble: 6 x 13
-##   name   year month   day  hour   lat  long status       category  wind pressure
-##   <chr> <dbl> <dbl> <int> <dbl> <dbl> <dbl> <chr>        <ord>    <int>    <int>
-## 1 Amy    1975     6    27     0  27.5 -79   tropical de… -1          25     1013
-## 2 Amy    1975     6    27     6  28.5 -79   tropical de… -1          25     1013
-## 3 Amy    1975     6    27    12  29.5 -79   tropical de… -1          25     1013
-## 4 Amy    1975     6    27    18  30.5 -79   tropical de… -1          25     1013
-## 5 Amy    1975     6    28     0  31.5 -78.8 tropical de… -1          25     1012
-## 6 Amy    1975     6    28     6  32.4 -78.7 tropical de… -1          25     1012
-## # … with 2 more variables: ts_diameter <dbl>, hu_diameter <dbl>
+# A tibble: 6 x 13
+  name   year month   day  hour   lat  long status       category  wind pressure
+  <chr> <dbl> <dbl> <int> <dbl> <dbl> <dbl> <chr>        <ord>    <int>    <int>
+1 Amy    1975     6    27     0  27.5 -79   tropical de… -1          25     1013
+2 Amy    1975     6    27     6  28.5 -79   tropical de… -1          25     1013
+3 Amy    1975     6    27    12  29.5 -79   tropical de… -1          25     1013
+4 Amy    1975     6    27    18  30.5 -79   tropical de… -1          25     1013
+5 Amy    1975     6    28     0  31.5 -78.8 tropical de… -1          25     1012
+6 Amy    1975     6    28     6  32.4 -78.7 tropical de… -1          25     1012
+# … with 2 more variables: ts_diameter <dbl>, hu_diameter <dbl>
 ```
 
 Whoops. I meant "category" when I typed "status". 
@@ -355,16 +353,16 @@ for (i in 1:5) {
     ggtitle(paste0("Category ", i, " storms in 2013"))
   # print(plot) # Don't print plots - clutters up output at the moment
 }
-## [1] "Category 1 storms"
-## [1] "subdata dims: nrow 13 ncol 13"
-## [1] "Category 2 storms"
-## [1] "subdata dims: nrow 0 ncol 13"
-## [1] "Category 3 storms"
-## [1] "subdata dims: nrow 0 ncol 13"
-## [1] "Category 4 storms"
-## [1] "subdata dims: nrow 0 ncol 13"
-## [1] "Category 5 storms"
-## [1] "subdata dims: nrow 0 ncol 13"
+[1] "Category 1 storms"
+[1] "subdata dims: nrow 13 ncol 13"
+[1] "Category 2 storms"
+[1] "subdata dims: nrow 0 ncol 13"
+[1] "Category 3 storms"
+[1] "subdata dims: nrow 0 ncol 13"
+[1] "Category 4 storms"
+[1] "subdata dims: nrow 0 ncol 13"
+[1] "Category 5 storms"
+[1] "subdata dims: nrow 0 ncol 13"
 ```
 
 Ok, that's something, at least. We now have some data for category 1 storms...
@@ -379,23 +377,23 @@ filter(storms, year == 2013) %>%
   # See what categories exist
   select(name, category) %>%
   unique()
-## # A tibble: 14 x 2
-##    name      category
-##    <chr>     <ord>   
-##  1 Andrea    0       
-##  2 Barry     0       
-##  3 Chantal   0       
-##  4 Dorian    0       
-##  5 Erin      0       
-##  6 Fernand   0       
-##  7 Gabrielle 0       
-##  8 Eight     -1      
-##  9 Humberto  1       
-## 10 Ingrid    1       
-## 11 Jerry     0       
-## 12 Karen     0       
-## 13 Lorenzo   0       
-## 14 Melissa   0
+# A tibble: 14 x 2
+   name      category
+   <chr>     <ord>   
+ 1 Andrea    0       
+ 2 Barry     0       
+ 3 Chantal   0       
+ 4 Dorian    0       
+ 5 Erin      0       
+ 6 Fernand   0       
+ 7 Gabrielle 0       
+ 8 Eight     -1      
+ 9 Humberto  1       
+10 Ingrid    1       
+11 Jerry     0       
+12 Karen     0       
+13 Lorenzo   0       
+14 Melissa   0       
 ```
 
 It looks like 2013 was just an incredibly quiet year for tropical activity. 
@@ -422,36 +420,36 @@ for (i in 1:5) {
     ggtitle(paste0("Category ", i, " storms in 2013"))
   print(plot) # Don't print plots - clutters up output at the moment
 }
-## [1] "Category 1 storms"
-## [1] "subdata dims: nrow 45 ncol 13"
+[1] "Category 1 storms"
+[1] "subdata dims: nrow 45 ncol 13"
 ```
 
 <img src="image/hurricane-tracks-debugging-4-1.png" width="2100" />
 
 ```
-## [1] "Category 2 storms"
-## [1] "subdata dims: nrow 39 ncol 13"
+[1] "Category 2 storms"
+[1] "subdata dims: nrow 39 ncol 13"
 ```
 
 <img src="image/hurricane-tracks-debugging-4-2.png" width="2100" />
 
 ```
-## [1] "Category 3 storms"
-## [1] "subdata dims: nrow 29 ncol 13"
+[1] "Category 3 storms"
+[1] "subdata dims: nrow 29 ncol 13"
 ```
 
 <img src="image/hurricane-tracks-debugging-4-3.png" width="2100" />
 
 ```
-## [1] "Category 4 storms"
-## [1] "subdata dims: nrow 32 ncol 13"
+[1] "Category 4 storms"
+[1] "subdata dims: nrow 32 ncol 13"
 ```
 
 <img src="image/hurricane-tracks-debugging-4-4.png" width="2100" />
 
 ```
-## [1] "Category 5 storms"
-## [1] "subdata dims: nrow 12 ncol 13"
+[1] "Category 5 storms"
+[1] "subdata dims: nrow 12 ncol 13"
 ```
 
 <img src="image/hurricane-tracks-debugging-4-5.png" width="2100" />
@@ -504,7 +502,7 @@ a <- function(x) {
 }
 
 a()
-## Error in c(): there was a problem
+Error in c(): there was a problem
 ```
 
 For more information, you could run traceback
@@ -657,17 +655,17 @@ In the `traceback()` Rstudio output, the other option is "rerun with debug". In 
 data(iris)
 
 tmp <- lm(Species ~ ., data = iris)
-## Warning in model.response(mf, "numeric"): using type = "numeric" with a factor
-## response will be ignored
-## Warning in Ops.factor(y, z$residuals): '-' not meaningful for factors
+Warning in model.response(mf, "numeric"): using type = "numeric" with a factor
+response will be ignored
+Warning in Ops.factor(y, z$residuals): '-' not meaningful for factors
 summary(tmp)
-## Warning in Ops.factor(r, 2): '^' not meaningful for factors
-## 
-## Call:
-## lm(formula = Species ~ ., data = iris)
-## 
-## Residuals:
-## Error in quantile.default(resid): (unordered) factors are not allowed
+Warning in Ops.factor(r, 2): '^' not meaningful for factors
+
+Call:
+lm(formula = Species ~ ., data = iris)
+
+Residuals:
+Error in quantile.default(resid): (unordered) factors are not allowed
 ```
 We get this weird warning, and then an error about factors when we use summary() to look at the coefficients. 
 
@@ -713,12 +711,12 @@ larger <- function(x, y) {
 } 
 
 larger(c(1, 5, 10), c(2, 4, 11))
-## [1]  2  5 11
+[1]  2  5 11
 ```
 
 ```r
 larger(c(1, 5, 10), 6)
-## [1]  6 NA 10
+[1]  6 NA 10
 ```
 Why is there an NA in the second example? It should be a 6. Figure out why this happens, then try to fix it. 
 
@@ -732,11 +730,11 @@ y <- 6
 
 # Inside of larger() with x = c(1, 5, 10), y = 6
 (y.is.bigger <- y > x ) # putting something in () prints it out
-## [1]  TRUE  TRUE FALSE
+[1]  TRUE  TRUE FALSE
 y[y.is.bigger] # This isn't quite what we were going for, but it's what's causing the issue
-## [1]  6 NA
+[1]  6 NA
 x[y.is.bigger] # What gets replaced
-## [1] 1 5
+[1] 1 5
 
 
 # Better option

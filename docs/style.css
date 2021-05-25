@@ -1,3 +1,27 @@
+/* CSS HEX */
+:root {
+--red-salsa: hsla(359, 94%, 62%, 1);
+--orange-red: hsla(21, 89%, 56%, 1);
+--yellow-orange-color-wheel: hsla(33, 94%, 55%, 1);
+--mango-tango: hsla(20, 94%, 63%, 1);
+--maize-crayola: hsla(42, 93%, 64%, 1);
+--pistachio: hsla(94, 38%, 59%, 1);
+--zomp: hsla(162, 43%, 46%, 1);
+--cadet-blue: hsla(178, 30%, 43%, 1);
+--queen-blue: hsla(208, 25%, 45%, 1);
+--cg-blue: hsla(198, 61%, 39%, 1);
+--red-salsa-bg: hsla(359, 94%, 62%, .2);
+--orange-red-bg: hsla(21, 89%, 56%,.2);
+--yellow-orange-color-wheel-bg: hsla(33, 94%, 55%,.2);
+--mango-tango-bg: hsla(20, 94%, 63%,.2);
+--maize-crayola-bg: hsla(42, 93%, 64%, .2);
+--pistachio-bg: hsla(94, 38%, 59%, .2);
+--zomp-bg: hsla(162, 43%, 46%, .2);
+--cadet-blue-bg: hsla(178, 30%, 43%, .2);
+--queen-blue-bg: hsla(208, 25%, 45%, .2);
+--cg-blue-bg: hsla(198, 61%, 39%, .2);
+}
+
 /* Make the toolbar line up with the TOC */
 .summary > li:first-child {
     height: 50px;
@@ -57,7 +81,7 @@ pre code {
   color: #378b2e;
 }*/
 
-.watchout,.learn-more,.note,.my-opinion,.tryitout, .ex{
+.watchout,.learn-more,.note,.my-opinion,.tryitout,.go-read,.ex{
   background-origin:padding-box;
   background-repeat: no-repeat;
   background-size:10% auto;
@@ -67,44 +91,60 @@ pre code {
   /*margin: 20px 20px;*/
   box-shadow: 10px white;
 }
+
+.watchout {
+  background-image:url(image/warning.svg);
+  box-shadow: 0 0 0 1px var(--red-salsa),
+              0 0 0 10px white;
+}
+
 h1.ex, h2.ex, h3.ex, h4.ex, h5.ex, div.ex {
   padding:5px 5px 5px 5px;
   margin: 0 0 0 0;
   background-image:url(image/brain.svg);
-  background-color: #db940044;
-}
-
-.tryitout {
-  background-image:url(image/tryitout.svg);
-  background-color: #378b2e22;
-  box-shadow: 0 0 0 1px #378b2e,
-              0 0 0 10px white;
-}
-
-.watchout {
-  background-image:url(image/warning.svg);
-  box-shadow: 0 0 0 1px #a7383d,
-              0 0 0 10px white;
-}
-
-.learn-more{
-  background-image:url(image/learnmore.svg);
-  box-shadow: 0 0 0 1px #074600,
-              0 0 0 10px white;
-}
-
-.note {
-  background-image:url(image/notethat.svg);
-  color:#12073b;
-  box-shadow: 0 0 0 1px #12073b,
-              0 0 0 10px white;
+  background-color: var(--orange-red-bg);
+  box-shadow: 0 0 0 1px var(--orange-red);
 }
 
 .my-opinion{
   background-image:url(image/comment.svg);
-  padding:5px 5px 5px 11%;
-  color: #3f3075;
-  box-shadow: 0 0 0 1px #3f3075,
+  background-color: var(--maize-crayola-bg);
+  box-shadow: 0 0 0 1px var(--maize-crayola),
+              0 0 0 10px white;
+}
+
+.go-read{
+  background-image:url(image/eyes.svg);
+  box-shadow: 0 0 0 1px var(--pistachio),
+              0 0 0 10px white;
+}
+
+.tryitout {
+  background-size:5% auto;
+  padding:5px 5px 5px 6%;
+  min-width:99%;
+  min-height:3em;
+  background-image:url(image/tryitout.svg);
+  background-color: var(--zomp-bg);
+  box-shadow: 0 0 0 1px var(--zomp),
+              0 0 0 10px white;
+}
+
+.tryitout h1, .tryitout h2, .tryitout h3, .tryitout h4, .tryitout h5, .tryitout h6 {
+  margin-top: .25em;
+}
+
+.learn-more{
+  background-image:url(image/learnmore.svg);
+  box-shadow: 0 0 0 1px var(--cadet-blue),
+              0 0 0 10px white;
+  min-height:6em;
+}
+
+.note {
+  background-image:url(image/notethat.svg);
+  background-color: var(--cg-blue-bg);
+  box-shadow: 0 0 0 1px var(--cg-blue),
               0 0 0 10px white;
 }
 
@@ -225,42 +265,3 @@ summary.windows:before{
   .footnotes p::before {
     content: counter(fn-number) '. ';
   }
-
-/* Tabsets, from https://stackoverflow.com/questions/43706851/r-bookdown-tabbed-headings */
-
-/* Style the tab */
-.tab {
-  overflow: hidden;
-  border: 1px solid #ccc;
-  background-color: #f1f1f1;
-}
-
-/* Style the buttons inside the tab */
-.tab button {
-  background-color: inherit;
-  float: left;
-  border: none;
-  outline: none;
-  cursor: pointer;
-  padding: 14px 16px;
-  transition: 0.3s;
-  font-size: 17px;
-}
-
-/* Change background color of buttons on hover */
-.tab button:hover {
-  background-color: #ddd;
-}
-
-/* Create an active/current tablink class */
-.tab button.active {
-  background-color: #ccc;
-}
-
-/* Style the tab content */
-.tabcontent {
-  display: none;
-  padding: 6px 12px;
-  border: 1px solid #ccc;
-  border-top: none;
-}

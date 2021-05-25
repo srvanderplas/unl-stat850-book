@@ -6,12 +6,12 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Module 9 Introduction to Data Visualization | Stat 850: Computing Tools for Statisticians</title>
   <meta name="description" content="Introductions to statistical computing packages and document preparation software. Topics include: graphical techniques, data management, Monte Carlo simulation, dynamic document preparation, presentation software." />
-  <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.22.3 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Module 9 Introduction to Data Visualization | Stat 850: Computing Tools for Statisticians" />
   <meta property="og:type" content="book" />
   <meta property="og:url" content="https://srvanderplas.github.io/unl-stat850/" />
-  <meta property="og:image" content="https://srvanderplas.github.io/unl-stat850/images/cover.png" />
+  <meta property="og:image" content="https://srvanderplas.github.io/unl-stat850//images/cover.png" />
   <meta property="og:description" content="Introductions to statistical computing packages and document preparation software. Topics include: graphical techniques, data management, Monte Carlo simulation, dynamic document preparation, presentation software." />
   <meta name="github-repo" content="srvanderplas/unl-stat850" />
 
@@ -19,7 +19,7 @@
   <meta name="twitter:title" content="Module 9 Introduction to Data Visualization | Stat 850: Computing Tools for Statisticians" />
   
   <meta name="twitter:description" content="Introductions to statistical computing packages and document preparation software. Topics include: graphical techniques, data management, Monte Carlo simulation, dynamic document preparation, presentation software." />
-  <meta name="twitter:image" content="https://srvanderplas.github.io/unl-stat850/images/cover.png" />
+  <meta name="twitter:image" content="https://srvanderplas.github.io/unl-stat850//images/cover.png" />
 
 <meta name="author" content="Susan Vanderplas" />
 
@@ -32,7 +32,7 @@
   <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon" />
 <link rel="prev" href="debugging.html"/>
 <link rel="next" href="simulation.html"/>
-<script src="libs/header-attrs-2.7.3/header-attrs.js"></script>
+<script src="libs/header-attrs-2.8/header-attrs.js"></script>
 <script src="libs/jquery-3.5.1/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -50,6 +50,8 @@
 
 
 
+<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
 <script src="libs/htmlwidgets-1.5.3/htmlwidgets.js"></script>
 <script src="libs/plotly-binding-4.9.3/plotly.js"></script>
 <script src="libs/typedarray-0.1/typedarray.min.js"></script>
@@ -104,6 +106,7 @@ function unrolltab(evt, tabName) {
 pre > code.sourceCode { white-space: pre; position: relative; }
 pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
 pre.sourceCode { margin: 0; }
 @media screen {
@@ -163,6 +166,7 @@ code span.va { color: #19177c; } /* Variable */
 code span.vs { color: #4070a0; } /* VerbatimString */
 code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
+
 
 <link rel="stylesheet" href="style.css" type="text/css" />
 <link rel="stylesheet" href="fontawesome-free-5.15.3-web/css/all.css" type="text/css" />
@@ -306,37 +310,24 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="5" data-path="reading-data.html"><a href="reading-data.html"><i class="fa fa-check"></i><b>5</b> External Data</a>
 <ul>
 <li class="chapter" data-level="" data-path="reading-data.html"><a href="reading-data.html#module5-objectives"><i class="fa fa-check"></i>Module Objectives</a></li>
-<li class="chapter" data-level="5.1" data-path="reading-data.html"><a href="reading-data.html#external-data-formats"><i class="fa fa-check"></i><b>5.1</b> External Data Formats</a></li>
-<li class="chapter" data-level="5.2" data-path="reading-data.html"><a href="reading-data.html#text-files"><i class="fa fa-check"></i><b>5.2</b> Text Files</a>
+<li class="chapter" data-level="5.1" data-path="reading-data.html"><a href="reading-data.html#external-data-formats"><i class="fa fa-check"></i><b>5.1</b> External Data Formats</a>
 <ul>
-<li class="chapter" data-level="5.2.1" data-path="reading-data.html"><a href="reading-data.html#fixed-width-files"><i class="fa fa-check"></i><b>5.2.1</b> Fixed-width files</a></li>
-<li class="chapter" data-level="5.2.2" data-path="reading-data.html"><a href="reading-data.html#delimited-text-files"><i class="fa fa-check"></i><b>5.2.2</b> Delimited Text Files</a></li>
-<li class="chapter" data-level="" data-path="reading-data.html"><a href="reading-data.html#try-it-out-14"><i class="fa fa-check"></i>Try it out</a></li>
+<li class="chapter" data-level="5.1.1" data-path="reading-data.html"><a href="reading-data.html#text-files"><i class="fa fa-check"></i><b>5.1.1</b> Text Files</a></li>
+<li class="chapter" data-level="5.1.2" data-path="reading-data.html"><a href="reading-data.html#spreadsheets"><i class="fa fa-check"></i><b>5.1.2</b> Spreadsheets</a></li>
+<li class="chapter" data-level="5.1.3" data-path="reading-data.html"><a href="reading-data.html#binary-files"><i class="fa fa-check"></i><b>5.1.3</b> Binary Files</a></li>
+<li class="chapter" data-level="5.1.4" data-path="reading-data.html"><a href="reading-data.html#databases"><i class="fa fa-check"></i><b>5.1.4</b> Databases</a></li>
 </ul></li>
-<li class="chapter" data-level="5.3" data-path="reading-data.html"><a href="reading-data.html#spreadsheets"><i class="fa fa-check"></i><b>5.3</b> Spreadsheets</a>
+<li class="chapter" data-level="5.2" data-path="reading-data.html"><a href="reading-data.html#exploratory-data-analysis"><i class="fa fa-check"></i><b>5.2</b> Exploratory Data Analysis</a>
 <ul>
-<li class="chapter" data-level="" data-path="reading-data.html"><a href="reading-data.html#try-it-out-15"><i class="fa fa-check"></i>Try it out</a></li>
+<li class="chapter" data-level="5.2.1" data-path="reading-data.html"><a href="reading-data.html#sas-1"><i class="fa fa-check"></i><b>5.2.1</b> SAS</a></li>
+<li class="chapter" data-level="5.2.2" data-path="reading-data.html"><a href="reading-data.html#r-1"><i class="fa fa-check"></i><b>5.2.2</b> R</a></li>
 </ul></li>
-<li class="chapter" data-level="5.4" data-path="reading-data.html"><a href="reading-data.html#binary-files"><i class="fa fa-check"></i><b>5.4</b> Binary Files</a>
-<ul>
-<li class="chapter" data-level="" data-path="reading-data.html"><a href="reading-data.html#try-it-out-16"><i class="fa fa-check"></i>Try it out</a></li>
-</ul></li>
-<li class="chapter" data-level="5.5" data-path="reading-data.html"><a href="reading-data.html#databases"><i class="fa fa-check"></i><b>5.5</b> Databases</a>
-<ul>
-<li class="chapter" data-level="5.5.1" data-path="reading-data.html"><a href="reading-data.html#microsoft-access"><i class="fa fa-check"></i><b>5.5.1</b> Microsoft Access</a></li>
-<li class="chapter" data-level="5.5.2" data-path="reading-data.html"><a href="reading-data.html#sqlite"><i class="fa fa-check"></i><b>5.5.2</b> SQLite</a></li>
-</ul></li>
-<li class="chapter" data-level="5.6" data-path="reading-data.html"><a href="reading-data.html#exploratory-data-analysis"><i class="fa fa-check"></i><b>5.6</b> Exploratory Data Analysis</a>
-<ul>
-<li class="chapter" data-level="5.6.1" data-path="reading-data.html"><a href="reading-data.html#sas-1"><i class="fa fa-check"></i><b>5.6.1</b> SAS</a></li>
-<li class="chapter" data-level="5.6.2" data-path="reading-data.html"><a href="reading-data.html#r-1"><i class="fa fa-check"></i><b>5.6.2</b> R</a></li>
-<li class="chapter" data-level="5.6.3" data-path="reading-data.html"><a href="reading-data.html#comparison"><i class="fa fa-check"></i><b>5.6.3</b> Comparison</a></li>
-</ul></li>
+<li class="chapter" data-level="5.3" data-path="reading-data.html"><a href="reading-data.html#comparison-between-r-and-sas"><i class="fa fa-check"></i><b>5.3</b> Comparison between R and SAS</a></li>
 <li class="chapter" data-level="" data-path="reading-data.html"><a href="reading-data.html#references-and-links-2"><i class="fa fa-check"></i>References and Links</a></li>
 </ul></li>
 <li class="chapter" data-level="6" data-path="manipulating-data.html"><a href="manipulating-data.html"><i class="fa fa-check"></i><b>6</b> Manipulating Data</a>
 <ul>
-<li class="chapter" data-level="" data-path="manipulating-data.html"><a href="manipulating-data.html#manipulating-data-module-objectives"><i class="fa fa-check"></i>Manipulating Data: Module Objectives</a></li>
+<li class="chapter" data-level="" data-path="manipulating-data.html"><a href="manipulating-data.html#module6-objectives"><i class="fa fa-check"></i>Module Objectives</a></li>
 <li class="chapter" data-level="6.1" data-path="manipulating-data.html"><a href="manipulating-data.html#tidy-data"><i class="fa fa-check"></i><b>6.1</b> Tidy Data</a></li>
 <li class="chapter" data-level="6.2" data-path="manipulating-data.html"><a href="manipulating-data.html#filter-pick-cases-rows-based-on-their-values"><i class="fa fa-check"></i><b>6.2</b> Filter: Pick cases (rows) based on their values</a>
 <ul>
@@ -353,7 +344,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="7" data-path="transforming-data.html"><a href="transforming-data.html"><i class="fa fa-check"></i><b>7</b> Transforming Data</a>
 <ul>
-<li class="chapter" data-level="" data-path="transforming-data.html"><a href="transforming-data.html#transforming-data-module-objectives"><i class="fa fa-check"></i>Transforming Data: Module Objectives</a></li>
+<li class="chapter" data-level="" data-path="transforming-data.html"><a href="transforming-data.html#module7-objectives"><i class="fa fa-check"></i>Module Objectives</a></li>
 <li class="chapter" data-level="7.1" data-path="transforming-data.html"><a href="transforming-data.html#identifying-the-problem-messy-data"><i class="fa fa-check"></i><b>7.1</b> Identifying the problem: Messy data</a>
 <ul>
 <li class="chapter" data-level="" data-path="transforming-data.html"><a href="transforming-data.html#try-it-out-19"><i class="fa fa-check"></i>Try it out</a></li>
@@ -384,7 +375,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="8" data-path="debugging.html"><a href="debugging.html"><i class="fa fa-check"></i><b>8</b> Principles of Debugging</a>
 <ul>
-<li class="chapter" data-level="" data-path="debugging.html"><a href="debugging.html#debugging-module-objectives"><i class="fa fa-check"></i>Debugging: Module Objectives</a></li>
+<li class="chapter" data-level="" data-path="debugging.html"><a href="debugging.html#module8-objectives"><i class="fa fa-check"></i>Module Objectives</a></li>
 <li class="chapter" data-level="8.1" data-path="debugging.html"><a href="debugging.html#step-1-check-your-spelling."><i class="fa fa-check"></i><b>8.1</b> Step 1: Check your spelling.</a></li>
 <li class="chapter" data-level="8.2" data-path="debugging.html"><a href="debugging.html#defensive-programming"><i class="fa fa-check"></i><b>8.2</b> Defensive Programming</a></li>
 <li class="chapter" data-level="8.3" data-path="debugging.html"><a href="debugging.html#general-debugging-strategies"><i class="fa fa-check"></i><b>8.3</b> General Debugging Strategies</a></li>
@@ -407,7 +398,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="part"><span><b>III Applications</b></span></li>
 <li class="chapter" data-level="9" data-path="data-vis-intro.html"><a href="data-vis-intro.html"><i class="fa fa-check"></i><b>9</b> Introduction to Data Visualization</a>
 <ul>
-<li class="chapter" data-level="" data-path="data-vis-intro.html"><a href="data-vis-intro.html#visualization-module-objectives"><i class="fa fa-check"></i>Visualization: Module Objectives</a></li>
+<li class="chapter" data-level="" data-path="data-vis-intro.html"><a href="data-vis-intro.html#module9-objectives"><i class="fa fa-check"></i>Module Objectives</a></li>
 <li class="chapter" data-level="9.1" data-path="data-vis-intro.html"><a href="data-vis-intro.html#why-do-we-create-graphics"><i class="fa fa-check"></i><b>9.1</b> Why do we create graphics?</a></li>
 <li class="chapter" data-level="9.2" data-path="data-vis-intro.html"><a href="data-vis-intro.html#general-approaches-to-creating-graphics"><i class="fa fa-check"></i><b>9.2</b> General approaches to creating graphics</a></li>
 <li class="chapter" data-level="9.3" data-path="data-vis-intro.html"><a href="data-vis-intro.html#the-grammar-of-graphics"><i class="fa fa-check"></i><b>9.3</b> The Grammar of Graphics</a>
@@ -436,7 +427,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="10" data-path="simulation.html"><a href="simulation.html"><i class="fa fa-check"></i><b>10</b> Simulation and Reproducibility</a>
 <ul>
-<li class="chapter" data-level="" data-path="simulation.html"><a href="simulation.html#simulation-module-objectives"><i class="fa fa-check"></i>Simulation: Module Objectives</a></li>
+<li class="chapter" data-level="" data-path="simulation.html"><a href="simulation.html#module10-objectives"><i class="fa fa-check"></i>Module Objectives</a></li>
 <li class="chapter" data-level="10.1" data-path="simulation.html"><a href="simulation.html#pseudorandom-number-generation"><i class="fa fa-check"></i><b>10.1</b> Pseudorandom Number Generation</a></li>
 <li class="chapter" data-level="10.2" data-path="simulation.html"><a href="simulation.html#built-in-simulations-from-distributions"><i class="fa fa-check"></i><b>10.2</b> Built-in simulations from distributions</a>
 <ul>
@@ -454,7 +445,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="11" data-path="docs-reports.html"><a href="docs-reports.html"><i class="fa fa-check"></i><b>11</b> Documents and Reports</a>
 <ul>
-<li class="chapter" data-level="" data-path="docs-reports.html"><a href="docs-reports.html#documents-and-reports-module-objectives"><i class="fa fa-check"></i>Documents and Reports: Module Objectives</a></li>
+<li class="chapter" data-level="" data-path="docs-reports.html"><a href="docs-reports.html#module11-objectives"><i class="fa fa-check"></i>Module Objectives</a></li>
 <li class="chapter" data-level="11.1" data-path="docs-reports.html"><a href="docs-reports.html#literate-programming-knitr-and-rmarkdown"><i class="fa fa-check"></i><b>11.1</b> Literate Programming, <code>knitr</code>, and <code>rmarkdown</code></a></li>
 <li class="chapter" data-level="11.2" data-path="docs-reports.html"><a href="docs-reports.html#a-very-brief-introduction-to-latex"><i class="fa fa-check"></i><b>11.2</b> A Very Brief Introduction to LaTeX</a>
 <ul>
@@ -479,7 +470,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="12" data-path="animated-and-interactive-graphics.html"><a href="animated-and-interactive-graphics.html"><i class="fa fa-check"></i><b>12</b> Animated and Interactive Graphics</a>
 <ul>
-<li class="chapter" data-level="" data-path="animated-and-interactive-graphics.html"><a href="animated-and-interactive-graphics.html#animated-and-interactive-graphics-module-objectives"><i class="fa fa-check"></i>Animated and Interactive Graphics: Module Objectives</a></li>
+<li class="chapter" data-level="" data-path="animated-and-interactive-graphics.html"><a href="animated-and-interactive-graphics.html#module12-objectives"><i class="fa fa-check"></i>Module Objectives</a></li>
 <li class="chapter" data-level="12.1" data-path="animated-and-interactive-graphics.html"><a href="animated-and-interactive-graphics.html#plotly"><i class="fa fa-check"></i><b>12.1</b> Plotly</a>
 <ul>
 <li class="chapter" data-level="12.1.1" data-path="animated-and-interactive-graphics.html"><a href="animated-and-interactive-graphics.html#ggplotly-ggplot2-to-plotly-conversions"><i class="fa fa-check"></i><b>12.1.1</b> <code>ggplotly</code>: ggplot2 to plotly conversions</a></li>
@@ -499,6 +490,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="13" data-path="lists-nested-lists-and-functional-programming.html"><a href="lists-nested-lists-and-functional-programming.html"><i class="fa fa-check"></i><b>13</b> Lists, Nested Lists, and Functional Programming</a>
 <ul>
+<li class="chapter" data-level="" data-path="lists-nested-lists-and-functional-programming.html"><a href="lists-nested-lists-and-functional-programming.html#module13-objectives"><i class="fa fa-check"></i>Module Objectives</a></li>
 <li class="chapter" data-level="13.1" data-path="lists-nested-lists-and-functional-programming.html"><a href="lists-nested-lists-and-functional-programming.html#review-lists-and-vectors"><i class="fa fa-check"></i><b>13.1</b> Review: Lists and Vectors</a></li>
 <li class="chapter" data-level="13.2" data-path="lists-nested-lists-and-functional-programming.html"><a href="lists-nested-lists-and-functional-programming.html#introduction-to-map"><i class="fa fa-check"></i><b>13.2</b> Introduction to <code>map</code></a></li>
 <li class="chapter" data-level="13.3" data-path="lists-nested-lists-and-functional-programming.html"><a href="lists-nested-lists-and-functional-programming.html#creating-and-using-list-columns"><i class="fa fa-check"></i><b>13.3</b> Creating (and Using) List-columns</a></li>
@@ -514,11 +506,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="14" data-path="high-performance-computing.html"><a href="high-performance-computing.html"><i class="fa fa-check"></i><b>14</b> High Performance Computing</a>
 <ul>
+<li class="chapter" data-level="" data-path="high-performance-computing.html"><a href="high-performance-computing.html#module14-objectives"><i class="fa fa-check"></i>Module Objectives</a></li>
+<li class="chapter" data-level="" data-path="high-performance-computing.html"><a href="high-performance-computing.html#resources"><i class="fa fa-check"></i>Resources</a></li>
 <li class="chapter" data-level="" data-path="high-performance-computing.html"><a href="high-performance-computing.html#hpc-references"><i class="fa fa-check"></i>HPC References</a></li>
 </ul></li>
-<li class="chapter" data-level="15" data-path="tidy-models.html"><a href="tidy-models.html"><i class="fa fa-check"></i><b>15</b> Tidy Models</a></li>
-<li class="chapter" data-level="16" data-path="spatial-packages.html"><a href="spatial-packages.html"><i class="fa fa-check"></i><b>16</b> Spatial packages</a>
+<li class="chapter" data-level="15" data-path="spatial-packages.html"><a href="spatial-packages.html"><i class="fa fa-check"></i><b>15</b> Spatial packages</a>
 <ul>
+<li class="chapter" data-level="" data-path="spatial-packages.html"><a href="spatial-packages.html#module15-objectives"><i class="fa fa-check"></i>Module Objectives</a></li>
 <li class="chapter" data-level="" data-path="spatial-packages.html"><a href="spatial-packages.html#references-6"><i class="fa fa-check"></i>References</a></li>
 </ul></li>
 <li class="appendix"><span><b>Appendix</b></span></li>
@@ -558,13 +552,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
             <section class="normal" id="section-">
 <div id="data-vis-intro" class="section level1" number="9">
 <h1><span class="header-section-number">Module 9</span> Introduction to Data Visualization</h1>
-<div id="visualization-module-objectives" class="section level2 unnumbered">
-<h2>Visualization: Module Objectives</h2>
+<div id="module9-objectives" class="section level2 unnumbered">
+<h2>Module Objectives</h2>
 <ul>
-<li>Create statistical charts in SAS and R</li>
-<li>Use the grammar of graphics to describe different types of charts and graphs</li>
-<li>Use the grammar of graphics to create layered graphics and highlight different features of a data set</li>
-<li>Modify or construct alternate charts showing the same material with better readability and accessibility</li>
+<li>Create charts designed to communicate specific aspects of the data</li>
+<li>Describe charts using the grammar of graphics</li>
+<li>Create layered graphics that highlight multiple aspects of the data</li>
+<li>Evaluate existing charts and develop new versions that improve accessibility and readability</li>
 </ul>
 There are a lot of different types of charts, and equally many ways to categorize and describe the different types of charts.
 <details>
@@ -808,20 +802,20 @@ Let’s get the data set up in both SAS and R
 <span id="cb380-2"><a href="data-vis-intro.html#cb380-2" aria-hidden="true" tabindex="-1"></a><span class="co"># A package of data sets which are useful for class demonstrations</span></span>
 <span id="cb380-3"><a href="data-vis-intro.html#cb380-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(classdata)</span>
 <span id="cb380-4"><a href="data-vis-intro.html#cb380-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyr)</span>
-<span id="cb380-5"><a href="data-vis-intro.html#cb380-5" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span>
-<span id="cb380-6"><a href="data-vis-intro.html#cb380-6" aria-hidden="true" tabindex="-1"></a><span class="do">## Attaching package: &#39;tidyr&#39;</span></span>
-<span id="cb380-7"><a href="data-vis-intro.html#cb380-7" aria-hidden="true" tabindex="-1"></a><span class="do">## The following object is masked from &#39;package:magrittr&#39;:</span></span>
-<span id="cb380-8"><a href="data-vis-intro.html#cb380-8" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span>
-<span id="cb380-9"><a href="data-vis-intro.html#cb380-9" aria-hidden="true" tabindex="-1"></a><span class="do">##     extract</span></span>
+<span id="cb380-5"><a href="data-vis-intro.html#cb380-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb380-6"><a href="data-vis-intro.html#cb380-6" aria-hidden="true" tabindex="-1"></a>Attaching package<span class="sc">:</span> <span class="st">&#39;tidyr&#39;</span></span>
+<span id="cb380-7"><a href="data-vis-intro.html#cb380-7" aria-hidden="true" tabindex="-1"></a>The following object is masked from <span class="st">&#39;package:magrittr&#39;</span><span class="sc">:</span></span>
+<span id="cb380-8"><a href="data-vis-intro.html#cb380-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb380-9"><a href="data-vis-intro.html#cb380-9" aria-hidden="true" tabindex="-1"></a>    extract</span>
 <span id="cb380-10"><a href="data-vis-intro.html#cb380-10" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
-<span id="cb380-11"><a href="data-vis-intro.html#cb380-11" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span>
-<span id="cb380-12"><a href="data-vis-intro.html#cb380-12" aria-hidden="true" tabindex="-1"></a><span class="do">## Attaching package: &#39;dplyr&#39;</span></span>
-<span id="cb380-13"><a href="data-vis-intro.html#cb380-13" aria-hidden="true" tabindex="-1"></a><span class="do">## The following objects are masked from &#39;package:stats&#39;:</span></span>
-<span id="cb380-14"><a href="data-vis-intro.html#cb380-14" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span>
-<span id="cb380-15"><a href="data-vis-intro.html#cb380-15" aria-hidden="true" tabindex="-1"></a><span class="do">##     filter, lag</span></span>
-<span id="cb380-16"><a href="data-vis-intro.html#cb380-16" aria-hidden="true" tabindex="-1"></a><span class="do">## The following objects are masked from &#39;package:base&#39;:</span></span>
-<span id="cb380-17"><a href="data-vis-intro.html#cb380-17" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span>
-<span id="cb380-18"><a href="data-vis-intro.html#cb380-18" aria-hidden="true" tabindex="-1"></a><span class="do">##     intersect, setdiff, setequal, union</span></span>
+<span id="cb380-11"><a href="data-vis-intro.html#cb380-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb380-12"><a href="data-vis-intro.html#cb380-12" aria-hidden="true" tabindex="-1"></a>Attaching package<span class="sc">:</span> <span class="st">&#39;dplyr&#39;</span></span>
+<span id="cb380-13"><a href="data-vis-intro.html#cb380-13" aria-hidden="true" tabindex="-1"></a>The following objects are masked from <span class="st">&#39;package:stats&#39;</span><span class="sc">:</span></span>
+<span id="cb380-14"><a href="data-vis-intro.html#cb380-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb380-15"><a href="data-vis-intro.html#cb380-15" aria-hidden="true" tabindex="-1"></a>    filter, lag</span>
+<span id="cb380-16"><a href="data-vis-intro.html#cb380-16" aria-hidden="true" tabindex="-1"></a>The following objects are masked from <span class="st">&#39;package:base&#39;</span><span class="sc">:</span></span>
+<span id="cb380-17"><a href="data-vis-intro.html#cb380-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb380-18"><a href="data-vis-intro.html#cb380-18" aria-hidden="true" tabindex="-1"></a>    intersect, setdiff, setequal, union</span>
 <span id="cb380-19"><a href="data-vis-intro.html#cb380-19" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(happy) <span class="co"># you&#39;ll use this for try it out sections</span></span>
 <span id="cb380-20"><a href="data-vis-intro.html#cb380-20" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(fbi)</span>
 <span id="cb380-21"><a href="data-vis-intro.html#cb380-21" aria-hidden="true" tabindex="-1"></a></span>
@@ -875,7 +869,7 @@ RUN;</code></pre>
 Base R
 </summary>
 <div class="sourceCode" id="cb383"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb383-1"><a href="data-vis-intro.html#cb383-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="at">x =</span> Burglary, <span class="at">y =</span> Murder, <span class="at">data =</span> fbiwide) <span class="co"># this doesn&#39;t work</span></span>
-<span id="cb383-2"><a href="data-vis-intro.html#cb383-2" aria-hidden="true" tabindex="-1"></a><span class="do">## Error in plot(x = Burglary, y = Murder, data = fbiwide): object &#39;Burglary&#39; not found</span></span>
+<span id="cb383-2"><a href="data-vis-intro.html#cb383-2" aria-hidden="true" tabindex="-1"></a>Error <span class="cf">in</span> <span class="fu">plot</span>(<span class="at">x =</span> Burglary, <span class="at">y =</span> Murder, <span class="at">data =</span> fbiwide)<span class="sc">:</span> object <span class="st">&#39;Burglary&#39;</span> not found</span>
 <span id="cb383-3"><a href="data-vis-intro.html#cb383-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb383-4"><a href="data-vis-intro.html#cb383-4" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="at">x =</span> fbiwide<span class="sc">$</span>Burglary, <span class="at">y =</span> fbiwide<span class="sc">$</span>Murder) <span class="co"># you can use numeric vector arguments</span></span></code></pre></div>
 <p><img src="image/aes-baseR-08-1.png" width="2100" /></p>
@@ -962,11 +956,11 @@ Base R
 </summary>
 <p>Base R doesn’t support alpha blending by default, so we have to load the <code>scales</code> package in order to get that functionality.</p>
 <div class="sourceCode" id="cb390"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb390-1"><a href="data-vis-intro.html#cb390-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(scales)</span>
-<span id="cb390-2"><a href="data-vis-intro.html#cb390-2" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span>
-<span id="cb390-3"><a href="data-vis-intro.html#cb390-3" aria-hidden="true" tabindex="-1"></a><span class="do">## Attaching package: &#39;scales&#39;</span></span>
-<span id="cb390-4"><a href="data-vis-intro.html#cb390-4" aria-hidden="true" tabindex="-1"></a><span class="do">## The following object is masked from &#39;package:readr&#39;:</span></span>
-<span id="cb390-5"><a href="data-vis-intro.html#cb390-5" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span>
-<span id="cb390-6"><a href="data-vis-intro.html#cb390-6" aria-hidden="true" tabindex="-1"></a><span class="do">##     col_factor</span></span>
+<span id="cb390-2"><a href="data-vis-intro.html#cb390-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb390-3"><a href="data-vis-intro.html#cb390-3" aria-hidden="true" tabindex="-1"></a>Attaching package<span class="sc">:</span> <span class="st">&#39;scales&#39;</span></span>
+<span id="cb390-4"><a href="data-vis-intro.html#cb390-4" aria-hidden="true" tabindex="-1"></a>The following object is masked from <span class="st">&#39;package:readr&#39;</span><span class="sc">:</span></span>
+<span id="cb390-5"><a href="data-vis-intro.html#cb390-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb390-6"><a href="data-vis-intro.html#cb390-6" aria-hidden="true" tabindex="-1"></a>    col_factor</span>
 <span id="cb390-7"><a href="data-vis-intro.html#cb390-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Using constant alpha:</span></span>
 <span id="cb390-8"><a href="data-vis-intro.html#cb390-8" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(Assault <span class="sc">~</span> Population, </span>
 <span id="cb390-9"><a href="data-vis-intro.html#cb390-9" aria-hidden="true" tabindex="-1"></a>     <span class="at">col =</span> <span class="fu">alpha</span>(<span class="st">&quot;blue&quot;</span>, .<span class="dv">5</span>),</span>
@@ -1011,7 +1005,7 @@ Base R variable mapping
 <div class="sourceCode" id="cb393"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb393-1"><a href="data-vis-intro.html#cb393-1" aria-hidden="true" tabindex="-1"></a><span class="co"># This doesn&#39;t work because the values in Abb aren&#39;t actually colors</span></span>
 <span id="cb393-2"><a href="data-vis-intro.html#cb393-2" aria-hidden="true" tabindex="-1"></a><span class="co"># and plot() doesn&#39;t handle the mapping between color and abbreviation for us</span></span>
 <span id="cb393-3"><a href="data-vis-intro.html#cb393-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(Assault <span class="sc">~</span> Population, <span class="at">col =</span> Abb, <span class="at">data =</span> fbiwide) </span>
-<span id="cb393-4"><a href="data-vis-intro.html#cb393-4" aria-hidden="true" tabindex="-1"></a><span class="do">## Error in plot.xy(xy, type, ...): invalid color name &#39;AL&#39;</span></span></code></pre></div>
+<span id="cb393-4"><a href="data-vis-intro.html#cb393-4" aria-hidden="true" tabindex="-1"></a>Error <span class="cf">in</span> <span class="fu">plot.xy</span>(xy, type, ...)<span class="sc">:</span> invalid color name <span class="st">&#39;AL&#39;</span></span></code></pre></div>
 <p><img src="image/base-cat-aes-map-08-err-1.png" width="2100" /></p>
 <p>We have to specify the values of color manually for each point that we want to plot - essentially, where ggplot2 handled the scale for us, now we have to manually specify it ourselves. We could specify a legend, but in this particular case it’s unlikely to be that useful to us because the colors aren’t allowing us to identify the lines, they’re just differentiating the lines from other lines.</p>
 <div class="sourceCode" id="cb394"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb394-1"><a href="data-vis-intro.html#cb394-1" aria-hidden="true" tabindex="-1"></a><span class="co"># We need a vector of colors equal to the number of abbreviations we have</span></span>
@@ -1167,7 +1161,7 @@ Note that ggplot2 will create separate legends for size and height by default. I
 <div class="sourceCode" id="cb405"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb405-1"><a href="data-vis-intro.html#cb405-1" aria-hidden="true" tabindex="-1"></a>poke <span class="sc">%&gt;%</span> </span>
 <span id="cb405-2"><a href="data-vis-intro.html#cb405-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> attack, <span class="at">y =</span> sp_attack, <span class="at">size =</span> weight_kg, <span class="at">alpha =</span> weight_kg)) <span class="sc">+</span> </span>
 <span id="cb405-3"><a href="data-vis-intro.html#cb405-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>()</span>
-<span id="cb405-4"><a href="data-vis-intro.html#cb405-4" aria-hidden="true" tabindex="-1"></a><span class="do">## Warning: Removed 1 rows containing missing values (geom_point).</span></span></code></pre></div>
+<span id="cb405-4"><a href="data-vis-intro.html#cb405-4" aria-hidden="true" tabindex="-1"></a>Warning<span class="sc">:</span> Removed <span class="dv">1</span> rows containing missing <span class="fu">values</span> (geom_point).</span></code></pre></div>
 <img src="image/gg-numeric-aes-legend-combine-08-1.png" width="2100" />
 </details>
 <details>
@@ -1213,7 +1207,7 @@ Base R legends, numeric variables, and aesthetics
 <span id="cb412-17"><a href="data-vis-intro.html#cb412-17" aria-hidden="true" tabindex="-1"></a>}</span>
 <span id="cb412-18"><a href="data-vis-intro.html#cb412-18" aria-hidden="true" tabindex="-1"></a>  </span>
 <span id="cb412-19"><a href="data-vis-intro.html#cb412-19" aria-hidden="true" tabindex="-1"></a><span class="fu">range</span>(poke<span class="sc">$</span>weight_kg, <span class="at">na.rm =</span> T) <span class="co"># get the range</span></span>
-<span id="cb412-20"><a href="data-vis-intro.html#cb412-20" aria-hidden="true" tabindex="-1"></a><span class="do">## [1]   0.1 999.9</span></span>
+<span id="cb412-20"><a href="data-vis-intro.html#cb412-20" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>]   <span class="fl">0.1</span> <span class="fl">999.9</span></span>
 <span id="cb412-21"><a href="data-vis-intro.html#cb412-21" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb412-22"><a href="data-vis-intro.html#cb412-22" aria-hidden="true" tabindex="-1"></a><span class="co"># Make the legend variables</span></span>
 <span id="cb412-23"><a href="data-vis-intro.html#cb412-23" aria-hidden="true" tabindex="-1"></a>leg_label <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">1000</span>, <span class="at">length.out =</span> <span class="dv">5</span>) <span class="co"># cut weight range into 5 </span></span>
@@ -1244,7 +1238,7 @@ Base R legends, numeric variables, and aesthetics
 <span id="cb413-11"><a href="data-vis-intro.html#cb413-11" aria-hidden="true" tabindex="-1"></a>}</span>
 <span id="cb413-12"><a href="data-vis-intro.html#cb413-12" aria-hidden="true" tabindex="-1"></a>  </span>
 <span id="cb413-13"><a href="data-vis-intro.html#cb413-13" aria-hidden="true" tabindex="-1"></a><span class="fu">range</span>(poke<span class="sc">$</span>weight_kg, <span class="at">na.rm =</span> T) <span class="co"># get the range</span></span>
-<span id="cb413-14"><a href="data-vis-intro.html#cb413-14" aria-hidden="true" tabindex="-1"></a><span class="do">## [1]   0.1 999.9</span></span>
+<span id="cb413-14"><a href="data-vis-intro.html#cb413-14" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>]   <span class="fl">0.1</span> <span class="fl">999.9</span></span>
 <span id="cb413-15"><a href="data-vis-intro.html#cb413-15" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb413-16"><a href="data-vis-intro.html#cb413-16" aria-hidden="true" tabindex="-1"></a><span class="co"># Make the legend variables</span></span>
 <span id="cb413-17"><a href="data-vis-intro.html#cb413-17" aria-hidden="true" tabindex="-1"></a>leg_label <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">1000</span>, <span class="at">length.out =</span> <span class="dv">5</span>) <span class="co"># cut weight range into 5 </span></span>
@@ -1323,63 +1317,63 @@ Initial data set up and exploration of the data sets
 <span id="cb416-9"><a href="data-vis-intro.html#cb416-9" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb416-10"><a href="data-vis-intro.html#cb416-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Read in some data about places of worship in the US (compiled from IRS filings)</span></span>
 <span id="cb416-11"><a href="data-vis-intro.html#cb416-11" aria-hidden="true" tabindex="-1"></a>worship <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&quot;data/Places_of_Worship.csv&quot;</span>, <span class="at">guess_max =</span> <span class="dv">5000</span>)</span>
-<span id="cb416-12"><a href="data-vis-intro.html#cb416-12" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span>
-<span id="cb416-13"><a href="data-vis-intro.html#cb416-13" aria-hidden="true" tabindex="-1"></a><span class="do">## ── Column specification ────────────────────────────────────────────────────────</span></span>
-<span id="cb416-14"><a href="data-vis-intro.html#cb416-14" aria-hidden="true" tabindex="-1"></a><span class="do">## cols(</span></span>
-<span id="cb416-15"><a href="data-vis-intro.html#cb416-15" aria-hidden="true" tabindex="-1"></a><span class="do">##   EIN = col_double(),</span></span>
-<span id="cb416-16"><a href="data-vis-intro.html#cb416-16" aria-hidden="true" tabindex="-1"></a><span class="do">##   NAME = col_character(),</span></span>
-<span id="cb416-17"><a href="data-vis-intro.html#cb416-17" aria-hidden="true" tabindex="-1"></a><span class="do">##   STREET = col_character(),</span></span>
-<span id="cb416-18"><a href="data-vis-intro.html#cb416-18" aria-hidden="true" tabindex="-1"></a><span class="do">##   CITY = col_character(),</span></span>
-<span id="cb416-19"><a href="data-vis-intro.html#cb416-19" aria-hidden="true" tabindex="-1"></a><span class="do">##   STATE = col_character(),</span></span>
-<span id="cb416-20"><a href="data-vis-intro.html#cb416-20" aria-hidden="true" tabindex="-1"></a><span class="do">##   ZIP = col_double(),</span></span>
-<span id="cb416-21"><a href="data-vis-intro.html#cb416-21" aria-hidden="true" tabindex="-1"></a><span class="do">##   AFFILIATION = col_double(),</span></span>
-<span id="cb416-22"><a href="data-vis-intro.html#cb416-22" aria-hidden="true" tabindex="-1"></a><span class="do">##   FOUNDATION = col_double(),</span></span>
-<span id="cb416-23"><a href="data-vis-intro.html#cb416-23" aria-hidden="true" tabindex="-1"></a><span class="do">##   long = col_double(),</span></span>
-<span id="cb416-24"><a href="data-vis-intro.html#cb416-24" aria-hidden="true" tabindex="-1"></a><span class="do">##   lat = col_double()</span></span>
-<span id="cb416-25"><a href="data-vis-intro.html#cb416-25" aria-hidden="true" tabindex="-1"></a><span class="do">## )</span></span></code></pre></div>
+<span id="cb416-12"><a href="data-vis-intro.html#cb416-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb416-13"><a href="data-vis-intro.html#cb416-13" aria-hidden="true" tabindex="-1"></a>── Column specification ────────────────────────────────────────────────────────</span>
+<span id="cb416-14"><a href="data-vis-intro.html#cb416-14" aria-hidden="true" tabindex="-1"></a><span class="fu">cols</span>(</span>
+<span id="cb416-15"><a href="data-vis-intro.html#cb416-15" aria-hidden="true" tabindex="-1"></a>  <span class="at">EIN =</span> <span class="fu">col_double</span>(),</span>
+<span id="cb416-16"><a href="data-vis-intro.html#cb416-16" aria-hidden="true" tabindex="-1"></a>  <span class="at">NAME =</span> <span class="fu">col_character</span>(),</span>
+<span id="cb416-17"><a href="data-vis-intro.html#cb416-17" aria-hidden="true" tabindex="-1"></a>  <span class="at">STREET =</span> <span class="fu">col_character</span>(),</span>
+<span id="cb416-18"><a href="data-vis-intro.html#cb416-18" aria-hidden="true" tabindex="-1"></a>  <span class="at">CITY =</span> <span class="fu">col_character</span>(),</span>
+<span id="cb416-19"><a href="data-vis-intro.html#cb416-19" aria-hidden="true" tabindex="-1"></a>  <span class="at">STATE =</span> <span class="fu">col_character</span>(),</span>
+<span id="cb416-20"><a href="data-vis-intro.html#cb416-20" aria-hidden="true" tabindex="-1"></a>  <span class="at">ZIP =</span> <span class="fu">col_double</span>(),</span>
+<span id="cb416-21"><a href="data-vis-intro.html#cb416-21" aria-hidden="true" tabindex="-1"></a>  <span class="at">AFFILIATION =</span> <span class="fu">col_double</span>(),</span>
+<span id="cb416-22"><a href="data-vis-intro.html#cb416-22" aria-hidden="true" tabindex="-1"></a>  <span class="at">FOUNDATION =</span> <span class="fu">col_double</span>(),</span>
+<span id="cb416-23"><a href="data-vis-intro.html#cb416-23" aria-hidden="true" tabindex="-1"></a>  <span class="at">long =</span> <span class="fu">col_double</span>(),</span>
+<span id="cb416-24"><a href="data-vis-intro.html#cb416-24" aria-hidden="true" tabindex="-1"></a>  <span class="at">lat =</span> <span class="fu">col_double</span>()</span>
+<span id="cb416-25"><a href="data-vis-intro.html#cb416-25" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
 <p>Let’s look at the map data first:</p>
 <div class="sourceCode" id="cb417"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb417-1"><a href="data-vis-intro.html#cb417-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(us_map)</span>
-<span id="cb417-2"><a href="data-vis-intro.html#cb417-2" aria-hidden="true" tabindex="-1"></a><span class="do">##        long      lat group order region subregion</span></span>
-<span id="cb417-3"><a href="data-vis-intro.html#cb417-3" aria-hidden="true" tabindex="-1"></a><span class="do">## 1 -101.4078 29.74224     1     1   main      &lt;NA&gt;</span></span>
-<span id="cb417-4"><a href="data-vis-intro.html#cb417-4" aria-hidden="true" tabindex="-1"></a><span class="do">## 2 -101.3906 29.74224     1     2   main      &lt;NA&gt;</span></span>
-<span id="cb417-5"><a href="data-vis-intro.html#cb417-5" aria-hidden="true" tabindex="-1"></a><span class="do">## 3 -101.3620 29.65056     1     3   main      &lt;NA&gt;</span></span>
-<span id="cb417-6"><a href="data-vis-intro.html#cb417-6" aria-hidden="true" tabindex="-1"></a><span class="do">## 4 -101.3505 29.63911     1     4   main      &lt;NA&gt;</span></span>
-<span id="cb417-7"><a href="data-vis-intro.html#cb417-7" aria-hidden="true" tabindex="-1"></a><span class="do">## 5 -101.3219 29.63338     1     5   main      &lt;NA&gt;</span></span>
-<span id="cb417-8"><a href="data-vis-intro.html#cb417-8" aria-hidden="true" tabindex="-1"></a><span class="do">## 6 -101.3047 29.64484     1     6   main      &lt;NA&gt;</span></span></code></pre></div>
+<span id="cb417-2"><a href="data-vis-intro.html#cb417-2" aria-hidden="true" tabindex="-1"></a>       long      lat group order region subregion</span>
+<span id="cb417-3"><a href="data-vis-intro.html#cb417-3" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="sc">-</span><span class="fl">101.4078</span> <span class="fl">29.74224</span>     <span class="dv">1</span>     <span class="dv">1</span>   main      <span class="sc">&lt;</span><span class="cn">NA</span><span class="sc">&gt;</span></span>
+<span id="cb417-4"><a href="data-vis-intro.html#cb417-4" aria-hidden="true" tabindex="-1"></a><span class="dv">2</span> <span class="sc">-</span><span class="fl">101.3906</span> <span class="fl">29.74224</span>     <span class="dv">1</span>     <span class="dv">2</span>   main      <span class="sc">&lt;</span><span class="cn">NA</span><span class="sc">&gt;</span></span>
+<span id="cb417-5"><a href="data-vis-intro.html#cb417-5" aria-hidden="true" tabindex="-1"></a><span class="dv">3</span> <span class="sc">-</span><span class="fl">101.3620</span> <span class="fl">29.65056</span>     <span class="dv">1</span>     <span class="dv">3</span>   main      <span class="sc">&lt;</span><span class="cn">NA</span><span class="sc">&gt;</span></span>
+<span id="cb417-6"><a href="data-vis-intro.html#cb417-6" aria-hidden="true" tabindex="-1"></a><span class="dv">4</span> <span class="sc">-</span><span class="fl">101.3505</span> <span class="fl">29.63911</span>     <span class="dv">1</span>     <span class="dv">4</span>   main      <span class="sc">&lt;</span><span class="cn">NA</span><span class="sc">&gt;</span></span>
+<span id="cb417-7"><a href="data-vis-intro.html#cb417-7" aria-hidden="true" tabindex="-1"></a><span class="dv">5</span> <span class="sc">-</span><span class="fl">101.3219</span> <span class="fl">29.63338</span>     <span class="dv">1</span>     <span class="dv">5</span>   main      <span class="sc">&lt;</span><span class="cn">NA</span><span class="sc">&gt;</span></span>
+<span id="cb417-8"><a href="data-vis-intro.html#cb417-8" aria-hidden="true" tabindex="-1"></a><span class="dv">6</span> <span class="sc">-</span><span class="fl">101.3047</span> <span class="fl">29.64484</span>     <span class="dv">1</span>     <span class="dv">6</span>   main      <span class="sc">&lt;</span><span class="cn">NA</span><span class="sc">&gt;</span></span></code></pre></div>
 <p>It looks like we have longitude and latitude, group, and point order. What does group mean?</p>
 <div class="sourceCode" id="cb418"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb418-1"><a href="data-vis-intro.html#cb418-1" aria-hidden="true" tabindex="-1"></a><span class="fu">select</span>(us_map, group, region) <span class="sc">%&gt;%</span> <span class="fu">unique</span>()</span>
-<span id="cb418-2"><a href="data-vis-intro.html#cb418-2" aria-hidden="true" tabindex="-1"></a><span class="do">##      group            region</span></span>
-<span id="cb418-3"><a href="data-vis-intro.html#cb418-3" aria-hidden="true" tabindex="-1"></a><span class="do">## 1        1              main</span></span>
-<span id="cb418-4"><a href="data-vis-intro.html#cb418-4" aria-hidden="true" tabindex="-1"></a><span class="do">## 6888     2 martha&#39;s vineyard</span></span>
-<span id="cb418-5"><a href="data-vis-intro.html#cb418-5" aria-hidden="true" tabindex="-1"></a><span class="do">## 6925     3  nantucket island</span></span>
-<span id="cb418-6"><a href="data-vis-intro.html#cb418-6" aria-hidden="true" tabindex="-1"></a><span class="do">## 6956     4         manhattan</span></span>
-<span id="cb418-7"><a href="data-vis-intro.html#cb418-7" aria-hidden="true" tabindex="-1"></a><span class="do">## 6973     5     staten island</span></span>
-<span id="cb418-8"><a href="data-vis-intro.html#cb418-8" aria-hidden="true" tabindex="-1"></a><span class="do">## 6984     6       long island</span></span>
-<span id="cb418-9"><a href="data-vis-intro.html#cb418-9" aria-hidden="true" tabindex="-1"></a><span class="do">## 7153     7   san juan island</span></span>
-<span id="cb418-10"><a href="data-vis-intro.html#cb418-10" aria-hidden="true" tabindex="-1"></a><span class="do">## 7171     8      lopez island</span></span>
-<span id="cb418-11"><a href="data-vis-intro.html#cb418-11" aria-hidden="true" tabindex="-1"></a><span class="do">## 7189     9      orcas island</span></span>
-<span id="cb418-12"><a href="data-vis-intro.html#cb418-12" aria-hidden="true" tabindex="-1"></a><span class="do">## 7209    10    whidbey island</span></span></code></pre></div>
+<span id="cb418-2"><a href="data-vis-intro.html#cb418-2" aria-hidden="true" tabindex="-1"></a>     group            region</span>
+<span id="cb418-3"><a href="data-vis-intro.html#cb418-3" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span>        <span class="dv">1</span>              main</span>
+<span id="cb418-4"><a href="data-vis-intro.html#cb418-4" aria-hidden="true" tabindex="-1"></a><span class="dv">6888</span>     <span class="dv">2</span> martha<span class="st">&#39;s vineyard</span></span>
+<span id="cb418-5"><a href="data-vis-intro.html#cb418-5" aria-hidden="true" tabindex="-1"></a><span class="st">6925     3  nantucket island</span></span>
+<span id="cb418-6"><a href="data-vis-intro.html#cb418-6" aria-hidden="true" tabindex="-1"></a><span class="st">6956     4         manhattan</span></span>
+<span id="cb418-7"><a href="data-vis-intro.html#cb418-7" aria-hidden="true" tabindex="-1"></a><span class="st">6973     5     staten island</span></span>
+<span id="cb418-8"><a href="data-vis-intro.html#cb418-8" aria-hidden="true" tabindex="-1"></a><span class="st">6984     6       long island</span></span>
+<span id="cb418-9"><a href="data-vis-intro.html#cb418-9" aria-hidden="true" tabindex="-1"></a><span class="st">7153     7   san juan island</span></span>
+<span id="cb418-10"><a href="data-vis-intro.html#cb418-10" aria-hidden="true" tabindex="-1"></a><span class="st">7171     8      lopez island</span></span>
+<span id="cb418-11"><a href="data-vis-intro.html#cb418-11" aria-hidden="true" tabindex="-1"></a><span class="st">7189     9      orcas island</span></span>
+<span id="cb418-12"><a href="data-vis-intro.html#cb418-12" aria-hidden="true" tabindex="-1"></a><span class="st">7209    10    whidbey island</span></span></code></pre></div>
 <p>The regions are all islands, and group is a number that corresponds to each region. This is important because if we plot polygons, we have to worry about what to do when we jump from one “island” to another (sometimes, regions might be contiguous areas, such as states or zip codes). As long as we pass in a group argument (so <code>group = group</code>) we should avoid most of the complications of plotting spatial data.</p>
 <p>The state data is similarly structured:</p>
 <div class="sourceCode" id="cb419"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb419-1"><a href="data-vis-intro.html#cb419-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(states)</span>
-<span id="cb419-2"><a href="data-vis-intro.html#cb419-2" aria-hidden="true" tabindex="-1"></a><span class="do">##        long      lat group order  region subregion</span></span>
-<span id="cb419-3"><a href="data-vis-intro.html#cb419-3" aria-hidden="true" tabindex="-1"></a><span class="do">## 1 -87.46201 30.38968     1     1 alabama      &lt;NA&gt;</span></span>
-<span id="cb419-4"><a href="data-vis-intro.html#cb419-4" aria-hidden="true" tabindex="-1"></a><span class="do">## 2 -87.48493 30.37249     1     2 alabama      &lt;NA&gt;</span></span>
-<span id="cb419-5"><a href="data-vis-intro.html#cb419-5" aria-hidden="true" tabindex="-1"></a><span class="do">## 3 -87.52503 30.37249     1     3 alabama      &lt;NA&gt;</span></span>
-<span id="cb419-6"><a href="data-vis-intro.html#cb419-6" aria-hidden="true" tabindex="-1"></a><span class="do">## 4 -87.53076 30.33239     1     4 alabama      &lt;NA&gt;</span></span>
-<span id="cb419-7"><a href="data-vis-intro.html#cb419-7" aria-hidden="true" tabindex="-1"></a><span class="do">## 5 -87.57087 30.32665     1     5 alabama      &lt;NA&gt;</span></span>
-<span id="cb419-8"><a href="data-vis-intro.html#cb419-8" aria-hidden="true" tabindex="-1"></a><span class="do">## 6 -87.58806 30.32665     1     6 alabama      &lt;NA&gt;</span></span></code></pre></div>
+<span id="cb419-2"><a href="data-vis-intro.html#cb419-2" aria-hidden="true" tabindex="-1"></a>       long      lat group order  region subregion</span>
+<span id="cb419-3"><a href="data-vis-intro.html#cb419-3" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="sc">-</span><span class="fl">87.46201</span> <span class="fl">30.38968</span>     <span class="dv">1</span>     <span class="dv">1</span> alabama      <span class="sc">&lt;</span><span class="cn">NA</span><span class="sc">&gt;</span></span>
+<span id="cb419-4"><a href="data-vis-intro.html#cb419-4" aria-hidden="true" tabindex="-1"></a><span class="dv">2</span> <span class="sc">-</span><span class="fl">87.48493</span> <span class="fl">30.37249</span>     <span class="dv">1</span>     <span class="dv">2</span> alabama      <span class="sc">&lt;</span><span class="cn">NA</span><span class="sc">&gt;</span></span>
+<span id="cb419-5"><a href="data-vis-intro.html#cb419-5" aria-hidden="true" tabindex="-1"></a><span class="dv">3</span> <span class="sc">-</span><span class="fl">87.52503</span> <span class="fl">30.37249</span>     <span class="dv">1</span>     <span class="dv">3</span> alabama      <span class="sc">&lt;</span><span class="cn">NA</span><span class="sc">&gt;</span></span>
+<span id="cb419-6"><a href="data-vis-intro.html#cb419-6" aria-hidden="true" tabindex="-1"></a><span class="dv">4</span> <span class="sc">-</span><span class="fl">87.53076</span> <span class="fl">30.33239</span>     <span class="dv">1</span>     <span class="dv">4</span> alabama      <span class="sc">&lt;</span><span class="cn">NA</span><span class="sc">&gt;</span></span>
+<span id="cb419-7"><a href="data-vis-intro.html#cb419-7" aria-hidden="true" tabindex="-1"></a><span class="dv">5</span> <span class="sc">-</span><span class="fl">87.57087</span> <span class="fl">30.32665</span>     <span class="dv">1</span>     <span class="dv">5</span> alabama      <span class="sc">&lt;</span><span class="cn">NA</span><span class="sc">&gt;</span></span>
+<span id="cb419-8"><a href="data-vis-intro.html#cb419-8" aria-hidden="true" tabindex="-1"></a><span class="dv">6</span> <span class="sc">-</span><span class="fl">87.58806</span> <span class="fl">30.32665</span>     <span class="dv">1</span>     <span class="dv">6</span> alabama      <span class="sc">&lt;</span><span class="cn">NA</span><span class="sc">&gt;</span></span></code></pre></div>
 <p>Now, let’s look at our worship place data. The full data set was more extensive (and much larger), so I’ve reduced the number of columns so that I’m able to put it on GitHub.</p>
 <div class="sourceCode" id="cb420"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb420-1"><a href="data-vis-intro.html#cb420-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(worship)</span>
-<span id="cb420-2"><a href="data-vis-intro.html#cb420-2" aria-hidden="true" tabindex="-1"></a><span class="do">## # A tibble: 6 x 10</span></span>
-<span id="cb420-3"><a href="data-vis-intro.html#cb420-3" aria-hidden="true" tabindex="-1"></a><span class="do">##       EIN NAME      STREET  CITY  STATE   ZIP AFFILIATION FOUNDATION  long   lat</span></span>
-<span id="cb420-4"><a href="data-vis-intro.html#cb420-4" aria-hidden="true" tabindex="-1"></a><span class="do">##     &lt;dbl&gt; &lt;chr&gt;     &lt;chr&gt;   &lt;chr&gt; &lt;chr&gt; &lt;dbl&gt;       &lt;dbl&gt;      &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;</span></span>
-<span id="cb420-5"><a href="data-vis-intro.html#cb420-5" aria-hidden="true" tabindex="-1"></a><span class="do">## 1  2.92e4 ST GEORG… 523 E … SOUT… MA     2127           9         10 -71.0  42.3</span></span>
-<span id="cb420-6"><a href="data-vis-intro.html#cb420-6" aria-hidden="true" tabindex="-1"></a><span class="do">## 2  6.36e5 MINISTER… 454 ES… LAWR… MA     1840           3         10 -71.2  42.7</span></span>
-<span id="cb420-7"><a href="data-vis-intro.html#cb420-7" aria-hidden="true" tabindex="-1"></a><span class="do">## 3  2.03e6 CHURCH O… 569 BR… NEWA… NJ     7104           3         10 -74.2  40.8</span></span>
-<span id="cb420-8"><a href="data-vis-intro.html#cb420-8" aria-hidden="true" tabindex="-1"></a><span class="do">## 4  2.05e6 GENERAL … 3210 S… ORCH… NY    14127           9         10 -78.7  42.8</span></span>
-<span id="cb420-9"><a href="data-vis-intro.html#cb420-9" aria-hidden="true" tabindex="-1"></a><span class="do">## 5  1.02e7 CHILD EV… 431 CA… LIVE… ME     4254           9         15 -70.1  44.4</span></span>
-<span id="cb420-10"><a href="data-vis-intro.html#cb420-10" aria-hidden="true" tabindex="-1"></a><span class="do">## 6  1.02e7 BIBLE SO… 105 HA… PORT… ME     4103           3         16 -70.3  43.7</span></span></code></pre></div>
+<span id="cb420-2"><a href="data-vis-intro.html#cb420-2" aria-hidden="true" tabindex="-1"></a><span class="co"># A tibble: 6 x 10</span></span>
+<span id="cb420-3"><a href="data-vis-intro.html#cb420-3" aria-hidden="true" tabindex="-1"></a>      EIN NAME      STREET  CITY  STATE   ZIP AFFILIATION FOUNDATION  long   lat</span>
+<span id="cb420-4"><a href="data-vis-intro.html#cb420-4" aria-hidden="true" tabindex="-1"></a>    <span class="sc">&lt;</span>dbl<span class="sc">&gt;</span> <span class="er">&lt;</span>chr<span class="sc">&gt;</span>     <span class="er">&lt;</span>chr<span class="sc">&gt;</span>   <span class="er">&lt;</span>chr<span class="sc">&gt;</span> <span class="er">&lt;</span>chr<span class="sc">&gt;</span> <span class="er">&lt;</span>dbl<span class="sc">&gt;</span>       <span class="er">&lt;</span>dbl<span class="sc">&gt;</span>      <span class="er">&lt;</span>dbl<span class="sc">&gt;</span> <span class="er">&lt;</span>dbl<span class="sc">&gt;</span> <span class="er">&lt;</span>dbl<span class="sc">&gt;</span></span>
+<span id="cb420-5"><a href="data-vis-intro.html#cb420-5" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span>  <span class="fl">2.92e4</span> ST GEORG… <span class="dv">523</span> E … SOUT… MA     <span class="dv">2127</span>           <span class="dv">9</span>         <span class="dv">10</span> <span class="sc">-</span><span class="fl">71.0</span>  <span class="fl">42.3</span></span>
+<span id="cb420-6"><a href="data-vis-intro.html#cb420-6" aria-hidden="true" tabindex="-1"></a><span class="dv">2</span>  <span class="fl">6.36e5</span> MINISTER… <span class="dv">454</span> ES… LAWR… MA     <span class="dv">1840</span>           <span class="dv">3</span>         <span class="dv">10</span> <span class="sc">-</span><span class="fl">71.2</span>  <span class="fl">42.7</span></span>
+<span id="cb420-7"><a href="data-vis-intro.html#cb420-7" aria-hidden="true" tabindex="-1"></a><span class="dv">3</span>  <span class="fl">2.03e6</span> CHURCH O… <span class="dv">569</span> BR… NEWA… NJ     <span class="dv">7104</span>           <span class="dv">3</span>         <span class="dv">10</span> <span class="sc">-</span><span class="fl">74.2</span>  <span class="fl">40.8</span></span>
+<span id="cb420-8"><a href="data-vis-intro.html#cb420-8" aria-hidden="true" tabindex="-1"></a><span class="dv">4</span>  <span class="fl">2.05e6</span> GENERAL … <span class="dv">3210</span> S… ORCH… NY    <span class="dv">14127</span>           <span class="dv">9</span>         <span class="dv">10</span> <span class="sc">-</span><span class="fl">78.7</span>  <span class="fl">42.8</span></span>
+<span id="cb420-9"><a href="data-vis-intro.html#cb420-9" aria-hidden="true" tabindex="-1"></a><span class="dv">5</span>  <span class="fl">1.02e7</span> CHILD EV… <span class="dv">431</span> CA… LIVE… ME     <span class="dv">4254</span>           <span class="dv">9</span>         <span class="dv">15</span> <span class="sc">-</span><span class="fl">70.1</span>  <span class="fl">44.4</span></span>
+<span id="cb420-10"><a href="data-vis-intro.html#cb420-10" aria-hidden="true" tabindex="-1"></a><span class="dv">6</span>  <span class="fl">1.02e7</span> BIBLE SO… <span class="dv">105</span> HA… PORT… ME     <span class="dv">4103</span>           <span class="dv">3</span>         <span class="dv">16</span> <span class="sc">-</span><span class="fl">70.3</span>  <span class="fl">43.7</span></span></code></pre></div>
 <p>We have tax numbers, entity names, mailing address, affiliation, foundation, and latitude/longitude. <a href="https://www.irs.gov/pub/irs-soi/eo_info.pdf">A codebook for the affiliation and foundation information is available from the IRS</a>.</p>
 While I’m tempted to play around with the names of the organizations a bit (for instance, how many different “First XXX Church” exist in the country?) it’s probably for the best that we keep moving.
 </details>
@@ -1481,23 +1475,23 @@ One solution
 <span id="cb432-5"><a href="data-vis-intro.html#cb432-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">table</span>() <span class="sc">%&gt;%</span></span>
 <span id="cb432-6"><a href="data-vis-intro.html#cb432-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">sort</span>(<span class="at">decreasing =</span> <span class="cn">TRUE</span>)</span>
 <span id="cb432-7"><a href="data-vis-intro.html#cb432-7" aria-hidden="true" tabindex="-1"></a>common_words[<span class="dv">1</span><span class="sc">:</span><span class="dv">40</span>]</span>
-<span id="cb432-8"><a href="data-vis-intro.html#cb432-8" aria-hidden="true" tabindex="-1"></a><span class="do">## .</span></span>
-<span id="cb432-9"><a href="data-vis-intro.html#cb432-9" aria-hidden="true" tabindex="-1"></a><span class="do">##                      CHURCH            OF           INC       BAPTIST </span></span>
-<span id="cb432-10"><a href="data-vis-intro.html#cb432-10" aria-hidden="true" tabindex="-1"></a><span class="do">##       3427562        119645         79566         59809         25940 </span></span>
-<span id="cb432-11"><a href="data-vis-intro.html#cb432-11" aria-hidden="true" tabindex="-1"></a><span class="do">##    MINISTRIES     CHRISTIAN           THE           GOD      LUTHERAN </span></span>
-<span id="cb432-12"><a href="data-vis-intro.html#cb432-12" aria-hidden="true" tabindex="-1"></a><span class="do">##         24719         21974         21039         17550         13004 </span></span>
-<span id="cb432-13"><a href="data-vis-intro.html#cb432-13" aria-hidden="true" tabindex="-1"></a><span class="do">##        CENTER        CHRIST    FELLOWSHIP     COMMUNITY           NEW </span></span>
-<span id="cb432-14"><a href="data-vis-intro.html#cb432-14" aria-hidden="true" tabindex="-1"></a><span class="do">##         12385         12172         11256         10922         10915 </span></span>
-<span id="cb432-15"><a href="data-vis-intro.html#cb432-15" aria-hidden="true" tabindex="-1"></a><span class="do">##         FIRST      ASSEMBLY INTERNATIONAL            ST          LIFE </span></span>
-<span id="cb432-16"><a href="data-vis-intro.html#cb432-16" aria-hidden="true" tabindex="-1"></a><span class="do">##         10106          9367          9150          8992          8923 </span></span>
-<span id="cb432-17"><a href="data-vis-intro.html#cb432-17" aria-hidden="true" tabindex="-1"></a><span class="do">##         FAITH            DE            IN         BIBLE        UNITED </span></span>
-<span id="cb432-18"><a href="data-vis-intro.html#cb432-18" aria-hidden="true" tabindex="-1"></a><span class="do">##          7780          6513          6101          5915          5682 </span></span>
-<span id="cb432-19"><a href="data-vis-intro.html#cb432-19" aria-hidden="true" tabindex="-1"></a><span class="do">##       IGLESIA     METHODIST      MINISTRY         GRACE    MISSIONARY </span></span>
-<span id="cb432-20"><a href="data-vis-intro.html#cb432-20" aria-hidden="true" tabindex="-1"></a><span class="do">##          5610          5440          5191          5167          5141 </span></span>
-<span id="cb432-21"><a href="data-vis-intro.html#cb432-21" aria-hidden="true" tabindex="-1"></a><span class="do">##           AND        TEMPLE  PRESBYTERIAN        GOSPEL          HOPE </span></span>
-<span id="cb432-22"><a href="data-vis-intro.html#cb432-22" aria-hidden="true" tabindex="-1"></a><span class="do">##          4873          4635          4155          4144          3915 </span></span>
-<span id="cb432-23"><a href="data-vis-intro.html#cb432-23" aria-hidden="true" tabindex="-1"></a><span class="do">##        CHAPEL      OUTREACH        LIVING           FOR     EPISCOPAL </span></span>
-<span id="cb432-24"><a href="data-vis-intro.html#cb432-24" aria-hidden="true" tabindex="-1"></a><span class="do">##          3909          3634          3607          3491          3464</span></span></code></pre></div>
+<span id="cb432-8"><a href="data-vis-intro.html#cb432-8" aria-hidden="true" tabindex="-1"></a>.</span>
+<span id="cb432-9"><a href="data-vis-intro.html#cb432-9" aria-hidden="true" tabindex="-1"></a>                     CHURCH            OF           INC       BAPTIST </span>
+<span id="cb432-10"><a href="data-vis-intro.html#cb432-10" aria-hidden="true" tabindex="-1"></a>      <span class="dv">3427562</span>        <span class="dv">119645</span>         <span class="dv">79566</span>         <span class="dv">59809</span>         <span class="dv">25940</span> </span>
+<span id="cb432-11"><a href="data-vis-intro.html#cb432-11" aria-hidden="true" tabindex="-1"></a>   MINISTRIES     CHRISTIAN           THE           GOD      LUTHERAN </span>
+<span id="cb432-12"><a href="data-vis-intro.html#cb432-12" aria-hidden="true" tabindex="-1"></a>        <span class="dv">24719</span>         <span class="dv">21974</span>         <span class="dv">21039</span>         <span class="dv">17550</span>         <span class="dv">13004</span> </span>
+<span id="cb432-13"><a href="data-vis-intro.html#cb432-13" aria-hidden="true" tabindex="-1"></a>       CENTER        CHRIST    FELLOWSHIP     COMMUNITY           NEW </span>
+<span id="cb432-14"><a href="data-vis-intro.html#cb432-14" aria-hidden="true" tabindex="-1"></a>        <span class="dv">12385</span>         <span class="dv">12172</span>         <span class="dv">11256</span>         <span class="dv">10922</span>         <span class="dv">10915</span> </span>
+<span id="cb432-15"><a href="data-vis-intro.html#cb432-15" aria-hidden="true" tabindex="-1"></a>        FIRST      ASSEMBLY INTERNATIONAL            ST          LIFE </span>
+<span id="cb432-16"><a href="data-vis-intro.html#cb432-16" aria-hidden="true" tabindex="-1"></a>        <span class="dv">10106</span>          <span class="dv">9367</span>          <span class="dv">9150</span>          <span class="dv">8992</span>          <span class="dv">8923</span> </span>
+<span id="cb432-17"><a href="data-vis-intro.html#cb432-17" aria-hidden="true" tabindex="-1"></a>        FAITH            DE            IN         BIBLE        UNITED </span>
+<span id="cb432-18"><a href="data-vis-intro.html#cb432-18" aria-hidden="true" tabindex="-1"></a>         <span class="dv">7780</span>          <span class="dv">6513</span>          <span class="dv">6101</span>          <span class="dv">5915</span>          <span class="dv">5682</span> </span>
+<span id="cb432-19"><a href="data-vis-intro.html#cb432-19" aria-hidden="true" tabindex="-1"></a>      IGLESIA     METHODIST      MINISTRY         GRACE    MISSIONARY </span>
+<span id="cb432-20"><a href="data-vis-intro.html#cb432-20" aria-hidden="true" tabindex="-1"></a>         <span class="dv">5610</span>          <span class="dv">5440</span>          <span class="dv">5191</span>          <span class="dv">5167</span>          <span class="dv">5141</span> </span>
+<span id="cb432-21"><a href="data-vis-intro.html#cb432-21" aria-hidden="true" tabindex="-1"></a>          AND        TEMPLE  PRESBYTERIAN        GOSPEL          HOPE </span>
+<span id="cb432-22"><a href="data-vis-intro.html#cb432-22" aria-hidden="true" tabindex="-1"></a>         <span class="dv">4873</span>          <span class="dv">4635</span>          <span class="dv">4155</span>          <span class="dv">4144</span>          <span class="dv">3915</span> </span>
+<span id="cb432-23"><a href="data-vis-intro.html#cb432-23" aria-hidden="true" tabindex="-1"></a>       CHAPEL      OUTREACH        LIVING           FOR     EPISCOPAL </span>
+<span id="cb432-24"><a href="data-vis-intro.html#cb432-24" aria-hidden="true" tabindex="-1"></a>         <span class="dv">3909</span>          <span class="dv">3634</span>          <span class="dv">3607</span>          <span class="dv">3491</span>          <span class="dv">3464</span> </span></code></pre></div>
 <p>Let’s work with the following denominations: BAPTIST, LUTHERAN, METHODIST, PRESBYTERIAN, EPISCOPAL - I’ve left out CHRISTIAN, ASSEMBLY (because it could be ASSEMBLY OF GOD or a more generic term for a congregation), and TEMPLE because it could refer to any number of religions - Jewish, Hindu, etc. This will give us a very rough categorization (e.g. there are Methodist Episcopal churches which will be counted as one and not the other, and UMC is a common abbreviation for United Methodist Church but won’t be counted as one this way).</p>
 <div class="sourceCode" id="cb433"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb433-1"><a href="data-vis-intro.html#cb433-1" aria-hidden="true" tabindex="-1"></a>worship <span class="ot">&lt;-</span> worship <span class="sc">%&gt;%</span></span>
 <span id="cb433-2"><a href="data-vis-intro.html#cb433-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">type =</span> <span class="fu">str_extract</span>(NAME, <span class="st">&quot;(BAPTIST|LUTHERAN|METHODIST|PRESBYTERIAN|EPISCOPAL)&quot;</span>))</span>
@@ -1561,7 +1555,7 @@ Dedicated fans have re-created middle earth in digital format using ArcGIS files
 <div class="sourceCode" id="cb437"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb437-1"><a href="data-vis-intro.html#cb437-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
 <span id="cb437-2"><a href="data-vis-intro.html#cb437-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggthemes)</span>
 <span id="cb437-3"><a href="data-vis-intro.html#cb437-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(sf)</span>
-<span id="cb437-4"><a href="data-vis-intro.html#cb437-4" aria-hidden="true" tabindex="-1"></a><span class="do">## Linking to GEOS 3.9.0, GDAL 3.2.1, PROJ 7.2.1</span></span>
+<span id="cb437-4"><a href="data-vis-intro.html#cb437-4" aria-hidden="true" tabindex="-1"></a>Linking to GEOS <span class="dv">3</span>.<span class="fl">8.0</span>, GDAL <span class="dv">3</span>.<span class="fl">0.4</span>, PROJ <span class="dv">6</span>.<span class="fl">3.1</span></span>
 <span id="cb437-5"><a href="data-vis-intro.html#cb437-5" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb437-6"><a href="data-vis-intro.html#cb437-6" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="sc">!</span><span class="fu">file.exists</span>(<span class="st">&quot;data/MiddleEarthMap.zip&quot;</span>)) {</span>
 <span id="cb437-7"><a href="data-vis-intro.html#cb437-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">download.file</span>(<span class="st">&quot;https://github.com/jvangeld/ME-GIS/archive/master.zip&quot;</span>, <span class="st">&quot;data/MiddleEarthMap.zip&quot;</span>, <span class="at">mode =</span> <span class="st">&quot;wb&quot;</span>)</span>
@@ -1612,7 +1606,7 @@ Box plots in ggplot2
 <span id="cb438-10"><a href="data-vis-intro.html#cb438-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> crime, <span class="at">y =</span> per_100k)) <span class="sc">+</span> </span>
 <span id="cb438-11"><a href="data-vis-intro.html#cb438-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>() <span class="sc">+</span> </span>
 <span id="cb438-12"><a href="data-vis-intro.html#cb438-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="fu">paste</span>(<span class="st">&quot;Crimes per 100k people,&quot;</span>, <span class="fu">max</span>(fbi<span class="sc">$</span>Year)))</span>
-<span id="cb438-13"><a href="data-vis-intro.html#cb438-13" aria-hidden="true" tabindex="-1"></a><span class="do">## Warning: Removed 52 rows containing non-finite values (stat_boxplot).</span></span></code></pre></div>
+<span id="cb438-13"><a href="data-vis-intro.html#cb438-13" aria-hidden="true" tabindex="-1"></a>Warning<span class="sc">:</span> Removed <span class="dv">52</span> rows containing non<span class="sc">-</span>finite <span class="fu">values</span> (stat_boxplot).</span></code></pre></div>
 <p><img src="image/gg-boxplot-08-1.png" width="2100" /></p>
 <p>We might want to sort crimes by incidence level, because it makes the plot prettier and also gives us an ordered list of crimes in descending frequency.</p>
 <div class="sourceCode" id="cb439"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb439-1"><a href="data-vis-intro.html#cb439-1" aria-hidden="true" tabindex="-1"></a>tmp <span class="ot">&lt;-</span> fbi <span class="sc">%&gt;%</span></span>
@@ -1639,7 +1633,7 @@ Box plots in ggplot2
 <span id="cb439-22"><a href="data-vis-intro.html#cb439-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> crime, <span class="at">y =</span> per_100k, <span class="at">color =</span> Violent.crime)) <span class="sc">+</span> </span>
 <span id="cb439-23"><a href="data-vis-intro.html#cb439-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>() <span class="sc">+</span> </span>
 <span id="cb439-24"><a href="data-vis-intro.html#cb439-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="fu">paste</span>(<span class="st">&quot;Crimes per 100k people,&quot;</span>, <span class="fu">max</span>(fbi<span class="sc">$</span>Year)))</span>
-<span id="cb439-25"><a href="data-vis-intro.html#cb439-25" aria-hidden="true" tabindex="-1"></a><span class="do">## Warning: Removed 52 rows containing non-finite values (stat_boxplot).</span></span></code></pre></div>
+<span id="cb439-25"><a href="data-vis-intro.html#cb439-25" aria-hidden="true" tabindex="-1"></a>Warning<span class="sc">:</span> Removed <span class="dv">52</span> rows containing non<span class="sc">-</span>finite <span class="fu">values</span> (stat_boxplot).</span></code></pre></div>
 <p><img src="image/gg-boxplot-sort-08-1.png" width="2100" /></p>
 <details>
 <summary>
@@ -1686,7 +1680,7 @@ hbox per_100k / group = Type;
 RUN;
 QUIT; </code></pre>
 <div class="branch">
-<a name="IDX"></a>
+<a name="IDX8"></a>
 <div>
 <div class="c">
 <p><img alt="The SGPlot Procedure" src=" image/sas-boxplot-08.png" style=" height: 480px; width: 640px;" border="0" class="c"></p>
@@ -1706,9 +1700,9 @@ There are other variants of box plots (and similar concepts).
 <span id="cb443-4"><a href="data-vis-intro.html#cb443-4" aria-hidden="true" tabindex="-1"></a>                               <span class="co"># Otherwise, theft is too skinny to really see</span></span>
 <span id="cb443-5"><a href="data-vis-intro.html#cb443-5" aria-hidden="true" tabindex="-1"></a>              <span class="at">draw_quantiles =</span> <span class="fu">c</span>(.<span class="dv">25</span>, .<span class="dv">5</span>, .<span class="dv">75</span>)) <span class="sc">+</span> </span>
 <span id="cb443-6"><a href="data-vis-intro.html#cb443-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="fu">paste</span>(<span class="st">&quot;Crimes per 100k people,&quot;</span>, <span class="fu">max</span>(fbi<span class="sc">$</span>Year)))</span>
-<span id="cb443-7"><a href="data-vis-intro.html#cb443-7" aria-hidden="true" tabindex="-1"></a><span class="do">## Warning: Removed 52 rows containing non-finite values (stat_ydensity).</span></span>
-<span id="cb443-8"><a href="data-vis-intro.html#cb443-8" aria-hidden="true" tabindex="-1"></a><span class="do">## Warning in regularize.values(x, y, ties, missing(ties), na.rm = na.rm):</span></span>
-<span id="cb443-9"><a href="data-vis-intro.html#cb443-9" aria-hidden="true" tabindex="-1"></a><span class="do">## collapsing to unique &#39;x&#39; values</span></span></code></pre></div>
+<span id="cb443-7"><a href="data-vis-intro.html#cb443-7" aria-hidden="true" tabindex="-1"></a>Warning<span class="sc">:</span> Removed <span class="dv">52</span> rows containing non<span class="sc">-</span>finite <span class="fu">values</span> (stat_ydensity).</span>
+<span id="cb443-8"><a href="data-vis-intro.html#cb443-8" aria-hidden="true" tabindex="-1"></a>Warning <span class="cf">in</span> <span class="fu">regularize.values</span>(x, y, ties, <span class="fu">missing</span>(ties), <span class="at">na.rm =</span> na.rm)<span class="sc">:</span></span>
+<span id="cb443-9"><a href="data-vis-intro.html#cb443-9" aria-hidden="true" tabindex="-1"></a>collapsing to unique <span class="st">&#39;x&#39;</span> values</span></code></pre></div>
 <p><img src="image/gg-violin-08-1.png" width="2100" /></p>
 </details>
 </div>
@@ -1723,7 +1717,7 @@ Histograms in ggplot2
 <div class="sourceCode" id="cb444"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb444-1"><a href="data-vis-intro.html#cb444-1" aria-hidden="true" tabindex="-1"></a>poke <span class="sc">%&gt;%</span></span>
 <span id="cb444-2"><a href="data-vis-intro.html#cb444-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> hp)) <span class="sc">+</span> </span>
 <span id="cb444-3"><a href="data-vis-intro.html#cb444-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">color =</span> <span class="st">&quot;black&quot;</span>, <span class="at">fill =</span> <span class="st">&quot;grey&quot;</span>)</span>
-<span id="cb444-4"><a href="data-vis-intro.html#cb444-4" aria-hidden="true" tabindex="-1"></a><span class="do">## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</span></span></code></pre></div>
+<span id="cb444-4"><a href="data-vis-intro.html#cb444-4" aria-hidden="true" tabindex="-1"></a><span class="st">`</span><span class="at">stat_bin()</span><span class="st">`</span> using <span class="st">`</span><span class="at">bins = 30</span><span class="st">`</span>. Pick better value with <span class="st">`</span><span class="at">binwidth</span><span class="st">`</span>.</span></code></pre></div>
 <p><img src="image/gg-hist-08-1.png" width="2100" /></p>
 <div class="sourceCode" id="cb445"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb445-1"><a href="data-vis-intro.html#cb445-1" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb445-2"><a href="data-vis-intro.html#cb445-2" aria-hidden="true" tabindex="-1"></a>poke <span class="sc">%&gt;%</span></span>
@@ -1740,7 +1734,7 @@ Histograms and <code>stat_bin</code> in ggplot2
 <div class="sourceCode" id="cb446"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb446-1"><a href="data-vis-intro.html#cb446-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tibble</span>(<span class="at">x =</span> <span class="fu">rnorm</span>(<span class="dv">100</span>)) <span class="sc">%&gt;%</span></span>
 <span id="cb446-2"><a href="data-vis-intro.html#cb446-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> x)) <span class="sc">+</span> </span>
 <span id="cb446-3"><a href="data-vis-intro.html#cb446-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_bin</span>(<span class="at">geom =</span> <span class="st">&quot;bar&quot;</span>) <span class="co"># this is equivalent to geom_histogram</span></span>
-<span id="cb446-4"><a href="data-vis-intro.html#cb446-4" aria-hidden="true" tabindex="-1"></a><span class="do">## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</span></span></code></pre></div>
+<span id="cb446-4"><a href="data-vis-intro.html#cb446-4" aria-hidden="true" tabindex="-1"></a><span class="st">`</span><span class="at">stat_bin()</span><span class="st">`</span> using <span class="st">`</span><span class="at">bins = 30</span><span class="st">`</span>. Pick better value with <span class="st">`</span><span class="at">binwidth</span><span class="st">`</span>.</span></code></pre></div>
 <img src="image/gg-hist-stat-08-1.png" width="2100" />
 </details>
 <p>In base R, you can get histograms with the <code>hist()</code> function.</p>
@@ -1761,7 +1755,7 @@ HISTOGRAM per_100k;
 RUN;
 QUIT; </code></pre>
 <div class="branch">
-<a name="IDX1"></a>
+<a name="IDX"></a>
 <div>
 <div class="c">
 <p><img alt="The SGPlot Procedure" src=" image/sas-hist-08.png" style=" height: 480px; width: 640px;" border="0" class="c"></p>
@@ -1791,7 +1785,7 @@ A spiky density curve can alert you to other problems in your data - for instanc
 <div class="sourceCode" id="cb449"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb449-1"><a href="data-vis-intro.html#cb449-1" aria-hidden="true" tabindex="-1"></a>poke <span class="sc">%&gt;%</span></span>
 <span id="cb449-2"><a href="data-vis-intro.html#cb449-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> catch_rate)) <span class="sc">+</span> </span>
 <span id="cb449-3"><a href="data-vis-intro.html#cb449-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_density</span>(<span class="at">color =</span> <span class="st">&quot;black&quot;</span>, <span class="at">fill =</span> <span class="st">&quot;grey&quot;</span>)</span>
-<span id="cb449-4"><a href="data-vis-intro.html#cb449-4" aria-hidden="true" tabindex="-1"></a><span class="do">## Warning: Removed 104 rows containing non-finite values (stat_density).</span></span></code></pre></div>
+<span id="cb449-4"><a href="data-vis-intro.html#cb449-4" aria-hidden="true" tabindex="-1"></a>Warning<span class="sc">:</span> Removed <span class="dv">104</span> rows containing non<span class="sc">-</span>finite <span class="fu">values</span> (stat_density).</span></code></pre></div>
 <img src="image/gg-kernel-dens-cat-08-1.png" width="2100" />
 </details>
 <p>In base R, you can get a density plot of a single variable with <code>plot(density(...))</code>.</p>
@@ -1812,7 +1806,7 @@ density per_100k / type = kernel;
 RUN;
 QUIT; </code></pre>
 <div class="branch">
-<a name="IDX2"></a>
+<a name="IDX1"></a>
 <div>
 <div class="c">
 <p><img alt="The SGPlot Procedure" src=" image/sas-kernel-dens-08.png" style=" height: 480px; width: 640px;" border="0" class="c"></p>
@@ -1834,18 +1828,18 @@ If you’re careful to specify your mappings properly, you can plot a density cu
 <span id="cb451-2"><a href="data-vis-intro.html#cb451-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> catch_rate)) <span class="sc">+</span> </span>
 <span id="cb451-3"><a href="data-vis-intro.html#cb451-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="fu">aes</span>(<span class="at">y =</span> ..density..)) <span class="sc">+</span> </span>
 <span id="cb451-4"><a href="data-vis-intro.html#cb451-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_density</span>(<span class="at">color =</span> <span class="st">&quot;black&quot;</span>, <span class="at">fill =</span> <span class="st">&quot;white&quot;</span>, <span class="at">alpha =</span> .<span class="dv">25</span>)</span>
-<span id="cb451-5"><a href="data-vis-intro.html#cb451-5" aria-hidden="true" tabindex="-1"></a><span class="do">## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</span></span>
-<span id="cb451-6"><a href="data-vis-intro.html#cb451-6" aria-hidden="true" tabindex="-1"></a><span class="do">## Warning: Removed 104 rows containing non-finite values (stat_bin).</span></span>
-<span id="cb451-7"><a href="data-vis-intro.html#cb451-7" aria-hidden="true" tabindex="-1"></a><span class="do">## Warning: Removed 104 rows containing non-finite values (stat_density).</span></span></code></pre></div>
+<span id="cb451-5"><a href="data-vis-intro.html#cb451-5" aria-hidden="true" tabindex="-1"></a><span class="st">`</span><span class="at">stat_bin()</span><span class="st">`</span> using <span class="st">`</span><span class="at">bins = 30</span><span class="st">`</span>. Pick better value with <span class="st">`</span><span class="at">binwidth</span><span class="st">`</span>.</span>
+<span id="cb451-6"><a href="data-vis-intro.html#cb451-6" aria-hidden="true" tabindex="-1"></a>Warning<span class="sc">:</span> Removed <span class="dv">104</span> rows containing non<span class="sc">-</span>finite <span class="fu">values</span> (stat_bin).</span>
+<span id="cb451-7"><a href="data-vis-intro.html#cb451-7" aria-hidden="true" tabindex="-1"></a>Warning<span class="sc">:</span> Removed <span class="dv">104</span> rows containing non<span class="sc">-</span>finite <span class="fu">values</span> (stat_density).</span></code></pre></div>
 <p><img src="image/gg-hist-dens-08-1.png" width="2100" /></p>
 <p>We could similarly tell the density function we want a plot on the count scale, but this is harder to read and compare. Personally, I prefer the first version.</p>
 <div class="sourceCode" id="cb452"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb452-1"><a href="data-vis-intro.html#cb452-1" aria-hidden="true" tabindex="-1"></a>poke <span class="sc">%&gt;%</span></span>
 <span id="cb452-2"><a href="data-vis-intro.html#cb452-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> catch_rate)) <span class="sc">+</span> </span>
 <span id="cb452-3"><a href="data-vis-intro.html#cb452-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>() <span class="sc">+</span> </span>
 <span id="cb452-4"><a href="data-vis-intro.html#cb452-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_density</span>(<span class="fu">aes</span>(<span class="at">y =</span> ..count..), <span class="at">color =</span> <span class="st">&quot;black&quot;</span>, <span class="at">fill =</span> <span class="st">&quot;white&quot;</span>, <span class="at">alpha =</span> .<span class="dv">25</span>)</span>
-<span id="cb452-5"><a href="data-vis-intro.html#cb452-5" aria-hidden="true" tabindex="-1"></a><span class="do">## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</span></span>
-<span id="cb452-6"><a href="data-vis-intro.html#cb452-6" aria-hidden="true" tabindex="-1"></a><span class="do">## Warning: Removed 104 rows containing non-finite values (stat_bin).</span></span>
-<span id="cb452-7"><a href="data-vis-intro.html#cb452-7" aria-hidden="true" tabindex="-1"></a><span class="do">## Warning: Removed 104 rows containing non-finite values (stat_density).</span></span></code></pre></div>
+<span id="cb452-5"><a href="data-vis-intro.html#cb452-5" aria-hidden="true" tabindex="-1"></a><span class="st">`</span><span class="at">stat_bin()</span><span class="st">`</span> using <span class="st">`</span><span class="at">bins = 30</span><span class="st">`</span>. Pick better value with <span class="st">`</span><span class="at">binwidth</span><span class="st">`</span>.</span>
+<span id="cb452-6"><a href="data-vis-intro.html#cb452-6" aria-hidden="true" tabindex="-1"></a>Warning<span class="sc">:</span> Removed <span class="dv">104</span> rows containing non<span class="sc">-</span>finite <span class="fu">values</span> (stat_bin).</span>
+<span id="cb452-7"><a href="data-vis-intro.html#cb452-7" aria-hidden="true" tabindex="-1"></a>Warning<span class="sc">:</span> Removed <span class="dv">104</span> rows containing non<span class="sc">-</span>finite <span class="fu">values</span> (stat_density).</span></code></pre></div>
 <p><img src="image/gg-hist-dens-alt-08-1.png" width="2100" /></p>
 <p>In SAS, this is actually easier than it is in ggplot2: As long as you put the histogram first in the SGPLOT statement, you’ll get the right scale.</p>
 <pre class="sashtml"><code>ODS HTML style= HTMLBlue; /* needed for color graphs in bookdown */
@@ -1862,7 +1856,7 @@ density per_100k / type = kernel;
 RUN;
 QUIT; </code></pre>
 <div class="branch">
-<a name="IDX3"></a>
+<a name="IDX2"></a>
 <div>
 <div class="c">
 <p><img alt="The SGPlot Procedure" src=" image/sas-hist-dens-08.png" style=" height: 480px; width: 640px;" border="0" class="c"></p>
@@ -1884,7 +1878,7 @@ You can use density plots and histograms in two dimensions to show the bivariate
 <span id="cb454-3"><a href="data-vis-intro.html#cb454-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bin2d</span>(<span class="fu">aes</span>(<span class="at">fill =</span> ..count..), <span class="at">bins =</span> <span class="dv">18</span>, <span class="at">drop =</span> F) <span class="sc">+</span> </span>
 <span id="cb454-4"><a href="data-vis-intro.html#cb454-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_log10</span>() <span class="sc">+</span> </span>
 <span id="cb454-5"><a href="data-vis-intro.html#cb454-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_log10</span>()</span>
-<span id="cb454-6"><a href="data-vis-intro.html#cb454-6" aria-hidden="true" tabindex="-1"></a><span class="do">## Warning: Removed 1 rows containing non-finite values (stat_bin2d).</span></span></code></pre></div>
+<span id="cb454-6"><a href="data-vis-intro.html#cb454-6" aria-hidden="true" tabindex="-1"></a>Warning<span class="sc">:</span> Removed <span class="dv">1</span> rows containing non<span class="sc">-</span>finite <span class="fu">values</span> (stat_bin2d).</span></code></pre></div>
 <p><img src="image/gg-2d-bin-08-1.png" width="2100" /></p>
 <div class="sourceCode" id="cb455"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb455-1"><a href="data-vis-intro.html#cb455-1" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb455-2"><a href="data-vis-intro.html#cb455-2" aria-hidden="true" tabindex="-1"></a>poke <span class="sc">%&gt;%</span></span>
@@ -1892,8 +1886,8 @@ You can use density plots and histograms in two dimensions to show the bivariate
 <span id="cb455-4"><a href="data-vis-intro.html#cb455-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_hex</span>(<span class="fu">aes</span>(<span class="at">fill =</span> ..count..), <span class="at">drop =</span> F) <span class="sc">+</span> </span>
 <span id="cb455-5"><a href="data-vis-intro.html#cb455-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_log10</span>() <span class="sc">+</span> </span>
 <span id="cb455-6"><a href="data-vis-intro.html#cb455-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_log10</span>()</span>
-<span id="cb455-7"><a href="data-vis-intro.html#cb455-7" aria-hidden="true" tabindex="-1"></a><span class="do">## Warning: Ignoring unknown parameters: drop</span></span>
-<span id="cb455-8"><a href="data-vis-intro.html#cb455-8" aria-hidden="true" tabindex="-1"></a><span class="do">## Warning: Removed 1 rows containing non-finite values (stat_binhex).</span></span></code></pre></div>
+<span id="cb455-7"><a href="data-vis-intro.html#cb455-7" aria-hidden="true" tabindex="-1"></a>Warning<span class="sc">:</span> Ignoring unknown parameters<span class="sc">:</span> drop</span>
+<span id="cb455-8"><a href="data-vis-intro.html#cb455-8" aria-hidden="true" tabindex="-1"></a>Warning<span class="sc">:</span> Removed <span class="dv">1</span> rows containing non<span class="sc">-</span>finite <span class="fu">values</span> (stat_binhex).</span></code></pre></div>
 <p><img src="image/gg-2d-bin-08-2.png" width="2100" /></p>
 <div class="sourceCode" id="cb456"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb456-1"><a href="data-vis-intro.html#cb456-1" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb456-2"><a href="data-vis-intro.html#cb456-2" aria-hidden="true" tabindex="-1"></a>poke <span class="sc">%&gt;%</span></span>
@@ -1901,7 +1895,7 @@ You can use density plots and histograms in two dimensions to show the bivariate
 <span id="cb456-4"><a href="data-vis-intro.html#cb456-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_density2d_filled</span>() <span class="sc">+</span> </span>
 <span id="cb456-5"><a href="data-vis-intro.html#cb456-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_log10</span>() <span class="sc">+</span> </span>
 <span id="cb456-6"><a href="data-vis-intro.html#cb456-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_log10</span>()</span>
-<span id="cb456-7"><a href="data-vis-intro.html#cb456-7" aria-hidden="true" tabindex="-1"></a><span class="do">## Warning: Removed 1 rows containing non-finite values (stat_density2d_filled).</span></span></code></pre></div>
+<span id="cb456-7"><a href="data-vis-intro.html#cb456-7" aria-hidden="true" tabindex="-1"></a>Warning<span class="sc">:</span> Removed <span class="dv">1</span> rows containing non<span class="sc">-</span>finite <span class="fu">values</span> (stat_density2d_filled).</span></code></pre></div>
 <p><img src="image/gg-2d-bin-08-3.png" width="2100" /></p>
 <p>Alternately, it may be preferable to plot only the contour outlines.</p>
 <div class="sourceCode" id="cb457"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb457-1"><a href="data-vis-intro.html#cb457-1" aria-hidden="true" tabindex="-1"></a>poke <span class="sc">%&gt;%</span></span>
@@ -1909,7 +1903,7 @@ You can use density plots and histograms in two dimensions to show the bivariate
 <span id="cb457-3"><a href="data-vis-intro.html#cb457-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_density2d</span>(<span class="at">bins =</span> <span class="dv">15</span>) <span class="sc">+</span> </span>
 <span id="cb457-4"><a href="data-vis-intro.html#cb457-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_log10</span>() <span class="sc">+</span> </span>
 <span id="cb457-5"><a href="data-vis-intro.html#cb457-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_log10</span>()</span>
-<span id="cb457-6"><a href="data-vis-intro.html#cb457-6" aria-hidden="true" tabindex="-1"></a><span class="do">## Warning: Removed 1 rows containing non-finite values (stat_density2d).</span></span></code></pre></div>
+<span id="cb457-6"><a href="data-vis-intro.html#cb457-6" aria-hidden="true" tabindex="-1"></a>Warning<span class="sc">:</span> Removed <span class="dv">1</span> rows containing non<span class="sc">-</span>finite <span class="fu">values</span> (stat_density2d).</span></code></pre></div>
 <p><img src="image/gg-contour-08-1.png" width="2100" /></p>
 <p>I found a blog post describing how to compute two-dimensional bins and make a <a href="https://blogs.sas.com/content/iml/2014/08/27/counts-in-2d-bins.html">heatmap bin plot in SAS.</a></p>
 Of course, joint distributions can also be shown using a scatterplot. Another useful geom when examining distributions is <code>geom_rug</code>, which shows univariate distributions in the margins of the plot.
@@ -2004,7 +1998,7 @@ HBAR type_1;
 RUN;
 QUIT; </code></pre>
 <div class="branch">
-<a name="IDX4"></a>
+<a name="IDX3"></a>
 <div>
 <div class="c">
 <p><img alt="The SGPlot Procedure" src=" image/sas-bar-08.png" style=" height: 480px; width: 640px;" border="0" class="c"></p>
@@ -2017,7 +2011,7 @@ QUIT; </code></pre>
 <br/>
 </p>
 <hr size="3"/>
-<a name="IDX5"></a>
+<a name="IDX4"></a>
 <div>
 <div class="c">
 <p><img alt="The SGPlot Procedure" src=" image/sas-bar-081.png" style=" height: 480px; width: 640px;" border="0" class="c"></p>
@@ -2052,7 +2046,7 @@ In ggplot2
 <span id="cb464-3"><a href="data-vis-intro.html#cb464-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> Year, <span class="at">y =</span> Count<span class="sc">/</span>Population)) <span class="sc">+</span> </span>
 <span id="cb464-4"><a href="data-vis-intro.html#cb464-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>() <span class="sc">+</span> </span>
 <span id="cb464-5"><a href="data-vis-intro.html#cb464-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>Type)</span>
-<span id="cb464-6"><a href="data-vis-intro.html#cb464-6" aria-hidden="true" tabindex="-1"></a><span class="do">## Warning: Removed 54 rows containing missing values (position_stack).</span></span></code></pre></div>
+<span id="cb464-6"><a href="data-vis-intro.html#cb464-6" aria-hidden="true" tabindex="-1"></a>Warning<span class="sc">:</span> Removed <span class="dv">54</span> rows containing missing <span class="fu">values</span> (position_stack).</span></code></pre></div>
 <p><img src="image/gg-facet-08-1.png" width="2100" /></p>
 <p>The options to make panel plots in ggplot2 are <code>facet_wrap</code>, which wraps the specified panels into an overall plot with a reasonable aspect ratio, and <code>facet_grid</code>, which creates a grid of panels.</p>
 <p>We can control the scales on the panels - in some cases, it is advantageous to have the same scale for all panels, while at other times, such as in the example above, varying the scales at the panel level may allow you to see more detail.</p>
@@ -2061,7 +2055,7 @@ In ggplot2
 <span id="cb465-3"><a href="data-vis-intro.html#cb465-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> Year, <span class="at">y =</span> Count<span class="sc">/</span>Population)) <span class="sc">+</span> </span>
 <span id="cb465-4"><a href="data-vis-intro.html#cb465-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>() <span class="sc">+</span> </span>
 <span id="cb465-5"><a href="data-vis-intro.html#cb465-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>Type, <span class="at">scales =</span> <span class="st">&quot;free_y&quot;</span>)</span>
-<span id="cb465-6"><a href="data-vis-intro.html#cb465-6" aria-hidden="true" tabindex="-1"></a><span class="do">## Warning: Removed 54 rows containing missing values (position_stack).</span></span></code></pre></div>
+<span id="cb465-6"><a href="data-vis-intro.html#cb465-6" aria-hidden="true" tabindex="-1"></a>Warning<span class="sc">:</span> Removed <span class="dv">54</span> rows containing missing <span class="fu">values</span> (position_stack).</span></code></pre></div>
 <p><img src="image/gg-facet-scale-08-1.png" width="2100" /></p>
 <p>Using a grid-style facet, we can make it easy to compare the relative trends in sub-populations.</p>
 <div class="sourceCode" id="cb466"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb466-1"><a href="data-vis-intro.html#cb466-1" aria-hidden="true" tabindex="-1"></a>fbi <span class="sc">%&gt;%</span></span>
@@ -2086,7 +2080,7 @@ HBAR type_1;
 RUN;
 QUIT; </code></pre>
 <div class="branch">
-<a name="IDX6"></a>
+<a name="IDX5"></a>
 <div>
 <div class="c">
 <p><img alt="The SGPanel Procedure" src=" image/sas-facet-08.png" style=" height: 640px; width: 640px;" border="0" class="c"></p>
@@ -2105,28 +2099,28 @@ One possible solution
 </summary>
 <div class="sourceCode" id="cb468"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb468-1"><a href="data-vis-intro.html#cb468-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(classdata)</span>
 <span id="cb468-2"><a href="data-vis-intro.html#cb468-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lubridate) <span class="co"># Work with dates and times</span></span>
-<span id="cb468-3"><a href="data-vis-intro.html#cb468-3" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span>
-<span id="cb468-4"><a href="data-vis-intro.html#cb468-4" aria-hidden="true" tabindex="-1"></a><span class="do">## Attaching package: &#39;lubridate&#39;</span></span>
-<span id="cb468-5"><a href="data-vis-intro.html#cb468-5" aria-hidden="true" tabindex="-1"></a><span class="do">## The following objects are masked from &#39;package:base&#39;:</span></span>
-<span id="cb468-6"><a href="data-vis-intro.html#cb468-6" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span>
-<span id="cb468-7"><a href="data-vis-intro.html#cb468-7" aria-hidden="true" tabindex="-1"></a><span class="do">##     date, intersect, setdiff, union</span></span>
+<span id="cb468-3"><a href="data-vis-intro.html#cb468-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb468-4"><a href="data-vis-intro.html#cb468-4" aria-hidden="true" tabindex="-1"></a>Attaching package<span class="sc">:</span> <span class="st">&#39;lubridate&#39;</span></span>
+<span id="cb468-5"><a href="data-vis-intro.html#cb468-5" aria-hidden="true" tabindex="-1"></a>The following objects are masked from <span class="st">&#39;package:base&#39;</span><span class="sc">:</span></span>
+<span id="cb468-6"><a href="data-vis-intro.html#cb468-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb468-7"><a href="data-vis-intro.html#cb468-7" aria-hidden="true" tabindex="-1"></a>    date, intersect, setdiff, union</span>
 <span id="cb468-8"><a href="data-vis-intro.html#cb468-8" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(box)</span>
 <span id="cb468-9"><a href="data-vis-intro.html#cb468-9" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb468-10"><a href="data-vis-intro.html#cb468-10" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(box)</span>
-<span id="cb468-11"><a href="data-vis-intro.html#cb468-11" aria-hidden="true" tabindex="-1"></a><span class="do">##   Rank Rank.Last.Week             Movie        Distributor    Gross Change</span></span>
-<span id="cb468-12"><a href="data-vis-intro.html#cb468-12" aria-hidden="true" tabindex="-1"></a><span class="do">## 1    1              1             Joker       Warner Bros. 55861403    -42</span></span>
-<span id="cb468-13"><a href="data-vis-intro.html#cb468-13" aria-hidden="true" tabindex="-1"></a><span class="do">## 2    2             NA The Addams Family     United Artists 30300007     NA</span></span>
-<span id="cb468-14"><a href="data-vis-intro.html#cb468-14" aria-hidden="true" tabindex="-1"></a><span class="do">## 3    3             NA        Gemini Man Paramount Pictures 20552372     NA</span></span>
-<span id="cb468-15"><a href="data-vis-intro.html#cb468-15" aria-hidden="true" tabindex="-1"></a><span class="do">## 4    4              2        Abominable          Universal  6072235    -49</span></span>
-<span id="cb468-16"><a href="data-vis-intro.html#cb468-16" aria-hidden="true" tabindex="-1"></a><span class="do">## 5    5              3     Downton Abbey     Focus Features  4881075    -39</span></span>
-<span id="cb468-17"><a href="data-vis-intro.html#cb468-17" aria-hidden="true" tabindex="-1"></a><span class="do">## 6    6              4          Hustlers  STX Entertainment  3887018    -39</span></span>
-<span id="cb468-18"><a href="data-vis-intro.html#cb468-18" aria-hidden="true" tabindex="-1"></a><span class="do">##   Thtrs. Per.Thtr. Total.Gross Week       Date</span></span>
-<span id="cb468-19"><a href="data-vis-intro.html#cb468-19" aria-hidden="true" tabindex="-1"></a><span class="do">## 1   4374     12771   193590190    2 2019-10-11</span></span>
-<span id="cb468-20"><a href="data-vis-intro.html#cb468-20" aria-hidden="true" tabindex="-1"></a><span class="do">## 2   4007      7562    30300007    1 2019-10-11</span></span>
-<span id="cb468-21"><a href="data-vis-intro.html#cb468-21" aria-hidden="true" tabindex="-1"></a><span class="do">## 3   3642      5643    20552372    1 2019-10-11</span></span>
-<span id="cb468-22"><a href="data-vis-intro.html#cb468-22" aria-hidden="true" tabindex="-1"></a><span class="do">## 4   3496      1737    47873585    3 2019-10-11</span></span>
-<span id="cb468-23"><a href="data-vis-intro.html#cb468-23" aria-hidden="true" tabindex="-1"></a><span class="do">## 5   3019      1617    82668665    4 2019-10-11</span></span>
-<span id="cb468-24"><a href="data-vis-intro.html#cb468-24" aria-hidden="true" tabindex="-1"></a><span class="do">## 6   2357      1649    98052357    5 2019-10-11</span></span>
+<span id="cb468-11"><a href="data-vis-intro.html#cb468-11" aria-hidden="true" tabindex="-1"></a>  Rank Rank.Last.Week             Movie        Distributor    Gross Change</span>
+<span id="cb468-12"><a href="data-vis-intro.html#cb468-12" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span>    <span class="dv">1</span>              <span class="dv">1</span>             Joker       Warner Bros. <span class="dv">55861403</span>    <span class="sc">-</span><span class="dv">42</span></span>
+<span id="cb468-13"><a href="data-vis-intro.html#cb468-13" aria-hidden="true" tabindex="-1"></a><span class="dv">2</span>    <span class="dv">2</span>             <span class="cn">NA</span> The Addams Family     United Artists <span class="dv">30300007</span>     <span class="cn">NA</span></span>
+<span id="cb468-14"><a href="data-vis-intro.html#cb468-14" aria-hidden="true" tabindex="-1"></a><span class="dv">3</span>    <span class="dv">3</span>             <span class="cn">NA</span>        Gemini Man Paramount Pictures <span class="dv">20552372</span>     <span class="cn">NA</span></span>
+<span id="cb468-15"><a href="data-vis-intro.html#cb468-15" aria-hidden="true" tabindex="-1"></a><span class="dv">4</span>    <span class="dv">4</span>              <span class="dv">2</span>        Abominable          Universal  <span class="dv">6072235</span>    <span class="sc">-</span><span class="dv">49</span></span>
+<span id="cb468-16"><a href="data-vis-intro.html#cb468-16" aria-hidden="true" tabindex="-1"></a><span class="dv">5</span>    <span class="dv">5</span>              <span class="dv">3</span>     Downton Abbey     Focus Features  <span class="dv">4881075</span>    <span class="sc">-</span><span class="dv">39</span></span>
+<span id="cb468-17"><a href="data-vis-intro.html#cb468-17" aria-hidden="true" tabindex="-1"></a><span class="dv">6</span>    <span class="dv">6</span>              <span class="dv">4</span>          Hustlers  STX Entertainment  <span class="dv">3887018</span>    <span class="sc">-</span><span class="dv">39</span></span>
+<span id="cb468-18"><a href="data-vis-intro.html#cb468-18" aria-hidden="true" tabindex="-1"></a>  Thtrs. Per.Thtr. Total.Gross Week       Date</span>
+<span id="cb468-19"><a href="data-vis-intro.html#cb468-19" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span>   <span class="dv">4374</span>     <span class="dv">12771</span>   <span class="dv">193590190</span>    <span class="dv">2</span> <span class="dv">2019-10-11</span></span>
+<span id="cb468-20"><a href="data-vis-intro.html#cb468-20" aria-hidden="true" tabindex="-1"></a><span class="dv">2</span>   <span class="dv">4007</span>      <span class="dv">7562</span>    <span class="dv">30300007</span>    <span class="dv">1</span> <span class="dv">2019-10-11</span></span>
+<span id="cb468-21"><a href="data-vis-intro.html#cb468-21" aria-hidden="true" tabindex="-1"></a><span class="dv">3</span>   <span class="dv">3642</span>      <span class="dv">5643</span>    <span class="dv">20552372</span>    <span class="dv">1</span> <span class="dv">2019-10-11</span></span>
+<span id="cb468-22"><a href="data-vis-intro.html#cb468-22" aria-hidden="true" tabindex="-1"></a><span class="dv">4</span>   <span class="dv">3496</span>      <span class="dv">1737</span>    <span class="dv">47873585</span>    <span class="dv">3</span> <span class="dv">2019-10-11</span></span>
+<span id="cb468-23"><a href="data-vis-intro.html#cb468-23" aria-hidden="true" tabindex="-1"></a><span class="dv">5</span>   <span class="dv">3019</span>      <span class="dv">1617</span>    <span class="dv">82668665</span>    <span class="dv">4</span> <span class="dv">2019-10-11</span></span>
+<span id="cb468-24"><a href="data-vis-intro.html#cb468-24" aria-hidden="true" tabindex="-1"></a><span class="dv">6</span>   <span class="dv">2357</span>      <span class="dv">1649</span>    <span class="dv">98052357</span>    <span class="dv">5</span> <span class="dv">2019-10-11</span></span>
 <span id="cb468-25"><a href="data-vis-intro.html#cb468-25" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb468-26"><a href="data-vis-intro.html#cb468-26" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(box, <span class="fu">aes</span>(<span class="at">x =</span> Week, <span class="at">y =</span> Gross, <span class="at">group =</span> Movie)) <span class="sc">+</span> </span>
 <span id="cb468-27"><a href="data-vis-intro.html#cb468-27" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">alpha =</span> .<span class="dv">1</span>)</span></code></pre></div>
@@ -2137,29 +2131,29 @@ One possible solution
 <span id="cb469-4"><a href="data-vis-intro.html#cb469-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Movie) <span class="sc">%&gt;%</span> </span>
 <span id="cb469-5"><a href="data-vis-intro.html#cb469-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">max_week =</span> <span class="fu">max</span>(Week)) <span class="sc">%&gt;%</span></span>
 <span id="cb469-6"><a href="data-vis-intro.html#cb469-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(max_week))</span>
-<span id="cb469-7"><a href="data-vis-intro.html#cb469-7" aria-hidden="true" tabindex="-1"></a><span class="do">## # A tibble: 120 x 2</span></span>
-<span id="cb469-8"><a href="data-vis-intro.html#cb469-8" aria-hidden="true" tabindex="-1"></a><span class="do">##    Movie                          max_week</span></span>
-<span id="cb469-9"><a href="data-vis-intro.html#cb469-9" aria-hidden="true" tabindex="-1"></a><span class="do">##    &lt;chr&gt;                             &lt;dbl&gt;</span></span>
-<span id="cb469-10"><a href="data-vis-intro.html#cb469-10" aria-hidden="true" tabindex="-1"></a><span class="do">##  1 Ghanchakkar                      105065</span></span>
-<span id="cb469-11"><a href="data-vis-intro.html#cb469-11" aria-hidden="true" tabindex="-1"></a><span class="do">##  2 The Captive                        5186</span></span>
-<span id="cb469-12"><a href="data-vis-intro.html#cb469-12" aria-hidden="true" tabindex="-1"></a><span class="do">##  3 The Wizard of Oz                   3869</span></span>
-<span id="cb469-13"><a href="data-vis-intro.html#cb469-13" aria-hidden="true" tabindex="-1"></a><span class="do">##  4 Detour (1945) (Re-Release)         3812</span></span>
-<span id="cb469-14"><a href="data-vis-intro.html#cb469-14" aria-hidden="true" tabindex="-1"></a><span class="do">##  5 Le Corbeau (1943) (Re-Release)     3681</span></span>
-<span id="cb469-15"><a href="data-vis-intro.html#cb469-15" aria-hidden="true" tabindex="-1"></a><span class="do">##  6 The Fallen Idol                    3497</span></span>
-<span id="cb469-16"><a href="data-vis-intro.html#cb469-16" aria-hidden="true" tabindex="-1"></a><span class="do">##  7 Monsieur Verdoux                   3456</span></span>
-<span id="cb469-17"><a href="data-vis-intro.html#cb469-17" aria-hidden="true" tabindex="-1"></a><span class="do">##  8 The Third Man                      3434</span></span>
-<span id="cb469-18"><a href="data-vis-intro.html#cb469-18" aria-hidden="true" tabindex="-1"></a><span class="do">##  9 Olivia                             3415</span></span>
-<span id="cb469-19"><a href="data-vis-intro.html#cb469-19" aria-hidden="true" tabindex="-1"></a><span class="do">## 10 Little Fugitive                    3138</span></span>
-<span id="cb469-20"><a href="data-vis-intro.html#cb469-20" aria-hidden="true" tabindex="-1"></a><span class="do">## # … with 110 more rows</span></span>
+<span id="cb469-7"><a href="data-vis-intro.html#cb469-7" aria-hidden="true" tabindex="-1"></a><span class="co"># A tibble: 120 x 2</span></span>
+<span id="cb469-8"><a href="data-vis-intro.html#cb469-8" aria-hidden="true" tabindex="-1"></a>   Movie                          max_week</span>
+<span id="cb469-9"><a href="data-vis-intro.html#cb469-9" aria-hidden="true" tabindex="-1"></a>   <span class="sc">&lt;</span>chr<span class="sc">&gt;</span>                             <span class="er">&lt;</span>dbl<span class="sc">&gt;</span></span>
+<span id="cb469-10"><a href="data-vis-intro.html#cb469-10" aria-hidden="true" tabindex="-1"></a> <span class="dv">1</span> Ghanchakkar                      <span class="dv">105065</span></span>
+<span id="cb469-11"><a href="data-vis-intro.html#cb469-11" aria-hidden="true" tabindex="-1"></a> <span class="dv">2</span> The Captive                        <span class="dv">5186</span></span>
+<span id="cb469-12"><a href="data-vis-intro.html#cb469-12" aria-hidden="true" tabindex="-1"></a> <span class="dv">3</span> The Wizard of Oz                   <span class="dv">3869</span></span>
+<span id="cb469-13"><a href="data-vis-intro.html#cb469-13" aria-hidden="true" tabindex="-1"></a> <span class="dv">4</span> <span class="fu">Detour</span> (<span class="dv">1945</span>) (Re<span class="sc">-</span>Release)         <span class="dv">3812</span></span>
+<span id="cb469-14"><a href="data-vis-intro.html#cb469-14" aria-hidden="true" tabindex="-1"></a> <span class="dv">5</span> Le <span class="fu">Corbeau</span> (<span class="dv">1943</span>) (Re<span class="sc">-</span>Release)     <span class="dv">3681</span></span>
+<span id="cb469-15"><a href="data-vis-intro.html#cb469-15" aria-hidden="true" tabindex="-1"></a> <span class="dv">6</span> The Fallen Idol                    <span class="dv">3497</span></span>
+<span id="cb469-16"><a href="data-vis-intro.html#cb469-16" aria-hidden="true" tabindex="-1"></a> <span class="dv">7</span> Monsieur Verdoux                   <span class="dv">3456</span></span>
+<span id="cb469-17"><a href="data-vis-intro.html#cb469-17" aria-hidden="true" tabindex="-1"></a> <span class="dv">8</span> The Third Man                      <span class="dv">3434</span></span>
+<span id="cb469-18"><a href="data-vis-intro.html#cb469-18" aria-hidden="true" tabindex="-1"></a> <span class="dv">9</span> Olivia                             <span class="dv">3415</span></span>
+<span id="cb469-19"><a href="data-vis-intro.html#cb469-19" aria-hidden="true" tabindex="-1"></a><span class="dv">10</span> Little Fugitive                    <span class="dv">3138</span></span>
+<span id="cb469-20"><a href="data-vis-intro.html#cb469-20" aria-hidden="true" tabindex="-1"></a><span class="co"># … with 110 more rows</span></span>
 <span id="cb469-21"><a href="data-vis-intro.html#cb469-21" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb469-22"><a href="data-vis-intro.html#cb469-22" aria-hidden="true" tabindex="-1"></a>box <span class="sc">%&gt;%</span></span>
 <span id="cb469-23"><a href="data-vis-intro.html#cb469-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(Week <span class="sc">&lt;</span> <span class="dv">100</span>) <span class="sc">%&gt;%</span></span>
 <span id="cb469-24"><a href="data-vis-intro.html#cb469-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> Week, <span class="at">y =</span> Gross, <span class="at">group =</span> Movie)) <span class="sc">+</span> </span>
 <span id="cb469-25"><a href="data-vis-intro.html#cb469-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">alpha =</span> .<span class="dv">01</span>) <span class="sc">+</span> </span>
 <span id="cb469-26"><a href="data-vis-intro.html#cb469-26" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_log10</span>()</span>
-<span id="cb469-27"><a href="data-vis-intro.html#cb469-27" aria-hidden="true" tabindex="-1"></a><span class="do">## Warning in self$trans$transform(x): NaNs produced</span></span>
-<span id="cb469-28"><a href="data-vis-intro.html#cb469-28" aria-hidden="true" tabindex="-1"></a><span class="do">## Warning: Transformation introduced infinite values in continuous y-axis</span></span>
-<span id="cb469-29"><a href="data-vis-intro.html#cb469-29" aria-hidden="true" tabindex="-1"></a><span class="do">## Warning: Removed 2 row(s) containing missing values (geom_path).</span></span></code></pre></div>
+<span id="cb469-27"><a href="data-vis-intro.html#cb469-27" aria-hidden="true" tabindex="-1"></a>Warning <span class="cf">in</span> self<span class="sc">$</span>trans<span class="sc">$</span><span class="fu">transform</span>(x)<span class="sc">:</span> NaNs produced</span>
+<span id="cb469-28"><a href="data-vis-intro.html#cb469-28" aria-hidden="true" tabindex="-1"></a>Warning<span class="sc">:</span> Transformation introduced infinite values <span class="cf">in</span> continuous y<span class="sc">-</span>axis</span>
+<span id="cb469-29"><a href="data-vis-intro.html#cb469-29" aria-hidden="true" tabindex="-1"></a>Warning<span class="sc">:</span> Removed <span class="dv">2</span> <span class="fu">row</span>(s) containing missing <span class="fu">values</span> (geom_path).</span></code></pre></div>
 <p><img src="image/gg-tryitout-boxoffice-08-2.png" width="2100" />
 To me, this looks like there are two main groups of movies - the less common movies that are hugely grossing initially, but decline relatively quickly in weekly gross, and the more common movies that show a gradual decline until they are removed from theaters. Most movies don’t seem to go beyond 25 weeks.</p>
 <div class="sourceCode" id="cb470"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb470-1"><a href="data-vis-intro.html#cb470-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Still kind of a mess. Let&#39;s facet by year of initial release</span></span>
@@ -2177,10 +2171,10 @@ To me, this looks like there are two main groups of movies - the less common mov
 <span id="cb470-13"><a href="data-vis-intro.html#cb470-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">alpha =</span> .<span class="dv">05</span>) <span class="sc">+</span> </span>
 <span id="cb470-14"><a href="data-vis-intro.html#cb470-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>release_year) <span class="sc">+</span> </span>
 <span id="cb470-15"><a href="data-vis-intro.html#cb470-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_log10</span>()</span>
-<span id="cb470-16"><a href="data-vis-intro.html#cb470-16" aria-hidden="true" tabindex="-1"></a><span class="do">## Joining, by = &quot;Movie&quot;</span></span>
-<span id="cb470-17"><a href="data-vis-intro.html#cb470-17" aria-hidden="true" tabindex="-1"></a><span class="do">## Warning in self$trans$transform(x): NaNs produced</span></span>
-<span id="cb470-18"><a href="data-vis-intro.html#cb470-18" aria-hidden="true" tabindex="-1"></a><span class="do">## Warning: Transformation introduced infinite values in continuous y-axis</span></span>
-<span id="cb470-19"><a href="data-vis-intro.html#cb470-19" aria-hidden="true" tabindex="-1"></a><span class="do">## Warning: Removed 2 row(s) containing missing values (geom_path).</span></span></code></pre></div>
+<span id="cb470-16"><a href="data-vis-intro.html#cb470-16" aria-hidden="true" tabindex="-1"></a>Joining, by <span class="ot">=</span> <span class="st">&quot;Movie&quot;</span></span>
+<span id="cb470-17"><a href="data-vis-intro.html#cb470-17" aria-hidden="true" tabindex="-1"></a>Warning <span class="cf">in</span> self<span class="sc">$</span>trans<span class="sc">$</span><span class="fu">transform</span>(x)<span class="sc">:</span> NaNs produced</span>
+<span id="cb470-18"><a href="data-vis-intro.html#cb470-18" aria-hidden="true" tabindex="-1"></a>Warning<span class="sc">:</span> Transformation introduced infinite values <span class="cf">in</span> continuous y<span class="sc">-</span>axis</span>
+<span id="cb470-19"><a href="data-vis-intro.html#cb470-19" aria-hidden="true" tabindex="-1"></a>Warning<span class="sc">:</span> Removed <span class="dv">2</span> <span class="fu">row</span>(s) containing missing <span class="fu">values</span> (geom_path).</span></code></pre></div>
 <p><img src="image/gg-tryitout-boxoffice-2-08-1.png" width="2100" /></p>
 <p>This pattern is relatively consistent year after year, but some years have many more high-grossing movies.</p>
 <p>Let’s look at the relationship between last week’s rank and this week’s rank.</p>
@@ -2191,8 +2185,8 @@ To me, this looks like there are two main groups of movies - the less common mov
 <span id="cb471-5"><a href="data-vis-intro.html#cb471-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">alpha =</span> .<span class="dv">05</span>) <span class="sc">+</span> </span>
 <span id="cb471-6"><a href="data-vis-intro.html#cb471-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_reverse</span>() <span class="sc">+</span> </span>
 <span id="cb471-7"><a href="data-vis-intro.html#cb471-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>Week)</span>
-<span id="cb471-8"><a href="data-vis-intro.html#cb471-8" aria-hidden="true" tabindex="-1"></a><span class="do">## Joining, by = &quot;Movie&quot;</span></span>
-<span id="cb471-9"><a href="data-vis-intro.html#cb471-9" aria-hidden="true" tabindex="-1"></a><span class="do">## Warning: Removed 1979 rows containing missing values (geom_point).</span></span></code></pre></div>
+<span id="cb471-8"><a href="data-vis-intro.html#cb471-8" aria-hidden="true" tabindex="-1"></a>Joining, by <span class="ot">=</span> <span class="st">&quot;Movie&quot;</span></span>
+<span id="cb471-9"><a href="data-vis-intro.html#cb471-9" aria-hidden="true" tabindex="-1"></a>Warning<span class="sc">:</span> Removed <span class="dv">1979</span> rows containing missing <span class="fu">values</span> (geom_point).</span></code></pre></div>
 <p><img src="image/gg-tryitout-boxoffice-rank-08-1.png" width="2100" />
 It’s very strong, as expected, but this is extremely overplotted, so we might be missing some details. Let’s look at the 2d density to see if we get anything interesting.</p>
 <div class="sourceCode" id="cb472"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb472-1"><a href="data-vis-intro.html#cb472-1" aria-hidden="true" tabindex="-1"></a>box <span class="sc">%&gt;%</span></span>
@@ -2201,7 +2195,7 @@ It’s very strong, as expected, but this is extremely overplotted, so we might 
 <span id="cb472-4"><a href="data-vis-intro.html#cb472-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_density2d_filled</span>() <span class="sc">+</span> </span>
 <span id="cb472-5"><a href="data-vis-intro.html#cb472-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_reverse</span>() <span class="sc">+</span> </span>
 <span id="cb472-6"><a href="data-vis-intro.html#cb472-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>Week)</span>
-<span id="cb472-7"><a href="data-vis-intro.html#cb472-7" aria-hidden="true" tabindex="-1"></a><span class="do">## Warning: Removed 1586 rows containing non-finite values (stat_density2d_filled).</span></span></code></pre></div>
+<span id="cb472-7"><a href="data-vis-intro.html#cb472-7" aria-hidden="true" tabindex="-1"></a>Warning<span class="sc">:</span> Removed <span class="dv">1586</span> rows containing non<span class="sc">-</span>finite <span class="fu">values</span> (stat_density2d_filled).</span></code></pre></div>
 <p><img src="image/gg-tryitout-boxoffice-rank-dens-08-1.png" width="2100" /></p>
 <p>As we go week by week, we see the mode of the distribution shift down in rank. By week 9, it’s extremely uncommon for a movie to be in the top 10.</p>
 <p>Next, lets look at the relationship between the number of theaters showing a movie and the weekly gross receipts.</p>
@@ -2211,7 +2205,7 @@ It’s very strong, as expected, but this is extremely overplotted, so we might 
 <span id="cb473-4"><a href="data-vis-intro.html#cb473-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> Thtrs., <span class="at">y =</span> Gross)) <span class="sc">+</span> </span>
 <span id="cb473-5"><a href="data-vis-intro.html#cb473-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_density2d_filled</span>() <span class="sc">+</span> </span>
 <span id="cb473-6"><a href="data-vis-intro.html#cb473-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_log10</span>()</span>
-<span id="cb473-7"><a href="data-vis-intro.html#cb473-7" aria-hidden="true" tabindex="-1"></a><span class="do">## Joining, by = &quot;Movie&quot;</span></span></code></pre></div>
+<span id="cb473-7"><a href="data-vis-intro.html#cb473-7" aria-hidden="true" tabindex="-1"></a>Joining, by <span class="ot">=</span> <span class="st">&quot;Movie&quot;</span></span></code></pre></div>
 <p><img src="image/gg-theater-receipts-08-1.png" width="2100" /></p>
 <p>It would be interesting to see if this relationship is the same for all distributors.</p>
 <div class="sourceCode" id="cb474"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb474-1"><a href="data-vis-intro.html#cb474-1" aria-hidden="true" tabindex="-1"></a>distributors <span class="ot">&lt;-</span> box <span class="sc">%&gt;%</span> <span class="fu">group_by</span>(Distributor, Movie) <span class="sc">%&gt;%</span></span>
@@ -2221,19 +2215,19 @@ It’s very strong, as expected, but this is extremely overplotted, so we might 
 <span id="cb474-5"><a href="data-vis-intro.html#cb474-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(median.gross))</span>
 <span id="cb474-6"><a href="data-vis-intro.html#cb474-6" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb474-7"><a href="data-vis-intro.html#cb474-7" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(distributors, <span class="dv">10</span>)</span>
-<span id="cb474-8"><a href="data-vis-intro.html#cb474-8" aria-hidden="true" tabindex="-1"></a><span class="do">## # A tibble: 10 x 3</span></span>
-<span id="cb474-9"><a href="data-vis-intro.html#cb474-9" aria-hidden="true" tabindex="-1"></a><span class="do">##    Distributor            n median.gross</span></span>
-<span id="cb474-10"><a href="data-vis-intro.html#cb474-10" aria-hidden="true" tabindex="-1"></a><span class="do">##    &lt;chr&gt;              &lt;int&gt;        &lt;dbl&gt;</span></span>
-<span id="cb474-11"><a href="data-vis-intro.html#cb474-11" aria-hidden="true" tabindex="-1"></a><span class="do">##  1 Walt Disney           76   185808558.</span></span>
-<span id="cb474-12"><a href="data-vis-intro.html#cb474-12" aria-hidden="true" tabindex="-1"></a><span class="do">##  2 Columbia               1   169077585 </span></span>
-<span id="cb474-13"><a href="data-vis-intro.html#cb474-13" aria-hidden="true" tabindex="-1"></a><span class="do">##  3 Universal            118    66197380 </span></span>
-<span id="cb474-14"><a href="data-vis-intro.html#cb474-14" aria-hidden="true" tabindex="-1"></a><span class="do">##  4 20th Century Fox     105    65007045 </span></span>
-<span id="cb474-15"><a href="data-vis-intro.html#cb474-15" aria-hidden="true" tabindex="-1"></a><span class="do">##  5 Warner Bros.         150    53930748.</span></span>
-<span id="cb474-16"><a href="data-vis-intro.html#cb474-16" aria-hidden="true" tabindex="-1"></a><span class="do">##  6 Paramount Pictures    81    52822418 </span></span>
-<span id="cb474-17"><a href="data-vis-intro.html#cb474-17" aria-hidden="true" tabindex="-1"></a><span class="do">##  7 Sony Pictures        130    37709109 </span></span>
-<span id="cb474-18"><a href="data-vis-intro.html#cb474-18" aria-hidden="true" tabindex="-1"></a><span class="do">##  8 MGM                    4    34693428 </span></span>
-<span id="cb474-19"><a href="data-vis-intro.html#cb474-19" aria-hidden="true" tabindex="-1"></a><span class="do">##  9 Focus / Gramercy       1    26583369 </span></span>
-<span id="cb474-20"><a href="data-vis-intro.html#cb474-20" aria-hidden="true" tabindex="-1"></a><span class="do">## 10 IMAX Films             4    26349032</span></span>
+<span id="cb474-8"><a href="data-vis-intro.html#cb474-8" aria-hidden="true" tabindex="-1"></a><span class="co"># A tibble: 10 x 3</span></span>
+<span id="cb474-9"><a href="data-vis-intro.html#cb474-9" aria-hidden="true" tabindex="-1"></a>   Distributor            n median.gross</span>
+<span id="cb474-10"><a href="data-vis-intro.html#cb474-10" aria-hidden="true" tabindex="-1"></a>   <span class="sc">&lt;</span>chr<span class="sc">&gt;</span>              <span class="er">&lt;</span>int<span class="sc">&gt;</span>        <span class="er">&lt;</span>dbl<span class="sc">&gt;</span></span>
+<span id="cb474-11"><a href="data-vis-intro.html#cb474-11" aria-hidden="true" tabindex="-1"></a> <span class="dv">1</span> Walt Disney           <span class="dv">76</span>   <span class="fl">185808558.</span></span>
+<span id="cb474-12"><a href="data-vis-intro.html#cb474-12" aria-hidden="true" tabindex="-1"></a> <span class="dv">2</span> Columbia               <span class="dv">1</span>   <span class="dv">169077585</span> </span>
+<span id="cb474-13"><a href="data-vis-intro.html#cb474-13" aria-hidden="true" tabindex="-1"></a> <span class="dv">3</span> Universal            <span class="dv">118</span>    <span class="dv">66197380</span> </span>
+<span id="cb474-14"><a href="data-vis-intro.html#cb474-14" aria-hidden="true" tabindex="-1"></a> <span class="dv">4</span> 20th Century Fox     <span class="dv">105</span>    <span class="dv">65007045</span> </span>
+<span id="cb474-15"><a href="data-vis-intro.html#cb474-15" aria-hidden="true" tabindex="-1"></a> <span class="dv">5</span> Warner Bros.         <span class="dv">150</span>    <span class="fl">53930748.</span></span>
+<span id="cb474-16"><a href="data-vis-intro.html#cb474-16" aria-hidden="true" tabindex="-1"></a> <span class="dv">6</span> Paramount Pictures    <span class="dv">81</span>    <span class="dv">52822418</span> </span>
+<span id="cb474-17"><a href="data-vis-intro.html#cb474-17" aria-hidden="true" tabindex="-1"></a> <span class="dv">7</span> Sony Pictures        <span class="dv">130</span>    <span class="dv">37709109</span> </span>
+<span id="cb474-18"><a href="data-vis-intro.html#cb474-18" aria-hidden="true" tabindex="-1"></a> <span class="dv">8</span> MGM                    <span class="dv">4</span>    <span class="dv">34693428</span> </span>
+<span id="cb474-19"><a href="data-vis-intro.html#cb474-19" aria-hidden="true" tabindex="-1"></a> <span class="dv">9</span> Focus <span class="sc">/</span> Gramercy       <span class="dv">1</span>    <span class="dv">26583369</span> </span>
+<span id="cb474-20"><a href="data-vis-intro.html#cb474-20" aria-hidden="true" tabindex="-1"></a><span class="dv">10</span> IMAX Films             <span class="dv">4</span>    <span class="dv">26349032</span> </span>
 <span id="cb474-21"><a href="data-vis-intro.html#cb474-21" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb474-22"><a href="data-vis-intro.html#cb474-22" aria-hidden="true" tabindex="-1"></a>distributors <span class="sc">%&gt;%</span></span>
 <span id="cb474-23"><a href="data-vis-intro.html#cb474-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(n <span class="sc">&gt;=</span> <span class="dv">25</span>) <span class="sc">%&gt;%</span> <span class="co"># want distributors with at least 25 movies</span></span>
@@ -2245,7 +2239,7 @@ It’s very strong, as expected, but this is extremely overplotted, so we might 
 <span id="cb474-29"><a href="data-vis-intro.html#cb474-29" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_density2d_filled</span>(<span class="at">contour_var =</span> <span class="st">&quot;ndensity&quot;</span>) <span class="sc">+</span> </span>
 <span id="cb474-30"><a href="data-vis-intro.html#cb474-30" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_log10</span>() <span class="sc">+</span> </span>
 <span id="cb474-31"><a href="data-vis-intro.html#cb474-31" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>Distributor)</span>
-<span id="cb474-32"><a href="data-vis-intro.html#cb474-32" aria-hidden="true" tabindex="-1"></a><span class="do">## Joining, by = &quot;Distributor&quot;</span></span></code></pre></div>
+<span id="cb474-32"><a href="data-vis-intro.html#cb474-32" aria-hidden="true" tabindex="-1"></a>Joining, by <span class="ot">=</span> <span class="st">&quot;Distributor&quot;</span></span></code></pre></div>
 <img src="image/gg-theater-distributors-08-1.png" width="2100" />
 It’s rather obvious that Disney is the real outlier here - it has movies that are extremely widely released and very high grossing, and a limited-release movie is a relatively rare thing. Compare this to e.g. Lionsgate, where most movies are limited to a few theaters and it’s relatively rare to have a widely released movie.
 </details>
@@ -2313,13 +2307,13 @@ It is possible to simulate the effect of color blindness and color deficiency on
 </table>
 </details>
 <p>In addition to colorblindness, there are other factors than the actual color value which are important in how we experience color, such as context.</p>
-<div class="figure"><span id="fig:checker-shadow-fig-1"></span>
+<div class="figure"><span style="display:block;" id="fig:checker-shadow-fig-1"></span>
 <img src="image/CheckerShadow.png" alt="The color constancy illusion. The squares marked A and B are actually the same color" width="45%" />
 <p class="caption">
 Figure 9.1: The color constancy illusion. The squares marked A and B are actually the same color
 </p>
 </div>
-<div class="figure"><span id="fig:checker-shadow-fig-2"></span>
+<div class="figure"><span style="display:block;" id="fig:checker-shadow-fig-2"></span>
 <img src="image/CheckerShadow2.png" alt="The color constancy illusion. The squares marked A and B are actually the same color" width="45%" />
 <p class="caption">
 Figure 9.2: The color constancy illusion. The squares marked A and B are actually the same color
@@ -2369,7 +2363,7 @@ What was the third number?
 </details>
 <p>Without rehearsing the information (repeating it over and over to yourself), the try it out task may have been challenging. Short term memory has a capacity of between 3 and 9 “bits” of information.</p>
 </div>
-<div id="section-3" class="section level5 unnumbered">
+<div id="section-10" class="section level5 unnumbered">
 <h5 class="unnumbered"></h5>
 <p>In charts and graphs, short term memory is important because we need to be able to associate information from e.g. a key, legend, or caption with information plotted on the graph. As a result, if you try to plot more than ~6 categories of information, your reader will have to shift between the legend and the graph repeatedly, increasing the amount of cognitive labor required to digest the information in the chart.</p>
 <p>Where possible, try to keep your legends to 6 or 7 characteristics.</p>
@@ -2449,7 +2443,7 @@ The line segment plot connects related observations (from the same state) but al
 <div id="general-guidelines-for-accuracy" class="section level3" number="9.4.2">
 <h3><span class="header-section-number">9.4.2</span> General guidelines for accuracy</h3>
 <p>There are certain tasks which are easier for us relative to other, similar tasks.</p>
-<div class="figure"><span id="fig:accuracy-guidelines-08"></span>
+<div class="figure"><span style="display:block;" id="fig:accuracy-guidelines-08"></span>
 <img src="image/accuracy-guidelines-08-1.png" alt="Which of the lines is the longest? Shortest? It is much easier to determine the relative length of the line when the ends are aligned. In fact, the line lengths are the same in both panels." width="2100" />
 <p class="caption">
 Figure 9.3: Which of the lines is the longest? Shortest? It is much easier to determine the relative length of the line when the ends are aligned. In fact, the line lengths are the same in both panels.
@@ -2591,6 +2585,7 @@ gitbook.start({
 "weibo": false,
 "instapaper": false,
 "vk": false,
+"whatsapp": false,
 "all": false
 },
 "fontsettings": {

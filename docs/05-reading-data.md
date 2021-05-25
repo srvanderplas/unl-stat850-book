@@ -22,35 +22,39 @@
 
 In order to use statistical software to do anything interesting, we need to be able to get data into the program so that we can work with it effectively. For the moment, we'll focus on tabular data - data that is stored in a rectangular shape, with rows indicating observations and columns that show variables. This type of data can be stored on the computer in multiple ways:
 
-- as raw text, usually in a file that ends with .txt, .tsv, .csv, .dat, or sometimes, there will be no file extension at all. These types of files are human-readable. If part of a text file gets corrupted, the rest of the file may be recoverable. 
+- **as raw text**, usually in a file that ends with .txt, .tsv, .csv, .dat, or sometimes, there will be no file extension at all. These types of files are human-readable. If part of a text file gets corrupted, the rest of the file may be recoverable. 
 
 
-- in a spreadsheet. Spreadsheets, such as those created by MS Excel, Google Sheets, or LibreOffice Calc, are not completely binary formats, but they're also not raw text files either. They're a hybrid. Practically, they may function like a poorly laid-out database, a text file, or a total nightmare, depending on who designed the spreadsheet. There is a collection of horror stories [here](https://github.com/jennybc/scary-excel-stories) and a series of even more horrifying tweets [here](https://twitter.com/JennyBryan/status/722954354198597632)
+- **in a spreadsheet**. Spreadsheets, such as those created by MS Excel, Google Sheets, or LibreOffice Calc, are not completely binary formats, but they're also not raw text files either. They're a hybrid. Practically, they may function like a poorly laid-out database, a text file, or a total nightmare, depending on who designed the spreadsheet.     
 
+::: learn-more
+There is a collection of spreadsheet horror stories [here](https://github.com/jennybc/scary-excel-stories) and a series of even more horrifying tweets [here](https://twitter.com/JennyBryan/status/722954354198597632).    
+Also, there's this amazing comic:    
 [![](https://imgs.xkcd.com/comics/algorithms.png)](https://xkcd.com/1667/)
+:::
 
-- as a binary file. Binary files are compressed files that are readable by computers but not by humans. They generally take less space to store on disk (but the same amount of space when read into computer memory). If part of a binary file is corrupted, the entire file is usually affected.
+- **as a binary file**. Binary files are compressed files that are readable by computers but not by humans. They generally take less space to store on disk (but the same amount of space when read into computer memory). If part of a binary file is corrupted, the entire file is usually affected.
     - R, SAS, Stata, SPSS, and Minitab all have their own formats for storing binary data. Packages such as `foreign` in R will let you read data from other programs, and packages such as `haven` in R will let you write data into binary formats used by other programs. To read data from R into SAS, the easiest way is probably to [call R from PROC IML](http://proc-x.com/2015/05/import-rdata-to-sas-along-with-labels/). 
     - [Here](https://betterexplained.com/articles/a-little-diddy-about-binary-file-formats/) is a very thorough explanation of why binary file formats exist, and why they're not necessarily optimal.
 
 
-- in a database. Databases are typically composed of a set of one or more tables, with information that may be related across tables. Data stored in a database may be easier to access, and may not require that the entire data set be stored in computer memory at the same time, but you may have to join several tables together to get the full set of data you want to work with. 
+- **in a database**. Databases are typically composed of a set of one or more tables, with information that may be related across tables. Data stored in a database may be easier to access, and may not require that the entire data set be stored in computer memory at the same time, but you may have to join several tables together to get the full set of data you want to work with. 
 
 There are, of course, many other non-tabular data formats -- some open and easy to work with, some inpenetrable. A few which may be more common:
 
-- Web related data structures: XML (eXtensible markup language), JSON (JavaScript Object Notation), YAML. These structures have their own formats and field delimiters, but more importantly, are not necessarily easily converted to tabular structures. They are, however, useful for handling nested objects, such as trees. When read into R or SAS, these file formats are usually treated as lists, and may be restructured afterwards into a format useful for statistical analysis.
+- **Web related data structures**: XML (eXtensible markup language), JSON (JavaScript Object Notation), YAML. These structures have their own formats and field delimiters, but more importantly, are not necessarily easily converted to tabular structures. They are, however, useful for handling nested objects, such as trees. When read into R or SAS, these file formats are usually treated as lists, and may be restructured afterwards into a format useful for statistical analysis.
 
-- Spatial files: Shapefiles are by far the most common version of spatial files^[though there are a seemingly infinite number of actual formats, and they pop up at the most inconvenient times]. Spatial files often include structured encodings of geographic information plus corresponding tabular format data that goes with the geographic information. We'll explore these a bit more when we talk about maps. 
+- **Spatial files**: Shapefiles are by far the most common version of spatial files^[though there are a seemingly infinite number of actual formats, and they pop up at the most inconvenient times]. Spatial files often include structured encodings of geographic information plus corresponding tabular format data that goes with the geographic information. We'll explore these a bit more when we talk about maps. 
 
 
 To be minimally functional in R and SAS, it's important to know how to read in text files (CSV, tab-delimited, etc.). It can be helpful to also know how to read in XLSX files. We will briefly cover binary files and databases, but it is less critical to remember how to read these in without consulting one or more online references. 
 
 
-## Text Files
+### Text Files
 
 There are several different variants of text data which are relatively common, but for the most part, text data files can be broken down into fixed-width and delimited formats. What's the difference, you say?
 
-### Fixed-width files
+#### Fixed-width files
 
 In a fixed-width text file, the position of the data indicates which field (variable/column) it belongs to. These files are fairly common outputs from older FORTRAN-based programs, but may be found elsewhere as well - if you have a very large amount of data, a fixed-width format may be more efficient to read, because you can select only the portions of the file which matter for a particular analysis (and so you don't have to read the whole thing into memory). 
 
@@ -61,7 +65,7 @@ Col1    Col2    Col3
 ```
 
 
-<details> <summary>In base R (no extra packages), you can read fwf files in using `read.fwf`, but you must specify the column breaks yourself.</summary>
+<details class="ex"> <summary>In base R (no extra packages), you can read fwf files in using `read.fwf`, but you must specify the column breaks yourself.</summary>
 
 ```r
 ## url <- "https://www.mesonet.org/index.php/dataMdfMts/dataController/getFile/202006070000/mdf/TEXT/"
@@ -69,29 +73,29 @@ data <- read.fwf(url,
          skip = 3, # Skip the first 2 lines (useless) + header line
          widths = c(5, 6, 6, 7, 7, 7, 7, 6, 7, 7, 7, 8, 9, 6, 7, 7, 7, 7, 7, 7, 
 7, 8, 8, 8)) # There is a row with the column names specified
-## Warning in readLines(file, n = thisblock): incomplete final line found on 'data/
-## mesodata.txt'
+Warning in readLines(file, n = thisblock): incomplete final line found on 'data/
+mesodata.txt'
 
 data[1:6,] # first 6 rows
-##      V1     V2 V3 V4   V5  V6  V7  V8   V9 V10  V11 V12    V13 V14  V15 V16
-## 1  ACME    110  0 53 31.8 5.2 5.1 146  8.5 0.7  6.9   0 964.79 272 31.8 4.0
-## 2  ADAX      1  0 55 32.4 1.0 0.8 108 36.5 0.4  2.2   0 976.20 245 32.0 0.2
-## 3  ALTU      2  0 31 35.6 8.9 8.7 147 10.9 1.1 11.5   0 960.94 296 34.7 6.8
-## 4  ALV2    116  0 27 35.8 6.7 6.7 145  8.2 1.2  9.0   0 957.45 298 35.5 5.4
-## 5  ANT2    135  0 73 27.8 0.0 0.0   0  0.0 0.0  0.0   0 990.11 213 27.8 0.0
-## 6  APAC    111  0 52 32.3 6.2 6.1 133  9.8 0.8  7.9   0 959.54 277 31.9 4.6
-##    V17  V18  V19  V20    V21  V22  V23     V24
-## 1 29.2 36.2 31.6 25.2   21.7 3.09 2.22    1.48
-## 2 28.8 38.2 29.6 26.8 -998.0 2.61 1.88 -998.00
-## 3 29.3 34.1 30.7 26.1 -998.0 3.39 2.47 -998.00
-## 4 24.7 34.7 25.6 22.6 -998.0 2.70 1.60 -998.00
-## 5 29.5 31.1 30.2 26.8   23.8 1.96 1.73    1.33
-## 6 30.4 35.2 34.7 28.2   22.8 1.79 1.53    1.78
+     V1     V2 V3 V4   V5  V6  V7  V8   V9 V10  V11 V12    V13 V14  V15 V16
+1  ACME    110  0 53 31.8 5.2 5.1 146  8.5 0.7  6.9   0 964.79 272 31.8 4.0
+2  ADAX      1  0 55 32.4 1.0 0.8 108 36.5 0.4  2.2   0 976.20 245 32.0 0.2
+3  ALTU      2  0 31 35.6 8.9 8.7 147 10.9 1.1 11.5   0 960.94 296 34.7 6.8
+4  ALV2    116  0 27 35.8 6.7 6.7 145  8.2 1.2  9.0   0 957.45 298 35.5 5.4
+5  ANT2    135  0 73 27.8 0.0 0.0   0  0.0 0.0  0.0   0 990.11 213 27.8 0.0
+6  APAC    111  0 52 32.3 6.2 6.1 133  9.8 0.8  7.9   0 959.54 277 31.9 4.6
+   V17  V18  V19  V20    V21  V22  V23     V24
+1 29.2 36.2 31.6 25.2   21.7 3.09 2.22    1.48
+2 28.8 38.2 29.6 26.8 -998.0 2.61 1.88 -998.00
+3 29.3 34.1 30.7 26.1 -998.0 3.39 2.47 -998.00
+4 24.7 34.7 25.6 22.6 -998.0 2.70 1.60 -998.00
+5 29.5 31.1 30.2 26.8   23.8 1.96 1.73    1.33
+6 30.4 35.2 34.7 28.2   22.8 1.79 1.53    1.78
 ```
 </details>
 
 
-<details><summary>You can count all of those spaces by hand (not shown), you can use a different function, or you can write code to do it for you. </summary>
+<details class="ex"><summary>You can count all of those spaces by hand (not shown), you can use a different function, or you can write code to do it for you. </summary>
 
 ```r
 
@@ -122,8 +126,8 @@ widths <- diff(c(0, breaks))
 
 # Now we're ready to go
 mesodata <- read.fwf(url, skip = 3, widths = widths, header = F)
-## Warning in readLines(file, n = thisblock): incomplete final line found on 'data/
-## mesodata.txt'
+Warning in readLines(file, n = thisblock): incomplete final line found on 'data/
+mesodata.txt'
 # read header separately - if you use header = T, it errors for some reason.
 # It's easier just to work around the error than to fix it :)
 mesodata_names <- read.fwf(url, skip = 2, n = 1, widths = widths, header = F, 
@@ -131,58 +135,61 @@ mesodata_names <- read.fwf(url, skip = 2, n = 1, widths = widths, header = F,
 names(mesodata) <- as.character(mesodata_names)
 
 mesodata[1:6,] # first 6 rows
-##    STID   STNM   TIME    RELH    TAIR    WSPD    WVEC   WDIR    WDSD    WSSD
-## 1  ACME    110      0      53    31.8     5.2     5.1    146     8.5     0.7
-## 2  ADAX      1      0      55    32.4     1.0     0.8    108    36.5     0.4
-## 3  ALTU      2      0      31    35.6     8.9     8.7    147    10.9     1.1
-## 4  ALV2    116      0      27    35.8     6.7     6.7    145     8.2     1.2
-## 5  ANT2    135      0      73    27.8     0.0     0.0      0     0.0     0.0
-## 6  APAC    111      0      52    32.3     6.2     6.1    133     9.8     0.8
-##      WMAX     RAIN      PRES   SRAD    TA9M    WS2M    TS10    TB10    TS05
-## 1     6.9        0    964.79    272    31.8     4.0    29.2    36.2    31.6
-## 2     2.2        0    976.20    245    32.0     0.2    28.8    38.2    29.6
-## 3    11.5        0    960.94    296    34.7     6.8    29.3    34.1    30.7
-## 4     9.0        0    957.45    298    35.5     5.4    24.7    34.7    25.6
-## 5     0.0        0    990.11    213    27.8     0.0    29.5    31.1    30.2
-## 6     7.9        0    959.54    277    31.9     4.6    30.4    35.2    34.7
-##      TS25    TS60     TR05     TR25     TR60
-## 1    25.2    21.7     3.09     2.22     1.48
-## 2    26.8  -998.0     2.61     1.88  -998.00
-## 3    26.1  -998.0     3.39     2.47  -998.00
-## 4    22.6  -998.0     2.70     1.60  -998.00
-## 5    26.8    23.8     1.96     1.73     1.33
-## 6    28.2    22.8     1.79     1.53     1.78
+   STID   STNM   TIME    RELH    TAIR    WSPD    WVEC   WDIR    WDSD    WSSD
+1  ACME    110      0      53    31.8     5.2     5.1    146     8.5     0.7
+2  ADAX      1      0      55    32.4     1.0     0.8    108    36.5     0.4
+3  ALTU      2      0      31    35.6     8.9     8.7    147    10.9     1.1
+4  ALV2    116      0      27    35.8     6.7     6.7    145     8.2     1.2
+5  ANT2    135      0      73    27.8     0.0     0.0      0     0.0     0.0
+6  APAC    111      0      52    32.3     6.2     6.1    133     9.8     0.8
+     WMAX     RAIN      PRES   SRAD    TA9M    WS2M    TS10    TB10    TS05
+1     6.9        0    964.79    272    31.8     4.0    29.2    36.2    31.6
+2     2.2        0    976.20    245    32.0     0.2    28.8    38.2    29.6
+3    11.5        0    960.94    296    34.7     6.8    29.3    34.1    30.7
+4     9.0        0    957.45    298    35.5     5.4    24.7    34.7    25.6
+5     0.0        0    990.11    213    27.8     0.0    29.5    31.1    30.2
+6     7.9        0    959.54    277    31.9     4.6    30.4    35.2    34.7
+     TS25    TS60     TR05     TR25     TR60
+1    25.2    21.7     3.09     2.22     1.48
+2    26.8  -998.0     2.61     1.88  -998.00
+3    26.1  -998.0     3.39     2.47  -998.00
+4    22.6  -998.0     2.70     1.60  -998.00
+5    26.8    23.8     1.96     1.73     1.33
+6    28.2    22.8     1.79     1.53     1.78
 ```
 </details>
 
 But, there's an even simpler way...
 
 The `readr` package creates data-frame like objects called tibbles (really, they're a souped-up data frame), but it is *much* friendlier to use. Tibbles also do not have the problems with factors (see the [introduction to factors](#factors)) - they will always read characters in as characters. 
+<details class="ex"><summary>`readr demo`</summary>
 
 
 ```r
 library(readr) # Better data importing in R
 
 read_table(url, skip = 2) # Gosh, that was much easier!
-## # A tibble: 121 x 24
-##    STID   STNM  TIME  RELH  TAIR  WSPD  WVEC  WDIR  WDSD  WSSD  WMAX  RAIN  PRES
-##    <chr> <dbl> <dbl> <dbl> <dbl> <dbl> <dbl> <dbl> <dbl> <dbl> <dbl> <dbl> <dbl>
-##  1 ACME    110     0    53  31.8   5.2   5.1   146   8.5   0.7   6.9     0  965.
-##  2 ADAX      1     0    55  32.4   1     0.8   108  36.5   0.4   2.2     0  976.
-##  3 ALTU      2     0    31  35.6   8.9   8.7   147  10.9   1.1  11.5     0  961.
-##  4 ALV2    116     0    27  35.8   6.7   6.7   145   8.2   1.2   9       0  957.
-##  5 ANT2    135     0    73  27.8   0     0       0   0     0     0       0  990.
-##  6 APAC    111     0    52  32.3   6.2   6.1   133   9.8   0.8   7.9     0  960.
-##  7 ARD2    126     0    46  32.9   2.6   2.5   150  11.8   0.5   3.6     0  979.
-##  8 ARNE      6     0    28  33.5   6.5   6.3   163  11.9   1.5  10       0  927.
-##  9 BEAV      8     0    23  34.9  11.2  11.1   165   7.3   1.4  15.2     0  921.
-## 10 BESS      9     0    37  33.8   8.3   8.3   156   6.6   1.3  11.2     0  951.
-## # … with 111 more rows, and 11 more variables: SRAD <dbl>, TA9M <dbl>,
-## #   WS2M <dbl>, TS10 <dbl>, TB10 <dbl>, TS05 <dbl>, TS25 <dbl>, TS60 <dbl>,
-## #   TR05 <dbl>, TR25 <dbl>, TR60 <dbl>
+# A tibble: 121 x 24
+   STID   STNM  TIME  RELH  TAIR  WSPD  WVEC  WDIR  WDSD  WSSD  WMAX  RAIN  PRES
+   <chr> <dbl> <dbl> <dbl> <dbl> <dbl> <dbl> <dbl> <dbl> <dbl> <dbl> <dbl> <dbl>
+ 1 ACME    110     0    53  31.8   5.2   5.1   146   8.5   0.7   6.9     0  965.
+ 2 ADAX      1     0    55  32.4   1     0.8   108  36.5   0.4   2.2     0  976.
+ 3 ALTU      2     0    31  35.6   8.9   8.7   147  10.9   1.1  11.5     0  961.
+ 4 ALV2    116     0    27  35.8   6.7   6.7   145   8.2   1.2   9       0  957.
+ 5 ANT2    135     0    73  27.8   0     0       0   0     0     0       0  990.
+ 6 APAC    111     0    52  32.3   6.2   6.1   133   9.8   0.8   7.9     0  960.
+ 7 ARD2    126     0    46  32.9   2.6   2.5   150  11.8   0.5   3.6     0  979.
+ 8 ARNE      6     0    28  33.5   6.5   6.3   163  11.9   1.5  10       0  927.
+ 9 BEAV      8     0    23  34.9  11.2  11.1   165   7.3   1.4  15.2     0  921.
+10 BESS      9     0    37  33.8   8.3   8.3   156   6.6   1.3  11.2     0  951.
+# … with 111 more rows, and 11 more variables: SRAD <dbl>, TA9M <dbl>,
+#   WS2M <dbl>, TS10 <dbl>, TB10 <dbl>, TS05 <dbl>, TS25 <dbl>, TS60 <dbl>,
+#   TR05 <dbl>, TR25 <dbl>, TR60 <dbl>
 ```
+</details>
 
-You can also write fixed-width files if you *really* want to: 
+You can also write fixed-width files if you *really* want to:
+<details class="ex"><summary> Fixed-width file writing demo</summary>
 
 
 ```r
@@ -192,11 +199,11 @@ library(gdata)
 
 write.fwf(mtcars, file = "data/04_mtcars-fixed-width.txt")
 ```
+</details>
 
+&nbsp;
 
-
-
-<details> <summary>In SAS, it's a bit more complicated, but not that much - the biggest difference is that you generally have to specify the column names for SAS. For complicated data, as in R, you may also have to specify the column widths. </summary>
+<details class="ex"> <summary>In SAS, it's a bit more complicated, but not that much - the biggest difference is that you generally have to specify the column names for SAS. For complicated data, as in R, you may also have to specify the column widths. </summary>
 
 
 ```sashtmllog
@@ -222,8 +229,8 @@ write.fwf(mtcars, file = "data/04_mtcars-fixed-width.txt")
 
 NOTE: The infile "data/mesodata.txt" is:
       
-      Filename=/home/susan/Projects/Class/unl-stat850/2020-stat850/data/mes
-      odata.txt,
+      Filename=/home/susan/Projects/Class/unl-stat850/stat850-textbook/data
+      /mesodata.txt,
       Owner Name=susan,Group Name=susan,
       Access Permission=-rw-rw-r--,
       Last Modified=07Jun2020:16:59:37,
@@ -240,8 +247,8 @@ NOTE: SAS went to a new line when INPUT statement reached past the end of
       a line.
 NOTE: The data set WORK.MESODATA has 120 observations and 24 variables.
 NOTE: DATA statement used (Total process time):
-      real time           0.00 seconds
-      cpu time            0.01 seconds
+      real time           0.01 seconds
+      cpu time            0.00 seconds
       
 
 22         
@@ -251,8 +258,8 @@ NOTE: DATA statement used (Total process time):
 
 NOTE: There were 10 observations read from the data set WORK.MESODATA.
 NOTE: PROCEDURE PRINT used (Total process time):
-      real time           0.05 seconds
-      cpu time            0.05 seconds
+      real time           0.01 seconds
+      cpu time            0.01 seconds
       
 ```
 
@@ -604,79 +611,79 @@ In SAS data statements, you generally need to specify the data names explicitly.
 In theory you can also get SAS to write out a fixed-width file, but it's much easier to just... not. You can generally use a CSV or format of your choice -- and you should definitely do that, because delimited files are much easier to work with. 
 
 
-### Delimited Text Files
+#### Delimited Text Files
 
 Delimited text files are files where fields are separated by a specific character, such as " ", ",", tab, etc. Often, delimited text files will have the column names as the first row in the file. 
 
-<details><summary>
+<details class="ex"><summary>
 As long as you know the delimiter, it's pretty easy to read in data from these files in R using the `readr` package. </summary>
 
 ```r
 url <- "https://raw.githubusercontent.com/shahinrostami/pokemon_dataset/master/pokemon_gen_1_to_8.csv"
 
 pokemon_info <- read_csv(url)
-## Warning: Missing column names filled in: 'X1' [1]
-## 
-## ── Column specification ────────────────────────────────────────────────────────
-## cols(
-##   .default = col_double(),
-##   name = col_character(),
-##   german_name = col_character(),
-##   japanese_name = col_character(),
-##   status = col_character(),
-##   species = col_character(),
-##   type_1 = col_character(),
-##   type_2 = col_character(),
-##   ability_1 = col_character(),
-##   ability_2 = col_character(),
-##   ability_hidden = col_character(),
-##   growth_rate = col_character(),
-##   egg_type_1 = col_character(),
-##   egg_type_2 = col_character()
-## )
-## ℹ Use `spec()` for the full column specifications.
+Warning: Missing column names filled in: 'X1' [1]
+
+── Column specification ────────────────────────────────────────────────────────
+cols(
+  .default = col_double(),
+  name = col_character(),
+  german_name = col_character(),
+  japanese_name = col_character(),
+  status = col_character(),
+  species = col_character(),
+  type_1 = col_character(),
+  type_2 = col_character(),
+  ability_1 = col_character(),
+  ability_2 = col_character(),
+  ability_hidden = col_character(),
+  growth_rate = col_character(),
+  egg_type_1 = col_character(),
+  egg_type_2 = col_character()
+)
+ℹ Use `spec()` for the full column specifications.
 pokemon_info[1:6, 1:6] # Show only the first 6 lines & cols
-## # A tibble: 6 x 6
-##      X1 pokedex_number name         german_name japanese_name         generation
-##   <dbl>          <dbl> <chr>        <chr>       <chr>                      <dbl>
-## 1     0              1 Bulbasaur    Bisasam     フシギダネ (Fushigidane)…          1
-## 2     1              2 Ivysaur      Bisaknosp   フシギソウ (Fushigisou)…          1
-## 3     2              3 Venusaur     Bisaflor    フシギバナ (Fushigibana)…          1
-## 4     3              3 Mega Venusa… Bisaflor    フシギバナ (Fushigibana)…          1
-## 5     4              4 Charmander   Glumanda    ヒトカゲ (Hitokage)            1
-## 6     5              5 Charmeleon   Glutexo     リザード (Lizardo)             1
+# A tibble: 6 x 6
+     X1 pokedex_number name         german_name japanese_name         generation
+  <dbl>          <dbl> <chr>        <chr>       <chr>                      <dbl>
+1     0              1 Bulbasaur    Bisasam     フシギダネ (Fushigid…          1
+2     1              2 Ivysaur      Bisaknosp   フシギソウ (Fushigis…          1
+3     2              3 Venusaur     Bisaflor    フシギバナ (Fushigib…          1
+4     3              3 Mega Venusa… Bisaflor    フシギバナ (Fushigib…          1
+5     4              4 Charmander   Glumanda    ヒトカゲ (Hitokage)            1
+6     5              5 Charmeleon   Glutexo     リザード (Lizardo)             1
 
 # a file delimited with |
 
 url <- "https://raw.githubusercontent.com/srvanderplas/unl-stat850/master/data/NE_Features_20200501.txt"
 nebraska_locations <- read_delim(url, delim = "|")
-## 
-## ── Column specification ────────────────────────────────────────────────────────
-## cols(
-##   .default = col_character(),
-##   FEATURE_ID = col_double(),
-##   PRIM_LAT_DEC = col_double(),
-##   PRIM_LONG_DEC = col_double(),
-##   SOURCE_LAT_DEC = col_double(),
-##   SOURCE_LONG_DEC = col_double(),
-##   ELEV_IN_M = col_double(),
-##   ELEV_IN_FT = col_double()
-## )
-## ℹ Use `spec()` for the full column specifications.
+
+── Column specification ────────────────────────────────────────────────────────
+cols(
+  .default = col_character(),
+  FEATURE_ID = col_double(),
+  PRIM_LAT_DEC = col_double(),
+  PRIM_LONG_DEC = col_double(),
+  SOURCE_LAT_DEC = col_double(),
+  SOURCE_LONG_DEC = col_double(),
+  ELEV_IN_M = col_double(),
+  ELEV_IN_FT = col_double()
+)
+ℹ Use `spec()` for the full column specifications.
 nebraska_locations[1:6, 1:6]
-## # A tibble: 6 x 6
-##   FEATURE_ID FEATURE_NAME    FEATURE_CLASS STATE_ALPHA STATE_NUMERIC COUNTY_NAME
-##        <dbl> <chr>           <chr>         <chr>       <chr>         <chr>      
-## 1     171013 Peetz Table     Area          CO          08            Logan      
-## 2     171029 Sidney Draw     Valley        NE          31            Cheyenne   
-## 3     182687 Highline Canal  Canal         CO          08            Sedgwick   
-## 4     182688 Cottonwood Cre… Stream        CO          08            Sedgwick   
-## 5     182689 Sand Draw       Valley        CO          08            Sedgwick   
-## 6     182690 Sedgwick Draw   Valley        CO          08            Sedgwick
+# A tibble: 6 x 6
+  FEATURE_ID FEATURE_NAME    FEATURE_CLASS STATE_ALPHA STATE_NUMERIC COUNTY_NAME
+       <dbl> <chr>           <chr>         <chr>       <chr>         <chr>      
+1     171013 Peetz Table     Area          CO          08            Logan      
+2     171029 Sidney Draw     Valley        NE          31            Cheyenne   
+3     182687 Highline Canal  Canal         CO          08            Sedgwick   
+4     182688 Cottonwood Cre… Stream        CO          08            Sedgwick   
+5     182689 Sand Draw       Valley        CO          08            Sedgwick   
+6     182690 Sedgwick Draw   Valley        CO          08            Sedgwick   
 ```
 </details>
 
-<details><summary>
+<details class="ex"><summary>
 You can also read in the same files using read.csv and read.delim, which are the equivalent base R functions. </summary>
 
 ```r
@@ -684,20 +691,20 @@ url <- "https://raw.githubusercontent.com/shahinrostami/pokemon_dataset/master/p
 
 pokemon_info <- read.csv(url, header = T, stringsAsFactors = F)
 pokemon_info[1:6, 1:6] # Show only the first 6 lines & cols
-##   X pokedex_number          name german_name            japanese_name
-## 1 0              1     Bulbasaur     Bisasam フシギダネ (Fushigidane)
-## 2 1              2       Ivysaur   Bisaknosp  フシギソウ (Fushigisou)
-## 3 2              3      Venusaur    Bisaflor フシギバナ (Fushigibana)
-## 4 3              3 Mega Venusaur    Bisaflor フシギバナ (Fushigibana)
-## 5 4              4    Charmander    Glumanda      ヒトカゲ (Hitokage)
-## 6 5              5    Charmeleon     Glutexo       リザード (Lizardo)
-##   generation
-## 1          1
-## 2          1
-## 3          1
-## 4          1
-## 5          1
-## 6          1
+  X pokedex_number          name german_name            japanese_name
+1 0              1     Bulbasaur     Bisasam フシギダネ (Fushigidane)
+2 1              2       Ivysaur   Bisaknosp  フシギソウ (Fushigisou)
+3 2              3      Venusaur    Bisaflor フシギバナ (Fushigibana)
+4 3              3 Mega Venusaur    Bisaflor フシギバナ (Fushigibana)
+5 4              4    Charmander    Glumanda      ヒトカゲ (Hitokage)
+6 5              5    Charmeleon     Glutexo       リザード (Lizardo)
+  generation
+1          1
+2          1
+3          1
+4          1
+5          1
+6          1
 
 
 # a file delimited with |
@@ -705,28 +712,32 @@ pokemon_info[1:6, 1:6] # Show only the first 6 lines & cols
 url <- "https://raw.githubusercontent.com/srvanderplas/unl-stat850/master/data/NE_Features_20200501.txt"
 nebraska_locations <- read.delim(url, sep = "|", header = T)
 nebraska_locations[1:6, 1:6]
-##   FEATURE_ID     FEATURE_NAME FEATURE_CLASS STATE_ALPHA STATE_NUMERIC
-## 1     171013      Peetz Table          Area          CO             8
-## 2     171029      Sidney Draw        Valley          NE            31
-## 3     182687   Highline Canal         Canal          CO             8
-## 4     182688 Cottonwood Creek        Stream          CO             8
-## 5     182689        Sand Draw        Valley          CO             8
-## 6     182690    Sedgwick Draw        Valley          CO             8
-##   COUNTY_NAME
-## 1       Logan
-## 2    Cheyenne
-## 3    Sedgwick
-## 4    Sedgwick
-## 5    Sedgwick
-## 6    Sedgwick
+  FEATURE_ID     FEATURE_NAME FEATURE_CLASS STATE_ALPHA STATE_NUMERIC
+1     171013      Peetz Table          Area          CO             8
+2     171029      Sidney Draw        Valley          NE            31
+3     182687   Highline Canal         Canal          CO             8
+4     182688 Cottonwood Creek        Stream          CO             8
+5     182689        Sand Draw        Valley          CO             8
+6     182690    Sedgwick Draw        Valley          CO             8
+  COUNTY_NAME
+1       Logan
+2    Cheyenne
+3    Sedgwick
+4    Sedgwick
+5    Sedgwick
+6    Sedgwick
 ```
 </details>
 
-SAS also has procs to accommodate CSV and other delimited files. PROC IMPORT may be the simplest way to do this, but of course a DATA step will work as well. We do have to tell SAS to treat the data file as a UTF-8 file (because of the japanese characters). Don't know what UTF-8 is? [Watch this excellent YouTube video explaining the history of file encoding!](https://www.youtube.com/watch?v=MijmeoH9LT4)
+SAS also has procs to accommodate CSV and other delimited files. PROC IMPORT may be the simplest way to do this, but of course a DATA step will work as well. We do have to tell SAS to treat the data file as a UTF-8 file (because of the japanese characters). 
+
+::: learn-more
+Don't know what UTF-8 is? [Watch this excellent YouTube video explaining the history of file encoding!](https://www.youtube.com/watch?v=MijmeoH9LT4)
+:::
 
 While writing this code, I got an error of "Invalid logical name" because originally the filename was pokemonloc. Let this be a friendly reminder that your dataset names in SAS are limited to 8 characters in SAS. 
 
-<details><summary>CSV Import in SAS</summary>
+<details class="ex"><summary>CSV Import in SAS</summary>
 
 
 ```sashtml
@@ -1416,44 +1427,44 @@ The only abnormal thing is that on my computer, the japanese characters don't re
 
 Alternately (because UTF-8 is finicky depending on your OS and the OS the data file was created under), you can convert the UTF-8 file to ASCII or some other safer encoding before trying to read it in.
 
-<details><summary>CSVs in SAS (via R)</summary>
+<details class="ex"><summary>CSVs in SAS (via R)</summary>
 If I fix the file in R (because I know how to fix it there... another option is to fix it manually), 
 
 ```r
 library(readr)
 library(dplyr)
-## 
-## Attaching package: 'dplyr'
-## The following objects are masked from 'package:gdata':
-## 
-##     combine, first, last
-## The following objects are masked from 'package:stats':
-## 
-##     filter, lag
-## The following objects are masked from 'package:base':
-## 
-##     intersect, setdiff, setequal, union
+
+Attaching package: 'dplyr'
+The following objects are masked from 'package:gdata':
+
+    combine, first, last
+The following objects are masked from 'package:stats':
+
+    filter, lag
+The following objects are masked from 'package:base':
+
+    intersect, setdiff, setequal, union
 tmp <- read_csv("data/pokemon.csv")[,-1]
-## Warning: Missing column names filled in: 'X1' [1]
-## 
-## ── Column specification ────────────────────────────────────────────────────────
-## cols(
-##   .default = col_double(),
-##   name = col_character(),
-##   german_name = col_character(),
-##   japanese_name = col_character(),
-##   status = col_character(),
-##   species = col_character(),
-##   type_1 = col_character(),
-##   type_2 = col_character(),
-##   ability_1 = col_character(),
-##   ability_2 = col_character(),
-##   ability_hidden = col_character(),
-##   growth_rate = col_character(),
-##   egg_type_1 = col_character(),
-##   egg_type_2 = col_character()
-## )
-## ℹ Use `spec()` for the full column specifications.
+Warning: Missing column names filled in: 'X1' [1]
+
+── Column specification ────────────────────────────────────────────────────────
+cols(
+  .default = col_double(),
+  name = col_character(),
+  german_name = col_character(),
+  japanese_name = col_character(),
+  status = col_character(),
+  species = col_character(),
+  type_1 = col_character(),
+  type_2 = col_character(),
+  ability_1 = col_character(),
+  ability_2 = col_character(),
+  ability_hidden = col_character(),
+  growth_rate = col_character(),
+  egg_type_1 = col_character(),
+  egg_type_2 = col_character()
+)
+ℹ Use `spec()` for the full column specifications.
 # You'll learn how to do this later
 tmp <- select(tmp, -japanese_name) %>%
   mutate_all(iconv, from="UTF-8", to = "ASCII//TRANSLIT")
@@ -1467,7 +1478,7 @@ Then, reading in the new file allows us to actually see the output.
 NOTE: Libref CLASSDAT was successfully assigned as follows: 
       Engine:        V9 
       Physical Name: 
-      /home/susan/Projects/Class/unl-stat850/2020-stat850/sas
+      /home/susan/Projects/Class/unl-stat850/stat850-textbook/sas
 7          /* Create a library of class data */
 8          
 9          filename pokeloc  "data/pokemon_ascii.csv";
@@ -1487,7 +1498,7 @@ NOTE: Libref CLASSDAT was successfully assigned as follows:
 19          *   PRODUCT:   SAS
 20          *   VERSION:   9.4
 21          *   CREATOR:   External File Interface
-22          *   DATE:      09MAY21
+22          *   DATE:      06MAY21
 23          *   DESC:      Generated SAS Datastep Code
 24          *   TEMPLATE SOURCE:  (None Specified.)
 25          ***************************************************************
@@ -1651,11 +1662,11 @@ NOTE: Libref CLASSDAT was successfully assigned as follows:
 
 NOTE: The infile POKELOC is:
       
-      Filename=/home/susan/Projects/Class/unl-stat850/2020-stat850/data/pok
-      emon_ascii.csv,
+      Filename=/home/susan/Projects/Class/unl-stat850/stat850-textbook/data
+      /pokemon_ascii.csv,
       Owner Name=susan,Group Name=susan,
       Access Permission=-rw-rw-r--,
-      Last Modified=09May2021:10:33:17,
+      Last Modified=06May2021:12:19:40,
       File Size (bytes)=207032
 
 NOTE: 1028 records were read from the infile POKELOC.
@@ -1674,15 +1685,15 @@ NOTE: DATA statement used (Total process time):
 NOTE: CLASSDAT.POKE data set was successfully created.
 NOTE: The data set CLASSDAT.POKE has 1028 observations and 49 variables.
 NOTE: PROCEDURE IMPORT used (Total process time):
-      real time           1.37 seconds
-      cpu time            1.35 seconds
+      real time           0.63 seconds
+      cpu time            0.63 seconds
       
 
 180          run;
 
 NOTE: There were 10 observations read from the data set CLASSDAT.POKE.
 NOTE: PROCEDURE PRINT used (Total process time):
-      real time           0.03 seconds
+      real time           0.01 seconds
       cpu time            0.02 seconds
       
 
@@ -2333,7 +2344,7 @@ NOTE: PROCEDURE PRINT used (Total process time):
 This trick works in so many different situations. It's very common to read and do initial processing in one language, then do the modeling in another language, and even move to a different language for visualization. Each programming language has its strengths and weaknesses; if you know enough of each of them, you can use each tool where it is most appropriate. 
 </details>
 
-<details><summary>Non-comma delimited files in SAS (via R)</summary>
+<details class="ex"><summary>Non-comma delimited files in SAS (via R)</summary>
 To read in a pipe delimited file (the '|' character), we have to make some changes. Here is the proc import code. Note that I am reading in a version of the file that I've converted to ASCII (see details below) because while the import works with the original file, it causes the SAS -> R pipeline that the book is built on to break. 
 
 
@@ -2361,7 +2372,7 @@ writeLines(tmp_ascii, "data/NE_Features_ascii.txt")
 15          *   PRODUCT:   SAS
 16          *   VERSION:   9.4
 17          *   CREATOR:   External File Interface
-18          *   DATE:      09MAY21
+18          *   DATE:      06MAY21
 19          *   DESC:      Generated SAS Datastep Code
 20          *   TEMPLATE SOURCE:  (None Specified.)
 21          ***************************************************************
@@ -2439,11 +2450,11 @@ writeLines(tmp_ascii, "data/NE_Features_ascii.txt")
 
 NOTE: The infile 'data/NE_Features_ascii.txt' is:
       
-      Filename=/home/susan/Projects/Class/unl-stat850/2020-stat850/data/NE_
-      Features_ascii.txt,
+      Filename=/home/susan/Projects/Class/unl-stat850/stat850-textbook/data
+      /NE_Features_ascii.txt,
       Owner Name=susan,Group Name=susan,
       Access Permission=-rw-rw-r--,
-      Last Modified=09May2021:10:33:19,
+      Last Modified=06May2021:12:19:41,
       File Size (bytes)=4227269
 
 NOTE: 31582 records were read from the infile 'data/NE_Features_ascii.txt'.
@@ -2451,8 +2462,8 @@ NOTE: 31582 records were read from the infile 'data/NE_Features_ascii.txt'.
       The maximum record length was 204.
 NOTE: The data set WORK.NEFEATURES has 31582 observations and 20 variables.
 NOTE: DATA statement used (Total process time):
-      real time           0.06 seconds
-      cpu time            0.07 seconds
+      real time           0.04 seconds
+      cpu time            0.04 seconds
       
 
 31582 rows created in WORK.NEFEATURES from data/NE_Features_ascii.txt.
@@ -2462,8 +2473,8 @@ NOTE: DATA statement used (Total process time):
 NOTE: WORK.NEFEATURES data set was successfully created.
 NOTE: The data set WORK.NEFEATURES has 31582 observations and 20 variables.
 NOTE: PROCEDURE IMPORT used (Total process time):
-      real time           18.77 seconds
-      cpu time            18.76 seconds
+      real time           9.67 seconds
+      cpu time            9.66 seconds
       
 
 89         
@@ -2474,7 +2485,7 @@ NOTE: PROCEDURE IMPORT used (Total process time):
 NOTE: There were 10 observations read from the data set WORK.NEFEATURES.
 NOTE: PROCEDURE PRINT used (Total process time):
       real time           0.01 seconds
-      cpu time            0.02 seconds
+      cpu time            0.01 seconds
       
 
 92         
@@ -2816,11 +2827,11 @@ Under the hood, proc import is just writing code for a data step. So when proc i
 
 NOTE: The infile "data/NE_Features_ascii.txt" is:
       
-      Filename=/home/susan/Projects/Class/unl-stat850/2020-stat850/data/NE_
-      Features_ascii.txt,
+      Filename=/home/susan/Projects/Class/unl-stat850/stat850-textbook/data
+      /NE_Features_ascii.txt,
       Owner Name=susan,Group Name=susan,
       Access Permission=-rw-rw-r--,
-      Last Modified=09May2021:10:33:19,
+      Last Modified=06May2021:12:19:41,
       File Size (bytes)=4227269
 
 NOTE: 31582 records were read from the infile "data/NE_Features_ascii.txt".
@@ -2828,8 +2839,8 @@ NOTE: 31582 records were read from the infile "data/NE_Features_ascii.txt".
       The maximum record length was 204.
 NOTE: The data set WORK.NEFEATURES has 31582 observations and 20 variables.
 NOTE: DATA statement used (Total process time):
-      real time           0.13 seconds
-      cpu time            0.15 seconds
+      real time           0.04 seconds
+      cpu time            0.04 seconds
       
 
 40         
@@ -2839,8 +2850,8 @@ NOTE: DATA statement used (Total process time):
 
 NOTE: There were 10 observations read from the data set WORK.NEFEATURES.
 NOTE: PROCEDURE PRINT used (Total process time):
-      real time           0.04 seconds
-      cpu time            0.04 seconds
+      real time           0.01 seconds
+      cpu time            0.02 seconds
       
 ```
 
@@ -3139,7 +3150,7 @@ NOTE: PROCEDURE PRINT used (Total process time):
 </div>
 </details>
 
-### Try it out {- .tryitout}
+#### Try it out {- .tryitout}
 
 Rebrickable.com contains tables of almost any information imaginable concerning Lego sets, conveninently available at their [download page](https://rebrickable.com/downloads/). Because these datasets are comparatively large, they are available as compressed CSV files - that is, the .gz extension is a gzip compression applied to the CSV. 
 
@@ -3181,7 +3192,7 @@ run;
 NOTE: Libref CLASSDAT was successfully assigned as follows: 
       Engine:        V9 
       Physical Name: 
-      /home/susan/Projects/Class/unl-stat850/2020-stat850/sas
+      /home/susan/Projects/Class/unl-stat850/stat850-textbook/sas
 7          /* Work with the library of class data */
 8          
 9          filename legofile ZIP "data/lego_sets.csv.gz" GZIP;
@@ -3199,11 +3210,11 @@ NOTE: The infile LEGOFILE is:
 
 NOTE: The file TARGET is:
       
-      Filename=/home/susan/Projects/Class/unl-stat850/2020-stat850/data/leg
-      o_sets.csv,
+      Filename=/home/susan/Projects/Class/unl-stat850/stat850-textbook/data
+      /lego_sets.csv,
       Owner Name=susan,Group Name=susan,
       Access Permission=-rw-rw-r--,
-      Last Modified=09May2021:10:34:22
+      Last Modified=06May2021:12:20:13
 
 NOTE: 15425 records were read from the infile LEGOFILE.
       The minimum record length was 20.
@@ -3212,8 +3223,8 @@ NOTE: 15425 records were written to the file TARGET.
       The minimum record length was 20.
       The maximum record length was 116.
 NOTE: DATA statement used (Total process time):
-      real time           0.02 seconds
-      cpu time            0.03 seconds
+      real time           0.01 seconds
+      cpu time            0.01 seconds
       
 
 18         
@@ -3228,7 +3239,7 @@ NOTE: DATA statement used (Total process time):
 24          *   PRODUCT:   SAS
 25          *   VERSION:   9.4
 26          *   CREATOR:   External File Interface
-27          *   DATE:      09MAY21
+27          *   DATE:      06MAY21
 28          *   DESC:      Generated SAS Datastep Code
 29          *   TEMPLATE SOURCE:  (None Specified.)
 30          ***************************************************************
@@ -3260,11 +3271,11 @@ NOTE: DATA statement used (Total process time):
 
 NOTE: The infile TARGET is:
       
-      Filename=/home/susan/Projects/Class/unl-stat850/2020-stat850/data/leg
-      o_sets.csv,
+      Filename=/home/susan/Projects/Class/unl-stat850/stat850-textbook/data
+      /lego_sets.csv,
       Owner Name=susan,Group Name=susan,
       Access Permission=-rw-rw-r--,
-      Last Modified=09May2021:10:34:22,
+      Last Modified=06May2021:12:20:13,
       File Size (bytes)=633877
 
 NOTE: 15424 records were read from the infile TARGET.
@@ -3273,7 +3284,7 @@ NOTE: 15424 records were read from the infile TARGET.
 NOTE: The data set CLASSDAT.LEGOSET has 15424 observations and 5 variables.
 NOTE: DATA statement used (Total process time):
       real time           0.01 seconds
-      cpu time            0.02 seconds
+      cpu time            0.01 seconds
       
 
 15424 rows created in CLASSDAT.LEGOSET from TARGET.
@@ -3283,8 +3294,8 @@ NOTE: DATA statement used (Total process time):
 NOTE: CLASSDAT.LEGOSET data set was successfully created.
 NOTE: The data set CLASSDAT.LEGOSET has 15424 observations and 5 variables.
 NOTE: PROCEDURE IMPORT used (Total process time):
-      real time           3.40 seconds
-      cpu time            3.40 seconds
+      real time           1.73 seconds
+      cpu time            1.71 seconds
       
 
 53         
@@ -3306,7 +3317,7 @@ NOTE: 15424 records were read from the infile LEGOFILE.
 NOTE: The data set WORK.LEGOSET2 has 15424 observations and 5 variables.
 NOTE: DATA statement used (Total process time):
       real time           0.01 seconds
-      cpu time            0.01 seconds
+      cpu time            0.02 seconds
       
 
 62         
@@ -3316,7 +3327,7 @@ NOTE: DATA statement used (Total process time):
 NOTE: There were 10 observations read from the data set CLASSDAT.LEGOSET.
 NOTE: PROCEDURE PRINT used (Total process time):
       real time           0.00 seconds
-      cpu time            0.01 seconds
+      cpu time            0.00 seconds
       
 
 65         
@@ -3559,10 +3570,11 @@ NOTE: PROCEDURE PRINT used (Total process time):
 </details>
 
 
-## Spreadsheets
+### Spreadsheets
 
-In R, the easiest way to read Excel data in is to use the `readxl` package. There are many other packages with different features, however - I have used `openxlsx` in the past to format spreadsheets to send to clients, for instance. By far and away you are more likely to have problems with the arcane format of the Excel spreadsheet than with the package used to read the data in. It is usually helpful to open the spreadsheet up in Excel or LibreOffice first to make sure the formatting is as you expected it to be.
+In R, the easiest way to read Excel data in is to use the `readxl` package. There are many other packages with different features, however - I have used `openxlsx` in the past to format spreadsheets to send to clients, for instance. By far and away you are more likely to have problems with the arcane format of the Excel spreadsheet than with the package used to read the data in. It is usually helpful to open the spreadsheet up in a graphical program first to make sure the formatting is as you expected it to be.
 
+<details  class="ex"><summary>Reading data froma spreadsheet using readxl</summary>
 
 ```r
 if (!"readxl" %in% installed.packages()) install.packages("readxl")
@@ -3572,33 +3584,34 @@ if (!file.exists(path)) download.file("https://mappingpoliceviolence.org/s/MPVDa
 
 police_violence <- read_xlsx("data/police_violence.xlsx", sheet = 1)
 police_violence[1:10, 1:6]
-## # A tibble: 10 x 6
-##    `Victim's name`         `Victim's age` `Victim's gender` `Victim's race`
-##    <chr>                            <dbl> <chr>             <chr>          
-##  1 Eric M. Tellez                      28 Male              White          
-##  2 Name withheld by police             NA Male              Unknown race   
-##  3 Terry Hudson                        57 Male              Black          
-##  4 Malik Williams                      23 Male              Black          
-##  5 Frederick Perkins                   37 Male              Black          
-##  6 Michael Vincent Davis               49 Male              White          
-##  7 Brian Elkins                        47 Male              Unknown race   
-##  8 Debra D. Arbuckle                   51 Female            White          
-##  9 Name withheld by police             NA Male              Unknown race   
-## 10 Cody McCaulou                       27 Male              White          
-## # … with 2 more variables: URL of image of victim <chr>,
-## #   Date of Incident (month/day/year) <dttm>
+# A tibble: 10 x 6
+   `Victim's name`         `Victim's age` `Victim's gender` `Victim's race`
+   <chr>                            <dbl> <chr>             <chr>          
+ 1 Eric M. Tellez                      28 Male              White          
+ 2 Name withheld by police             NA Male              Unknown race   
+ 3 Terry Hudson                        57 Male              Black          
+ 4 Malik Williams                      23 Male              Black          
+ 5 Frederick Perkins                   37 Male              Black          
+ 6 Michael Vincent Davis               49 Male              White          
+ 7 Brian Elkins                        47 Male              Unknown race   
+ 8 Debra D. Arbuckle                   51 Female            White          
+ 9 Name withheld by police             NA Male              Unknown race   
+10 Cody McCaulou                       27 Male              White          
+# … with 2 more variables: URL of image of victim <chr>,
+#   Date of Incident (month/day/year) <dttm>
 ```
-
+</details>
 
 In SAS, PROC IMPORT is one easy way to read in xlsx files. In this code chunk, we have to handle the fact that one of the columns in the spreadsheet contains dates. [SAS and Excel handle dates a bit differently](https://support.sas.com/resources/papers/proceedings/proceedings/sugi29/068-29.pdf), so we have to transform the date variable -- and we may as well relabel it at the same time. To do this, we use a DATA statement that outputs to the same dataset it references. We define a new variable date, adjust the Excel dates so that they conform to SAS's standard, and tell SAS how to format the date. (We'll talk more about dates and times later)
 
+<details  class="ex"><summary>Reading spreadsheet data using PROC IMPORT</summary>
 
 ```sashtmllog
 6          libname classdat "sas/";
 NOTE: Libref CLASSDAT was successfully assigned as follows: 
       Engine:        V9 
       Physical Name: 
-      /home/susan/Projects/Class/unl-stat850/2020-stat850/sas
+      /home/susan/Projects/Class/unl-stat850/stat850-textbook/sas
 7          
 8          PROC IMPORT OUT=classdat.police
 9              DATAFILE="data/police_violence.xlsx"
@@ -3660,8 +3673,8 @@ NOTE: One or more variables were converted because the data type is not
 NOTE: The import data set has 7663 observations and 27 variables.
 NOTE: CLASSDAT.POLICE data set was successfully created.
 NOTE: PROCEDURE IMPORT used (Total process time):
-      real time           3.54 seconds
-      cpu time            3.53 seconds
+      real time           1.21 seconds
+      cpu time            1.22 seconds
       
 
 16         
@@ -4120,8 +4133,8 @@ NOTE: Mathematical operations could not be performed at the following
 NOTE: There were 7663 observations read from the data set CLASSDAT.POLICE.
 NOTE: The data set CLASSDAT.POLICE has 7663 observations and 25 variables.
 NOTE: DATA statement used (Total process time):
-      real time           0.07 seconds
-      cpu time            0.06 seconds
+      real time           0.03 seconds
+      cpu time            0.03 seconds
       
 
 33         
@@ -4264,10 +4277,15 @@ NOTE: PROCEDURE PRINT used (Total process time):
 </div>
 <br>
 </div>
+</details>
 
-[Here](https://stats.idre.ucla.edu/sas/faq/how-do-i-readwrite-excel-files-in-sas/) is some additional information about reading and writing Excel files in SAS. In general, it is better to avoid working in Excel, as it is not easy to reproduce the results (and Excel is horrible about dates and times, among other issues). Saving your data in more reproducible formats will make writing reproducible code much easier. 
+::: learn-more
+[Here](https://stats.idre.ucla.edu/sas/faq/how-do-i-readwrite-excel-files-in-sas/) is some additional information about reading and writing Excel files in SAS. 
+:::
 
-### Try it out {- .tryitout}
+In general, it is better to avoid working in Excel, as it is not easy to reproduce the results (and Excel is horrible about dates and times, among other issues). Saving your data in more reproducible formats will make writing reproducible code much easier. 
+
+#### Try it out {- .tryitout}
 
 The Nebraska Department of Motor Vehicles publishes a database of vehicle registrations by type of license plate. [Link](https://dmv.nebraska.gov/sites/dmv.nebraska.gov/files/doc/2019_Veh_Reg_by_Plate_Type.xlsx)
 
@@ -4280,27 +4298,27 @@ url <- "https://dmv.nebraska.gov/sites/dmv.nebraska.gov/files/doc/2019_Veh_Reg_b
 download.file(url, destfile = "data/2019_Vehicle_Registration_Plates_NE.xlsx", mode = "wb")
 library(readxl)
 ne_plates <- read_xlsx(path = "data/2019_Vehicle_Registration_Plates_NE.xlsx", skip = 1)
-## New names:
-## * County -> County...1
-## * County -> County...34
+New names:
+* County -> County...1
+* County -> County...34
 ne_plates[1:10,1:6]
-## Warning in fansi::strwrap_ctl(x, width = max(width, 0), indent = indent, :
-## Encountered a C0 control character, see `?unhandled_ctl`; you can use
-## `warn=FALSE` to turn off these warnings.
-## # A tibble: 10 x 6
-##    County...1      `Amateur\r\nRadio` `Apport-\r\nioned` `Apport\r\nTrlr`    AC
-##    <chr>                        <dbl>              <dbl>            <dbl> <dbl>
-##  1 C01 - DOUGLAS                  148                  0                0    10
-##  2 C02 - LANCASTER                244                  0                0     2
-##  3 C03 - GAGE                      10                  0                0     1
-##  4 C04 - CUSTER                     6                  0                0     0
-##  5 C05 - DODGE                     28                  0                0     0
-##  6 C06 - SAUNDERS                  18                  0                0     0
-##  7 C07 - MADISON                   19                  0                0     0
-##  8 C08 - HALL                      16                  0                0     0
-##  9 C09 - BUFFALO                   26                  0                0     2
-## 10 C10 - PLATTE                    12                  0                0     2
-## # … with 1 more variable: Breast Cancer <dbl>
+Warning in fansi::strwrap_ctl(x, width = max(width, 0), indent = indent, :
+Encountered a C0 control character, see `?unhandled_ctl`; you can use
+`warn=FALSE` to turn off these warnings.
+# A tibble: 10 x 6
+   County...1      `Amateur\r\nRadio` `Apport-\r\nioned` `Apport\r\nTrlr`    AC
+   <chr>                        <dbl>              <dbl>            <dbl> <dbl>
+ 1 C01 - DOUGLAS                  148                  0                0    10
+ 2 C02 - LANCASTER                244                  0                0     2
+ 3 C03 - GAGE                      10                  0                0     1
+ 4 C04 - CUSTER                     6                  0                0     0
+ 5 C05 - DODGE                     28                  0                0     0
+ 6 C06 - SAUNDERS                  18                  0                0     0
+ 7 C07 - MADISON                   19                  0                0     0
+ 8 C08 - HALL                      16                  0                0     0
+ 9 C09 - BUFFALO                   26                  0                0     2
+10 C10 - PLATTE                    12                  0                0     2
+# … with 1 more variable: Breast Cancer <dbl>
 ```
 
 
@@ -4457,8 +4475,8 @@ NOTE: One or more variables were converted because the data type is not
 NOTE: The import data set has 95 observations and 64 variables.
 NOTE: WORK.LICPLATE data set was successfully created.
 NOTE: PROCEDURE IMPORT used (Total process time):
-      real time           0.06 seconds
-      cpu time            0.06 seconds
+      real time           0.03 seconds
+      cpu time            0.04 seconds
       
 
 13         
@@ -4472,7 +4490,7 @@ NOTE: PROCEDURE IMPORT used (Total process time):
 NOTE: There were 10 observations read from the data set WORK.LICPLATE.
 NOTE: PROCEDURE PRINT used (Total process time):
       real time           0.00 seconds
-      cpu time            0.01 seconds
+      cpu time            0.00 seconds
       
 
 ERROR: Errors printed on page 23.
@@ -4629,12 +4647,13 @@ ERROR: Errors printed on page 23.
 </div>
 </details>
 
-## Binary Files
+### Binary Files
 
 Both R and SAS have binary data files that store data in a more compact form. It is relatively common for government websites, in particular, to provide SAS data in binary form. 
 
 Luckily, it is possible to read the binary data files in both programs.
 
+<details class = "ex"><summary>In SAS using a SAS library</summary>
 Let's read in the data from the 2009 National Household Travel Survey:
 
 ```sashtmllog
@@ -4642,7 +4661,7 @@ Let's read in the data from the 2009 National Household Travel Survey:
 NOTE: Libref CLASSDAT was successfully assigned as follows: 
       Engine:        V9 
       Physical Name: 
-      /home/susan/Projects/Class/unl-stat850/2020-stat850/data
+      /home/susan/Projects/Class/unl-stat850/stat850-textbook/data
 7          /* this tells SAS where to look for (a bunch of) data files */
 8          
 9          proc contents data=classdat.cen10pub; /* This tells sas to
@@ -4654,7 +4673,7 @@ NOTE: Data file CLASSDAT.CEN10PUB.DATA is in a format that is native to
 10         run;
 
 NOTE: PROCEDURE CONTENTS used (Total process time):
-      real time           0.01 seconds
+      real time           0.06 seconds
       cpu time            0.02 seconds
       
 
@@ -4779,7 +4798,7 @@ ERROR: Errors printed on page 23.
 </tr>
 <tr>
 <th class="l rowheader" scope="row">Filename</th>
-<td class="l data">/home/susan/Projects/Class/unl-stat850/2020-stat850/data/cen10pub.sas7bdat</td>
+<td class="l data">/home/susan/Projects/Class/unl-stat850/stat850-textbook/data/cen10pub.sas7bdat</td>
 </tr>
 <tr>
 <th class="l rowheader" scope="row">Release Created</th>
@@ -4791,7 +4810,7 @@ ERROR: Errors printed on page 23.
 </tr>
 <tr>
 <th class="l rowheader" scope="row">Inode Number</th>
-<td class="l data">39985763</td>
+<td class="l data">39064453</td>
 </tr>
 <tr>
 <th class="l rowheader" scope="row">Access Permission</th>
@@ -4922,7 +4941,9 @@ ERROR: Errors printed on page 23.
 </div>
 <br>
 </div>
+</details>
 
+<details  class="ex"><summary>In R using `sas7bdat`</summary>
 We can read the same file into R using the `sas7bdat` library:
 
 ```r
@@ -4931,70 +4952,74 @@ if (!"sas7bdat" %in% installed.packages()) install.packages("sas7bdat")
 library(sas7bdat)
 data <- read.sas7bdat("https://github.com/srvanderplas/unl-stat850/raw/master/data/cen10pub.sas7bdat")
 head(data)
-##    HOUSEID HH_CBSA10 RAIL10 CBSASIZE10 CBSACAT10 URBAN10 URBSIZE10 URBRUR10
-## 1 20000017     XXXXX     02         02        03      04        06       02
-## 2 20000231     XXXXX     02         03        03      01        03       01
-## 3 20000521     XXXXX     02         03        03      01        03       01
-## 4 20001283     35620     01         05        01      01        05       01
-## 5 20001603        -1     02         06        04      04        06       02
-## 6 20001649     XXXXX     02         03        03      01        02       01
+   HOUSEID HH_CBSA10 RAIL10 CBSASIZE10 CBSACAT10 URBAN10 URBSIZE10 URBRUR10
+1 20000017     XXXXX     02         02        03      04        06       02
+2 20000231     XXXXX     02         03        03      01        03       01
+3 20000521     XXXXX     02         03        03      01        03       01
+4 20001283     35620     01         05        01      01        05       01
+5 20001603        -1     02         06        04      04        06       02
+6 20001649     XXXXX     02         03        03      01        02       01
 ```
+</details>
+
 If you are curious about what this data means, then by all means, take a look at the [codebook](https://github.com/srvanderplas/unl-stat850/raw/master/data/cen10_codebook.xlsx) (XLSX file). For now, it's enough that we can see roughly how it's structured.
 
+::: learn-more
 There are [theoretically ways to read R data into SAS via the R subsystem](https://blogs.sas.com/content/iml/2011/05/13/calling-r-from-sasiml-software.html). Feel free to do that on your own machine.^[I tried, and it crashed SAS on my machine.]
+:::
 
-<details><summary>In R, there are a couple of different binary files. </summary>
 
-`.Rdata` is perhaps the most common, and can store several objects (along with their names) in the same file. 
+In R, there are a couple of different types of binary files. </summary>
+
+<details class="ex"><summary>`.Rdata` is perhaps the most common, and can store several objects (along with their names) in the same file. </summary>
 
 
 ```r
 legos <- read_csv("data/lego_sets.csv")
-## 
-## ── Column specification ────────────────────────────────────────────────────────
-## cols(
-##   set_num = col_character(),
-##   name = col_character(),
-##   year = col_double(),
-##   theme_id = col_double(),
-##   num_parts = col_double()
-## )
+
+── Column specification ────────────────────────────────────────────────────────
+cols(
+  set_num = col_character(),
+  name = col_character(),
+  year = col_double(),
+  theme_id = col_double(),
+  num_parts = col_double()
+)
 my_var <- "This variable contains a string"
 save(legos, my_var, file = "data/R_binary.Rdata")
 ```
-</details>
+
 If we look at the file sizes of `lego_sets.csv` (619 KB) and `R_binary.Rdata`(227.8 KB), the size difference between binary and flat file formats is obvious. 
 
-
-
-<details><summary>We can load the R binary file back in using the `load()` function. </summary>
+We can load the R binary file back in using the `load()` function.
 
 ```r
 rm(legos, my_var) # clear the files out
 
 ls() # all objects in the working environment
-##  [1] "breaks"             "data"               "mesodata"          
-##  [4] "mesodata_names"     "ne_plates"          "nebraska_locations"
-##  [7] "path"               "pokemon_info"       "police_violence"   
-## [10] "sasexe"             "sasopts"            "tmp"               
-## [13] "tmp_ascii"          "tmp_chars"          "tmp_chars_space"   
-## [16] "tmp_space"          "url"                "widths"
+ [1] "alert"              "breaks"             "data"              
+ [4] "mesodata"           "mesodata_names"     "ne_plates"         
+ [7] "nebraska_locations" "path"               "pokemon_info"      
+[10] "police_violence"    "sasexe"             "sasopts"           
+[13] "tmp"                "tmp_ascii"          "tmp_chars"         
+[16] "tmp_chars_space"    "tmp_space"          "url"               
+[19] "widths"            
 
 load("data/R_binary.Rdata")
 
 ls() # all objects in the working environment
-##  [1] "breaks"             "data"               "legos"             
-##  [4] "mesodata"           "mesodata_names"     "my_var"            
-##  [7] "ne_plates"          "nebraska_locations" "path"              
-## [10] "pokemon_info"       "police_violence"    "sasexe"            
-## [13] "sasopts"            "tmp"                "tmp_ascii"         
-## [16] "tmp_chars"          "tmp_chars_space"    "tmp_space"         
-## [19] "url"                "widths"
+ [1] "alert"              "breaks"             "data"              
+ [4] "legos"              "mesodata"           "mesodata_names"    
+ [7] "my_var"             "ne_plates"          "nebraska_locations"
+[10] "path"               "pokemon_info"       "police_violence"   
+[13] "sasexe"             "sasopts"            "tmp"               
+[16] "tmp_ascii"          "tmp_chars"          "tmp_chars_space"   
+[19] "tmp_space"          "url"                "widths"            
 ```
 </details>
 
-<details><summary>RDS format (another binary file format in R)</summary>
-Another (less common) binary format used in R is the RDS format. Unlike Rdata, the RDS format does not save the object name - it only saves its contents. As a result, when you read from an RDS file, you need to store the result of that function into a variable.
+<details class="ex"><summary>RDS format (another binary file format in R)</summary>
+Another (less common) binary format used in R is the RDS format. Unlike Rdata, the RDS format does not save the object name - it only saves its contents (which also means you can save only one object at a time). As a result, when you read from an RDS file, you need to store the result of that function into a variable.
 
 
 ```r
@@ -5006,7 +5031,7 @@ other_lego <- readRDS("data/RDSlego.rds")
 Because RDS formats don't save the object name, you can be sure that you're not over-writing some object in your workspace by loading a different file. The downside to this is that you have to save each object to its own RDS file separately. 
 </details>
 
-### Try it out {- .tryitout}
+#### Try it out {- .tryitout}
 
 Read in two of the files from an earlier example, and save the results as an Rdata file with two objects. Then save each one as an RDS file. 
 
@@ -5036,25 +5061,27 @@ pv2 <- readRDS("data/04_Try_Binary2.rds")
 load("data/04_Try_Binary.Rdata")
 
 all.equal(police_violence, pv1)
-## [1] TRUE
+[1] TRUE
 all.equal(police_violence2, pv2)
-## [1] TRUE
+[1] TRUE
 ```
 
 </details>
 
-## Databases
+### Databases
 
 There are many different database formats. Some of the most common databases are SQL* related formats and Microsoft Access files. 
 
 ::: note
-Strictly speaking you can get through this class without this section. Feel free to skip it and come back when/if you need it.
+You can get through this class without this section. Feel free to skip it and come back when/if you need it.
 :::
 
 
 [This excellent GitHub repo contains code to connect to multiple types of databases in R, python, PHP, Java, SAS, and VBA](https://github.com/ParfaitG/DATABASE_CONNECTIONS)
 
-### Microsoft Access
+
+#### Microsoft Access
+<details class = "ex"><summary>Details</summary>
 
 In R, we can read in MS Access files using the `Hmisc` package, as long as the mdbtools library is available on your computer^[A currently maintained version of the library is [here](https://github.com/cyberemissary/mdbtools) and should work for UNIX platforms. It may be possible to install the library on Windows using the UNIX subsystem, per [this thread](https://github.com/brianb/mdbtools/issues/107)]. For this demo, we'll be using the [Scottish Witchcraft Database](http://witches.shca.ed.ac.uk/index.cfm?fuseaction=home.register), which you can download from their website, or acquire from the course data folder. 
 
@@ -5062,66 +5089,69 @@ In R, we can read in MS Access files using the `Hmisc` package, as long as the m
 ```r
 if (!"Hmisc" %in% installed.packages()) install.packages("Hmisc")
 library(Hmisc)
-## Loading required package: lattice
-## Loading required package: survival
-## Loading required package: Formula
-## Loading required package: ggplot2
-## 
-## Attaching package: 'Hmisc'
-## The following objects are masked from 'package:dplyr':
-## 
-##     src, summarize
-## The following objects are masked from 'package:base':
-## 
-##     format.pval, units
+Loading required package: lattice
+Loading required package: survival
+Loading required package: Formula
+Loading required package: ggplot2
+
+Attaching package: 'Hmisc'
+The following objects are masked from 'package:dplyr':
+
+    src, summarize
+The following objects are masked from 'package:base':
+
+    format.pval, units
 db_loc <- "data/Witchcraftsurvey_download.mdb"
 
 mdb.get(db_loc, tables = TRUE) # get table list
-##  [1] "WDB_Accused"             "WDB_Accused_family"     
-##  [3] "WDB_Appeal"              "WDB_CalendarCustom"     
-##  [5] "WDB_Case"                "WDB_Case_person"        
-##  [7] "WDB_Commission"          "WDB_Complaint"          
-##  [9] "WDB_Confession"          "WDB_CounterStrategy"    
-## [11] "WDB_DemonicPact"         "WDB_Denunciation"       
-## [13] "WDB_DevilAppearance"     "WDB_Elf_FairyElements"  
-## [15] "WDB_Imprisonment"        "WDB_LinkedTrial"        
-## [17] "WDB_Malice"              "WDB_MentionedAsWitch"   
-## [19] "WDB_MovestoHLA"          "WDB_MusicalInstrument"  
-## [21] "WDB_Ordeal"              "WDB_OtherCharges"       
-## [23] "WDB_OtherNamedwitch"     "WDB_Person"             
-## [25] "WDB_PrevCommission"      "WDB_PropertyDamage"     
-## [27] "WDB_Ref_Parish"          "WDB_Reference"          
-## [29] "WDB_ReligiousMotif"      "WDB_RitualObject"       
-## [31] "WDB_ShapeChanging"       "WDB_Source"             
-## [33] "WDB_Torture"             "WDB_Trial"              
-## [35] "WDB_Trial_Person"        "WDB_WeatherModification"
-## [37] "WDB_WhiteMagic"          "WDB_WitchesMeetingPlace"
+ [1] "WDB_Accused"             "WDB_Accused_family"     
+ [3] "WDB_Appeal"              "WDB_CalendarCustom"     
+ [5] "WDB_Case"                "WDB_Case_person"        
+ [7] "WDB_Commission"          "WDB_Complaint"          
+ [9] "WDB_Confession"          "WDB_CounterStrategy"    
+[11] "WDB_DemonicPact"         "WDB_Denunciation"       
+[13] "WDB_DevilAppearance"     "WDB_Elf_FairyElements"  
+[15] "WDB_Imprisonment"        "WDB_LinkedTrial"        
+[17] "WDB_Malice"              "WDB_MentionedAsWitch"   
+[19] "WDB_MovestoHLA"          "WDB_MusicalInstrument"  
+[21] "WDB_Ordeal"              "WDB_OtherCharges"       
+[23] "WDB_OtherNamedwitch"     "WDB_Person"             
+[25] "WDB_PrevCommission"      "WDB_PropertyDamage"     
+[27] "WDB_Ref_Parish"          "WDB_Reference"          
+[29] "WDB_ReligiousMotif"      "WDB_RitualObject"       
+[31] "WDB_ShapeChanging"       "WDB_Source"             
+[33] "WDB_Torture"             "WDB_Trial"              
+[35] "WDB_Trial_Person"        "WDB_WeatherModification"
+[37] "WDB_WhiteMagic"          "WDB_WitchesMeetingPlace"
 mdb.get(db_loc, tables = "WDB_Trial")[1:6,1:10] # get table of trials, print first 6 rows and 10 cols
-##    Trialref TrialId TrialSystemId    CaseRef TrialType Trial.settlement
-## 1    T/JO/1       1            JO C/EGD/2120         2                 
-## 2  T/JO/100     100            JO  C/JO/2669         2                 
-## 3 T/JO/1000    1000            JO C/EGD/1474         2                 
-## 4 T/JO/1001    1001            JO C/EGD/1558         2                 
-## 5 T/JO/1002    1002            JO C/EGD/1681         2                 
-## 6 T/JO/1003    1003            JO C/EGD/1680         2                 
-##   Trial.parish Trial.presbytery Trial.county Trial.burgh
-## 1                      Aberdeen     Aberdeen    Aberdeen
-## 2                                                       
-## 3                                                       
-## 4                                                       
-## 5                                                       
-## 6
+   Trialref TrialId TrialSystemId    CaseRef TrialType Trial.settlement
+1    T/JO/1       1            JO C/EGD/2120         2                 
+2  T/JO/100     100            JO  C/JO/2669         2                 
+3 T/JO/1000    1000            JO C/EGD/1474         2                 
+4 T/JO/1001    1001            JO C/EGD/1558         2                 
+5 T/JO/1002    1002            JO C/EGD/1681         2                 
+6 T/JO/1003    1003            JO C/EGD/1680         2                 
+  Trial.parish Trial.presbytery Trial.county Trial.burgh
+1                      Aberdeen     Aberdeen    Aberdeen
+2                                                       
+3                                                       
+4                                                       
+5                                                       
+6                                                       
 ```
 Many databases have multiple tables with **keys** that connect information in each table. We'll spend more time on databases later in the semester - for now, it's enough to be able to get data out of one. 
 
 
-Unfortunately, it appears that SAS on Linux doesn't allow you to read in Access files. So I can't demonstrate that for you. But, since you know how to do it in R, worst case you can open up R and export all of the tables to separate CSV files, then read those into SAS. 😿
+Unfortunately, it appears that SAS on Linux doesn't allow you to read in Access files. So I can't demonstrate that for you. But, since you know how to do it in R, worst case you can open up R and export all of the tables to separate CSV files, then read those into SAS. 😭
+</details>
 
-### SQLite
 
+#### SQLite
+<details><summary>Details</summary>
 
-<details><summary>SQLite databases are contained in single files with the extension .SQLite.</summary>
-These files can still contain many different tables, though. Let's try working with a sqlite file that has only one table: 
+SQLite databases are contained in single files with the extension .SQLite. These files can still contain many different tables, though. 
+<div class="ex">
+Let's try working with a sqlite file that has only one table in R: 
 
 ```r
 if (!"RSQLite" %in% installed.packages()) install.packages("RSQLite")
@@ -5130,26 +5160,28 @@ library(RSQLite)
 library(DBI)
 con <- dbConnect(RSQLite::SQLite(), "data/ssa-babynames-for-2015.sqlite")
 dbListTables(con) # List all the tables
-## [1] "babynames"
+[1] "babynames"
 babyname <- dbReadTable(con, "babynames")
 head(babyname, 10) # show the first 10 obs
-##    state year    name sex count rank_within_sex per_100k_within_sex
-## 1     AK 2015  Olivia   F    56               1              2367.9
-## 2     AK 2015    Liam   M    53               1              1590.6
-## 3     AK 2015    Emma   F    49               2              2071.9
-## 4     AK 2015    Noah   M    46               2              1380.6
-## 5     AK 2015  Aurora   F    46               3              1945.0
-## 6     AK 2015   James   M    45               3              1350.5
-## 7     AK 2015  Amelia   F    39               4              1649.0
-## 8     AK 2015     Ava   F    39               4              1649.0
-## 9     AK 2015 William   M    44               4              1320.5
-## 10    AK 2015  Oliver   M    41               5              1230.5
+   state year    name sex count rank_within_sex per_100k_within_sex
+1     AK 2015  Olivia   F    56               1              2367.9
+2     AK 2015    Liam   M    53               1              1590.6
+3     AK 2015    Emma   F    49               2              2071.9
+4     AK 2015    Noah   M    46               2              1380.6
+5     AK 2015  Aurora   F    46               3              1945.0
+6     AK 2015   James   M    45               3              1350.5
+7     AK 2015  Amelia   F    39               4              1649.0
+8     AK 2015     Ava   F    39               4              1649.0
+9     AK 2015 William   M    44               4              1320.5
+10    AK 2015  Oliver   M    41               5              1230.5
 ```
-</details>
+</div>
 
 You can of course write formal queries using the DBI package, but for many databases, it's easier to do the querying in R. We'll cover both options later - the R version will be in the next module.
 
-<details><summary>In SAS, you can theoretically connect to SQLite databases, but there are very specific instructions for how to do that for each operating system. </summary>
+<div class="ex">
+In SAS, you can theoretically connect to SQLite databases, but there are very specific instructions for how to do that for each operating system. 
+
 You'll need to acquire the [SQLite ODBC Driver](http://www.ch-werner.de/sqliteodbc/) for your operating system. You may also need to set up a DSN (Data Source Name) ([Windows](https://support.exagoinc.com/hc/en-us/articles/115005848908-Using-SQLite-Data-Sources), [Mac and Linux](https://db.rstudio.com/best-prsactices/rdivers/#setting-up-database-connections-1)).^[On one of my machines, I also had to make sure the file libodbc.so existed - it was named libodbc.so.1 on my laptop, so a symbolic link fixed the issue.] 
 
 Here is my .odbc.ini file as I've configured it for my Ubuntu 18.04 machine. A similar file should work for any Mac or Linux machine. In windows, you'll need to use the ODBC Data Source Administrator to set this up. 
@@ -5162,43 +5194,32 @@ Driver = SQLite3
 Database = data/ssa-babynames-for-2015.sqlite
 ````
 
-
-```sashtmllog
-6          /* This code requires that I've set up a DSN connecting the
-6        ! sqlite file to */
-7          /* a specific driver on my computer. You'll have to set up your
-7        ! machine to */
-8          /* have a configuration that is appropriate for your setup */
-9          
-10         libname mydata odbc complete =
-10       ! XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX;
-NOTE: Libref MYDATA was successfully assigned as follows: 
-      Engine:        ODBC 
-      Physical Name: babyname
-11         
-12         proc print data=mydata.babynames (obs=10);
-ERROR: File MYDATA.babynames.DATA does not exist.
-13         run;
-
-NOTE: The SAS System stopped processing this step because of errors.
-NOTE: PROCEDURE PRINT used (Total process time):
-      real time           0.00 seconds
-      cpu time            0.00 seconds
-      
-
-ERROR: Errors printed on pages 23,25.
+<!-- # ```{r sqlite3-sas, eval = F, engine = "sashtmllog", engine.path = sasexe, engine.opts = sasopts, collectcode = F} -->
 ```
-</details>
+/* This code requires that Ive set up a DSN connecting the sqlite file to */
+/* a specific driver on my computer. Youll have to set up your machine to */
+/* have a configuration that is appropriate for your setup */
+  
+libname mydat odbc complete = "dsn=babyname; Database=data/ssa-babynames-for-2015.sqlite"; 
 
+proc print data=mydat.babynames (obs=10);
+run; 
+```
+For some reason this code does not work well with SASmarkdown, but it does work ok when pasted into a SAS terminal that is set to the appropriate working directory (e.g. one that has a data/ folder with the SSA database inside.)
+</div>
+</details>
 
 ## Exploratory Data Analysis
 Once your data has been read in, we can do some basic exploratory data analysis. EDA is important because it helps us to know what challenges a particular data set might bring. Real data is often messy, with large amounts of cleaning that must be done before statistical analysis can commence. While in many classes you'll be given cleaner data, you do need to know how to clean your own data up so that you can use more interesting datasets for projects (and for fun!).
 
+::: go-read
 [The EDA chapter in R for Data Science is very good at explaining what the goals of EDA are, and what types of questions you will typically need to answer in EDA.](https://r4ds.had.co.nz/exploratory-data-analysis.html) It is so good that I am not going to try to completely reproduce it here. 
+:::
 
 Both R and SAS make it relatively easy to get summary statistics from a dataset, but the "flow" of EDA is somewhat different between the two programs, so this section will cover SAS first, and then R. 
 
 Major components of EDA:
+
 - tables
 - summary statistics
 - basic plots
@@ -5208,8 +5229,9 @@ Major components of EDA:
 ### SAS 
 
 
-<details><summary>
-[Proc Freq](https://go.documentation.sas.com/?docsetId=procstat&docsetTarget=procstat_freq_toc.htm&docsetVersion=9.4&locale=en) generates frequency tables for variables or interactions of variables. </summary>
+1. [Proc Freq](https://go.documentation.sas.com/?docsetId=procstat&docsetTarget=procstat_freq_toc.htm&docsetVersion=9.4&locale=en) generates frequency tables for variables or interactions of variables.    
+    
+<details class="ex"><summary>PROC FREQ demo</summary>
 This can help you to see whether there is missing information. Using those frequency tables, you can create frequency plots and set up chi squared tests.
 
 
@@ -5218,7 +5240,7 @@ This can help you to see whether there is missing information. Using those frequ
 NOTE: Libref CLASSDAT was successfully assigned as follows: 
       Engine:        V9 
       Physical Name: 
-      /home/susan/Projects/Class/unl-stat850/2020-stat850/sas
+      /home/susan/Projects/Class/unl-stat850/stat850-textbook/sas
 7          
 8          ODS GRAPHICS ON;
 
@@ -5229,8 +5251,8 @@ NOTE: Libref CLASSDAT was successfully assigned as follows:
 
 NOTE: There were 1028 observations read from the data set CLASSDAT.POKE.
 NOTE: PROCEDURE FREQ used (Total process time):
-      real time           3.32 seconds
-      cpu time            0.12 seconds
+      real time           2.23 seconds
+      cpu time            0.07 seconds
       
 
 12         PROC FREQ DATA=classdat.poke ORDER=FREQ;
@@ -5242,8 +5264,8 @@ NOTE: MAXLEVELS=10 is greater than or equal to the total number of levels,
       4. The table of status displays all levels.
 NOTE: There were 1028 observations read from the data set CLASSDAT.POKE.
 NOTE: PROCEDURE FREQ used (Total process time):
-      real time           0.47 seconds
-      cpu time            0.12 seconds
+      real time           0.16 seconds
+      cpu time            0.04 seconds
       
 
 15         ODS GRAPHICS OFF;
@@ -5562,46 +5584,29 @@ ERROR: Errors printed on pages 23,25.
 </div>
 <br>
 </div>
+
 </details>
 
-<details><summary>
-Proc Means can be used to get more useful summary statistics for numeric variables. </summary>Note that the Class statement identifies a categorical variable; the summary statistics are computed for each level of this variable. 
+2. Proc Means can be used to get more useful summary statistics for numeric variables.     
+    
+<details class="ex"><summary> PROC MEANS demo</summary>Note that the Class statement identifies a categorical variable; the summary statistics are computed for each level of this variable. 
 
 
 
-```sashtmllog
-6          libname classdat "sas/";
-NOTE: Libref CLASSDAT was successfully assigned as follows: 
-      Engine:        V9 
-      Physical Name: 
-      /home/susan/Projects/Class/unl-stat850/2020-stat850/sas
-7          
-8          PROC MEANS DATA = classdat.poke;
-9          run;
+```sashtml
+libname classdat "sas/";
 
-NOTE: There were 1028 observations read from the data set CLASSDAT.POKE.
-NOTE: PROCEDURE MEANS used (Total process time):
-      real time           0.03 seconds
-      cpu time            0.03 seconds
-      
+PROC MEANS DATA = classdat.poke;
+run;
 
-10         
-11         proc means data = classdat.poke;
-12         class status;
-13         run;
-
-NOTE: There were 1028 observations read from the data set CLASSDAT.POKE.
-NOTE: PROCEDURE MEANS used (Total process time):
-      real time           0.06 seconds
-      cpu time            0.07 seconds
-      
-
-ERROR: Errors printed on pages 23,25.
+proc means data = classdat.poke;
+class status;
+run;
 ```
 
 
 <div class="branch">
-<a name="IDX8"></a>
+<a name="IDX"></a>
 <div>
 <div align="center">
 <!--BEGINTABLE--><table class="table" style=" border-left-width: 0px; border-right-width: 0px;" cellspacing="0" cellpadding="7" rules="groups" frame="hsides" bordercolor="#C1C1C1" summary="Procedure Means: Summary statistics">
@@ -6314,7 +6319,7 @@ ERROR: Errors printed on pages 23,25.
 </div>
 <div class="branch">
 <p style="page-break-after: always;"><br/></p><hr size="3"/>
-<a name="IDX9"></a>
+<a name="IDX1"></a>
 <div>
 <div align="center">
 <!--BEGINTABLE--><table class="table" style=" border-left-width: 0px; border-right-width: 0px;" cellspacing="0" cellpadding="7" rules="groups" frame="hsides" bordercolor="#C1C1C1" summary="Procedure Means: Summary statistics">
@@ -9079,8 +9084,9 @@ ERROR: Errors printed on pages 23,25.
 </div>
 </details>
 
-
-<details><summary>For even higher levels of detail, [Proc Univariate](https://go.documentation.sas.com/?docsetId=procstat&docsetTarget=procstat_univariate_toc.htm&docsetVersion=9.4&locale=en) will provide variability, tests for location, quantiles, skewness, and will identify the extreme observations for you. </summary>
+3. For even higher levels of detail, [Proc Univariate](https://go.documentation.sas.com/?docsetId=procstat&docsetTarget=procstat_univariate_toc.htm&docsetVersion=9.4&locale=en) will provide variability, tests for location, quantiles, skewness, and will identify the extreme observations for you.     
+    
+<details class="ex"><summary>PROC UNIVARIATE demo</summary>
 You can also get histograms for variables, even specifying distributions you'd like to be fit to the data (if that's something you want). 
 
 
@@ -9089,7 +9095,7 @@ You can also get histograms for variables, even specifying distributions you'd l
 NOTE: Libref CLASSDAT was successfully assigned as follows: 
       Engine:        V9 
       Physical Name: 
-      /home/susan/Projects/Class/unl-stat850/2020-stat850/sas
+      /home/susan/Projects/Class/unl-stat850/stat850-textbook/sas
 7          
 8          ODS GRAPHICS ON;
 9          PROC UNIVARIATE DATA = classdat.poke;
@@ -9098,8 +9104,8 @@ NOTE: Libref CLASSDAT was successfully assigned as follows:
 12         RUN;
 
 NOTE: PROCEDURE UNIVARIATE used (Total process time):
-      real time           0.77 seconds
-      cpu time            0.38 seconds
+      real time           0.32 seconds
+      cpu time            0.15 seconds
       
 
 13         ODS GRAPHICS OFF;
@@ -10585,34 +10591,24 @@ ERROR: Errors printed on pages 23,25.
 </div>
 </details>
 
-<details><summary>Proc Corr allows you to examine the relationship between two quantitative variables. </summary>
+4. Proc Corr allows you to examine the relationship between two quantitative variables.     
+    
+<details class="ex"><summary>PROC CORR demo</summary>
 
 
-```sashtmllog
-6          libname classdat "sas/";
-NOTE: Libref CLASSDAT was successfully assigned as follows: 
-      Engine:        V9 
-      Physical Name: 
-      /home/susan/Projects/Class/unl-stat850/2020-stat850/sas
-7          
-8          ODS GRAPHICS ON;
-9          PROC CORR DATA = classdat.poke PLOTS(
-9        ! MAXPOINTS=200000)=MATRIX(HISTOGRAM);
-10         VAR attack defense sp_attack sp_defense speed ;
-11         RUN;
+```sashtml
+libname classdat "sas/";
 
-NOTE: PROCEDURE CORR used (Total process time):
-      real time           1.07 seconds
-      cpu time            0.14 seconds
-      
-
-12         ODS GRAPHICS OFF;
-ERROR: Errors printed on pages 23,25.
+ODS GRAPHICS ON;
+PROC CORR DATA = classdat.poke PLOTS( MAXPOINTS=200000)=MATRIX(HISTOGRAM);
+VAR attack defense sp_attack sp_defense speed ;
+RUN;
+ODS GRAPHICS OFF;
 ```
 
 
 <div class="branch">
-<a name="IDX40"></a>
+<a name="IDX2"></a>
 <div>
 <div align="center">
 <!--BEGINTABLE--><table class="table" style=" border-left-width: 0px; border-right-width: 0px;" cellspacing="0" cellpadding="7" rules="groups" frame="hsides" bordercolor="#C1C1C1" summary="Procedure Corr: Variables Information">
@@ -10632,7 +10628,7 @@ ERROR: Errors printed on pages 23,25.
 <!--ENDTABLE--></div>
 </div>
 <br>
-<a name="IDX41"></a>
+<a name="IDX3"></a>
 <div>
 <div align="center">
 <!--BEGINTABLE--><table class="table" style=" border-left-width: 0px; border-right-width: 0px;" cellspacing="0" cellpadding="7" rules="groups" frame="hsides" bordercolor="#C1C1C1" summary="Procedure Corr: Simple Statistics">
@@ -10712,7 +10708,7 @@ ERROR: Errors printed on pages 23,25.
 <!--ENDTABLE--></div>
 </div>
 <br>
-<a name="IDX42"></a>
+<a name="IDX4"></a>
 <div>
 <div align="center">
 <!--BEGINTABLE--><table class="table" style=" border-left-width: 0px; border-right-width: 0px;" cellspacing="0" cellpadding="7" rules="groups" frame="hsides" bordercolor="#C1C1C1" summary="Procedure Corr: Pearson Correlations">
@@ -10960,7 +10956,7 @@ ERROR: Errors printed on pages 23,25.
 <!--ENDTABLE--></div>
 </div>
 <br>
-<a name="IDX43"></a>
+<a name="IDX5"></a>
 <div>
 <div  class="c">
 <img alt="Scatter Plot Matrix" src=" image/proc-corr-demo.png" style=" height: 640px; width: 640px;" border="0" class="c">
@@ -10986,7 +10982,7 @@ It is useful to memorize the SAS PROC options you use most frequently, but it's 
 NOTE: Libref CLASSDAT was successfully assigned as follows: 
       Engine:        V9 
       Physical Name: 
-      /home/susan/Projects/Class/unl-stat850/2020-stat850/sas
+      /home/susan/Projects/Class/unl-stat850/stat850-textbook/sas
 7          
 8          ODS GRAPHICS ON;
 9          PROC CONTENTS DATA = classdat.police; /* see what's in the
@@ -10995,7 +10991,7 @@ NOTE: Libref CLASSDAT was successfully assigned as follows:
 
 NOTE: PROCEDURE CONTENTS used (Total process time):
       real time           0.01 seconds
-      cpu time            0.02 seconds
+      cpu time            0.01 seconds
       
 
 11         
@@ -11016,8 +11012,8 @@ NOTE: MAXLEVELS=10 is greater than or equal to the total number of levels,
       4. The table of Geography__via_Trulia_methodolog displays all levels.
 NOTE: There were 7663 observations read from the data set CLASSDAT.POLICE.
 NOTE: PROCEDURE FREQ used (Total process time):
-      real time           0.03 seconds
-      cpu time            0.04 seconds
+      real time           0.01 seconds
+      cpu time            0.01 seconds
       
 
 16         
@@ -11029,8 +11025,8 @@ NOTE: PROCEDURE FREQ used (Total process time):
 
 NOTE: There were 7663 observations read from the data set CLASSDAT.POLICE.
 NOTE: PROCEDURE FREQ used (Total process time):
-      real time           0.16 seconds
-      cpu time            0.15 seconds
+      real time           0.02 seconds
+      cpu time            0.03 seconds
       
 
 20         
@@ -11041,8 +11037,8 @@ NOTE: PROCEDURE FREQ used (Total process time):
 
 NOTE: There were 7663 observations read from the data set CLASSDAT.POLICE.
 NOTE: PROCEDURE MEANS used (Total process time):
-      real time           0.02 seconds
-      cpu time            0.02 seconds
+      real time           0.00 seconds
+      cpu time            0.01 seconds
       
 
 24         
@@ -11052,8 +11048,8 @@ NOTE: PROCEDURE MEANS used (Total process time):
 27         RUN;
 
 NOTE: PROCEDURE UNIVARIATE used (Total process time):
-      real time           0.39 seconds
-      cpu time            0.21 seconds
+      real time           0.17 seconds
+      cpu time            0.08 seconds
       
 
 28         ODS GRAPHICS OFF;
@@ -11093,13 +11089,13 @@ ERROR: Errors printed on pages 23,25.
 </tr>
 <tr>
 <th class="l rowheader" scope="row">Created</th>
-<td class="l data">05/09/2021 10:42:50</td>
+<td class="l data">05/06/2021 12:24:09</td>
 <th class="l rowheader" scope="row">Observation Length</th>
 <td class="l data">896</td>
 </tr>
 <tr>
 <th class="l rowheader" scope="row">Last Modified</th>
-<td class="l data">05/09/2021 10:42:50</td>
+<td class="l data">05/06/2021 12:24:09</td>
 <th class="l rowheader" scope="row">Deleted Observations</th>
 <td class="l data">0</td>
 </tr>
@@ -11178,7 +11174,7 @@ ERROR: Errors printed on pages 23,25.
 </tr>
 <tr>
 <th class="l rowheader" scope="row">Filename</th>
-<td class="l data">/home/susan/Projects/Class/unl-stat850/2020-stat850/sas/police.sas7bdat</td>
+<td class="l data">/home/susan/Projects/Class/unl-stat850/stat850-textbook/sas/police.sas7bdat</td>
 </tr>
 <tr>
 <th class="l rowheader" scope="row">Release Created</th>
@@ -11190,7 +11186,7 @@ ERROR: Errors printed on pages 23,25.
 </tr>
 <tr>
 <th class="l rowheader" scope="row">Inode Number</th>
-<td class="l data">40408714</td>
+<td class="l data">39068025</td>
 </tr>
 <tr>
 <th class="l rowheader" scope="row">Access Permission</th>
@@ -14119,6 +14115,7 @@ ERROR: Errors printed on pages 23,25.
 </div>
 
 Oddities to note:
+
 - Gender - Unknown should be recoded as missing (' ')
 - Victim\_s\_race - Unknown race and Unknown Race should be recoded as missing
 - State - might need to check to make sure all states are valid (but top 10 are, at least)
@@ -14127,9 +14124,10 @@ Oddities to note:
 - Criminal_Charges_ - What does No/NO mean? (would need to look up in the codebook)
 - Age - the maximum age recorded is 107, which bears some investigation... other extreme observations between 89 and 95 are also fairly interesting and could be investigated further. There are also several infants/young children included, which is horribly sad, but believable.
 - Date - PROC UNIVARIATE doesn't display date results with a meaningful format, even though format is specified.
-- 
+
 
 Conclusions (ok, probably obvious before this analysis):
+
 - It's much more likely for charges to be filed if the suspect was unarmed (but still very rare)
 - Data is relatively evenly distributed between 2013 and 2019.
 - It's fairly rare for police to kill female or transgender individuals - around 5% of all victims
@@ -14143,187 +14141,188 @@ In SAS, EDA is fairly straightforward - you use specific procedures for each dat
 In R, you put your whole order together from the a la carte menu. That is, R will give you all of the same summary information (and possibly more), but you have to assemble a series of commands to get each portion. This can be more efficient (since you don't have to wade through pages of output to get the piece you want) but may take a bit more coding as well.
 
 ::: note
-In this section, I will mostly be using the plot commands that come with base R and require no extra packages. The R for Data Science book shows plot commands which use the `ggplot2` library. We will learn this library later in this class - it produces beautiful plots - and if you want to use it at this point, you may. It requires a bit more thought as to how to specify the plot, though, which may not be desireable.
+In this section, I will mostly be using the plot commands that come with base R and require no extra packages. The R for Data Science book shows plot commands which use the `ggplot2` library. I'll show you some plots from ggplot here as well, but you don't have to understand how to generate them yet. We will learn more about ggplot2 [later in this class](#data-vis-intro), though if you want to start using it now, you may. It's approach to graphics can take a bit of getting used to, though.
 :::
 
-
-<details><summary>
-The first, and most basic EDA command in R is `summary()`.</summary>
+1. The first, and most basic EDA command in R is `summary()`.    
+    
+<details class = "ex"><summary>`summary()` demo:</summary>
 For numeric variables, `summary` provides 5-number summaries plus the mean. For categorical variables, `summary` provides the length of the variable and the Class and Mode. For factors, `summary` provides a table of the most common values, as well as a catch-all "other" category. 
 
 ```r
 library(readr)
 url <- "https://raw.githubusercontent.com/shahinrostami/pokemon_dataset/master/pokemon_gen_1_to_8.csv"
 poke <- read_csv(url)
-## Warning: Missing column names filled in: 'X1' [1]
-## 
-## ── Column specification ────────────────────────────────────────────────────────
-## cols(
-##   .default = col_double(),
-##   name = col_character(),
-##   german_name = col_character(),
-##   japanese_name = col_character(),
-##   status = col_character(),
-##   species = col_character(),
-##   type_1 = col_character(),
-##   type_2 = col_character(),
-##   ability_1 = col_character(),
-##   ability_2 = col_character(),
-##   ability_hidden = col_character(),
-##   growth_rate = col_character(),
-##   egg_type_1 = col_character(),
-##   egg_type_2 = col_character()
-## )
-## ℹ Use `spec()` for the full column specifications.
+Warning: Missing column names filled in: 'X1' [1]
+
+── Column specification ────────────────────────────────────────────────────────
+cols(
+  .default = col_double(),
+  name = col_character(),
+  german_name = col_character(),
+  japanese_name = col_character(),
+  status = col_character(),
+  species = col_character(),
+  type_1 = col_character(),
+  type_2 = col_character(),
+  ability_1 = col_character(),
+  ability_2 = col_character(),
+  ability_hidden = col_character(),
+  growth_rate = col_character(),
+  egg_type_1 = col_character(),
+  egg_type_2 = col_character()
+)
+ℹ Use `spec()` for the full column specifications.
 
 # Make types into factors to demonstrate the difference
 poke$type_1 <- factor(poke$type_1)
 poke$type_2 <- factor(poke$type_2)
 
 summary(poke)
-##        X1         pokedex_number      name           german_name       
-##  Min.   :   0.0   Min.   :  1.0   Length:1028        Length:1028       
-##  1st Qu.: 256.8   1st Qu.:213.8   Class :character   Class :character  
-##  Median : 513.5   Median :433.5   Mode  :character   Mode  :character  
-##  Mean   : 513.5   Mean   :437.7                                        
-##  3rd Qu.: 770.2   3rd Qu.:663.2                                        
-##  Max.   :1027.0   Max.   :890.0                                        
-##                                                                        
-##  japanese_name        generation       status            species         
-##  Length:1028        Min.   :1.000   Length:1028        Length:1028       
-##  Class :character   1st Qu.:2.000   Class :character   Class :character  
-##  Mode  :character   Median :4.000   Mode  :character   Mode  :character  
-##                     Mean   :4.034                                        
-##                     3rd Qu.:6.000                                        
-##                     Max.   :8.000                                        
-##                                                                          
-##   type_number        type_1        type_2       height_m         weight_kg     
-##  Min.   :1.000   Water  :134   Flying :109   Min.   :  0.100   Min.   :  0.10  
-##  1st Qu.:1.000   Normal :115   Fairy  : 41   1st Qu.:  0.600   1st Qu.:  8.80  
-##  Median :2.000   Grass  : 91   Ground : 39   Median :  1.000   Median : 28.50  
-##  Mean   :1.527   Bug    : 81   Poison : 38   Mean   :  1.368   Mean   : 69.75  
-##  3rd Qu.:2.000   Psychic: 76   Psychic: 38   3rd Qu.:  1.500   3rd Qu.: 69.10  
-##  Max.   :2.000   Fire   : 65   (Other):277   Max.   :100.000   Max.   :999.90  
-##                  (Other):466   NA's   :486                     NA's   :1       
-##  abilities_number  ability_1          ability_2         ability_hidden    
-##  Min.   :0.000    Length:1028        Length:1028        Length:1028       
-##  1st Qu.:2.000    Class :character   Class :character   Class :character  
-##  Median :2.000    Mode  :character   Mode  :character   Mode  :character  
-##  Mean   :2.284                                                            
-##  3rd Qu.:3.000                                                            
-##  Max.   :3.000                                                            
-##                                                                           
-##   total_points          hp             attack          defense      
-##  Min.   : 175.0   Min.   :  1.00   Min.   :  5.00   Min.   :  5.00  
-##  1st Qu.: 330.0   1st Qu.: 50.00   1st Qu.: 55.00   1st Qu.: 50.00  
-##  Median : 455.0   Median : 66.50   Median : 76.00   Median : 70.00  
-##  Mean   : 437.6   Mean   : 69.58   Mean   : 80.12   Mean   : 74.48  
-##  3rd Qu.: 510.0   3rd Qu.: 80.00   3rd Qu.:100.00   3rd Qu.: 90.00  
-##  Max.   :1125.0   Max.   :255.00   Max.   :190.00   Max.   :250.00  
-##                                                                     
-##    sp_attack        sp_defense         speed          catch_rate    
-##  Min.   : 10.00   Min.   : 20.00   Min.   :  5.00   Min.   :  3.00  
-##  1st Qu.: 50.00   1st Qu.: 50.00   1st Qu.: 45.00   1st Qu.: 45.00  
-##  Median : 65.00   Median : 70.00   Median : 65.00   Median : 60.00  
-##  Mean   : 72.73   Mean   : 72.13   Mean   : 68.53   Mean   : 93.17  
-##  3rd Qu.: 95.00   3rd Qu.: 90.00   3rd Qu.: 90.00   3rd Qu.:127.00  
-##  Max.   :194.00   Max.   :250.00   Max.   :180.00   Max.   :255.00  
-##                                                     NA's   :104     
-##  base_friendship  base_experience growth_rate        egg_type_number
-##  Min.   :  0.00   Min.   : 36.0   Length:1028        Min.   :0.000  
-##  1st Qu.: 70.00   1st Qu.: 67.0   Class :character   1st Qu.:1.000  
-##  Median : 70.00   Median :159.0   Mode  :character   Median :1.000  
-##  Mean   : 64.14   Mean   :153.8                      Mean   :1.271  
-##  3rd Qu.: 70.00   3rd Qu.:201.5                      3rd Qu.:2.000  
-##  Max.   :140.00   Max.   :608.0                      Max.   :2.000  
-##  NA's   :104      NA's   :104                                       
-##   egg_type_1         egg_type_2        percentage_male   egg_cycles    
-##  Length:1028        Length:1028        Min.   :  0     Min.   :  5.00  
-##  Class :character   Class :character   1st Qu.: 50     1st Qu.: 20.00  
-##  Mode  :character   Mode  :character   Median : 50     Median : 20.00  
-##                                        Mean   : 55     Mean   : 30.32  
-##                                        3rd Qu.: 50     3rd Qu.: 25.00  
-##                                        Max.   :100     Max.   :120.00  
-##                                        NA's   :236     NA's   :1       
-##  against_normal    against_fire   against_water   against_electric
-##  Min.   :0.0000   Min.   :0.000   Min.   :0.000   Min.   :0.000   
-##  1st Qu.:1.0000   1st Qu.:0.500   1st Qu.:0.500   1st Qu.:0.500   
-##  Median :1.0000   Median :1.000   Median :1.000   Median :1.000   
-##  Mean   :0.8684   Mean   :1.125   Mean   :1.054   Mean   :1.034   
-##  3rd Qu.:1.0000   3rd Qu.:2.000   3rd Qu.:1.000   3rd Qu.:1.000   
-##  Max.   :1.0000   Max.   :4.000   Max.   :4.000   Max.   :4.000   
-##                                                                   
-##  against_grass    against_ice    against_fight   against_poison  
-##  Min.   :0.000   Min.   :0.000   Min.   :0.000   Min.   :0.0000  
-##  1st Qu.:0.500   1st Qu.:0.500   1st Qu.:0.500   1st Qu.:0.5000  
-##  Median :1.000   Median :1.000   Median :1.000   Median :1.0000  
-##  Mean   :1.004   Mean   :1.196   Mean   :1.079   Mean   :0.9523  
-##  3rd Qu.:1.000   3rd Qu.:2.000   3rd Qu.:2.000   3rd Qu.:1.0000  
-##  Max.   :4.000   Max.   :4.000   Max.   :4.000   Max.   :4.0000  
-##                                                                  
-##  against_ground  against_flying  against_psychic   against_bug    
-##  Min.   :0.000   Min.   :0.250   Min.   :0.0000   Min.   :0.0000  
-##  1st Qu.:0.500   1st Qu.:1.000   1st Qu.:1.0000   1st Qu.:0.5000  
-##  Median :1.000   Median :1.000   Median :1.0000   Median :1.0000  
-##  Mean   :1.085   Mean   :1.166   Mean   :0.9793   Mean   :0.9925  
-##  3rd Qu.:1.625   3rd Qu.:1.000   3rd Qu.:1.0000   3rd Qu.:1.0000  
-##  Max.   :4.000   Max.   :4.000   Max.   :4.0000   Max.   :4.0000  
-##                                                                   
-##   against_rock  against_ghost   against_dragon    against_dark  
-##  Min.   :0.25   Min.   :0.000   Min.   :0.0000   Min.   :0.250  
-##  1st Qu.:1.00   1st Qu.:1.000   1st Qu.:1.0000   1st Qu.:1.000  
-##  Median :1.00   Median :1.000   Median :1.0000   Median :1.000  
-##  Mean   :1.24   Mean   :1.011   Mean   :0.9757   Mean   :1.066  
-##  3rd Qu.:2.00   3rd Qu.:1.000   3rd Qu.:1.0000   3rd Qu.:1.000  
-##  Max.   :4.00   Max.   :4.000   Max.   :2.0000   Max.   :4.000  
-##                                                                 
-##  against_steel    against_fairy  
-##  Min.   :0.0000   Min.   :0.000  
-##  1st Qu.:0.5000   1st Qu.:1.000  
-##  Median :1.0000   Median :1.000  
-##  Mean   :0.9803   Mean   :1.085  
-##  3rd Qu.:1.0000   3rd Qu.:1.000  
-##  Max.   :4.0000   Max.   :4.000  
-## 
+       X1         pokedex_number      name           german_name       
+ Min.   :   0.0   Min.   :  1.0   Length:1028        Length:1028       
+ 1st Qu.: 256.8   1st Qu.:213.8   Class :character   Class :character  
+ Median : 513.5   Median :433.5   Mode  :character   Mode  :character  
+ Mean   : 513.5   Mean   :437.7                                        
+ 3rd Qu.: 770.2   3rd Qu.:663.2                                        
+ Max.   :1027.0   Max.   :890.0                                        
+                                                                       
+ japanese_name        generation       status            species         
+ Length:1028        Min.   :1.000   Length:1028        Length:1028       
+ Class :character   1st Qu.:2.000   Class :character   Class :character  
+ Mode  :character   Median :4.000   Mode  :character   Mode  :character  
+                    Mean   :4.034                                        
+                    3rd Qu.:6.000                                        
+                    Max.   :8.000                                        
+                                                                         
+  type_number        type_1        type_2       height_m         weight_kg     
+ Min.   :1.000   Water  :134   Flying :109   Min.   :  0.100   Min.   :  0.10  
+ 1st Qu.:1.000   Normal :115   Fairy  : 41   1st Qu.:  0.600   1st Qu.:  8.80  
+ Median :2.000   Grass  : 91   Ground : 39   Median :  1.000   Median : 28.50  
+ Mean   :1.527   Bug    : 81   Poison : 38   Mean   :  1.368   Mean   : 69.75  
+ 3rd Qu.:2.000   Psychic: 76   Psychic: 38   3rd Qu.:  1.500   3rd Qu.: 69.10  
+ Max.   :2.000   Fire   : 65   (Other):277   Max.   :100.000   Max.   :999.90  
+                 (Other):466   NA's   :486                     NA's   :1       
+ abilities_number  ability_1          ability_2         ability_hidden    
+ Min.   :0.000    Length:1028        Length:1028        Length:1028       
+ 1st Qu.:2.000    Class :character   Class :character   Class :character  
+ Median :2.000    Mode  :character   Mode  :character   Mode  :character  
+ Mean   :2.284                                                            
+ 3rd Qu.:3.000                                                            
+ Max.   :3.000                                                            
+                                                                          
+  total_points          hp             attack          defense      
+ Min.   : 175.0   Min.   :  1.00   Min.   :  5.00   Min.   :  5.00  
+ 1st Qu.: 330.0   1st Qu.: 50.00   1st Qu.: 55.00   1st Qu.: 50.00  
+ Median : 455.0   Median : 66.50   Median : 76.00   Median : 70.00  
+ Mean   : 437.6   Mean   : 69.58   Mean   : 80.12   Mean   : 74.48  
+ 3rd Qu.: 510.0   3rd Qu.: 80.00   3rd Qu.:100.00   3rd Qu.: 90.00  
+ Max.   :1125.0   Max.   :255.00   Max.   :190.00   Max.   :250.00  
+                                                                    
+   sp_attack        sp_defense         speed          catch_rate    
+ Min.   : 10.00   Min.   : 20.00   Min.   :  5.00   Min.   :  3.00  
+ 1st Qu.: 50.00   1st Qu.: 50.00   1st Qu.: 45.00   1st Qu.: 45.00  
+ Median : 65.00   Median : 70.00   Median : 65.00   Median : 60.00  
+ Mean   : 72.73   Mean   : 72.13   Mean   : 68.53   Mean   : 93.17  
+ 3rd Qu.: 95.00   3rd Qu.: 90.00   3rd Qu.: 90.00   3rd Qu.:127.00  
+ Max.   :194.00   Max.   :250.00   Max.   :180.00   Max.   :255.00  
+                                                    NA's   :104     
+ base_friendship  base_experience growth_rate        egg_type_number
+ Min.   :  0.00   Min.   : 36.0   Length:1028        Min.   :0.000  
+ 1st Qu.: 70.00   1st Qu.: 67.0   Class :character   1st Qu.:1.000  
+ Median : 70.00   Median :159.0   Mode  :character   Median :1.000  
+ Mean   : 64.14   Mean   :153.8                      Mean   :1.271  
+ 3rd Qu.: 70.00   3rd Qu.:201.5                      3rd Qu.:2.000  
+ Max.   :140.00   Max.   :608.0                      Max.   :2.000  
+ NA's   :104      NA's   :104                                       
+  egg_type_1         egg_type_2        percentage_male   egg_cycles    
+ Length:1028        Length:1028        Min.   :  0     Min.   :  5.00  
+ Class :character   Class :character   1st Qu.: 50     1st Qu.: 20.00  
+ Mode  :character   Mode  :character   Median : 50     Median : 20.00  
+                                       Mean   : 55     Mean   : 30.32  
+                                       3rd Qu.: 50     3rd Qu.: 25.00  
+                                       Max.   :100     Max.   :120.00  
+                                       NA's   :236     NA's   :1       
+ against_normal    against_fire   against_water   against_electric
+ Min.   :0.0000   Min.   :0.000   Min.   :0.000   Min.   :0.000   
+ 1st Qu.:1.0000   1st Qu.:0.500   1st Qu.:0.500   1st Qu.:0.500   
+ Median :1.0000   Median :1.000   Median :1.000   Median :1.000   
+ Mean   :0.8684   Mean   :1.125   Mean   :1.054   Mean   :1.034   
+ 3rd Qu.:1.0000   3rd Qu.:2.000   3rd Qu.:1.000   3rd Qu.:1.000   
+ Max.   :1.0000   Max.   :4.000   Max.   :4.000   Max.   :4.000   
+                                                                  
+ against_grass    against_ice    against_fight   against_poison  
+ Min.   :0.000   Min.   :0.000   Min.   :0.000   Min.   :0.0000  
+ 1st Qu.:0.500   1st Qu.:0.500   1st Qu.:0.500   1st Qu.:0.5000  
+ Median :1.000   Median :1.000   Median :1.000   Median :1.0000  
+ Mean   :1.004   Mean   :1.196   Mean   :1.079   Mean   :0.9523  
+ 3rd Qu.:1.000   3rd Qu.:2.000   3rd Qu.:2.000   3rd Qu.:1.0000  
+ Max.   :4.000   Max.   :4.000   Max.   :4.000   Max.   :4.0000  
+                                                                 
+ against_ground  against_flying  against_psychic   against_bug    
+ Min.   :0.000   Min.   :0.250   Min.   :0.0000   Min.   :0.0000  
+ 1st Qu.:0.500   1st Qu.:1.000   1st Qu.:1.0000   1st Qu.:0.5000  
+ Median :1.000   Median :1.000   Median :1.0000   Median :1.0000  
+ Mean   :1.085   Mean   :1.166   Mean   :0.9793   Mean   :0.9925  
+ 3rd Qu.:1.625   3rd Qu.:1.000   3rd Qu.:1.0000   3rd Qu.:1.0000  
+ Max.   :4.000   Max.   :4.000   Max.   :4.0000   Max.   :4.0000  
+                                                                  
+  against_rock  against_ghost   against_dragon    against_dark  
+ Min.   :0.25   Min.   :0.000   Min.   :0.0000   Min.   :0.250  
+ 1st Qu.:1.00   1st Qu.:1.000   1st Qu.:1.0000   1st Qu.:1.000  
+ Median :1.00   Median :1.000   Median :1.0000   Median :1.000  
+ Mean   :1.24   Mean   :1.011   Mean   :0.9757   Mean   :1.066  
+ 3rd Qu.:2.00   3rd Qu.:1.000   3rd Qu.:1.0000   3rd Qu.:1.000  
+ Max.   :4.00   Max.   :4.000   Max.   :2.0000   Max.   :4.000  
+                                                                
+ against_steel    against_fairy  
+ Min.   :0.0000   Min.   :0.000  
+ 1st Qu.:0.5000   1st Qu.:1.000  
+ Median :1.0000   Median :1.000  
+ Mean   :0.9803   Mean   :1.085  
+ 3rd Qu.:1.0000   3rd Qu.:1.000  
+ Max.   :4.0000   Max.   :4.000  
+                                 
 ```
-</details>
 
-<details><summary>One common question in EDA is whether there are missing values or other inconsistencies that need to be handled.</summary> `summary()` provides you with the NA count for each variable, making it easy to identify what variables are likely to cause problems in an analysis. 
+One common question in EDA is whether there are missing values or other inconsistencies that need to be handled.</summary> `summary()` provides you with the NA count for each variable, making it easy to identify what variables are likely to cause problems in an analysis. 
 
 There is one pokemon who appears to not have a weight specified. Let's investigate further:
 
 ```r
 poke[is.na(poke$weight_kg),] # Show any rows where weight.kg is NA
-## # A tibble: 1 x 51
-##      X1 pokedex_number name  german_name japanese_name generation status species
-##   <dbl>          <dbl> <chr> <chr>       <chr>              <dbl> <chr>  <chr>  
-## 1  1027            890 Eter… <NA>        <NA>                   8 Legen… Gigant…
-## # … with 43 more variables: type_number <dbl>, type_1 <fct>, type_2 <fct>,
-## #   height_m <dbl>, weight_kg <dbl>, abilities_number <dbl>, ability_1 <chr>,
-## #   ability_2 <chr>, ability_hidden <chr>, total_points <dbl>, hp <dbl>,
-## #   attack <dbl>, defense <dbl>, sp_attack <dbl>, sp_defense <dbl>,
-## #   speed <dbl>, catch_rate <dbl>, base_friendship <dbl>,
-## #   base_experience <dbl>, growth_rate <chr>, egg_type_number <dbl>,
-## #   egg_type_1 <chr>, egg_type_2 <chr>, percentage_male <dbl>,
-## #   egg_cycles <dbl>, against_normal <dbl>, against_fire <dbl>,
-## #   against_water <dbl>, against_electric <dbl>, against_grass <dbl>,
-## #   against_ice <dbl>, against_fight <dbl>, against_poison <dbl>,
-## #   against_ground <dbl>, against_flying <dbl>, against_psychic <dbl>,
-## #   against_bug <dbl>, against_rock <dbl>, against_ghost <dbl>,
-## #   against_dragon <dbl>, against_dark <dbl>, against_steel <dbl>,
-## #   against_fairy <dbl>
+# A tibble: 1 x 51
+     X1 pokedex_number name  german_name japanese_name generation status species
+  <dbl>          <dbl> <chr> <chr>       <chr>              <dbl> <chr>  <chr>  
+1  1027            890 Eter… <NA>        <NA>                   8 Legen… Gigant…
+# … with 43 more variables: type_number <dbl>, type_1 <fct>, type_2 <fct>,
+#   height_m <dbl>, weight_kg <dbl>, abilities_number <dbl>, ability_1 <chr>,
+#   ability_2 <chr>, ability_hidden <chr>, total_points <dbl>, hp <dbl>,
+#   attack <dbl>, defense <dbl>, sp_attack <dbl>, sp_defense <dbl>,
+#   speed <dbl>, catch_rate <dbl>, base_friendship <dbl>,
+#   base_experience <dbl>, growth_rate <chr>, egg_type_number <dbl>,
+#   egg_type_1 <chr>, egg_type_2 <chr>, percentage_male <dbl>,
+#   egg_cycles <dbl>, against_normal <dbl>, against_fire <dbl>,
+#   against_water <dbl>, against_electric <dbl>, against_grass <dbl>,
+#   against_ice <dbl>, against_fight <dbl>, against_poison <dbl>,
+#   against_ground <dbl>, against_flying <dbl>, against_psychic <dbl>,
+#   against_bug <dbl>, against_rock <dbl>, against_ghost <dbl>,
+#   against_dragon <dbl>, against_dark <dbl>, against_steel <dbl>,
+#   against_fairy <dbl>
 ```
 This is the last row of our data frame, and this pokemon appears to have many missing values. 
 </details>
 
-<details><summary>We are often also interested in the distribution of values. </summary>
+2. We are often also interested in the distribution of values.    
+    
+<details class="ex"><summary>`table()` demo and base R plots</summary>
 We can generate cross-tabs for variables that we know are discrete (such as generation, which will always be a whole number). 
 
 ```r
 table(poke$generation)
-## 
-##   1   2   3   4   5   6   7   8 
-## 192 107 165 121 171  85  99  88
+
+  1   2   3   4   5   6   7   8 
+192 107 165 121 171  85  99  88 
 plot(table(poke$generation)) # bar plot
 ```
 
@@ -14333,53 +14332,55 @@ plot(table(poke$generation)) # bar plot
 
 
 table(poke$type_1, poke$type_2)
-##           
-##            Bug Dark Dragon Electric Fairy Fighting Fire Flying Ghost Grass
-##   Bug        0    0      0        4     2        4    2     14     1     6
-##   Dark       0    0      4        0     3        2    3      5     2     0
-##   Dragon     0    0      0        1     1        2    1      6     3     0
-##   Electric   0    2      2        0     2        0    1      6     1     1
-##   Fairy      0    0      0        0     0        0    0      2     0     0
-##   Fighting   0    1      0        0     0        0    0      1     1     0
-##   Fire       2    1      2        0     0        7    0      7     2     0
-##   Flying     0    0      2        0     0        0    0      0     0     0
-##   Ghost      0    1      2        0     1        0    3      3     0    11
-##   Grass      0    3      5        0     5        3    0      7     1     0
-##   Ground     0    3      2        1     0        0    1      4     4     0
-##   Ice        2    0      0        0     1        0    1      2     1     0
-##   Normal     0    0      1        0     5        4    0     27     0     2
-##   Poison     1    5      4        0     1        2    2      3     0     0
-##   Psychic    0    1      1        0     9        3    1      7     3     1
-##   Rock       2    2      2        3     3        1    2      6     0     2
-##   Steel      0    0      2        0     4        1    0      2     4     0
-##   Water      2    7      3        2     4        3    0      7     2     3
-##           
-##            Ground Ice Normal Poison Psychic Rock Steel Water
-##   Bug           2   0      0     12       2    3     7     3
-##   Dark          0   2      5      0       2    0     2     0
-##   Dragon        7   3      0      0       4    0     0     0
-##   Electric      0   2      2      3       1    0     4     1
-##   Fairy         0   0      0      0       0    0     1     0
-##   Fighting      0   1      0      0       3    0     3     0
-##   Fire          3   0      2      0       2    1     1     1
-##   Flying        0   0      0      0       0    0     1     1
-##   Ghost         2   0      0      4       0    0     0     0
-##   Grass         1   3      0     15       2    0     3     0
-##   Ground        0   0      0      0       2    3     4     0
-##   Ice           3   0      0      0       2    0     2     3
-##   Normal        1   0      0      0       3    0     0     1
-##   Poison        2   0      0      0       0    0     0     3
-##   Psychic       0   2      2      0       0    0     2     0
-##   Rock          6   2      0      1       2    0     4     6
-##   Steel         2   0      0      0       7    3     0     0
-##   Water        10   4      0      3       6    5     1     0
+          
+           Bug Dark Dragon Electric Fairy Fighting Fire Flying Ghost Grass
+  Bug        0    0      0        4     2        4    2     14     1     6
+  Dark       0    0      4        0     3        2    3      5     2     0
+  Dragon     0    0      0        1     1        2    1      6     3     0
+  Electric   0    2      2        0     2        0    1      6     1     1
+  Fairy      0    0      0        0     0        0    0      2     0     0
+  Fighting   0    1      0        0     0        0    0      1     1     0
+  Fire       2    1      2        0     0        7    0      7     2     0
+  Flying     0    0      2        0     0        0    0      0     0     0
+  Ghost      0    1      2        0     1        0    3      3     0    11
+  Grass      0    3      5        0     5        3    0      7     1     0
+  Ground     0    3      2        1     0        0    1      4     4     0
+  Ice        2    0      0        0     1        0    1      2     1     0
+  Normal     0    0      1        0     5        4    0     27     0     2
+  Poison     1    5      4        0     1        2    2      3     0     0
+  Psychic    0    1      1        0     9        3    1      7     3     1
+  Rock       2    2      2        3     3        1    2      6     0     2
+  Steel      0    0      2        0     4        1    0      2     4     0
+  Water      2    7      3        2     4        3    0      7     2     3
+          
+           Ground Ice Normal Poison Psychic Rock Steel Water
+  Bug           2   0      0     12       2    3     7     3
+  Dark          0   2      5      0       2    0     2     0
+  Dragon        7   3      0      0       4    0     0     0
+  Electric      0   2      2      3       1    0     4     1
+  Fairy         0   0      0      0       0    0     1     0
+  Fighting      0   1      0      0       3    0     3     0
+  Fire          3   0      2      0       2    1     1     1
+  Flying        0   0      0      0       0    0     1     1
+  Ghost         2   0      0      4       0    0     0     0
+  Grass         1   3      0     15       2    0     3     0
+  Ground        0   0      0      0       2    3     4     0
+  Ice           3   0      0      0       2    0     2     3
+  Normal        1   0      0      0       3    0     0     1
+  Poison        2   0      0      0       0    0     0     3
+  Psychic       0   2      2      0       0    0     2     0
+  Rock          6   2      0      1       2    0     4     6
+  Steel         2   0      0      0       7    3     0     0
+  Water        10   4      0      3       6    5     1     0
 plot(table(poke$type_1, poke$type_2)) # mosaic plot - hard to read b/c too many categories
 ```
 
 <img src="image/poke-distribution-2.png" width="2100" />
 </details>
 
-<details><summary>There are better options for examining this data, but they are easier to get in ggplot2. </summary>
+3. Graphical examinations may be a bit easier to understand    
+    
+<details class="ex"><summary>There are better options for examining this data, but they are easier to get in ggplot2. </summary>
 
 ```r
 library(ggplot2)
@@ -14394,11 +14395,9 @@ ggplot(data = poke, aes(x = type_1, y = type_2)) +
 ```
 
 <img src="image/poke-ggplot2-1.png" width="2100" />
-</details>
 
+We can also generate histograms or bar charts^[A histogram is a chart which breaks up a continuous variable into ranges, where the height of the bar is proportional to the number of items in the range. A bar chart is similar, but shows the number of occurrences of a discrete variable.] 
 
-<details><summary>
-We can also generate histograms or bar charts^[A histogram is a chart which breaks up a continuous variable into ranges, where the height of the bar is proportional to the number of items in the range. A bar chart is similar, but shows the number of occurrences of a discrete variable.] </summary>
 By default, R uses ranges of $(a, b]$ in histograms, so we specify which breaks will give us a desireable result. If we do not specify breaks, R will pick them for us.
 
 
@@ -14409,10 +14408,7 @@ hist(poke$generation, breaks = 0:8) # Much better.
 
 <img src="image/poke-generation-out-1.png" width="48%" /><img src="image/poke-generation-out-2.png" width="48%" />
 
-</details>
-
-
-<details><summary>For continuous variables, we can use histograms, or we can examine kernel density plots. </summary>
+For continuous variables, we can use histograms, or we can examine kernel density plots.
 ::: .note
 Remember that `%>%` is the "pipe" and takes the left side of the pipe to pass as an argument to the right side. This makes code easier to read because it becomes a step-wise "recipe". 
 :::
@@ -14441,7 +14437,9 @@ poke$weight_kg %>%
 <img src="image/pipe-poke-graphs-1.png" width="48%" /><img src="image/pipe-poke-graphs-2.png" width="48%" /><img src="image/pipe-poke-graphs-3.png" width="48%" /><img src="image/pipe-poke-graphs-4.png" width="48%" />
 </details>
 
-<details><summary>We may also want to look at correlations between variables.</summary>
+4. We may also want to look at correlations or relationships between variables.    
+    
+<details class="ex"><summary>Basic modeling and variable relationship exploration using formulas in R</summary>
 In R, most models are specified as `y ~ x1 + x2 + x3`, where the information on the left side of the tilde is the dependent variable, and the information on the right side are any explanatory variables. Interactions are specified using `x1*x2` to get all combinations of x1 and x2 (x1, x2, x1\*x2); single interaction terms are specified as e.g. `x1:x2` and do not include any component terms.
 
 To examine the relationship between a categorical variable and a continuous variable, we might look at boxplots: 
@@ -14455,16 +14453,15 @@ boxplot(total_points ~ species, data = poke)
 
 <img src="image/boxplot-graphs-1.png" width="48%" /><img src="image/boxplot-graphs-2.png" width="48%" />
 In the second boxplot, there are far too many categories to be able to resolve the relationship clearly, but the plot is still effective in that we can identify that there are one or two species which have a much higher point range than other species. EDA isn't usually about creating pretty plots (or we'd be using `ggplot` right now) but rather about identifying things which may come up in the analysis later.
-</details>
 
-<details><summary>To look at the relationship between numeric variables, we could compute a numeric correlation, but a plot is more useful.</summary>
+To look at the relationship between numeric variables, we could compute a numeric correlation, but a plot is more useful.
 
 
 ```r
 plot(defense ~ attack, data = poke, type = "p")
 
 cor(poke$defense, poke$attack)
-## [1] 0.4507656
+[1] 0.4507656
 ```
 
 <img src="image/unnamed-chunk-2-1.png" width="48%" />
@@ -14476,8 +14473,8 @@ plot(x = poke$base_experience, y = poke$base_friendship, type = "p")
 ```
 
 <img src="image/unnamed-chunk-3-1.png" width="2100" />
-</details>
-<details><summary>A scatterplot matrix can also be a useful way to visualize relationships between several variables.</summary>
+
+A scatterplot matrix can also be a useful way to visualize relationships between several variables.
 
 ```r
 pairs(poke[,19:23]) # hp - sp_defense columns
@@ -14485,229 +14482,15 @@ pairs(poke[,19:23]) # hp - sp_defense columns
 
 <img src="image/unnamed-chunk-4-1.png" width="100%" />
 
+</details>
+
+::: learn-more
 [There's more information on how to customize these plots here](http://www.sthda.com/english/wiki/scatter-plot-matrices-r-base-graphs). 
-</details>
-
-#### Try it out {- .tryitout #police-violence-eda-r}
-
-Explore the variables present in [the police violence data](data/police_violence.xlsx) (see code in the spreadsheets section to read it in). Note that some variables may be too messy to handle with the things that you have seen thus far - that is ok. As you find irregularities, document them - these are things you may need to clean up in the dataset before you conduct a formal analysis.
-
-How does your analysis in R differ from the way that you approached the data in SAS?
-<details><summary>Solution</summary>
-
-```r
-if (!"readxl" %in% installed.packages()) install.packages("readxl")
-library(readxl)
-police_violence <- read_xlsx("data/police_violence.xlsx", sheet = 1, guess_max = 7000)
-
-police_violence$`Victim's age` <- as.numeric(police_violence$`Victim's age`)
-## Warning: NAs introduced by coercion
-
-summary(police_violence)
-##  Victim's name       Victim's age   Victim's gender    Victim's race     
-##  Length:7663        Min.   :  1.0   Length:7663        Length:7663       
-##  Class :character   1st Qu.: 27.0   Class :character   Class :character  
-##  Mode  :character   Median : 34.0   Mode  :character   Mode  :character  
-##                     Mean   : 36.8                                        
-##                     3rd Qu.: 45.0                                        
-##                     Max.   :107.0                                        
-##                     NA's   :206                                          
-##  URL of image of victim Date of Incident (month/day/year)
-##  Length:7663            Min.   :2013-01-01 00:00:00      
-##  Class :character       1st Qu.:2014-10-07 00:00:00      
-##  Mode  :character       Median :2016-07-07 00:00:00      
-##                         Mean   :2016-07-06 23:33:18      
-##                         3rd Qu.:2018-04-04 00:00:00      
-##                         Max.   :2019-12-31 00:00:00      
-##                                                          
-##  Street Address of Incident     City              State          
-##  Length:7663                Length:7663        Length:7663       
-##  Class :character           Class :character   Class :character  
-##  Mode  :character           Mode  :character   Mode  :character  
-##                                                                  
-##                                                                  
-##                                                                  
-##                                                                  
-##    Zipcode             County          Agency responsible for death
-##  Length:7663        Length:7663        Length:7663                 
-##  Class :character   Class :character   Class :character            
-##  Mode  :character   Mode  :character   Mode  :character            
-##                                                                    
-##                                                                    
-##                                                                    
-##                                                                    
-##  Cause of death    
-##  Length:7663       
-##  Class :character  
-##  Mode  :character  
-##                    
-##                    
-##                    
-##                    
-##  A brief description of the circumstances surrounding the death
-##  Length:7663                                                   
-##  Class :character                                              
-##  Mode  :character                                              
-##                                                                
-##                                                                
-##                                                                
-##                                                                
-##  Official disposition of death (justified or other) Criminal Charges? 
-##  Length:7663                                        Length:7663       
-##  Class :character                                   Class :character  
-##  Mode  :character                                   Mode  :character  
-##                                                                       
-##                                                                       
-##                                                                       
-##                                                                       
-##  Link to news article or photo of official document Symptoms of mental illness?
-##  Length:7663                                        Length:7663                
-##  Class :character                                   Class :character           
-##  Mode  :character                                   Mode  :character           
-##                                                                                
-##                                                                                
-##                                                                                
-##                                                                                
-##    Unarmed          Alleged Weapon (Source: WaPo)
-##  Length:7663        Length:7663                  
-##  Class :character   Class :character             
-##  Mode  :character   Mode  :character             
-##                                                  
-##                                                  
-##                                                  
-##                                                  
-##  Alleged Threat Level (Source: WaPo) Fleeing (Source: WaPo)
-##  Length:7663                         Length:7663           
-##  Class :character                    Class :character      
-##  Mode  :character                    Mode  :character      
-##                                                            
-##                                                            
-##                                                            
-##                                                            
-##  Body Camera (Source: WaPo) WaPo ID (If included in WaPo database)
-##  Length:7663                Min.   :   3                          
-##  Class :character           1st Qu.:1402                          
-##  Mode  :character           Median :2722                          
-##                             Mean   :2724                          
-##                             3rd Qu.:4051                          
-##                             Max.   :5439                          
-##                             NA's   :2785                          
-##  Off-Duty Killing? 
-##  Length:7663       
-##  Class :character  
-##  Mode  :character  
-##                    
-##                    
-##                    
-##                    
-##  Geography (via Trulia methodology based on zipcode population density: http://jedkolko.com/wp-content/uploads/2015/05/full-ZCTA-urban-suburban-rural-classification.xlsx )
-##  Length:7663                                                                                                                                                               
-##  Class :character                                                                                                                                                          
-##  Mode  :character                                                                                                                                                          
-##                                                                                                                                                                            
-##                                                                                                                                                                            
-##                                                                                                                                                                            
-##                                                                                                                                                                            
-##        ID      
-##  Min.   :   1  
-##  1st Qu.:1916  
-##  Median :3832  
-##  Mean   :3833  
-##  3rd Qu.:5750  
-##  Max.   :7667  
-## 
-```
-
-Let's examine the numeric and date variables first:
-
-```r
-hist(police_violence$`Victim's age`)
-```
-
-<img src="image/police-violence-numeric-date-1.png" width="2100" />
-
-```r
-
-# hist(police_violence$`Date of Incident (month/day/year)`) 
-# This didn't work - it wants me to specify breaks
-
-# Instead, lets see if ggplot handles it better - from R4DS
-library(ggplot2)
-ggplot(police_violence, aes(x = `Date of Incident (month/day/year)`)) + 
-  geom_histogram()
-## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
-```
-
-<img src="image/police-violence-numeric-date-2.png" width="2100" />
-
-```r
-ggplot(police_violence, aes(x = `Date of Incident (month/day/year)`)) + 
-  geom_density()
-```
-
-<img src="image/police-violence-numeric-date-3.png" width="2100" />
-
-Let's look at the victims' gender and race:
-
-```r
-table(police_violence$`Victim's race`, useNA = 'ifany')
-## 
-##            Asian            Black         Hispanic  Native American 
-##              118             1944             1335              112 
-## Pacific Islander     Unknown race     Unknown Race            White 
-##               42              670               64             3378
-table(police_violence$`Victim's gender`)
-## 
-##      Female        Male Transgender     Unknown 
-##         391        7253           7           4
-table(police_violence$`Victim's race`, police_violence$`Victim's gender`)
-##                   
-##                    Female Male Transgender Unknown
-##   Asian                 6  111           0       1
-##   Black                69 1871           2       1
-##   Hispanic             49 1283           1       0
-##   Native American       7  104           0       0
-##   Pacific Islander      2   40           0       0
-##   Unknown race         33  632           1       2
-##   Unknown Race          2   62           0       0
-##   White               223 3150           3       0
-
-plot(table(police_violence$`Victim's race`, police_violence$`Victim's gender`),
-     main = "Police Killing by Race, Gender")
-```
-
-<img src="image/police-violence-gender-race-1.png" width="2100" />
-
-We can also look at the age range for each race:
-
-```r
-police_violence %>%
-  # get groups with at least 100 observations that aren't unknown
-  subset(`Victim's race` %in% c("Asian", "Black", "Native American", "Hispanic", "White")) %>%
-  boxplot(`Victim's age` ~ `Victim's race`, data = .)
-```
-
-<img src="image/unnamed-chunk-5-1.png" width="2100" />
-
-And examine the age range for each gender as well:
-
-
-```r
-police_violence %>%
-  boxplot(`Victim's age` ~ `Victim's gender`, data = .)
-```
-
-<img src="image/police-violence-age-1.png" width="2100" />
-The thing I'm honestly most surprised at with this plot is that there are so many elderly individuals (of both genders) shot. That's not a realization I'd normally construct this plot for, but the visual emphasis on the outliers in a boxplot makes it much easier to focus on that aspect of the data. 
-
-My analysis in R was a bit more free-form than in SAS - in SAS, I proceeded fairly directly through each procedure, while in R, I could investigate things that caught my eye along the way more easily. I didn't focus as much on what we'd need to clean up in R (because the same problems exist that we identified when using SAS). 
-</details>
-
-#### `skimr` package
-
-::: note
-I discovered this package while looking over the material in this chapter a second time (so this is new as of 2020/09/07). 
 :::
+
+5. The `skimr` package does many of the aforementioned tasks for you with one command!
+
+<details class="ex"><summary>`skimr` demo</summary>
 
 
 ```r
@@ -14843,14 +14626,235 @@ If you are using `skimr` in knitr/rmarkdown, your data frame will automatically 
 
 I mention this package now because it is appropriate for EDA, but it may not be intuitive or easy to use in the way you might want to use it until after we cover the `dplyr` package in the [manipulating data module](#manipulating-data) and the `tidyr` package in the [transforming data module](#transforming-data). 
 
+</details>
 
-#### `janitor` package
+&nbsp;
+
+<details><summary>It's not *completely* relevant here, but may be useful as you're reading in data... the `janitor` package is really great for cleaning up your data before you do EDA</summary>
 
 The janitor package has functions for cleaning up messy data. One of its best features is the `clean_names()` function, which creates names based on a capitalization/separation scheme of your choosing. 
 
 ![janitor and clean_names() by Allison Horst](https://github.com/allisonhorst/stats-illustrations/raw/master/rstats-artwork/janitor_clean_names.png)
+</details>
 
-### Comparison
+
+#### Try it out {- .tryitout #police-violence-eda-r}
+
+Explore the variables present in [the police violence data](data/police_violence.xlsx) (see code in the spreadsheets section to read it in). Note that some variables may be too messy to handle with the things that you have seen thus far - that is ok. As you find irregularities, document them - these are things you may need to clean up in the dataset before you conduct a formal analysis.
+
+How does your analysis in R differ from the way that you approached the data in SAS?
+<details><summary>Solution</summary>
+
+```r
+if (!"readxl" %in% installed.packages()) install.packages("readxl")
+library(readxl)
+police_violence <- read_xlsx("data/police_violence.xlsx", sheet = 1, guess_max = 7000)
+
+police_violence$`Victim's age` <- as.numeric(police_violence$`Victim's age`)
+Warning: NAs introduced by coercion
+
+summary(police_violence)
+ Victim's name       Victim's age   Victim's gender    Victim's race     
+ Length:7663        Min.   :  1.0   Length:7663        Length:7663       
+ Class :character   1st Qu.: 27.0   Class :character   Class :character  
+ Mode  :character   Median : 34.0   Mode  :character   Mode  :character  
+                    Mean   : 36.8                                        
+                    3rd Qu.: 45.0                                        
+                    Max.   :107.0                                        
+                    NA's   :206                                          
+ URL of image of victim Date of Incident (month/day/year)
+ Length:7663            Min.   :2013-01-01 00:00:00      
+ Class :character       1st Qu.:2014-10-07 00:00:00      
+ Mode  :character       Median :2016-07-07 00:00:00      
+                        Mean   :2016-07-06 23:33:18      
+                        3rd Qu.:2018-04-04 00:00:00      
+                        Max.   :2019-12-31 00:00:00      
+                                                         
+ Street Address of Incident     City              State          
+ Length:7663                Length:7663        Length:7663       
+ Class :character           Class :character   Class :character  
+ Mode  :character           Mode  :character   Mode  :character  
+                                                                 
+                                                                 
+                                                                 
+                                                                 
+   Zipcode             County          Agency responsible for death
+ Length:7663        Length:7663        Length:7663                 
+ Class :character   Class :character   Class :character            
+ Mode  :character   Mode  :character   Mode  :character            
+                                                                   
+                                                                   
+                                                                   
+                                                                   
+ Cause of death    
+ Length:7663       
+ Class :character  
+ Mode  :character  
+                   
+                   
+                   
+                   
+ A brief description of the circumstances surrounding the death
+ Length:7663                                                   
+ Class :character                                              
+ Mode  :character                                              
+                                                               
+                                                               
+                                                               
+                                                               
+ Official disposition of death (justified or other) Criminal Charges? 
+ Length:7663                                        Length:7663       
+ Class :character                                   Class :character  
+ Mode  :character                                   Mode  :character  
+                                                                      
+                                                                      
+                                                                      
+                                                                      
+ Link to news article or photo of official document Symptoms of mental illness?
+ Length:7663                                        Length:7663                
+ Class :character                                   Class :character           
+ Mode  :character                                   Mode  :character           
+                                                                               
+                                                                               
+                                                                               
+                                                                               
+   Unarmed          Alleged Weapon (Source: WaPo)
+ Length:7663        Length:7663                  
+ Class :character   Class :character             
+ Mode  :character   Mode  :character             
+                                                 
+                                                 
+                                                 
+                                                 
+ Alleged Threat Level (Source: WaPo) Fleeing (Source: WaPo)
+ Length:7663                         Length:7663           
+ Class :character                    Class :character      
+ Mode  :character                    Mode  :character      
+                                                           
+                                                           
+                                                           
+                                                           
+ Body Camera (Source: WaPo) WaPo ID (If included in WaPo database)
+ Length:7663                Min.   :   3                          
+ Class :character           1st Qu.:1402                          
+ Mode  :character           Median :2722                          
+                            Mean   :2724                          
+                            3rd Qu.:4051                          
+                            Max.   :5439                          
+                            NA's   :2785                          
+ Off-Duty Killing? 
+ Length:7663       
+ Class :character  
+ Mode  :character  
+                   
+                   
+                   
+                   
+ Geography (via Trulia methodology based on zipcode population density: http://jedkolko.com/wp-content/uploads/2015/05/full-ZCTA-urban-suburban-rural-classification.xlsx )
+ Length:7663                                                                                                                                                               
+ Class :character                                                                                                                                                          
+ Mode  :character                                                                                                                                                          
+                                                                                                                                                                           
+                                                                                                                                                                           
+                                                                                                                                                                           
+                                                                                                                                                                           
+       ID      
+ Min.   :   1  
+ 1st Qu.:1916  
+ Median :3832  
+ Mean   :3833  
+ 3rd Qu.:5750  
+ Max.   :7667  
+               
+```
+
+Let's examine the numeric and date variables first:
+
+```r
+hist(police_violence$`Victim's age`)
+```
+
+<img src="image/police-violence-numeric-date-1.png" width="2100" />
+
+```r
+
+# hist(police_violence$`Date of Incident (month/day/year)`) 
+# This didn't work - it wants me to specify breaks
+
+# Instead, lets see if ggplot handles it better - from R4DS
+library(ggplot2)
+ggplot(police_violence, aes(x = `Date of Incident (month/day/year)`)) + 
+  geom_histogram()
+`stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
+```
+
+<img src="image/police-violence-numeric-date-2.png" width="2100" />
+
+```r
+ggplot(police_violence, aes(x = `Date of Incident (month/day/year)`)) + 
+  geom_density()
+```
+
+<img src="image/police-violence-numeric-date-3.png" width="2100" />
+
+Let's look at the victims' gender and race:
+
+```r
+table(police_violence$`Victim's race`, useNA = 'ifany')
+
+           Asian            Black         Hispanic  Native American 
+             118             1944             1335              112 
+Pacific Islander     Unknown race     Unknown Race            White 
+              42              670               64             3378 
+table(police_violence$`Victim's gender`)
+
+     Female        Male Transgender     Unknown 
+        391        7253           7           4 
+table(police_violence$`Victim's race`, police_violence$`Victim's gender`)
+                  
+                   Female Male Transgender Unknown
+  Asian                 6  111           0       1
+  Black                69 1871           2       1
+  Hispanic             49 1283           1       0
+  Native American       7  104           0       0
+  Pacific Islander      2   40           0       0
+  Unknown race         33  632           1       2
+  Unknown Race          2   62           0       0
+  White               223 3150           3       0
+
+plot(table(police_violence$`Victim's race`, police_violence$`Victim's gender`),
+     main = "Police Killing by Race, Gender")
+```
+
+<img src="image/police-violence-gender-race-1.png" width="2100" />
+
+We can also look at the age range for each race:
+
+```r
+police_violence %>%
+  # get groups with at least 100 observations that aren't unknown
+  subset(`Victim's race` %in% c("Asian", "Black", "Native American", "Hispanic", "White")) %>%
+  boxplot(`Victim's age` ~ `Victim's race`, data = .)
+```
+
+<img src="image/unnamed-chunk-5-1.png" width="2100" />
+
+And examine the age range for each gender as well:
+
+
+```r
+police_violence %>%
+  boxplot(`Victim's age` ~ `Victim's gender`, data = .)
+```
+
+<img src="image/police-violence-age-1.png" width="2100" />
+The thing I'm honestly most surprised at with this plot is that there are so many elderly individuals (of both genders) shot. That's not a realization I'd normally construct this plot for, but the visual emphasis on the outliers in a boxplot makes it much easier to focus on that aspect of the data. 
+
+My analysis in R was a bit more free-form than in SAS - in SAS, I proceeded fairly directly through each procedure, while in R, I could investigate things that caught my eye along the way more easily. I didn't focus as much on what we'd need to clean up in R (because the same problems exist that we identified when using SAS). 
+</details>
+
+
+## Comparison between R and SAS
 
 > You must realize that R is written by experts in
 statistics and statistical computing who, despite

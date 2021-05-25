@@ -6,12 +6,12 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Module 10 Simulation and Reproducibility | Stat 850: Computing Tools for Statisticians</title>
   <meta name="description" content="Introductions to statistical computing packages and document preparation software. Topics include: graphical techniques, data management, Monte Carlo simulation, dynamic document preparation, presentation software." />
-  <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.22 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Module 10 Simulation and Reproducibility | Stat 850: Computing Tools for Statisticians" />
   <meta property="og:type" content="book" />
   <meta property="og:url" content="https://srvanderplas.github.io/unl-stat850/" />
-  <meta property="og:image" content="https://srvanderplas.github.io/unl-stat850/images/cover.png" />
+  <meta property="og:image" content="https://srvanderplas.github.io/unl-stat850//images/cover.png" />
   <meta property="og:description" content="Introductions to statistical computing packages and document preparation software. Topics include: graphical techniques, data management, Monte Carlo simulation, dynamic document preparation, presentation software." />
   <meta name="github-repo" content="srvanderplas/unl-stat850" />
 
@@ -19,7 +19,7 @@
   <meta name="twitter:title" content="Module 10 Simulation and Reproducibility | Stat 850: Computing Tools for Statisticians" />
   
   <meta name="twitter:description" content="Introductions to statistical computing packages and document preparation software. Topics include: graphical techniques, data management, Monte Carlo simulation, dynamic document preparation, presentation software." />
-  <meta name="twitter:image" content="https://srvanderplas.github.io/unl-stat850/images/cover.png" />
+  <meta name="twitter:image" content="https://srvanderplas.github.io/unl-stat850//images/cover.png" />
 
 <meta name="author" content="Susan Vanderplas" />
 
@@ -32,7 +32,7 @@
   <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon" />
 <link rel="prev" href="data-vis-intro.html"/>
 <link rel="next" href="docs-reports.html"/>
-<script src="libs/header-attrs-2.7.3/header-attrs.js"></script>
+<script src="libs/header-attrs-2.8/header-attrs.js"></script>
 <script src="libs/jquery-3.5.1/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -50,6 +50,8 @@
 
 
 
+<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
 <script src="libs/htmlwidgets-1.5.3/htmlwidgets.js"></script>
 <script src="libs/plotly-binding-4.9.3/plotly.js"></script>
 <script src="libs/typedarray-0.1/typedarray.min.js"></script>
@@ -104,6 +106,7 @@ function unrolltab(evt, tabName) {
 pre > code.sourceCode { white-space: pre; position: relative; }
 pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
 pre.sourceCode { margin: 0; }
 @media screen {
@@ -163,6 +166,7 @@ code span.va { color: #19177c; } /* Variable */
 code span.vs { color: #4070a0; } /* VerbatimString */
 code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
+
 
 <link rel="stylesheet" href="style.css" type="text/css" />
 <link rel="stylesheet" href="fontawesome-free-5.15.3-web/css/all.css" type="text/css" />
@@ -306,37 +310,24 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="5" data-path="reading-data.html"><a href="reading-data.html"><i class="fa fa-check"></i><b>5</b> External Data</a>
 <ul>
 <li class="chapter" data-level="" data-path="reading-data.html"><a href="reading-data.html#module5-objectives"><i class="fa fa-check"></i>Module Objectives</a></li>
-<li class="chapter" data-level="5.1" data-path="reading-data.html"><a href="reading-data.html#external-data-formats"><i class="fa fa-check"></i><b>5.1</b> External Data Formats</a></li>
-<li class="chapter" data-level="5.2" data-path="reading-data.html"><a href="reading-data.html#text-files"><i class="fa fa-check"></i><b>5.2</b> Text Files</a>
+<li class="chapter" data-level="5.1" data-path="reading-data.html"><a href="reading-data.html#external-data-formats"><i class="fa fa-check"></i><b>5.1</b> External Data Formats</a>
 <ul>
-<li class="chapter" data-level="5.2.1" data-path="reading-data.html"><a href="reading-data.html#fixed-width-files"><i class="fa fa-check"></i><b>5.2.1</b> Fixed-width files</a></li>
-<li class="chapter" data-level="5.2.2" data-path="reading-data.html"><a href="reading-data.html#delimited-text-files"><i class="fa fa-check"></i><b>5.2.2</b> Delimited Text Files</a></li>
-<li class="chapter" data-level="" data-path="reading-data.html"><a href="reading-data.html#try-it-out-14"><i class="fa fa-check"></i>Try it out</a></li>
+<li class="chapter" data-level="5.1.1" data-path="reading-data.html"><a href="reading-data.html#text-files"><i class="fa fa-check"></i><b>5.1.1</b> Text Files</a></li>
+<li class="chapter" data-level="5.1.2" data-path="reading-data.html"><a href="reading-data.html#spreadsheets"><i class="fa fa-check"></i><b>5.1.2</b> Spreadsheets</a></li>
+<li class="chapter" data-level="5.1.3" data-path="reading-data.html"><a href="reading-data.html#binary-files"><i class="fa fa-check"></i><b>5.1.3</b> Binary Files</a></li>
+<li class="chapter" data-level="5.1.4" data-path="reading-data.html"><a href="reading-data.html#databases"><i class="fa fa-check"></i><b>5.1.4</b> Databases</a></li>
 </ul></li>
-<li class="chapter" data-level="5.3" data-path="reading-data.html"><a href="reading-data.html#spreadsheets"><i class="fa fa-check"></i><b>5.3</b> Spreadsheets</a>
+<li class="chapter" data-level="5.2" data-path="reading-data.html"><a href="reading-data.html#exploratory-data-analysis"><i class="fa fa-check"></i><b>5.2</b> Exploratory Data Analysis</a>
 <ul>
-<li class="chapter" data-level="" data-path="reading-data.html"><a href="reading-data.html#try-it-out-15"><i class="fa fa-check"></i>Try it out</a></li>
-</ul></li>
-<li class="chapter" data-level="5.4" data-path="reading-data.html"><a href="reading-data.html#binary-files"><i class="fa fa-check"></i><b>5.4</b> Binary Files</a>
-<ul>
-<li class="chapter" data-level="" data-path="reading-data.html"><a href="reading-data.html#try-it-out-16"><i class="fa fa-check"></i>Try it out</a></li>
-</ul></li>
-<li class="chapter" data-level="5.5" data-path="reading-data.html"><a href="reading-data.html#databases"><i class="fa fa-check"></i><b>5.5</b> Databases</a>
-<ul>
-<li class="chapter" data-level="5.5.1" data-path="reading-data.html"><a href="reading-data.html#microsoft-access"><i class="fa fa-check"></i><b>5.5.1</b> Microsoft Access</a></li>
-<li class="chapter" data-level="5.5.2" data-path="reading-data.html"><a href="reading-data.html#sqlite"><i class="fa fa-check"></i><b>5.5.2</b> SQLite</a></li>
-</ul></li>
-<li class="chapter" data-level="5.6" data-path="reading-data.html"><a href="reading-data.html#exploratory-data-analysis"><i class="fa fa-check"></i><b>5.6</b> Exploratory Data Analysis</a>
-<ul>
-<li class="chapter" data-level="5.6.1" data-path="reading-data.html"><a href="reading-data.html#sas-1"><i class="fa fa-check"></i><b>5.6.1</b> SAS</a></li>
-<li class="chapter" data-level="5.6.2" data-path="reading-data.html"><a href="reading-data.html#r-1"><i class="fa fa-check"></i><b>5.6.2</b> R</a></li>
-<li class="chapter" data-level="5.6.3" data-path="reading-data.html"><a href="reading-data.html#comparison"><i class="fa fa-check"></i><b>5.6.3</b> Comparison</a></li>
+<li class="chapter" data-level="5.2.1" data-path="reading-data.html"><a href="reading-data.html#sas-1"><i class="fa fa-check"></i><b>5.2.1</b> SAS</a></li>
+<li class="chapter" data-level="5.2.2" data-path="reading-data.html"><a href="reading-data.html#r-1"><i class="fa fa-check"></i><b>5.2.2</b> R</a></li>
+<li class="chapter" data-level="5.2.3" data-path="reading-data.html"><a href="reading-data.html#comparison"><i class="fa fa-check"></i><b>5.2.3</b> Comparison</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="reading-data.html"><a href="reading-data.html#references-and-links-2"><i class="fa fa-check"></i>References and Links</a></li>
 </ul></li>
 <li class="chapter" data-level="6" data-path="manipulating-data.html"><a href="manipulating-data.html"><i class="fa fa-check"></i><b>6</b> Manipulating Data</a>
 <ul>
-<li class="chapter" data-level="" data-path="manipulating-data.html"><a href="manipulating-data.html#manipulating-data-module-objectives"><i class="fa fa-check"></i>Manipulating Data: Module Objectives</a></li>
+<li class="chapter" data-level="" data-path="manipulating-data.html"><a href="manipulating-data.html#module6-objectives"><i class="fa fa-check"></i>Module Objectives</a></li>
 <li class="chapter" data-level="6.1" data-path="manipulating-data.html"><a href="manipulating-data.html#tidy-data"><i class="fa fa-check"></i><b>6.1</b> Tidy Data</a></li>
 <li class="chapter" data-level="6.2" data-path="manipulating-data.html"><a href="manipulating-data.html#filter-pick-cases-rows-based-on-their-values"><i class="fa fa-check"></i><b>6.2</b> Filter: Pick cases (rows) based on their values</a>
 <ul>
@@ -353,7 +344,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="7" data-path="transforming-data.html"><a href="transforming-data.html"><i class="fa fa-check"></i><b>7</b> Transforming Data</a>
 <ul>
-<li class="chapter" data-level="" data-path="transforming-data.html"><a href="transforming-data.html#transforming-data-module-objectives"><i class="fa fa-check"></i>Transforming Data: Module Objectives</a></li>
+<li class="chapter" data-level="" data-path="transforming-data.html"><a href="transforming-data.html#module7-objectives"><i class="fa fa-check"></i>Module Objectives</a></li>
 <li class="chapter" data-level="7.1" data-path="transforming-data.html"><a href="transforming-data.html#identifying-the-problem-messy-data"><i class="fa fa-check"></i><b>7.1</b> Identifying the problem: Messy data</a>
 <ul>
 <li class="chapter" data-level="" data-path="transforming-data.html"><a href="transforming-data.html#try-it-out-19"><i class="fa fa-check"></i>Try it out</a></li>
@@ -384,7 +375,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="8" data-path="debugging.html"><a href="debugging.html"><i class="fa fa-check"></i><b>8</b> Principles of Debugging</a>
 <ul>
-<li class="chapter" data-level="" data-path="debugging.html"><a href="debugging.html#debugging-module-objectives"><i class="fa fa-check"></i>Debugging: Module Objectives</a></li>
+<li class="chapter" data-level="" data-path="debugging.html"><a href="debugging.html#module8-objectives"><i class="fa fa-check"></i>Module Objectives</a></li>
 <li class="chapter" data-level="8.1" data-path="debugging.html"><a href="debugging.html#step-1-check-your-spelling."><i class="fa fa-check"></i><b>8.1</b> Step 1: Check your spelling.</a></li>
 <li class="chapter" data-level="8.2" data-path="debugging.html"><a href="debugging.html#defensive-programming"><i class="fa fa-check"></i><b>8.2</b> Defensive Programming</a></li>
 <li class="chapter" data-level="8.3" data-path="debugging.html"><a href="debugging.html#general-debugging-strategies"><i class="fa fa-check"></i><b>8.3</b> General Debugging Strategies</a></li>
@@ -407,7 +398,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="part"><span><b>III Applications</b></span></li>
 <li class="chapter" data-level="9" data-path="data-vis-intro.html"><a href="data-vis-intro.html"><i class="fa fa-check"></i><b>9</b> Introduction to Data Visualization</a>
 <ul>
-<li class="chapter" data-level="" data-path="data-vis-intro.html"><a href="data-vis-intro.html#visualization-module-objectives"><i class="fa fa-check"></i>Visualization: Module Objectives</a></li>
+<li class="chapter" data-level="" data-path="data-vis-intro.html"><a href="data-vis-intro.html#module9-objectives"><i class="fa fa-check"></i>Module Objectives</a></li>
 <li class="chapter" data-level="9.1" data-path="data-vis-intro.html"><a href="data-vis-intro.html#why-do-we-create-graphics"><i class="fa fa-check"></i><b>9.1</b> Why do we create graphics?</a></li>
 <li class="chapter" data-level="9.2" data-path="data-vis-intro.html"><a href="data-vis-intro.html#general-approaches-to-creating-graphics"><i class="fa fa-check"></i><b>9.2</b> General approaches to creating graphics</a></li>
 <li class="chapter" data-level="9.3" data-path="data-vis-intro.html"><a href="data-vis-intro.html#the-grammar-of-graphics"><i class="fa fa-check"></i><b>9.3</b> The Grammar of Graphics</a>
@@ -436,7 +427,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="10" data-path="simulation.html"><a href="simulation.html"><i class="fa fa-check"></i><b>10</b> Simulation and Reproducibility</a>
 <ul>
-<li class="chapter" data-level="" data-path="simulation.html"><a href="simulation.html#simulation-module-objectives"><i class="fa fa-check"></i>Simulation: Module Objectives</a></li>
+<li class="chapter" data-level="" data-path="simulation.html"><a href="simulation.html#module10-objectives"><i class="fa fa-check"></i>Module Objectives</a></li>
 <li class="chapter" data-level="10.1" data-path="simulation.html"><a href="simulation.html#pseudorandom-number-generation"><i class="fa fa-check"></i><b>10.1</b> Pseudorandom Number Generation</a></li>
 <li class="chapter" data-level="10.2" data-path="simulation.html"><a href="simulation.html#built-in-simulations-from-distributions"><i class="fa fa-check"></i><b>10.2</b> Built-in simulations from distributions</a>
 <ul>
@@ -454,7 +445,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="11" data-path="docs-reports.html"><a href="docs-reports.html"><i class="fa fa-check"></i><b>11</b> Documents and Reports</a>
 <ul>
-<li class="chapter" data-level="" data-path="docs-reports.html"><a href="docs-reports.html#documents-and-reports-module-objectives"><i class="fa fa-check"></i>Documents and Reports: Module Objectives</a></li>
+<li class="chapter" data-level="" data-path="docs-reports.html"><a href="docs-reports.html#module11-objectives"><i class="fa fa-check"></i>Module Objectives</a></li>
 <li class="chapter" data-level="11.1" data-path="docs-reports.html"><a href="docs-reports.html#literate-programming-knitr-and-rmarkdown"><i class="fa fa-check"></i><b>11.1</b> Literate Programming, <code>knitr</code>, and <code>rmarkdown</code></a></li>
 <li class="chapter" data-level="11.2" data-path="docs-reports.html"><a href="docs-reports.html#a-very-brief-introduction-to-latex"><i class="fa fa-check"></i><b>11.2</b> A Very Brief Introduction to LaTeX</a>
 <ul>
@@ -479,7 +470,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="12" data-path="animated-and-interactive-graphics.html"><a href="animated-and-interactive-graphics.html"><i class="fa fa-check"></i><b>12</b> Animated and Interactive Graphics</a>
 <ul>
-<li class="chapter" data-level="" data-path="animated-and-interactive-graphics.html"><a href="animated-and-interactive-graphics.html#animated-and-interactive-graphics-module-objectives"><i class="fa fa-check"></i>Animated and Interactive Graphics: Module Objectives</a></li>
+<li class="chapter" data-level="" data-path="animated-and-interactive-graphics.html"><a href="animated-and-interactive-graphics.html#module12-objectives"><i class="fa fa-check"></i>Module Objectives</a></li>
 <li class="chapter" data-level="12.1" data-path="animated-and-interactive-graphics.html"><a href="animated-and-interactive-graphics.html#plotly"><i class="fa fa-check"></i><b>12.1</b> Plotly</a>
 <ul>
 <li class="chapter" data-level="12.1.1" data-path="animated-and-interactive-graphics.html"><a href="animated-and-interactive-graphics.html#ggplotly-ggplot2-to-plotly-conversions"><i class="fa fa-check"></i><b>12.1.1</b> <code>ggplotly</code>: ggplot2 to plotly conversions</a></li>
@@ -499,6 +490,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="13" data-path="lists-nested-lists-and-functional-programming.html"><a href="lists-nested-lists-and-functional-programming.html"><i class="fa fa-check"></i><b>13</b> Lists, Nested Lists, and Functional Programming</a>
 <ul>
+<li class="chapter" data-level="" data-path="lists-nested-lists-and-functional-programming.html"><a href="lists-nested-lists-and-functional-programming.html#module13-objectives"><i class="fa fa-check"></i>Module Objectives</a></li>
 <li class="chapter" data-level="13.1" data-path="lists-nested-lists-and-functional-programming.html"><a href="lists-nested-lists-and-functional-programming.html#review-lists-and-vectors"><i class="fa fa-check"></i><b>13.1</b> Review: Lists and Vectors</a></li>
 <li class="chapter" data-level="13.2" data-path="lists-nested-lists-and-functional-programming.html"><a href="lists-nested-lists-and-functional-programming.html#introduction-to-map"><i class="fa fa-check"></i><b>13.2</b> Introduction to <code>map</code></a></li>
 <li class="chapter" data-level="13.3" data-path="lists-nested-lists-and-functional-programming.html"><a href="lists-nested-lists-and-functional-programming.html#creating-and-using-list-columns"><i class="fa fa-check"></i><b>13.3</b> Creating (and Using) List-columns</a></li>
@@ -514,11 +506,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="14" data-path="high-performance-computing.html"><a href="high-performance-computing.html"><i class="fa fa-check"></i><b>14</b> High Performance Computing</a>
 <ul>
+<li class="chapter" data-level="" data-path="high-performance-computing.html"><a href="high-performance-computing.html#module14-objectives"><i class="fa fa-check"></i>Module Objectives</a></li>
+<li class="chapter" data-level="" data-path="high-performance-computing.html"><a href="high-performance-computing.html#resources"><i class="fa fa-check"></i>Resources</a></li>
 <li class="chapter" data-level="" data-path="high-performance-computing.html"><a href="high-performance-computing.html#hpc-references"><i class="fa fa-check"></i>HPC References</a></li>
 </ul></li>
-<li class="chapter" data-level="15" data-path="tidy-models.html"><a href="tidy-models.html"><i class="fa fa-check"></i><b>15</b> Tidy Models</a></li>
-<li class="chapter" data-level="16" data-path="spatial-packages.html"><a href="spatial-packages.html"><i class="fa fa-check"></i><b>16</b> Spatial packages</a>
+<li class="chapter" data-level="15" data-path="spatial-packages.html"><a href="spatial-packages.html"><i class="fa fa-check"></i><b>15</b> Spatial packages</a>
 <ul>
+<li class="chapter" data-level="" data-path="spatial-packages.html"><a href="spatial-packages.html#module15-objectives"><i class="fa fa-check"></i>Module Objectives</a></li>
 <li class="chapter" data-level="" data-path="spatial-packages.html"><a href="spatial-packages.html#references-6"><i class="fa fa-check"></i>References</a></li>
 </ul></li>
 <li class="appendix"><span><b>Appendix</b></span></li>
@@ -558,11 +552,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
             <section class="normal" id="section-">
 <div id="simulation" class="section level1" number="10">
 <h1><span class="header-section-number">Module 10</span> Simulation and Reproducibility</h1>
-<div id="simulation-module-objectives" class="section level2 unnumbered">
-<h2>Simulation: Module Objectives</h2>
+<div id="module10-objectives" class="section level2 unnumbered">
+<h2>Module Objectives</h2>
 <ul>
-<li>Understand how pseudorandom number generation works and necessary conditions for reproducibility</li>
-<li>Be able to implement a simulation for a specific task, process, or model</li>
+<li>Program a simulation for a specific task, process, or model</li>
+<li>Understand the limitaitons of pseudorandom number generation</li>
 </ul>
 <p>Simulation is an extremely important part of computational statistics. Bayesian statistics, in particular, relies on Markov Chain Monte Carlo (MCMC) to get results from even the most basic of models. In this module, we’re going to touch on a few foundational pieces of simulation in computing, and you will get more exposure to simulation-based methods in other courses down the line.</p>
 </div>
@@ -584,29 +578,29 @@ It is critically important to set your seed if you want the results to be reprod
 <span id="cb478-2"><a href="simulation.html#cb478-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb478-3"><a href="simulation.html#cb478-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Get 10 numbers after the seed is set</span></span>
 <span id="cb478-4"><a href="simulation.html#cb478-4" aria-hidden="true" tabindex="-1"></a><span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">100</span>, <span class="dv">10</span>)</span>
-<span id="cb478-5"><a href="simulation.html#cb478-5" aria-hidden="true" tabindex="-1"></a><span class="do">##  [1] 65 51 64 21 45 53  3  6 43  8</span></span>
+<span id="cb478-5"><a href="simulation.html#cb478-5" aria-hidden="true" tabindex="-1"></a> [<span class="dv">1</span>] <span class="dv">65</span> <span class="dv">51</span> <span class="dv">64</span> <span class="dv">21</span> <span class="dv">45</span> <span class="dv">53</span>  <span class="dv">3</span>  <span class="dv">6</span> <span class="dv">43</span>  <span class="dv">8</span></span>
 <span id="cb478-6"><a href="simulation.html#cb478-6" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb478-7"><a href="simulation.html#cb478-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Compute something else that depends on randomness</span></span>
 <span id="cb478-8"><a href="simulation.html#cb478-8" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(<span class="fu">rnorm</span>(<span class="dv">50</span>))</span>
-<span id="cb478-9"><a href="simulation.html#cb478-9" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] -0.1095366</span></span>
+<span id="cb478-9"><a href="simulation.html#cb478-9" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="sc">-</span><span class="fl">0.1095366</span></span>
 <span id="cb478-10"><a href="simulation.html#cb478-10" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb478-11"><a href="simulation.html#cb478-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Get 10 more numbers</span></span>
 <span id="cb478-12"><a href="simulation.html#cb478-12" aria-hidden="true" tabindex="-1"></a><span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">100</span>, <span class="dv">10</span>)</span>
-<span id="cb478-13"><a href="simulation.html#cb478-13" aria-hidden="true" tabindex="-1"></a><span class="do">##  [1]  4 57 69 10 76 15 67  1  3 91</span></span></code></pre></div>
+<span id="cb478-13"><a href="simulation.html#cb478-13" aria-hidden="true" tabindex="-1"></a> [<span class="dv">1</span>]  <span class="dv">4</span> <span class="dv">57</span> <span class="dv">69</span> <span class="dv">10</span> <span class="dv">76</span> <span class="dv">15</span> <span class="dv">67</span>  <span class="dv">1</span>  <span class="dv">3</span> <span class="dv">91</span></span></code></pre></div>
 <p>Compare the results above to these results:</p>
 <div class="sourceCode" id="cb479"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb479-1"><a href="simulation.html#cb479-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">342512</span>)</span>
 <span id="cb479-2"><a href="simulation.html#cb479-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb479-3"><a href="simulation.html#cb479-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Get 10 numbers after the seed is set</span></span>
 <span id="cb479-4"><a href="simulation.html#cb479-4" aria-hidden="true" tabindex="-1"></a><span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">100</span>, <span class="dv">10</span>)</span>
-<span id="cb479-5"><a href="simulation.html#cb479-5" aria-hidden="true" tabindex="-1"></a><span class="do">##  [1] 65 51 64 21 45 53  3  6 43  8</span></span>
+<span id="cb479-5"><a href="simulation.html#cb479-5" aria-hidden="true" tabindex="-1"></a> [<span class="dv">1</span>] <span class="dv">65</span> <span class="dv">51</span> <span class="dv">64</span> <span class="dv">21</span> <span class="dv">45</span> <span class="dv">53</span>  <span class="dv">3</span>  <span class="dv">6</span> <span class="dv">43</span>  <span class="dv">8</span></span>
 <span id="cb479-6"><a href="simulation.html#cb479-6" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb479-7"><a href="simulation.html#cb479-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Compute something else that depends on randomness</span></span>
 <span id="cb479-8"><a href="simulation.html#cb479-8" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(<span class="fu">rnorm</span>(<span class="dv">30</span>))</span>
-<span id="cb479-9"><a href="simulation.html#cb479-9" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] -0.1936645</span></span>
+<span id="cb479-9"><a href="simulation.html#cb479-9" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="sc">-</span><span class="fl">0.1936645</span></span>
 <span id="cb479-10"><a href="simulation.html#cb479-10" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb479-11"><a href="simulation.html#cb479-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Get 10 more numbers</span></span>
 <span id="cb479-12"><a href="simulation.html#cb479-12" aria-hidden="true" tabindex="-1"></a><span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">100</span>, <span class="dv">10</span>)</span>
-<span id="cb479-13"><a href="simulation.html#cb479-13" aria-hidden="true" tabindex="-1"></a><span class="do">##  [1]  49  37   6  34   9   3 100  43   7  29</span></span></code></pre></div>
+<span id="cb479-13"><a href="simulation.html#cb479-13" aria-hidden="true" tabindex="-1"></a> [<span class="dv">1</span>]  <span class="dv">49</span>  <span class="dv">37</span>   <span class="dv">6</span>  <span class="dv">34</span>   <span class="dv">9</span>   <span class="dv">3</span> <span class="dv">100</span>  <span class="dv">43</span>   <span class="dv">7</span>  <span class="dv">29</span></span></code></pre></div>
 Notice how the results have changed? To make my documents more reproducible, I will sometimes set a new seed at the start of an important chunk, even if I’ve already set the seed earlier. This introduces certain “fixed points” where results won’t change immediately after I’ve re-set the seed. This is particularly important when I’m generating bootstrap estimates, fitting models, or simulating data for graphics experiments.
 </details>
 <p>Pick your seed in any way you want. I tend to just randomly wiggle my fingers over the number keys, but I have also heard of people using the date in yyyymmdd format, favorite people’s birthdays, the current time in hhmmss format… basically, you can use anything.</p>
@@ -621,20 +615,20 @@ In R
 <p>You can see the various distribution options using <code>?Distributions</code>. In general, <code>dxxx</code> is the PDF/PMF, <code>pxxx</code> is the CDF, <code>qxxx</code> is the quantile function, and <code>rxxx</code> gives you random nubmers generated from the distribution. (<code>xxx</code>, obviously, is whatever distribution you’re looking to use.)</p>
 <div class="sourceCode" id="cb480"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb480-1"><a href="simulation.html#cb480-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tibble)</span>
 <span id="cb480-2"><a href="simulation.html#cb480-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
-<span id="cb480-3"><a href="simulation.html#cb480-3" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span>
-<span id="cb480-4"><a href="simulation.html#cb480-4" aria-hidden="true" tabindex="-1"></a><span class="do">## Attaching package: &#39;dplyr&#39;</span></span>
-<span id="cb480-5"><a href="simulation.html#cb480-5" aria-hidden="true" tabindex="-1"></a><span class="do">## The following objects are masked from &#39;package:stats&#39;:</span></span>
-<span id="cb480-6"><a href="simulation.html#cb480-6" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span>
-<span id="cb480-7"><a href="simulation.html#cb480-7" aria-hidden="true" tabindex="-1"></a><span class="do">##     filter, lag</span></span>
-<span id="cb480-8"><a href="simulation.html#cb480-8" aria-hidden="true" tabindex="-1"></a><span class="do">## The following objects are masked from &#39;package:base&#39;:</span></span>
-<span id="cb480-9"><a href="simulation.html#cb480-9" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span>
-<span id="cb480-10"><a href="simulation.html#cb480-10" aria-hidden="true" tabindex="-1"></a><span class="do">##     intersect, setdiff, setequal, union</span></span>
+<span id="cb480-3"><a href="simulation.html#cb480-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb480-4"><a href="simulation.html#cb480-4" aria-hidden="true" tabindex="-1"></a>Attaching package<span class="sc">:</span> <span class="st">&#39;dplyr&#39;</span></span>
+<span id="cb480-5"><a href="simulation.html#cb480-5" aria-hidden="true" tabindex="-1"></a>The following objects are masked from <span class="st">&#39;package:stats&#39;</span><span class="sc">:</span></span>
+<span id="cb480-6"><a href="simulation.html#cb480-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb480-7"><a href="simulation.html#cb480-7" aria-hidden="true" tabindex="-1"></a>    filter, lag</span>
+<span id="cb480-8"><a href="simulation.html#cb480-8" aria-hidden="true" tabindex="-1"></a>The following objects are masked from <span class="st">&#39;package:base&#39;</span><span class="sc">:</span></span>
+<span id="cb480-9"><a href="simulation.html#cb480-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb480-10"><a href="simulation.html#cb480-10" aria-hidden="true" tabindex="-1"></a>    intersect, setdiff, setequal, union</span>
 <span id="cb480-11"><a href="simulation.html#cb480-11" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyr)</span>
-<span id="cb480-12"><a href="simulation.html#cb480-12" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span>
-<span id="cb480-13"><a href="simulation.html#cb480-13" aria-hidden="true" tabindex="-1"></a><span class="do">## Attaching package: &#39;tidyr&#39;</span></span>
-<span id="cb480-14"><a href="simulation.html#cb480-14" aria-hidden="true" tabindex="-1"></a><span class="do">## The following object is masked from &#39;package:magrittr&#39;:</span></span>
-<span id="cb480-15"><a href="simulation.html#cb480-15" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span>
-<span id="cb480-16"><a href="simulation.html#cb480-16" aria-hidden="true" tabindex="-1"></a><span class="do">##     extract</span></span>
+<span id="cb480-12"><a href="simulation.html#cb480-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb480-13"><a href="simulation.html#cb480-13" aria-hidden="true" tabindex="-1"></a>Attaching package<span class="sc">:</span> <span class="st">&#39;tidyr&#39;</span></span>
+<span id="cb480-14"><a href="simulation.html#cb480-14" aria-hidden="true" tabindex="-1"></a>The following object is masked from <span class="st">&#39;package:magrittr&#39;</span><span class="sc">:</span></span>
+<span id="cb480-15"><a href="simulation.html#cb480-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb480-16"><a href="simulation.html#cb480-16" aria-hidden="true" tabindex="-1"></a>    extract</span>
 <span id="cb480-17"><a href="simulation.html#cb480-17" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
 <span id="cb480-18"><a href="simulation.html#cb480-18" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">109025879</span>)</span>
 <span id="cb480-19"><a href="simulation.html#cb480-19" aria-hidden="true" tabindex="-1"></a></span>
@@ -703,24 +697,24 @@ In R
 <span id="cb482-3"><a href="simulation.html#cb482-3" aria-hidden="true" tabindex="-1"></a>               <span class="at">y =</span> x <span class="sc">+</span> <span class="fu">rnorm</span>(<span class="fu">length</span>(x)))</span>
 <span id="cb482-4"><a href="simulation.html#cb482-4" aria-hidden="true" tabindex="-1"></a>regression <span class="ot">&lt;-</span> <span class="fu">lm</span>(y <span class="sc">~</span> x, <span class="at">data =</span> data)</span>
 <span id="cb482-5"><a href="simulation.html#cb482-5" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(regression)</span>
-<span id="cb482-6"><a href="simulation.html#cb482-6" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span>
-<span id="cb482-7"><a href="simulation.html#cb482-7" aria-hidden="true" tabindex="-1"></a><span class="do">## Call:</span></span>
-<span id="cb482-8"><a href="simulation.html#cb482-8" aria-hidden="true" tabindex="-1"></a><span class="do">## lm(formula = y ~ x, data = data)</span></span>
-<span id="cb482-9"><a href="simulation.html#cb482-9" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span>
-<span id="cb482-10"><a href="simulation.html#cb482-10" aria-hidden="true" tabindex="-1"></a><span class="do">## Residuals:</span></span>
-<span id="cb482-11"><a href="simulation.html#cb482-11" aria-hidden="true" tabindex="-1"></a><span class="do">##      Min       1Q   Median       3Q      Max </span></span>
-<span id="cb482-12"><a href="simulation.html#cb482-12" aria-hidden="true" tabindex="-1"></a><span class="do">## -3.14575 -0.70986  0.03186  0.65429  2.40305 </span></span>
-<span id="cb482-13"><a href="simulation.html#cb482-13" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span>
-<span id="cb482-14"><a href="simulation.html#cb482-14" aria-hidden="true" tabindex="-1"></a><span class="do">## Coefficients:</span></span>
-<span id="cb482-15"><a href="simulation.html#cb482-15" aria-hidden="true" tabindex="-1"></a><span class="do">##             Estimate Std. Error t value Pr(&gt;|t|)    </span></span>
-<span id="cb482-16"><a href="simulation.html#cb482-16" aria-hidden="true" tabindex="-1"></a><span class="do">## (Intercept) -0.01876    0.06869  -0.273    0.785    </span></span>
-<span id="cb482-17"><a href="simulation.html#cb482-17" aria-hidden="true" tabindex="-1"></a><span class="do">## x            0.99230    0.01184  83.823   &lt;2e-16 ***</span></span>
-<span id="cb482-18"><a href="simulation.html#cb482-18" aria-hidden="true" tabindex="-1"></a><span class="do">## ---</span></span>
-<span id="cb482-19"><a href="simulation.html#cb482-19" aria-hidden="true" tabindex="-1"></a><span class="do">## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</span></span>
-<span id="cb482-20"><a href="simulation.html#cb482-20" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span>
-<span id="cb482-21"><a href="simulation.html#cb482-21" aria-hidden="true" tabindex="-1"></a><span class="do">## Residual standard error: 0.9738 on 199 degrees of freedom</span></span>
-<span id="cb482-22"><a href="simulation.html#cb482-22" aria-hidden="true" tabindex="-1"></a><span class="do">## Multiple R-squared:  0.9725, Adjusted R-squared:  0.9723 </span></span>
-<span id="cb482-23"><a href="simulation.html#cb482-23" aria-hidden="true" tabindex="-1"></a><span class="do">## F-statistic:  7026 on 1 and 199 DF,  p-value: &lt; 2.2e-16</span></span></code></pre></div>
+<span id="cb482-6"><a href="simulation.html#cb482-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb482-7"><a href="simulation.html#cb482-7" aria-hidden="true" tabindex="-1"></a>Call<span class="sc">:</span></span>
+<span id="cb482-8"><a href="simulation.html#cb482-8" aria-hidden="true" tabindex="-1"></a><span class="fu">lm</span>(<span class="at">formula =</span> y <span class="sc">~</span> x, <span class="at">data =</span> data)</span>
+<span id="cb482-9"><a href="simulation.html#cb482-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb482-10"><a href="simulation.html#cb482-10" aria-hidden="true" tabindex="-1"></a>Residuals<span class="sc">:</span></span>
+<span id="cb482-11"><a href="simulation.html#cb482-11" aria-hidden="true" tabindex="-1"></a>     Min       1Q   Median       3Q      Max </span>
+<span id="cb482-12"><a href="simulation.html#cb482-12" aria-hidden="true" tabindex="-1"></a><span class="sc">-</span><span class="fl">3.14575</span> <span class="sc">-</span><span class="fl">0.70986</span>  <span class="fl">0.03186</span>  <span class="fl">0.65429</span>  <span class="fl">2.40305</span> </span>
+<span id="cb482-13"><a href="simulation.html#cb482-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb482-14"><a href="simulation.html#cb482-14" aria-hidden="true" tabindex="-1"></a>Coefficients<span class="sc">:</span></span>
+<span id="cb482-15"><a href="simulation.html#cb482-15" aria-hidden="true" tabindex="-1"></a>            Estimate Std. Error t value <span class="fu">Pr</span>(<span class="sc">&gt;</span><span class="er">|</span>t<span class="sc">|</span>)    </span>
+<span id="cb482-16"><a href="simulation.html#cb482-16" aria-hidden="true" tabindex="-1"></a>(Intercept) <span class="sc">-</span><span class="fl">0.01876</span>    <span class="fl">0.06869</span>  <span class="sc">-</span><span class="fl">0.273</span>    <span class="fl">0.785</span>    </span>
+<span id="cb482-17"><a href="simulation.html#cb482-17" aria-hidden="true" tabindex="-1"></a>x            <span class="fl">0.99230</span>    <span class="fl">0.01184</span>  <span class="fl">83.823</span>   <span class="sc">&lt;</span><span class="fl">2e-16</span> <span class="sc">**</span><span class="er">*</span></span>
+<span id="cb482-18"><a href="simulation.html#cb482-18" aria-hidden="true" tabindex="-1"></a><span class="sc">---</span></span>
+<span id="cb482-19"><a href="simulation.html#cb482-19" aria-hidden="true" tabindex="-1"></a>Signif. codes<span class="sc">:</span>  <span class="dv">0</span> <span class="st">&#39;***&#39;</span> <span class="fl">0.001</span> <span class="st">&#39;**&#39;</span> <span class="fl">0.01</span> <span class="st">&#39;*&#39;</span> <span class="fl">0.05</span> <span class="st">&#39;.&#39;</span> <span class="fl">0.1</span> <span class="st">&#39; &#39;</span> <span class="dv">1</span></span>
+<span id="cb482-20"><a href="simulation.html#cb482-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb482-21"><a href="simulation.html#cb482-21" aria-hidden="true" tabindex="-1"></a>Residual standard error<span class="sc">:</span> <span class="fl">0.9738</span> on <span class="dv">199</span> degrees of freedom</span>
+<span id="cb482-22"><a href="simulation.html#cb482-22" aria-hidden="true" tabindex="-1"></a>Multiple R<span class="sc">-</span>squared<span class="sc">:</span>  <span class="fl">0.9725</span>,    Adjusted R<span class="sc">-</span>squared<span class="sc">:</span>  <span class="fl">0.9723</span> </span>
+<span id="cb482-23"><a href="simulation.html#cb482-23" aria-hidden="true" tabindex="-1"></a>F<span class="sc">-</span>statistic<span class="sc">:</span>  <span class="dv">7026</span> on <span class="dv">1</span> and <span class="dv">199</span> DF,  p<span class="sc">-</span>value<span class="sc">:</span> <span class="er">&lt;</span> <span class="fl">2.2e-16</span></span></code></pre></div>
 </details>
 <details>
 <summary>
@@ -1068,7 +1062,8 @@ Dependent Variable: y
 <div id="simulation-to-test-model-assumptions" class="section level2" number="10.3">
 <h2><span class="header-section-number">10.3</span> Simulation to test model assumptions</h2>
 <p>One of the more powerful ways to use simulation in practice is to use it to test the assumptions of your model. Suppose, for instance, that your data are highly skewed, but you want to use a method that assumes normally distributed errors. How bad will your results be? Where can you trust the results, and where should you be cautious?</p>
-<details>
+<p>Example from Telling Stories with Data: <a href="https://www.tellingstorieswithdata.com/multilevel-regression-with-post-stratification.html#simulation---toddler-bedtimes">Multilevel regression and post-stratification simulation with toddler bedtimes</a>. This example talks about how to take a biased sample and then recover the original unbiased estimates – which is something you have to test using simulation to be sure it works, because you never actually know what the true population features are when you are working with real world data. When reading this example, you may not be all that interested with the specific model - but focus on the <strong>process of simulating data for your analysis</strong> so that you understand how and why you would want to simulate data in order to test a computational method.</p>
+<details class="ex">
 <summary>
 Example: Confidence Interval coverage rates
 </summary>
@@ -1085,30 +1080,30 @@ Example: Confidence Interval coverage rates
 <span id="cb484-10"><a href="simulation.html#cb484-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">nest</span>(<span class="at">data =</span> <span class="fu">c</span>(x, ln_x))</span>
 <span id="cb484-11"><a href="simulation.html#cb484-11" aria-hidden="true" tabindex="-1"></a>  </span>
 <span id="cb484-12"><a href="simulation.html#cb484-12" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(sim)</span>
-<span id="cb484-13"><a href="simulation.html#cb484-13" aria-hidden="true" tabindex="-1"></a><span class="do">## # A tibble: 6 x 2</span></span>
-<span id="cb484-14"><a href="simulation.html#cb484-14" aria-hidden="true" tabindex="-1"></a><span class="do">##      id data             </span></span>
-<span id="cb484-15"><a href="simulation.html#cb484-15" aria-hidden="true" tabindex="-1"></a><span class="do">##   &lt;int&gt; &lt;list&gt;           </span></span>
-<span id="cb484-16"><a href="simulation.html#cb484-16" aria-hidden="true" tabindex="-1"></a><span class="do">## 1     1 &lt;tibble [25 × 2]&gt;</span></span>
-<span id="cb484-17"><a href="simulation.html#cb484-17" aria-hidden="true" tabindex="-1"></a><span class="do">## 2     2 &lt;tibble [25 × 2]&gt;</span></span>
-<span id="cb484-18"><a href="simulation.html#cb484-18" aria-hidden="true" tabindex="-1"></a><span class="do">## 3     3 &lt;tibble [25 × 2]&gt;</span></span>
-<span id="cb484-19"><a href="simulation.html#cb484-19" aria-hidden="true" tabindex="-1"></a><span class="do">## 4     4 &lt;tibble [25 × 2]&gt;</span></span>
-<span id="cb484-20"><a href="simulation.html#cb484-20" aria-hidden="true" tabindex="-1"></a><span class="do">## 5     5 &lt;tibble [25 × 2]&gt;</span></span>
-<span id="cb484-21"><a href="simulation.html#cb484-21" aria-hidden="true" tabindex="-1"></a><span class="do">## 6     6 &lt;tibble [25 × 2]&gt;</span></span>
+<span id="cb484-13"><a href="simulation.html#cb484-13" aria-hidden="true" tabindex="-1"></a><span class="co"># A tibble: 6 x 2</span></span>
+<span id="cb484-14"><a href="simulation.html#cb484-14" aria-hidden="true" tabindex="-1"></a>     id data                 </span>
+<span id="cb484-15"><a href="simulation.html#cb484-15" aria-hidden="true" tabindex="-1"></a>  <span class="sc">&lt;</span>int<span class="sc">&gt;</span> <span class="er">&lt;</span>list<span class="sc">&gt;</span>               </span>
+<span id="cb484-16"><a href="simulation.html#cb484-16" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span>     <span class="dv">1</span> <span class="sc">&lt;</span>tibble[,<span class="dv">2</span>] [<span class="dv">25</span> × <span class="dv">2</span>]<span class="sc">&gt;</span></span>
+<span id="cb484-17"><a href="simulation.html#cb484-17" aria-hidden="true" tabindex="-1"></a><span class="dv">2</span>     <span class="dv">2</span> <span class="sc">&lt;</span>tibble[,<span class="dv">2</span>] [<span class="dv">25</span> × <span class="dv">2</span>]<span class="sc">&gt;</span></span>
+<span id="cb484-18"><a href="simulation.html#cb484-18" aria-hidden="true" tabindex="-1"></a><span class="dv">3</span>     <span class="dv">3</span> <span class="sc">&lt;</span>tibble[,<span class="dv">2</span>] [<span class="dv">25</span> × <span class="dv">2</span>]<span class="sc">&gt;</span></span>
+<span id="cb484-19"><a href="simulation.html#cb484-19" aria-hidden="true" tabindex="-1"></a><span class="dv">4</span>     <span class="dv">4</span> <span class="sc">&lt;</span>tibble[,<span class="dv">2</span>] [<span class="dv">25</span> × <span class="dv">2</span>]<span class="sc">&gt;</span></span>
+<span id="cb484-20"><a href="simulation.html#cb484-20" aria-hidden="true" tabindex="-1"></a><span class="dv">5</span>     <span class="dv">5</span> <span class="sc">&lt;</span>tibble[,<span class="dv">2</span>] [<span class="dv">25</span> × <span class="dv">2</span>]<span class="sc">&gt;</span></span>
+<span id="cb484-21"><a href="simulation.html#cb484-21" aria-hidden="true" tabindex="-1"></a><span class="dv">6</span>     <span class="dv">6</span> <span class="sc">&lt;</span>tibble[,<span class="dv">2</span>] [<span class="dv">25</span> × <span class="dv">2</span>]<span class="sc">&gt;</span></span>
 <span id="cb484-22"><a href="simulation.html#cb484-22" aria-hidden="true" tabindex="-1"></a>sim<span class="sc">$</span>data[[<span class="dv">1</span>]]</span>
-<span id="cb484-23"><a href="simulation.html#cb484-23" aria-hidden="true" tabindex="-1"></a><span class="do">## # A tibble: 25 x 2</span></span>
-<span id="cb484-24"><a href="simulation.html#cb484-24" aria-hidden="true" tabindex="-1"></a><span class="do">##        x    ln_x</span></span>
-<span id="cb484-25"><a href="simulation.html#cb484-25" aria-hidden="true" tabindex="-1"></a><span class="do">##    &lt;dbl&gt;   &lt;dbl&gt;</span></span>
-<span id="cb484-26"><a href="simulation.html#cb484-26" aria-hidden="true" tabindex="-1"></a><span class="do">##  1 0.310 -1.17  </span></span>
-<span id="cb484-27"><a href="simulation.html#cb484-27" aria-hidden="true" tabindex="-1"></a><span class="do">##  2 0.622 -0.475 </span></span>
-<span id="cb484-28"><a href="simulation.html#cb484-28" aria-hidden="true" tabindex="-1"></a><span class="do">##  3 0.303 -1.19  </span></span>
-<span id="cb484-29"><a href="simulation.html#cb484-29" aria-hidden="true" tabindex="-1"></a><span class="do">##  4 1.05   0.0525</span></span>
-<span id="cb484-30"><a href="simulation.html#cb484-30" aria-hidden="true" tabindex="-1"></a><span class="do">##  5 0.529 -0.636 </span></span>
-<span id="cb484-31"><a href="simulation.html#cb484-31" aria-hidden="true" tabindex="-1"></a><span class="do">##  6 1.09   0.0891</span></span>
-<span id="cb484-32"><a href="simulation.html#cb484-32" aria-hidden="true" tabindex="-1"></a><span class="do">##  7 1.97   0.676 </span></span>
-<span id="cb484-33"><a href="simulation.html#cb484-33" aria-hidden="true" tabindex="-1"></a><span class="do">##  8 8.94   2.19  </span></span>
-<span id="cb484-34"><a href="simulation.html#cb484-34" aria-hidden="true" tabindex="-1"></a><span class="do">##  9 0.598 -0.514 </span></span>
-<span id="cb484-35"><a href="simulation.html#cb484-35" aria-hidden="true" tabindex="-1"></a><span class="do">## 10 0.183 -1.70  </span></span>
-<span id="cb484-36"><a href="simulation.html#cb484-36" aria-hidden="true" tabindex="-1"></a><span class="do">## # … with 15 more rows</span></span></code></pre></div>
+<span id="cb484-23"><a href="simulation.html#cb484-23" aria-hidden="true" tabindex="-1"></a><span class="co"># A tibble: 25 x 2</span></span>
+<span id="cb484-24"><a href="simulation.html#cb484-24" aria-hidden="true" tabindex="-1"></a>       x    ln_x</span>
+<span id="cb484-25"><a href="simulation.html#cb484-25" aria-hidden="true" tabindex="-1"></a>   <span class="sc">&lt;</span>dbl<span class="sc">&gt;</span>   <span class="er">&lt;</span>dbl<span class="sc">&gt;</span></span>
+<span id="cb484-26"><a href="simulation.html#cb484-26" aria-hidden="true" tabindex="-1"></a> <span class="dv">1</span> <span class="fl">0.310</span> <span class="sc">-</span><span class="fl">1.17</span>  </span>
+<span id="cb484-27"><a href="simulation.html#cb484-27" aria-hidden="true" tabindex="-1"></a> <span class="dv">2</span> <span class="fl">0.622</span> <span class="sc">-</span><span class="fl">0.475</span> </span>
+<span id="cb484-28"><a href="simulation.html#cb484-28" aria-hidden="true" tabindex="-1"></a> <span class="dv">3</span> <span class="fl">0.303</span> <span class="sc">-</span><span class="fl">1.19</span>  </span>
+<span id="cb484-29"><a href="simulation.html#cb484-29" aria-hidden="true" tabindex="-1"></a> <span class="dv">4</span> <span class="fl">1.05</span>   <span class="fl">0.0525</span></span>
+<span id="cb484-30"><a href="simulation.html#cb484-30" aria-hidden="true" tabindex="-1"></a> <span class="dv">5</span> <span class="fl">0.529</span> <span class="sc">-</span><span class="fl">0.636</span> </span>
+<span id="cb484-31"><a href="simulation.html#cb484-31" aria-hidden="true" tabindex="-1"></a> <span class="dv">6</span> <span class="fl">1.09</span>   <span class="fl">0.0891</span></span>
+<span id="cb484-32"><a href="simulation.html#cb484-32" aria-hidden="true" tabindex="-1"></a> <span class="dv">7</span> <span class="fl">1.97</span>   <span class="fl">0.676</span> </span>
+<span id="cb484-33"><a href="simulation.html#cb484-33" aria-hidden="true" tabindex="-1"></a> <span class="dv">8</span> <span class="fl">8.94</span>   <span class="fl">2.19</span>  </span>
+<span id="cb484-34"><a href="simulation.html#cb484-34" aria-hidden="true" tabindex="-1"></a> <span class="dv">9</span> <span class="fl">0.598</span> <span class="sc">-</span><span class="fl">0.514</span> </span>
+<span id="cb484-35"><a href="simulation.html#cb484-35" aria-hidden="true" tabindex="-1"></a><span class="dv">10</span> <span class="fl">0.183</span> <span class="sc">-</span><span class="fl">1.70</span>  </span>
+<span id="cb484-36"><a href="simulation.html#cb484-36" aria-hidden="true" tabindex="-1"></a><span class="co"># … with 15 more rows</span></span></code></pre></div>
 <p>You want to assess the coverage probability of a confidence interval computed under two different modeling scenarios:</p>
 <ol style="list-style-type: decimal">
 <li>Working with the log-transformed values, ln(x), and then transform the computed interval back</li>
@@ -1159,7 +1154,7 @@ Example: Confidence Interval coverage rates
 <p><img src="image/unnamed-chunk-8-1.png" width="2100" /></p>
 From this, we can see that working with the log-transformed, normally distributed results has better coverage probability than working with the raw data and computing the population mean: the estimates in the latter procedure have lower coverage probability, and many of the intervals are much wider than necessary; in some cases, the interval actually lies outside of the domain.
 </details>
-<details>
+<details class="ex">
 <summary>
 Example: Regression and high-leverage points
 </summary>
@@ -1182,15 +1177,15 @@ Example: Regression and high-leverage points
 <span id="cb486-15"><a href="simulation.html#cb486-15" aria-hidden="true" tabindex="-1"></a>)</span>
 <span id="cb486-16"><a href="simulation.html#cb486-16" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb486-17"><a href="simulation.html#cb486-17" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(sim_data)</span>
-<span id="cb486-18"><a href="simulation.html#cb486-18" aria-hidden="true" tabindex="-1"></a><span class="do">## # A tibble: 6 x 3</span></span>
-<span id="cb486-19"><a href="simulation.html#cb486-19" aria-hidden="true" tabindex="-1"></a><span class="do">##      id     o data             </span></span>
-<span id="cb486-20"><a href="simulation.html#cb486-20" aria-hidden="true" tabindex="-1"></a><span class="do">##   &lt;int&gt; &lt;int&gt; &lt;list&gt;           </span></span>
-<span id="cb486-21"><a href="simulation.html#cb486-21" aria-hidden="true" tabindex="-1"></a><span class="do">## 1     1     0 &lt;tibble [30 × 2]&gt;</span></span>
-<span id="cb486-22"><a href="simulation.html#cb486-22" aria-hidden="true" tabindex="-1"></a><span class="do">## 2     2     0 &lt;tibble [30 × 2]&gt;</span></span>
-<span id="cb486-23"><a href="simulation.html#cb486-23" aria-hidden="true" tabindex="-1"></a><span class="do">## 3     3     0 &lt;tibble [30 × 2]&gt;</span></span>
-<span id="cb486-24"><a href="simulation.html#cb486-24" aria-hidden="true" tabindex="-1"></a><span class="do">## 4     4     0 &lt;tibble [30 × 2]&gt;</span></span>
-<span id="cb486-25"><a href="simulation.html#cb486-25" aria-hidden="true" tabindex="-1"></a><span class="do">## 5     5     0 &lt;tibble [30 × 2]&gt;</span></span>
-<span id="cb486-26"><a href="simulation.html#cb486-26" aria-hidden="true" tabindex="-1"></a><span class="do">## 6     6     0 &lt;tibble [30 × 2]&gt;</span></span>
+<span id="cb486-18"><a href="simulation.html#cb486-18" aria-hidden="true" tabindex="-1"></a><span class="co"># A tibble: 6 x 3</span></span>
+<span id="cb486-19"><a href="simulation.html#cb486-19" aria-hidden="true" tabindex="-1"></a>     id     o data                 </span>
+<span id="cb486-20"><a href="simulation.html#cb486-20" aria-hidden="true" tabindex="-1"></a>  <span class="sc">&lt;</span>int<span class="sc">&gt;</span> <span class="er">&lt;</span>int<span class="sc">&gt;</span> <span class="er">&lt;</span>list<span class="sc">&gt;</span>               </span>
+<span id="cb486-21"><a href="simulation.html#cb486-21" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span>     <span class="dv">1</span>     <span class="dv">0</span> <span class="sc">&lt;</span>tibble[,<span class="dv">2</span>] [<span class="dv">30</span> × <span class="dv">2</span>]<span class="sc">&gt;</span></span>
+<span id="cb486-22"><a href="simulation.html#cb486-22" aria-hidden="true" tabindex="-1"></a><span class="dv">2</span>     <span class="dv">2</span>     <span class="dv">0</span> <span class="sc">&lt;</span>tibble[,<span class="dv">2</span>] [<span class="dv">30</span> × <span class="dv">2</span>]<span class="sc">&gt;</span></span>
+<span id="cb486-23"><a href="simulation.html#cb486-23" aria-hidden="true" tabindex="-1"></a><span class="dv">3</span>     <span class="dv">3</span>     <span class="dv">0</span> <span class="sc">&lt;</span>tibble[,<span class="dv">2</span>] [<span class="dv">30</span> × <span class="dv">2</span>]<span class="sc">&gt;</span></span>
+<span id="cb486-24"><a href="simulation.html#cb486-24" aria-hidden="true" tabindex="-1"></a><span class="dv">4</span>     <span class="dv">4</span>     <span class="dv">0</span> <span class="sc">&lt;</span>tibble[,<span class="dv">2</span>] [<span class="dv">30</span> × <span class="dv">2</span>]<span class="sc">&gt;</span></span>
+<span id="cb486-25"><a href="simulation.html#cb486-25" aria-hidden="true" tabindex="-1"></a><span class="dv">5</span>     <span class="dv">5</span>     <span class="dv">0</span> <span class="sc">&lt;</span>tibble[,<span class="dv">2</span>] [<span class="dv">30</span> × <span class="dv">2</span>]<span class="sc">&gt;</span></span>
+<span id="cb486-26"><a href="simulation.html#cb486-26" aria-hidden="true" tabindex="-1"></a><span class="dv">6</span>     <span class="dv">6</span>     <span class="dv">0</span> <span class="sc">&lt;</span>tibble[,<span class="dv">2</span>] [<span class="dv">30</span> × <span class="dv">2</span>]<span class="sc">&gt;</span></span>
 <span id="cb486-27"><a href="simulation.html#cb486-27" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb486-28"><a href="simulation.html#cb486-28" aria-hidden="true" tabindex="-1"></a><span class="co"># plot a few datasets just to check they look like we expect:</span></span>
 <span id="cb486-29"><a href="simulation.html#cb486-29" aria-hidden="true" tabindex="-1"></a>sim_data <span class="sc">%&gt;%</span></span>
@@ -1395,10 +1390,10 @@ read
 <span id="cb489-5"><a href="simulation.html#cb489-5" aria-hidden="true" tabindex="-1"></a>) </span>
 <span id="cb489-6"><a href="simulation.html#cb489-6" aria-hidden="true" tabindex="-1"></a>dogtemp <span class="sc">%&gt;%</span></span>
 <span id="cb489-7"><a href="simulation.html#cb489-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize_all</span>(mean)</span>
-<span id="cb489-8"><a href="simulation.html#cb489-8" aria-hidden="true" tabindex="-1"></a><span class="do">## # A tibble: 1 x 2</span></span>
-<span id="cb489-9"><a href="simulation.html#cb489-9" aria-hidden="true" tabindex="-1"></a><span class="do">##   actual  read</span></span>
-<span id="cb489-10"><a href="simulation.html#cb489-10" aria-hidden="true" tabindex="-1"></a><span class="do">##    &lt;dbl&gt; &lt;dbl&gt;</span></span>
-<span id="cb489-11"><a href="simulation.html#cb489-11" aria-hidden="true" tabindex="-1"></a><span class="do">## 1   102.  102.</span></span></code></pre></div>
+<span id="cb489-8"><a href="simulation.html#cb489-8" aria-hidden="true" tabindex="-1"></a><span class="co"># A tibble: 1 x 2</span></span>
+<span id="cb489-9"><a href="simulation.html#cb489-9" aria-hidden="true" tabindex="-1"></a>  actual  read</span>
+<span id="cb489-10"><a href="simulation.html#cb489-10" aria-hidden="true" tabindex="-1"></a>   <span class="sc">&lt;</span>dbl<span class="sc">&gt;</span> <span class="er">&lt;</span>dbl<span class="sc">&gt;</span></span>
+<span id="cb489-11"><a href="simulation.html#cb489-11" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span>   <span class="fl">102.</span>  <span class="fl">102.</span></span></code></pre></div>
 The effect of the thermometer’s censoring in both cases is around 0.06 degrees F.
 </details>
 </div>
@@ -1440,7 +1435,7 @@ Let’s try it out by using MC simulation to estimate the number of uniform (0,1
 <span id="cb490-14"><a href="simulation.html#cb490-14" aria-hidden="true" tabindex="-1"></a>res <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">k =</span> <span class="fu">replicate</span>(<span class="dv">1000</span>, <span class="fu">sim_fcn</span>(), <span class="at">simplify =</span> T))</span>
 <span id="cb490-15"><a href="simulation.html#cb490-15" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb490-16"><a href="simulation.html#cb490-16" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(res<span class="sc">$</span>k)</span>
-<span id="cb490-17"><a href="simulation.html#cb490-17" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] 2.717</span></span></code></pre></div>
+<span id="cb490-17"><a href="simulation.html#cb490-17" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="fl">2.717</span></span></code></pre></div>
 <p>If we want to see whether the result converges to something, we can increase the number of trials we run:</p>
 <div class="sourceCode" id="cb491"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb491-1"><a href="simulation.html#cb491-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">20417023</span>)</span>
 <span id="cb491-2"><a href="simulation.html#cb491-2" aria-hidden="true" tabindex="-1"></a></span>
@@ -1460,7 +1455,7 @@ Let’s try it out by using MC simulation to estimate the number of uniform (0,1
 <p>Monte Carlo methods are often used to approximate the value of integrals which do not have a closed-form (in particular, these integrals tend to pop up frequently in Bayesian methods). Suppose you want to integrate <span class="math display">\[\int_0^1 e^{-x^3}dx\]</span></p>
 <p>You could set up Riemann integration and evaluate the integral using a sum over <span class="math inline">\(K\)</span> points, but that approach only converges for smooth functions (and besides, that’s boring calc 2 stuff, right?).</p>
 <p>Instead, let’s observe that this is equivalent to <span class="math inline">\(\int_0^1 e^{-x^3}\cdot 1 dx\)</span>, where <span class="math inline">\(p(x) = 1\)</span> for a uniform random variable. That is, this integral can be written as the expected value of the function over the interval <span class="math inline">\([0,1]\)</span>. What if we just generate a bunch of uniform(0,1) variables, evaluate the value of the function at that point, and average the result?</p>
-<details>
+<details class="ex">
 <summary>
 Implementation
 </summary>
@@ -1470,7 +1465,7 @@ Implementation
 <span id="cb492-4"><a href="simulation.html#cb492-4" aria-hidden="true" tabindex="-1"></a>sim_data <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">x =</span> <span class="fu">runif</span>(<span class="dv">100000</span>),</span>
 <span id="cb492-5"><a href="simulation.html#cb492-5" aria-hidden="true" tabindex="-1"></a>                   <span class="at">y =</span> <span class="fu">fn</span>(x))</span>
 <span id="cb492-6"><a href="simulation.html#cb492-6" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(sim_data<span class="sc">$</span>y)</span>
-<span id="cb492-7"><a href="simulation.html#cb492-7" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] 0.8076082</span></span></code></pre></div>
+<span id="cb492-7"><a href="simulation.html#cb492-7" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="fl">0.8076082</span></span></code></pre></div>
 <pre class="sashtml"><code>DATA tmp;
 CALL streaminit(20283492);
   DO i = 1 to 100000;
@@ -1584,31 +1579,31 @@ Solution
 <span id="cb494-20"><a href="simulation.html#cb494-20" aria-hidden="true" tabindex="-1"></a>}</span>
 <span id="cb494-21"><a href="simulation.html#cb494-21" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb494-22"><a href="simulation.html#cb494-22" aria-hidden="true" tabindex="-1"></a><span class="fu">needle_sim</span>(<span class="dv">10</span>)</span>
-<span id="cb494-23"><a href="simulation.html#cb494-23" aria-hidden="true" tabindex="-1"></a><span class="do">## $est</span></span>
-<span id="cb494-24"><a href="simulation.html#cb494-24" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] 2.8571429</span></span>
-<span id="cb494-25"><a href="simulation.html#cb494-25" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span>
-<span id="cb494-26"><a href="simulation.html#cb494-26" aria-hidden="true" tabindex="-1"></a><span class="do">## $plot</span></span></code></pre></div>
+<span id="cb494-23"><a href="simulation.html#cb494-23" aria-hidden="true" tabindex="-1"></a><span class="sc">$</span>est</span>
+<span id="cb494-24"><a href="simulation.html#cb494-24" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="fl">2.8571429</span></span>
+<span id="cb494-25"><a href="simulation.html#cb494-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb494-26"><a href="simulation.html#cb494-26" aria-hidden="true" tabindex="-1"></a><span class="sc">$</span>plot</span></code></pre></div>
 <p><img src="image/unnamed-chunk-15-1.png" width="2100" /></p>
 <div class="sourceCode" id="cb495"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb495-1"><a href="simulation.html#cb495-1" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb495-2"><a href="simulation.html#cb495-2" aria-hidden="true" tabindex="-1"></a><span class="fu">needle_sim</span>(<span class="dv">100</span>)</span>
-<span id="cb495-3"><a href="simulation.html#cb495-3" aria-hidden="true" tabindex="-1"></a><span class="do">## $est</span></span>
-<span id="cb495-4"><a href="simulation.html#cb495-4" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] 2.8985507</span></span>
-<span id="cb495-5"><a href="simulation.html#cb495-5" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span>
-<span id="cb495-6"><a href="simulation.html#cb495-6" aria-hidden="true" tabindex="-1"></a><span class="do">## $plot</span></span></code></pre></div>
+<span id="cb495-3"><a href="simulation.html#cb495-3" aria-hidden="true" tabindex="-1"></a><span class="sc">$</span>est</span>
+<span id="cb495-4"><a href="simulation.html#cb495-4" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="fl">2.8985507</span></span>
+<span id="cb495-5"><a href="simulation.html#cb495-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb495-6"><a href="simulation.html#cb495-6" aria-hidden="true" tabindex="-1"></a><span class="sc">$</span>plot</span></code></pre></div>
 <p><img src="image/unnamed-chunk-15-2.png" width="2100" /></p>
 <div class="sourceCode" id="cb496"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb496-1"><a href="simulation.html#cb496-1" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb496-2"><a href="simulation.html#cb496-2" aria-hidden="true" tabindex="-1"></a><span class="fu">needle_sim</span>(<span class="dv">1000</span>)</span>
-<span id="cb496-3"><a href="simulation.html#cb496-3" aria-hidden="true" tabindex="-1"></a><span class="do">## $est</span></span>
-<span id="cb496-4"><a href="simulation.html#cb496-4" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] 3.1298905</span></span>
-<span id="cb496-5"><a href="simulation.html#cb496-5" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span>
-<span id="cb496-6"><a href="simulation.html#cb496-6" aria-hidden="true" tabindex="-1"></a><span class="do">## $plot</span></span></code></pre></div>
+<span id="cb496-3"><a href="simulation.html#cb496-3" aria-hidden="true" tabindex="-1"></a><span class="sc">$</span>est</span>
+<span id="cb496-4"><a href="simulation.html#cb496-4" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="fl">3.1298905</span></span>
+<span id="cb496-5"><a href="simulation.html#cb496-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb496-6"><a href="simulation.html#cb496-6" aria-hidden="true" tabindex="-1"></a><span class="sc">$</span>plot</span></code></pre></div>
 <p><img src="image/unnamed-chunk-15-3.png" width="2100" /></p>
 <div class="sourceCode" id="cb497"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb497-1"><a href="simulation.html#cb497-1" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb497-2"><a href="simulation.html#cb497-2" aria-hidden="true" tabindex="-1"></a><span class="fu">needle_sim</span>(<span class="dv">10000</span>)</span>
-<span id="cb497-3"><a href="simulation.html#cb497-3" aria-hidden="true" tabindex="-1"></a><span class="do">## $est</span></span>
-<span id="cb497-4"><a href="simulation.html#cb497-4" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] 3.1235358</span></span>
-<span id="cb497-5"><a href="simulation.html#cb497-5" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span>
-<span id="cb497-6"><a href="simulation.html#cb497-6" aria-hidden="true" tabindex="-1"></a><span class="do">## $plot</span></span></code></pre></div>
+<span id="cb497-3"><a href="simulation.html#cb497-3" aria-hidden="true" tabindex="-1"></a><span class="sc">$</span>est</span>
+<span id="cb497-4"><a href="simulation.html#cb497-4" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="fl">3.1235358</span></span>
+<span id="cb497-5"><a href="simulation.html#cb497-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb497-6"><a href="simulation.html#cb497-6" aria-hidden="true" tabindex="-1"></a><span class="sc">$</span>plot</span></code></pre></div>
 <p><img src="image/unnamed-chunk-15-4.png" width="2100" /></p>
 <a href="https://blogs.sas.com/content/iml/2012/01/04/simulation-of-buffons-needle-in-sas-2.html">This blog post contains code for a SAS implementation</a>
 </details>
@@ -1664,6 +1659,7 @@ gitbook.start({
 "weibo": false,
 "instapaper": false,
 "vk": false,
+"whatsapp": false,
 "all": false
 },
 "fontsettings": {

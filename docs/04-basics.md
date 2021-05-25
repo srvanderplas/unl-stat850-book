@@ -36,20 +36,20 @@ The Tate Art Museum assembled a collection of 70,000 artworks (last updated in 2
 library(readr)
 library(skimr)
 artwork <- read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2021/2021-01-12/artwork.csv')
-## 
-## ── Column specification ────────────────────────────────────────────────────────
-## cols(
-##   .default = col_character(),
-##   id = col_double(),
-##   artistId = col_double(),
-##   year = col_double(),
-##   acquisitionYear = col_double(),
-##   width = col_double(),
-##   height = col_double(),
-##   depth = col_double(),
-##   thumbnailCopyright = col_logical()
-## )
-## ℹ Use `spec()` for the full column specifications.
+
+── Column specification ────────────────────────────────────────────────────────
+cols(
+  .default = col_character(),
+  id = col_double(),
+  artistId = col_double(),
+  year = col_double(),
+  acquisitionYear = col_double(),
+  width = col_double(),
+  height = col_double(),
+  depth = col_double(),
+  thumbnailCopyright = col_logical()
+)
+ℹ Use `spec()` for the full column specifications.
 
 skim(artwork)
 ```
@@ -114,7 +114,7 @@ When you first access a new dataset, it's fun to explore it a bit. I've shown a 
 
 ```r
 head(artwork$year)
-## [1]   NA   NA 1785   NA 1826 1826
+[1]   NA   NA 1785   NA 1826 1826
 ```
 
 We reference a column of the dataset by name using `dataset_name$column_name`, and since our data is stored in `artwork`, and we want the column named `year`, we use `artwork$year` to get access to the data we want.
@@ -124,8 +124,8 @@ I've used the `head` command to show only the first few values (so that the outp
 
 ```r
 summary(artwork$year)
-##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max.    NA's 
-##    1545    1817    1831    1867    1953    2012    5397
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max.    NA's 
+   1545    1817    1831    1867    1953    2012    5397 
 ```
 
 That's much less output, but we might want to instead make a chart:
@@ -155,9 +155,9 @@ So all of our variables are skewed quite a bit, and we know from the existence o
 
 ```r
 table(artwork$units)
-## 
-##    mm 
-## 65860
+
+   mm 
+65860 
 ```
 
 Except apparently they are, so ... cool. That does make life easier.

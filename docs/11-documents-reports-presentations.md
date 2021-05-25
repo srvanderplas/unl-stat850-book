@@ -10,12 +10,9 @@
 
 # Documents and Reports {#docs-reports}
 
-## Documents and Reports: Module Objectives {-}
-Be able to create 
+## Module Objectives  {- #module11-objectives}
 
-- presentation slides in LaTeX and rmarkdown
-- posters in LaTeX and rmarkdown
-- A CV in LaTeX and/or rmarkdown
+- Create professional documents (slides, posters, CVs) using LaTeX and/or markdown
 
 This chapter will be shorter in length than many of the rest, but you should not devote less time to it. Instead, you should spend the time playing with the different options presented here and deciding which one of each is your favorite. Rather than detailing all of the customization options in each package, I think you'll have an easier time looking at examples, trying to customize them yourself to get the effect you want, and figuring out how to do that by reading the documentation, stackoverflow posts, and other help files -- those are the skills you'll need when you try to put this knowledge into action. 
 

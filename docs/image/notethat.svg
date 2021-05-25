@@ -11,7 +11,7 @@
    version="1.1"
    id="svg4"
    sodipodi:docname="notethat.svg"
-   inkscape:version="0.92.3 (2405546, 2018-03-11)">
+   inkscape:version="0.92.5 (2060ec1f9f, 2020-04-08)">
   <metadata
      id="metadata10">
     <rdf:RDF>
@@ -20,7 +20,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title />
+        <dc:title></dc:title>
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -89,9 +89,9 @@
        id="text14"
        y="489.5"
        x="288"
-       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:114.8421px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:center;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:middle;fill:#12073b;fill-opacity:1;stroke:none;stroke-width:3.5888"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:114.8421px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:center;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:middle;fill:#277da1;fill-opacity:1;stroke:none;stroke-width:3.5888;"
        xml:space="preserve"><tspan
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Chilanka;-inkscape-font-specification:Chilanka;fill:#12073b;fill-opacity:1;stroke-width:3.5888"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Chilanka;-inkscape-font-specification:Chilanka;fill:#277da1;fill-opacity:1;stroke-width:3.5888;"
          y="489.5"
          x="288"
          id="tspan12"
@@ -100,6 +100,6 @@
        id="path104"
        d="M 289.5,82.15 A 110.9,110.9 0 0 0 258.3,87.15 A 55.4,55.4 0 0 1 265.5,114.1 A 56,56 0 0 1 209.5,170.1 A 55.4,55.4 0 0 1 182.5,162.9 A 111.7,111.7 0 1 0 289.5,82.15 Z M 574,179.5 C 519.8,73.75 412.4,2.15 289.5,2.15 C 166.6,2.15 59.15,73.75 4.951,179.5 A 32.35,32.35 0 0 0 4.951,208.7 C 59.15,314.5 166.6,386.1 289.5,386.1 C 412.4,386.1 519.8,314.5 574,208.7 A 32.35,32.35 0 0 0 574,179.5 Z M 289.5,338.1 C 190.9,338.1 100.4,283.1 51.55,194.1 C 100.4,105.1 190.8,50.15 289.5,50.15 C 388.2,50.15 478.6,105.1 527.4,194.1 C 478.6,283.1 388.2,338.1 289.5,338.1 Z"
        inkscape:connector-curvature="0"
-       style="fill:#12073b;fill-opacity:1" />
+       style="fill:#277da1;fill-opacity:1" />
   </g>
 </svg>

@@ -1,5 +1,11 @@
 # Spatial packages
 
+
+## Module Objectives  {- #module15-objectives}
+
+-  Use and visualize data with a spatial or temporal component
+
+
 [Map Projections Matter!](https://youtu.be/vVX-PrBRtTY)
 
 We'll work off of this set of 3 tutorials:

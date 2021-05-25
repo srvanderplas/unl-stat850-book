@@ -104,9 +104,7 @@ sqlite
 exploratory-data-analysis
 sas-1
 r-1
-skimr-package
-janitor-package
-comparison
+comparison-between-r-and-sas
 manipulating-data
 tidy-data
 filter-pick-cases-rows-based-on-their-values
@@ -211,7 +209,6 @@ creating-and-using-list-columns
 ways-to-use-map
 beyond-map-functions-with-multiple-inputs
 high-performance-computing
-tidy-models
 spatial-packages
 common-problems-and-general-computing-topics
 file-paths-working-directories-and-reproducibility
