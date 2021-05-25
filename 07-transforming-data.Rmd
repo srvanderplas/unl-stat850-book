@@ -7,11 +7,9 @@
 
 > Tidy datasets are all alike, but every messy dataset is messy in its own way. - Hadley Wickham
 
-## Transforming Data: Module Objectives  {-}
+## Module Objectives  {- #module7-objectives}
 
-- Reshape data
-- Transform variables to support analysis and visualization of data
-- Join tables together in order to create a single coherent dataset
+- Implement variable and dataset transformations to support visualization and data analysis.
 
 Most of the time, data does not come in a format suitable for analysis. Spreadsheets are generally optimized for data *viewing*, rather than for statistical analysis - they may be laid out so that there are multiple observations in a single row (e.g., commonly a year's worth of data, with monthly observations in each column). 
 

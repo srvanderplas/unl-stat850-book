@@ -5,12 +5,12 @@
 # (PART) Applications {-}
 # Introduction to Data Visualization {#data-vis-intro}
 
-## Visualization: Module Objectives {-}
+## Module Objectives  {- #module9-objectives}
 
-- Create statistical charts in SAS and R
-- Use the grammar of graphics to describe different types of charts and graphs
-- Use the grammar of graphics to create layered graphics and highlight different features of a data set
-- Modify or construct alternate charts showing the same material with better readability and accessibility
+- Create charts designed to communicate specific aspects of the data
+- Describe charts using the grammar of graphics 
+- Create layered graphics that highlight multiple aspects of the data
+- Evaluate existing charts and develop new versions that improve accessibility and readability
 
 
 There are a lot of different types of charts, and equally many ways  to categorize and describe the different types of charts. <details><summary>This is one of the less serious schemes I've seen</summary>

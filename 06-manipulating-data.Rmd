@@ -15,7 +15,7 @@ In SAS, there is no tidyverse, but there is a relatively consistent structure fo
 <div class="learn-more">
 [There is an excellent dplyr cheatsheet available from RStudio](https://github.com/rstudio/cheatsheets/blob/master/data-transformation.pdf). You may want to print it out to have a copy to reference as you work through this chapter. </div>
 
-## Manipulating Data: Module Objectives  {-}
+## Module Objectives  {- #module6-objectives}
 
 - Filter, subset, and clean data to prepare a dataset for analysis
 - Describe and document operations performed on a data set transparently, and implement the operations using reproducible steps.

@@ -4,15 +4,13 @@
 
 # Principles of Debugging {#debugging}
 
-## Debugging: Module Objectives  {-} 
+## Module Objectives  {- #module8-objectives}
 
-- Break down a complex procedure into simpler steps, mapping each step to a separate function which performs a single task.
+- Create reproducible examples of problems
 
-- Simplify a problem to the minimal components necessary to reproduce the error, and use that information to ask for help appropriately.
+- Use built in debugging tools to trace errors
 
-- Use built-in debugging tools to trace an error to its source
-
-- Use online forums and mailing lists to research error messages
+- Use online resources to research errors
 
 Note: The skills in this chapter take a lifetime to truly master. The real goal here is that you know how to ask for help appropriately (and in a way that people will respond positively to) and that you know how to do the research to get help yourself. 
 

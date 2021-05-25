@@ -4,6 +4,12 @@
 
 # Lists, Nested Lists, and Functional Programming
 
+
+## Module Objectives  {- #module13-objectives}
+
+- Use functional programming techniques to create code which is well organized and easier to understand and maintain
+
+
 ## Review: Lists and Vectors
 
 A **vector** is a 1-dimensional R data structure that contains items of the same simple ('atomic') type (character, logical, integer, factor). 

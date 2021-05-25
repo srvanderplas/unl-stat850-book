@@ -2,6 +2,13 @@
 
 The material for this week will be provided in a lecture given by the [Holland Computing Center](https://hcc.unl.edu/hcc).
 
+
+## Module Objectives  {- #module14-objectives}
+
+-  Use HPC resources on campus to execute code for  problems that are not suited to individual PCs
+
+## Resources  {- .learn-more}
+
 Here, I'm going to list off a few of the useful resources at the Holland Computing Center.
 
 - [An introduction to High Performance Computing](https://hcc.unl.edu/docs/intro/)

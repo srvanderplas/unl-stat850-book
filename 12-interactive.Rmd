@@ -22,10 +22,9 @@ It is helpful to think about interactivity in a couple of different ways:
 
 In this section, we'll cover two ways to easily create interactive graphics or applets in R. There are, of course, many others -- many javascript libraries have R extensions of one form or another. 
 
-## Animated and Interactive Graphics: Module Objectives {-}
+## Module Objectives  {- #module12-objectives}
 
-- Create interactive charts with appropriate tools
-- Use Shiny to create interactive web applets
+- Create animated and interactive charts using appropriate tools 
 
 
 ## Plotly

@@ -3,10 +3,10 @@
 
 # Simulation and Reproducibility {#simulation}
 
-## Simulation: Module Objectives {-}
+## Module Objectives  {- #module10-objectives}
 
-- Understand how pseudorandom number generation works and necessary conditions for reproducibility
-- Be able to implement a simulation for a specific task, process, or model
+- Program a simulation for a specific task, process, or model
+- Understand the limitaitons of pseudorandom number generation
 
 Simulation is an extremely important part of computational statistics. Bayesian statistics, in particular, relies on Markov Chain Monte Carlo (MCMC) to get results from even the most basic of models. In this module, we're going to touch on a few foundational pieces of simulation in computing, and you will get more exposure to simulation-based methods in other courses down the line. 
 
