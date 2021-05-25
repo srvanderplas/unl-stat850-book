@@ -7,11 +7,13 @@
    xmlns="http://www.w3.org/2000/svg"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   viewBox="0 0 512 512"
+   viewBox="0 0 532 468"
    version="1.1"
    id="svg4"
    sodipodi:docname="comment.svg"
-   inkscape:version="0.92.5 (2060ec1f9f, 2020-04-08)">
+   inkscape:version="0.92.5 (2060ec1f9f, 2020-04-08)"
+   width="532"
+   height="468">
   <metadata
      id="metadata10">
     <rdf:RDF>
@@ -20,6 +22,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -39,28 +42,33 @@
      id="namedview6"
      showgrid="false"
      inkscape:zoom="1.638"
-     inkscape:cx="174.3"
-     inkscape:cy="409.3"
-     inkscape:current-layer="svg4" />
+     inkscape:cx="184.3"
+     inkscape:cy="240.8"
+     inkscape:current-layer="svg4"
+     fit-margin-top="10"
+     fit-margin-left="10"
+     fit-margin-right="10"
+     fit-margin-bottom="10" />
   <!-- Font Awesome Free 5.15.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) -->
   <path
-     d="M256 32C114.6 32 0 125.1 0 240c0 49.6 21.4 95 57 130.7C44.5 421.1 2.7 466 2.2 466.5c-2.2 2.3-2.8 5.7-1.5 8.7S4.8 480 8 480c66.3 0 116-31.8 140.6-51.4 32.7 12.3 69 19.4 107.4 19.4 141.4 0 256-93.1 256-208S397.4 32 256 32z"
+     d="M 266,10 C 124.6,10 10,103.1 10,218 C 10,267.6 31.4,313 67,348.7 C 54.5,399.1 12.7,444 12.2,444.5 C 10,446.8 9.4,450.2 10.7,453.2 C 12,456.2 14.8,458 18,458 C 84.3,458 134,426.2 158.6,406.6 C 191.3,418.9 227.6,426 266,426 C 407.4,426 522,332.9 522,218 C 522,103.1 407.4,10 266,10 Z"
      id="path2"
-     style="fill:#605293;fill-opacity:1" />
+     style="fill:#f9c74f;fill-opacity:1"
+     inkscape:connector-curvature="0" />
   <text
      xml:space="preserve"
-     style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:101.5991px;line-height:1.25;font-family:Chilanka;-inkscape-font-specification:Chilanka;font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:center;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:middle;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:3.175;"
-     x="254.7"
-     y="193.2"
+     style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:101.5991px;line-height:1.25;font-family:Chilanka;-inkscape-font-specification:Chilanka;font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:center;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:middle;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:3.175"
+     x="264.7"
+     y="171.2"
      id="text829"><tspan
        sodipodi:role="line"
        id="tspan827"
-       x="268.6"
-       y="193.2"
-       style="stroke-width:3.175;fill:#ffffff;fill-opacity:1;">Just My </tspan><tspan
+       x="278.6"
+       y="171.2"
+       style="fill:#ffffff;fill-opacity:1;stroke-width:3.175">Just My </tspan><tspan
        sodipodi:role="line"
-       x="254.7"
-       y="320.2"
+       x="264.7"
+       y="298.2"
        id="tspan831"
-       style="stroke-width:3.175;fill:#ffffff;fill-opacity:1;">Opinion</tspan></text>
+       style="fill:#ffffff;fill-opacity:1;stroke-width:3.175">Opinion</tspan></text>
 </svg>

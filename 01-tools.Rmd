@@ -87,9 +87,11 @@ If you're on Linux, go ahead and [import RStudio's public key](https://rstudio.c
 
 ### git {#setting-up-git}
 
+::: go-read
 The git material in this chapter is just going to link directly to the book "Happy Git with R" by Jenny Bryan. It's amazing, amusing, and generally well written. I'm not going to try to do better. 
-
 [Go read Chapter 1.](https://happygitwithr.com/big-picture.html)
+:::
+
 
 #### Getting set up: GitHub
 
@@ -261,9 +263,11 @@ Git is a program whose primary purpose is **version control**. Git tracks change
 
 When writing papers, this means you can cut material out freely, so long as the paper is being tracked by git - you can always go back and get that paragraph you cut out if you need to. You also don't have to rename files - you can confidently overwrite your files, so long as you remember to commit frequently. 
 
+::: go-read
 The git material in this chapter is just going to link directly to the book "Happy Git with R" by Jenny Bryan. It's amazing, amusing, and generally well written. I'm not going to try to do better. 
 
 [Go read Chapter 1, if you haven't already.](https://happygitwithr.com/big-picture.html)
+:::
 
 #### Git vs Github
 

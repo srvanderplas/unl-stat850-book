@@ -86,36 +86,70 @@ The header contains a number of buttons which should help you use, customize, an
 - <i class="fa fa-edit"></i> Suggest edits if you find a typo. This will help you automatically submit a pull request in Github, and I can review and approve it easily.
 - <i class="fa fa-download"></i> Download the entire (very long) Rmarkdown source code for the textbook
 - <i class="fa fa-info"></i> See keyboard shortcuts to navigate the book
-- <i class="fa fa-twitter"></i> Reference the book in a tweet, if you really want to. Tag me if you do (\@srvanderplas)
-- <i class="fa fa-github"></i> Find the book repository on GitHub quickly if you want to see code/data/etc. linked in the book
+- <i class="fab fa-twitter"></i> Reference the book in a tweet, if you really want to. Tag me if you do (\@srvanderplas)
+- <i class="fab fa-github"></i> Find the book repository on GitHub quickly if you want to see code/data/etc. linked in the book
 
 
 ### Special Sections {-}
+
+
+#### Watch Out {-.watchout}
+
+Watch out sections contain things you may want to look out for - common errors, etc.
+
+#### {-}
+
+#### Examples {-.ex}
+
+Example sections contain code and other information. Don't skip them!
+
+#### {-}
+
+
+#### My Opinion {-.my-opinion}
+
+These sections contain things you should definitely not consider as fact and should just take with a grain of salt. 
+
+#### {-}
+
+#### Go Read {-.go-read}
+
+Sometimes, there are better resources out there than something I could write myself. When you see this section, go read the enclosed link as if it were part of the book.
+
+#### {-}
+
 
 <div class="tryitout"> <h4>Try It Out</h4>
 
 Try it out sections contain activities you should do to reinforce the things you've just read.
 </div>
 
-#### Watch Out {-.watchout}
-
-Watch out sections contain things you may want to look out for - common errors, etc.
 
 #### Learn More {-.learn-more}
 
 Learn More sections contain other references that may be useful on a specific topic. Suggestions are welcome (use the edit link at the top to suggest a new reference that I should add), as there's no way for one person to catalog all of the helpful R resources on the internet!
 
 
+#### {-}
+
 #### Note {-.note}
 
 Note sections contain clarification points (anywhere I would normally say "note that ....) 
 
-#### My Opinion {-.my-opinion}
+#### {-}
 
-These sections contain things you should definitely not consider as fact and should just take with a grain of salt. 
 
 #### Expandable Sections {-}
 <details><summary>These are expandable sections, with additional information when you click on the line</summary>
 
 This additional information may be information that is helpful but not essential, or it may be that an example just takes a LOT of space and I want to make sure you can skim the book without having to scroll through a ton of output.
 </details>
+
+&nbsp;
+
+<details class="ex"><summary>Many times, examples will be in expandable sections</summary>
+This keeps the code and output from obscuring the actual information in the textbook that I want you to retain. You can always look up the syntax, but you do need to absorb the details I've written out.
+</details>
+
+#### {-}
+
