@@ -260,7 +260,7 @@ SELECT * FROM poke(obs=5)
 WHERE mod(rownum, 2) = 0;
 ```
 
-SELECT \* says to select all variables. We'll talk about SELECT in the next section, but with SQL it's not reqlly possible to avoid using SELECT.
+SELECT \* says to select all variables. We'll talk about SELECT in the next section, but with SQL it's not really possible to avoid using SELECT.
 
 If we want the 5 pokemon with the highest total points, we can use ORDER BY to sort the table, and then specify that we only want 5 rows.
 
@@ -640,10 +640,9 @@ The last 2 rows are just to organize the output - we keep only the two variables
 The learning curve here isn't actually knowing how to use mutate (though that's important). The challenge comes when you want to do something *new* and have to figure out how to e.g. use find and replace in a string, or work with dates and times, or recode variables. 
 
 ::: note
-I'm not going to be able to teach you how to handle every task you'll come across (people invent new ways to screw up data all the time!) but my goal is instead to teach you how to read documentation and google things intelligently, and to _understand what you're reading_ enough to actually implement it. This is something that comes with practice (and lots of googling, stack overflow searches, etc.).
+I'm not going to be able to teach you how to handle every mutate statement task you'll come across (people invent new ways to screw up data all the time!) but my goal is instead to teach you how to _read documentation_ and _google things intelligently_, and to _understand what you're reading_ enough to actually implement it. This is something that comes with practice (and lots of googling, stack overflow searches, etc.).
 
-<details><summary>Google and StackOverflow are very common programming meme topics</summary>
-
+<details><summary>Google and StackOverflow are very common programming skills</summary>
 ```{r tweets-ch5, echo = F}
 if (!"tweetrmd" %in% installed.packages()) devtools::install_github("gadenbuie/tweetrmd")
 if (!"webshot2" %in% installed.packages()) devtools::install_github("rstudio/webshot2")
@@ -657,11 +656,13 @@ tweetrmd::tweet_screenshot(tweetrmd::tweet_url("grubes14", "1168946210868269057"
 ```
 </details>
 &nbsp;
-In this class, the examples will expose you to solutions to common problems; unfortunately, there are too many common problems for us to work through line-by-line. 
+
+In this class, the examples (and homework) will expose you to solutions to common problems (or require that you do some basic reading yourself); unfortunately, there are too many common problems for us to work through line-by-line. 
+
 Part of the goal of this class is for you to **learn how to read through a package description and evaluate whether the package will do what you want**; we're going to try to build some of those skills starting now. 
 It would be relatively easy to teach you how to do a set list of tasks, but you'll be better statisticians and programmers if you learn the skills to solve niche problems on your own.
 
-```{r tweets-more-ch5, echo = F, fig.cap = "Apologies for the noninclusive language, but the sentiment is real."}
+```{r tweets-more-ch5, include = F, echo = F, fig.cap = "Apologies for the noninclusive language, but the sentiment is real."}
 tweetrmd::tweet_screenshot(tweetrmd::tweet_url("abt_programming", "459414524303785984"))
 ```
 :::
@@ -671,13 +672,15 @@ Here is a quick list of packages in R which will solve some of the more common p
 ::: go-read
 - Dates and times: 
   - `lubridate` package in R (esp. `ymd_hms()` and variants, `decimal_date()`, and other convenience functions). 
+  - <i class="fab fa-youtube"></i> YouTube Playlist: [Dealing with Dates and Times (R and SAS)](https://youtube.com/playlist?list=PLSNDUuFnzc00dlTwitLjn1V_btOvJp11p)
   - [SAS Dates and Times](https://documentation.sas.com/?docsetId=lrcon&docsetTarget=p1wj0wt2ebe2a0n1lv4lem9hdc0v.htm&docsetVersion=9.4&locale=en).
 - String manipulation:
   - `stringr` package in R (`str_replace()`, `str_remove()`, `str_detect()`, `str_split()`)
+  - <i class="fab fa-youtube"></i> YouTube Playlist: [Regular Expressions](https://youtube.com/playlist?list=PLSNDUuFnzc02k4fq5w63GsSW0tZ5E6z9h)
   - [Regular Expression Cheatsheet (R)](https://rstudio.com/wp-content/uploads/2016/09/RegExCheatsheet.pdf)
   - [Common String operations in SAS](https://www.listendata.com/2014/12/sas-character-functions.html)
   - [Regular Expressions in SAS](https://support.sas.com/resources/papers/proceedings/proceedings/sugi29/265-29.pdf)
-  - We'll talk more about strings in the next module...
+  - We'll talk more about strings in the next module, but it will be focused on creating multiple variables, not mutating a single variable to clean things up.
 :::
 
 ```{r reset-ch5, cache = F, echo = F, include = F}
@@ -1013,7 +1016,7 @@ ods html;
 <details class = "ex"><summary>We could also look to see how a storm's diameter evolves over time, from when the storm is first identified (group_by + mutate) </summary>
 Diameter measurements don't exist for all storms, and they appear to measure the diameter of the wind field - that is, the region where the winds are hurricane or tropical storm force. (`?storms` documents the dataset and its variables). 
 
-Note the use of `as.numeric(as.character(max(category)))` to get the maximum (ordinal categorial) strength and convert that into something numeric that can be plotted. 
+Note the use of `as.numeric(as.character(max(category)))` to get the maximum (ordinal categorical) strength and convert that into something numeric that can be plotted. 
 ```{r storm-evo}
 storm_evolution <- storms %>%
   filter(!is.na(hu_diameter)) %>%
@@ -1090,6 +1093,10 @@ While I'm tempted to plot out the diameter and location on a map, it's a bit exc
 
 It looks like Ike went long-ways across Cuba, which weakened it. When hurricanes weaken, often their wind fields expand (as they no longer have the angular momentum to maintain a tight structure). Ike crossed into the Gulf of Mexico, restrengthened, and then hit Houston just about dead-on. I was living just northwest of Houston when it hit (in College Station), and I can verify that it was not a fun time. 
 </details>
+
+When you `group_by` a variable, your tibble carries this grouping with it. Summarize will remove one layer of grouping (by default), but if you ever want to return to a completely ungrouped data set, you should use the `ungroup()` command. 
+
+![The ungroup() command is just as important as the group_by() command! (by Allison Horst)](https://raw.githubusercontent.com/allisonhorst/stats-illustrations/master/rstats-blanks/ungroup_blank.png)
 
 ## Other `dplyr` functions: across, relocate
 
