@@ -6,9 +6,10 @@
 
 ## Module Objectives  {- #module6-objectives}
 
-- Filter, subset, and clean data to prepare a dataset for analysis
-- Describe and document operations performed on a data set transparently, and implement the operations using reproducible steps.
-- Create summaries of data appropriate for additional analysis or display
+- Apply data manipulation verbs (filter, select, group by, summarize, mutate) to prepare data for analysis
+- Identify required sequence of steps for data cleaning
+- Describe step-by-step data cleaning process in lay terms appropriately and understand the consequences of data cleaning steps
+- Create summaries of data appropriate for analysis or display using data manipulation techniques
 
 In this section, we're going start learning how to work with data. Generally speaking, data doesn't come in a form suitable for analysis^[See [this twitter thread](https://twitter.com/JennyBryan/status/722954354198597632) for some horror stories. [This tweet](https://twitter.com/jengolbeck/status/1153064308483510272?s=20) is also pretty good at showing one type of messiness.] - you have to clean it up, create the variables you care about, get rid of those you don't care about, and so on. 
 
