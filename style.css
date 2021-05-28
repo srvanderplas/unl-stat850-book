@@ -61,26 +61,6 @@ pre code {
   white-space: inherit;
 }
 
-/*.tryitout {
-  border:2px solid #378b2e;
-  padding:10px;
-  min-width:100%;
-  min-height:2em;
-}
-
-.tryitout h3:before,.tryitout h4:before,.tryitout h5:before,.tryitout h6:before{
-  font-size:1.5em;
-  font-family: 'FontAwesome';
-  content: "\f0c3\00a0\00a0";
-  color: #378b2e;
-  font-weight: bold;
-}
-
-.tryitout h3, .tryitout h4, .tryitout h5, .tryitout h6 {
-  margin:0 0 .25em 0;
-  color: #378b2e;
-}*/
-
 .watchout,.learn-more,.note,.my-opinion,.tryitout,.go-read,.ex{
   background-origin:padding-box;
   background-repeat: no-repeat;
@@ -108,12 +88,14 @@ h1.ex, h2.ex, h3.ex, h4.ex, h5.ex, div.ex {
 
 .my-opinion{
   background-image:url(image/comment.svg);
-  background-color: var(--maize-crayola-bg);
+  /*background-color: var(--maize-crayola-bg);*/
   box-shadow: 0 0 0 1px var(--maize-crayola),
               0 0 0 10px white;
 }
 
 .go-read{
+  background-size:40% auto;
+  padding:10% 5px 5px 5px !important;
   background-image:url(image/eyes.svg);
   box-shadow: 0 0 0 1px var(--pistachio),
               0 0 0 10px white;
@@ -131,7 +113,9 @@ h1.ex, h2.ex, h3.ex, h4.ex, h5.ex, div.ex {
 }
 
 .tryitout h1, .tryitout h2, .tryitout h3, .tryitout h4, .tryitout h5, .tryitout h6 {
-  margin-top: .25em;
+  margin-top: 0 !important;
+  margin-bottom:0 !important;
+  color:var(--zomp);
 }
 
 .learn-more{
