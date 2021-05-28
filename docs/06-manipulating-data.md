@@ -12,9 +12,10 @@
 
 ## Module Objectives  {- #module6-objectives}
 
-- Filter, subset, and clean data to prepare a dataset for analysis
-- Describe and document operations performed on a data set transparently, and implement the operations using reproducible steps.
-- Create summaries of data appropriate for additional analysis or display
+- Apply data manipulation verbs (filter, select, group by, summarize, mutate) to prepare data for analysis
+- Identify required sequence of steps for data cleaning
+- Describe step-by-step data cleaning process in lay terms appropriately and understand the consequences of data cleaning steps
+- Create summaries of data appropriate for analysis or display using data manipulation techniques
 
 In this section, we're going start learning how to work with data. Generally speaking, data doesn't come in a form suitable for analysis^[See [this twitter thread](https://twitter.com/JennyBryan/status/722954354198597632) for some horror stories. [This tweet](https://twitter.com/jengolbeck/status/1153064308483510272?s=20) is also pretty good at showing one type of messiness.] - you have to clean it up, create the variables you care about, get rid of those you don't care about, and so on. 
 
@@ -3900,21 +3901,19 @@ The last 2 rows are just to organize the output - we keep only the two variables
 The learning curve here isn't actually knowing how to use mutate (though that's important). The challenge comes when you want to do something *new* and have to figure out how to e.g. use find and replace in a string, or work with dates and times, or recode variables. 
 
 ::: note
-I'm not going to be able to teach you how to handle every task you'll come across (people invent new ways to screw up data all the time!) but my goal is instead to teach you how to read documentation and google things intelligently, and to _understand what you're reading_ enough to actually implement it. This is something that comes with practice (and lots of googling, stack overflow searches, etc.).
+I'm not going to be able to teach you how to handle every mutate statement task you'll come across (people invent new ways to screw up data all the time!) but my goal is instead to teach you how to _read documentation_ and _google things intelligently_, and to _understand what you're reading_ enough to actually implement it. This is something that comes with practice (and lots of googling, stack overflow searches, etc.).
 
-<details><summary>Google and StackOverflow are very common programming meme topics</summary>
-
+<details><summary>Google and StackOverflow are very common programming skills</summary>
 <img src="image/tweets-ch5-1.png" width="2100" /><img src="image/tweets-ch5-2.png" width="2100" />
 </details>
 &nbsp;
-In this class, the examples will expose you to solutions to common problems; unfortunately, there are too many common problems for us to work through line-by-line. 
+
+In this class, the examples (and homework) will expose you to solutions to common problems (or require that you do some basic reading yourself); unfortunately, there are too many common problems for us to work through line-by-line. 
+
 Part of the goal of this class is for you to **learn how to read through a package description and evaluate whether the package will do what you want**; we're going to try to build some of those skills starting now. 
 It would be relatively easy to teach you how to do a set list of tasks, but you'll be better statisticians and programmers if you learn the skills to solve niche problems on your own.
 
-<div class="figure">
-<img src="image/tweets-more-ch5-1.png" alt="Apologies for the noninclusive language, but the sentiment is real." width="2100" />
-<p class="caption">(\#fig:tweets-more-ch5)Apologies for the noninclusive language, but the sentiment is real.</p>
-</div>
+
 :::
 
 Here is a quick list of packages in R which will solve some of the more common problems. Between that and the R cheatsheet, you should be set. In SAS, there are fewer options, so it's less bewildering to google solutions (but I'll link you to relevant pieces for the common SAS stuff too).
@@ -3922,13 +3921,15 @@ Here is a quick list of packages in R which will solve some of the more common p
 ::: go-read
 - Dates and times: 
   - `lubridate` package in R (esp. `ymd_hms()` and variants, `decimal_date()`, and other convenience functions). 
+  - <i class="fab fa-youtube"></i> YouTube Playlist: [Dealing with Dates and Times (R and SAS)](https://youtube.com/playlist?list=PLSNDUuFnzc00dlTwitLjn1V_btOvJp11p)
   - [SAS Dates and Times](https://documentation.sas.com/?docsetId=lrcon&docsetTarget=p1wj0wt2ebe2a0n1lv4lem9hdc0v.htm&docsetVersion=9.4&locale=en).
 - String manipulation:
   - `stringr` package in R (`str_replace()`, `str_remove()`, `str_detect()`, `str_split()`)
+  - <i class="fab fa-youtube"></i> YouTube Playlist: [Regular Expressions](https://youtube.com/playlist?list=PLSNDUuFnzc02k4fq5w63GsSW0tZ5E6z9h)
   - [Regular Expression Cheatsheet (R)](https://rstudio.com/wp-content/uploads/2016/09/RegExCheatsheet.pdf)
   - [Common String operations in SAS](https://www.listendata.com/2014/12/sas-character-functions.html)
   - [Regular Expressions in SAS](https://support.sas.com/resources/papers/proceedings/proceedings/sugi29/265-29.pdf)
-  - We'll talk more about strings in the next module...
+  - We'll talk more about strings in the next module, but it will be focused on creating multiple variables, not mutating a single variable to clean things up.
 :::
 
 
@@ -44378,6 +44379,10 @@ While I'm tempted to plot out the diameter and location on a map, it's a bit exc
 
 It looks like Ike went long-ways across Cuba, which weakened it. When hurricanes weaken, often their wind fields expand (as they no longer have the angular momentum to maintain a tight structure). Ike crossed into the Gulf of Mexico, restrengthened, and then hit Houston just about dead-on. I was living just northwest of Houston when it hit (in College Station), and I can verify that it was not a fun time. 
 </details>
+
+When you `group_by` a variable, your tibble carries this grouping with it. Summarize will remove one layer of grouping (by default), but if you ever want to return to a completely ungrouped data set, you should use the `ungroup()` command. 
+
+![The ungroup() command is just as important as teh group_by() command! (by Allison Horst)](https://raw.githubusercontent.com/allisonhorst/stats-illustrations/master/rstats-blanks/ungroup_blank.png)
 
 ## Other `dplyr` functions: across, relocate
 

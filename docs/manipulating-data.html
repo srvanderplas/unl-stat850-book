@@ -541,9 +541,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="module6-objectives" class="section level2 unnumbered">
 <h2>Module Objectives</h2>
 <ul>
-<li>Filter, subset, and clean data to prepare a dataset for analysis</li>
-<li>Describe and document operations performed on a data set transparently, and implement the operations using reproducible steps.</li>
-<li>Create summaries of data appropriate for additional analysis or display</li>
+<li>Apply data manipulation verbs (filter, select, group by, summarize, mutate) to prepare data for analysis</li>
+<li>Identify required sequence of steps for data cleaning</li>
+<li>Describe step-by-step data cleaning process in lay terms appropriately and understand the consequences of data cleaning steps</li>
+<li>Create summaries of data appropriate for analysis or display using data manipulation techniques</li>
 </ul>
 <p>In this section, we’re going start learning how to work with data. Generally speaking, data doesn’t come in a form suitable for analysis<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a> - you have to clean it up, create the variables you care about, get rid of those you don’t care about, and so on.</p>
 <p>In R, we’ll be using the <code>tidyverse</code> for this. It’s a meta-package (a package that just loads other packages) that collects packages designed with the same philosophy<a href="#fn2" class="footnote-ref" id="fnref2"><sup>2</sup></a> and interface (basically, the commands will use predictable argument names and structure). You’ve already been introduced to parts of the tidyverse - specifically, <code>readr</code> and <code>ggplot2</code>.</p>
@@ -6760,23 +6761,17 @@ The last 2 rows are just to organize the output - we keep only the two variables
 </details>
 <p>The learning curve here isn’t actually knowing how to use mutate (though that’s important). The challenge comes when you want to do something <em>new</em> and have to figure out how to e.g. use find and replace in a string, or work with dates and times, or recode variables.</p>
 <div class="note">
-<p>I’m not going to be able to teach you how to handle every task you’ll come across (people invent new ways to screw up data all the time!) but my goal is instead to teach you how to read documentation and google things intelligently, and to <em>understand what you’re reading</em> enough to actually implement it. This is something that comes with practice (and lots of googling, stack overflow searches, etc.).</p>
+<p>I’m not going to be able to teach you how to handle every mutate statement task you’ll come across (people invent new ways to screw up data all the time!) but my goal is instead to teach you how to <em>read documentation</em> and <em>google things intelligently</em>, and to <em>understand what you’re reading</em> enough to actually implement it. This is something that comes with practice (and lots of googling, stack overflow searches, etc.).</p>
 <details>
 <summary>
-Google and StackOverflow are very common programming meme topics
+Google and StackOverflow are very common programming skills
 </summary>
 <img src="image/tweets-ch5-1.png" width="2100" /><img src="image/tweets-ch5-2.png" width="2100" />
 </details>
-<p> 
-In this class, the examples will expose you to solutions to common problems; unfortunately, there are too many common problems for us to work through line-by-line.
-Part of the goal of this class is for you to <strong>learn how to read through a package description and evaluate whether the package will do what you want</strong>; we’re going to try to build some of those skills starting now.
+<p> </p>
+<p>In this class, the examples (and homework) will expose you to solutions to common problems (or require that you do some basic reading yourself); unfortunately, there are too many common problems for us to work through line-by-line.</p>
+<p>Part of the goal of this class is for you to <strong>learn how to read through a package description and evaluate whether the package will do what you want</strong>; we’re going to try to build some of those skills starting now.
 It would be relatively easy to teach you how to do a set list of tasks, but you’ll be better statisticians and programmers if you learn the skills to solve niche problems on your own.</p>
-<div class="figure"><span style="display:block;" id="fig:tweets-more-ch5"></span>
-<img src="image/tweets-more-ch5-1.png" alt="Apologies for the noninclusive language, but the sentiment is real." width="2100" />
-<p class="caption">
-Figure 6.1: Apologies for the noninclusive language, but the sentiment is real.
-</p>
-</div>
 </div>
 <p>Here is a quick list of packages in R which will solve some of the more common problems. Between that and the R cheatsheet, you should be set. In SAS, there are fewer options, so it’s less bewildering to google solutions (but I’ll link you to relevant pieces for the common SAS stuff too).</p>
 <div class="go-read">
@@ -6784,15 +6779,17 @@ Figure 6.1: Apologies for the noninclusive language, but the sentiment is real.
 <li>Dates and times:
 <ul>
 <li><code>lubridate</code> package in R (esp. <code>ymd_hms()</code> and variants, <code>decimal_date()</code>, and other convenience functions).</li>
+<li><i class="fab fa-youtube"></i> YouTube Playlist: <a href="https://youtube.com/playlist?list=PLSNDUuFnzc00dlTwitLjn1V_btOvJp11p">Dealing with Dates and Times (R and SAS)</a></li>
 <li><a href="https://documentation.sas.com/?docsetId=lrcon&amp;docsetTarget=p1wj0wt2ebe2a0n1lv4lem9hdc0v.htm&amp;docsetVersion=9.4&amp;locale=en">SAS Dates and Times</a>.</li>
 </ul></li>
 <li>String manipulation:
 <ul>
 <li><code>stringr</code> package in R (<code>str_replace()</code>, <code>str_remove()</code>, <code>str_detect()</code>, <code>str_split()</code>)</li>
+<li><i class="fab fa-youtube"></i> YouTube Playlist: <a href="https://youtube.com/playlist?list=PLSNDUuFnzc02k4fq5w63GsSW0tZ5E6z9h">Regular Expressions</a></li>
 <li><a href="https://rstudio.com/wp-content/uploads/2016/09/RegExCheatsheet.pdf">Regular Expression Cheatsheet (R)</a></li>
 <li><a href="https://www.listendata.com/2014/12/sas-character-functions.html">Common String operations in SAS</a></li>
 <li><a href="https://support.sas.com/resources/papers/proceedings/proceedings/sugi29/265-29.pdf">Regular Expressions in SAS</a></li>
-<li>We’ll talk more about strings in the next module…</li>
+<li>We’ll talk more about strings in the next module, but it will be focused on creating multiple variables, not mutating a single variable to clean things up.</li>
 </ul></li>
 </ul>
 </div>
@@ -93537,6 +93534,11 @@ NOTE: There were 57 observations read from the data set WORK.IKE.
 <img src="https://upload.wikimedia.org/wikipedia/commons/5/5f/Ike_2008_track.png" alt="Hurricane Ike’s path and strength over time" /></p>
 It looks like Ike went long-ways across Cuba, which weakened it. When hurricanes weaken, often their wind fields expand (as they no longer have the angular momentum to maintain a tight structure). Ike crossed into the Gulf of Mexico, restrengthened, and then hit Houston just about dead-on. I was living just northwest of Houston when it hit (in College Station), and I can verify that it was not a fun time.
 </details>
+<p>When you <code>group_by</code> a variable, your tibble carries this grouping with it. Summarize will remove one layer of grouping (by default), but if you ever want to return to a completely ungrouped data set, you should use the <code>ungroup()</code> command.</p>
+<div class="figure">
+<img src="https://raw.githubusercontent.com/allisonhorst/stats-illustrations/master/rstats-blanks/ungroup_blank.png" alt="" />
+<p class="caption">The ungroup() command is just as important as teh group_by() command! (by Allison Horst)</p>
+</div>
 </div>
 <div id="other-dplyr-functions-across-relocate" class="section level2" number="6.7">
 <h2><span class="header-section-number">6.7</span> Other <code>dplyr</code> functions: across, relocate</h2>
