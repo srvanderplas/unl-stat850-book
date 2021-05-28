@@ -13,11 +13,13 @@
    data-icon="flask"
    class="svg-inline--fa fa-flask fa-w-14"
    role="img"
-   viewBox="0 0 448 512"
+   viewBox="0 0 468 532"
    version="1.1"
    id="svg4"
    sodipodi:docname="tryitout.svg"
-   inkscape:version="0.92.5 (2060ec1f9f, 2020-04-08)">
+   inkscape:version="0.92.5 (2060ec1f9f, 2020-04-08)"
+   width="468"
+   height="532">
   <metadata
      id="metadata10">
     <rdf:RDF>
@@ -46,12 +48,16 @@
      id="namedview6"
      showgrid="false"
      inkscape:zoom="1.652"
-     inkscape:cx="224"
-     inkscape:cy="256"
-     inkscape:current-layer="svg4" />
+     inkscape:cx="234"
+     inkscape:cy="266"
+     inkscape:current-layer="svg4"
+     fit-margin-top="10"
+     fit-margin-left="10"
+     fit-margin-right="10"
+     fit-margin-bottom="10" />
   <path
-     d="M437.2 403.5L320 215V64h8c13.3 0 24-10.7 24-24V24c0-13.3-10.7-24-24-24H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h8v151L10.8 403.5C-18.5 450.6 15.3 512 70.9 512h306.2c55.7 0 89.4-61.5 60.1-108.5zM137.9 320l48.2-77.6c3.7-5.2 5.8-11.6 5.8-18.4V64h64v160c0 6.9 2.2 13.2 5.8 18.4l48.2 77.6h-172z"
+     d="M 447.2,413.5 L 330,225 V 74 H 338 C 351.3,74 362,63.3 362,50 V 34 C 362,20.7 351.3,10 338,10 H 130 C 116.7,10 106,20.7 106,34 V 50 C 106,63.3 116.7,74 130,74 H 138 V 225 L 20.79,413.5 C -8.509,460.6 25.29,522 80.89,522 H 387.1 C 442.8,522 476.5,460.5 447.2,413.5 Z M 147.9,330 L 196.1,252.4 C 199.8,247.2 201.9,240.8 201.9,234 V 74 H 265.9 V 234 C 265.9,240.9 268.1,247.2 271.7,252.4 L 319.9,330 Z"
      id="path2"
-     fill="currentColor"
-     style="fill:#43aa8b;fill-opacity:1" />
+     style="fill:#43aa8b;fill-opacity:1"
+     inkscape:connector-curvature="0" />
 </svg>
