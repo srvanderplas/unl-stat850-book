@@ -42,7 +42,9 @@ One of the best debugging strategies (that isn't a debugging strategy at all, re
 - **Don't duplicate code**. If you have the same code (or essentially the same code) in two or three different places, put that code in a function and call the function instead. This will save you trouble when updating the code in the future, but also makes narrowing down the source of the bug less complex.
 
 - **Reduce the number of dependencies** you have on outside software packages. Often bugs are introduced when a dependency is updated and the functionality changes slightly. The `tidyverse` is *notorious* for this.     
-It's ok to write code using lots of dependencies, but as you transition from "experimental" code to "production" code (you're using the code without tinkering with it) you should work to reduce the dependencies, where possible. In addition, if you do need packages with lots of dependencies, try to make sure those packages are relatively popular, used by a lot of people, and currently maintained. (The tidyverse is a bit better from this perspective, because the constitutent packages are some of the most installed R packages on CRAN.)
+It's ok to write code using lots of dependencies, but as you transition from "experimental" code to "production" code (you're using the code without tinkering with it) you should work to reduce the dependencies, where possible. In addition, if you do need packages with lots of dependencies, try to make sure those packages are relatively popular, used by a lot of people, and currently maintained. (The tidyverse is a bit better from this perspective, because the constituent packages are some of the most installed R packages on CRAN.)    
+    
+Another way to handle dependency management is to use the `renv` package, which creates a local package library with the appropriate versions of your packages stored in the same directory as your project. This will at least help you minimize issues with code not working after unintentional package updates.
 
 - **Add safeguards against unexpected inputs**. Check to make sure inputs to the function are valid. Check to make sure intermediate results are reasonable (e.g. you don't compute the derivative of a function and come up with "a".)
 
@@ -59,7 +61,7 @@ Wikipedia's article on defensive programming is much more general than the appli
 
 > Debugging: Being the detective in a crime movie where you are also the murderer. - some t-shirt I saw once
 
-While defensive programming is a nice idea, if you're already at the point where you have an error you can't diagnose, then... it doesn't help that much. At that point, you'll need some general debugging strategies to work with. The overall process is well described in [Advanced R](https://adv-r.hadley.nz/debugging.html) by H. Wickham^[the 0th step is from the 1st edition, the remaining steps are from the 2nd.]; I've copied it here because it's such a succinct distillation of the process, but I've adapted some of the explanations to this class rather than the original c ontext of package development. 
+While defensive programming is a nice idea, if you're already at the point where you have an error you can't diagnose, then... it doesn't help that much. At that point, you'll need some general debugging strategies to work with. The overall process is well described in [Advanced R](https://adv-r.hadley.nz/debugging.html) by H. Wickham^[the 0th step is from the 1st edition, the remaining steps are from the 2nd.]; I've copied it here because it's such a succinct distillation of the process, but I've adapted some of the explanations to this class rather than the original context of package development. 
 
 0. Realize that you have a bug
 
@@ -84,7 +86,7 @@ This works well if it's a short function or a couple of lines of code, but it's 
 
 - Tracing statements. Again, this is part of `print()` debugging, but these messages indicate progress - "got into function x", "returning from function y", and so on. 
 
-- Rubber ducking. Have you ever tried to explain a problem you're having to someone else, only to have a moment of insight and "oh, nevermind"? Rubber ducking outsources the problem to a nonjudgemental entity, such as a rubber duck^[Some people use cats, but I find that they don't meet the nonjudgemental criteria. Of course, they're equally judgemental whether your code works or not, so maybe that works if you're a cat person, which I am not. Dogs, in my experience, can work, but often will try to comfort you when they realize you're upset, which both helps and lessens your motivation to fix the problem. A rubber duck is the perfect dispassionate listener.]. You simply explain, in terms simple enough for your rubber duck to understand, exactly what your code does, line by line, until you've found the problem. [A more thorough explanation can be found at gitduck.com](https://gitduck.com/blog/improve-how-to-code-with-rubber-duck-debugging/). 
+- Rubber ducking. Have you ever tried to explain a problem you're having to someone else, only to have a moment of insight and "oh, never mind"? Rubber ducking outsources the problem to a nonjudgmental entity, such as a rubber duck^[Some people use cats, but I find that they don't meet the nonjudgmental criteria. Of course, they're equally judgmental whether your code works or not, so maybe that works if you're a cat person, which I am not. Dogs, in my experience, can work, but often will try to comfort you when they realize you're upset, which both helps and lessens your motivation to fix the problem. A rubber duck is the perfect dispassionate listener.]. You simply explain, in terms simple enough for your rubber duck to understand, exactly what your code does, line by line, until you've found the problem. [A more thorough explanation can be found at gitduck.com](https://gitduck.com/blog/improve-how-to-code-with-rubber-duck-debugging/). 
 
 <div class="figure">
 <img src="image/rubber_duck_cape.png" alt="You may find it helpful to procure a rubber duck expert for each language you work in. I use color-your-own rubber ducks to endow my ducks with certain language expertise. Other people use plain rubber ducks and give them capes." width="50%" />
@@ -92,6 +94,50 @@ This works well if it's a short function or a couple of lines of code, but it's 
 </div>
 
 Do not be surprised if, in the process of debugging, you encounter new bugs. This is a problem that's well-known enough that it has its [own t-shirt](image/99bugs_shirt.png), in addition to an [xkcd comic](https://xkcd.com/1739/). At some point, getting up and going for a walk may help. Redesigning your code to be more modular and more organized is also a good idea. 
+
+## Dividing Problems into Smaller Parts
+
+> “Divide each difficulty into as many parts as is feasible and necessary to resolve it.” -René Descartes, Discourse on Method 
+
+In programming, as in life, big, general problems are very hard to solve effectively. Instead, the goal is to break a problem down into smaller pieces that may actually be solveable. 
+
+We'll start with a non-programming example:
+
+::: ex
+
+1. **General problem statement** : "I'm exhausted all the time"    
+Ok, so this is a problem that many of us have from time to time (or all the time). If we get a little bit more specific at outlining the problem, though, we can sometimes get a bit more insight into how to solve it.
+
+2. **Specific problem statement**: "I wake up in the morning and I don't have any energy to do anything. I want to go back to sleep, but I have too much to do to actually give in and sleep. I spend my days worrying about how I'm going to get all of the things on my to-do list done, and then I lie awake at night thinking about how many things there are to do tomorrow. I don't have time for hobbies or exercise, so I drink a lot of coffee instead to make it through the day."    
+This is a much more specific list of issues, and some of these issues are actually things we can approach separately.
+
+3. **Separating things into solvable problems:**    
+Moving through the list above, we can isolate a few issues. Some of these issues are undoubtedly related to each other, but we can approach them separately (for the most part).
+    1. Poor quality sleep (tired in the morning, lying awake at night)
+    2. Too many things to do (to-do list)
+    3. Chemical solutions to low energy (coffee during the day)
+    4. Anxiety about completing tasks (worrying, insomnia)
+    5. Lack of personal time for hobbies or exercise
+
+
+4. **Brainstorm Solutions:**
+    1. Get a check-up to rule out any other issues that could cause sleep quality degradation - depression, anxiety, sleep apnea, thyroid conditions, etc.
+        - Ask the doctor about taking melatonin supplements for a short time to ensure that sleep starts off well (note, don't take medical advice from a stats textbook!)
+    2. Reformat your to-do list:
+        - Set time limits for things on the to-do list 
+        - Break the to-do list into smaller, manageable tasks that can be accomplished within a relatively short interval - such as an hour
+        - Sort the to-do list by priority and level of "fun" so that each day has a few hard tasks and a couple of easy/fun tasks. Do the hard tasks first, and use the easy/fun tasks as a reward.
+    3. Set a time limit for caffeine (e.g. no coffee after noon) so that caffeine doesn't contribute to poor quality sleep
+    4. Address anxiety with medication (from 1), scheduled time for mindfulness meditation, and/or self-care activities
+    5. Scheduling time for exercise/hobbies
+        - scheduling exercise in the morning to take advantage of the endorphins generated by working out
+        - scheduling hobbies in the evening to reward yourself for a day's work and wind down work well before bedtime
+        
+5. **Approach each sub-problem separately**    
+When the sub-problem has a viable solution, move on to the next sub-problem. Don't try to tackle everything at once.
+:::
+
+
 
 ## Debugging Tools in R
 Now that we've discussed general strategies for debugging that will work in any language, lets get down to the dirty details of debugging in R. 
@@ -768,9 +814,11 @@ See the references section for a couple of good guides to SAS error statements a
 
 There are certainly other errors which can occur in SAS -- logic errors are not something SAS can protect you from . These errors can have dramatic consequences, as demonstrated in [this twitter thread](https://twitter.com/eric_weinhandl/status/1253127109830156289) about a [JAMA retraction due to a coding error](https://twitter.com/hswapnil/status/1252783448055517185). To debug these types of errors, you can use the same print() techniques demonstrated in R. For these types of errors, there's nothing special about what language you're using (outside of the usual quirks of every language) - the error is in the logic, not the encoding of that logic. 
 
-## Minimal Working Examples
+## Minimal Working (or Reproducible) Examples
 
 If all else has failed, and you can't figure out what is causing your error, it's probably time to ask for help. If you have a friend or buddy that knows the language you're working in, by all means ask for help sooner - use them as a rubber duck if you have to. But when you ask for help online, often you're asking people who are much more knowledgeable about the topic - members of R core and SAS browse stackoverflow and may drop in and help you out. Under those circumstances, it's better to make the task of helping you as easy as possible because it shows respect for their time. The same thing goes for your supervisors and professors. 
+
+![The reprex R package will help you make a reproducible example (drawing by Allison Horst)](https://raw.githubusercontent.com/allisonhorst/stats-illustrations/master/rstats-artwork/reprex.png)
 
 So, with that said, there are numerous resources for writing what's called a "minimal working example", "reproducible example" (commonly abbreviated reprex), or MCVE (minimal complete verifiable example). Much of this is lifted directly from the StackOverflow post describing a [minimal reproducible example](https://stackoverflow.com/help/minimal-reproducible-example).
 
@@ -781,6 +829,11 @@ The goal is to reproduce the error message with information that is
 - **reproducible** - test the code you provide to reproduce the problem. 
 
 You should format your question to make it as easy as possible to help you. Make it so that code can be copied from your post directly and pasted into a terminal. Describe what you see and what you'd hope to see if the code were working. 
+
+Other resources:
+- [reprex package: Do's and Don'ts](https://reprex.tidyverse.org/articles/reprex-dos-and-donts.html)
+- [How to use the reprex package](https://reprex.tidyverse.org/articles/articles/learn-reprex.html) - vignette with videos from Jenny Bryan
+- [reprex magic - Vignette adapted from a blog post by Nick Tierney](https://reprex.tidyverse.org/articles/articles/magic-reprex.html)
 
 
 ### Example: MWEs {.example}
@@ -876,6 +929,8 @@ Use [this list of StackOverflow posts](other/Debugging_exercise.html) to try out
 
 
 ## References {- .learn-more}
+
+- The 500 mile email problem - [a true story](http://web.mit.edu/jemorris/humor/500-miles)
 
 - [Stalking the elusive computer bug](https://doi.org/10.1109/85.728224) - the etymology and historical use of the term "debugging", from Thomas Edison to Grace Hopper.
 
