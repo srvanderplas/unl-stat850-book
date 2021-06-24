@@ -379,19 +379,20 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="8.1" data-path="debugging.html"><a href="debugging.html#step-1-check-your-spelling."><i class="fa fa-check"></i><b>8.1</b> Step 1: Check your spelling.</a></li>
 <li class="chapter" data-level="8.2" data-path="debugging.html"><a href="debugging.html#defensive-programming"><i class="fa fa-check"></i><b>8.2</b> Defensive Programming</a></li>
 <li class="chapter" data-level="8.3" data-path="debugging.html"><a href="debugging.html#general-debugging-strategies"><i class="fa fa-check"></i><b>8.3</b> General Debugging Strategies</a></li>
-<li class="chapter" data-level="8.4" data-path="debugging.html"><a href="debugging.html#debugging-tools-in-r"><i class="fa fa-check"></i><b>8.4</b> Debugging Tools in R</a>
+<li class="chapter" data-level="8.4" data-path="debugging.html"><a href="debugging.html#dividing-problems-into-smaller-parts"><i class="fa fa-check"></i><b>8.4</b> Dividing Problems into Smaller Parts</a></li>
+<li class="chapter" data-level="8.5" data-path="debugging.html"><a href="debugging.html#debugging-tools-in-r"><i class="fa fa-check"></i><b>8.5</b> Debugging Tools in R</a>
 <ul>
-<li class="chapter" data-level="8.4.1" data-path="debugging.html"><a href="debugging.html#low-tech-debugging-with-print-and-other-tools"><i class="fa fa-check"></i><b>8.4.1</b> Low tech debugging with print() and other tools</a></li>
-<li class="chapter" data-level="8.4.2" data-path="debugging.html"><a href="debugging.html#after-an-error-has-occurred---traceback"><i class="fa fa-check"></i><b>8.4.2</b> After an error has occurred - <code>traceback()</code></a></li>
-<li class="chapter" data-level="8.4.3" data-path="debugging.html"><a href="debugging.html#browser---debugging-your-own-code-interactively"><i class="fa fa-check"></i><b>8.4.3</b> <code>browser()</code> - debugging your own code, interactively</a></li>
-<li class="chapter" data-level="8.4.4" data-path="debugging.html"><a href="debugging.html#debug---the-general-debugging-workhorse"><i class="fa fa-check"></i><b>8.4.4</b> <code>debug()</code> - the general debugging workhorse</a></li>
+<li class="chapter" data-level="8.5.1" data-path="debugging.html"><a href="debugging.html#low-tech-debugging-with-print-and-other-tools"><i class="fa fa-check"></i><b>8.5.1</b> Low tech debugging with print() and other tools</a></li>
+<li class="chapter" data-level="8.5.2" data-path="debugging.html"><a href="debugging.html#after-an-error-has-occurred---traceback"><i class="fa fa-check"></i><b>8.5.2</b> After an error has occurred - <code>traceback()</code></a></li>
+<li class="chapter" data-level="8.5.3" data-path="debugging.html"><a href="debugging.html#browser---debugging-your-own-code-interactively"><i class="fa fa-check"></i><b>8.5.3</b> <code>browser()</code> - debugging your own code, interactively</a></li>
+<li class="chapter" data-level="8.5.4" data-path="debugging.html"><a href="debugging.html#debug---the-general-debugging-workhorse"><i class="fa fa-check"></i><b>8.5.4</b> <code>debug()</code> - the general debugging workhorse</a></li>
 <li class="chapter" data-level="" data-path="debugging.html"><a href="debugging.html#try-it-out-25"><i class="fa fa-check"></i>Try it out</a></li>
 </ul></li>
-<li class="chapter" data-level="8.5" data-path="debugging.html"><a href="debugging.html#debugging-tools-in-sas"><i class="fa fa-check"></i><b>8.5</b> Debugging Tools in SAS</a></li>
-<li class="chapter" data-level="8.6" data-path="debugging.html"><a href="debugging.html#minimal-working-examples"><i class="fa fa-check"></i><b>8.6</b> Minimal Working Examples</a>
+<li class="chapter" data-level="8.6" data-path="debugging.html"><a href="debugging.html#debugging-tools-in-sas"><i class="fa fa-check"></i><b>8.6</b> Debugging Tools in SAS</a></li>
+<li class="chapter" data-level="8.7" data-path="debugging.html"><a href="debugging.html#minimal-working-or-reproducible-examples"><i class="fa fa-check"></i><b>8.7</b> Minimal Working (or Reproducible) Examples</a>
 <ul>
-<li class="chapter" data-level="8.6.1" data-path="debugging.html"><a href="debugging.html#example-mwes"><i class="fa fa-check"></i><b>8.6.1</b> Example: MWEs</a></li>
-<li class="chapter" data-level="8.6.2" data-path="debugging.html"><a href="debugging.html#try-it-out-26"><i class="fa fa-check"></i><b>8.6.2</b> Try It Out</a></li>
+<li class="chapter" data-level="8.7.1" data-path="debugging.html"><a href="debugging.html#example-mwes"><i class="fa fa-check"></i><b>8.7.1</b> Example: MWEs</a></li>
+<li class="chapter" data-level="8.7.2" data-path="debugging.html"><a href="debugging.html#try-it-out-26"><i class="fa fa-check"></i><b>8.7.2</b> Try It Out</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="debugging.html"><a href="debugging.html#references-2"><i class="fa fa-check"></i>References</a></li>
 </ul></li>
@@ -575,7 +576,23 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>First, lets cover the basics of setting up the software you’re going to be using in this course. You don’t at this point have to understand what the different software DOES, but you should at least get it installed and working – this may be tricky, so we’ll take it slow.</p>
 <div id="setting-up-sas" class="section level3" number="1.1.1">
 <h3><span class="header-section-number">1.1.1</span> SAS</h3>
-<p>For SAS installation, see Steve Westerholt. He manages UNL SAS installations. You can pay a small fee to get the full SAS installation, or you can use SAS community edition (but if you take this route, it may be more difficult to manage your paths, etc., and you may not be able to use SAS Markdown on your machine). You can also use the HCC environment (we will talk more about this in week 2 or thereabouts) set up for you to be able to do your homework. As long as you can run SAS code on a machine you have regular access to, I’m fine.</p>
+<p>In this class, you have several options for how to use SAS:
+1. Install SAS on your machine
+- <i class="fab fa-windows"></i> See Steve Westerholt, pay a small fee, and he will install SAS on your machine.
+- <i class="fab fa-apple"></i> Steve Westerholt will help you acquire Parallels desktop (to emulate Windows) and SAS. You’ll pay license fees for both products.
+- <i class="fab fa-linux"></i> Talk with me and I’ll help you interface with Steve to get SAS for Linux installed on your system. Steve doesn’t support Linux installs, but I can help you get SAS set up if you’re using a common distribution like Ubuntu or RedHat/Fedora.</p>
+<ol start="2" style="list-style-type: decimal">
+<li>Use SAS University Edition/SAS OnDemand for Academics. Get more information <a href="https://www.sas.com/en_us/software/on-demand-for-academics/references/getting-started-with-sas-ondemand-for-academics-studio.html">here</a>.
+<ul>
+<li>Pros - this is free</li>
+<li>Cons - limited storage, may cause issues with paths and file upload/download (so it may be hard to ensure your homework assignments are reproducible).</li>
+</ul></li>
+<li>Use the Guacamole environment I’ve set up for the class via HCC. More information will be provided outside the textbook for this option.
+<ul>
+<li>Pros - free, allows you access to SAS and Rstudio on the same machine (so you can use SASmarkdown seamlessly for homework). You can also use this to test the reproducibility of your assignment.</li>
+<li>Cons - This interface is only available for Stat850 - it will not be available after the class concludes.</li>
+</ul></li>
+</ol>
 </div>
 <div id="setting-up-R" class="section level3" number="1.1.2">
 <h3><span class="header-section-number">1.1.2</span> R</h3>

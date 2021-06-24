@@ -379,19 +379,20 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="8.1" data-path="debugging.html"><a href="debugging.html#step-1-check-your-spelling."><i class="fa fa-check"></i><b>8.1</b> Step 1: Check your spelling.</a></li>
 <li class="chapter" data-level="8.2" data-path="debugging.html"><a href="debugging.html#defensive-programming"><i class="fa fa-check"></i><b>8.2</b> Defensive Programming</a></li>
 <li class="chapter" data-level="8.3" data-path="debugging.html"><a href="debugging.html#general-debugging-strategies"><i class="fa fa-check"></i><b>8.3</b> General Debugging Strategies</a></li>
-<li class="chapter" data-level="8.4" data-path="debugging.html"><a href="debugging.html#debugging-tools-in-r"><i class="fa fa-check"></i><b>8.4</b> Debugging Tools in R</a>
+<li class="chapter" data-level="8.4" data-path="debugging.html"><a href="debugging.html#dividing-problems-into-smaller-parts"><i class="fa fa-check"></i><b>8.4</b> Dividing Problems into Smaller Parts</a></li>
+<li class="chapter" data-level="8.5" data-path="debugging.html"><a href="debugging.html#debugging-tools-in-r"><i class="fa fa-check"></i><b>8.5</b> Debugging Tools in R</a>
 <ul>
-<li class="chapter" data-level="8.4.1" data-path="debugging.html"><a href="debugging.html#low-tech-debugging-with-print-and-other-tools"><i class="fa fa-check"></i><b>8.4.1</b> Low tech debugging with print() and other tools</a></li>
-<li class="chapter" data-level="8.4.2" data-path="debugging.html"><a href="debugging.html#after-an-error-has-occurred---traceback"><i class="fa fa-check"></i><b>8.4.2</b> After an error has occurred - <code>traceback()</code></a></li>
-<li class="chapter" data-level="8.4.3" data-path="debugging.html"><a href="debugging.html#browser---debugging-your-own-code-interactively"><i class="fa fa-check"></i><b>8.4.3</b> <code>browser()</code> - debugging your own code, interactively</a></li>
-<li class="chapter" data-level="8.4.4" data-path="debugging.html"><a href="debugging.html#debug---the-general-debugging-workhorse"><i class="fa fa-check"></i><b>8.4.4</b> <code>debug()</code> - the general debugging workhorse</a></li>
+<li class="chapter" data-level="8.5.1" data-path="debugging.html"><a href="debugging.html#low-tech-debugging-with-print-and-other-tools"><i class="fa fa-check"></i><b>8.5.1</b> Low tech debugging with print() and other tools</a></li>
+<li class="chapter" data-level="8.5.2" data-path="debugging.html"><a href="debugging.html#after-an-error-has-occurred---traceback"><i class="fa fa-check"></i><b>8.5.2</b> After an error has occurred - <code>traceback()</code></a></li>
+<li class="chapter" data-level="8.5.3" data-path="debugging.html"><a href="debugging.html#browser---debugging-your-own-code-interactively"><i class="fa fa-check"></i><b>8.5.3</b> <code>browser()</code> - debugging your own code, interactively</a></li>
+<li class="chapter" data-level="8.5.4" data-path="debugging.html"><a href="debugging.html#debug---the-general-debugging-workhorse"><i class="fa fa-check"></i><b>8.5.4</b> <code>debug()</code> - the general debugging workhorse</a></li>
 <li class="chapter" data-level="" data-path="debugging.html"><a href="debugging.html#try-it-out-25"><i class="fa fa-check"></i>Try it out</a></li>
 </ul></li>
-<li class="chapter" data-level="8.5" data-path="debugging.html"><a href="debugging.html#debugging-tools-in-sas"><i class="fa fa-check"></i><b>8.5</b> Debugging Tools in SAS</a></li>
-<li class="chapter" data-level="8.6" data-path="debugging.html"><a href="debugging.html#minimal-working-examples"><i class="fa fa-check"></i><b>8.6</b> Minimal Working Examples</a>
+<li class="chapter" data-level="8.6" data-path="debugging.html"><a href="debugging.html#debugging-tools-in-sas"><i class="fa fa-check"></i><b>8.6</b> Debugging Tools in SAS</a></li>
+<li class="chapter" data-level="8.7" data-path="debugging.html"><a href="debugging.html#minimal-working-or-reproducible-examples"><i class="fa fa-check"></i><b>8.7</b> Minimal Working (or Reproducible) Examples</a>
 <ul>
-<li class="chapter" data-level="8.6.1" data-path="debugging.html"><a href="debugging.html#example-mwes"><i class="fa fa-check"></i><b>8.6.1</b> Example: MWEs</a></li>
-<li class="chapter" data-level="8.6.2" data-path="debugging.html"><a href="debugging.html#try-it-out-26"><i class="fa fa-check"></i><b>8.6.2</b> Try It Out</a></li>
+<li class="chapter" data-level="8.7.1" data-path="debugging.html"><a href="debugging.html#example-mwes"><i class="fa fa-check"></i><b>8.7.1</b> Example: MWEs</a></li>
+<li class="chapter" data-level="8.7.2" data-path="debugging.html"><a href="debugging.html#try-it-out-26"><i class="fa fa-check"></i><b>8.7.2</b> Try It Out</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="debugging.html"><a href="debugging.html#references-2"><i class="fa fa-check"></i>References</a></li>
 </ul></li>
@@ -564,6 +565,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>In R, we’ll be using the <code>tidyverse</code> for this. It’s a meta-package (a package that just loads other packages) that collects packages designed with the same philosophy<a href="#fn21" class="footnote-ref" id="fnref21"><sup>21</sup></a> and interface (basically, the commands will use predictable argument names and structure). You’ve already been introduced to parts of the tidyverse - specifically, <code>readr</code> and <code>ggplot2</code>.</p>
 <p>In SAS, there is no tidyverse, but there is a relatively consistent structure for how to accomplish each task. Most data cleaning in SAS is accomplished in data steps. In the interests of not confusing terms too much between languages, I’m going to use the tidyverse “verbs” to describe operations in both SAS and R. This will help all of us to focus on the essentials of the operations, instead of the specific language-based syntax.</p>
 <p><code>dplyr</code> (one of the packages in the tidyverse) creates a “grammar of data manipulation” to make it easier to describe different operations. I find the <code>dplyr</code> grammar to be extremely useful when talking about data operations, so I’m going to attempt to show you how to do the same operations in R with dplyr, and in SAS (without the underlying framework). Each verb describes a common task when doing both exploratory data analysis and more formal statistical modeling. In all tidyverse functions, data comes first – literally, as it’s the first argument to any function. In addition, you don’t use df$variable to access a variable - you refer to the variable by its name alone. This makes the syntax much cleaner and easier to read, which is another principle of the tidy philosophy.</p>
+<p>Some people call the process of cleaning and organizing your data “data wrangling,” which is a fantastic way to think about chasing down all of the issues in the data.</p>
+<div class="figure">
+<img src="https://raw.githubusercontent.com/allisonhorst/stats-illustrations/master/rstats-artwork/data_cowboy.png" alt="" />
+<p class="caption">Data wrangling (by Allison Horst)</p>
+</div>
 <div class="learn-more">
 <a href="https://github.com/rstudio/cheatsheets/blob/master/data-transformation.pdf">There is an excellent dplyr cheatsheet available from RStudio</a>. You may want to print it out to have a copy to reference as you work through this chapter.
 </div>

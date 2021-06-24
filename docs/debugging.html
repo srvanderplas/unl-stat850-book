@@ -379,19 +379,20 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="8.1" data-path="debugging.html"><a href="debugging.html#step-1-check-your-spelling."><i class="fa fa-check"></i><b>8.1</b> Step 1: Check your spelling.</a></li>
 <li class="chapter" data-level="8.2" data-path="debugging.html"><a href="debugging.html#defensive-programming"><i class="fa fa-check"></i><b>8.2</b> Defensive Programming</a></li>
 <li class="chapter" data-level="8.3" data-path="debugging.html"><a href="debugging.html#general-debugging-strategies"><i class="fa fa-check"></i><b>8.3</b> General Debugging Strategies</a></li>
-<li class="chapter" data-level="8.4" data-path="debugging.html"><a href="debugging.html#debugging-tools-in-r"><i class="fa fa-check"></i><b>8.4</b> Debugging Tools in R</a>
+<li class="chapter" data-level="8.4" data-path="debugging.html"><a href="debugging.html#dividing-problems-into-smaller-parts"><i class="fa fa-check"></i><b>8.4</b> Dividing Problems into Smaller Parts</a></li>
+<li class="chapter" data-level="8.5" data-path="debugging.html"><a href="debugging.html#debugging-tools-in-r"><i class="fa fa-check"></i><b>8.5</b> Debugging Tools in R</a>
 <ul>
-<li class="chapter" data-level="8.4.1" data-path="debugging.html"><a href="debugging.html#low-tech-debugging-with-print-and-other-tools"><i class="fa fa-check"></i><b>8.4.1</b> Low tech debugging with print() and other tools</a></li>
-<li class="chapter" data-level="8.4.2" data-path="debugging.html"><a href="debugging.html#after-an-error-has-occurred---traceback"><i class="fa fa-check"></i><b>8.4.2</b> After an error has occurred - <code>traceback()</code></a></li>
-<li class="chapter" data-level="8.4.3" data-path="debugging.html"><a href="debugging.html#browser---debugging-your-own-code-interactively"><i class="fa fa-check"></i><b>8.4.3</b> <code>browser()</code> - debugging your own code, interactively</a></li>
-<li class="chapter" data-level="8.4.4" data-path="debugging.html"><a href="debugging.html#debug---the-general-debugging-workhorse"><i class="fa fa-check"></i><b>8.4.4</b> <code>debug()</code> - the general debugging workhorse</a></li>
+<li class="chapter" data-level="8.5.1" data-path="debugging.html"><a href="debugging.html#low-tech-debugging-with-print-and-other-tools"><i class="fa fa-check"></i><b>8.5.1</b> Low tech debugging with print() and other tools</a></li>
+<li class="chapter" data-level="8.5.2" data-path="debugging.html"><a href="debugging.html#after-an-error-has-occurred---traceback"><i class="fa fa-check"></i><b>8.5.2</b> After an error has occurred - <code>traceback()</code></a></li>
+<li class="chapter" data-level="8.5.3" data-path="debugging.html"><a href="debugging.html#browser---debugging-your-own-code-interactively"><i class="fa fa-check"></i><b>8.5.3</b> <code>browser()</code> - debugging your own code, interactively</a></li>
+<li class="chapter" data-level="8.5.4" data-path="debugging.html"><a href="debugging.html#debug---the-general-debugging-workhorse"><i class="fa fa-check"></i><b>8.5.4</b> <code>debug()</code> - the general debugging workhorse</a></li>
 <li class="chapter" data-level="" data-path="debugging.html"><a href="debugging.html#try-it-out-25"><i class="fa fa-check"></i>Try it out</a></li>
 </ul></li>
-<li class="chapter" data-level="8.5" data-path="debugging.html"><a href="debugging.html#debugging-tools-in-sas"><i class="fa fa-check"></i><b>8.5</b> Debugging Tools in SAS</a></li>
-<li class="chapter" data-level="8.6" data-path="debugging.html"><a href="debugging.html#minimal-working-examples"><i class="fa fa-check"></i><b>8.6</b> Minimal Working Examples</a>
+<li class="chapter" data-level="8.6" data-path="debugging.html"><a href="debugging.html#debugging-tools-in-sas"><i class="fa fa-check"></i><b>8.6</b> Debugging Tools in SAS</a></li>
+<li class="chapter" data-level="8.7" data-path="debugging.html"><a href="debugging.html#minimal-working-or-reproducible-examples"><i class="fa fa-check"></i><b>8.7</b> Minimal Working (or Reproducible) Examples</a>
 <ul>
-<li class="chapter" data-level="8.6.1" data-path="debugging.html"><a href="debugging.html#example-mwes"><i class="fa fa-check"></i><b>8.6.1</b> Example: MWEs</a></li>
-<li class="chapter" data-level="8.6.2" data-path="debugging.html"><a href="debugging.html#try-it-out-26"><i class="fa fa-check"></i><b>8.6.2</b> Try It Out</a></li>
+<li class="chapter" data-level="8.7.1" data-path="debugging.html"><a href="debugging.html#example-mwes"><i class="fa fa-check"></i><b>8.7.1</b> Example: MWEs</a></li>
+<li class="chapter" data-level="8.7.2" data-path="debugging.html"><a href="debugging.html#try-it-out-26"><i class="fa fa-check"></i><b>8.7.2</b> Try It Out</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="debugging.html"><a href="debugging.html#references-2"><i class="fa fa-check"></i>References</a></li>
 </ul></li>
@@ -579,7 +580,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><p><strong>Comment your code</strong>. This makes it more likely that you will be able to locate the spot where the bug is likely to have occurred, and will remind you how things are calculated. Remember, comments aren’t just for your collaborators or others who see the code. They’re for future you.</p></li>
 <li><p><strong>Don’t duplicate code</strong>. If you have the same code (or essentially the same code) in two or three different places, put that code in a function and call the function instead. This will save you trouble when updating the code in the future, but also makes narrowing down the source of the bug less complex.</p></li>
 <li><p><strong>Reduce the number of dependencies</strong> you have on outside software packages. Often bugs are introduced when a dependency is updated and the functionality changes slightly. The <code>tidyverse</code> is <em>notorious</em> for this.<br />
-It’s ok to write code using lots of dependencies, but as you transition from “experimental” code to “production” code (you’re using the code without tinkering with it) you should work to reduce the dependencies, where possible. In addition, if you do need packages with lots of dependencies, try to make sure those packages are relatively popular, used by a lot of people, and currently maintained. (The tidyverse is a bit better from this perspective, because the constitutent packages are some of the most installed R packages on CRAN.)</p></li>
+It’s ok to write code using lots of dependencies, but as you transition from “experimental” code to “production” code (you’re using the code without tinkering with it) you should work to reduce the dependencies, where possible. In addition, if you do need packages with lots of dependencies, try to make sure those packages are relatively popular, used by a lot of people, and currently maintained. (The tidyverse is a bit better from this perspective, because the constituent packages are some of the most installed R packages on CRAN.)</p></li>
+</ul>
+<p>Another way to handle dependency management is to use the <code>renv</code> package, which creates a local package library with the appropriate versions of your packages stored in the same directory as your project. This will at least help you minimize issues with code not working after unintentional package updates.</p>
+<ul>
 <li><p><strong>Add safeguards against unexpected inputs</strong>. Check to make sure inputs to the function are valid. Check to make sure intermediate results are reasonable (e.g. you don’t compute the derivative of a function and come up with “a.”)</p></li>
 <li><p><strong>Don’t reinvent the wheel</strong>. If you have working, tested code for a task, use that! If someone else has working code that’s used by the community, don’t write your own unless you have a very good reason. The implementation of <code>lm</code> has been better tested than your homegrown linear regression.<br />
 (This is easier if you’re writing modular code to begin with)</p></li>
@@ -594,7 +598,7 @@ It’s ok to write code using lots of dependencies, but as you transition from �
 <blockquote>
 <p>Debugging: Being the detective in a crime movie where you are also the murderer. - some t-shirt I saw once</p>
 </blockquote>
-<p>While defensive programming is a nice idea, if you’re already at the point where you have an error you can’t diagnose, then… it doesn’t help that much. At that point, you’ll need some general debugging strategies to work with. The overall process is well described in <a href="https://adv-r.hadley.nz/debugging.html">Advanced R</a> by H. Wickham<a href="#fn26" class="footnote-ref" id="fnref26"><sup>26</sup></a>; I’ve copied it here because it’s such a succinct distillation of the process, but I’ve adapted some of the explanations to this class rather than the original c ontext of package development.</p>
+<p>While defensive programming is a nice idea, if you’re already at the point where you have an error you can’t diagnose, then… it doesn’t help that much. At that point, you’ll need some general debugging strategies to work with. The overall process is well described in <a href="https://adv-r.hadley.nz/debugging.html">Advanced R</a> by H. Wickham<a href="#fn26" class="footnote-ref" id="fnref26"><sup>26</sup></a>; I’ve copied it here because it’s such a succinct distillation of the process, but I’ve adapted some of the explanations to this class rather than the original context of package development.</p>
 <ol start="0" style="list-style-type: decimal">
 <li><p>Realize that you have a bug</p></li>
 <li><p><strong>Google!</strong> In R you can automate this with the <code>errorist</code> and <code>searcher</code> packages. In SAS, if the error message isn’t that clear you’ll find a SAS forum page where someone else has made the same mistake - I can almost guarantee it.</p></li>
@@ -613,7 +617,7 @@ It’s ok to write code using lots of dependencies, but as you transition from �
 This works well if it’s a short function or a couple of lines of code, but it’s less useful if you have a big script full of code to debug. However, it does sometimes fix really silly typos that are hard to spot, like having typed <code>&lt;--</code> instead of <code>&lt;-</code> in R and then wondering why your answers are negative.</p></li>
 <li><p>Visualize your data as it moves through the program. This may be done using <code>print()</code> statements, or the debugger, or some other strategy depending on your application.</p></li>
 <li><p>Tracing statements. Again, this is part of <code>print()</code> debugging, but these messages indicate progress - “got into function x,” “returning from function y,” and so on.</p></li>
-<li><p>Rubber ducking. Have you ever tried to explain a problem you’re having to someone else, only to have a moment of insight and “oh, nevermind?” Rubber ducking outsources the problem to a nonjudgemental entity, such as a rubber duck<a href="#fn27" class="footnote-ref" id="fnref27"><sup>27</sup></a>. You simply explain, in terms simple enough for your rubber duck to understand, exactly what your code does, line by line, until you’ve found the problem. <a href="https://gitduck.com/blog/improve-how-to-code-with-rubber-duck-debugging/">A more thorough explanation can be found at gitduck.com</a>.</p></li>
+<li><p>Rubber ducking. Have you ever tried to explain a problem you’re having to someone else, only to have a moment of insight and “oh, never mind?” Rubber ducking outsources the problem to a nonjudgmental entity, such as a rubber duck<a href="#fn27" class="footnote-ref" id="fnref27"><sup>27</sup></a>. You simply explain, in terms simple enough for your rubber duck to understand, exactly what your code does, line by line, until you’ve found the problem. <a href="https://gitduck.com/blog/improve-how-to-code-with-rubber-duck-debugging/">A more thorough explanation can be found at gitduck.com</a>.</p></li>
 </ul>
 <div class="figure"><span style="display:block;" id="fig:duck-cape"></span>
 <img src="image/rubber_duck_cape.png" alt="You may find it helpful to procure a rubber duck expert for each language you work in. I use color-your-own rubber ducks to endow my ducks with certain language expertise. Other people use plain rubber ducks and give them capes." width="50%" />
@@ -623,11 +627,71 @@ Figure 8.1: You may find it helpful to procure a rubber duck expert for each lan
 </div>
 <p>Do not be surprised if, in the process of debugging, you encounter new bugs. This is a problem that’s well-known enough that it has its <a href="image/99bugs_shirt.png">own t-shirt</a>, in addition to an <a href="https://xkcd.com/1739/">xkcd comic</a>. At some point, getting up and going for a walk may help. Redesigning your code to be more modular and more organized is also a good idea.</p>
 </div>
-<div id="debugging-tools-in-r" class="section level2" number="8.4">
-<h2><span class="header-section-number">8.4</span> Debugging Tools in R</h2>
+<div id="dividing-problems-into-smaller-parts" class="section level2" number="8.4">
+<h2><span class="header-section-number">8.4</span> Dividing Problems into Smaller Parts</h2>
+<blockquote>
+<p>“Divide each difficulty into as many parts as is feasible and necessary to resolve it.” -René Descartes, Discourse on Method</p>
+</blockquote>
+<p>In programming, as in life, big, general problems are very hard to solve effectively. Instead, the goal is to break a problem down into smaller pieces that may actually be solveable.</p>
+<p>We’ll start with a non-programming example:</p>
+<div class="ex">
+<ol style="list-style-type: decimal">
+<li><p><strong>General problem statement</strong> : “I’m exhausted all the time”<br />
+Ok, so this is a problem that many of us have from time to time (or all the time). If we get a little bit more specific at outlining the problem, though, we can sometimes get a bit more insight into how to solve it.</p></li>
+<li><p><strong>Specific problem statement</strong>: “I wake up in the morning and I don’t have any energy to do anything. I want to go back to sleep, but I have too much to do to actually give in and sleep. I spend my days worrying about how I’m going to get all of the things on my to-do list done, and then I lie awake at night thinking about how many things there are to do tomorrow. I don’t have time for hobbies or exercise, so I drink a lot of coffee instead to make it through the day.”<br />
+This is a much more specific list of issues, and some of these issues are actually things we can approach separately.</p></li>
+<li><p><strong>Separating things into solvable problems:</strong><br />
+Moving through the list above, we can isolate a few issues. Some of these issues are undoubtedly related to each other, but we can approach them separately (for the most part).</p>
+<ol style="list-style-type: decimal">
+<li>Poor quality sleep (tired in the morning, lying awake at night)</li>
+<li>Too many things to do (to-do list)</li>
+<li>Chemical solutions to low energy (coffee during the day)</li>
+<li>Anxiety about completing tasks (worrying, insomnia)</li>
+<li>Lack of personal time for hobbies or exercise</li>
+</ol></li>
+<li><p><strong>Brainstorm Solutions:</strong></p>
+<ol style="list-style-type: decimal">
+<li>Get a check-up to rule out any other issues that could cause sleep quality degradation - depression, anxiety, sleep apnea, thyroid conditions, etc.
+<ul>
+<li>Ask the doctor about taking melatonin supplements for a short time to ensure that sleep starts off well (note, don’t take medical advice from a stats textbook!)</li>
+</ul></li>
+<li>Reformat your to-do list:
+<ul>
+<li>Set time limits for things on the to-do list</li>
+<li>Break the to-do list into smaller, manageable tasks that can be accomplished within a relatively short interval - such as an hour</li>
+<li>Sort the to-do list by priority and level of “fun” so that each day has a few hard tasks and a couple of easy/fun tasks. Do the hard tasks first, and use the easy/fun tasks as a reward.</li>
+</ul></li>
+<li>Set a time limit for caffeine (e.g. no coffee after noon) so that caffeine doesn’t contribute to poor quality sleep</li>
+<li>Address anxiety with medication (from 1), scheduled time for mindfulness meditation, and/or self-care activities</li>
+<li>Scheduling time for exercise/hobbies
+<ul>
+<li>scheduling exercise in the morning to take advantage of the endorphins generated by working out</li>
+<li>scheduling hobbies in the evening to reward yourself for a day’s work and wind down work well before bedtime</li>
+</ul></li>
+</ol></li>
+<li><p><strong>Approach each sub-problem separately</strong><br />
+When the sub-problem has a viable solution, move on to the next sub-problem. Don’t try to tackle everything at once. Here, that might look like this list, where each step is taken separately and you give each thing a few days to see how it affects your sleep quality. In programming, of course, this list would perhaps be a bit more sequential, but real life is messy and the results take a while to populate.</p></li>
+</ol>
+<ul>
+<li>[1] Make the doctor’s appointment.</li>
+<li>[5] While waiting for the appointment, schedule exercise early in the day and hobbies later in the day to create a “no-work” period before bedtime.</li>
+<li>[1] Go to the doctor’s appointment, follow up with any concerns.
+<ul>
+<li>[1] If doctor approves, start taking melatonin according to directions</li>
+</ul></li>
+<li>[2] Work on reformatting the to-do list into manageable chunks. Schedule time to complete chunks using your favorite planning method.</li>
+<li>[4] If anxiety is still an issue after following up with the doctor, add some mindfullness meditation or self-care to the schedule in the mornings or evenings.</li>
+<li>[3] If sleep quality is still an issue, set a time limit for caffeine</li>
+<li>[2] Revise your to-do list and try a different tactic if what you were trying didn’t work.</li>
+</ul>
+</div>
+<p><a href="https://forge.medium.com/the-500-year-old-piece-of-advice-that-will-change-your-life-1e580f115731">Here’s another example</a> of how to break down a real-world personal problem in programming/debugging style.</p>
+</div>
+<div id="debugging-tools-in-r" class="section level2" number="8.5">
+<h2><span class="header-section-number">8.5</span> Debugging Tools in R</h2>
 <p>Now that we’ve discussed general strategies for debugging that will work in any language, lets get down to the dirty details of debugging in R.</p>
-<div id="low-tech-debugging-with-print-and-other-tools" class="section level3" number="8.4.1">
-<h3><span class="header-section-number">8.4.1</span> Low tech debugging with print() and other tools</h3>
+<div id="low-tech-debugging-with-print-and-other-tools" class="section level3" number="8.5.1">
+<h3><span class="header-section-number">8.5.1</span> Low tech debugging with print() and other tools</h3>
 <p>Sometimes called “tracing” techniques, the most common, universal, and low tech strategy for debugging involves scattering messages throughout your code. When the code is executed, you get a window into what the variables look like during execution.</p>
 <details>
 <summary>
@@ -938,8 +1002,8 @@ Solution
 </details>
 </div>
 </div>
-<div id="after-an-error-has-occurred---traceback" class="section level3" number="8.4.2">
-<h3><span class="header-section-number">8.4.2</span> After an error has occurred - <code>traceback()</code></h3>
+<div id="after-an-error-has-occurred---traceback" class="section level3" number="8.5.2">
+<h3><span class="header-section-number">8.5.2</span> After an error has occurred - <code>traceback()</code></h3>
 <p><code>traceback()</code> can help you narrow down where an error occurs by taking you through the series of function calls that led up to the error. This can help, but it can also be pretty arcane.</p>
 <details>
 <summary>
@@ -976,8 +1040,8 @@ If you are using <code>source()</code> to run the code in Rstudio, it will even 
 <img src="image/Rstudio_rerun_traceback_source.png" alt="The output of source(&quot;code/07_debug_ex.R&quot;) as run in RStudio. The traceback() function information contains links to the files of the functions causing the error. For instance, 07_debug_ex.R#4 text is a link to line 4 of the file." />
 </details>
 </div>
-<div id="browser---debugging-your-own-code-interactively" class="section level3" number="8.4.3">
-<h3><span class="header-section-number">8.4.3</span> <code>browser()</code> - debugging your own code, interactively</h3>
+<div id="browser---debugging-your-own-code-interactively" class="section level3" number="8.5.3">
+<h3><span class="header-section-number">8.5.3</span> <code>browser()</code> - debugging your own code, interactively</h3>
 <p>The <code>browser()</code> function is useful for debugging your own code. If you’re writing a function and something isn’t working quite right, you can insert a call to <code>browser()</code> in that function, and examine what’s going on.</p>
 <details>
 <summary>
@@ -1078,8 +1142,8 @@ Solution
 </details>
 </div>
 </div>
-<div id="debug---the-general-debugging-workhorse" class="section level3" number="8.4.4">
-<h3><span class="header-section-number">8.4.4</span> <code>debug()</code> - the general debugging workhorse</h3>
+<div id="debug---the-general-debugging-workhorse" class="section level3" number="8.5.4">
+<h3><span class="header-section-number">8.5.4</span> <code>debug()</code> - the general debugging workhorse</h3>
 <p>In the <code>traceback()</code> Rstudio output, the other option is “rerun with debug.” In short, debug mode opens up a new interactive session inside the function evaluation environment. This lets you observe what’s going on in the function, pinpoint the error (and what causes it), and potentially fix the error, all in one neat workflow.</p>
 <p><code>debug()</code> is most useful when you’re working with code that you didn’t write yourself. So, if you can’t change the code in the function causing the error, <code>debug()</code> is the way to go. Otherwise, using <code>browser()</code> is generally easier. Essentially, <code>debug()</code> places a <code>browser()</code> statement at the first line of a function, but without having to actually alter the function’s source code.</p>
 <details>
@@ -1168,8 +1232,8 @@ Solution
 </details>
 </div>
 </div>
-<div id="debugging-tools-in-sas" class="section level2" number="8.5">
-<h2><span class="header-section-number">8.5</span> Debugging Tools in SAS</h2>
+<div id="debugging-tools-in-sas" class="section level2" number="8.6">
+<h2><span class="header-section-number">8.6</span> Debugging Tools in SAS</h2>
 <p>In SAS, there are two stages that occur after you submit lines to the console.</p>
 <ul>
 <li>The Compilation Phase: code is parsed. In this step, SAS will catch the logic errors, misspellings, missing key words, etc.</li>
@@ -1186,9 +1250,13 @@ Solution
 <p>See the references section for a couple of good guides to SAS error statements and warnings. These guides are likely sufficient for most of your SAS debugging needs.</p>
 <p>There are certainly other errors which can occur in SAS – logic errors are not something SAS can protect you from . These errors can have dramatic consequences, as demonstrated in <a href="https://twitter.com/eric_weinhandl/status/1253127109830156289">this twitter thread</a> about a <a href="https://twitter.com/hswapnil/status/1252783448055517185">JAMA retraction due to a coding error</a>. To debug these types of errors, you can use the same print() techniques demonstrated in R. For these types of errors, there’s nothing special about what language you’re using (outside of the usual quirks of every language) - the error is in the logic, not the encoding of that logic.</p>
 </div>
-<div id="minimal-working-examples" class="section level2" number="8.6">
-<h2><span class="header-section-number">8.6</span> Minimal Working Examples</h2>
+<div id="minimal-working-or-reproducible-examples" class="section level2" number="8.7">
+<h2><span class="header-section-number">8.7</span> Minimal Working (or Reproducible) Examples</h2>
 <p>If all else has failed, and you can’t figure out what is causing your error, it’s probably time to ask for help. If you have a friend or buddy that knows the language you’re working in, by all means ask for help sooner - use them as a rubber duck if you have to. But when you ask for help online, often you’re asking people who are much more knowledgeable about the topic - members of R core and SAS browse stackoverflow and may drop in and help you out. Under those circumstances, it’s better to make the task of helping you as easy as possible because it shows respect for their time. The same thing goes for your supervisors and professors.</p>
+<div class="figure">
+<img src="https://raw.githubusercontent.com/allisonhorst/stats-illustrations/master/rstats-artwork/reprex.png" alt="" />
+<p class="caption">The reprex R package will help you make a reproducible example (drawing by Allison Horst)</p>
+</div>
 <p>So, with that said, there are numerous resources for writing what’s called a “minimal working example,” “reproducible example” (commonly abbreviated reprex), or MCVE (minimal complete verifiable example). Much of this is lifted directly from the StackOverflow post describing a <a href="https://stackoverflow.com/help/minimal-reproducible-example">minimal reproducible example</a>.</p>
 <p>The goal is to reproduce the error message with information that is</p>
 <ul>
@@ -1197,8 +1265,12 @@ Solution
 <li><strong>reproducible</strong> - test the code you provide to reproduce the problem.</li>
 </ul>
 <p>You should format your question to make it as easy as possible to help you. Make it so that code can be copied from your post directly and pasted into a terminal. Describe what you see and what you’d hope to see if the code were working.</p>
-<div id="example-mwes" class="section level3 example" number="8.6.1">
-<h3><span class="header-section-number">8.6.1</span> Example: MWEs</h3>
+<p>Other resources:
+- <a href="https://reprex.tidyverse.org/articles/reprex-dos-and-donts.html">reprex package: Do’s and Don’ts</a>
+- <a href="https://reprex.tidyverse.org/articles/articles/learn-reprex.html">How to use the reprex package</a> - vignette with videos from Jenny Bryan
+- <a href="https://reprex.tidyverse.org/articles/articles/magic-reprex.html">reprex magic - Vignette adapted from a blog post by Nick Tierney</a></p>
+<div id="example-mwes" class="section level3 example" number="8.7.1">
+<h3><span class="header-section-number">8.7.1</span> Example: MWEs</h3>
 <p>You haven’t gotten to module 8 yet, but at one point I had issues with SAS graphs rendering in black and white most of the time.</p>
 <p>I started debugging the issue with the following code chunk:</p>
 <pre><code>{r sas-cat-aes-map-07, engine=&quot;sashtml&quot;, engine.path=&quot;sas&quot;, fig.path = &quot;image/&quot;}
@@ -1261,14 +1333,15 @@ rmarkdown::render(&quot;test.md&quot;)</code></pre>
 <p>In less than 24 hours, the package maintainer responded with a (admittedly terse) explanation of what he thought caused the problem. I had to do some additional research to figure out what that meant, but once I had my reproducible example working in color, I posted that code (so that anyone else with the same problem would know what to do).</p>
 <p>Then, I had to tinker with the book a bit to figure out if there were easier ways to get the same result. Hopefully, at this point, all of the SAS graphs are now in full color, as modern graphics intended.</p>
 </div>
-<div id="try-it-out-26" class="section level3 tryitout" number="8.6.2">
-<h3><span class="header-section-number">8.6.2</span> Try It Out</h3>
+<div id="try-it-out-26" class="section level3 tryitout" number="8.7.2">
+<h3><span class="header-section-number">8.7.2</span> Try It Out</h3>
 <p>Use <a href="other/Debugging_exercise.html">this list of StackOverflow posts</a> to try out your new debugging techniques. Can you figure out what’s wrong? What information would you need from the poster in order to come up with a solution?</p>
 </div>
 </div>
 <div id="references-2" class="section level2 unnumbered learn-more">
 <h2>References</h2>
 <ul>
+<li><p>The 500 mile email problem - <a href="http://web.mit.edu/jemorris/humor/500-miles">a true story</a></p></li>
 <li><p><a href="https://doi.org/10.1109/85.728224">Stalking the elusive computer bug</a> - the etymology and historical use of the term “debugging,” from Thomas Edison to Grace Hopper.</p></li>
 <li><p><a href="http://web.mit.edu/6.031/www/fa17/classes/13-debugging/">Debugging</a> (lecture materials from software construction class at MIT) - written with java, but mostly comprehensible for any language.</p></li>
 <li><p><a href="https://support.rstudio.com/hc/en-us/articles/205612627-Debugging-with-RStudio">Debugging with RStudio</a></p></li>
@@ -1289,7 +1362,7 @@ rmarkdown::render(&quot;test.md&quot;)</code></pre>
 <hr />
 <ol start="26">
 <li id="fn26"><p>the 0th step is from the 1st edition, the remaining steps are from the 2nd.<a href="debugging.html#fnref26" class="footnote-back">↩︎</a></p></li>
-<li id="fn27"><p>Some people use cats, but I find that they don’t meet the nonjudgemental criteria. Of course, they’re equally judgemental whether your code works or not, so maybe that works if you’re a cat person, which I am not. Dogs, in my experience, can work, but often will try to comfort you when they realize you’re upset, which both helps and lessens your motivation to fix the problem. A rubber duck is the perfect dispassionate listener.<a href="debugging.html#fnref27" class="footnote-back">↩︎</a></p></li>
+<li id="fn27"><p>Some people use cats, but I find that they don’t meet the nonjudgmental criteria. Of course, they’re equally judgmental whether your code works or not, so maybe that works if you’re a cat person, which I am not. Dogs, in my experience, can work, but often will try to comfort you when they realize you’re upset, which both helps and lessens your motivation to fix the problem. A rubber duck is the perfect dispassionate listener.<a href="debugging.html#fnref27" class="footnote-back">↩︎</a></p></li>
 </ol>
 </div>
             </section>
