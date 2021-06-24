@@ -10,7 +10,7 @@
 
 # (PART) Data Programming {-}
 
-# Basics {#data-programming-basics}
+# Basics of Programming with Data {#data-programming-basics}
 
 ## Module Objectives  {- #module4-objectives}
 
