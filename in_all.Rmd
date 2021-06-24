@@ -3,6 +3,7 @@
 library(magrittr)
 library(knitr)
 library(SASmarkdown)
+rmarkdown::html_dependency_font_awesome()
 sasexe <- "/usr/local/SASHome/SASFoundation/9.4/bin/sas_u8"
 sasopts <- "-ls 75 -noterminal"
 knitr::opts_chunk$set(collapse = T, hold = T, cache = T, fig.path = "image/",

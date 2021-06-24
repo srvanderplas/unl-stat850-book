@@ -301,7 +301,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="organization.html"><a href="organization.html#references-and-links-1"><i class="fa fa-check"></i>References and Links</a></li>
 </ul></li>
 <li class="part"><span><b>II Data Programming</b></span></li>
-<li class="chapter" data-level="4" data-path="data-programming-basics.html"><a href="data-programming-basics.html"><i class="fa fa-check"></i><b>4</b> Basics</a>
+<li class="chapter" data-level="4" data-path="data-programming-basics.html"><a href="data-programming-basics.html"><i class="fa fa-check"></i><b>4</b> Basics of Programming with Data</a>
 <ul>
 <li class="chapter" data-level="" data-path="data-programming-basics.html"><a href="data-programming-basics.html#module4-objectives"><i class="fa fa-check"></i>Module Objectives</a></li>
 <li class="chapter" data-level="4.1" data-path="data-programming-basics.html"><a href="data-programming-basics.html#introduction-1"><i class="fa fa-check"></i><b>4.1</b> Introduction</a></li>
@@ -576,12 +576,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>First, lets cover the basics of setting up the software you’re going to be using in this course. You don’t at this point have to understand what the different software DOES, but you should at least get it installed and working – this may be tricky, so we’ll take it slow.</p>
 <div id="setting-up-sas" class="section level3" number="1.1.1">
 <h3><span class="header-section-number">1.1.1</span> SAS</h3>
-<p>In this class, you have several options for how to use SAS:
-1. Install SAS on your machine
-- <i class="fab fa-windows"></i> See Steve Westerholt, pay a small fee, and he will install SAS on your machine.
-- <i class="fab fa-apple"></i> Steve Westerholt will help you acquire Parallels desktop (to emulate Windows) and SAS. You’ll pay license fees for both products.
-- <i class="fab fa-linux"></i> Talk with me and I’ll help you interface with Steve to get SAS for Linux installed on your system. Steve doesn’t support Linux installs, but I can help you get SAS set up if you’re using a common distribution like Ubuntu or RedHat/Fedora.</p>
-<ol start="2" style="list-style-type: decimal">
+<p>In this class, you have several options for how to use SAS:</p>
+<ol style="list-style-type: decimal">
+<li>Install SAS on your machine
+<ul>
+<li><i class="fab fa-windows"></i> See Steve Westerholt, pay a small fee, and he will install SAS on your machine.</li>
+<li><i class="fab fa-apple"></i> Steve Westerholt will help you acquire Parallels desktop (to emulate Windows) and SAS. You’ll pay license fees for both products.</li>
+<li><i class="fab fa-linux"></i> Talk with me and I’ll help you interface with Steve to get SAS for Linux installed on your system. Steve doesn’t support Linux installs, but I can help you get SAS set up if you’re using a common distribution like Ubuntu or RedHat/Fedora.</li>
+</ul></li>
 <li>Use SAS University Edition/SAS OnDemand for Academics. Get more information <a href="https://www.sas.com/en_us/software/on-demand-for-academics/references/getting-started-with-sas-ondemand-for-academics-studio.html">here</a>.
 <ul>
 <li>Pros - this is free</li>
@@ -604,32 +606,32 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 On Linux, instead of a YouTube video, you get a text-based <a href="https://github.com/swirldev/swirl/wiki/Installing-swirl-on-Linux">tutorial</a>. One of the Debian maintainers, Dirk Eddelbuettel, is also on R core, which means that R tends to work extremely well with Debian-based distributions, like Ubuntu and Linux Mint. R does work on RPM based distros, and you can of course also compile it from source for Arch/Gentoo, but I’ve stuck with Deb-based distributions for approximately 7 years because it seems to be a bit less hassle. Additional troubleshooting can be found <a href="https://pages.github.nceas.ucsb.edu/NCEAS/help/installing_r_on_ubuntu.html">here</a>.</p></li>
 </ul>
 <p>Once you have R installed, try to run the following code, which will install (most of) the packages you need to run the code in this book.</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="tools.html#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Read in a list of all packages that are required</span></span>
-<span id="cb1-2"><a href="tools.html#cb1-2" aria-hidden="true" tabindex="-1"></a>pkgs <span class="ot">&lt;-</span> <span class="fu">readLines</span>(<span class="st">&quot;https://raw.githubusercontent.com/srvanderplas/unl-stat850/master/data/packages&quot;</span>)</span>
-<span id="cb1-3"><a href="tools.html#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-4"><a href="tools.html#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Remove packages only available on github</span></span>
-<span id="cb1-5"><a href="tools.html#cb1-5" aria-hidden="true" tabindex="-1"></a>pkgs <span class="ot">&lt;-</span> <span class="fu">setdiff</span>(pkgs, <span class="fu">c</span>(<span class="st">&quot;nycsquirrels18&quot;</span>, <span class="st">&quot;emo&quot;</span>, <span class="st">&quot;tweetrmd&quot;</span>, <span class="st">&quot;classdata&quot;</span>))</span>
-<span id="cb1-6"><a href="tools.html#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-7"><a href="tools.html#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Remove any already installed packages from the list</span></span>
-<span id="cb1-8"><a href="tools.html#cb1-8" aria-hidden="true" tabindex="-1"></a>pkgs <span class="ot">&lt;-</span> <span class="fu">setdiff</span>(pkgs, <span class="fu">installed.packages</span>())</span>
-<span id="cb1-9"><a href="tools.html#cb1-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-10"><a href="tools.html#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="co"># The following code will not make a lot of sense... yet. Come back to it in a </span></span>
-<span id="cb1-11"><a href="tools.html#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="co"># few weeks and see how much you understand (or can decode)</span></span>
-<span id="cb1-12"><a href="tools.html#cb1-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-13"><a href="tools.html#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="co"># This ensures that if the installation fails, the code will keep running</span></span>
-<span id="cb1-14"><a href="tools.html#cb1-14" aria-hidden="true" tabindex="-1"></a>try_install_pkg <span class="ot">&lt;-</span> <span class="cf">function</span>(...) <span class="fu">try</span>(<span class="fu">install.packages</span>(..., <span class="at">dependencies =</span> T))</span>
-<span id="cb1-15"><a href="tools.html#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="fu">lapply</span>(pkgs, try_install_pkg)</span>
-<span id="cb1-16"><a href="tools.html#cb1-16" aria-hidden="true" tabindex="-1"></a>pkgs <span class="ot">&lt;-</span> <span class="fu">setdiff</span>(pkgs, <span class="fu">installed.packages</span>())</span>
-<span id="cb1-17"><a href="tools.html#cb1-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-18"><a href="tools.html#cb1-18" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="fu">length</span>(pkgs) <span class="sc">&gt;</span> <span class="dv">0</span>) {</span>
-<span id="cb1-19"><a href="tools.html#cb1-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">paste</span>(<span class="st">&quot;The following packages did not install: </span><span class="sc">\n</span><span class="st">&quot;</span>, <span class="fu">paste</span>(pkgs, <span class="at">collapse =</span> <span class="st">&quot;</span><span class="sc">\n</span><span class="st">&quot;</span>))</span>
-<span id="cb1-20"><a href="tools.html#cb1-20" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb1-21"><a href="tools.html#cb1-21" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-22"><a href="tools.html#cb1-22" aria-hidden="true" tabindex="-1"></a><span class="co"># Try installing github packages</span></span>
-<span id="cb1-23"><a href="tools.html#cb1-23" aria-hidden="true" tabindex="-1"></a>devtools<span class="sc">::</span><span class="fu">install_github</span>(<span class="fu">c</span>(<span class="st">&quot;mine-cetinkaya-rundel/nycsquirrels18&quot;</span>, </span>
-<span id="cb1-24"><a href="tools.html#cb1-24" aria-hidden="true" tabindex="-1"></a>                           <span class="st">&quot;hadley/emo&quot;</span>, </span>
-<span id="cb1-25"><a href="tools.html#cb1-25" aria-hidden="true" tabindex="-1"></a>                           <span class="st">&quot;gadenbuie/tweetrmd&quot;</span>, </span>
-<span id="cb1-26"><a href="tools.html#cb1-26" aria-hidden="true" tabindex="-1"></a>                           <span class="st">&quot;heike/classdata&quot;</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="tools.html#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Read in a list of all packages that are required</span></span>
+<span id="cb2-2"><a href="tools.html#cb2-2" aria-hidden="true" tabindex="-1"></a>pkgs <span class="ot">&lt;-</span> <span class="fu">readLines</span>(<span class="st">&quot;https://raw.githubusercontent.com/srvanderplas/unl-stat850/master/data/packages&quot;</span>)</span>
+<span id="cb2-3"><a href="tools.html#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-4"><a href="tools.html#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Remove packages only available on github</span></span>
+<span id="cb2-5"><a href="tools.html#cb2-5" aria-hidden="true" tabindex="-1"></a>pkgs <span class="ot">&lt;-</span> <span class="fu">setdiff</span>(pkgs, <span class="fu">c</span>(<span class="st">&quot;nycsquirrels18&quot;</span>, <span class="st">&quot;emo&quot;</span>, <span class="st">&quot;tweetrmd&quot;</span>, <span class="st">&quot;classdata&quot;</span>))</span>
+<span id="cb2-6"><a href="tools.html#cb2-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-7"><a href="tools.html#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Remove any already installed packages from the list</span></span>
+<span id="cb2-8"><a href="tools.html#cb2-8" aria-hidden="true" tabindex="-1"></a>pkgs <span class="ot">&lt;-</span> <span class="fu">setdiff</span>(pkgs, <span class="fu">installed.packages</span>())</span>
+<span id="cb2-9"><a href="tools.html#cb2-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-10"><a href="tools.html#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="co"># The following code will not make a lot of sense... yet. Come back to it in a </span></span>
+<span id="cb2-11"><a href="tools.html#cb2-11" aria-hidden="true" tabindex="-1"></a><span class="co"># few weeks and see how much you understand (or can decode)</span></span>
+<span id="cb2-12"><a href="tools.html#cb2-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-13"><a href="tools.html#cb2-13" aria-hidden="true" tabindex="-1"></a><span class="co"># This ensures that if the installation fails, the code will keep running</span></span>
+<span id="cb2-14"><a href="tools.html#cb2-14" aria-hidden="true" tabindex="-1"></a>try_install_pkg <span class="ot">&lt;-</span> <span class="cf">function</span>(...) <span class="fu">try</span>(<span class="fu">install.packages</span>(..., <span class="at">dependencies =</span> T))</span>
+<span id="cb2-15"><a href="tools.html#cb2-15" aria-hidden="true" tabindex="-1"></a><span class="fu">lapply</span>(pkgs, try_install_pkg)</span>
+<span id="cb2-16"><a href="tools.html#cb2-16" aria-hidden="true" tabindex="-1"></a>pkgs <span class="ot">&lt;-</span> <span class="fu">setdiff</span>(pkgs, <span class="fu">installed.packages</span>())</span>
+<span id="cb2-17"><a href="tools.html#cb2-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-18"><a href="tools.html#cb2-18" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="fu">length</span>(pkgs) <span class="sc">&gt;</span> <span class="dv">0</span>) {</span>
+<span id="cb2-19"><a href="tools.html#cb2-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">paste</span>(<span class="st">&quot;The following packages did not install: </span><span class="sc">\n</span><span class="st">&quot;</span>, <span class="fu">paste</span>(pkgs, <span class="at">collapse =</span> <span class="st">&quot;</span><span class="sc">\n</span><span class="st">&quot;</span>))</span>
+<span id="cb2-20"><a href="tools.html#cb2-20" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb2-21"><a href="tools.html#cb2-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-22"><a href="tools.html#cb2-22" aria-hidden="true" tabindex="-1"></a><span class="co"># Try installing github packages</span></span>
+<span id="cb2-23"><a href="tools.html#cb2-23" aria-hidden="true" tabindex="-1"></a>devtools<span class="sc">::</span><span class="fu">install_github</span>(<span class="fu">c</span>(<span class="st">&quot;mine-cetinkaya-rundel/nycsquirrels18&quot;</span>, </span>
+<span id="cb2-24"><a href="tools.html#cb2-24" aria-hidden="true" tabindex="-1"></a>                           <span class="st">&quot;hadley/emo&quot;</span>, </span>
+<span id="cb2-25"><a href="tools.html#cb2-25" aria-hidden="true" tabindex="-1"></a>                           <span class="st">&quot;gadenbuie/tweetrmd&quot;</span>, </span>
+<span id="cb2-26"><a href="tools.html#cb2-26" aria-hidden="true" tabindex="-1"></a>                           <span class="st">&quot;heike/classdata&quot;</span>))</span></code></pre></div>
 <p>If some packages did not install, feel free to post in Yellowdig with the error message(s) received and the list of packages you’re having trouble installing (or contact me and we’ll set up a time to debug).</p>
 </div>
 <div id="setting-up-rstudio" class="section level3" number="1.1.3">
@@ -657,25 +659,25 @@ On Linux, instead of a YouTube video, you get a text-based <a href="https://gith
 <h4><span class="header-section-number">1.1.4.3</span> Introduce yourself to git</h4>
 <p>You need to tell git what your name and email address are, because every “commit” you make will be signed.</p>
 <p>Follow the instructions <a href="https://happygitwithr.com/hello-git.html">here</a>, or run the lines below:</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="tools.html#cb2-1" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-2"><a href="tools.html#cb2-2" aria-hidden="true" tabindex="-1"></a>user_name <span class="ot">&lt;-</span> <span class="fu">readline</span>(<span class="at">prompt =</span> <span class="st">&quot;Your full name: &quot;</span>)</span>
-<span id="cb2-3"><a href="tools.html#cb2-3" aria-hidden="true" tabindex="-1"></a>user_email <span class="ot">&lt;-</span> <span class="fu">readline</span>(<span class="at">prompt =</span> <span class="st">&quot;The address associated w your github account: &quot;</span>)</span>
-<span id="cb2-4"><a href="tools.html#cb2-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-5"><a href="tools.html#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="sc">!</span><span class="st">&quot;usethis&quot;</span> <span class="sc">%in%</span> <span class="fu">installed.packages</span>()) <span class="fu">install.packages</span>(<span class="st">&quot;usethis&quot;</span>)</span>
-<span id="cb2-6"><a href="tools.html#cb2-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-7"><a href="tools.html#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(usethis)</span>
-<span id="cb2-8"><a href="tools.html#cb2-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-9"><a href="tools.html#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="fu">use_git_config</span>(<span class="at">user.name =</span> user_name, <span class="at">user.email =</span> user_email, <span class="at">scope =</span> <span class="st">&quot;user&quot;</span>)</span>
-<span id="cb2-10"><a href="tools.html#cb2-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-11"><a href="tools.html#cb2-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Tell git to ignore all files that are OS-dependent and don&#39;t have useful data.</span></span>
-<span id="cb2-12"><a href="tools.html#cb2-12" aria-hidden="true" tabindex="-1"></a><span class="fu">git_vaccinate</span>() </span>
-<span id="cb2-13"><a href="tools.html#cb2-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-14"><a href="tools.html#cb2-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a ssh key if one doesn&#39;t already exist</span></span>
-<span id="cb2-15"><a href="tools.html#cb2-15" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="sc">!</span><span class="fu">file.exists</span>(git2r<span class="sc">::</span><span class="fu">ssh_path</span>(<span class="st">&quot;id_rsa.pub&quot;</span>))) {</span>
-<span id="cb2-16"><a href="tools.html#cb2-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">system</span>(<span class="st">&quot;ssh-keygen -t rsa -b 4096&quot;</span>) <span class="co"># Create an ssh key</span></span>
-<span id="cb2-17"><a href="tools.html#cb2-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">system</span>(<span class="st">&quot;eval $(ssh-agent -s)&quot;</span>)</span>
-<span id="cb2-18"><a href="tools.html#cb2-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">system</span>(<span class="st">&quot;ssh-add ~/.ssh/id_rsa&quot;</span>)</span>
-<span id="cb2-19"><a href="tools.html#cb2-19" aria-hidden="true" tabindex="-1"></a>} </span></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="tools.html#cb3-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-2"><a href="tools.html#cb3-2" aria-hidden="true" tabindex="-1"></a>user_name <span class="ot">&lt;-</span> <span class="fu">readline</span>(<span class="at">prompt =</span> <span class="st">&quot;Your full name: &quot;</span>)</span>
+<span id="cb3-3"><a href="tools.html#cb3-3" aria-hidden="true" tabindex="-1"></a>user_email <span class="ot">&lt;-</span> <span class="fu">readline</span>(<span class="at">prompt =</span> <span class="st">&quot;The address associated w your github account: &quot;</span>)</span>
+<span id="cb3-4"><a href="tools.html#cb3-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-5"><a href="tools.html#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="sc">!</span><span class="st">&quot;usethis&quot;</span> <span class="sc">%in%</span> <span class="fu">installed.packages</span>()) <span class="fu">install.packages</span>(<span class="st">&quot;usethis&quot;</span>)</span>
+<span id="cb3-6"><a href="tools.html#cb3-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-7"><a href="tools.html#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(usethis)</span>
+<span id="cb3-8"><a href="tools.html#cb3-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-9"><a href="tools.html#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="fu">use_git_config</span>(<span class="at">user.name =</span> user_name, <span class="at">user.email =</span> user_email, <span class="at">scope =</span> <span class="st">&quot;user&quot;</span>)</span>
+<span id="cb3-10"><a href="tools.html#cb3-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-11"><a href="tools.html#cb3-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Tell git to ignore all files that are OS-dependent and don&#39;t have useful data.</span></span>
+<span id="cb3-12"><a href="tools.html#cb3-12" aria-hidden="true" tabindex="-1"></a><span class="fu">git_vaccinate</span>() </span>
+<span id="cb3-13"><a href="tools.html#cb3-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-14"><a href="tools.html#cb3-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a ssh key if one doesn&#39;t already exist</span></span>
+<span id="cb3-15"><a href="tools.html#cb3-15" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="sc">!</span><span class="fu">file.exists</span>(git2r<span class="sc">::</span><span class="fu">ssh_path</span>(<span class="st">&quot;id_rsa.pub&quot;</span>))) {</span>
+<span id="cb3-16"><a href="tools.html#cb3-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">system</span>(<span class="st">&quot;ssh-keygen -t rsa -b 4096&quot;</span>) <span class="co"># Create an ssh key</span></span>
+<span id="cb3-17"><a href="tools.html#cb3-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">system</span>(<span class="st">&quot;eval $(ssh-agent -s)&quot;</span>)</span>
+<span id="cb3-18"><a href="tools.html#cb3-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">system</span>(<span class="st">&quot;ssh-add ~/.ssh/id_rsa&quot;</span>)</span>
+<span id="cb3-19"><a href="tools.html#cb3-19" aria-hidden="true" tabindex="-1"></a>} </span></code></pre></div>
 <p>Then, in RStudio, go to Tools &gt; Global Options &gt; Git/SVN. View your public key, and copy it to the clipboard.</p>
 <p>Then, proceed to github. Make sure you’re signed into GitHub. Click on your profile pic in upper right corner and go Settings, then SSH and GPG keys. Click “New SSH key.” Paste your public key in the “Key” box. Give it an informative title. For example, you might use 2018-mbp to record the year and computer. Click “Add SSH key.”</p>
 </div>
@@ -733,7 +735,7 @@ R is a statistical computing language which originated as an open-source clone o
 <p>Now, type 2+2 into the text editor and press the run button that is on the pane’s shortcut bar (or, you can hit Ctrl-Enter/CMD-Enter to send a single line to the console).</p>
 <p>If both of those things worked, you’re probably set up correctly!</p>
 <p>Next, try typing this into the text editor, then run the line. Look in the environment tab and see if you can see what has changed.</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="tools.html#cb3-1" aria-hidden="true" tabindex="-1"></a>a <span class="ot">&lt;-</span> <span class="dv">3</span> <span class="co"># store 3 in the variable a</span></span></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="tools.html#cb4-1" aria-hidden="true" tabindex="-1"></a>a <span class="ot">&lt;-</span> <span class="dv">3</span> <span class="co"># store 3 in the variable a</span></span></code></pre></div>
 <div class="figure">
 <img src="image/Rstudio_env_var.png" alt="" />
 <p class="caption">Your environment window should now look something like this (the .Last.value entry may not be there, and that’s ok)</p>
@@ -907,14 +909,14 @@ Latex is meant for you to focus on the content and not worry about the formattin
 <h4><span class="header-section-number">1.4.1.1</span> Local repository first</h4>
 <p>Let’s suppose you already have a folder on your machine named <code>hello-world-1</code> (you may want to create this folder now). You’ve created a starter document, say, a text file named README with “hello world” written in it.</p>
 <p>If you want, you can use the following R code to set this up:</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="tools.html#cb4-1" aria-hidden="true" tabindex="-1"></a>dir <span class="ot">&lt;-</span> <span class="st">&quot;./hello-world-1&quot;</span></span>
-<span id="cb4-2"><a href="tools.html#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="sc">!</span><span class="fu">dir.exists</span>(dir)) {</span>
-<span id="cb4-3"><a href="tools.html#cb4-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">dir.create</span>(dir)</span>
-<span id="cb4-4"><a href="tools.html#cb4-4" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb4-5"><a href="tools.html#cb4-5" aria-hidden="true" tabindex="-1"></a>file <span class="ot">&lt;-</span> <span class="fu">file.path</span>(dir, <span class="st">&quot;README&quot;</span>)</span>
-<span id="cb4-6"><a href="tools.html#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="sc">!</span><span class="fu">file.exists</span>(file)) {</span>
-<span id="cb4-7"><a href="tools.html#cb4-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">writeLines</span>(<span class="st">&quot;hello world&quot;</span>, <span class="at">con =</span> file)</span>
-<span id="cb4-8"><a href="tools.html#cb4-8" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="tools.html#cb5-1" aria-hidden="true" tabindex="-1"></a>dir <span class="ot">&lt;-</span> <span class="st">&quot;./hello-world-1&quot;</span></span>
+<span id="cb5-2"><a href="tools.html#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="sc">!</span><span class="fu">dir.exists</span>(dir)) {</span>
+<span id="cb5-3"><a href="tools.html#cb5-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">dir.create</span>(dir)</span>
+<span id="cb5-4"><a href="tools.html#cb5-4" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb5-5"><a href="tools.html#cb5-5" aria-hidden="true" tabindex="-1"></a>file <span class="ot">&lt;-</span> <span class="fu">file.path</span>(dir, <span class="st">&quot;README&quot;</span>)</span>
+<span id="cb5-6"><a href="tools.html#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="sc">!</span><span class="fu">file.exists</span>(file)) {</span>
+<span id="cb5-7"><a href="tools.html#cb5-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">writeLines</span>(<span class="st">&quot;hello world&quot;</span>, <span class="at">con =</span> file)</span>
+<span id="cb5-8"><a href="tools.html#cb5-8" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
 <p>To create a local git repository, we can go to the terminal (in Mac/Linux) or the git bash shell (in Windows), navigate to our repository folder (not shown, will be different on each computer), and type in</p>
 <pre><code>git init</code></pre>
 <p>Alternately, if you prefer a GUI (graphical user interface) approach, that will work too:</p>
@@ -1052,6 +1054,19 @@ Latex is meant for you to focus on the content and not worry about the formattin
 <li><p><a href="https://dev.to/erikaheidi/stage-commit-push-a-git-story-comic-a37">More advanced git concepts, in comic form</a>, by Erika Heidi</p></li>
 </ul>
 
+<pre><code>## List of 10
+##  $ name      : chr &quot;font-awesome&quot;
+##  $ version   : chr &quot;5.1.0&quot;
+##  $ src       :List of 1
+##   ..$ file: chr &quot;/usr/local/lib/R/site-library/rmarkdown/rmd/h/fontawesome&quot;
+##  $ meta      : NULL
+##  $ script    : NULL
+##  $ stylesheet: chr [1:2] &quot;css/all.css&quot; &quot;css/v4-shims.css&quot;
+##  $ head      : NULL
+##  $ attachment: NULL
+##  $ package   : NULL
+##  $ all_files : logi TRUE
+##  - attr(*, &quot;class&quot;)= chr &quot;html_dependency&quot;</code></pre>
 </div>
 </div>
 <div class="footnotes">

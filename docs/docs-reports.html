@@ -301,7 +301,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="organization.html"><a href="organization.html#references-and-links-1"><i class="fa fa-check"></i>References and Links</a></li>
 </ul></li>
 <li class="part"><span><b>II Data Programming</b></span></li>
-<li class="chapter" data-level="4" data-path="data-programming-basics.html"><a href="data-programming-basics.html"><i class="fa fa-check"></i><b>4</b> Basics</a>
+<li class="chapter" data-level="4" data-path="data-programming-basics.html"><a href="data-programming-basics.html"><i class="fa fa-check"></i><b>4</b> Basics of Programming with Data</a>
 <ul>
 <li class="chapter" data-level="" data-path="data-programming-basics.html"><a href="data-programming-basics.html#module4-objectives"><i class="fa fa-check"></i>Module Objectives</a></li>
 <li class="chapter" data-level="4.1" data-path="data-programming-basics.html"><a href="data-programming-basics.html#introduction-1"><i class="fa fa-check"></i><b>4.1</b> Introduction</a></li>
@@ -669,7 +669,7 @@ You can see the compiled pdf <a href="other/test.pdf">here</a>.
 <p>What happens when you remove the <code>[fragile]</code> from each frame declaration?</p>
 <p>Can you change the theme of the presentation?</p>
 <p>Add another slide, and on that slide, show an appropriate style ggplot2 graph of the distribution of board game ratings, reading in the board game ratings using the following code:</p>
-<div class="sourceCode" id="cb501"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb501-1"><a href="docs-reports.html#cb501-1" aria-hidden="true" tabindex="-1"></a>board_games <span class="ot">&lt;-</span> readr<span class="sc">::</span><span class="fu">read_csv</span>(<span class="st">&quot;https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2019/2019-03-12/board_games.csv&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb512"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb512-1"><a href="docs-reports.html#cb512-1" aria-hidden="true" tabindex="-1"></a>board_games <span class="ot">&lt;-</span> readr<span class="sc">::</span><span class="fu">read_csv</span>(<span class="st">&quot;https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2019/2019-03-12/board_games.csv&quot;</span>)</span></code></pre></div>
 <p><a href="https://kbroman.org/Tools4RR/assets/lectures/12_talks_posters_withnotes.pdf">Karl Broman has a set of slides that show how to use beamer + knitr to make reproducible slides with notes.</a></p>
 <p>You can also create Beamer slides using Rmarkdown, if you want, but you’ll probably have more control over the fine details if you go straight to the Rnw file without going through Rmd first. It’s a trade-off – the file will probably be simpler in Rmarkdown, but you won’t have nearly as much control.</p>
 </div>
@@ -778,6 +778,19 @@ You can see the compiled pdf <a href="other/test.pdf">here</a>.
 <li><p><a href="https://nanx.me/talks/jsm2018-liftr-nanxiao.pdf">liftr</a> - use Docker to make persistently reproducible documents</p></li>
 </ul>
 
+<pre><code>## List of 10
+##  $ name      : chr &quot;font-awesome&quot;
+##  $ version   : chr &quot;5.1.0&quot;
+##  $ src       :List of 1
+##   ..$ file: chr &quot;/usr/local/lib/R/site-library/rmarkdown/rmd/h/fontawesome&quot;
+##  $ meta      : NULL
+##  $ script    : NULL
+##  $ stylesheet: chr [1:2] &quot;css/all.css&quot; &quot;css/v4-shims.css&quot;
+##  $ head      : NULL
+##  $ attachment: NULL
+##  $ package   : NULL
+##  $ all_files : logi TRUE
+##  - attr(*, &quot;class&quot;)= chr &quot;html_dependency&quot;</code></pre>
 </div>
 </div>
 <div class="footnotes">

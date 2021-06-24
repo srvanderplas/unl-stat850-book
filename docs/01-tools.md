@@ -30,7 +30,20 @@ First, lets cover the basics of setting up the software you're going to be using
 
 ### SAS {#setting-up-sas}
 
-For SAS installation, see Steve Westerholt. He manages UNL SAS installations. You can pay a small fee to get the full SAS installation, or you can use SAS community edition (but if you take this route, it may be more difficult to manage your paths, etc., and you may not be able to use SAS Markdown on your machine). You can also use the HCC environment (we will talk more about this in week 2 or thereabouts) set up for you to be able to do your homework. As long as you can run SAS code on a machine you have regular access to, I'm fine.
+In this class, you have several options for how to use SAS:
+
+1. Install SAS on your machine
+    - <i class="fab fa-windows"></i> See Steve Westerholt, pay a small fee, and he will install SAS on your machine.
+    - <i class="fab fa-apple"></i> Steve Westerholt will help you acquire Parallels desktop (to emulate Windows) and SAS. You'll pay license fees for both products. 
+    - <i class="fab fa-linux"></i> Talk with me and I'll help you interface with Steve to get SAS for Linux installed on your system. Steve doesn't support Linux installs, but I can help you get SAS set up if you're using a common distribution like Ubuntu or RedHat/Fedora.
+    
+2. Use SAS University Edition/SAS OnDemand for Academics. Get more information [here](https://www.sas.com/en_us/software/on-demand-for-academics/references/getting-started-with-sas-ondemand-for-academics-studio.html). 
+    - Pros - this is free
+    - Cons - limited storage, may cause issues with paths and file upload/download (so it may be hard to ensure your homework assignments are reproducible).
+
+3. Use the Guacamole environment I've set up for the class via HCC. More information will be provided outside the textbook for this option.
+    - Pros - free, allows you access to SAS and Rstudio on the same machine (so you can use SASmarkdown seamlessly for homework). You can also use this to test the reproducibility of your assignment.
+    - Cons - This interface is only available for Stat850 - it will not be available after the class concludes. 
 
 
 ### R {#setting-up-R}

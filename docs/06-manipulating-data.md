@@ -2,6 +2,21 @@
 
 
 
+```
+## List of 10
+##  $ name      : chr "font-awesome"
+##  $ version   : chr "5.1.0"
+##  $ src       :List of 1
+##   ..$ file: chr "/usr/local/lib/R/site-library/rmarkdown/rmd/h/fontawesome"
+##  $ meta      : NULL
+##  $ script    : NULL
+##  $ stylesheet: chr [1:2] "css/all.css" "css/v4-shims.css"
+##  $ head      : NULL
+##  $ attachment: NULL
+##  $ package   : NULL
+##  $ all_files : logi TRUE
+##  - attr(*, "class")= chr "html_dependency"
+```
 
 
 
@@ -24,6 +39,10 @@ In R, we'll be using the `tidyverse` for this. It's a meta-package (a package th
 In SAS, there is no tidyverse, but there is a relatively consistent structure for how to accomplish each task. Most data cleaning in SAS is accomplished in data steps. In the interests of not confusing terms too much between languages, I'm going to use the tidyverse "verbs" to describe operations in both SAS and R. This will help all of us to focus on the essentials of the operations, instead of the specific language-based syntax.
 
 `dplyr` (one of the packages in the tidyverse) creates a "grammar of data manipulation" to make it easier to describe different operations. I find the `dplyr` grammar to be extremely useful when talking about data operations, so I'm going to attempt to show you how to do the same operations in R with dplyr, and in SAS (without the underlying framework). Each verb describes a common task when doing both exploratory data analysis and more formal statistical modeling. In all tidyverse functions, data comes first -- literally, as it's the first argument to any function. In addition, you don't use df$variable to access a variable - you refer to the variable by its name alone. This makes the syntax much cleaner and easier to read, which is another principle of the tidy philosophy. 
+
+Some people call the process of cleaning and organizing your data "data wrangling", which is a fantastic way to think about chasing down all of the issues in the data. 
+
+![Data wrangling (by Allison Horst)](https://raw.githubusercontent.com/allisonhorst/stats-illustrations/master/rstats-artwork/data_cowboy.png)
 
 <div class="learn-more">
 [There is an excellent dplyr cheatsheet available from RStudio](https://github.com/rstudio/cheatsheets/blob/master/data-transformation.pdf). You may want to print it out to have a copy to reference as you work through this chapter. </div>

@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Module 4 Basics | Stat 850: Computing Tools for Statisticians</title>
+  <title>Module 4 Basics of Programming with Data | Stat 850: Computing Tools for Statisticians</title>
   <meta name="description" content="Introductions to statistical computing packages and document preparation software. Topics include: graphical techniques, data management, Monte Carlo simulation, dynamic document preparation, presentation software." />
   <meta name="generator" content="bookdown 0.22.3 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Module 4 Basics | Stat 850: Computing Tools for Statisticians" />
+  <meta property="og:title" content="Module 4 Basics of Programming with Data | Stat 850: Computing Tools for Statisticians" />
   <meta property="og:type" content="book" />
   <meta property="og:url" content="https://srvanderplas.github.io/unl-stat850/" />
   <meta property="og:image" content="https://srvanderplas.github.io/unl-stat850//images/cover.png" />
@@ -16,7 +16,7 @@
   <meta name="github-repo" content="srvanderplas/unl-stat850" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Module 4 Basics | Stat 850: Computing Tools for Statisticians" />
+  <meta name="twitter:title" content="Module 4 Basics of Programming with Data | Stat 850: Computing Tools for Statisticians" />
   
   <meta name="twitter:description" content="Introductions to statistical computing packages and document preparation software. Topics include: graphical techniques, data management, Monte Carlo simulation, dynamic document preparation, presentation software." />
   <meta name="twitter:image" content="https://srvanderplas.github.io/unl-stat850//images/cover.png" />
@@ -301,7 +301,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="organization.html"><a href="organization.html#references-and-links-1"><i class="fa fa-check"></i>References and Links</a></li>
 </ul></li>
 <li class="part"><span><b>II Data Programming</b></span></li>
-<li class="chapter" data-level="4" data-path="data-programming-basics.html"><a href="data-programming-basics.html"><i class="fa fa-check"></i><b>4</b> Basics</a>
+<li class="chapter" data-level="4" data-path="data-programming-basics.html"><a href="data-programming-basics.html"><i class="fa fa-check"></i><b>4</b> Basics of Programming with Data</a>
 <ul>
 <li class="chapter" data-level="" data-path="data-programming-basics.html"><a href="data-programming-basics.html#module4-objectives"><i class="fa fa-check"></i>Module Objectives</a></li>
 <li class="chapter" data-level="4.1" data-path="data-programming-basics.html"><a href="data-programming-basics.html#introduction-1"><i class="fa fa-check"></i><b>4.1</b> Introduction</a></li>
@@ -552,7 +552,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
             <section class="normal" id="section-">
 <div id="data-programming-basics" class="section level1" number="4">
-<h1><span class="header-section-number">Module 4</span> Basics</h1>
+<h1><span class="header-section-number">Module 4</span> Basics of Programming with Data</h1>
 <div id="module4-objectives" class="section level2 unnumbered">
 <h2>Module Objectives</h2>
 <ul>
@@ -570,25 +570,25 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="example-1-art" class="section level2" number="4.2">
 <h2><span class="header-section-number">4.2</span> Example 1: Art</h2>
 <p>The Tate Art Museum assembled a collection of 70,000 artworks (last updated in 2014). They catalogued information including accession number, artwork dimensions, units, title, date, medium, inscription, and even URLs for images of the art.</p>
-<div class="sourceCode" id="cb124"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb124-1"><a href="data-programming-basics.html#cb124-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readr)</span>
-<span id="cb124-2"><a href="data-programming-basics.html#cb124-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(skimr)</span>
-<span id="cb124-3"><a href="data-programming-basics.html#cb124-3" aria-hidden="true" tabindex="-1"></a>artwork <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&#39;https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2021/2021-01-12/artwork.csv&#39;</span>)</span>
-<span id="cb124-4"><a href="data-programming-basics.html#cb124-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb124-5"><a href="data-programming-basics.html#cb124-5" aria-hidden="true" tabindex="-1"></a>── Column specification ────────────────────────────────────────────────────────</span>
-<span id="cb124-6"><a href="data-programming-basics.html#cb124-6" aria-hidden="true" tabindex="-1"></a><span class="fu">cols</span>(</span>
-<span id="cb124-7"><a href="data-programming-basics.html#cb124-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">.default =</span> <span class="fu">col_character</span>(),</span>
-<span id="cb124-8"><a href="data-programming-basics.html#cb124-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">id =</span> <span class="fu">col_double</span>(),</span>
-<span id="cb124-9"><a href="data-programming-basics.html#cb124-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">artistId =</span> <span class="fu">col_double</span>(),</span>
-<span id="cb124-10"><a href="data-programming-basics.html#cb124-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">year =</span> <span class="fu">col_double</span>(),</span>
-<span id="cb124-11"><a href="data-programming-basics.html#cb124-11" aria-hidden="true" tabindex="-1"></a>  <span class="at">acquisitionYear =</span> <span class="fu">col_double</span>(),</span>
-<span id="cb124-12"><a href="data-programming-basics.html#cb124-12" aria-hidden="true" tabindex="-1"></a>  <span class="at">width =</span> <span class="fu">col_double</span>(),</span>
-<span id="cb124-13"><a href="data-programming-basics.html#cb124-13" aria-hidden="true" tabindex="-1"></a>  <span class="at">height =</span> <span class="fu">col_double</span>(),</span>
-<span id="cb124-14"><a href="data-programming-basics.html#cb124-14" aria-hidden="true" tabindex="-1"></a>  <span class="at">depth =</span> <span class="fu">col_double</span>(),</span>
-<span id="cb124-15"><a href="data-programming-basics.html#cb124-15" aria-hidden="true" tabindex="-1"></a>  <span class="at">thumbnailCopyright =</span> <span class="fu">col_logical</span>()</span>
-<span id="cb124-16"><a href="data-programming-basics.html#cb124-16" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb124-17"><a href="data-programming-basics.html#cb124-17" aria-hidden="true" tabindex="-1"></a>ℹ Use <span class="st">`</span><span class="at">spec()</span><span class="st">`</span> <span class="cf">for</span> the full column specifications.</span>
-<span id="cb124-18"><a href="data-programming-basics.html#cb124-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb124-19"><a href="data-programming-basics.html#cb124-19" aria-hidden="true" tabindex="-1"></a><span class="fu">skim</span>(artwork)</span></code></pre></div>
+<div class="sourceCode" id="cb128"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb128-1"><a href="data-programming-basics.html#cb128-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readr)</span>
+<span id="cb128-2"><a href="data-programming-basics.html#cb128-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(skimr)</span>
+<span id="cb128-3"><a href="data-programming-basics.html#cb128-3" aria-hidden="true" tabindex="-1"></a>artwork <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&#39;https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2021/2021-01-12/artwork.csv&#39;</span>)</span>
+<span id="cb128-4"><a href="data-programming-basics.html#cb128-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb128-5"><a href="data-programming-basics.html#cb128-5" aria-hidden="true" tabindex="-1"></a>── Column specification ────────────────────────────────────────────────────────</span>
+<span id="cb128-6"><a href="data-programming-basics.html#cb128-6" aria-hidden="true" tabindex="-1"></a><span class="fu">cols</span>(</span>
+<span id="cb128-7"><a href="data-programming-basics.html#cb128-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">.default =</span> <span class="fu">col_character</span>(),</span>
+<span id="cb128-8"><a href="data-programming-basics.html#cb128-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">id =</span> <span class="fu">col_double</span>(),</span>
+<span id="cb128-9"><a href="data-programming-basics.html#cb128-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">artistId =</span> <span class="fu">col_double</span>(),</span>
+<span id="cb128-10"><a href="data-programming-basics.html#cb128-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">year =</span> <span class="fu">col_double</span>(),</span>
+<span id="cb128-11"><a href="data-programming-basics.html#cb128-11" aria-hidden="true" tabindex="-1"></a>  <span class="at">acquisitionYear =</span> <span class="fu">col_double</span>(),</span>
+<span id="cb128-12"><a href="data-programming-basics.html#cb128-12" aria-hidden="true" tabindex="-1"></a>  <span class="at">width =</span> <span class="fu">col_double</span>(),</span>
+<span id="cb128-13"><a href="data-programming-basics.html#cb128-13" aria-hidden="true" tabindex="-1"></a>  <span class="at">height =</span> <span class="fu">col_double</span>(),</span>
+<span id="cb128-14"><a href="data-programming-basics.html#cb128-14" aria-hidden="true" tabindex="-1"></a>  <span class="at">depth =</span> <span class="fu">col_double</span>(),</span>
+<span id="cb128-15"><a href="data-programming-basics.html#cb128-15" aria-hidden="true" tabindex="-1"></a>  <span class="at">thumbnailCopyright =</span> <span class="fu">col_logical</span>()</span>
+<span id="cb128-16"><a href="data-programming-basics.html#cb128-16" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb128-17"><a href="data-programming-basics.html#cb128-17" aria-hidden="true" tabindex="-1"></a>ℹ Use <span class="st">`</span><span class="at">spec()</span><span class="st">`</span> <span class="cf">for</span> the full column specifications.</span>
+<span id="cb128-18"><a href="data-programming-basics.html#cb128-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb128-19"><a href="data-programming-basics.html#cb128-19" aria-hidden="true" tabindex="-1"></a><span class="fu">skim</span>(artwork)</span></code></pre></div>
 <table>
 <caption><span id="tab:read-art-data">Table 4.1: </span>Data summary</caption>
 <tbody>
@@ -908,15 +908,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <summary>
 First, let’s pull out the year for each piece of artwork in the dataset and see what we can do with it…
 </summary>
-<div class="sourceCode" id="cb125"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb125-1"><a href="data-programming-basics.html#cb125-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(artwork<span class="sc">$</span>year)</span>
-<span id="cb125-2"><a href="data-programming-basics.html#cb125-2" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>]   <span class="cn">NA</span>   <span class="cn">NA</span> <span class="dv">1785</span>   <span class="cn">NA</span> <span class="dv">1826</span> <span class="dv">1826</span></span></code></pre></div>
+<div class="sourceCode" id="cb129"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb129-1"><a href="data-programming-basics.html#cb129-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(artwork<span class="sc">$</span>year)</span>
+<span id="cb129-2"><a href="data-programming-basics.html#cb129-2" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>]   <span class="cn">NA</span>   <span class="cn">NA</span> <span class="dv">1785</span>   <span class="cn">NA</span> <span class="dv">1826</span> <span class="dv">1826</span></span></code></pre></div>
 <p>We reference a column of the dataset by name using <code>dataset_name$column_name</code>, and since our data is stored in <code>artwork</code>, and we want the column named <code>year</code>, we use <code>artwork$year</code> to get access to the data we want.</p>
 <p>I’ve used the <code>head</code> command to show only the first few values (so that the output isn’t overwhelming). When we have output like this, it is useful to summarize the output in some way:</p>
-<div class="sourceCode" id="cb126"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb126-1"><a href="data-programming-basics.html#cb126-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(artwork<span class="sc">$</span>year)</span>
-<span id="cb126-2"><a href="data-programming-basics.html#cb126-2" aria-hidden="true" tabindex="-1"></a>   Min. 1st Qu.  Median    Mean 3rd Qu.    Max.    NA<span class="st">&#39;s </span></span>
-<span id="cb126-3"><a href="data-programming-basics.html#cb126-3" aria-hidden="true" tabindex="-1"></a><span class="st">   1545    1817    1831    1867    1953    2012    5397 </span></span></code></pre></div>
+<div class="sourceCode" id="cb130"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb130-1"><a href="data-programming-basics.html#cb130-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(artwork<span class="sc">$</span>year)</span>
+<span id="cb130-2"><a href="data-programming-basics.html#cb130-2" aria-hidden="true" tabindex="-1"></a>   Min. 1st Qu.  Median    Mean 3rd Qu.    Max.    NA<span class="st">&#39;s </span></span>
+<span id="cb130-3"><a href="data-programming-basics.html#cb130-3" aria-hidden="true" tabindex="-1"></a><span class="st">   1545    1817    1831    1867    1953    2012    5397 </span></span></code></pre></div>
 <p>That’s much less output, but we might want to instead make a chart:</p>
-<div class="sourceCode" id="cb127"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb127-1"><a href="data-programming-basics.html#cb127-1" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(artwork<span class="sc">$</span>year)</span></code></pre></div>
+<div class="sourceCode" id="cb131"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb131-1"><a href="data-programming-basics.html#cb131-1" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(artwork<span class="sc">$</span>year)</span></code></pre></div>
 <p><img src="image/hist-data-col-1.png" width="2100" />
 Personally, I much prefer the graphical version. It’s informative (though it does leave out NA values) and shows that there are pieces going back to the 1500s, but that most pieces were made in the early 1800s or late 1900s.</p>
 </details>
@@ -924,30 +924,43 @@ Personally, I much prefer the graphical version. It’s informative (though it d
 <summary>
 We might be interested in the aspect ratio of the artwork - let’s take a look at the input variables and define new variables related to aspect ratio(s)
 </summary>
-<div class="sourceCode" id="cb128"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb128-1"><a href="data-programming-basics.html#cb128-1" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(artwork<span class="sc">$</span>width)</span>
-<span id="cb128-2"><a href="data-programming-basics.html#cb128-2" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(artwork<span class="sc">$</span>depth)</span>
-<span id="cb128-3"><a href="data-programming-basics.html#cb128-3" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(artwork<span class="sc">$</span>height)</span></code></pre></div>
+<div class="sourceCode" id="cb132"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb132-1"><a href="data-programming-basics.html#cb132-1" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(artwork<span class="sc">$</span>width)</span>
+<span id="cb132-2"><a href="data-programming-basics.html#cb132-2" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(artwork<span class="sc">$</span>depth)</span>
+<span id="cb132-3"><a href="data-programming-basics.html#cb132-3" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(artwork<span class="sc">$</span>height)</span></code></pre></div>
 <p><img src="image/hist-dims-art-1.png" width="33%" /><img src="image/hist-dims-art-2.png" width="33%" /><img src="image/hist-dims-art-3.png" width="33%" /></p>
 <p>So all of our variables are skewed quite a bit, and we know from the existence of the <code>units</code> column that they may not be in the same unit, either…</p>
-<div class="sourceCode" id="cb129"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb129-1"><a href="data-programming-basics.html#cb129-1" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(artwork<span class="sc">$</span>units)</span>
-<span id="cb129-2"><a href="data-programming-basics.html#cb129-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb129-3"><a href="data-programming-basics.html#cb129-3" aria-hidden="true" tabindex="-1"></a>   mm </span>
-<span id="cb129-4"><a href="data-programming-basics.html#cb129-4" aria-hidden="true" tabindex="-1"></a><span class="dv">65860</span> </span></code></pre></div>
+<div class="sourceCode" id="cb133"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb133-1"><a href="data-programming-basics.html#cb133-1" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(artwork<span class="sc">$</span>units)</span>
+<span id="cb133-2"><a href="data-programming-basics.html#cb133-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb133-3"><a href="data-programming-basics.html#cb133-3" aria-hidden="true" tabindex="-1"></a>   mm </span>
+<span id="cb133-4"><a href="data-programming-basics.html#cb133-4" aria-hidden="true" tabindex="-1"></a><span class="dv">65860</span> </span></code></pre></div>
 <p>Except apparently they are, so … cool. That does make life easier.</p>
 <p>To define a new variable that exists on its own, we might do something like this:</p>
-<div class="sourceCode" id="cb130"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb130-1"><a href="data-programming-basics.html#cb130-1" aria-hidden="true" tabindex="-1"></a>aspect_hw <span class="ot">&lt;-</span> artwork<span class="sc">$</span>height<span class="sc">/</span>artwork<span class="sc">$</span>width</span>
-<span id="cb130-2"><a href="data-programming-basics.html#cb130-2" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(aspect_hw)</span>
-<span id="cb130-3"><a href="data-programming-basics.html#cb130-3" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(<span class="fu">log</span>(aspect_hw))</span></code></pre></div>
+<div class="sourceCode" id="cb134"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb134-1"><a href="data-programming-basics.html#cb134-1" aria-hidden="true" tabindex="-1"></a>aspect_hw <span class="ot">&lt;-</span> artwork<span class="sc">$</span>height<span class="sc">/</span>artwork<span class="sc">$</span>width</span>
+<span id="cb134-2"><a href="data-programming-basics.html#cb134-2" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(aspect_hw)</span>
+<span id="cb134-3"><a href="data-programming-basics.html#cb134-3" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(<span class="fu">log</span>(aspect_hw))</span></code></pre></div>
 <p><img src="image/hist-aspect-ratio-calc-1.png" width="49%" /><img src="image/hist-aspect-ratio-calc-2.png" width="49%" /></p>
 <p>Ok, interesting. Most things are pretty square-ish, but there are obviously quite a few exceptions in both directions.</p>
 <p>The one problem with how we’ve done this is that we now have a data frame with all of our data in it, and a separate variable <code>aspect_hw</code>, that is not attached to our data frame. That’s not ideal - it’s easy to lose track of the variable, it’s easy to accidentally “sort” the variable so that the row order isn’t the same as in the original data frame… there are all sorts of potential issues.</p>
 <p>So, the better way to define a new variable is to add a new <strong>column</strong> to the data frame:</p>
-<div class="sourceCode" id="cb131"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb131-1"><a href="data-programming-basics.html#cb131-1" aria-hidden="true" tabindex="-1"></a>artwork<span class="sc">$</span>aspect_hw <span class="ot">&lt;-</span> artwork<span class="sc">$</span>height<span class="sc">/</span>artwork<span class="sc">$</span>width</span></code></pre></div>
+<div class="sourceCode" id="cb135"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb135-1"><a href="data-programming-basics.html#cb135-1" aria-hidden="true" tabindex="-1"></a>artwork<span class="sc">$</span>aspect_hw <span class="ot">&lt;-</span> artwork<span class="sc">$</span>height<span class="sc">/</span>artwork<span class="sc">$</span>width</span></code></pre></div>
 <p>(We’ll learn an easier way to do this later, but this is functional, if not pretty, for now).</p>
 <p>The downside to this is that we have to write out <code>artwork$aspect_hw</code> each time we want to reference the variable. That is a pain, but one that’s relatively temporary (we’ll get to a better way to do this in a couple of weeks). A little bit of extra typing is definitely worth it if you don’t lose data you want to keep.</p>
 </details>
 <p>One mistake I see people make frequently is to calculate <code>artwork$height/artwork$width</code>, but then not assign that value to a variable. If you’re not using <code>&lt;-</code> (or <code>=</code> or <code>-&gt;</code> if you’re a total heathen) then you’re not saving that information to be referenced later - you’re just calculating values temporarily. It’s important to keep track of where you’re putting the pieces you create during an analysis - just as important as keeping track of the different sub-components when you’re putting a lego set together or making a complex recipe in the kitchen. Forgetting to assign your calculation to a variable is like dumping your mixture down the sink or throwing that small lego component into the trash.</p>
 
+<pre><code>## List of 10
+##  $ name      : chr &quot;font-awesome&quot;
+##  $ version   : chr &quot;5.1.0&quot;
+##  $ src       :List of 1
+##   ..$ file: chr &quot;/usr/local/lib/R/site-library/rmarkdown/rmd/h/fontawesome&quot;
+##  $ meta      : NULL
+##  $ script    : NULL
+##  $ stylesheet: chr [1:2] &quot;css/all.css&quot; &quot;css/v4-shims.css&quot;
+##  $ head      : NULL
+##  $ attachment: NULL
+##  $ package   : NULL
+##  $ all_files : logi TRUE
+##  - attr(*, &quot;class&quot;)= chr &quot;html_dependency&quot;</code></pre>
 </div>
 </div>
             </section>

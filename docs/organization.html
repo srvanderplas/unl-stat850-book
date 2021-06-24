@@ -301,7 +301,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="organization.html"><a href="organization.html#references-and-links-1"><i class="fa fa-check"></i>References and Links</a></li>
 </ul></li>
 <li class="part"><span><b>II Data Programming</b></span></li>
-<li class="chapter" data-level="4" data-path="data-programming-basics.html"><a href="data-programming-basics.html"><i class="fa fa-check"></i><b>4</b> Basics</a>
+<li class="chapter" data-level="4" data-path="data-programming-basics.html"><a href="data-programming-basics.html"><i class="fa fa-check"></i><b>4</b> Basics of Programming with Data</a>
 <ul>
 <li class="chapter" data-level="" data-path="data-programming-basics.html"><a href="data-programming-basics.html#module4-objectives"><i class="fa fa-check"></i>Module Objectives</a></li>
 <li class="chapter" data-level="4.1" data-path="data-programming-basics.html"><a href="data-programming-basics.html#introduction-1"><i class="fa fa-check"></i><b>4.1</b> Introduction</a></li>
@@ -713,12 +713,12 @@ The only difference between the RUN and CALL statements is the order of resoluti
 <a href="https://support.sas.com/rnd/app/iml/programming.html">Source: SAS function reference</a>
 </details>
 <p>Let’s try functions out by writing a simple function that takes two numbers as arguments and adds them together.</p>
-<div class="sourceCode" id="cb91"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb91-1"><a href="organization.html#cb91-1" aria-hidden="true" tabindex="-1"></a>adder <span class="ot">&lt;-</span> <span class="cf">function</span>(a, b) {</span>
-<span id="cb91-2"><a href="organization.html#cb91-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(a <span class="sc">+</span> b)</span>
-<span id="cb91-3"><a href="organization.html#cb91-3" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb91-4"><a href="organization.html#cb91-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb91-5"><a href="organization.html#cb91-5" aria-hidden="true" tabindex="-1"></a><span class="fu">adder</span>(<span class="dv">3</span>, <span class="dv">4</span>)</span>
-<span id="cb91-6"><a href="organization.html#cb91-6" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="dv">7</span></span></code></pre></div>
+<div class="sourceCode" id="cb94"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb94-1"><a href="organization.html#cb94-1" aria-hidden="true" tabindex="-1"></a>adder <span class="ot">&lt;-</span> <span class="cf">function</span>(a, b) {</span>
+<span id="cb94-2"><a href="organization.html#cb94-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(a <span class="sc">+</span> b)</span>
+<span id="cb94-3"><a href="organization.html#cb94-3" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb94-4"><a href="organization.html#cb94-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb94-5"><a href="organization.html#cb94-5" aria-hidden="true" tabindex="-1"></a><span class="fu">adder</span>(<span class="dv">3</span>, <span class="dv">4</span>)</span>
+<span id="cb94-6"><a href="organization.html#cb94-6" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="dv">7</span></span></code></pre></div>
 <pre class="sashtmllog"><code>6          proc IML;
 NOTE: IML Ready
 7          
@@ -777,30 +777,30 @@ c
 <summary>
 Let’s examine how the colSums() function is implemented
 </summary>
-<div class="sourceCode" id="cb93"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb93-1"><a href="organization.html#cb93-1" aria-hidden="true" tabindex="-1"></a>colSums</span>
-<span id="cb93-2"><a href="organization.html#cb93-2" aria-hidden="true" tabindex="-1"></a><span class="cf">function</span> (x, <span class="at">na.rm =</span> <span class="cn">FALSE</span>, <span class="at">dims =</span> 1L) </span>
-<span id="cb93-3"><a href="organization.html#cb93-3" aria-hidden="true" tabindex="-1"></a>{</span>
-<span id="cb93-4"><a href="organization.html#cb93-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> (<span class="fu">is.data.frame</span>(x)) </span>
-<span id="cb93-5"><a href="organization.html#cb93-5" aria-hidden="true" tabindex="-1"></a>        x <span class="ot">&lt;-</span> <span class="fu">as.matrix</span>(x)</span>
-<span id="cb93-6"><a href="organization.html#cb93-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> (<span class="sc">!</span><span class="fu">is.array</span>(x) <span class="sc">||</span> <span class="fu">length</span>(dn <span class="ot">&lt;-</span> <span class="fu">dim</span>(x)) <span class="sc">&lt;</span> 2L) </span>
-<span id="cb93-7"><a href="organization.html#cb93-7" aria-hidden="true" tabindex="-1"></a>        <span class="fu">stop</span>(<span class="st">&quot;&#39;x&#39; must be an array of at least two dimensions&quot;</span>)</span>
-<span id="cb93-8"><a href="organization.html#cb93-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> (dims <span class="sc">&lt;</span> 1L <span class="sc">||</span> dims <span class="sc">&gt;</span> <span class="fu">length</span>(dn) <span class="sc">-</span> 1L) </span>
-<span id="cb93-9"><a href="organization.html#cb93-9" aria-hidden="true" tabindex="-1"></a>        <span class="fu">stop</span>(<span class="st">&quot;invalid &#39;dims&#39;&quot;</span>)</span>
-<span id="cb93-10"><a href="organization.html#cb93-10" aria-hidden="true" tabindex="-1"></a>    n <span class="ot">&lt;-</span> <span class="fu">prod</span>(dn[id <span class="ot">&lt;-</span> <span class="fu">seq_len</span>(dims)])</span>
-<span id="cb93-11"><a href="organization.html#cb93-11" aria-hidden="true" tabindex="-1"></a>    dn <span class="ot">&lt;-</span> dn[<span class="sc">-</span>id]</span>
-<span id="cb93-12"><a href="organization.html#cb93-12" aria-hidden="true" tabindex="-1"></a>    z <span class="ot">&lt;-</span> <span class="cf">if</span> (<span class="fu">is.complex</span>(x)) </span>
-<span id="cb93-13"><a href="organization.html#cb93-13" aria-hidden="true" tabindex="-1"></a>        <span class="fu">.Internal</span>(<span class="fu">colSums</span>(<span class="fu">Re</span>(x), n, <span class="fu">prod</span>(dn), na.rm)) <span class="sc">+</span> (<span class="dv">0</span><span class="sc">+</span>1i) <span class="sc">*</span> </span>
-<span id="cb93-14"><a href="organization.html#cb93-14" aria-hidden="true" tabindex="-1"></a>            <span class="fu">.Internal</span>(<span class="fu">colSums</span>(<span class="fu">Im</span>(x), n, <span class="fu">prod</span>(dn), na.rm))</span>
-<span id="cb93-15"><a href="organization.html#cb93-15" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span> <span class="fu">.Internal</span>(<span class="fu">colSums</span>(x, n, <span class="fu">prod</span>(dn), na.rm))</span>
-<span id="cb93-16"><a href="organization.html#cb93-16" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> (<span class="fu">length</span>(dn) <span class="sc">&gt;</span> 1L) {</span>
-<span id="cb93-17"><a href="organization.html#cb93-17" aria-hidden="true" tabindex="-1"></a>        <span class="fu">dim</span>(z) <span class="ot">&lt;-</span> dn</span>
-<span id="cb93-18"><a href="organization.html#cb93-18" aria-hidden="true" tabindex="-1"></a>        <span class="fu">dimnames</span>(z) <span class="ot">&lt;-</span> <span class="fu">dimnames</span>(x)[<span class="sc">-</span>id]</span>
-<span id="cb93-19"><a href="organization.html#cb93-19" aria-hidden="true" tabindex="-1"></a>    }</span>
-<span id="cb93-20"><a href="organization.html#cb93-20" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span> <span class="fu">names</span>(z) <span class="ot">&lt;-</span> <span class="fu">dimnames</span>(x)[[dims <span class="sc">+</span> 1L]]</span>
-<span id="cb93-21"><a href="organization.html#cb93-21" aria-hidden="true" tabindex="-1"></a>    z</span>
-<span id="cb93-22"><a href="organization.html#cb93-22" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb93-23"><a href="organization.html#cb93-23" aria-hidden="true" tabindex="-1"></a><span class="sc">&lt;</span>bytecode<span class="sc">:</span> <span class="dv">0x55c638bb3af0</span><span class="sc">&gt;</span></span>
-<span id="cb93-24"><a href="organization.html#cb93-24" aria-hidden="true" tabindex="-1"></a><span class="er">&lt;</span>environment<span class="sc">:</span> namespace<span class="sc">:</span>base<span class="sc">&gt;</span></span></code></pre></div>
+<div class="sourceCode" id="cb96"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb96-1"><a href="organization.html#cb96-1" aria-hidden="true" tabindex="-1"></a>colSums</span>
+<span id="cb96-2"><a href="organization.html#cb96-2" aria-hidden="true" tabindex="-1"></a><span class="cf">function</span> (x, <span class="at">na.rm =</span> <span class="cn">FALSE</span>, <span class="at">dims =</span> 1L) </span>
+<span id="cb96-3"><a href="organization.html#cb96-3" aria-hidden="true" tabindex="-1"></a>{</span>
+<span id="cb96-4"><a href="organization.html#cb96-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> (<span class="fu">is.data.frame</span>(x)) </span>
+<span id="cb96-5"><a href="organization.html#cb96-5" aria-hidden="true" tabindex="-1"></a>        x <span class="ot">&lt;-</span> <span class="fu">as.matrix</span>(x)</span>
+<span id="cb96-6"><a href="organization.html#cb96-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> (<span class="sc">!</span><span class="fu">is.array</span>(x) <span class="sc">||</span> <span class="fu">length</span>(dn <span class="ot">&lt;-</span> <span class="fu">dim</span>(x)) <span class="sc">&lt;</span> 2L) </span>
+<span id="cb96-7"><a href="organization.html#cb96-7" aria-hidden="true" tabindex="-1"></a>        <span class="fu">stop</span>(<span class="st">&quot;&#39;x&#39; must be an array of at least two dimensions&quot;</span>)</span>
+<span id="cb96-8"><a href="organization.html#cb96-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> (dims <span class="sc">&lt;</span> 1L <span class="sc">||</span> dims <span class="sc">&gt;</span> <span class="fu">length</span>(dn) <span class="sc">-</span> 1L) </span>
+<span id="cb96-9"><a href="organization.html#cb96-9" aria-hidden="true" tabindex="-1"></a>        <span class="fu">stop</span>(<span class="st">&quot;invalid &#39;dims&#39;&quot;</span>)</span>
+<span id="cb96-10"><a href="organization.html#cb96-10" aria-hidden="true" tabindex="-1"></a>    n <span class="ot">&lt;-</span> <span class="fu">prod</span>(dn[id <span class="ot">&lt;-</span> <span class="fu">seq_len</span>(dims)])</span>
+<span id="cb96-11"><a href="organization.html#cb96-11" aria-hidden="true" tabindex="-1"></a>    dn <span class="ot">&lt;-</span> dn[<span class="sc">-</span>id]</span>
+<span id="cb96-12"><a href="organization.html#cb96-12" aria-hidden="true" tabindex="-1"></a>    z <span class="ot">&lt;-</span> <span class="cf">if</span> (<span class="fu">is.complex</span>(x)) </span>
+<span id="cb96-13"><a href="organization.html#cb96-13" aria-hidden="true" tabindex="-1"></a>        <span class="fu">.Internal</span>(<span class="fu">colSums</span>(<span class="fu">Re</span>(x), n, <span class="fu">prod</span>(dn), na.rm)) <span class="sc">+</span> (<span class="dv">0</span><span class="sc">+</span>1i) <span class="sc">*</span> </span>
+<span id="cb96-14"><a href="organization.html#cb96-14" aria-hidden="true" tabindex="-1"></a>            <span class="fu">.Internal</span>(<span class="fu">colSums</span>(<span class="fu">Im</span>(x), n, <span class="fu">prod</span>(dn), na.rm))</span>
+<span id="cb96-15"><a href="organization.html#cb96-15" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span> <span class="fu">.Internal</span>(<span class="fu">colSums</span>(x, n, <span class="fu">prod</span>(dn), na.rm))</span>
+<span id="cb96-16"><a href="organization.html#cb96-16" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> (<span class="fu">length</span>(dn) <span class="sc">&gt;</span> 1L) {</span>
+<span id="cb96-17"><a href="organization.html#cb96-17" aria-hidden="true" tabindex="-1"></a>        <span class="fu">dim</span>(z) <span class="ot">&lt;-</span> dn</span>
+<span id="cb96-18"><a href="organization.html#cb96-18" aria-hidden="true" tabindex="-1"></a>        <span class="fu">dimnames</span>(z) <span class="ot">&lt;-</span> <span class="fu">dimnames</span>(x)[<span class="sc">-</span>id]</span>
+<span id="cb96-19"><a href="organization.html#cb96-19" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb96-20"><a href="organization.html#cb96-20" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span> <span class="fu">names</span>(z) <span class="ot">&lt;-</span> <span class="fu">dimnames</span>(x)[[dims <span class="sc">+</span> 1L]]</span>
+<span id="cb96-21"><a href="organization.html#cb96-21" aria-hidden="true" tabindex="-1"></a>    z</span>
+<span id="cb96-22"><a href="organization.html#cb96-22" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb96-23"><a href="organization.html#cb96-23" aria-hidden="true" tabindex="-1"></a><span class="sc">&lt;</span>bytecode<span class="sc">:</span> <span class="dv">0x55c638bb3af0</span><span class="sc">&gt;</span></span>
+<span id="cb96-24"><a href="organization.html#cb96-24" aria-hidden="true" tabindex="-1"></a><span class="er">&lt;</span>environment<span class="sc">:</span> namespace<span class="sc">:</span>base<span class="sc">&gt;</span></span></code></pre></div>
 <p>You can see that the first 3 steps in the function are if statements to test whether the inputs are acceptable - x must be a data frame, a matrix, or an array (with 2+ dimensions).</p>
 <p>The next couple of lines test to see whether there are additional “column” dimensions (don’t worry if you don’t understand what’s going on in this code - it’s highly optimized and a bit arcane).</p>
 <p>Then, the function checks to see if x is real-valued or complex, and if it’s complex, computes the real and imaginary sums separately.</p>
@@ -815,21 +815,21 @@ Then there are statements that transfer dimension names over to the summed objec
 <summary>
 Solution
 </summary>
-<div class="sourceCode" id="cb94"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb94-1"><a href="organization.html#cb94-1" aria-hidden="true" tabindex="-1"></a>circle_area <span class="ot">&lt;-</span> <span class="cf">function</span>(r) {</span>
-<span id="cb94-2"><a href="organization.html#cb94-2" aria-hidden="true" tabindex="-1"></a>  r<span class="sc">^</span><span class="dv">2</span><span class="sc">*</span>pi <span class="co"># automatically returned as the last computed value</span></span>
-<span id="cb94-3"><a href="organization.html#cb94-3" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb94-4"><a href="organization.html#cb94-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb94-5"><a href="organization.html#cb94-5" aria-hidden="true" tabindex="-1"></a><span class="fu">circle_area</span>(<span class="dv">5</span>)</span>
-<span id="cb94-6"><a href="organization.html#cb94-6" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="fl">78.53982</span></span></code></pre></div>
+<div class="sourceCode" id="cb97"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb97-1"><a href="organization.html#cb97-1" aria-hidden="true" tabindex="-1"></a>circle_area <span class="ot">&lt;-</span> <span class="cf">function</span>(r) {</span>
+<span id="cb97-2"><a href="organization.html#cb97-2" aria-hidden="true" tabindex="-1"></a>  r<span class="sc">^</span><span class="dv">2</span><span class="sc">*</span>pi <span class="co"># automatically returned as the last computed value</span></span>
+<span id="cb97-3"><a href="organization.html#cb97-3" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb97-4"><a href="organization.html#cb97-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb97-5"><a href="organization.html#cb97-5" aria-hidden="true" tabindex="-1"></a><span class="fu">circle_area</span>(<span class="dv">5</span>)</span>
+<span id="cb97-6"><a href="organization.html#cb97-6" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="fl">78.53982</span></span></code></pre></div>
 <p>A more complete and robust answer might include a test for numeric <code>r</code>:</p>
-<div class="sourceCode" id="cb95"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb95-1"><a href="organization.html#cb95-1" aria-hidden="true" tabindex="-1"></a>circle_area <span class="ot">&lt;-</span> <span class="cf">function</span>(r) {</span>
-<span id="cb95-2"><a href="organization.html#cb95-2" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (<span class="sc">!</span><span class="fu">is.numeric</span>(r)) {</span>
-<span id="cb95-3"><a href="organization.html#cb95-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">stop</span>(<span class="st">&quot;Supplied radius must be numeric&quot;</span>) <span class="co"># This issues an error</span></span>
-<span id="cb95-4"><a href="organization.html#cb95-4" aria-hidden="true" tabindex="-1"></a>  }</span>
-<span id="cb95-5"><a href="organization.html#cb95-5" aria-hidden="true" tabindex="-1"></a>  r<span class="sc">^</span><span class="dv">2</span><span class="sc">*</span>pi <span class="co"># automatically returned as the last computed value</span></span>
-<span id="cb95-6"><a href="organization.html#cb95-6" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb95-7"><a href="organization.html#cb95-7" aria-hidden="true" tabindex="-1"></a><span class="fu">circle_area</span>(<span class="dv">5</span>)</span>
-<span id="cb95-8"><a href="organization.html#cb95-8" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="fl">78.53982</span></span></code></pre></div>
+<div class="sourceCode" id="cb98"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb98-1"><a href="organization.html#cb98-1" aria-hidden="true" tabindex="-1"></a>circle_area <span class="ot">&lt;-</span> <span class="cf">function</span>(r) {</span>
+<span id="cb98-2"><a href="organization.html#cb98-2" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (<span class="sc">!</span><span class="fu">is.numeric</span>(r)) {</span>
+<span id="cb98-3"><a href="organization.html#cb98-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">stop</span>(<span class="st">&quot;Supplied radius must be numeric&quot;</span>) <span class="co"># This issues an error</span></span>
+<span id="cb98-4"><a href="organization.html#cb98-4" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb98-5"><a href="organization.html#cb98-5" aria-hidden="true" tabindex="-1"></a>  r<span class="sc">^</span><span class="dv">2</span><span class="sc">*</span>pi <span class="co"># automatically returned as the last computed value</span></span>
+<span id="cb98-6"><a href="organization.html#cb98-6" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb98-7"><a href="organization.html#cb98-7" aria-hidden="true" tabindex="-1"></a><span class="fu">circle_area</span>(<span class="dv">5</span>)</span>
+<span id="cb98-8"><a href="organization.html#cb98-8" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="fl">78.53982</span></span></code></pre></div>
 <pre class="sashtmllog"><code>6          proc IML;
 NOTE: IML Ready
 7          
@@ -891,52 +891,52 @@ c
 <summary>
 Demonstration of scoping in R
 </summary>
-<div class="sourceCode" id="cb97"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb97-1"><a href="organization.html#cb97-1" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb97-2"><a href="organization.html#cb97-2" aria-hidden="true" tabindex="-1"></a>a <span class="ot">&lt;-</span> <span class="dv">3</span></span>
-<span id="cb97-3"><a href="organization.html#cb97-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb97-4"><a href="organization.html#cb97-4" aria-hidden="true" tabindex="-1"></a>myfun <span class="ot">&lt;-</span> <span class="cf">function</span>(a, b) {</span>
-<span id="cb97-5"><a href="organization.html#cb97-5" aria-hidden="true" tabindex="-1"></a>  a <span class="sc">+</span> b <span class="sc">+</span> <span class="dv">2</span></span>
-<span id="cb97-6"><a href="organization.html#cb97-6" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb97-7"><a href="organization.html#cb97-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb97-8"><a href="organization.html#cb97-8" aria-hidden="true" tabindex="-1"></a><span class="fu">myfun</span>(<span class="dv">5</span>, <span class="dv">6</span>) <span class="co"># a is 5 inside the function, so that overrides the </span></span>
-<span id="cb97-9"><a href="organization.html#cb97-9" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="dv">13</span></span>
-<span id="cb97-10"><a href="organization.html#cb97-10" aria-hidden="true" tabindex="-1"></a>            <span class="co"># a defined outside the function</span></span>
-<span id="cb97-11"><a href="organization.html#cb97-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb97-12"><a href="organization.html#cb97-12" aria-hidden="true" tabindex="-1"></a><span class="fu">myfun</span>(a, <span class="dv">3</span>) <span class="co"># this references the a outside the function</span></span>
-<span id="cb97-13"><a href="organization.html#cb97-13" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="dv">8</span></span></code></pre></div>
+<div class="sourceCode" id="cb100"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb100-1"><a href="organization.html#cb100-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb100-2"><a href="organization.html#cb100-2" aria-hidden="true" tabindex="-1"></a>a <span class="ot">&lt;-</span> <span class="dv">3</span></span>
+<span id="cb100-3"><a href="organization.html#cb100-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb100-4"><a href="organization.html#cb100-4" aria-hidden="true" tabindex="-1"></a>myfun <span class="ot">&lt;-</span> <span class="cf">function</span>(a, b) {</span>
+<span id="cb100-5"><a href="organization.html#cb100-5" aria-hidden="true" tabindex="-1"></a>  a <span class="sc">+</span> b <span class="sc">+</span> <span class="dv">2</span></span>
+<span id="cb100-6"><a href="organization.html#cb100-6" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb100-7"><a href="organization.html#cb100-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb100-8"><a href="organization.html#cb100-8" aria-hidden="true" tabindex="-1"></a><span class="fu">myfun</span>(<span class="dv">5</span>, <span class="dv">6</span>) <span class="co"># a is 5 inside the function, so that overrides the </span></span>
+<span id="cb100-9"><a href="organization.html#cb100-9" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="dv">13</span></span>
+<span id="cb100-10"><a href="organization.html#cb100-10" aria-hidden="true" tabindex="-1"></a>            <span class="co"># a defined outside the function</span></span>
+<span id="cb100-11"><a href="organization.html#cb100-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb100-12"><a href="organization.html#cb100-12" aria-hidden="true" tabindex="-1"></a><span class="fu">myfun</span>(a, <span class="dv">3</span>) <span class="co"># this references the a outside the function</span></span>
+<span id="cb100-13"><a href="organization.html#cb100-13" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="dv">8</span></span></code></pre></div>
 <div class="figure">
 <img src="image/03_myfun_scope.png" alt="" />
 <p class="caption">Scope diagram. When myfun() is called, the calling environment contains the two parameters a and b.</p>
 </div>
-<div class="sourceCode" id="cb98"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb98-1"><a href="organization.html#cb98-1" aria-hidden="true" tabindex="-1"></a>a <span class="ot">&lt;-</span> <span class="dv">3</span></span>
-<span id="cb98-2"><a href="organization.html#cb98-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb98-3"><a href="organization.html#cb98-3" aria-hidden="true" tabindex="-1"></a>myfun2 <span class="ot">&lt;-</span> <span class="cf">function</span>(d) {</span>
-<span id="cb98-4"><a href="organization.html#cb98-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">myfun</span>(a, d)</span>
-<span id="cb98-5"><a href="organization.html#cb98-5" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb98-6"><a href="organization.html#cb98-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb98-7"><a href="organization.html#cb98-7" aria-hidden="true" tabindex="-1"></a><span class="fu">myfun2</span>(<span class="dv">3</span>) <span class="co"># the only a in scope inside fun2 is the a defined at the top of the chunk</span></span>
-<span id="cb98-8"><a href="organization.html#cb98-8" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="dv">8</span></span></code></pre></div>
+<div class="sourceCode" id="cb101"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb101-1"><a href="organization.html#cb101-1" aria-hidden="true" tabindex="-1"></a>a <span class="ot">&lt;-</span> <span class="dv">3</span></span>
+<span id="cb101-2"><a href="organization.html#cb101-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb101-3"><a href="organization.html#cb101-3" aria-hidden="true" tabindex="-1"></a>myfun2 <span class="ot">&lt;-</span> <span class="cf">function</span>(d) {</span>
+<span id="cb101-4"><a href="organization.html#cb101-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">myfun</span>(a, d)</span>
+<span id="cb101-5"><a href="organization.html#cb101-5" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb101-6"><a href="organization.html#cb101-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb101-7"><a href="organization.html#cb101-7" aria-hidden="true" tabindex="-1"></a><span class="fu">myfun2</span>(<span class="dv">3</span>) <span class="co"># the only a in scope inside fun2 is the a defined at the top of the chunk</span></span>
+<span id="cb101-8"><a href="organization.html#cb101-8" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="dv">8</span></span></code></pre></div>
 <div class="figure">
 <img src="image/03_myfun2_scope.png" alt="" />
 <p class="caption">Scope diagram. When myfun2() is called, the calling environment contains only a parameter <span class="math inline">\(d\)</span>. <span class="math inline">\(a\)</span> is pulled from the global environment, as there is no parameter <span class="math inline">\(a\)</span> in the myfun2 calling environment.</p>
 </div>
-<div class="sourceCode" id="cb99"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb99-1"><a href="organization.html#cb99-1" aria-hidden="true" tabindex="-1"></a>a <span class="ot">&lt;-</span> <span class="dv">3</span></span>
-<span id="cb99-2"><a href="organization.html#cb99-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb99-3"><a href="organization.html#cb99-3" aria-hidden="true" tabindex="-1"></a>myfun3 <span class="ot">&lt;-</span> <span class="cf">function</span>(a, d) {</span>
-<span id="cb99-4"><a href="organization.html#cb99-4" aria-hidden="true" tabindex="-1"></a>  b <span class="ot">&lt;-</span> a; <span class="co"># make a copy of the value</span></span>
-<span id="cb99-5"><a href="organization.html#cb99-5" aria-hidden="true" tabindex="-1"></a>  a <span class="ot">&lt;-</span> <span class="dv">250</span>;</span>
-<span id="cb99-6"><a href="organization.html#cb99-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">myfun</span>(b, d)</span>
-<span id="cb99-7"><a href="organization.html#cb99-7" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb99-8"><a href="organization.html#cb99-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb99-9"><a href="organization.html#cb99-9" aria-hidden="true" tabindex="-1"></a>a</span>
-<span id="cb99-10"><a href="organization.html#cb99-10" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="dv">3</span></span>
-<span id="cb99-11"><a href="organization.html#cb99-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb99-12"><a href="organization.html#cb99-12" aria-hidden="true" tabindex="-1"></a><span class="fu">myfun3</span>(<span class="dv">5</span>, <span class="dv">3</span>) <span class="co"># now, a is defined inside fun3 as a = 5, so there is an a in </span></span>
-<span id="cb99-13"><a href="organization.html#cb99-13" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="dv">10</span></span>
-<span id="cb99-14"><a href="organization.html#cb99-14" aria-hidden="true" tabindex="-1"></a>             <span class="co"># fun3&#39;s scope that isn&#39;t in the global environment.</span></span>
-<span id="cb99-15"><a href="organization.html#cb99-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb99-16"><a href="organization.html#cb99-16" aria-hidden="true" tabindex="-1"></a>a <span class="co"># value of a hasn&#39;t changed</span></span>
-<span id="cb99-17"><a href="organization.html#cb99-17" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="dv">3</span></span></code></pre></div>
+<div class="sourceCode" id="cb102"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb102-1"><a href="organization.html#cb102-1" aria-hidden="true" tabindex="-1"></a>a <span class="ot">&lt;-</span> <span class="dv">3</span></span>
+<span id="cb102-2"><a href="organization.html#cb102-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb102-3"><a href="organization.html#cb102-3" aria-hidden="true" tabindex="-1"></a>myfun3 <span class="ot">&lt;-</span> <span class="cf">function</span>(a, d) {</span>
+<span id="cb102-4"><a href="organization.html#cb102-4" aria-hidden="true" tabindex="-1"></a>  b <span class="ot">&lt;-</span> a; <span class="co"># make a copy of the value</span></span>
+<span id="cb102-5"><a href="organization.html#cb102-5" aria-hidden="true" tabindex="-1"></a>  a <span class="ot">&lt;-</span> <span class="dv">250</span>;</span>
+<span id="cb102-6"><a href="organization.html#cb102-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">myfun</span>(b, d)</span>
+<span id="cb102-7"><a href="organization.html#cb102-7" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb102-8"><a href="organization.html#cb102-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb102-9"><a href="organization.html#cb102-9" aria-hidden="true" tabindex="-1"></a>a</span>
+<span id="cb102-10"><a href="organization.html#cb102-10" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="dv">3</span></span>
+<span id="cb102-11"><a href="organization.html#cb102-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb102-12"><a href="organization.html#cb102-12" aria-hidden="true" tabindex="-1"></a><span class="fu">myfun3</span>(<span class="dv">5</span>, <span class="dv">3</span>) <span class="co"># now, a is defined inside fun3 as a = 5, so there is an a in </span></span>
+<span id="cb102-13"><a href="organization.html#cb102-13" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="dv">10</span></span>
+<span id="cb102-14"><a href="organization.html#cb102-14" aria-hidden="true" tabindex="-1"></a>             <span class="co"># fun3&#39;s scope that isn&#39;t in the global environment.</span></span>
+<span id="cb102-15"><a href="organization.html#cb102-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb102-16"><a href="organization.html#cb102-16" aria-hidden="true" tabindex="-1"></a>a <span class="co"># value of a hasn&#39;t changed</span></span>
+<span id="cb102-17"><a href="organization.html#cb102-17" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="dv">3</span></span></code></pre></div>
 <div class="figure">
 <img src="image/03_myfun3_scope.png" alt="" />
 <p class="caption">Scope diagram. When myfun3() is called, the calling environment contains parameters a and d, which are then copied into the calling environment of myfun as <span class="math inline">\(a\)</span> and <span class="math inline">\(b\)</span>. The variable <span class="math inline">\(a\)</span> in the global environment is ignored.</p>
@@ -1401,28 +1401,28 @@ If you want to avoid any of these side-effects of SAS’s pass-by-reference beha
 Argument passing in R
 </summary>
 <p>In R, variables inside a function don’t modify variables which are outside a function (generally speaking). In SAS, this is not necessarily the case. In the first call to myfun(), we pass in two numerical arguments, and we see that even though the value of a changes inside the function, that change doesn’t affect the variable defined outside of the function. In the second call to myfun(), we pass a variable in as an argument, and we see that the variable changes after the function’s execution! In the R chunk (below), you can see that the behavior of what is essentially the same code is different.</p>
-<div class="sourceCode" id="cb106"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb106-1"><a href="organization.html#cb106-1" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb106-2"><a href="organization.html#cb106-2" aria-hidden="true" tabindex="-1"></a>a <span class="ot">&lt;-</span> <span class="dv">3</span></span>
-<span id="cb106-3"><a href="organization.html#cb106-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb106-4"><a href="organization.html#cb106-4" aria-hidden="true" tabindex="-1"></a>myfun <span class="ot">&lt;-</span> <span class="cf">function</span>(a, b) {</span>
-<span id="cb106-5"><a href="organization.html#cb106-5" aria-hidden="true" tabindex="-1"></a>  a <span class="ot">&lt;-</span> a <span class="sc">+</span> <span class="dv">2</span></span>
-<span id="cb106-6"><a href="organization.html#cb106-6" aria-hidden="true" tabindex="-1"></a>  a <span class="sc">+</span> b</span>
-<span id="cb106-7"><a href="organization.html#cb106-7" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb106-8"><a href="organization.html#cb106-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb106-9"><a href="organization.html#cb106-9" aria-hidden="true" tabindex="-1"></a>a</span>
-<span id="cb106-10"><a href="organization.html#cb106-10" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="dv">3</span></span>
-<span id="cb106-11"><a href="organization.html#cb106-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb106-12"><a href="organization.html#cb106-12" aria-hidden="true" tabindex="-1"></a><span class="fu">myfun</span>(<span class="dv">5</span>, <span class="dv">6</span>)</span>
-<span id="cb106-13"><a href="organization.html#cb106-13" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="dv">13</span></span>
-<span id="cb106-14"><a href="organization.html#cb106-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb106-15"><a href="organization.html#cb106-15" aria-hidden="true" tabindex="-1"></a>a</span>
-<span id="cb106-16"><a href="organization.html#cb106-16" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="dv">3</span></span>
-<span id="cb106-17"><a href="organization.html#cb106-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb106-18"><a href="organization.html#cb106-18" aria-hidden="true" tabindex="-1"></a><span class="fu">myfun</span>(a, <span class="dv">3</span>) </span>
-<span id="cb106-19"><a href="organization.html#cb106-19" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="dv">8</span></span>
-<span id="cb106-20"><a href="organization.html#cb106-20" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb106-21"><a href="organization.html#cb106-21" aria-hidden="true" tabindex="-1"></a>a</span>
-<span id="cb106-22"><a href="organization.html#cb106-22" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="dv">3</span></span></code></pre></div>
+<div class="sourceCode" id="cb109"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb109-1"><a href="organization.html#cb109-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb109-2"><a href="organization.html#cb109-2" aria-hidden="true" tabindex="-1"></a>a <span class="ot">&lt;-</span> <span class="dv">3</span></span>
+<span id="cb109-3"><a href="organization.html#cb109-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb109-4"><a href="organization.html#cb109-4" aria-hidden="true" tabindex="-1"></a>myfun <span class="ot">&lt;-</span> <span class="cf">function</span>(a, b) {</span>
+<span id="cb109-5"><a href="organization.html#cb109-5" aria-hidden="true" tabindex="-1"></a>  a <span class="ot">&lt;-</span> a <span class="sc">+</span> <span class="dv">2</span></span>
+<span id="cb109-6"><a href="organization.html#cb109-6" aria-hidden="true" tabindex="-1"></a>  a <span class="sc">+</span> b</span>
+<span id="cb109-7"><a href="organization.html#cb109-7" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb109-8"><a href="organization.html#cb109-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb109-9"><a href="organization.html#cb109-9" aria-hidden="true" tabindex="-1"></a>a</span>
+<span id="cb109-10"><a href="organization.html#cb109-10" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="dv">3</span></span>
+<span id="cb109-11"><a href="organization.html#cb109-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb109-12"><a href="organization.html#cb109-12" aria-hidden="true" tabindex="-1"></a><span class="fu">myfun</span>(<span class="dv">5</span>, <span class="dv">6</span>)</span>
+<span id="cb109-13"><a href="organization.html#cb109-13" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="dv">13</span></span>
+<span id="cb109-14"><a href="organization.html#cb109-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb109-15"><a href="organization.html#cb109-15" aria-hidden="true" tabindex="-1"></a>a</span>
+<span id="cb109-16"><a href="organization.html#cb109-16" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="dv">3</span></span>
+<span id="cb109-17"><a href="organization.html#cb109-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb109-18"><a href="organization.html#cb109-18" aria-hidden="true" tabindex="-1"></a><span class="fu">myfun</span>(a, <span class="dv">3</span>) </span>
+<span id="cb109-19"><a href="organization.html#cb109-19" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="dv">8</span></span>
+<span id="cb109-20"><a href="organization.html#cb109-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb109-21"><a href="organization.html#cb109-21" aria-hidden="true" tabindex="-1"></a>a</span>
+<span id="cb109-22"><a href="organization.html#cb109-22" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="dv">3</span></span></code></pre></div>
 </details>
 <div id="try-it-out-10" class="section level4 unnumbered tryitout">
 <h4>Try it out</h4>
@@ -1549,12 +1549,12 @@ Infix operators
 <p>Most functions take arguments written after the function name. Can you think of any functions which work differently?</p>
 <p><strong>Infix</strong> functions are functions that take arguments on both sides of the function name. Say, a + b: technically, a and b are arguments to the function +, so we could think of this as +(a, b).</p>
 <p>R has a number of infix functions, but you can also create your own. User-defined infix functions start and end with %. So %&gt;%, %in%, %dosomething% would all be valid infix operators. To define one, you need to enclose the name in back-ticks (`).</p>
-<div class="sourceCode" id="cb112"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb112-1"><a href="organization.html#cb112-1" aria-hidden="true" tabindex="-1"></a><span class="st">`</span><span class="at">%dosomething%</span><span class="st">`</span> <span class="ot">&lt;-</span> <span class="cf">function</span>(a, b) {</span>
-<span id="cb112-2"><a href="organization.html#cb112-2" aria-hidden="true" tabindex="-1"></a>  a<span class="sc">^</span>b <span class="sc">-</span> a <span class="sc">+</span> b</span>
-<span id="cb112-3"><a href="organization.html#cb112-3" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb112-4"><a href="organization.html#cb112-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb112-5"><a href="organization.html#cb112-5" aria-hidden="true" tabindex="-1"></a><span class="dv">3</span> <span class="sc">%dosomething%</span> <span class="dv">4</span></span>
-<span id="cb112-6"><a href="organization.html#cb112-6" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="dv">82</span></span></code></pre></div>
+<div class="sourceCode" id="cb115"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb115-1"><a href="organization.html#cb115-1" aria-hidden="true" tabindex="-1"></a><span class="st">`</span><span class="at">%dosomething%</span><span class="st">`</span> <span class="ot">&lt;-</span> <span class="cf">function</span>(a, b) {</span>
+<span id="cb115-2"><a href="organization.html#cb115-2" aria-hidden="true" tabindex="-1"></a>  a<span class="sc">^</span>b <span class="sc">-</span> a <span class="sc">+</span> b</span>
+<span id="cb115-3"><a href="organization.html#cb115-3" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb115-4"><a href="organization.html#cb115-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb115-5"><a href="organization.html#cb115-5" aria-hidden="true" tabindex="-1"></a><span class="dv">3</span> <span class="sc">%dosomething%</span> <span class="dv">4</span></span>
+<span id="cb115-6"><a href="organization.html#cb115-6" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="dv">82</span></span></code></pre></div>
 <p>You can also call default infix operators using this syntax: `+`(3, 4) = 7</p>
 One of the most useful infix operators is the pipe, <code>%&gt;%</code>, which is a part of the <code>magrittr</code> library and is commonly included in other packages, such as <code>dplyr</code>, and <code>tidyr</code> (we will talk about packages later in this chapter, but pipes are useful to discuss now, so roll with it for a few minutes).
 </details>
@@ -1562,28 +1562,28 @@ One of the most useful infix operators is the pipe, <code>%&gt;%</code>, which i
 <div class="learn-more">
 <p>There is an <a href="https://r4ds.had.co.nz/pipes.html">entire chapter dedicated to discussing the pipe in R4DS</a>, including a discussion of when not to use the pipe.</p>
 </div>
-<div class="sourceCode" id="cb113"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb113-1"><a href="organization.html#cb113-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(magrittr)</span>
-<span id="cb113-2"><a href="organization.html#cb113-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb113-3"><a href="organization.html#cb113-3" aria-hidden="true" tabindex="-1"></a><span class="dv">3</span> <span class="sc">%&gt;%</span> <span class="fu">exp</span>()</span>
-<span id="cb113-4"><a href="organization.html#cb113-4" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="fl">20.08554</span></span>
-<span id="cb113-5"><a href="organization.html#cb113-5" aria-hidden="true" tabindex="-1"></a><span class="fu">exp</span>(<span class="dv">3</span>)</span>
-<span id="cb113-6"><a href="organization.html#cb113-6" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="fl">20.08554</span></span></code></pre></div>
+<div class="sourceCode" id="cb116"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb116-1"><a href="organization.html#cb116-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(magrittr)</span>
+<span id="cb116-2"><a href="organization.html#cb116-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb116-3"><a href="organization.html#cb116-3" aria-hidden="true" tabindex="-1"></a><span class="dv">3</span> <span class="sc">%&gt;%</span> <span class="fu">exp</span>()</span>
+<span id="cb116-4"><a href="organization.html#cb116-4" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="fl">20.08554</span></span>
+<span id="cb116-5"><a href="organization.html#cb116-5" aria-hidden="true" tabindex="-1"></a><span class="fu">exp</span>(<span class="dv">3</span>)</span>
+<span id="cb116-6"><a href="organization.html#cb116-6" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="fl">20.08554</span></span></code></pre></div>
 <p>The pipe takes the left hand side and a function, and puts the left hand side as an argument to the function on the right hand side. It doesn’t sound very impressive, but it allows you to do a very cool thing: “chain” operations.</p>
 <p>Consider 3 functions:</p>
-<div class="sourceCode" id="cb114"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb114-1"><a href="organization.html#cb114-1" aria-hidden="true" tabindex="-1"></a>f1 <span class="ot">&lt;-</span> <span class="cf">function</span>(x, <span class="at">y =</span> <span class="dv">3</span>) {</span>
-<span id="cb114-2"><a href="organization.html#cb114-2" aria-hidden="true" tabindex="-1"></a>  x <span class="sc">*</span> y</span>
-<span id="cb114-3"><a href="organization.html#cb114-3" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb114-4"><a href="organization.html#cb114-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb114-5"><a href="organization.html#cb114-5" aria-hidden="true" tabindex="-1"></a>f2 <span class="ot">&lt;-</span> <span class="cf">function</span>(z) {</span>
-<span id="cb114-6"><a href="organization.html#cb114-6" aria-hidden="true" tabindex="-1"></a>  z<span class="sc">^</span><span class="dv">2</span></span>
-<span id="cb114-7"><a href="organization.html#cb114-7" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb114-8"><a href="organization.html#cb114-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb114-9"><a href="organization.html#cb114-9" aria-hidden="true" tabindex="-1"></a>f3 <span class="ot">&lt;-</span> <span class="cf">function</span>(z2) {</span>
-<span id="cb114-10"><a href="organization.html#cb114-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">log10</span>(z2)</span>
-<span id="cb114-11"><a href="organization.html#cb114-11" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb117"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb117-1"><a href="organization.html#cb117-1" aria-hidden="true" tabindex="-1"></a>f1 <span class="ot">&lt;-</span> <span class="cf">function</span>(x, <span class="at">y =</span> <span class="dv">3</span>) {</span>
+<span id="cb117-2"><a href="organization.html#cb117-2" aria-hidden="true" tabindex="-1"></a>  x <span class="sc">*</span> y</span>
+<span id="cb117-3"><a href="organization.html#cb117-3" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb117-4"><a href="organization.html#cb117-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb117-5"><a href="organization.html#cb117-5" aria-hidden="true" tabindex="-1"></a>f2 <span class="ot">&lt;-</span> <span class="cf">function</span>(z) {</span>
+<span id="cb117-6"><a href="organization.html#cb117-6" aria-hidden="true" tabindex="-1"></a>  z<span class="sc">^</span><span class="dv">2</span></span>
+<span id="cb117-7"><a href="organization.html#cb117-7" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb117-8"><a href="organization.html#cb117-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb117-9"><a href="organization.html#cb117-9" aria-hidden="true" tabindex="-1"></a>f3 <span class="ot">&lt;-</span> <span class="cf">function</span>(z2) {</span>
+<span id="cb117-10"><a href="organization.html#cb117-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">log10</span>(z2)</span>
+<span id="cb117-11"><a href="organization.html#cb117-11" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
 <p>Normally, you’d write <code>f3(f2(f1(4)))</code>, which you have to read from the inside to the outside if you want to describe what this function call is doing. With pipes, you can write the same operation as:</p>
-<div class="sourceCode" id="cb115"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb115-1"><a href="organization.html#cb115-1" aria-hidden="true" tabindex="-1"></a><span class="dv">4</span> <span class="sc">%&gt;%</span> <span class="fu">f1</span>() <span class="sc">%&gt;%</span> <span class="fu">f2</span>() <span class="sc">%&gt;%</span> <span class="fu">f3</span>()</span>
-<span id="cb115-2"><a href="organization.html#cb115-2" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="fl">2.158362</span></span></code></pre></div>
+<div class="sourceCode" id="cb118"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb118-1"><a href="organization.html#cb118-1" aria-hidden="true" tabindex="-1"></a><span class="dv">4</span> <span class="sc">%&gt;%</span> <span class="fu">f1</span>() <span class="sc">%&gt;%</span> <span class="fu">f2</span>() <span class="sc">%&gt;%</span> <span class="fu">f3</span>()</span>
+<span id="cb118-2"><a href="organization.html#cb118-2" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="fl">2.158362</span></span></code></pre></div>
 <p>This is much simpler to read - it’s like a recipe. “Take 4, do f1, then f2, then f3.”</p>
 <p>You don’t need to know how to define your own infix operators, but you will want to become familiar with the pipe. It’s a central component of writing “tidy” R code. Incidentally, SAS also has a use for the pipe: <a href="https://blogs.sas.com/content/sgf/2016/03/11/using-a-pipe-to-return-the-output-of-an-operating-system-command-to-sas-software/">leveraging the operating system to work with files</a>. In SAS, you just use the keyword <code>pipe</code>, which is hopefully pretty obvious.</p>
 </div>
@@ -3438,8 +3438,8 @@ RUN;</code></pre>
 <p>I maintain a list of packages that I find to be useful so that when I install R on a new machine (or update R), I don’t have to spend 3 weeks realizing that I need to install X package. Instead of many repeated 5 minute pauses for package installation, I can just let this script run once and walk away.</p>
 <p>I’ve pared down my list of packages a bit for this class (you don’t need the packages for analysis of 3D bullet scan data, for instance), but this step should help populate your R installation with a few new packages.</p>
 <p>Read the script (located <a href="code/03_setup.R">here</a>) and try to understand what it is doing. Once you think you understand what it is doing, run the following command to run the script and install the packages on your machine. Were you right?</p>
-<div class="sourceCode" id="cb121"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb121-1"><a href="organization.html#cb121-1" aria-hidden="true" tabindex="-1"></a>url <span class="ot">&lt;-</span> <span class="st">&quot;https://raw.githubusercontent.com/srvanderplas/unl-stat850/master/code/03_setup.R&quot;</span></span>
-<span id="cb121-2"><a href="organization.html#cb121-2" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(url)</span></code></pre></div>
+<div class="sourceCode" id="cb124"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb124-1"><a href="organization.html#cb124-1" aria-hidden="true" tabindex="-1"></a>url <span class="ot">&lt;-</span> <span class="st">&quot;https://raw.githubusercontent.com/srvanderplas/unl-stat850/master/code/03_setup.R&quot;</span></span>
+<span id="cb124-2"><a href="organization.html#cb124-2" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(url)</span></code></pre></div>
 </div>
 <div id="try-it-out-sas" class="section level3 unnumbered tryitout">
 <h3>Try it out (SAS)</h3>
@@ -3617,20 +3617,20 @@ Another way to get help on a package is to use <code>?&lt;package name&gt;</code
 <summary>
 Solution
 </summary>
-<div class="sourceCode" id="cb123"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb123-1"><a href="organization.html#cb123-1" aria-hidden="true" tabindex="-1"></a><span class="do">## install.packages(&quot;tibble&quot;)</span></span>
-<span id="cb123-2"><a href="organization.html#cb123-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tibble)</span>
-<span id="cb123-3"><a href="organization.html#cb123-3" aria-hidden="true" tabindex="-1"></a><span class="do">## ?tibble</span></span>
-<span id="cb123-4"><a href="organization.html#cb123-4" aria-hidden="true" tabindex="-1"></a><span class="do">## ?tribble</span></span>
-<span id="cb123-5"><a href="organization.html#cb123-5" aria-hidden="true" tabindex="-1"></a><span class="fu">tribble</span>(<span class="sc">~</span>var1, <span class="sc">~</span>var2,</span>
-<span id="cb123-6"><a href="organization.html#cb123-6" aria-hidden="true" tabindex="-1"></a>        <span class="dv">1</span>, <span class="dv">2</span>, </span>
-<span id="cb123-7"><a href="organization.html#cb123-7" aria-hidden="true" tabindex="-1"></a>        <span class="dv">3</span>, <span class="dv">4</span>,</span>
-<span id="cb123-8"><a href="organization.html#cb123-8" aria-hidden="true" tabindex="-1"></a>        <span class="dv">5</span>, <span class="dv">6</span>)</span>
-<span id="cb123-9"><a href="organization.html#cb123-9" aria-hidden="true" tabindex="-1"></a><span class="co"># A tibble: 3 x 2</span></span>
-<span id="cb123-10"><a href="organization.html#cb123-10" aria-hidden="true" tabindex="-1"></a>   var1  var2</span>
-<span id="cb123-11"><a href="organization.html#cb123-11" aria-hidden="true" tabindex="-1"></a>  <span class="sc">&lt;</span>dbl<span class="sc">&gt;</span> <span class="er">&lt;</span>dbl<span class="sc">&gt;</span></span>
-<span id="cb123-12"><a href="organization.html#cb123-12" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span>     <span class="dv">1</span>     <span class="dv">2</span></span>
-<span id="cb123-13"><a href="organization.html#cb123-13" aria-hidden="true" tabindex="-1"></a><span class="dv">2</span>     <span class="dv">3</span>     <span class="dv">4</span></span>
-<span id="cb123-14"><a href="organization.html#cb123-14" aria-hidden="true" tabindex="-1"></a><span class="dv">3</span>     <span class="dv">5</span>     <span class="dv">6</span></span></code></pre></div>
+<div class="sourceCode" id="cb126"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb126-1"><a href="organization.html#cb126-1" aria-hidden="true" tabindex="-1"></a><span class="do">## install.packages(&quot;tibble&quot;)</span></span>
+<span id="cb126-2"><a href="organization.html#cb126-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tibble)</span>
+<span id="cb126-3"><a href="organization.html#cb126-3" aria-hidden="true" tabindex="-1"></a><span class="do">## ?tibble</span></span>
+<span id="cb126-4"><a href="organization.html#cb126-4" aria-hidden="true" tabindex="-1"></a><span class="do">## ?tribble</span></span>
+<span id="cb126-5"><a href="organization.html#cb126-5" aria-hidden="true" tabindex="-1"></a><span class="fu">tribble</span>(<span class="sc">~</span>var1, <span class="sc">~</span>var2,</span>
+<span id="cb126-6"><a href="organization.html#cb126-6" aria-hidden="true" tabindex="-1"></a>        <span class="dv">1</span>, <span class="dv">2</span>, </span>
+<span id="cb126-7"><a href="organization.html#cb126-7" aria-hidden="true" tabindex="-1"></a>        <span class="dv">3</span>, <span class="dv">4</span>,</span>
+<span id="cb126-8"><a href="organization.html#cb126-8" aria-hidden="true" tabindex="-1"></a>        <span class="dv">5</span>, <span class="dv">6</span>)</span>
+<span id="cb126-9"><a href="organization.html#cb126-9" aria-hidden="true" tabindex="-1"></a><span class="co"># A tibble: 3 x 2</span></span>
+<span id="cb126-10"><a href="organization.html#cb126-10" aria-hidden="true" tabindex="-1"></a>   var1  var2</span>
+<span id="cb126-11"><a href="organization.html#cb126-11" aria-hidden="true" tabindex="-1"></a>  <span class="sc">&lt;</span>dbl<span class="sc">&gt;</span> <span class="er">&lt;</span>dbl<span class="sc">&gt;</span></span>
+<span id="cb126-12"><a href="organization.html#cb126-12" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span>     <span class="dv">1</span>     <span class="dv">2</span></span>
+<span id="cb126-13"><a href="organization.html#cb126-13" aria-hidden="true" tabindex="-1"></a><span class="dv">2</span>     <span class="dv">3</span>     <span class="dv">4</span></span>
+<span id="cb126-14"><a href="organization.html#cb126-14" aria-hidden="true" tabindex="-1"></a><span class="dv">3</span>     <span class="dv">5</span>     <span class="dv">6</span></span></code></pre></div>
 </details>
 </div>
 </div>
@@ -3646,6 +3646,19 @@ Solution
 <li><a href="https://psyteachr.github.io/msc-data-skills/tidyr.html#pipes">Another explanation of pipes</a> (lots of examples)</li>
 </ul>
 
+<pre><code>## List of 10
+##  $ name      : chr &quot;font-awesome&quot;
+##  $ version   : chr &quot;5.1.0&quot;
+##  $ src       :List of 1
+##   ..$ file: chr &quot;/usr/local/lib/R/site-library/rmarkdown/rmd/h/fontawesome&quot;
+##  $ meta      : NULL
+##  $ script    : NULL
+##  $ stylesheet: chr [1:2] &quot;css/all.css&quot; &quot;css/v4-shims.css&quot;
+##  $ head      : NULL
+##  $ attachment: NULL
+##  $ package   : NULL
+##  $ all_files : logi TRUE
+##  - attr(*, &quot;class&quot;)= chr &quot;html_dependency&quot;</code></pre>
 </div>
 </div>
 
