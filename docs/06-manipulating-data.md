@@ -1405,7 +1405,7 @@ NOTE: PROCEDURE SQL used (Total process time):
 <br>
 </div>
 
-SELECT \* says to select all variables. We'll talk about SELECT in the next section, but with SQL it's not reqlly possible to avoid using SELECT.
+SELECT \* says to select all variables. We'll talk about SELECT in the next section, but with SQL it's not really possible to avoid using SELECT.
 
 If we want the 5 pokemon with the highest total points, we can use ORDER BY to sort the table, and then specify that we only want 5 rows.
 
@@ -44213,7 +44213,7 @@ NOTE: PROCEDURE BOXPLOT used (Total process time):
 <details class = "ex"><summary>We could also look to see how a storm's diameter evolves over time, from when the storm is first identified (group_by + mutate) </summary>
 Diameter measurements don't exist for all storms, and they appear to measure the diameter of the wind field - that is, the region where the winds are hurricane or tropical storm force. (`?storms` documents the dataset and its variables). 
 
-Note the use of `as.numeric(as.character(max(category)))` to get the maximum (ordinal categorial) strength and convert that into something numeric that can be plotted. 
+Note the use of `as.numeric(as.character(max(category)))` to get the maximum (ordinal categorical) strength and convert that into something numeric that can be plotted. 
 
 ```r
 storm_evolution <- storms %>%
@@ -44382,7 +44382,7 @@ It looks like Ike went long-ways across Cuba, which weakened it. When hurricanes
 
 When you `group_by` a variable, your tibble carries this grouping with it. Summarize will remove one layer of grouping (by default), but if you ever want to return to a completely ungrouped data set, you should use the `ungroup()` command. 
 
-![The ungroup() command is just as important as teh group_by() command! (by Allison Horst)](https://raw.githubusercontent.com/allisonhorst/stats-illustrations/master/rstats-blanks/ungroup_blank.png)
+![The ungroup() command is just as important as the group_by() command! (by Allison Horst)](https://raw.githubusercontent.com/allisonhorst/stats-illustrations/master/rstats-blanks/ungroup_blank.png)
 
 ## Other `dplyr` functions: across, relocate
 

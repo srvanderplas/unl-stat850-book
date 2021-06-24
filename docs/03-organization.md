@@ -2427,6 +2427,7 @@ tribble(~var1, ~var2,
 ## References and Links {.learn-more -}
 
 - A more advanced take on functions in R can be found [here](http://adv-r.had.co.nz/Functions.html) (Advanced R chapter)
+- [Software Carpentry: Creating, Using, and Debugging functions in R](https://swcarpentry.github.io/r-novice-inflammation/02-func-R/)
 - There is also a handy cheat sheet style summary of PROC IML in SAS [here](https://www.iuj.ac.jp/faculty/kucc625/sas/sas_iml.html) and some useful demonstrations of simple tasks in IML [here](https://faculty.tarleton.edu/crawford/documents/Math5364/ProcIMLandMacros.txt). 
 - A helpful blog post for scoping in SAS is [here](https://blogs.sas.com/content/iml/2013/04/29/understanding-local-and-global-variables-in-the-sasiml-language.html)
 - [Here is another explanation of pass-by-value vs. pass-by-reference](https://www.educative.io/edpresso/pass-by-value-vs-pass-by-reference) (intended for C programming)

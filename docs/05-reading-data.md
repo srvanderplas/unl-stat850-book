@@ -5226,6 +5226,28 @@ Major components of EDA:
 - unique values
 
 
+
+### Comparison between R and SAS {-}
+
+
+> You must realize that R is written by experts in
+statistics and statistical computing who, despite
+popular opinion, do not believe that everything in
+SAS and SPSS is worth copying. Some things done
+in such packages, which trace their roots back to
+the days of punched cards and magnetic tape when
+fitting a single linear model may take several days
+because your first 5 attempts failed due to syntax
+errors in the JCL or the SAS code, still reflect the
+approach of "give me every possible statistic that
+could be calculated from this model, whether or
+not it makes sense". The approach taken in R is
+different. The underlying assumption is that the
+useR is thinking about the analysis while doing it. – Douglas Bates
+
+
+I provide this as a historical artifact, but it does explain the difference between the approach to EDA and model output in R, and the approach in SAS. This is not a criticism -- the SAS philosophy dates back to the mainframe and punch card days, and the syntax and output still bear evidence of that -- but it is worth noting. In R you will have to specify each piece of output you want, but in SAS you will get more than you ever wanted with a single command.  Neither approach is wrong, but sometimes one is preferable over the other for a given problem.
+
 ### SAS 
 
 
@@ -14853,23 +14875,6 @@ The thing I'm honestly most surprised at with this plot is that there are so man
 My analysis in R was a bit more free-form than in SAS - in SAS, I proceeded fairly directly through each procedure, while in R, I could investigate things that caught my eye along the way more easily. I didn't focus as much on what we'd need to clean up in R (because the same problems exist that we identified when using SAS). 
 </details>
 
-
-## Comparison between R and SAS
-
-> You must realize that R is written by experts in
-statistics and statistical computing who, despite
-popular opinion, do not believe that everything in
-SAS and SPSS is worth copying. Some things done
-in such packages, which trace their roots back to
-the days of punched cards and magnetic tape when
-fitting a single linear model may take several days
-because your first 5 attempts failed due to syntax
-errors in the JCL or the SAS code, still reflect the
-approach of "give me every possible statistic that
-could be calculated from this model, whether or
-not it makes sense". The approach taken in R is
-different. The underlying assumption is that the
-useR is thinking about the analysis while doing it. – Douglas Bates
 
 ## References and Links {.learn-more -}
 

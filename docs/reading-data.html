@@ -319,10 +319,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="5.2" data-path="reading-data.html"><a href="reading-data.html#exploratory-data-analysis"><i class="fa fa-check"></i><b>5.2</b> Exploratory Data Analysis</a>
 <ul>
+<li class="chapter" data-level="" data-path="reading-data.html"><a href="reading-data.html#comparison-between-r-and-sas"><i class="fa fa-check"></i>Comparison between R and SAS</a></li>
 <li class="chapter" data-level="5.2.1" data-path="reading-data.html"><a href="reading-data.html#sas-1"><i class="fa fa-check"></i><b>5.2.1</b> SAS</a></li>
 <li class="chapter" data-level="5.2.2" data-path="reading-data.html"><a href="reading-data.html#r-1"><i class="fa fa-check"></i><b>5.2.2</b> R</a></li>
 </ul></li>
-<li class="chapter" data-level="5.3" data-path="reading-data.html"><a href="reading-data.html#comparison-between-r-and-sas"><i class="fa fa-check"></i><b>5.3</b> Comparison between R and SAS</a></li>
 <li class="chapter" data-level="" data-path="reading-data.html"><a href="reading-data.html#references-and-links-2"><i class="fa fa-check"></i>References and Links</a></li>
 </ul></li>
 <li class="chapter" data-level="6" data-path="manipulating-data.html"><a href="manipulating-data.html"><i class="fa fa-check"></i><b>6</b> Manipulating Data</a>
@@ -10193,6 +10193,26 @@ run; </code></pre>
 <li>basic plots</li>
 <li>unique values</li>
 </ul>
+<div id="comparison-between-r-and-sas" class="section level3 unnumbered">
+<h3>Comparison between R and SAS</h3>
+<blockquote>
+<p>You must realize that R is written by experts in
+statistics and statistical computing who, despite
+popular opinion, do not believe that everything in
+SAS and SPSS is worth copying. Some things done
+in such packages, which trace their roots back to
+the days of punched cards and magnetic tape when
+fitting a single linear model may take several days
+because your first 5 attempts failed due to syntax
+errors in the JCL or the SAS code, still reflect the
+approach of “give me every possible statistic that
+could be calculated from this model, whether or
+not it makes sense.” The approach taken in R is
+different. The underlying assumption is that the
+useR is thinking about the analysis while doing it. – Douglas Bates</p>
+</blockquote>
+<p>I provide this as a historical artifact, but it does explain the difference between the approach to EDA and model output in R, and the approach in SAS. This is not a criticism – the SAS philosophy dates back to the mainframe and punch card days, and the syntax and output still bear evidence of that – but it is worth noting. In R you will have to specify each piece of output you want, but in SAS you will get more than you ever wanted with a single command. Neither approach is wrong, but sometimes one is preferable over the other for a given problem.</p>
+</div>
 <div id="sas-1" class="section level3" number="5.2.1">
 <h3><span class="header-section-number">5.2.1</span> SAS</h3>
 <ol style="list-style-type: decimal">
@@ -27158,25 +27178,6 @@ My analysis in R was a bit more free-form than in SAS - in SAS, I proceeded fair
 </details>
 </div>
 </div>
-</div>
-<div id="comparison-between-r-and-sas" class="section level2" number="5.3">
-<h2><span class="header-section-number">5.3</span> Comparison between R and SAS</h2>
-<blockquote>
-<p>You must realize that R is written by experts in
-statistics and statistical computing who, despite
-popular opinion, do not believe that everything in
-SAS and SPSS is worth copying. Some things done
-in such packages, which trace their roots back to
-the days of punched cards and magnetic tape when
-fitting a single linear model may take several days
-because your first 5 attempts failed due to syntax
-errors in the JCL or the SAS code, still reflect the
-approach of “give me every possible statistic that
-could be calculated from this model, whether or
-not it makes sense.” The approach taken in R is
-different. The underlying assumption is that the
-useR is thinking about the analysis while doing it. – Douglas Bates</p>
-</blockquote>
 </div>
 <div id="references-and-links-2" class="section level2 learn-more unnumbered">
 <h2>References and Links</h2>

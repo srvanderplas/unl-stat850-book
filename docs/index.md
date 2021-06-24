@@ -1,7 +1,7 @@
 --- 
 title: "Stat 850: Computing Tools for Statisticians"
 author: "Susan Vanderplas"
-date: "Last Updated:  2021-05-25"
+date: "Last Updated:  2021-06-24"
 site: bookdown::bookdown_site
 documentclass: book
 bibliography: [book.bib, packages.bib]
