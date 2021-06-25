@@ -9,12 +9,13 @@ xml2
 tibble
 readr
 skimr
+ggplot2
+tidyverse
 gdata
 readxl
 Hmisc
 RSQLite
 DBI
-ggplot2
 nycflights13
 tweetrmd
 memoise
@@ -23,7 +24,6 @@ tidyr
 stringr
 purrr
 dbplyr
-tidyverse
 maps
 ggthemes
 png

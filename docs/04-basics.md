@@ -33,13 +33,11 @@
 - Apply syntax knowledge to reference variables and observations in common data structures
 - Create new variables and columns or reformat existing columns in provided data structures
 
-
 ## Introduction
 
 At this point in the course, you've learned how to write functions. You know the basics of how to create new variables, how data frames and lists work, and how to use markdown.
 
-And yet... these are skills that take some practice when applied to new data. So this week, we're going to focus on working with datasets, but we're not going to learn much in the way of new material (though I'll provide sample code for tasks like basic plots and tables). This week is about reinforcing the skills you've already learned, and helping you find your feet a bit as you work through a data analysis. It will also provide a preview of some of the packages we're going to work with in the coming weeks (because I'm going to show you how to e.g. summarize a dataset and plot a few things, even without having covered that material). 
-
+And yet... these are skills that take some practice when applied to new data. So this week, we're going to focus on working with datasets, but we're not going to learn much in the way of new material (though I'll provide sample code for tasks like basic plots and tables). This week is about **reinforcing the skills you've already learned**, and helping you find your feet a bit as you work through a data analysis. It will also provide a preview of some of the packages we're going to work with in the coming weeks (because I'm going to show you how to e.g. summarize a dataset and plot a few things, even without having covered that material). 
 
 As you've probably guessed by now, this week's reading will primarily be focused on examples.
 
@@ -206,3 +204,311 @@ The downside to this is that we have to write out `artwork$aspect_hw` each time 
 One mistake I see people make frequently is to calculate `artwork$height/artwork$width`, but then not assign that value to a variable. If you're not using `<-` (or `=` or `->` if you're a total heathen) then you're not saving that information to be referenced later - you're just calculating values temporarily. It's important to keep track of where you're putting the pieces you create during an analysis - just as important as keeping track of the different sub-components when you're putting a lego set together or making a complex recipe in the kitchen. Forgetting to assign your calculation to a variable is like dumping your mixture down the sink or throwing that small lego component into the trash.
 
 
+## Example 2: Dogs of NYC
+
+New York City provides a whole host of open-data resources, including a [dataset of dogs licensed in the city on an annual basis](https://data.cityofnewyork.us/Health/NYC-Dog-Licensing-Dataset/nu7n-tubp) (link is to the NYC Open Data Page). 
+
+[CSV link](https://data.cityofnewyork.us/api/views/nu7n-tubp/rows.csv?accessType=DOWNLOAD) (this data is ~23 MB)
+
+
+```r
+library(readr)
+
+if (!file.exists("data/NYC_dogs.csv")) {
+  # if the file doesn't exist, download it!
+  download.file(
+    "https://data.cityofnewyork.us/api/views/nu7n-tubp/rows.csv?accessType=DOWNLOAD", # url for download
+    destfile = "data/NYC_dogs.csv", # location to store the file
+    mode = "wb" # need this to get downloads to work on windows
+  )
+}
+
+dogs <- read_csv("data/NYC_dogs.csv")
+
+── Column specification ────────────────────────────────────────────────────────
+cols(
+  RowNumber = col_double(),
+  AnimalName = col_character(),
+  AnimalGender = col_character(),
+  AnimalBirthMonth = col_double(),
+  BreedName = col_character(),
+  Borough = col_logical(),
+  ZipCode = col_double(),
+  LicenseIssuedDate = col_character(),
+  LicenseExpiredDate = col_character(),
+  `Extract Year` = col_double()
+)
+head(dogs)
+# A tibble: 6 x 10
+  RowNumber AnimalName AnimalGender AnimalBirthMonth BreedName   Borough ZipCode
+      <dbl> <chr>      <chr>                   <dbl> <chr>       <lgl>     <dbl>
+1         1 PAIGE      F                        2014 American P… NA        10035
+2         2 YOGI       M                        2010 Boxer       NA        10465
+3         3 ALI        M                        2014 Basenji     NA        10013
+4         4 QUEEN      F                        2013 Akita Cros… NA        10013
+5         5 LOLA       F                        2009 Maltese     NA        10028
+6         6 IAN        M                        2006 Unknown     NA        10013
+# … with 3 more variables: LicenseIssuedDate <chr>, LicenseExpiredDate <chr>,
+#   Extract Year <dbl>
+```
+
+One thing we might want to do first is to transform the license dates (`LicenseIssuedDate`, `LicenseExpiredDate`) into actual dates instead of characters. We will use the `lubridate` package to do this, because it is designed to make working with dates and times very easy.
+
+
+```r
+library(lubridate)
+
+Attaching package: 'lubridate'
+The following objects are masked from 'package:base':
+
+    date, intersect, setdiff, union
+head(dogs$LicenseExpiredDate) # Dates are in month-day-year format
+[1] "09/12/2017" "10/02/2017" "09/12/2019" "09/12/2017" "10/09/2017"
+[6] "10/30/2019"
+
+
+dogs$LicenseExpiredDate <- mdy(dogs$LicenseExpiredDate)
+dogs$LicenseIssuedDate <- mdy(dogs$LicenseIssuedDate)
+```
+
+It might be interesting to see when licenses have been issued over time, so let's make a histogram:
+
+
+```r
+library(ggplot2)
+
+ggplot(
+  data = dogs, 
+  aes(x = LicenseIssuedDate) # Specify we want LicenseIssueDate on the x-axis
+) + 
+  geom_histogram() # Create a histogram
+`stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
+```
+
+<img src="image/dog-license-hist-1.png" width="2100" />
+
+There is an interesting periodicity to the license issue dates. 
+
+I'm also curious about how long a license tends to be held for - we can get this information by subtracting the issue date from the expiration date.
+
+
+```r
+dogs$LicenseLength <- dogs$LicenseExpiredDate - dogs$LicenseIssuedDate
+summary(dogs$LicenseLength)
+  Length    Class     Mode 
+  345727 difftime  numeric 
+head(dogs$LicenseLength)
+Time differences in days
+[1] 1096 1116 1826 1096 1123 1874
+```
+
+We can see that directly subtracting date-times gives us a license length in days. That's useful enough, I guess, but it might be more useful in years... unfortunately, that's not an option for `difftime()`
+
+
+
+```r
+dogs$LicenseLength <- difftime(dogs$LicenseExpiredDate, dogs$LicenseIssuedDate, units = "weeks")
+
+# 52 weeks in a year so we'll just convert as we plot
+ggplot(data = dogs, aes(x = LicenseLength / 52 )) + geom_histogram() + 
+  scale_x_continuous(breaks = 0:10)
+`stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
+```
+
+<img src="image/dog-license-length-2-1.png" width="2100" />
+
+Another question that I have when looking at this dataset is a bit more superficial - are the characteristics of different areas different? The `dogs` data frame has a Borough column, but it's not actually filled in, so we'll need to get rid of it and then add Borough back in by zip code. 
+
+To look at this, we'll need a bit more data. I found a list of NYC zip codes by borough, which we can merge in with the data we already have to get puppy registrations by borough. Then, we can see if e.g. the top 10 breeds are different for different boroughs. To simplify this, I'm going to link to a file to merge in, and not show you the specifics of how I read the table from [this site](https://www.nycbynatives.com/nyc_info/new_york_city_zip_codes.php) into R.
+
+
+
+
+```r
+borough_zip <- read_csv("https://raw.githubusercontent.com/srvanderplas/unl-stat850/master/data/nyc_zip_borough.csv")
+
+── Column specification ────────────────────────────────────────────────────────
+cols(
+  ZipCode = col_double(),
+  Borough = col_character()
+)
+
+# Remove the Borough column from dogs
+dogs <- dogs[, which(names(dogs) != "Borough")]
+dogs <- merge(dogs, borough_zip, by = "ZipCode")
+head(dogs)
+  ZipCode RowNumber AnimalName AnimalGender AnimalBirthMonth
+1   10001     82601       ABBY            F             2008
+2   10001     33510    SALOMON            M             2014
+3   10001    114699    MAXWELL            M             2016
+4   10001     95306     CHANCE            M             2015
+5   10001     19397      TEDDY            M             2017
+6   10001      1506      CAIRO            M             2012
+            BreedName LicenseIssuedDate LicenseExpiredDate Extract Year
+1  Labrador Retriever        2016-08-01         2021-09-24         2016
+2             Unknown        2015-12-05         2017-07-21         2016
+3  Labrador Retriever        2017-12-26         2018-12-26         2017
+4             Pointer        2017-09-14         2018-10-02         2017
+5 Shih Tzu Crossbreed        2017-04-27         2018-04-27         2018
+6    Bull Dog, French        2015-03-29         2018-04-19         2017
+    LicenseLength   Borough
+1 268.57143 weeks Manhattan
+2  84.85714 weeks Manhattan
+3  52.14286 weeks Manhattan
+4  54.71429 weeks Manhattan
+5  52.14286 weeks Manhattan
+6 159.57143 weeks Manhattan
+```
+
+Now that we have borough, let's write a function that will take a dataset and spit out a list of the top 5 dog breeds registered in that area.
+
+
+```r
+top_5_breeds <- function(data) {
+  # Inside the function, our dataset is called data, not dogs
+  tmp <- table(data$BreedName) 
+  return(sort(tmp, decreasing = T)[1:5]) # top 5 breeds with counts
+}
+```
+
+Now, using that function, lets write a for loop that loops through the 5 boroughs and spits out the top 5 breeds in each borough:
+
+
+```r
+boroughs <- unique(borough_zip$Borough) # get a list of the 5 boroughs
+for (i in boroughs) {
+  # Get subset of data frame corresponding to the Borough
+  dogs_sub <- subset(dogs, Borough == i)
+  # Get top 5 dog breeds
+  result <- as.data.frame(top_5_breeds(dogs_sub))
+  # set names
+  names(result) <- c("Breed", "Freq")
+  # Add Borough as a new column
+  result$Borough <- i
+  # Add rank as a new column
+  result$rank <- 1:5
+  
+  print(result)
+}
+               Breed  Freq   Borough rank
+1            Unknown 12310 Manhattan    1
+2  Yorkshire Terrier  5371 Manhattan    2
+3          Chihuahua  5115 Manhattan    3
+4           Shih Tzu  4607 Manhattan    4
+5 Labrador Retriever  4162 Manhattan    5
+               Breed Freq Borough rank
+1            Unknown 4119  Staten    1
+2           Shih Tzu 2114  Staten    2
+3  Yorkshire Terrier 2107  Staten    3
+4 Labrador Retriever 1484  Staten    4
+5            Maltese 1129  Staten    5
+                               Breed Freq Borough rank
+1                  Yorkshire Terrier 3603   Bronx    1
+2                            Unknown 3484   Bronx    2
+3                           Shih Tzu 2976   Bronx    3
+4                          Chihuahua 2224   Bronx    4
+5 American Pit Bull Terrier/Pit Bull 1820   Bronx    5
+              Breed Freq Borough rank
+1           Unknown 8341  Queens    1
+2 Yorkshire Terrier 4689  Queens    2
+3          Shih Tzu 4272  Queens    3
+4           Maltese 3090  Queens    4
+5         Chihuahua 2990  Queens    5
+                                 Breed Freq  Borough rank
+1                              Unknown 9863 Brooklyn    1
+2                    Yorkshire Terrier 5820 Brooklyn    2
+3                             Shih Tzu 5345 Brooklyn    3
+4                            Chihuahua 4078 Brooklyn    4
+5 American Pit Bull Mix / Pit Bull Mix 3201 Brooklyn    5
+```
+
+If we wanted to save these results as a summary data frame, we could totally do that!
+
+
+```r
+breeds_by_borough <- data.frame() # create a blank data frame
+
+for (i in boroughs) {
+  # Get subset of data frame corresponding to the Borough
+  dogs_sub <- subset(dogs, Borough == i)
+  # Get top 5 dog breeds
+  result <- as.data.frame(top_5_breeds(dogs_sub))
+  # set names
+  names(result) <- c("Breed", "Freq")
+  # Add Borough as a new column
+  result$Borough <- i
+  # Add rank as a new column
+  result$rank <- 1:5
+  
+  breeds_by_borough <- rbind(breeds_by_borough, result)
+}
+
+breeds_by_borough
+                                  Breed  Freq   Borough rank
+1                               Unknown 12310 Manhattan    1
+2                     Yorkshire Terrier  5371 Manhattan    2
+3                             Chihuahua  5115 Manhattan    3
+4                              Shih Tzu  4607 Manhattan    4
+5                    Labrador Retriever  4162 Manhattan    5
+6                               Unknown  4119    Staten    1
+7                              Shih Tzu  2114    Staten    2
+8                     Yorkshire Terrier  2107    Staten    3
+9                    Labrador Retriever  1484    Staten    4
+10                              Maltese  1129    Staten    5
+11                    Yorkshire Terrier  3603     Bronx    1
+12                              Unknown  3484     Bronx    2
+13                             Shih Tzu  2976     Bronx    3
+14                            Chihuahua  2224     Bronx    4
+15   American Pit Bull Terrier/Pit Bull  1820     Bronx    5
+16                              Unknown  8341    Queens    1
+17                    Yorkshire Terrier  4689    Queens    2
+18                             Shih Tzu  4272    Queens    3
+19                              Maltese  3090    Queens    4
+20                            Chihuahua  2990    Queens    5
+21                              Unknown  9863  Brooklyn    1
+22                    Yorkshire Terrier  5820  Brooklyn    2
+23                             Shih Tzu  5345  Brooklyn    3
+24                            Chihuahua  4078  Brooklyn    4
+25 American Pit Bull Mix / Pit Bull Mix  3201  Brooklyn    5
+```
+
+We could even sort our data by the rank and Borough for easier comparisons:
+
+
+```r
+
+breeds_by_borough[order(breeds_by_borough$rank, 
+                        breeds_by_borough$Borough),]
+                                  Breed  Freq   Borough rank
+11                    Yorkshire Terrier  3603     Bronx    1
+21                              Unknown  9863  Brooklyn    1
+1                               Unknown 12310 Manhattan    1
+16                              Unknown  8341    Queens    1
+6                               Unknown  4119    Staten    1
+12                              Unknown  3484     Bronx    2
+22                    Yorkshire Terrier  5820  Brooklyn    2
+2                     Yorkshire Terrier  5371 Manhattan    2
+17                    Yorkshire Terrier  4689    Queens    2
+7                              Shih Tzu  2114    Staten    2
+13                             Shih Tzu  2976     Bronx    3
+23                             Shih Tzu  5345  Brooklyn    3
+3                             Chihuahua  5115 Manhattan    3
+18                             Shih Tzu  4272    Queens    3
+8                     Yorkshire Terrier  2107    Staten    3
+14                            Chihuahua  2224     Bronx    4
+24                            Chihuahua  4078  Brooklyn    4
+4                              Shih Tzu  4607 Manhattan    4
+19                              Maltese  3090    Queens    4
+9                    Labrador Retriever  1484    Staten    4
+15   American Pit Bull Terrier/Pit Bull  1820     Bronx    5
+25 American Pit Bull Mix / Pit Bull Mix  3201  Brooklyn    5
+5                    Labrador Retriever  4162 Manhattan    5
+20                            Chihuahua  2990    Queens    5
+10                              Maltese  1129    Staten    5
+```
+
+::: tryitout
+Look at the name, age, or gender of dogs registered in NYC and see if you can come up with a similar function and way of summarizing the data in a for-loop.
+:::
+
+In 2 weeks, we'll learn a much shorter set of commands to get these types of summaries, but it's important to know how a for loop connects to the concept of summarizing data by a factor (in this case, by borough).

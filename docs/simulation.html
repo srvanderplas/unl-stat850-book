@@ -306,6 +306,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="data-programming-basics.html"><a href="data-programming-basics.html#module4-objectives"><i class="fa fa-check"></i>Module Objectives</a></li>
 <li class="chapter" data-level="4.1" data-path="data-programming-basics.html"><a href="data-programming-basics.html#introduction-1"><i class="fa fa-check"></i><b>4.1</b> Introduction</a></li>
 <li class="chapter" data-level="4.2" data-path="data-programming-basics.html"><a href="data-programming-basics.html#example-1-art"><i class="fa fa-check"></i><b>4.2</b> Example 1: Art</a></li>
+<li class="chapter" data-level="4.3" data-path="data-programming-basics.html"><a href="data-programming-basics.html#example-2-dogs-of-nyc"><i class="fa fa-check"></i><b>4.3</b> Example 2: Dogs of NYC</a></li>
 </ul></li>
 <li class="chapter" data-level="5" data-path="reading-data.html"><a href="reading-data.html"><i class="fa fa-check"></i><b>5</b> External Data</a>
 <ul>
@@ -575,33 +576,33 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 It is critically important to set your seed if you want the results to be reproducible and you are using an algorithm that depends on randomness.<a href="#fn36" class="footnote-ref" id="fnref36"><sup>36</sup></a>
 </summary>
 <p>Once you set your seed, the remaining results will only be reproducible if you generate the same set of random numbers every time.</p>
-<div class="sourceCode" id="cb488"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb488-1"><a href="simulation.html#cb488-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">342512</span>)</span>
-<span id="cb488-2"><a href="simulation.html#cb488-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb488-3"><a href="simulation.html#cb488-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Get 10 numbers after the seed is set</span></span>
-<span id="cb488-4"><a href="simulation.html#cb488-4" aria-hidden="true" tabindex="-1"></a><span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">100</span>, <span class="dv">10</span>)</span>
-<span id="cb488-5"><a href="simulation.html#cb488-5" aria-hidden="true" tabindex="-1"></a> [<span class="dv">1</span>] <span class="dv">65</span> <span class="dv">51</span> <span class="dv">64</span> <span class="dv">21</span> <span class="dv">45</span> <span class="dv">53</span>  <span class="dv">3</span>  <span class="dv">6</span> <span class="dv">43</span>  <span class="dv">8</span></span>
-<span id="cb488-6"><a href="simulation.html#cb488-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb488-7"><a href="simulation.html#cb488-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Compute something else that depends on randomness</span></span>
-<span id="cb488-8"><a href="simulation.html#cb488-8" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(<span class="fu">rnorm</span>(<span class="dv">50</span>))</span>
-<span id="cb488-9"><a href="simulation.html#cb488-9" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="sc">-</span><span class="fl">0.1095366</span></span>
-<span id="cb488-10"><a href="simulation.html#cb488-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb488-11"><a href="simulation.html#cb488-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Get 10 more numbers</span></span>
-<span id="cb488-12"><a href="simulation.html#cb488-12" aria-hidden="true" tabindex="-1"></a><span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">100</span>, <span class="dv">10</span>)</span>
-<span id="cb488-13"><a href="simulation.html#cb488-13" aria-hidden="true" tabindex="-1"></a> [<span class="dv">1</span>]  <span class="dv">4</span> <span class="dv">57</span> <span class="dv">69</span> <span class="dv">10</span> <span class="dv">76</span> <span class="dv">15</span> <span class="dv">67</span>  <span class="dv">1</span>  <span class="dv">3</span> <span class="dv">91</span></span></code></pre></div>
+<div class="sourceCode" id="cb498"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb498-1"><a href="simulation.html#cb498-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">342512</span>)</span>
+<span id="cb498-2"><a href="simulation.html#cb498-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb498-3"><a href="simulation.html#cb498-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Get 10 numbers after the seed is set</span></span>
+<span id="cb498-4"><a href="simulation.html#cb498-4" aria-hidden="true" tabindex="-1"></a><span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">100</span>, <span class="dv">10</span>)</span>
+<span id="cb498-5"><a href="simulation.html#cb498-5" aria-hidden="true" tabindex="-1"></a> [<span class="dv">1</span>] <span class="dv">65</span> <span class="dv">51</span> <span class="dv">64</span> <span class="dv">21</span> <span class="dv">45</span> <span class="dv">53</span>  <span class="dv">3</span>  <span class="dv">6</span> <span class="dv">43</span>  <span class="dv">8</span></span>
+<span id="cb498-6"><a href="simulation.html#cb498-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb498-7"><a href="simulation.html#cb498-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Compute something else that depends on randomness</span></span>
+<span id="cb498-8"><a href="simulation.html#cb498-8" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(<span class="fu">rnorm</span>(<span class="dv">50</span>))</span>
+<span id="cb498-9"><a href="simulation.html#cb498-9" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="sc">-</span><span class="fl">0.1095366</span></span>
+<span id="cb498-10"><a href="simulation.html#cb498-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb498-11"><a href="simulation.html#cb498-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Get 10 more numbers</span></span>
+<span id="cb498-12"><a href="simulation.html#cb498-12" aria-hidden="true" tabindex="-1"></a><span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">100</span>, <span class="dv">10</span>)</span>
+<span id="cb498-13"><a href="simulation.html#cb498-13" aria-hidden="true" tabindex="-1"></a> [<span class="dv">1</span>]  <span class="dv">4</span> <span class="dv">57</span> <span class="dv">69</span> <span class="dv">10</span> <span class="dv">76</span> <span class="dv">15</span> <span class="dv">67</span>  <span class="dv">1</span>  <span class="dv">3</span> <span class="dv">91</span></span></code></pre></div>
 <p>Compare the results above to these results:</p>
-<div class="sourceCode" id="cb489"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb489-1"><a href="simulation.html#cb489-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">342512</span>)</span>
-<span id="cb489-2"><a href="simulation.html#cb489-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb489-3"><a href="simulation.html#cb489-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Get 10 numbers after the seed is set</span></span>
-<span id="cb489-4"><a href="simulation.html#cb489-4" aria-hidden="true" tabindex="-1"></a><span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">100</span>, <span class="dv">10</span>)</span>
-<span id="cb489-5"><a href="simulation.html#cb489-5" aria-hidden="true" tabindex="-1"></a> [<span class="dv">1</span>] <span class="dv">65</span> <span class="dv">51</span> <span class="dv">64</span> <span class="dv">21</span> <span class="dv">45</span> <span class="dv">53</span>  <span class="dv">3</span>  <span class="dv">6</span> <span class="dv">43</span>  <span class="dv">8</span></span>
-<span id="cb489-6"><a href="simulation.html#cb489-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb489-7"><a href="simulation.html#cb489-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Compute something else that depends on randomness</span></span>
-<span id="cb489-8"><a href="simulation.html#cb489-8" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(<span class="fu">rnorm</span>(<span class="dv">30</span>))</span>
-<span id="cb489-9"><a href="simulation.html#cb489-9" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="sc">-</span><span class="fl">0.1936645</span></span>
-<span id="cb489-10"><a href="simulation.html#cb489-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb489-11"><a href="simulation.html#cb489-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Get 10 more numbers</span></span>
-<span id="cb489-12"><a href="simulation.html#cb489-12" aria-hidden="true" tabindex="-1"></a><span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">100</span>, <span class="dv">10</span>)</span>
-<span id="cb489-13"><a href="simulation.html#cb489-13" aria-hidden="true" tabindex="-1"></a> [<span class="dv">1</span>]  <span class="dv">49</span>  <span class="dv">37</span>   <span class="dv">6</span>  <span class="dv">34</span>   <span class="dv">9</span>   <span class="dv">3</span> <span class="dv">100</span>  <span class="dv">43</span>   <span class="dv">7</span>  <span class="dv">29</span></span></code></pre></div>
+<div class="sourceCode" id="cb499"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb499-1"><a href="simulation.html#cb499-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">342512</span>)</span>
+<span id="cb499-2"><a href="simulation.html#cb499-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb499-3"><a href="simulation.html#cb499-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Get 10 numbers after the seed is set</span></span>
+<span id="cb499-4"><a href="simulation.html#cb499-4" aria-hidden="true" tabindex="-1"></a><span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">100</span>, <span class="dv">10</span>)</span>
+<span id="cb499-5"><a href="simulation.html#cb499-5" aria-hidden="true" tabindex="-1"></a> [<span class="dv">1</span>] <span class="dv">65</span> <span class="dv">51</span> <span class="dv">64</span> <span class="dv">21</span> <span class="dv">45</span> <span class="dv">53</span>  <span class="dv">3</span>  <span class="dv">6</span> <span class="dv">43</span>  <span class="dv">8</span></span>
+<span id="cb499-6"><a href="simulation.html#cb499-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb499-7"><a href="simulation.html#cb499-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Compute something else that depends on randomness</span></span>
+<span id="cb499-8"><a href="simulation.html#cb499-8" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(<span class="fu">rnorm</span>(<span class="dv">30</span>))</span>
+<span id="cb499-9"><a href="simulation.html#cb499-9" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="sc">-</span><span class="fl">0.1936645</span></span>
+<span id="cb499-10"><a href="simulation.html#cb499-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb499-11"><a href="simulation.html#cb499-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Get 10 more numbers</span></span>
+<span id="cb499-12"><a href="simulation.html#cb499-12" aria-hidden="true" tabindex="-1"></a><span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">100</span>, <span class="dv">10</span>)</span>
+<span id="cb499-13"><a href="simulation.html#cb499-13" aria-hidden="true" tabindex="-1"></a> [<span class="dv">1</span>]  <span class="dv">49</span>  <span class="dv">37</span>   <span class="dv">6</span>  <span class="dv">34</span>   <span class="dv">9</span>   <span class="dv">3</span> <span class="dv">100</span>  <span class="dv">43</span>   <span class="dv">7</span>  <span class="dv">29</span></span></code></pre></div>
 Notice how the results have changed? To make my documents more reproducible, I will sometimes set a new seed at the start of an important chunk, even if I’ve already set the seed earlier. This introduces certain “fixed points” where results won’t change immediately after I’ve re-set the seed. This is particularly important when I’m generating bootstrap estimates, fitting models, or simulating data for graphics experiments.
 </details>
 <p>Pick your seed in any way you want. I tend to just randomly wiggle my fingers over the number keys, but I have also heard of people using the date in yyyymmdd format, favorite people’s birthdays, the current time in hhmmss format… basically, you can use anything.</p>
@@ -614,34 +615,34 @@ Often, we can get away with just simulating data from a known distribution. As b
 In R
 </summary>
 <p>You can see the various distribution options using <code>?Distributions</code>. In general, <code>dxxx</code> is the PDF/PMF, <code>pxxx</code> is the CDF, <code>qxxx</code> is the quantile function, and <code>rxxx</code> gives you random nubmers generated from the distribution. (<code>xxx</code>, obviously, is whatever distribution you’re looking to use.)</p>
-<div class="sourceCode" id="cb490"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb490-1"><a href="simulation.html#cb490-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tibble)</span>
-<span id="cb490-2"><a href="simulation.html#cb490-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
-<span id="cb490-3"><a href="simulation.html#cb490-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb490-4"><a href="simulation.html#cb490-4" aria-hidden="true" tabindex="-1"></a>Attaching package<span class="sc">:</span> <span class="st">&#39;dplyr&#39;</span></span>
-<span id="cb490-5"><a href="simulation.html#cb490-5" aria-hidden="true" tabindex="-1"></a>The following objects are masked from <span class="st">&#39;package:stats&#39;</span><span class="sc">:</span></span>
-<span id="cb490-6"><a href="simulation.html#cb490-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb490-7"><a href="simulation.html#cb490-7" aria-hidden="true" tabindex="-1"></a>    filter, lag</span>
-<span id="cb490-8"><a href="simulation.html#cb490-8" aria-hidden="true" tabindex="-1"></a>The following objects are masked from <span class="st">&#39;package:base&#39;</span><span class="sc">:</span></span>
-<span id="cb490-9"><a href="simulation.html#cb490-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb490-10"><a href="simulation.html#cb490-10" aria-hidden="true" tabindex="-1"></a>    intersect, setdiff, setequal, union</span>
-<span id="cb490-11"><a href="simulation.html#cb490-11" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyr)</span>
-<span id="cb490-12"><a href="simulation.html#cb490-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb490-13"><a href="simulation.html#cb490-13" aria-hidden="true" tabindex="-1"></a>Attaching package<span class="sc">:</span> <span class="st">&#39;tidyr&#39;</span></span>
-<span id="cb490-14"><a href="simulation.html#cb490-14" aria-hidden="true" tabindex="-1"></a>The following object is masked from <span class="st">&#39;package:magrittr&#39;</span><span class="sc">:</span></span>
-<span id="cb490-15"><a href="simulation.html#cb490-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb490-16"><a href="simulation.html#cb490-16" aria-hidden="true" tabindex="-1"></a>    extract</span>
-<span id="cb490-17"><a href="simulation.html#cb490-17" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
-<span id="cb490-18"><a href="simulation.html#cb490-18" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">109025879</span>)</span>
-<span id="cb490-19"><a href="simulation.html#cb490-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb490-20"><a href="simulation.html#cb490-20" aria-hidden="true" tabindex="-1"></a><span class="fu">tibble</span>(</span>
-<span id="cb490-21"><a href="simulation.html#cb490-21" aria-hidden="true" tabindex="-1"></a>  <span class="at">norm =</span> <span class="fu">rnorm</span>(<span class="dv">500</span>),</span>
-<span id="cb490-22"><a href="simulation.html#cb490-22" aria-hidden="true" tabindex="-1"></a>  <span class="at">gamma =</span> <span class="fu">rgamma</span>(<span class="dv">500</span>, <span class="at">shape =</span> <span class="dv">3</span>, <span class="at">scale =</span> <span class="dv">1</span>),</span>
-<span id="cb490-23"><a href="simulation.html#cb490-23" aria-hidden="true" tabindex="-1"></a>  <span class="at">exp =</span> <span class="fu">rexp</span>(<span class="dv">500</span>, <span class="at">rate =</span> <span class="dv">1</span>), <span class="co"># R uses a exp(-ax) </span></span>
-<span id="cb490-24"><a href="simulation.html#cb490-24" aria-hidden="true" tabindex="-1"></a>  <span class="at">t =</span> <span class="fu">rt</span>(<span class="dv">500</span>, <span class="at">df =</span> <span class="dv">5</span>),</span>
-<span id="cb490-25"><a href="simulation.html#cb490-25" aria-hidden="true" tabindex="-1"></a>  <span class="at">chisq =</span> <span class="fu">rchisq</span>(<span class="dv">500</span>, <span class="dv">5</span>)</span>
-<span id="cb490-26"><a href="simulation.html#cb490-26" aria-hidden="true" tabindex="-1"></a>) <span class="sc">%&gt;%</span></span>
-<span id="cb490-27"><a href="simulation.html#cb490-27" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>, <span class="at">names_to =</span> <span class="st">&quot;dist&quot;</span>, <span class="at">values_to =</span> <span class="st">&quot;value&quot;</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb490-28"><a href="simulation.html#cb490-28" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> value)) <span class="sc">+</span> <span class="fu">geom_density</span>() <span class="sc">+</span> <span class="fu">facet_wrap</span>(<span class="sc">~</span>dist, <span class="at">scales =</span> <span class="st">&quot;free&quot;</span>, <span class="at">nrow =</span> <span class="dv">1</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb500"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb500-1"><a href="simulation.html#cb500-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tibble)</span>
+<span id="cb500-2"><a href="simulation.html#cb500-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb500-3"><a href="simulation.html#cb500-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb500-4"><a href="simulation.html#cb500-4" aria-hidden="true" tabindex="-1"></a>Attaching package<span class="sc">:</span> <span class="st">&#39;dplyr&#39;</span></span>
+<span id="cb500-5"><a href="simulation.html#cb500-5" aria-hidden="true" tabindex="-1"></a>The following objects are masked from <span class="st">&#39;package:stats&#39;</span><span class="sc">:</span></span>
+<span id="cb500-6"><a href="simulation.html#cb500-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb500-7"><a href="simulation.html#cb500-7" aria-hidden="true" tabindex="-1"></a>    filter, lag</span>
+<span id="cb500-8"><a href="simulation.html#cb500-8" aria-hidden="true" tabindex="-1"></a>The following objects are masked from <span class="st">&#39;package:base&#39;</span><span class="sc">:</span></span>
+<span id="cb500-9"><a href="simulation.html#cb500-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb500-10"><a href="simulation.html#cb500-10" aria-hidden="true" tabindex="-1"></a>    intersect, setdiff, setequal, union</span>
+<span id="cb500-11"><a href="simulation.html#cb500-11" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyr)</span>
+<span id="cb500-12"><a href="simulation.html#cb500-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb500-13"><a href="simulation.html#cb500-13" aria-hidden="true" tabindex="-1"></a>Attaching package<span class="sc">:</span> <span class="st">&#39;tidyr&#39;</span></span>
+<span id="cb500-14"><a href="simulation.html#cb500-14" aria-hidden="true" tabindex="-1"></a>The following object is masked from <span class="st">&#39;package:magrittr&#39;</span><span class="sc">:</span></span>
+<span id="cb500-15"><a href="simulation.html#cb500-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb500-16"><a href="simulation.html#cb500-16" aria-hidden="true" tabindex="-1"></a>    extract</span>
+<span id="cb500-17"><a href="simulation.html#cb500-17" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb500-18"><a href="simulation.html#cb500-18" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">109025879</span>)</span>
+<span id="cb500-19"><a href="simulation.html#cb500-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb500-20"><a href="simulation.html#cb500-20" aria-hidden="true" tabindex="-1"></a><span class="fu">tibble</span>(</span>
+<span id="cb500-21"><a href="simulation.html#cb500-21" aria-hidden="true" tabindex="-1"></a>  <span class="at">norm =</span> <span class="fu">rnorm</span>(<span class="dv">500</span>),</span>
+<span id="cb500-22"><a href="simulation.html#cb500-22" aria-hidden="true" tabindex="-1"></a>  <span class="at">gamma =</span> <span class="fu">rgamma</span>(<span class="dv">500</span>, <span class="at">shape =</span> <span class="dv">3</span>, <span class="at">scale =</span> <span class="dv">1</span>),</span>
+<span id="cb500-23"><a href="simulation.html#cb500-23" aria-hidden="true" tabindex="-1"></a>  <span class="at">exp =</span> <span class="fu">rexp</span>(<span class="dv">500</span>, <span class="at">rate =</span> <span class="dv">1</span>), <span class="co"># R uses a exp(-ax) </span></span>
+<span id="cb500-24"><a href="simulation.html#cb500-24" aria-hidden="true" tabindex="-1"></a>  <span class="at">t =</span> <span class="fu">rt</span>(<span class="dv">500</span>, <span class="at">df =</span> <span class="dv">5</span>),</span>
+<span id="cb500-25"><a href="simulation.html#cb500-25" aria-hidden="true" tabindex="-1"></a>  <span class="at">chisq =</span> <span class="fu">rchisq</span>(<span class="dv">500</span>, <span class="dv">5</span>)</span>
+<span id="cb500-26"><a href="simulation.html#cb500-26" aria-hidden="true" tabindex="-1"></a>) <span class="sc">%&gt;%</span></span>
+<span id="cb500-27"><a href="simulation.html#cb500-27" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>, <span class="at">names_to =</span> <span class="st">&quot;dist&quot;</span>, <span class="at">values_to =</span> <span class="st">&quot;value&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb500-28"><a href="simulation.html#cb500-28" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> value)) <span class="sc">+</span> <span class="fu">geom_density</span>() <span class="sc">+</span> <span class="fu">facet_wrap</span>(<span class="sc">~</span>dist, <span class="at">scales =</span> <span class="st">&quot;free&quot;</span>, <span class="at">nrow =</span> <span class="dv">1</span>)</span></code></pre></div>
 <img src="image/unnamed-chunk-4-1.png" width="2100" />
 </details>
 <details>
@@ -693,29 +694,29 @@ RUN;</code></pre>
 <summary>
 In R
 </summary>
-<div class="sourceCode" id="cb492"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb492-1"><a href="simulation.html#cb492-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">20572983</span>)</span>
-<span id="cb492-2"><a href="simulation.html#cb492-2" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">x =</span> <span class="fu">seq</span>(<span class="sc">-</span><span class="dv">10</span>, <span class="dv">10</span>, .<span class="dv">1</span>), </span>
-<span id="cb492-3"><a href="simulation.html#cb492-3" aria-hidden="true" tabindex="-1"></a>               <span class="at">y =</span> x <span class="sc">+</span> <span class="fu">rnorm</span>(<span class="fu">length</span>(x)))</span>
-<span id="cb492-4"><a href="simulation.html#cb492-4" aria-hidden="true" tabindex="-1"></a>regression <span class="ot">&lt;-</span> <span class="fu">lm</span>(y <span class="sc">~</span> x, <span class="at">data =</span> data)</span>
-<span id="cb492-5"><a href="simulation.html#cb492-5" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(regression)</span>
-<span id="cb492-6"><a href="simulation.html#cb492-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb492-7"><a href="simulation.html#cb492-7" aria-hidden="true" tabindex="-1"></a>Call<span class="sc">:</span></span>
-<span id="cb492-8"><a href="simulation.html#cb492-8" aria-hidden="true" tabindex="-1"></a><span class="fu">lm</span>(<span class="at">formula =</span> y <span class="sc">~</span> x, <span class="at">data =</span> data)</span>
-<span id="cb492-9"><a href="simulation.html#cb492-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb492-10"><a href="simulation.html#cb492-10" aria-hidden="true" tabindex="-1"></a>Residuals<span class="sc">:</span></span>
-<span id="cb492-11"><a href="simulation.html#cb492-11" aria-hidden="true" tabindex="-1"></a>     Min       1Q   Median       3Q      Max </span>
-<span id="cb492-12"><a href="simulation.html#cb492-12" aria-hidden="true" tabindex="-1"></a><span class="sc">-</span><span class="fl">3.14575</span> <span class="sc">-</span><span class="fl">0.70986</span>  <span class="fl">0.03186</span>  <span class="fl">0.65429</span>  <span class="fl">2.40305</span> </span>
-<span id="cb492-13"><a href="simulation.html#cb492-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb492-14"><a href="simulation.html#cb492-14" aria-hidden="true" tabindex="-1"></a>Coefficients<span class="sc">:</span></span>
-<span id="cb492-15"><a href="simulation.html#cb492-15" aria-hidden="true" tabindex="-1"></a>            Estimate Std. Error t value <span class="fu">Pr</span>(<span class="sc">&gt;</span><span class="er">|</span>t<span class="sc">|</span>)    </span>
-<span id="cb492-16"><a href="simulation.html#cb492-16" aria-hidden="true" tabindex="-1"></a>(Intercept) <span class="sc">-</span><span class="fl">0.01876</span>    <span class="fl">0.06869</span>  <span class="sc">-</span><span class="fl">0.273</span>    <span class="fl">0.785</span>    </span>
-<span id="cb492-17"><a href="simulation.html#cb492-17" aria-hidden="true" tabindex="-1"></a>x            <span class="fl">0.99230</span>    <span class="fl">0.01184</span>  <span class="fl">83.823</span>   <span class="sc">&lt;</span><span class="fl">2e-16</span> <span class="sc">**</span><span class="er">*</span></span>
-<span id="cb492-18"><a href="simulation.html#cb492-18" aria-hidden="true" tabindex="-1"></a><span class="sc">---</span></span>
-<span id="cb492-19"><a href="simulation.html#cb492-19" aria-hidden="true" tabindex="-1"></a>Signif. codes<span class="sc">:</span>  <span class="dv">0</span> <span class="st">&#39;***&#39;</span> <span class="fl">0.001</span> <span class="st">&#39;**&#39;</span> <span class="fl">0.01</span> <span class="st">&#39;*&#39;</span> <span class="fl">0.05</span> <span class="st">&#39;.&#39;</span> <span class="fl">0.1</span> <span class="st">&#39; &#39;</span> <span class="dv">1</span></span>
-<span id="cb492-20"><a href="simulation.html#cb492-20" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb492-21"><a href="simulation.html#cb492-21" aria-hidden="true" tabindex="-1"></a>Residual standard error<span class="sc">:</span> <span class="fl">0.9738</span> on <span class="dv">199</span> degrees of freedom</span>
-<span id="cb492-22"><a href="simulation.html#cb492-22" aria-hidden="true" tabindex="-1"></a>Multiple R<span class="sc">-</span>squared<span class="sc">:</span>  <span class="fl">0.9725</span>,    Adjusted R<span class="sc">-</span>squared<span class="sc">:</span>  <span class="fl">0.9723</span> </span>
-<span id="cb492-23"><a href="simulation.html#cb492-23" aria-hidden="true" tabindex="-1"></a>F<span class="sc">-</span>statistic<span class="sc">:</span>  <span class="dv">7026</span> on <span class="dv">1</span> and <span class="dv">199</span> DF,  p<span class="sc">-</span>value<span class="sc">:</span> <span class="er">&lt;</span> <span class="fl">2.2e-16</span></span></code></pre></div>
+<div class="sourceCode" id="cb502"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb502-1"><a href="simulation.html#cb502-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">20572983</span>)</span>
+<span id="cb502-2"><a href="simulation.html#cb502-2" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">x =</span> <span class="fu">seq</span>(<span class="sc">-</span><span class="dv">10</span>, <span class="dv">10</span>, .<span class="dv">1</span>), </span>
+<span id="cb502-3"><a href="simulation.html#cb502-3" aria-hidden="true" tabindex="-1"></a>               <span class="at">y =</span> x <span class="sc">+</span> <span class="fu">rnorm</span>(<span class="fu">length</span>(x)))</span>
+<span id="cb502-4"><a href="simulation.html#cb502-4" aria-hidden="true" tabindex="-1"></a>regression <span class="ot">&lt;-</span> <span class="fu">lm</span>(y <span class="sc">~</span> x, <span class="at">data =</span> data)</span>
+<span id="cb502-5"><a href="simulation.html#cb502-5" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(regression)</span>
+<span id="cb502-6"><a href="simulation.html#cb502-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb502-7"><a href="simulation.html#cb502-7" aria-hidden="true" tabindex="-1"></a>Call<span class="sc">:</span></span>
+<span id="cb502-8"><a href="simulation.html#cb502-8" aria-hidden="true" tabindex="-1"></a><span class="fu">lm</span>(<span class="at">formula =</span> y <span class="sc">~</span> x, <span class="at">data =</span> data)</span>
+<span id="cb502-9"><a href="simulation.html#cb502-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb502-10"><a href="simulation.html#cb502-10" aria-hidden="true" tabindex="-1"></a>Residuals<span class="sc">:</span></span>
+<span id="cb502-11"><a href="simulation.html#cb502-11" aria-hidden="true" tabindex="-1"></a>     Min       1Q   Median       3Q      Max </span>
+<span id="cb502-12"><a href="simulation.html#cb502-12" aria-hidden="true" tabindex="-1"></a><span class="sc">-</span><span class="fl">3.14575</span> <span class="sc">-</span><span class="fl">0.70986</span>  <span class="fl">0.03186</span>  <span class="fl">0.65429</span>  <span class="fl">2.40305</span> </span>
+<span id="cb502-13"><a href="simulation.html#cb502-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb502-14"><a href="simulation.html#cb502-14" aria-hidden="true" tabindex="-1"></a>Coefficients<span class="sc">:</span></span>
+<span id="cb502-15"><a href="simulation.html#cb502-15" aria-hidden="true" tabindex="-1"></a>            Estimate Std. Error t value <span class="fu">Pr</span>(<span class="sc">&gt;</span><span class="er">|</span>t<span class="sc">|</span>)    </span>
+<span id="cb502-16"><a href="simulation.html#cb502-16" aria-hidden="true" tabindex="-1"></a>(Intercept) <span class="sc">-</span><span class="fl">0.01876</span>    <span class="fl">0.06869</span>  <span class="sc">-</span><span class="fl">0.273</span>    <span class="fl">0.785</span>    </span>
+<span id="cb502-17"><a href="simulation.html#cb502-17" aria-hidden="true" tabindex="-1"></a>x            <span class="fl">0.99230</span>    <span class="fl">0.01184</span>  <span class="fl">83.823</span>   <span class="sc">&lt;</span><span class="fl">2e-16</span> <span class="sc">**</span><span class="er">*</span></span>
+<span id="cb502-18"><a href="simulation.html#cb502-18" aria-hidden="true" tabindex="-1"></a><span class="sc">---</span></span>
+<span id="cb502-19"><a href="simulation.html#cb502-19" aria-hidden="true" tabindex="-1"></a>Signif. codes<span class="sc">:</span>  <span class="dv">0</span> <span class="st">&#39;***&#39;</span> <span class="fl">0.001</span> <span class="st">&#39;**&#39;</span> <span class="fl">0.01</span> <span class="st">&#39;*&#39;</span> <span class="fl">0.05</span> <span class="st">&#39;.&#39;</span> <span class="fl">0.1</span> <span class="st">&#39; &#39;</span> <span class="dv">1</span></span>
+<span id="cb502-20"><a href="simulation.html#cb502-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb502-21"><a href="simulation.html#cb502-21" aria-hidden="true" tabindex="-1"></a>Residual standard error<span class="sc">:</span> <span class="fl">0.9738</span> on <span class="dv">199</span> degrees of freedom</span>
+<span id="cb502-22"><a href="simulation.html#cb502-22" aria-hidden="true" tabindex="-1"></a>Multiple R<span class="sc">-</span>squared<span class="sc">:</span>  <span class="fl">0.9725</span>,    Adjusted R<span class="sc">-</span>squared<span class="sc">:</span>  <span class="fl">0.9723</span> </span>
+<span id="cb502-23"><a href="simulation.html#cb502-23" aria-hidden="true" tabindex="-1"></a>F<span class="sc">-</span>statistic<span class="sc">:</span>  <span class="dv">7026</span> on <span class="dv">1</span> and <span class="dv">199</span> DF,  p<span class="sc">-</span>value<span class="sc">:</span> <span class="er">&lt;</span> <span class="fl">2.2e-16</span></span></code></pre></div>
 </details>
 <details>
 <summary>
@@ -1069,42 +1070,42 @@ Dependent Variable: y
 Example: Confidence Interval coverage rates
 </summary>
 <p>Suppose, for instance, that we have a lognormal distribution (highly skewed) and we want to compute a 95% confidence interval for the mean of our data.</p>
-<div class="sourceCode" id="cb494"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb494-1"><a href="simulation.html#cb494-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">40295023</span>)</span>
-<span id="cb494-2"><a href="simulation.html#cb494-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb494-3"><a href="simulation.html#cb494-3" aria-hidden="true" tabindex="-1"></a>sim <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
-<span id="cb494-4"><a href="simulation.html#cb494-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">id =</span> <span class="fu">rep</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">100</span>, <span class="at">each =</span> <span class="dv">25</span>), <span class="co"># generate 100 samples of 25 points each</span></span>
-<span id="cb494-5"><a href="simulation.html#cb494-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">ln_x =</span> <span class="fu">rnorm</span>(<span class="dv">25</span><span class="sc">*</span><span class="dv">100</span>), <span class="co"># generate the normal deviates</span></span>
-<span id="cb494-6"><a href="simulation.html#cb494-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">x =</span> <span class="fu">exp</span>(ln_x), <span class="co"># transform into lognormal deviates</span></span>
-<span id="cb494-7"><a href="simulation.html#cb494-7" aria-hidden="true" tabindex="-1"></a>) <span class="sc">%&gt;%</span></span>
-<span id="cb494-8"><a href="simulation.html#cb494-8" aria-hidden="true" tabindex="-1"></a>  <span class="co"># this creates a 100-row data frame, with one row for each id. </span></span>
-<span id="cb494-9"><a href="simulation.html#cb494-9" aria-hidden="true" tabindex="-1"></a>  <span class="co"># the columns x, ln_x are stored in the data list-column as a tibble.</span></span>
-<span id="cb494-10"><a href="simulation.html#cb494-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">nest</span>(<span class="at">data =</span> <span class="fu">c</span>(x, ln_x))</span>
-<span id="cb494-11"><a href="simulation.html#cb494-11" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb494-12"><a href="simulation.html#cb494-12" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(sim)</span>
-<span id="cb494-13"><a href="simulation.html#cb494-13" aria-hidden="true" tabindex="-1"></a><span class="co"># A tibble: 6 x 2</span></span>
-<span id="cb494-14"><a href="simulation.html#cb494-14" aria-hidden="true" tabindex="-1"></a>     id data                 </span>
-<span id="cb494-15"><a href="simulation.html#cb494-15" aria-hidden="true" tabindex="-1"></a>  <span class="sc">&lt;</span>int<span class="sc">&gt;</span> <span class="er">&lt;</span>list<span class="sc">&gt;</span>               </span>
-<span id="cb494-16"><a href="simulation.html#cb494-16" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span>     <span class="dv">1</span> <span class="sc">&lt;</span>tibble[,<span class="dv">2</span>] [<span class="dv">25</span> × <span class="dv">2</span>]<span class="sc">&gt;</span></span>
-<span id="cb494-17"><a href="simulation.html#cb494-17" aria-hidden="true" tabindex="-1"></a><span class="dv">2</span>     <span class="dv">2</span> <span class="sc">&lt;</span>tibble[,<span class="dv">2</span>] [<span class="dv">25</span> × <span class="dv">2</span>]<span class="sc">&gt;</span></span>
-<span id="cb494-18"><a href="simulation.html#cb494-18" aria-hidden="true" tabindex="-1"></a><span class="dv">3</span>     <span class="dv">3</span> <span class="sc">&lt;</span>tibble[,<span class="dv">2</span>] [<span class="dv">25</span> × <span class="dv">2</span>]<span class="sc">&gt;</span></span>
-<span id="cb494-19"><a href="simulation.html#cb494-19" aria-hidden="true" tabindex="-1"></a><span class="dv">4</span>     <span class="dv">4</span> <span class="sc">&lt;</span>tibble[,<span class="dv">2</span>] [<span class="dv">25</span> × <span class="dv">2</span>]<span class="sc">&gt;</span></span>
-<span id="cb494-20"><a href="simulation.html#cb494-20" aria-hidden="true" tabindex="-1"></a><span class="dv">5</span>     <span class="dv">5</span> <span class="sc">&lt;</span>tibble[,<span class="dv">2</span>] [<span class="dv">25</span> × <span class="dv">2</span>]<span class="sc">&gt;</span></span>
-<span id="cb494-21"><a href="simulation.html#cb494-21" aria-hidden="true" tabindex="-1"></a><span class="dv">6</span>     <span class="dv">6</span> <span class="sc">&lt;</span>tibble[,<span class="dv">2</span>] [<span class="dv">25</span> × <span class="dv">2</span>]<span class="sc">&gt;</span></span>
-<span id="cb494-22"><a href="simulation.html#cb494-22" aria-hidden="true" tabindex="-1"></a>sim<span class="sc">$</span>data[[<span class="dv">1</span>]]</span>
-<span id="cb494-23"><a href="simulation.html#cb494-23" aria-hidden="true" tabindex="-1"></a><span class="co"># A tibble: 25 x 2</span></span>
-<span id="cb494-24"><a href="simulation.html#cb494-24" aria-hidden="true" tabindex="-1"></a>       x    ln_x</span>
-<span id="cb494-25"><a href="simulation.html#cb494-25" aria-hidden="true" tabindex="-1"></a>   <span class="sc">&lt;</span>dbl<span class="sc">&gt;</span>   <span class="er">&lt;</span>dbl<span class="sc">&gt;</span></span>
-<span id="cb494-26"><a href="simulation.html#cb494-26" aria-hidden="true" tabindex="-1"></a> <span class="dv">1</span> <span class="fl">0.310</span> <span class="sc">-</span><span class="fl">1.17</span>  </span>
-<span id="cb494-27"><a href="simulation.html#cb494-27" aria-hidden="true" tabindex="-1"></a> <span class="dv">2</span> <span class="fl">0.622</span> <span class="sc">-</span><span class="fl">0.475</span> </span>
-<span id="cb494-28"><a href="simulation.html#cb494-28" aria-hidden="true" tabindex="-1"></a> <span class="dv">3</span> <span class="fl">0.303</span> <span class="sc">-</span><span class="fl">1.19</span>  </span>
-<span id="cb494-29"><a href="simulation.html#cb494-29" aria-hidden="true" tabindex="-1"></a> <span class="dv">4</span> <span class="fl">1.05</span>   <span class="fl">0.0525</span></span>
-<span id="cb494-30"><a href="simulation.html#cb494-30" aria-hidden="true" tabindex="-1"></a> <span class="dv">5</span> <span class="fl">0.529</span> <span class="sc">-</span><span class="fl">0.636</span> </span>
-<span id="cb494-31"><a href="simulation.html#cb494-31" aria-hidden="true" tabindex="-1"></a> <span class="dv">6</span> <span class="fl">1.09</span>   <span class="fl">0.0891</span></span>
-<span id="cb494-32"><a href="simulation.html#cb494-32" aria-hidden="true" tabindex="-1"></a> <span class="dv">7</span> <span class="fl">1.97</span>   <span class="fl">0.676</span> </span>
-<span id="cb494-33"><a href="simulation.html#cb494-33" aria-hidden="true" tabindex="-1"></a> <span class="dv">8</span> <span class="fl">8.94</span>   <span class="fl">2.19</span>  </span>
-<span id="cb494-34"><a href="simulation.html#cb494-34" aria-hidden="true" tabindex="-1"></a> <span class="dv">9</span> <span class="fl">0.598</span> <span class="sc">-</span><span class="fl">0.514</span> </span>
-<span id="cb494-35"><a href="simulation.html#cb494-35" aria-hidden="true" tabindex="-1"></a><span class="dv">10</span> <span class="fl">0.183</span> <span class="sc">-</span><span class="fl">1.70</span>  </span>
-<span id="cb494-36"><a href="simulation.html#cb494-36" aria-hidden="true" tabindex="-1"></a><span class="co"># … with 15 more rows</span></span></code></pre></div>
+<div class="sourceCode" id="cb504"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb504-1"><a href="simulation.html#cb504-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">40295023</span>)</span>
+<span id="cb504-2"><a href="simulation.html#cb504-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb504-3"><a href="simulation.html#cb504-3" aria-hidden="true" tabindex="-1"></a>sim <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
+<span id="cb504-4"><a href="simulation.html#cb504-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">id =</span> <span class="fu">rep</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">100</span>, <span class="at">each =</span> <span class="dv">25</span>), <span class="co"># generate 100 samples of 25 points each</span></span>
+<span id="cb504-5"><a href="simulation.html#cb504-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">ln_x =</span> <span class="fu">rnorm</span>(<span class="dv">25</span><span class="sc">*</span><span class="dv">100</span>), <span class="co"># generate the normal deviates</span></span>
+<span id="cb504-6"><a href="simulation.html#cb504-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">x =</span> <span class="fu">exp</span>(ln_x), <span class="co"># transform into lognormal deviates</span></span>
+<span id="cb504-7"><a href="simulation.html#cb504-7" aria-hidden="true" tabindex="-1"></a>) <span class="sc">%&gt;%</span></span>
+<span id="cb504-8"><a href="simulation.html#cb504-8" aria-hidden="true" tabindex="-1"></a>  <span class="co"># this creates a 100-row data frame, with one row for each id. </span></span>
+<span id="cb504-9"><a href="simulation.html#cb504-9" aria-hidden="true" tabindex="-1"></a>  <span class="co"># the columns x, ln_x are stored in the data list-column as a tibble.</span></span>
+<span id="cb504-10"><a href="simulation.html#cb504-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">nest</span>(<span class="at">data =</span> <span class="fu">c</span>(x, ln_x))</span>
+<span id="cb504-11"><a href="simulation.html#cb504-11" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb504-12"><a href="simulation.html#cb504-12" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(sim)</span>
+<span id="cb504-13"><a href="simulation.html#cb504-13" aria-hidden="true" tabindex="-1"></a><span class="co"># A tibble: 6 x 2</span></span>
+<span id="cb504-14"><a href="simulation.html#cb504-14" aria-hidden="true" tabindex="-1"></a>     id data                 </span>
+<span id="cb504-15"><a href="simulation.html#cb504-15" aria-hidden="true" tabindex="-1"></a>  <span class="sc">&lt;</span>int<span class="sc">&gt;</span> <span class="er">&lt;</span>list<span class="sc">&gt;</span>               </span>
+<span id="cb504-16"><a href="simulation.html#cb504-16" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span>     <span class="dv">1</span> <span class="sc">&lt;</span>tibble[,<span class="dv">2</span>] [<span class="dv">25</span> × <span class="dv">2</span>]<span class="sc">&gt;</span></span>
+<span id="cb504-17"><a href="simulation.html#cb504-17" aria-hidden="true" tabindex="-1"></a><span class="dv">2</span>     <span class="dv">2</span> <span class="sc">&lt;</span>tibble[,<span class="dv">2</span>] [<span class="dv">25</span> × <span class="dv">2</span>]<span class="sc">&gt;</span></span>
+<span id="cb504-18"><a href="simulation.html#cb504-18" aria-hidden="true" tabindex="-1"></a><span class="dv">3</span>     <span class="dv">3</span> <span class="sc">&lt;</span>tibble[,<span class="dv">2</span>] [<span class="dv">25</span> × <span class="dv">2</span>]<span class="sc">&gt;</span></span>
+<span id="cb504-19"><a href="simulation.html#cb504-19" aria-hidden="true" tabindex="-1"></a><span class="dv">4</span>     <span class="dv">4</span> <span class="sc">&lt;</span>tibble[,<span class="dv">2</span>] [<span class="dv">25</span> × <span class="dv">2</span>]<span class="sc">&gt;</span></span>
+<span id="cb504-20"><a href="simulation.html#cb504-20" aria-hidden="true" tabindex="-1"></a><span class="dv">5</span>     <span class="dv">5</span> <span class="sc">&lt;</span>tibble[,<span class="dv">2</span>] [<span class="dv">25</span> × <span class="dv">2</span>]<span class="sc">&gt;</span></span>
+<span id="cb504-21"><a href="simulation.html#cb504-21" aria-hidden="true" tabindex="-1"></a><span class="dv">6</span>     <span class="dv">6</span> <span class="sc">&lt;</span>tibble[,<span class="dv">2</span>] [<span class="dv">25</span> × <span class="dv">2</span>]<span class="sc">&gt;</span></span>
+<span id="cb504-22"><a href="simulation.html#cb504-22" aria-hidden="true" tabindex="-1"></a>sim<span class="sc">$</span>data[[<span class="dv">1</span>]]</span>
+<span id="cb504-23"><a href="simulation.html#cb504-23" aria-hidden="true" tabindex="-1"></a><span class="co"># A tibble: 25 x 2</span></span>
+<span id="cb504-24"><a href="simulation.html#cb504-24" aria-hidden="true" tabindex="-1"></a>       x    ln_x</span>
+<span id="cb504-25"><a href="simulation.html#cb504-25" aria-hidden="true" tabindex="-1"></a>   <span class="sc">&lt;</span>dbl<span class="sc">&gt;</span>   <span class="er">&lt;</span>dbl<span class="sc">&gt;</span></span>
+<span id="cb504-26"><a href="simulation.html#cb504-26" aria-hidden="true" tabindex="-1"></a> <span class="dv">1</span> <span class="fl">0.310</span> <span class="sc">-</span><span class="fl">1.17</span>  </span>
+<span id="cb504-27"><a href="simulation.html#cb504-27" aria-hidden="true" tabindex="-1"></a> <span class="dv">2</span> <span class="fl">0.622</span> <span class="sc">-</span><span class="fl">0.475</span> </span>
+<span id="cb504-28"><a href="simulation.html#cb504-28" aria-hidden="true" tabindex="-1"></a> <span class="dv">3</span> <span class="fl">0.303</span> <span class="sc">-</span><span class="fl">1.19</span>  </span>
+<span id="cb504-29"><a href="simulation.html#cb504-29" aria-hidden="true" tabindex="-1"></a> <span class="dv">4</span> <span class="fl">1.05</span>   <span class="fl">0.0525</span></span>
+<span id="cb504-30"><a href="simulation.html#cb504-30" aria-hidden="true" tabindex="-1"></a> <span class="dv">5</span> <span class="fl">0.529</span> <span class="sc">-</span><span class="fl">0.636</span> </span>
+<span id="cb504-31"><a href="simulation.html#cb504-31" aria-hidden="true" tabindex="-1"></a> <span class="dv">6</span> <span class="fl">1.09</span>   <span class="fl">0.0891</span></span>
+<span id="cb504-32"><a href="simulation.html#cb504-32" aria-hidden="true" tabindex="-1"></a> <span class="dv">7</span> <span class="fl">1.97</span>   <span class="fl">0.676</span> </span>
+<span id="cb504-33"><a href="simulation.html#cb504-33" aria-hidden="true" tabindex="-1"></a> <span class="dv">8</span> <span class="fl">8.94</span>   <span class="fl">2.19</span>  </span>
+<span id="cb504-34"><a href="simulation.html#cb504-34" aria-hidden="true" tabindex="-1"></a> <span class="dv">9</span> <span class="fl">0.598</span> <span class="sc">-</span><span class="fl">0.514</span> </span>
+<span id="cb504-35"><a href="simulation.html#cb504-35" aria-hidden="true" tabindex="-1"></a><span class="dv">10</span> <span class="fl">0.183</span> <span class="sc">-</span><span class="fl">1.70</span>  </span>
+<span id="cb504-36"><a href="simulation.html#cb504-36" aria-hidden="true" tabindex="-1"></a><span class="co"># … with 15 more rows</span></span></code></pre></div>
 <p>You want to assess the coverage probability of a confidence interval computed under two different modeling scenarios:</p>
 <ol style="list-style-type: decimal">
 <li>Working with the log-transformed values, ln(x), and then transform the computed interval back</li>
@@ -1118,40 +1119,40 @@ Example: Confidence Interval coverage rates
 <p><code>purrr::map</code> takes an argument and for each “group” calls the compute_interval function, storing the results in <code>res</code>. So each row in <code>res</code> is a 1x2 tibble with columns lb and ub.</p>
 <p>This pattern is very useful in all sorts of applications. I wish we had time to cover purrr explicitly, but I at least want to expose you to how clean it makes your code.</p>
 </div>
-<div class="sourceCode" id="cb495"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb495-1"><a href="simulation.html#cb495-1" aria-hidden="true" tabindex="-1"></a>compute_interval <span class="ot">&lt;-</span> <span class="cf">function</span>(x) {</span>
-<span id="cb495-2"><a href="simulation.html#cb495-2" aria-hidden="true" tabindex="-1"></a>  s1 <span class="ot">&lt;-</span> <span class="fu">exp</span>(<span class="fu">mean</span>(<span class="fu">log</span>(x)) <span class="sc">+</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">1</span>, <span class="dv">1</span>) <span class="sc">*</span> <span class="fu">qnorm</span>(.<span class="dv">975</span>) <span class="sc">*</span> <span class="fu">sd</span>(<span class="fu">log</span>(x))<span class="sc">/</span><span class="fu">sqrt</span>(<span class="fu">length</span>(x)))</span>
-<span id="cb495-3"><a href="simulation.html#cb495-3" aria-hidden="true" tabindex="-1"></a>  s2 <span class="ot">&lt;-</span> <span class="fu">mean</span>(x) <span class="sc">+</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">1</span>, <span class="dv">1</span>) <span class="sc">*</span> <span class="fu">qnorm</span>(.<span class="dv">975</span>) <span class="sc">*</span> <span class="fu">sd</span>(x)<span class="sc">/</span><span class="fu">sqrt</span>(<span class="fu">length</span>(x))</span>
-<span id="cb495-4"><a href="simulation.html#cb495-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tibble</span>(<span class="at">scenario =</span> <span class="fu">c</span>(<span class="st">&quot;scenario_1&quot;</span>, <span class="st">&quot;scenario_2&quot;</span>),</span>
-<span id="cb495-5"><a href="simulation.html#cb495-5" aria-hidden="true" tabindex="-1"></a>         <span class="at">mean =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="fu">exp</span>(<span class="dv">1</span><span class="sc">/</span><span class="dv">2</span>)),</span>
-<span id="cb495-6"><a href="simulation.html#cb495-6" aria-hidden="true" tabindex="-1"></a>         <span class="at">lb =</span> <span class="fu">c</span>(s1[<span class="dv">1</span>], s2[<span class="dv">1</span>]), <span class="at">ub =</span> <span class="fu">c</span>(s1[<span class="dv">2</span>], s2[<span class="dv">2</span>]),</span>
-<span id="cb495-7"><a href="simulation.html#cb495-7" aria-hidden="true" tabindex="-1"></a>         <span class="at">in_interval =</span> (lb <span class="sc">&lt;</span> mean) <span class="sc">&amp;</span> (ub <span class="sc">&gt;</span> mean))</span>
-<span id="cb495-8"><a href="simulation.html#cb495-8" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb495-9"><a href="simulation.html#cb495-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb495-10"><a href="simulation.html#cb495-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb495-11"><a href="simulation.html#cb495-11" aria-hidden="true" tabindex="-1"></a>sim_long <span class="ot">&lt;-</span> sim <span class="sc">%&gt;%</span></span>
-<span id="cb495-12"><a href="simulation.html#cb495-12" aria-hidden="true" tabindex="-1"></a>  <span class="co"># This line takes each data entry and computes an interval for x.</span></span>
-<span id="cb495-13"><a href="simulation.html#cb495-13" aria-hidden="true" tabindex="-1"></a>  <span class="co"># .$x is code for take the argument you passed in to map and get the x column</span></span>
-<span id="cb495-14"><a href="simulation.html#cb495-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">res =</span> purrr<span class="sc">::</span><span class="fu">map</span>(data, <span class="sc">~</span><span class="fu">compute_interval</span>(.<span class="sc">$</span>x))) <span class="sc">%&gt;%</span></span>
-<span id="cb495-15"><a href="simulation.html#cb495-15" aria-hidden="true" tabindex="-1"></a>  <span class="co"># this &quot;frees&quot; res and we end up with two columns: lb and ub, for each scenario</span></span>
-<span id="cb495-16"><a href="simulation.html#cb495-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">unnest</span>(res)</span>
-<span id="cb495-17"><a href="simulation.html#cb495-17" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb495-18"><a href="simulation.html#cb495-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb495-19"><a href="simulation.html#cb495-19" aria-hidden="true" tabindex="-1"></a>ci_df <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">scenario =</span> <span class="fu">c</span>(<span class="st">&quot;scenario_1&quot;</span>, <span class="st">&quot;scenario_2&quot;</span>),</span>
-<span id="cb495-20"><a href="simulation.html#cb495-20" aria-hidden="true" tabindex="-1"></a>                <span class="at">mu =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="fu">exp</span>(<span class="dv">1</span><span class="sc">/</span><span class="dv">2</span>)),</span>
-<span id="cb495-21"><a href="simulation.html#cb495-21" aria-hidden="true" tabindex="-1"></a>                <span class="at">lb =</span> <span class="fu">c</span>(<span class="fu">exp</span>(<span class="sc">-</span><span class="fl">1.96</span><span class="sc">/</span><span class="dv">5</span>), <span class="fu">exp</span>(.<span class="dv">5</span>) <span class="sc">-</span> <span class="fl">1.96</span><span class="sc">*</span><span class="fu">sqrt</span>((<span class="fu">exp</span>(<span class="dv">1</span>) <span class="sc">-</span> <span class="dv">1</span>)<span class="sc">*</span><span class="fu">exp</span>(<span class="dv">1</span>))<span class="sc">/</span><span class="dv">5</span>),</span>
-<span id="cb495-22"><a href="simulation.html#cb495-22" aria-hidden="true" tabindex="-1"></a>                <span class="at">ub =</span> <span class="fu">c</span>(<span class="fu">exp</span>(<span class="fl">1.96</span><span class="sc">/</span><span class="dv">5</span>), <span class="fu">exp</span>(.<span class="dv">5</span>) <span class="sc">+</span> <span class="fl">1.96</span><span class="sc">*</span><span class="fu">sqrt</span>((<span class="fu">exp</span>(<span class="dv">1</span>) <span class="sc">-</span> <span class="dv">1</span>)<span class="sc">*</span><span class="fu">exp</span>(<span class="dv">1</span>))<span class="sc">/</span><span class="dv">5</span>))</span>
-<span id="cb495-23"><a href="simulation.html#cb495-23" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb495-24"><a href="simulation.html#cb495-24" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb495-25"><a href="simulation.html#cb495-25" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span> </span>
-<span id="cb495-26"><a href="simulation.html#cb495-26" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_rect</span>(<span class="fu">aes</span>(<span class="at">xmin =</span> lb, <span class="at">xmax =</span> ub, <span class="at">ymin =</span> <span class="sc">-</span><span class="cn">Inf</span>, <span class="at">ymax =</span> <span class="cn">Inf</span>), </span>
-<span id="cb495-27"><a href="simulation.html#cb495-27" aria-hidden="true" tabindex="-1"></a>            <span class="at">data =</span> ci_df,</span>
-<span id="cb495-28"><a href="simulation.html#cb495-28" aria-hidden="true" tabindex="-1"></a>            <span class="at">fill =</span> <span class="st">&quot;grey&quot;</span>, <span class="at">alpha =</span> .<span class="dv">5</span>, <span class="at">color =</span> <span class="cn">NA</span>) <span class="sc">+</span> </span>
-<span id="cb495-29"><a href="simulation.html#cb495-29" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="fu">aes</span>(<span class="at">xintercept =</span> mu), <span class="at">data =</span> ci_df) <span class="sc">+</span> </span>
-<span id="cb495-30"><a href="simulation.html#cb495-30" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_segment</span>(<span class="fu">aes</span>(<span class="at">x =</span> lb, <span class="at">xend =</span> ub, <span class="at">y =</span> id, <span class="at">yend =</span> id, <span class="at">color =</span> in_interval),</span>
-<span id="cb495-31"><a href="simulation.html#cb495-31" aria-hidden="true" tabindex="-1"></a>               <span class="at">data =</span> sim_long) <span class="sc">+</span> </span>
-<span id="cb495-32"><a href="simulation.html#cb495-32" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">&quot;red&quot;</span>, <span class="st">&quot;black&quot;</span>)) <span class="sc">+</span> </span>
-<span id="cb495-33"><a href="simulation.html#cb495-33" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span> </span>
-<span id="cb495-34"><a href="simulation.html#cb495-34" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>scenario)</span></code></pre></div>
+<div class="sourceCode" id="cb505"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb505-1"><a href="simulation.html#cb505-1" aria-hidden="true" tabindex="-1"></a>compute_interval <span class="ot">&lt;-</span> <span class="cf">function</span>(x) {</span>
+<span id="cb505-2"><a href="simulation.html#cb505-2" aria-hidden="true" tabindex="-1"></a>  s1 <span class="ot">&lt;-</span> <span class="fu">exp</span>(<span class="fu">mean</span>(<span class="fu">log</span>(x)) <span class="sc">+</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">1</span>, <span class="dv">1</span>) <span class="sc">*</span> <span class="fu">qnorm</span>(.<span class="dv">975</span>) <span class="sc">*</span> <span class="fu">sd</span>(<span class="fu">log</span>(x))<span class="sc">/</span><span class="fu">sqrt</span>(<span class="fu">length</span>(x)))</span>
+<span id="cb505-3"><a href="simulation.html#cb505-3" aria-hidden="true" tabindex="-1"></a>  s2 <span class="ot">&lt;-</span> <span class="fu">mean</span>(x) <span class="sc">+</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">1</span>, <span class="dv">1</span>) <span class="sc">*</span> <span class="fu">qnorm</span>(.<span class="dv">975</span>) <span class="sc">*</span> <span class="fu">sd</span>(x)<span class="sc">/</span><span class="fu">sqrt</span>(<span class="fu">length</span>(x))</span>
+<span id="cb505-4"><a href="simulation.html#cb505-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tibble</span>(<span class="at">scenario =</span> <span class="fu">c</span>(<span class="st">&quot;scenario_1&quot;</span>, <span class="st">&quot;scenario_2&quot;</span>),</span>
+<span id="cb505-5"><a href="simulation.html#cb505-5" aria-hidden="true" tabindex="-1"></a>         <span class="at">mean =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="fu">exp</span>(<span class="dv">1</span><span class="sc">/</span><span class="dv">2</span>)),</span>
+<span id="cb505-6"><a href="simulation.html#cb505-6" aria-hidden="true" tabindex="-1"></a>         <span class="at">lb =</span> <span class="fu">c</span>(s1[<span class="dv">1</span>], s2[<span class="dv">1</span>]), <span class="at">ub =</span> <span class="fu">c</span>(s1[<span class="dv">2</span>], s2[<span class="dv">2</span>]),</span>
+<span id="cb505-7"><a href="simulation.html#cb505-7" aria-hidden="true" tabindex="-1"></a>         <span class="at">in_interval =</span> (lb <span class="sc">&lt;</span> mean) <span class="sc">&amp;</span> (ub <span class="sc">&gt;</span> mean))</span>
+<span id="cb505-8"><a href="simulation.html#cb505-8" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb505-9"><a href="simulation.html#cb505-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb505-10"><a href="simulation.html#cb505-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb505-11"><a href="simulation.html#cb505-11" aria-hidden="true" tabindex="-1"></a>sim_long <span class="ot">&lt;-</span> sim <span class="sc">%&gt;%</span></span>
+<span id="cb505-12"><a href="simulation.html#cb505-12" aria-hidden="true" tabindex="-1"></a>  <span class="co"># This line takes each data entry and computes an interval for x.</span></span>
+<span id="cb505-13"><a href="simulation.html#cb505-13" aria-hidden="true" tabindex="-1"></a>  <span class="co"># .$x is code for take the argument you passed in to map and get the x column</span></span>
+<span id="cb505-14"><a href="simulation.html#cb505-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">res =</span> purrr<span class="sc">::</span><span class="fu">map</span>(data, <span class="sc">~</span><span class="fu">compute_interval</span>(.<span class="sc">$</span>x))) <span class="sc">%&gt;%</span></span>
+<span id="cb505-15"><a href="simulation.html#cb505-15" aria-hidden="true" tabindex="-1"></a>  <span class="co"># this &quot;frees&quot; res and we end up with two columns: lb and ub, for each scenario</span></span>
+<span id="cb505-16"><a href="simulation.html#cb505-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">unnest</span>(res)</span>
+<span id="cb505-17"><a href="simulation.html#cb505-17" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb505-18"><a href="simulation.html#cb505-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb505-19"><a href="simulation.html#cb505-19" aria-hidden="true" tabindex="-1"></a>ci_df <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">scenario =</span> <span class="fu">c</span>(<span class="st">&quot;scenario_1&quot;</span>, <span class="st">&quot;scenario_2&quot;</span>),</span>
+<span id="cb505-20"><a href="simulation.html#cb505-20" aria-hidden="true" tabindex="-1"></a>                <span class="at">mu =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="fu">exp</span>(<span class="dv">1</span><span class="sc">/</span><span class="dv">2</span>)),</span>
+<span id="cb505-21"><a href="simulation.html#cb505-21" aria-hidden="true" tabindex="-1"></a>                <span class="at">lb =</span> <span class="fu">c</span>(<span class="fu">exp</span>(<span class="sc">-</span><span class="fl">1.96</span><span class="sc">/</span><span class="dv">5</span>), <span class="fu">exp</span>(.<span class="dv">5</span>) <span class="sc">-</span> <span class="fl">1.96</span><span class="sc">*</span><span class="fu">sqrt</span>((<span class="fu">exp</span>(<span class="dv">1</span>) <span class="sc">-</span> <span class="dv">1</span>)<span class="sc">*</span><span class="fu">exp</span>(<span class="dv">1</span>))<span class="sc">/</span><span class="dv">5</span>),</span>
+<span id="cb505-22"><a href="simulation.html#cb505-22" aria-hidden="true" tabindex="-1"></a>                <span class="at">ub =</span> <span class="fu">c</span>(<span class="fu">exp</span>(<span class="fl">1.96</span><span class="sc">/</span><span class="dv">5</span>), <span class="fu">exp</span>(.<span class="dv">5</span>) <span class="sc">+</span> <span class="fl">1.96</span><span class="sc">*</span><span class="fu">sqrt</span>((<span class="fu">exp</span>(<span class="dv">1</span>) <span class="sc">-</span> <span class="dv">1</span>)<span class="sc">*</span><span class="fu">exp</span>(<span class="dv">1</span>))<span class="sc">/</span><span class="dv">5</span>))</span>
+<span id="cb505-23"><a href="simulation.html#cb505-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb505-24"><a href="simulation.html#cb505-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb505-25"><a href="simulation.html#cb505-25" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span> </span>
+<span id="cb505-26"><a href="simulation.html#cb505-26" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_rect</span>(<span class="fu">aes</span>(<span class="at">xmin =</span> lb, <span class="at">xmax =</span> ub, <span class="at">ymin =</span> <span class="sc">-</span><span class="cn">Inf</span>, <span class="at">ymax =</span> <span class="cn">Inf</span>), </span>
+<span id="cb505-27"><a href="simulation.html#cb505-27" aria-hidden="true" tabindex="-1"></a>            <span class="at">data =</span> ci_df,</span>
+<span id="cb505-28"><a href="simulation.html#cb505-28" aria-hidden="true" tabindex="-1"></a>            <span class="at">fill =</span> <span class="st">&quot;grey&quot;</span>, <span class="at">alpha =</span> .<span class="dv">5</span>, <span class="at">color =</span> <span class="cn">NA</span>) <span class="sc">+</span> </span>
+<span id="cb505-29"><a href="simulation.html#cb505-29" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="fu">aes</span>(<span class="at">xintercept =</span> mu), <span class="at">data =</span> ci_df) <span class="sc">+</span> </span>
+<span id="cb505-30"><a href="simulation.html#cb505-30" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_segment</span>(<span class="fu">aes</span>(<span class="at">x =</span> lb, <span class="at">xend =</span> ub, <span class="at">y =</span> id, <span class="at">yend =</span> id, <span class="at">color =</span> in_interval),</span>
+<span id="cb505-31"><a href="simulation.html#cb505-31" aria-hidden="true" tabindex="-1"></a>               <span class="at">data =</span> sim_long) <span class="sc">+</span> </span>
+<span id="cb505-32"><a href="simulation.html#cb505-32" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">&quot;red&quot;</span>, <span class="st">&quot;black&quot;</span>)) <span class="sc">+</span> </span>
+<span id="cb505-33"><a href="simulation.html#cb505-33" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span> </span>
+<span id="cb505-34"><a href="simulation.html#cb505-34" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>scenario)</span></code></pre></div>
 <p><img src="image/unnamed-chunk-8-1.png" width="2100" /></p>
 From this, we can see that working with the log-transformed, normally distributed results has better coverage probability than working with the raw data and computing the population mean: the estimates in the latter procedure have lower coverage probability, and many of the intervals are much wider than necessary; in some cases, the interval actually lies outside of the domain.
 </details>
@@ -1161,61 +1162,61 @@ Example: Regression and high-leverage points
 </summary>
 <p>What happens if we have one high-leverage point (e.g. a point which is an outlier in both x and y)? How pathological do our regression coefficient estimates get?</p>
 <p>The challenging part here is to design a data generating mechanism.</p>
-<div class="sourceCode" id="cb496"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb496-1"><a href="simulation.html#cb496-1" aria-hidden="true" tabindex="-1"></a>gen_data <span class="ot">&lt;-</span> <span class="cf">function</span>(<span class="at">n =</span> <span class="dv">30</span>, <span class="at">o =</span> <span class="dv">1</span>, <span class="at">error_sd =</span> <span class="dv">2</span>) {</span>
-<span id="cb496-2"><a href="simulation.html#cb496-2" aria-hidden="true" tabindex="-1"></a>  <span class="co"># generate the main part of the regression data</span></span>
-<span id="cb496-3"><a href="simulation.html#cb496-3" aria-hidden="true" tabindex="-1"></a>  data <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">x =</span> <span class="fu">rnorm</span>(<span class="at">n =</span> n <span class="sc">-</span> o, <span class="at">mean =</span> <span class="fu">seq</span>(<span class="sc">-</span><span class="dv">10</span>, <span class="dv">10</span>, <span class="at">length.out =</span> n <span class="sc">-</span> o), <span class="at">sd =</span> .<span class="dv">1</span>),</span>
-<span id="cb496-4"><a href="simulation.html#cb496-4" aria-hidden="true" tabindex="-1"></a>                 <span class="at">y =</span> x <span class="sc">+</span> <span class="fu">rnorm</span>(<span class="fu">length</span>(x), <span class="at">mean =</span> <span class="dv">0</span>, <span class="at">sd =</span> error_sd))</span>
-<span id="cb496-5"><a href="simulation.html#cb496-5" aria-hidden="true" tabindex="-1"></a>  <span class="co"># generate the outlier - make it at ~(-10, 5)</span></span>
-<span id="cb496-6"><a href="simulation.html#cb496-6" aria-hidden="true" tabindex="-1"></a>  outdata <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">x =</span> <span class="fu">rnorm</span>(o, <span class="sc">-</span><span class="dv">10</span>), <span class="at">y =</span> <span class="fu">rnorm</span>(o, <span class="dv">5</span>, error_sd))</span>
-<span id="cb496-7"><a href="simulation.html#cb496-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">bind_rows</span>(data, outdata)</span>
-<span id="cb496-8"><a href="simulation.html#cb496-8" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb496-9"><a href="simulation.html#cb496-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb496-10"><a href="simulation.html#cb496-10" aria-hidden="true" tabindex="-1"></a>sim_data <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
-<span id="cb496-11"><a href="simulation.html#cb496-11" aria-hidden="true" tabindex="-1"></a>  <span class="at">id =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">300</span>,</span>
-<span id="cb496-12"><a href="simulation.html#cb496-12" aria-hidden="true" tabindex="-1"></a>  <span class="at">o =</span> <span class="fu">rep</span>(<span class="dv">0</span><span class="sc">:</span><span class="dv">2</span>, <span class="at">each =</span> <span class="dv">100</span>),</span>
-<span id="cb496-13"><a href="simulation.html#cb496-13" aria-hidden="true" tabindex="-1"></a>  <span class="co"># call gen_data for each row in sim_data, but don&#39;t really use id as a parameter.</span></span>
-<span id="cb496-14"><a href="simulation.html#cb496-14" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> purrr<span class="sc">::</span><span class="fu">map</span>(o, <span class="sc">~</span><span class="fu">gen_data</span>(<span class="at">o =</span> .)) </span>
-<span id="cb496-15"><a href="simulation.html#cb496-15" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb496-16"><a href="simulation.html#cb496-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb496-17"><a href="simulation.html#cb496-17" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(sim_data)</span>
-<span id="cb496-18"><a href="simulation.html#cb496-18" aria-hidden="true" tabindex="-1"></a><span class="co"># A tibble: 6 x 3</span></span>
-<span id="cb496-19"><a href="simulation.html#cb496-19" aria-hidden="true" tabindex="-1"></a>     id     o data                 </span>
-<span id="cb496-20"><a href="simulation.html#cb496-20" aria-hidden="true" tabindex="-1"></a>  <span class="sc">&lt;</span>int<span class="sc">&gt;</span> <span class="er">&lt;</span>int<span class="sc">&gt;</span> <span class="er">&lt;</span>list<span class="sc">&gt;</span>               </span>
-<span id="cb496-21"><a href="simulation.html#cb496-21" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span>     <span class="dv">1</span>     <span class="dv">0</span> <span class="sc">&lt;</span>tibble[,<span class="dv">2</span>] [<span class="dv">30</span> × <span class="dv">2</span>]<span class="sc">&gt;</span></span>
-<span id="cb496-22"><a href="simulation.html#cb496-22" aria-hidden="true" tabindex="-1"></a><span class="dv">2</span>     <span class="dv">2</span>     <span class="dv">0</span> <span class="sc">&lt;</span>tibble[,<span class="dv">2</span>] [<span class="dv">30</span> × <span class="dv">2</span>]<span class="sc">&gt;</span></span>
-<span id="cb496-23"><a href="simulation.html#cb496-23" aria-hidden="true" tabindex="-1"></a><span class="dv">3</span>     <span class="dv">3</span>     <span class="dv">0</span> <span class="sc">&lt;</span>tibble[,<span class="dv">2</span>] [<span class="dv">30</span> × <span class="dv">2</span>]<span class="sc">&gt;</span></span>
-<span id="cb496-24"><a href="simulation.html#cb496-24" aria-hidden="true" tabindex="-1"></a><span class="dv">4</span>     <span class="dv">4</span>     <span class="dv">0</span> <span class="sc">&lt;</span>tibble[,<span class="dv">2</span>] [<span class="dv">30</span> × <span class="dv">2</span>]<span class="sc">&gt;</span></span>
-<span id="cb496-25"><a href="simulation.html#cb496-25" aria-hidden="true" tabindex="-1"></a><span class="dv">5</span>     <span class="dv">5</span>     <span class="dv">0</span> <span class="sc">&lt;</span>tibble[,<span class="dv">2</span>] [<span class="dv">30</span> × <span class="dv">2</span>]<span class="sc">&gt;</span></span>
-<span id="cb496-26"><a href="simulation.html#cb496-26" aria-hidden="true" tabindex="-1"></a><span class="dv">6</span>     <span class="dv">6</span>     <span class="dv">0</span> <span class="sc">&lt;</span>tibble[,<span class="dv">2</span>] [<span class="dv">30</span> × <span class="dv">2</span>]<span class="sc">&gt;</span></span>
-<span id="cb496-27"><a href="simulation.html#cb496-27" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb496-28"><a href="simulation.html#cb496-28" aria-hidden="true" tabindex="-1"></a><span class="co"># plot a few datasets just to check they look like we expect:</span></span>
-<span id="cb496-29"><a href="simulation.html#cb496-29" aria-hidden="true" tabindex="-1"></a>sim_data <span class="sc">%&gt;%</span></span>
-<span id="cb496-30"><a href="simulation.html#cb496-30" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(id <span class="sc">%%</span> <span class="dv">100</span> <span class="sc">&lt;</span> <span class="dv">3</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb496-31"><a href="simulation.html#cb496-31" aria-hidden="true" tabindex="-1"></a>  <span class="fu">unnest</span>(data) <span class="sc">%&gt;%</span></span>
-<span id="cb496-32"><a href="simulation.html#cb496-32" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> x, <span class="at">y =</span> y)) <span class="sc">+</span> </span>
-<span id="cb496-33"><a href="simulation.html#cb496-33" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span> </span>
-<span id="cb496-34"><a href="simulation.html#cb496-34" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_grid</span>(id <span class="sc">%%</span> <span class="dv">100</span> <span class="sc">~</span> o )</span></code></pre></div>
+<div class="sourceCode" id="cb506"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb506-1"><a href="simulation.html#cb506-1" aria-hidden="true" tabindex="-1"></a>gen_data <span class="ot">&lt;-</span> <span class="cf">function</span>(<span class="at">n =</span> <span class="dv">30</span>, <span class="at">o =</span> <span class="dv">1</span>, <span class="at">error_sd =</span> <span class="dv">2</span>) {</span>
+<span id="cb506-2"><a href="simulation.html#cb506-2" aria-hidden="true" tabindex="-1"></a>  <span class="co"># generate the main part of the regression data</span></span>
+<span id="cb506-3"><a href="simulation.html#cb506-3" aria-hidden="true" tabindex="-1"></a>  data <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">x =</span> <span class="fu">rnorm</span>(<span class="at">n =</span> n <span class="sc">-</span> o, <span class="at">mean =</span> <span class="fu">seq</span>(<span class="sc">-</span><span class="dv">10</span>, <span class="dv">10</span>, <span class="at">length.out =</span> n <span class="sc">-</span> o), <span class="at">sd =</span> .<span class="dv">1</span>),</span>
+<span id="cb506-4"><a href="simulation.html#cb506-4" aria-hidden="true" tabindex="-1"></a>                 <span class="at">y =</span> x <span class="sc">+</span> <span class="fu">rnorm</span>(<span class="fu">length</span>(x), <span class="at">mean =</span> <span class="dv">0</span>, <span class="at">sd =</span> error_sd))</span>
+<span id="cb506-5"><a href="simulation.html#cb506-5" aria-hidden="true" tabindex="-1"></a>  <span class="co"># generate the outlier - make it at ~(-10, 5)</span></span>
+<span id="cb506-6"><a href="simulation.html#cb506-6" aria-hidden="true" tabindex="-1"></a>  outdata <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">x =</span> <span class="fu">rnorm</span>(o, <span class="sc">-</span><span class="dv">10</span>), <span class="at">y =</span> <span class="fu">rnorm</span>(o, <span class="dv">5</span>, error_sd))</span>
+<span id="cb506-7"><a href="simulation.html#cb506-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">bind_rows</span>(data, outdata)</span>
+<span id="cb506-8"><a href="simulation.html#cb506-8" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb506-9"><a href="simulation.html#cb506-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb506-10"><a href="simulation.html#cb506-10" aria-hidden="true" tabindex="-1"></a>sim_data <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
+<span id="cb506-11"><a href="simulation.html#cb506-11" aria-hidden="true" tabindex="-1"></a>  <span class="at">id =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">300</span>,</span>
+<span id="cb506-12"><a href="simulation.html#cb506-12" aria-hidden="true" tabindex="-1"></a>  <span class="at">o =</span> <span class="fu">rep</span>(<span class="dv">0</span><span class="sc">:</span><span class="dv">2</span>, <span class="at">each =</span> <span class="dv">100</span>),</span>
+<span id="cb506-13"><a href="simulation.html#cb506-13" aria-hidden="true" tabindex="-1"></a>  <span class="co"># call gen_data for each row in sim_data, but don&#39;t really use id as a parameter.</span></span>
+<span id="cb506-14"><a href="simulation.html#cb506-14" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> purrr<span class="sc">::</span><span class="fu">map</span>(o, <span class="sc">~</span><span class="fu">gen_data</span>(<span class="at">o =</span> .)) </span>
+<span id="cb506-15"><a href="simulation.html#cb506-15" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb506-16"><a href="simulation.html#cb506-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb506-17"><a href="simulation.html#cb506-17" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(sim_data)</span>
+<span id="cb506-18"><a href="simulation.html#cb506-18" aria-hidden="true" tabindex="-1"></a><span class="co"># A tibble: 6 x 3</span></span>
+<span id="cb506-19"><a href="simulation.html#cb506-19" aria-hidden="true" tabindex="-1"></a>     id     o data                 </span>
+<span id="cb506-20"><a href="simulation.html#cb506-20" aria-hidden="true" tabindex="-1"></a>  <span class="sc">&lt;</span>int<span class="sc">&gt;</span> <span class="er">&lt;</span>int<span class="sc">&gt;</span> <span class="er">&lt;</span>list<span class="sc">&gt;</span>               </span>
+<span id="cb506-21"><a href="simulation.html#cb506-21" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span>     <span class="dv">1</span>     <span class="dv">0</span> <span class="sc">&lt;</span>tibble[,<span class="dv">2</span>] [<span class="dv">30</span> × <span class="dv">2</span>]<span class="sc">&gt;</span></span>
+<span id="cb506-22"><a href="simulation.html#cb506-22" aria-hidden="true" tabindex="-1"></a><span class="dv">2</span>     <span class="dv">2</span>     <span class="dv">0</span> <span class="sc">&lt;</span>tibble[,<span class="dv">2</span>] [<span class="dv">30</span> × <span class="dv">2</span>]<span class="sc">&gt;</span></span>
+<span id="cb506-23"><a href="simulation.html#cb506-23" aria-hidden="true" tabindex="-1"></a><span class="dv">3</span>     <span class="dv">3</span>     <span class="dv">0</span> <span class="sc">&lt;</span>tibble[,<span class="dv">2</span>] [<span class="dv">30</span> × <span class="dv">2</span>]<span class="sc">&gt;</span></span>
+<span id="cb506-24"><a href="simulation.html#cb506-24" aria-hidden="true" tabindex="-1"></a><span class="dv">4</span>     <span class="dv">4</span>     <span class="dv">0</span> <span class="sc">&lt;</span>tibble[,<span class="dv">2</span>] [<span class="dv">30</span> × <span class="dv">2</span>]<span class="sc">&gt;</span></span>
+<span id="cb506-25"><a href="simulation.html#cb506-25" aria-hidden="true" tabindex="-1"></a><span class="dv">5</span>     <span class="dv">5</span>     <span class="dv">0</span> <span class="sc">&lt;</span>tibble[,<span class="dv">2</span>] [<span class="dv">30</span> × <span class="dv">2</span>]<span class="sc">&gt;</span></span>
+<span id="cb506-26"><a href="simulation.html#cb506-26" aria-hidden="true" tabindex="-1"></a><span class="dv">6</span>     <span class="dv">6</span>     <span class="dv">0</span> <span class="sc">&lt;</span>tibble[,<span class="dv">2</span>] [<span class="dv">30</span> × <span class="dv">2</span>]<span class="sc">&gt;</span></span>
+<span id="cb506-27"><a href="simulation.html#cb506-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb506-28"><a href="simulation.html#cb506-28" aria-hidden="true" tabindex="-1"></a><span class="co"># plot a few datasets just to check they look like we expect:</span></span>
+<span id="cb506-29"><a href="simulation.html#cb506-29" aria-hidden="true" tabindex="-1"></a>sim_data <span class="sc">%&gt;%</span></span>
+<span id="cb506-30"><a href="simulation.html#cb506-30" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(id <span class="sc">%%</span> <span class="dv">100</span> <span class="sc">&lt;</span> <span class="dv">3</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb506-31"><a href="simulation.html#cb506-31" aria-hidden="true" tabindex="-1"></a>  <span class="fu">unnest</span>(data) <span class="sc">%&gt;%</span></span>
+<span id="cb506-32"><a href="simulation.html#cb506-32" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> x, <span class="at">y =</span> y)) <span class="sc">+</span> </span>
+<span id="cb506-33"><a href="simulation.html#cb506-33" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span> </span>
+<span id="cb506-34"><a href="simulation.html#cb506-34" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_grid</span>(id <span class="sc">%%</span> <span class="dv">100</span> <span class="sc">~</span> o )</span></code></pre></div>
 <p><img src="image/unnamed-chunk-9-1.png" width="2100" /></p>
-<div class="sourceCode" id="cb497"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb497-1"><a href="simulation.html#cb497-1" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb497-2"><a href="simulation.html#cb497-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb497-3"><a href="simulation.html#cb497-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(broom) <span class="co"># the broom package cleans up model objects to tidy form</span></span>
-<span id="cb497-4"><a href="simulation.html#cb497-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb497-5"><a href="simulation.html#cb497-5" aria-hidden="true" tabindex="-1"></a>sim_data <span class="ot">&lt;-</span> sim_data <span class="sc">%&gt;%</span></span>
-<span id="cb497-6"><a href="simulation.html#cb497-6" aria-hidden="true" tabindex="-1"></a>  <span class="co"># fit linear regression</span></span>
-<span id="cb497-7"><a href="simulation.html#cb497-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">model =</span> purrr<span class="sc">::</span><span class="fu">map</span>(data, <span class="sc">~</span><span class="fu">lm</span>(y <span class="sc">~</span> x, <span class="at">data =</span> .)))  <span class="sc">%&gt;%</span></span>
-<span id="cb497-8"><a href="simulation.html#cb497-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">tidy_model =</span> purrr<span class="sc">::</span><span class="fu">map</span>(model, tidy))</span>
-<span id="cb497-9"><a href="simulation.html#cb497-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb497-10"><a href="simulation.html#cb497-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Get the coefficients out</span></span>
-<span id="cb497-11"><a href="simulation.html#cb497-11" aria-hidden="true" tabindex="-1"></a>tidy_coefs <span class="ot">&lt;-</span> <span class="fu">select</span>(sim_data, id, o, tidy_model) <span class="sc">%&gt;%</span></span>
-<span id="cb497-12"><a href="simulation.html#cb497-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">unnest</span>(tidy_model) <span class="sc">%&gt;%</span></span>
-<span id="cb497-13"><a href="simulation.html#cb497-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">group =</span> <span class="fu">case_when</span>(o <span class="sc">==</span> <span class="dv">0</span> <span class="sc">~</span> <span class="st">&quot;No HLPs&quot;</span>,</span>
-<span id="cb497-14"><a href="simulation.html#cb497-14" aria-hidden="true" tabindex="-1"></a>                           o <span class="sc">==</span> <span class="dv">1</span> <span class="sc">~</span> <span class="st">&quot;1 HLP&quot;</span>,</span>
-<span id="cb497-15"><a href="simulation.html#cb497-15" aria-hidden="true" tabindex="-1"></a>                           o <span class="sc">==</span> <span class="dv">2</span> <span class="sc">~</span> <span class="st">&quot;2 HLPs&quot;</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb497-16"><a href="simulation.html#cb497-16" aria-hidden="true" tabindex="-1"></a>           <span class="fu">factor</span>(<span class="at">levels =</span> <span class="fu">c</span>(<span class="st">&quot;No HLPs&quot;</span>, <span class="st">&quot;1 HLP&quot;</span>, <span class="st">&quot;2 HLPs&quot;</span>)))</span>
-<span id="cb497-17"><a href="simulation.html#cb497-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb497-18"><a href="simulation.html#cb497-18" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(tidy_coefs, <span class="fu">aes</span>(<span class="at">x =</span> estimate, <span class="at">color =</span> group)) <span class="sc">+</span> </span>
-<span id="cb497-19"><a href="simulation.html#cb497-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_grid</span>(term <span class="sc">~</span> .) <span class="sc">+</span> </span>
-<span id="cb497-20"><a href="simulation.html#cb497-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_density</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb507"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb507-1"><a href="simulation.html#cb507-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb507-2"><a href="simulation.html#cb507-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb507-3"><a href="simulation.html#cb507-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(broom) <span class="co"># the broom package cleans up model objects to tidy form</span></span>
+<span id="cb507-4"><a href="simulation.html#cb507-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb507-5"><a href="simulation.html#cb507-5" aria-hidden="true" tabindex="-1"></a>sim_data <span class="ot">&lt;-</span> sim_data <span class="sc">%&gt;%</span></span>
+<span id="cb507-6"><a href="simulation.html#cb507-6" aria-hidden="true" tabindex="-1"></a>  <span class="co"># fit linear regression</span></span>
+<span id="cb507-7"><a href="simulation.html#cb507-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">model =</span> purrr<span class="sc">::</span><span class="fu">map</span>(data, <span class="sc">~</span><span class="fu">lm</span>(y <span class="sc">~</span> x, <span class="at">data =</span> .)))  <span class="sc">%&gt;%</span></span>
+<span id="cb507-8"><a href="simulation.html#cb507-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">tidy_model =</span> purrr<span class="sc">::</span><span class="fu">map</span>(model, tidy))</span>
+<span id="cb507-9"><a href="simulation.html#cb507-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb507-10"><a href="simulation.html#cb507-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Get the coefficients out</span></span>
+<span id="cb507-11"><a href="simulation.html#cb507-11" aria-hidden="true" tabindex="-1"></a>tidy_coefs <span class="ot">&lt;-</span> <span class="fu">select</span>(sim_data, id, o, tidy_model) <span class="sc">%&gt;%</span></span>
+<span id="cb507-12"><a href="simulation.html#cb507-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">unnest</span>(tidy_model) <span class="sc">%&gt;%</span></span>
+<span id="cb507-13"><a href="simulation.html#cb507-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">group =</span> <span class="fu">case_when</span>(o <span class="sc">==</span> <span class="dv">0</span> <span class="sc">~</span> <span class="st">&quot;No HLPs&quot;</span>,</span>
+<span id="cb507-14"><a href="simulation.html#cb507-14" aria-hidden="true" tabindex="-1"></a>                           o <span class="sc">==</span> <span class="dv">1</span> <span class="sc">~</span> <span class="st">&quot;1 HLP&quot;</span>,</span>
+<span id="cb507-15"><a href="simulation.html#cb507-15" aria-hidden="true" tabindex="-1"></a>                           o <span class="sc">==</span> <span class="dv">2</span> <span class="sc">~</span> <span class="st">&quot;2 HLPs&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb507-16"><a href="simulation.html#cb507-16" aria-hidden="true" tabindex="-1"></a>           <span class="fu">factor</span>(<span class="at">levels =</span> <span class="fu">c</span>(<span class="st">&quot;No HLPs&quot;</span>, <span class="st">&quot;1 HLP&quot;</span>, <span class="st">&quot;2 HLPs&quot;</span>)))</span>
+<span id="cb507-17"><a href="simulation.html#cb507-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb507-18"><a href="simulation.html#cb507-18" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(tidy_coefs, <span class="fu">aes</span>(<span class="at">x =</span> estimate, <span class="at">color =</span> group)) <span class="sc">+</span> </span>
+<span id="cb507-19"><a href="simulation.html#cb507-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_grid</span>(term <span class="sc">~</span> .) <span class="sc">+</span> </span>
+<span id="cb507-20"><a href="simulation.html#cb507-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_density</span>()</span></code></pre></div>
 <p><img src="image/unnamed-chunk-9-2.png" width="2100" /></p>
 Obviously, you should experiment with different methods of generating a high-leverage point (maybe use a different distribution?) but this generating mechanism is simple enough for our purposes and shows that the addition of high leverage points biases the true values (slope = 1, intercept = 0).
 <details>
@@ -1384,17 +1385,17 @@ read
 </div>
 <br>
 </div>
-<div class="sourceCode" id="cb499"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb499-1"><a href="simulation.html#cb499-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">204209527</span>)</span>
-<span id="cb499-2"><a href="simulation.html#cb499-2" aria-hidden="true" tabindex="-1"></a>dogtemp <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
-<span id="cb499-3"><a href="simulation.html#cb499-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">actual =</span> <span class="fu">rnorm</span>(<span class="dv">1000</span>, <span class="fl">101.75</span>, <span class="fl">0.375</span>),</span>
-<span id="cb499-4"><a href="simulation.html#cb499-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">read =</span> <span class="fu">pmin</span>(actual, <span class="dv">102</span>)</span>
-<span id="cb499-5"><a href="simulation.html#cb499-5" aria-hidden="true" tabindex="-1"></a>) </span>
-<span id="cb499-6"><a href="simulation.html#cb499-6" aria-hidden="true" tabindex="-1"></a>dogtemp <span class="sc">%&gt;%</span></span>
-<span id="cb499-7"><a href="simulation.html#cb499-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize_all</span>(mean)</span>
-<span id="cb499-8"><a href="simulation.html#cb499-8" aria-hidden="true" tabindex="-1"></a><span class="co"># A tibble: 1 x 2</span></span>
-<span id="cb499-9"><a href="simulation.html#cb499-9" aria-hidden="true" tabindex="-1"></a>  actual  read</span>
-<span id="cb499-10"><a href="simulation.html#cb499-10" aria-hidden="true" tabindex="-1"></a>   <span class="sc">&lt;</span>dbl<span class="sc">&gt;</span> <span class="er">&lt;</span>dbl<span class="sc">&gt;</span></span>
-<span id="cb499-11"><a href="simulation.html#cb499-11" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span>   <span class="fl">102.</span>  <span class="fl">102.</span></span></code></pre></div>
+<div class="sourceCode" id="cb509"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb509-1"><a href="simulation.html#cb509-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">204209527</span>)</span>
+<span id="cb509-2"><a href="simulation.html#cb509-2" aria-hidden="true" tabindex="-1"></a>dogtemp <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
+<span id="cb509-3"><a href="simulation.html#cb509-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">actual =</span> <span class="fu">rnorm</span>(<span class="dv">1000</span>, <span class="fl">101.75</span>, <span class="fl">0.375</span>),</span>
+<span id="cb509-4"><a href="simulation.html#cb509-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">read =</span> <span class="fu">pmin</span>(actual, <span class="dv">102</span>)</span>
+<span id="cb509-5"><a href="simulation.html#cb509-5" aria-hidden="true" tabindex="-1"></a>) </span>
+<span id="cb509-6"><a href="simulation.html#cb509-6" aria-hidden="true" tabindex="-1"></a>dogtemp <span class="sc">%&gt;%</span></span>
+<span id="cb509-7"><a href="simulation.html#cb509-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize_all</span>(mean)</span>
+<span id="cb509-8"><a href="simulation.html#cb509-8" aria-hidden="true" tabindex="-1"></a><span class="co"># A tibble: 1 x 2</span></span>
+<span id="cb509-9"><a href="simulation.html#cb509-9" aria-hidden="true" tabindex="-1"></a>  actual  read</span>
+<span id="cb509-10"><a href="simulation.html#cb509-10" aria-hidden="true" tabindex="-1"></a>   <span class="sc">&lt;</span>dbl<span class="sc">&gt;</span> <span class="er">&lt;</span>dbl<span class="sc">&gt;</span></span>
+<span id="cb509-11"><a href="simulation.html#cb509-11" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span>   <span class="fl">102.</span>  <span class="fl">102.</span></span></code></pre></div>
 The effect of the thermometer’s censoring in both cases is around 0.06 degrees F.
 </details>
 </div>
@@ -1420,35 +1421,35 @@ Let’s try it out by using MC simulation to estimate the number of uniform (0,1
 <li>We generate new <span class="math inline">\(u_i\)</span> until <span class="math inline">\(\sum_{i=1}^k &gt; 1\)</span> and save the value of <span class="math inline">\(k\)</span></li>
 <li>We average the result of <span class="math inline">\(N\)</span> such simulations.</li>
 </ol>
-<div class="sourceCode" id="cb500"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb500-1"><a href="simulation.html#cb500-1" aria-hidden="true" tabindex="-1"></a><span class="co"># It&#39;s easier to think through the code if we write it inefficiently first</span></span>
-<span id="cb500-2"><a href="simulation.html#cb500-2" aria-hidden="true" tabindex="-1"></a>sim_fcn <span class="ot">&lt;-</span> <span class="cf">function</span>() {</span>
-<span id="cb500-3"><a href="simulation.html#cb500-3" aria-hidden="true" tabindex="-1"></a>  usum <span class="ot">&lt;-</span> <span class="dv">0</span></span>
-<span id="cb500-4"><a href="simulation.html#cb500-4" aria-hidden="true" tabindex="-1"></a>  k <span class="ot">&lt;-</span> <span class="dv">0</span></span>
-<span id="cb500-5"><a href="simulation.html#cb500-5" aria-hidden="true" tabindex="-1"></a>  <span class="co"># prevent infinite loops by monitoring the value of k as well</span></span>
-<span id="cb500-6"><a href="simulation.html#cb500-6" aria-hidden="true" tabindex="-1"></a>  <span class="cf">while</span> (usum <span class="sc">&lt;</span> <span class="dv">1</span> <span class="sc">&amp;</span> k <span class="sc">&lt;</span> <span class="dv">15</span>) {</span>
-<span id="cb500-7"><a href="simulation.html#cb500-7" aria-hidden="true" tabindex="-1"></a>    usum <span class="ot">&lt;-</span> <span class="fu">runif</span>(<span class="dv">1</span>) <span class="sc">+</span> usum</span>
-<span id="cb500-8"><a href="simulation.html#cb500-8" aria-hidden="true" tabindex="-1"></a>    k <span class="ot">&lt;-</span> k <span class="sc">+</span> <span class="dv">1</span></span>
-<span id="cb500-9"><a href="simulation.html#cb500-9" aria-hidden="true" tabindex="-1"></a>  }</span>
-<span id="cb500-10"><a href="simulation.html#cb500-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(k)</span>
-<span id="cb500-11"><a href="simulation.html#cb500-11" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb500-12"><a href="simulation.html#cb500-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb500-13"><a href="simulation.html#cb500-13" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">302497852</span>)</span>
-<span id="cb500-14"><a href="simulation.html#cb500-14" aria-hidden="true" tabindex="-1"></a>res <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">k =</span> <span class="fu">replicate</span>(<span class="dv">1000</span>, <span class="fu">sim_fcn</span>(), <span class="at">simplify =</span> T))</span>
-<span id="cb500-15"><a href="simulation.html#cb500-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb500-16"><a href="simulation.html#cb500-16" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(res<span class="sc">$</span>k)</span>
-<span id="cb500-17"><a href="simulation.html#cb500-17" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="fl">2.717</span></span></code></pre></div>
+<div class="sourceCode" id="cb510"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb510-1"><a href="simulation.html#cb510-1" aria-hidden="true" tabindex="-1"></a><span class="co"># It&#39;s easier to think through the code if we write it inefficiently first</span></span>
+<span id="cb510-2"><a href="simulation.html#cb510-2" aria-hidden="true" tabindex="-1"></a>sim_fcn <span class="ot">&lt;-</span> <span class="cf">function</span>() {</span>
+<span id="cb510-3"><a href="simulation.html#cb510-3" aria-hidden="true" tabindex="-1"></a>  usum <span class="ot">&lt;-</span> <span class="dv">0</span></span>
+<span id="cb510-4"><a href="simulation.html#cb510-4" aria-hidden="true" tabindex="-1"></a>  k <span class="ot">&lt;-</span> <span class="dv">0</span></span>
+<span id="cb510-5"><a href="simulation.html#cb510-5" aria-hidden="true" tabindex="-1"></a>  <span class="co"># prevent infinite loops by monitoring the value of k as well</span></span>
+<span id="cb510-6"><a href="simulation.html#cb510-6" aria-hidden="true" tabindex="-1"></a>  <span class="cf">while</span> (usum <span class="sc">&lt;</span> <span class="dv">1</span> <span class="sc">&amp;</span> k <span class="sc">&lt;</span> <span class="dv">15</span>) {</span>
+<span id="cb510-7"><a href="simulation.html#cb510-7" aria-hidden="true" tabindex="-1"></a>    usum <span class="ot">&lt;-</span> <span class="fu">runif</span>(<span class="dv">1</span>) <span class="sc">+</span> usum</span>
+<span id="cb510-8"><a href="simulation.html#cb510-8" aria-hidden="true" tabindex="-1"></a>    k <span class="ot">&lt;-</span> k <span class="sc">+</span> <span class="dv">1</span></span>
+<span id="cb510-9"><a href="simulation.html#cb510-9" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb510-10"><a href="simulation.html#cb510-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(k)</span>
+<span id="cb510-11"><a href="simulation.html#cb510-11" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb510-12"><a href="simulation.html#cb510-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb510-13"><a href="simulation.html#cb510-13" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">302497852</span>)</span>
+<span id="cb510-14"><a href="simulation.html#cb510-14" aria-hidden="true" tabindex="-1"></a>res <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">k =</span> <span class="fu">replicate</span>(<span class="dv">1000</span>, <span class="fu">sim_fcn</span>(), <span class="at">simplify =</span> T))</span>
+<span id="cb510-15"><a href="simulation.html#cb510-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb510-16"><a href="simulation.html#cb510-16" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(res<span class="sc">$</span>k)</span>
+<span id="cb510-17"><a href="simulation.html#cb510-17" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="fl">2.717</span></span></code></pre></div>
 <p>If we want to see whether the result converges to something, we can increase the number of trials we run:</p>
-<div class="sourceCode" id="cb501"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb501-1"><a href="simulation.html#cb501-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">20417023</span>)</span>
-<span id="cb501-2"><a href="simulation.html#cb501-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb501-3"><a href="simulation.html#cb501-3" aria-hidden="true" tabindex="-1"></a>sim_res <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">samp =</span> <span class="fu">replicate</span>(<span class="dv">250000</span>, <span class="fu">sim_fcn</span>(), <span class="at">simplify =</span> T)) </span>
-<span id="cb501-4"><a href="simulation.html#cb501-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb501-5"><a href="simulation.html#cb501-5" aria-hidden="true" tabindex="-1"></a>sim_res <span class="ot">&lt;-</span> sim_res <span class="sc">%&gt;%</span></span>
-<span id="cb501-6"><a href="simulation.html#cb501-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">running_avg_est =</span> <span class="fu">cummean</span>(samp),</span>
-<span id="cb501-7"><a href="simulation.html#cb501-7" aria-hidden="true" tabindex="-1"></a>         <span class="at">N =</span> <span class="fu">row_number</span>())</span>
-<span id="cb501-8"><a href="simulation.html#cb501-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb501-9"><a href="simulation.html#cb501-9" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> N, <span class="at">y =</span> running_avg_est), <span class="at">data =</span> sim_res) <span class="sc">+</span> </span>
-<span id="cb501-10"><a href="simulation.html#cb501-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> <span class="fu">exp</span>(<span class="dv">1</span>), <span class="at">color =</span> <span class="st">&quot;red&quot;</span>) <span class="sc">+</span> </span>
-<span id="cb501-11"><a href="simulation.html#cb501-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb511"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb511-1"><a href="simulation.html#cb511-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">20417023</span>)</span>
+<span id="cb511-2"><a href="simulation.html#cb511-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb511-3"><a href="simulation.html#cb511-3" aria-hidden="true" tabindex="-1"></a>sim_res <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">samp =</span> <span class="fu">replicate</span>(<span class="dv">250000</span>, <span class="fu">sim_fcn</span>(), <span class="at">simplify =</span> T)) </span>
+<span id="cb511-4"><a href="simulation.html#cb511-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb511-5"><a href="simulation.html#cb511-5" aria-hidden="true" tabindex="-1"></a>sim_res <span class="ot">&lt;-</span> sim_res <span class="sc">%&gt;%</span></span>
+<span id="cb511-6"><a href="simulation.html#cb511-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">running_avg_est =</span> <span class="fu">cummean</span>(samp),</span>
+<span id="cb511-7"><a href="simulation.html#cb511-7" aria-hidden="true" tabindex="-1"></a>         <span class="at">N =</span> <span class="fu">row_number</span>())</span>
+<span id="cb511-8"><a href="simulation.html#cb511-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb511-9"><a href="simulation.html#cb511-9" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> N, <span class="at">y =</span> running_avg_est), <span class="at">data =</span> sim_res) <span class="sc">+</span> </span>
+<span id="cb511-10"><a href="simulation.html#cb511-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> <span class="fu">exp</span>(<span class="dv">1</span>), <span class="at">color =</span> <span class="st">&quot;red&quot;</span>) <span class="sc">+</span> </span>
+<span id="cb511-11"><a href="simulation.html#cb511-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>()</span></code></pre></div>
 <p><img src="image/unnamed-chunk-13-1.png" width="2100" /></p>
 <p>The expected number of uniform RV draws required to sum to 1 is <span class="math inline">\(e\)</span>!</p>
 <a href="https://www.jstor.org/stable/2685243">Explanation of why this works</a>
@@ -1460,13 +1461,13 @@ Let’s try it out by using MC simulation to estimate the number of uniform (0,1
 <summary>
 Implementation
 </summary>
-<div class="sourceCode" id="cb502"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb502-1"><a href="simulation.html#cb502-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">20491720</span>)</span>
-<span id="cb502-2"><a href="simulation.html#cb502-2" aria-hidden="true" tabindex="-1"></a>fn <span class="ot">&lt;-</span> <span class="cf">function</span>(x) <span class="fu">exp</span>(<span class="sc">-</span>x<span class="sc">^</span><span class="dv">3</span>)</span>
-<span id="cb502-3"><a href="simulation.html#cb502-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb502-4"><a href="simulation.html#cb502-4" aria-hidden="true" tabindex="-1"></a>sim_data <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">x =</span> <span class="fu">runif</span>(<span class="dv">100000</span>),</span>
-<span id="cb502-5"><a href="simulation.html#cb502-5" aria-hidden="true" tabindex="-1"></a>                   <span class="at">y =</span> <span class="fu">fn</span>(x))</span>
-<span id="cb502-6"><a href="simulation.html#cb502-6" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(sim_data<span class="sc">$</span>y)</span>
-<span id="cb502-7"><a href="simulation.html#cb502-7" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="fl">0.8076082</span></span></code></pre></div>
+<div class="sourceCode" id="cb512"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb512-1"><a href="simulation.html#cb512-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">20491720</span>)</span>
+<span id="cb512-2"><a href="simulation.html#cb512-2" aria-hidden="true" tabindex="-1"></a>fn <span class="ot">&lt;-</span> <span class="cf">function</span>(x) <span class="fu">exp</span>(<span class="sc">-</span>x<span class="sc">^</span><span class="dv">3</span>)</span>
+<span id="cb512-3"><a href="simulation.html#cb512-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb512-4"><a href="simulation.html#cb512-4" aria-hidden="true" tabindex="-1"></a>sim_data <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">x =</span> <span class="fu">runif</span>(<span class="dv">100000</span>),</span>
+<span id="cb512-5"><a href="simulation.html#cb512-5" aria-hidden="true" tabindex="-1"></a>                   <span class="at">y =</span> <span class="fu">fn</span>(x))</span>
+<span id="cb512-6"><a href="simulation.html#cb512-6" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(sim_data<span class="sc">$</span>y)</span>
+<span id="cb512-7"><a href="simulation.html#cb512-7" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="fl">0.8076082</span></span></code></pre></div>
 <pre class="sashtml"><code>DATA tmp;
 CALL streaminit(20283492);
   DO i = 1 to 100000;
@@ -1558,53 +1559,53 @@ You can use the law of large numbers to prove that this approach will converge.
 Solution
 </summary>
 <p>Let’s start out with horizontal lines at 0 and 1, and set our stick length to 1. We need to randomly generate a position (of one end of the stick) and an angle. The position in <span class="math inline">\(x\)</span> doesn’t actually make much of a difference (since what we care about is the <span class="math inline">\(y\)</span> coordinates), but we can draw a picture if we generate <span class="math inline">\(x\)</span> as well.</p>
-<div class="sourceCode" id="cb504"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb504-1"><a href="simulation.html#cb504-1" aria-hidden="true" tabindex="-1"></a>needle_sim <span class="ot">&lt;-</span> <span class="cf">function</span>(<span class="at">sticks =</span> <span class="dv">100</span>) {</span>
-<span id="cb504-2"><a href="simulation.html#cb504-2" aria-hidden="true" tabindex="-1"></a>  df <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">xstart =</span> <span class="fu">runif</span>(sticks, <span class="dv">0</span>, <span class="dv">10</span>), </span>
-<span id="cb504-3"><a href="simulation.html#cb504-3" aria-hidden="true" tabindex="-1"></a>         <span class="at">ystart =</span> <span class="fu">runif</span>(sticks, <span class="dv">0</span>, <span class="dv">1</span>), </span>
-<span id="cb504-4"><a href="simulation.html#cb504-4" aria-hidden="true" tabindex="-1"></a>         <span class="at">angle =</span> <span class="fu">runif</span>(sticks, <span class="dv">0</span>, <span class="dv">360</span>),</span>
-<span id="cb504-5"><a href="simulation.html#cb504-5" aria-hidden="true" tabindex="-1"></a>         <span class="at">xend =</span> xstart <span class="sc">+</span> <span class="fu">cos</span>(angle<span class="sc">/</span><span class="dv">180</span><span class="sc">*</span>pi), </span>
-<span id="cb504-6"><a href="simulation.html#cb504-6" aria-hidden="true" tabindex="-1"></a>         <span class="at">yend =</span> ystart <span class="sc">+</span> <span class="fu">sin</span>(angle<span class="sc">/</span><span class="dv">180</span><span class="sc">*</span>pi)</span>
-<span id="cb504-7"><a href="simulation.html#cb504-7" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
-<span id="cb504-8"><a href="simulation.html#cb504-8" aria-hidden="true" tabindex="-1"></a>    <span class="co"># We can see if a stick crosses a line if the floor() function of ystart is </span></span>
-<span id="cb504-9"><a href="simulation.html#cb504-9" aria-hidden="true" tabindex="-1"></a>    <span class="co"># different than floor(yend). Note this only works for integer line values...</span></span>
-<span id="cb504-10"><a href="simulation.html#cb504-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">crosses_line =</span> <span class="fu">floor</span>(ystart) <span class="sc">!=</span> <span class="fu">floor</span>(yend)) </span>
-<span id="cb504-11"><a href="simulation.html#cb504-11" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb504-12"><a href="simulation.html#cb504-12" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb504-13"><a href="simulation.html#cb504-13" aria-hidden="true" tabindex="-1"></a>  gg <span class="ot">&lt;-</span> <span class="fu">ggplot</span>() <span class="sc">+</span> </span>
-<span id="cb504-14"><a href="simulation.html#cb504-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>)) <span class="sc">+</span> </span>
-<span id="cb504-15"><a href="simulation.html#cb504-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_segment</span>(<span class="fu">aes</span>(<span class="at">x =</span> xstart, <span class="at">y =</span> ystart, <span class="at">xend =</span> xend, <span class="at">yend =</span> yend,</span>
-<span id="cb504-16"><a href="simulation.html#cb504-16" aria-hidden="true" tabindex="-1"></a>                   <span class="at">color =</span> crosses_line), <span class="at">data =</span> df) <span class="sc">+</span> </span>
-<span id="cb504-17"><a href="simulation.html#cb504-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_fixed</span>()</span>
-<span id="cb504-18"><a href="simulation.html#cb504-18" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb504-19"><a href="simulation.html#cb504-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(<span class="fu">list</span>(<span class="at">est =</span> <span class="dv">2</span> <span class="sc">*</span> sticks<span class="sc">/</span> <span class="fu">sum</span>(df<span class="sc">$</span>crosses_line), <span class="at">plot =</span> gg))</span>
-<span id="cb504-20"><a href="simulation.html#cb504-20" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb504-21"><a href="simulation.html#cb504-21" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb504-22"><a href="simulation.html#cb504-22" aria-hidden="true" tabindex="-1"></a><span class="fu">needle_sim</span>(<span class="dv">10</span>)</span>
-<span id="cb504-23"><a href="simulation.html#cb504-23" aria-hidden="true" tabindex="-1"></a><span class="sc">$</span>est</span>
-<span id="cb504-24"><a href="simulation.html#cb504-24" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="fl">2.8571429</span></span>
-<span id="cb504-25"><a href="simulation.html#cb504-25" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb504-26"><a href="simulation.html#cb504-26" aria-hidden="true" tabindex="-1"></a><span class="sc">$</span>plot</span></code></pre></div>
+<div class="sourceCode" id="cb514"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb514-1"><a href="simulation.html#cb514-1" aria-hidden="true" tabindex="-1"></a>needle_sim <span class="ot">&lt;-</span> <span class="cf">function</span>(<span class="at">sticks =</span> <span class="dv">100</span>) {</span>
+<span id="cb514-2"><a href="simulation.html#cb514-2" aria-hidden="true" tabindex="-1"></a>  df <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">xstart =</span> <span class="fu">runif</span>(sticks, <span class="dv">0</span>, <span class="dv">10</span>), </span>
+<span id="cb514-3"><a href="simulation.html#cb514-3" aria-hidden="true" tabindex="-1"></a>         <span class="at">ystart =</span> <span class="fu">runif</span>(sticks, <span class="dv">0</span>, <span class="dv">1</span>), </span>
+<span id="cb514-4"><a href="simulation.html#cb514-4" aria-hidden="true" tabindex="-1"></a>         <span class="at">angle =</span> <span class="fu">runif</span>(sticks, <span class="dv">0</span>, <span class="dv">360</span>),</span>
+<span id="cb514-5"><a href="simulation.html#cb514-5" aria-hidden="true" tabindex="-1"></a>         <span class="at">xend =</span> xstart <span class="sc">+</span> <span class="fu">cos</span>(angle<span class="sc">/</span><span class="dv">180</span><span class="sc">*</span>pi), </span>
+<span id="cb514-6"><a href="simulation.html#cb514-6" aria-hidden="true" tabindex="-1"></a>         <span class="at">yend =</span> ystart <span class="sc">+</span> <span class="fu">sin</span>(angle<span class="sc">/</span><span class="dv">180</span><span class="sc">*</span>pi)</span>
+<span id="cb514-7"><a href="simulation.html#cb514-7" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb514-8"><a href="simulation.html#cb514-8" aria-hidden="true" tabindex="-1"></a>    <span class="co"># We can see if a stick crosses a line if the floor() function of ystart is </span></span>
+<span id="cb514-9"><a href="simulation.html#cb514-9" aria-hidden="true" tabindex="-1"></a>    <span class="co"># different than floor(yend). Note this only works for integer line values...</span></span>
+<span id="cb514-10"><a href="simulation.html#cb514-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">crosses_line =</span> <span class="fu">floor</span>(ystart) <span class="sc">!=</span> <span class="fu">floor</span>(yend)) </span>
+<span id="cb514-11"><a href="simulation.html#cb514-11" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb514-12"><a href="simulation.html#cb514-12" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb514-13"><a href="simulation.html#cb514-13" aria-hidden="true" tabindex="-1"></a>  gg <span class="ot">&lt;-</span> <span class="fu">ggplot</span>() <span class="sc">+</span> </span>
+<span id="cb514-14"><a href="simulation.html#cb514-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>)) <span class="sc">+</span> </span>
+<span id="cb514-15"><a href="simulation.html#cb514-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_segment</span>(<span class="fu">aes</span>(<span class="at">x =</span> xstart, <span class="at">y =</span> ystart, <span class="at">xend =</span> xend, <span class="at">yend =</span> yend,</span>
+<span id="cb514-16"><a href="simulation.html#cb514-16" aria-hidden="true" tabindex="-1"></a>                   <span class="at">color =</span> crosses_line), <span class="at">data =</span> df) <span class="sc">+</span> </span>
+<span id="cb514-17"><a href="simulation.html#cb514-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_fixed</span>()</span>
+<span id="cb514-18"><a href="simulation.html#cb514-18" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb514-19"><a href="simulation.html#cb514-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(<span class="fu">list</span>(<span class="at">est =</span> <span class="dv">2</span> <span class="sc">*</span> sticks<span class="sc">/</span> <span class="fu">sum</span>(df<span class="sc">$</span>crosses_line), <span class="at">plot =</span> gg))</span>
+<span id="cb514-20"><a href="simulation.html#cb514-20" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb514-21"><a href="simulation.html#cb514-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb514-22"><a href="simulation.html#cb514-22" aria-hidden="true" tabindex="-1"></a><span class="fu">needle_sim</span>(<span class="dv">10</span>)</span>
+<span id="cb514-23"><a href="simulation.html#cb514-23" aria-hidden="true" tabindex="-1"></a><span class="sc">$</span>est</span>
+<span id="cb514-24"><a href="simulation.html#cb514-24" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="fl">2.8571429</span></span>
+<span id="cb514-25"><a href="simulation.html#cb514-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb514-26"><a href="simulation.html#cb514-26" aria-hidden="true" tabindex="-1"></a><span class="sc">$</span>plot</span></code></pre></div>
 <p><img src="image/unnamed-chunk-15-1.png" width="2100" /></p>
-<div class="sourceCode" id="cb505"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb505-1"><a href="simulation.html#cb505-1" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb505-2"><a href="simulation.html#cb505-2" aria-hidden="true" tabindex="-1"></a><span class="fu">needle_sim</span>(<span class="dv">100</span>)</span>
-<span id="cb505-3"><a href="simulation.html#cb505-3" aria-hidden="true" tabindex="-1"></a><span class="sc">$</span>est</span>
-<span id="cb505-4"><a href="simulation.html#cb505-4" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="fl">2.8985507</span></span>
-<span id="cb505-5"><a href="simulation.html#cb505-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb505-6"><a href="simulation.html#cb505-6" aria-hidden="true" tabindex="-1"></a><span class="sc">$</span>plot</span></code></pre></div>
+<div class="sourceCode" id="cb515"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb515-1"><a href="simulation.html#cb515-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb515-2"><a href="simulation.html#cb515-2" aria-hidden="true" tabindex="-1"></a><span class="fu">needle_sim</span>(<span class="dv">100</span>)</span>
+<span id="cb515-3"><a href="simulation.html#cb515-3" aria-hidden="true" tabindex="-1"></a><span class="sc">$</span>est</span>
+<span id="cb515-4"><a href="simulation.html#cb515-4" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="fl">2.8985507</span></span>
+<span id="cb515-5"><a href="simulation.html#cb515-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb515-6"><a href="simulation.html#cb515-6" aria-hidden="true" tabindex="-1"></a><span class="sc">$</span>plot</span></code></pre></div>
 <p><img src="image/unnamed-chunk-15-2.png" width="2100" /></p>
-<div class="sourceCode" id="cb506"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb506-1"><a href="simulation.html#cb506-1" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb506-2"><a href="simulation.html#cb506-2" aria-hidden="true" tabindex="-1"></a><span class="fu">needle_sim</span>(<span class="dv">1000</span>)</span>
-<span id="cb506-3"><a href="simulation.html#cb506-3" aria-hidden="true" tabindex="-1"></a><span class="sc">$</span>est</span>
-<span id="cb506-4"><a href="simulation.html#cb506-4" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="fl">3.1298905</span></span>
-<span id="cb506-5"><a href="simulation.html#cb506-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb506-6"><a href="simulation.html#cb506-6" aria-hidden="true" tabindex="-1"></a><span class="sc">$</span>plot</span></code></pre></div>
+<div class="sourceCode" id="cb516"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb516-1"><a href="simulation.html#cb516-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb516-2"><a href="simulation.html#cb516-2" aria-hidden="true" tabindex="-1"></a><span class="fu">needle_sim</span>(<span class="dv">1000</span>)</span>
+<span id="cb516-3"><a href="simulation.html#cb516-3" aria-hidden="true" tabindex="-1"></a><span class="sc">$</span>est</span>
+<span id="cb516-4"><a href="simulation.html#cb516-4" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="fl">3.1298905</span></span>
+<span id="cb516-5"><a href="simulation.html#cb516-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb516-6"><a href="simulation.html#cb516-6" aria-hidden="true" tabindex="-1"></a><span class="sc">$</span>plot</span></code></pre></div>
 <p><img src="image/unnamed-chunk-15-3.png" width="2100" /></p>
-<div class="sourceCode" id="cb507"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb507-1"><a href="simulation.html#cb507-1" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb507-2"><a href="simulation.html#cb507-2" aria-hidden="true" tabindex="-1"></a><span class="fu">needle_sim</span>(<span class="dv">10000</span>)</span>
-<span id="cb507-3"><a href="simulation.html#cb507-3" aria-hidden="true" tabindex="-1"></a><span class="sc">$</span>est</span>
-<span id="cb507-4"><a href="simulation.html#cb507-4" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="fl">3.1235358</span></span>
-<span id="cb507-5"><a href="simulation.html#cb507-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb507-6"><a href="simulation.html#cb507-6" aria-hidden="true" tabindex="-1"></a><span class="sc">$</span>plot</span></code></pre></div>
+<div class="sourceCode" id="cb517"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb517-1"><a href="simulation.html#cb517-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb517-2"><a href="simulation.html#cb517-2" aria-hidden="true" tabindex="-1"></a><span class="fu">needle_sim</span>(<span class="dv">10000</span>)</span>
+<span id="cb517-3"><a href="simulation.html#cb517-3" aria-hidden="true" tabindex="-1"></a><span class="sc">$</span>est</span>
+<span id="cb517-4"><a href="simulation.html#cb517-4" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="fl">3.1235358</span></span>
+<span id="cb517-5"><a href="simulation.html#cb517-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb517-6"><a href="simulation.html#cb517-6" aria-hidden="true" tabindex="-1"></a><span class="sc">$</span>plot</span></code></pre></div>
 <p><img src="image/unnamed-chunk-15-4.png" width="2100" /></p>
 <a href="https://blogs.sas.com/content/iml/2012/01/04/simulation-of-buffons-needle-in-sas-2.html">This blog post contains code for a SAS implementation</a>
 </details>

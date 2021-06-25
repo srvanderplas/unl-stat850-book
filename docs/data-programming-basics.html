@@ -306,6 +306,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="data-programming-basics.html"><a href="data-programming-basics.html#module4-objectives"><i class="fa fa-check"></i>Module Objectives</a></li>
 <li class="chapter" data-level="4.1" data-path="data-programming-basics.html"><a href="data-programming-basics.html#introduction-1"><i class="fa fa-check"></i><b>4.1</b> Introduction</a></li>
 <li class="chapter" data-level="4.2" data-path="data-programming-basics.html"><a href="data-programming-basics.html#example-1-art"><i class="fa fa-check"></i><b>4.2</b> Example 1: Art</a></li>
+<li class="chapter" data-level="4.3" data-path="data-programming-basics.html"><a href="data-programming-basics.html#example-2-dogs-of-nyc"><i class="fa fa-check"></i><b>4.3</b> Example 2: Dogs of NYC</a></li>
 </ul></li>
 <li class="chapter" data-level="5" data-path="reading-data.html"><a href="reading-data.html"><i class="fa fa-check"></i><b>5</b> External Data</a>
 <ul>
@@ -564,31 +565,31 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="introduction-1" class="section level2" number="4.1">
 <h2><span class="header-section-number">4.1</span> Introduction</h2>
 <p>At this point in the course, you’ve learned how to write functions. You know the basics of how to create new variables, how data frames and lists work, and how to use markdown.</p>
-<p>And yet… these are skills that take some practice when applied to new data. So this week, we’re going to focus on working with datasets, but we’re not going to learn much in the way of new material (though I’ll provide sample code for tasks like basic plots and tables). This week is about reinforcing the skills you’ve already learned, and helping you find your feet a bit as you work through a data analysis. It will also provide a preview of some of the packages we’re going to work with in the coming weeks (because I’m going to show you how to e.g. summarize a dataset and plot a few things, even without having covered that material).</p>
+<p>And yet… these are skills that take some practice when applied to new data. So this week, we’re going to focus on working with datasets, but we’re not going to learn much in the way of new material (though I’ll provide sample code for tasks like basic plots and tables). This week is about <strong>reinforcing the skills you’ve already learned</strong>, and helping you find your feet a bit as you work through a data analysis. It will also provide a preview of some of the packages we’re going to work with in the coming weeks (because I’m going to show you how to e.g. summarize a dataset and plot a few things, even without having covered that material).</p>
 <p>As you’ve probably guessed by now, this week’s reading will primarily be focused on examples.</p>
 </div>
 <div id="example-1-art" class="section level2" number="4.2">
 <h2><span class="header-section-number">4.2</span> Example 1: Art</h2>
 <p>The Tate Art Museum assembled a collection of 70,000 artworks (last updated in 2014). They catalogued information including accession number, artwork dimensions, units, title, date, medium, inscription, and even URLs for images of the art.</p>
-<div class="sourceCode" id="cb128"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb128-1"><a href="data-programming-basics.html#cb128-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readr)</span>
-<span id="cb128-2"><a href="data-programming-basics.html#cb128-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(skimr)</span>
-<span id="cb128-3"><a href="data-programming-basics.html#cb128-3" aria-hidden="true" tabindex="-1"></a>artwork <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&#39;https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2021/2021-01-12/artwork.csv&#39;</span>)</span>
-<span id="cb128-4"><a href="data-programming-basics.html#cb128-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb128-5"><a href="data-programming-basics.html#cb128-5" aria-hidden="true" tabindex="-1"></a>── Column specification ────────────────────────────────────────────────────────</span>
-<span id="cb128-6"><a href="data-programming-basics.html#cb128-6" aria-hidden="true" tabindex="-1"></a><span class="fu">cols</span>(</span>
-<span id="cb128-7"><a href="data-programming-basics.html#cb128-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">.default =</span> <span class="fu">col_character</span>(),</span>
-<span id="cb128-8"><a href="data-programming-basics.html#cb128-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">id =</span> <span class="fu">col_double</span>(),</span>
-<span id="cb128-9"><a href="data-programming-basics.html#cb128-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">artistId =</span> <span class="fu">col_double</span>(),</span>
-<span id="cb128-10"><a href="data-programming-basics.html#cb128-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">year =</span> <span class="fu">col_double</span>(),</span>
-<span id="cb128-11"><a href="data-programming-basics.html#cb128-11" aria-hidden="true" tabindex="-1"></a>  <span class="at">acquisitionYear =</span> <span class="fu">col_double</span>(),</span>
-<span id="cb128-12"><a href="data-programming-basics.html#cb128-12" aria-hidden="true" tabindex="-1"></a>  <span class="at">width =</span> <span class="fu">col_double</span>(),</span>
-<span id="cb128-13"><a href="data-programming-basics.html#cb128-13" aria-hidden="true" tabindex="-1"></a>  <span class="at">height =</span> <span class="fu">col_double</span>(),</span>
-<span id="cb128-14"><a href="data-programming-basics.html#cb128-14" aria-hidden="true" tabindex="-1"></a>  <span class="at">depth =</span> <span class="fu">col_double</span>(),</span>
-<span id="cb128-15"><a href="data-programming-basics.html#cb128-15" aria-hidden="true" tabindex="-1"></a>  <span class="at">thumbnailCopyright =</span> <span class="fu">col_logical</span>()</span>
-<span id="cb128-16"><a href="data-programming-basics.html#cb128-16" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb128-17"><a href="data-programming-basics.html#cb128-17" aria-hidden="true" tabindex="-1"></a>ℹ Use <span class="st">`</span><span class="at">spec()</span><span class="st">`</span> <span class="cf">for</span> the full column specifications.</span>
-<span id="cb128-18"><a href="data-programming-basics.html#cb128-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb128-19"><a href="data-programming-basics.html#cb128-19" aria-hidden="true" tabindex="-1"></a><span class="fu">skim</span>(artwork)</span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="data-programming-basics.html#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readr)</span>
+<span id="cb2-2"><a href="data-programming-basics.html#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(skimr)</span>
+<span id="cb2-3"><a href="data-programming-basics.html#cb2-3" aria-hidden="true" tabindex="-1"></a>artwork <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&#39;https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2021/2021-01-12/artwork.csv&#39;</span>)</span>
+<span id="cb2-4"><a href="data-programming-basics.html#cb2-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-5"><a href="data-programming-basics.html#cb2-5" aria-hidden="true" tabindex="-1"></a>── Column specification ────────────────────────────────────────────────────────</span>
+<span id="cb2-6"><a href="data-programming-basics.html#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="fu">cols</span>(</span>
+<span id="cb2-7"><a href="data-programming-basics.html#cb2-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">.default =</span> <span class="fu">col_character</span>(),</span>
+<span id="cb2-8"><a href="data-programming-basics.html#cb2-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">id =</span> <span class="fu">col_double</span>(),</span>
+<span id="cb2-9"><a href="data-programming-basics.html#cb2-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">artistId =</span> <span class="fu">col_double</span>(),</span>
+<span id="cb2-10"><a href="data-programming-basics.html#cb2-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">year =</span> <span class="fu">col_double</span>(),</span>
+<span id="cb2-11"><a href="data-programming-basics.html#cb2-11" aria-hidden="true" tabindex="-1"></a>  <span class="at">acquisitionYear =</span> <span class="fu">col_double</span>(),</span>
+<span id="cb2-12"><a href="data-programming-basics.html#cb2-12" aria-hidden="true" tabindex="-1"></a>  <span class="at">width =</span> <span class="fu">col_double</span>(),</span>
+<span id="cb2-13"><a href="data-programming-basics.html#cb2-13" aria-hidden="true" tabindex="-1"></a>  <span class="at">height =</span> <span class="fu">col_double</span>(),</span>
+<span id="cb2-14"><a href="data-programming-basics.html#cb2-14" aria-hidden="true" tabindex="-1"></a>  <span class="at">depth =</span> <span class="fu">col_double</span>(),</span>
+<span id="cb2-15"><a href="data-programming-basics.html#cb2-15" aria-hidden="true" tabindex="-1"></a>  <span class="at">thumbnailCopyright =</span> <span class="fu">col_logical</span>()</span>
+<span id="cb2-16"><a href="data-programming-basics.html#cb2-16" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb2-17"><a href="data-programming-basics.html#cb2-17" aria-hidden="true" tabindex="-1"></a>ℹ Use <span class="st">`</span><span class="at">spec()</span><span class="st">`</span> <span class="cf">for</span> the full column specifications.</span>
+<span id="cb2-18"><a href="data-programming-basics.html#cb2-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-19"><a href="data-programming-basics.html#cb2-19" aria-hidden="true" tabindex="-1"></a><span class="fu">skim</span>(artwork)</span></code></pre></div>
 <table>
 <caption><span id="tab:read-art-data">Table 4.1: </span>Data summary</caption>
 <tbody>
@@ -908,15 +909,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <summary>
 First, let’s pull out the year for each piece of artwork in the dataset and see what we can do with it…
 </summary>
-<div class="sourceCode" id="cb129"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb129-1"><a href="data-programming-basics.html#cb129-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(artwork<span class="sc">$</span>year)</span>
-<span id="cb129-2"><a href="data-programming-basics.html#cb129-2" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>]   <span class="cn">NA</span>   <span class="cn">NA</span> <span class="dv">1785</span>   <span class="cn">NA</span> <span class="dv">1826</span> <span class="dv">1826</span></span></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="data-programming-basics.html#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(artwork<span class="sc">$</span>year)</span>
+<span id="cb3-2"><a href="data-programming-basics.html#cb3-2" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>]   <span class="cn">NA</span>   <span class="cn">NA</span> <span class="dv">1785</span>   <span class="cn">NA</span> <span class="dv">1826</span> <span class="dv">1826</span></span></code></pre></div>
 <p>We reference a column of the dataset by name using <code>dataset_name$column_name</code>, and since our data is stored in <code>artwork</code>, and we want the column named <code>year</code>, we use <code>artwork$year</code> to get access to the data we want.</p>
 <p>I’ve used the <code>head</code> command to show only the first few values (so that the output isn’t overwhelming). When we have output like this, it is useful to summarize the output in some way:</p>
-<div class="sourceCode" id="cb130"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb130-1"><a href="data-programming-basics.html#cb130-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(artwork<span class="sc">$</span>year)</span>
-<span id="cb130-2"><a href="data-programming-basics.html#cb130-2" aria-hidden="true" tabindex="-1"></a>   Min. 1st Qu.  Median    Mean 3rd Qu.    Max.    NA<span class="st">&#39;s </span></span>
-<span id="cb130-3"><a href="data-programming-basics.html#cb130-3" aria-hidden="true" tabindex="-1"></a><span class="st">   1545    1817    1831    1867    1953    2012    5397 </span></span></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="data-programming-basics.html#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(artwork<span class="sc">$</span>year)</span>
+<span id="cb4-2"><a href="data-programming-basics.html#cb4-2" aria-hidden="true" tabindex="-1"></a>   Min. 1st Qu.  Median    Mean 3rd Qu.    Max.    NA<span class="st">&#39;s </span></span>
+<span id="cb4-3"><a href="data-programming-basics.html#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="st">   1545    1817    1831    1867    1953    2012    5397 </span></span></code></pre></div>
 <p>That’s much less output, but we might want to instead make a chart:</p>
-<div class="sourceCode" id="cb131"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb131-1"><a href="data-programming-basics.html#cb131-1" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(artwork<span class="sc">$</span>year)</span></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="data-programming-basics.html#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(artwork<span class="sc">$</span>year)</span></code></pre></div>
 <p><img src="image/hist-data-col-1.png" width="2100" />
 Personally, I much prefer the graphical version. It’s informative (though it does leave out NA values) and shows that there are pieces going back to the 1500s, but that most pieces were made in the early 1800s or late 1900s.</p>
 </details>
@@ -924,43 +925,280 @@ Personally, I much prefer the graphical version. It’s informative (though it d
 <summary>
 We might be interested in the aspect ratio of the artwork - let’s take a look at the input variables and define new variables related to aspect ratio(s)
 </summary>
-<div class="sourceCode" id="cb132"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb132-1"><a href="data-programming-basics.html#cb132-1" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(artwork<span class="sc">$</span>width)</span>
-<span id="cb132-2"><a href="data-programming-basics.html#cb132-2" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(artwork<span class="sc">$</span>depth)</span>
-<span id="cb132-3"><a href="data-programming-basics.html#cb132-3" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(artwork<span class="sc">$</span>height)</span></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="data-programming-basics.html#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(artwork<span class="sc">$</span>width)</span>
+<span id="cb6-2"><a href="data-programming-basics.html#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(artwork<span class="sc">$</span>depth)</span>
+<span id="cb6-3"><a href="data-programming-basics.html#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(artwork<span class="sc">$</span>height)</span></code></pre></div>
 <p><img src="image/hist-dims-art-1.png" width="33%" /><img src="image/hist-dims-art-2.png" width="33%" /><img src="image/hist-dims-art-3.png" width="33%" /></p>
 <p>So all of our variables are skewed quite a bit, and we know from the existence of the <code>units</code> column that they may not be in the same unit, either…</p>
-<div class="sourceCode" id="cb133"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb133-1"><a href="data-programming-basics.html#cb133-1" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(artwork<span class="sc">$</span>units)</span>
-<span id="cb133-2"><a href="data-programming-basics.html#cb133-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb133-3"><a href="data-programming-basics.html#cb133-3" aria-hidden="true" tabindex="-1"></a>   mm </span>
-<span id="cb133-4"><a href="data-programming-basics.html#cb133-4" aria-hidden="true" tabindex="-1"></a><span class="dv">65860</span> </span></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="data-programming-basics.html#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(artwork<span class="sc">$</span>units)</span>
+<span id="cb7-2"><a href="data-programming-basics.html#cb7-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-3"><a href="data-programming-basics.html#cb7-3" aria-hidden="true" tabindex="-1"></a>   mm </span>
+<span id="cb7-4"><a href="data-programming-basics.html#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="dv">65860</span> </span></code></pre></div>
 <p>Except apparently they are, so … cool. That does make life easier.</p>
 <p>To define a new variable that exists on its own, we might do something like this:</p>
-<div class="sourceCode" id="cb134"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb134-1"><a href="data-programming-basics.html#cb134-1" aria-hidden="true" tabindex="-1"></a>aspect_hw <span class="ot">&lt;-</span> artwork<span class="sc">$</span>height<span class="sc">/</span>artwork<span class="sc">$</span>width</span>
-<span id="cb134-2"><a href="data-programming-basics.html#cb134-2" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(aspect_hw)</span>
-<span id="cb134-3"><a href="data-programming-basics.html#cb134-3" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(<span class="fu">log</span>(aspect_hw))</span></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="data-programming-basics.html#cb8-1" aria-hidden="true" tabindex="-1"></a>aspect_hw <span class="ot">&lt;-</span> artwork<span class="sc">$</span>height<span class="sc">/</span>artwork<span class="sc">$</span>width</span>
+<span id="cb8-2"><a href="data-programming-basics.html#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(aspect_hw)</span>
+<span id="cb8-3"><a href="data-programming-basics.html#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(<span class="fu">log</span>(aspect_hw))</span></code></pre></div>
 <p><img src="image/hist-aspect-ratio-calc-1.png" width="49%" /><img src="image/hist-aspect-ratio-calc-2.png" width="49%" /></p>
 <p>Ok, interesting. Most things are pretty square-ish, but there are obviously quite a few exceptions in both directions.</p>
 <p>The one problem with how we’ve done this is that we now have a data frame with all of our data in it, and a separate variable <code>aspect_hw</code>, that is not attached to our data frame. That’s not ideal - it’s easy to lose track of the variable, it’s easy to accidentally “sort” the variable so that the row order isn’t the same as in the original data frame… there are all sorts of potential issues.</p>
 <p>So, the better way to define a new variable is to add a new <strong>column</strong> to the data frame:</p>
-<div class="sourceCode" id="cb135"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb135-1"><a href="data-programming-basics.html#cb135-1" aria-hidden="true" tabindex="-1"></a>artwork<span class="sc">$</span>aspect_hw <span class="ot">&lt;-</span> artwork<span class="sc">$</span>height<span class="sc">/</span>artwork<span class="sc">$</span>width</span></code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="data-programming-basics.html#cb9-1" aria-hidden="true" tabindex="-1"></a>artwork<span class="sc">$</span>aspect_hw <span class="ot">&lt;-</span> artwork<span class="sc">$</span>height<span class="sc">/</span>artwork<span class="sc">$</span>width</span></code></pre></div>
 <p>(We’ll learn an easier way to do this later, but this is functional, if not pretty, for now).</p>
 <p>The downside to this is that we have to write out <code>artwork$aspect_hw</code> each time we want to reference the variable. That is a pain, but one that’s relatively temporary (we’ll get to a better way to do this in a couple of weeks). A little bit of extra typing is definitely worth it if you don’t lose data you want to keep.</p>
 </details>
 <p>One mistake I see people make frequently is to calculate <code>artwork$height/artwork$width</code>, but then not assign that value to a variable. If you’re not using <code>&lt;-</code> (or <code>=</code> or <code>-&gt;</code> if you’re a total heathen) then you’re not saving that information to be referenced later - you’re just calculating values temporarily. It’s important to keep track of where you’re putting the pieces you create during an analysis - just as important as keeping track of the different sub-components when you’re putting a lego set together or making a complex recipe in the kitchen. Forgetting to assign your calculation to a variable is like dumping your mixture down the sink or throwing that small lego component into the trash.</p>
+</div>
+<div id="example-2-dogs-of-nyc" class="section level2" number="4.3">
+<h2><span class="header-section-number">4.3</span> Example 2: Dogs of NYC</h2>
+<p>New York City provides a whole host of open-data resources, including a <a href="https://data.cityofnewyork.us/Health/NYC-Dog-Licensing-Dataset/nu7n-tubp">dataset of dogs licensed in the city on an annual basis</a> (link is to the NYC Open Data Page).</p>
+<p><a href="https://data.cityofnewyork.us/api/views/nu7n-tubp/rows.csv?accessType=DOWNLOAD">CSV link</a> (this data is ~23 MB)</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="data-programming-basics.html#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readr)</span>
+<span id="cb10-2"><a href="data-programming-basics.html#cb10-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-3"><a href="data-programming-basics.html#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="sc">!</span><span class="fu">file.exists</span>(<span class="st">&quot;data/NYC_dogs.csv&quot;</span>)) {</span>
+<span id="cb10-4"><a href="data-programming-basics.html#cb10-4" aria-hidden="true" tabindex="-1"></a>  <span class="co"># if the file doesn&#39;t exist, download it!</span></span>
+<span id="cb10-5"><a href="data-programming-basics.html#cb10-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">download.file</span>(</span>
+<span id="cb10-6"><a href="data-programming-basics.html#cb10-6" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;https://data.cityofnewyork.us/api/views/nu7n-tubp/rows.csv?accessType=DOWNLOAD&quot;</span>, <span class="co"># url for download</span></span>
+<span id="cb10-7"><a href="data-programming-basics.html#cb10-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">destfile =</span> <span class="st">&quot;data/NYC_dogs.csv&quot;</span>, <span class="co"># location to store the file</span></span>
+<span id="cb10-8"><a href="data-programming-basics.html#cb10-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">mode =</span> <span class="st">&quot;wb&quot;</span> <span class="co"># need this to get downloads to work on windows</span></span>
+<span id="cb10-9"><a href="data-programming-basics.html#cb10-9" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb10-10"><a href="data-programming-basics.html#cb10-10" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb10-11"><a href="data-programming-basics.html#cb10-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-12"><a href="data-programming-basics.html#cb10-12" aria-hidden="true" tabindex="-1"></a>dogs <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&quot;data/NYC_dogs.csv&quot;</span>)</span>
+<span id="cb10-13"><a href="data-programming-basics.html#cb10-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-14"><a href="data-programming-basics.html#cb10-14" aria-hidden="true" tabindex="-1"></a>── Column specification ────────────────────────────────────────────────────────</span>
+<span id="cb10-15"><a href="data-programming-basics.html#cb10-15" aria-hidden="true" tabindex="-1"></a><span class="fu">cols</span>(</span>
+<span id="cb10-16"><a href="data-programming-basics.html#cb10-16" aria-hidden="true" tabindex="-1"></a>  <span class="at">RowNumber =</span> <span class="fu">col_double</span>(),</span>
+<span id="cb10-17"><a href="data-programming-basics.html#cb10-17" aria-hidden="true" tabindex="-1"></a>  <span class="at">AnimalName =</span> <span class="fu">col_character</span>(),</span>
+<span id="cb10-18"><a href="data-programming-basics.html#cb10-18" aria-hidden="true" tabindex="-1"></a>  <span class="at">AnimalGender =</span> <span class="fu">col_character</span>(),</span>
+<span id="cb10-19"><a href="data-programming-basics.html#cb10-19" aria-hidden="true" tabindex="-1"></a>  <span class="at">AnimalBirthMonth =</span> <span class="fu">col_double</span>(),</span>
+<span id="cb10-20"><a href="data-programming-basics.html#cb10-20" aria-hidden="true" tabindex="-1"></a>  <span class="at">BreedName =</span> <span class="fu">col_character</span>(),</span>
+<span id="cb10-21"><a href="data-programming-basics.html#cb10-21" aria-hidden="true" tabindex="-1"></a>  <span class="at">Borough =</span> <span class="fu">col_logical</span>(),</span>
+<span id="cb10-22"><a href="data-programming-basics.html#cb10-22" aria-hidden="true" tabindex="-1"></a>  <span class="at">ZipCode =</span> <span class="fu">col_double</span>(),</span>
+<span id="cb10-23"><a href="data-programming-basics.html#cb10-23" aria-hidden="true" tabindex="-1"></a>  <span class="at">LicenseIssuedDate =</span> <span class="fu">col_character</span>(),</span>
+<span id="cb10-24"><a href="data-programming-basics.html#cb10-24" aria-hidden="true" tabindex="-1"></a>  <span class="at">LicenseExpiredDate =</span> <span class="fu">col_character</span>(),</span>
+<span id="cb10-25"><a href="data-programming-basics.html#cb10-25" aria-hidden="true" tabindex="-1"></a>  <span class="st">`</span><span class="at">Extract Year</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">col_double</span>()</span>
+<span id="cb10-26"><a href="data-programming-basics.html#cb10-26" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb10-27"><a href="data-programming-basics.html#cb10-27" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(dogs)</span>
+<span id="cb10-28"><a href="data-programming-basics.html#cb10-28" aria-hidden="true" tabindex="-1"></a><span class="co"># A tibble: 6 x 10</span></span>
+<span id="cb10-29"><a href="data-programming-basics.html#cb10-29" aria-hidden="true" tabindex="-1"></a>  RowNumber AnimalName AnimalGender AnimalBirthMonth BreedName   Borough ZipCode</span>
+<span id="cb10-30"><a href="data-programming-basics.html#cb10-30" aria-hidden="true" tabindex="-1"></a>      <span class="sc">&lt;</span>dbl<span class="sc">&gt;</span> <span class="er">&lt;</span>chr<span class="sc">&gt;</span>      <span class="er">&lt;</span>chr<span class="sc">&gt;</span>                   <span class="er">&lt;</span>dbl<span class="sc">&gt;</span> <span class="er">&lt;</span>chr<span class="sc">&gt;</span>       <span class="er">&lt;</span>lgl<span class="sc">&gt;</span>     <span class="er">&lt;</span>dbl<span class="sc">&gt;</span></span>
+<span id="cb10-31"><a href="data-programming-basics.html#cb10-31" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span>         <span class="dv">1</span> PAIGE      F                        <span class="dv">2014</span> American P… <span class="cn">NA</span>        <span class="dv">10035</span></span>
+<span id="cb10-32"><a href="data-programming-basics.html#cb10-32" aria-hidden="true" tabindex="-1"></a><span class="dv">2</span>         <span class="dv">2</span> YOGI       M                        <span class="dv">2010</span> Boxer       <span class="cn">NA</span>        <span class="dv">10465</span></span>
+<span id="cb10-33"><a href="data-programming-basics.html#cb10-33" aria-hidden="true" tabindex="-1"></a><span class="dv">3</span>         <span class="dv">3</span> ALI        M                        <span class="dv">2014</span> Basenji     <span class="cn">NA</span>        <span class="dv">10013</span></span>
+<span id="cb10-34"><a href="data-programming-basics.html#cb10-34" aria-hidden="true" tabindex="-1"></a><span class="dv">4</span>         <span class="dv">4</span> QUEEN      F                        <span class="dv">2013</span> Akita Cros… <span class="cn">NA</span>        <span class="dv">10013</span></span>
+<span id="cb10-35"><a href="data-programming-basics.html#cb10-35" aria-hidden="true" tabindex="-1"></a><span class="dv">5</span>         <span class="dv">5</span> LOLA       F                        <span class="dv">2009</span> Maltese     <span class="cn">NA</span>        <span class="dv">10028</span></span>
+<span id="cb10-36"><a href="data-programming-basics.html#cb10-36" aria-hidden="true" tabindex="-1"></a><span class="dv">6</span>         <span class="dv">6</span> IAN        M                        <span class="dv">2006</span> Unknown     <span class="cn">NA</span>        <span class="dv">10013</span></span>
+<span id="cb10-37"><a href="data-programming-basics.html#cb10-37" aria-hidden="true" tabindex="-1"></a><span class="co"># … with 3 more variables: LicenseIssuedDate &lt;chr&gt;, LicenseExpiredDate &lt;chr&gt;,</span></span>
+<span id="cb10-38"><a href="data-programming-basics.html#cb10-38" aria-hidden="true" tabindex="-1"></a><span class="co">#   Extract Year &lt;dbl&gt;</span></span></code></pre></div>
+<p>One thing we might want to do first is to transform the license dates (<code>LicenseIssuedDate</code>, <code>LicenseExpiredDate</code>) into actual dates instead of characters. We will use the <code>lubridate</code> package to do this, because it is designed to make working with dates and times very easy.</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="data-programming-basics.html#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lubridate)</span>
+<span id="cb11-2"><a href="data-programming-basics.html#cb11-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-3"><a href="data-programming-basics.html#cb11-3" aria-hidden="true" tabindex="-1"></a>Attaching package<span class="sc">:</span> <span class="st">&#39;lubridate&#39;</span></span>
+<span id="cb11-4"><a href="data-programming-basics.html#cb11-4" aria-hidden="true" tabindex="-1"></a>The following objects are masked from <span class="st">&#39;package:base&#39;</span><span class="sc">:</span></span>
+<span id="cb11-5"><a href="data-programming-basics.html#cb11-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-6"><a href="data-programming-basics.html#cb11-6" aria-hidden="true" tabindex="-1"></a>    date, intersect, setdiff, union</span>
+<span id="cb11-7"><a href="data-programming-basics.html#cb11-7" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(dogs<span class="sc">$</span>LicenseExpiredDate) <span class="co"># Dates are in month-day-year format</span></span>
+<span id="cb11-8"><a href="data-programming-basics.html#cb11-8" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;09/12/2017&quot;</span> <span class="st">&quot;10/02/2017&quot;</span> <span class="st">&quot;09/12/2019&quot;</span> <span class="st">&quot;09/12/2017&quot;</span> <span class="st">&quot;10/09/2017&quot;</span></span>
+<span id="cb11-9"><a href="data-programming-basics.html#cb11-9" aria-hidden="true" tabindex="-1"></a>[<span class="dv">6</span>] <span class="st">&quot;10/30/2019&quot;</span></span>
+<span id="cb11-10"><a href="data-programming-basics.html#cb11-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-11"><a href="data-programming-basics.html#cb11-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-12"><a href="data-programming-basics.html#cb11-12" aria-hidden="true" tabindex="-1"></a>dogs<span class="sc">$</span>LicenseExpiredDate <span class="ot">&lt;-</span> <span class="fu">mdy</span>(dogs<span class="sc">$</span>LicenseExpiredDate)</span>
+<span id="cb11-13"><a href="data-programming-basics.html#cb11-13" aria-hidden="true" tabindex="-1"></a>dogs<span class="sc">$</span>LicenseIssuedDate <span class="ot">&lt;-</span> <span class="fu">mdy</span>(dogs<span class="sc">$</span>LicenseIssuedDate)</span></code></pre></div>
+<p>It might be interesting to see when licenses have been issued over time, so let’s make a histogram:</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="data-programming-basics.html#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb12-2"><a href="data-programming-basics.html#cb12-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-3"><a href="data-programming-basics.html#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(</span>
+<span id="cb12-4"><a href="data-programming-basics.html#cb12-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> dogs, </span>
+<span id="cb12-5"><a href="data-programming-basics.html#cb12-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(<span class="at">x =</span> LicenseIssuedDate) <span class="co"># Specify we want LicenseIssueDate on the x-axis</span></span>
+<span id="cb12-6"><a href="data-programming-basics.html#cb12-6" aria-hidden="true" tabindex="-1"></a>) <span class="sc">+</span> </span>
+<span id="cb12-7"><a href="data-programming-basics.html#cb12-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>() <span class="co"># Create a histogram</span></span>
+<span id="cb12-8"><a href="data-programming-basics.html#cb12-8" aria-hidden="true" tabindex="-1"></a><span class="st">`</span><span class="at">stat_bin()</span><span class="st">`</span> using <span class="st">`</span><span class="at">bins = 30</span><span class="st">`</span>. Pick better value with <span class="st">`</span><span class="at">binwidth</span><span class="st">`</span>.</span></code></pre></div>
+<p><img src="image/dog-license-hist-1.png" width="2100" /></p>
+<p>There is an interesting periodicity to the license issue dates.</p>
+<p>I’m also curious about how long a license tends to be held for - we can get this information by subtracting the issue date from the expiration date.</p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="data-programming-basics.html#cb13-1" aria-hidden="true" tabindex="-1"></a>dogs<span class="sc">$</span>LicenseLength <span class="ot">&lt;-</span> dogs<span class="sc">$</span>LicenseExpiredDate <span class="sc">-</span> dogs<span class="sc">$</span>LicenseIssuedDate</span>
+<span id="cb13-2"><a href="data-programming-basics.html#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(dogs<span class="sc">$</span>LicenseLength)</span>
+<span id="cb13-3"><a href="data-programming-basics.html#cb13-3" aria-hidden="true" tabindex="-1"></a>  Length    Class     Mode </span>
+<span id="cb13-4"><a href="data-programming-basics.html#cb13-4" aria-hidden="true" tabindex="-1"></a>  <span class="dv">345727</span> difftime  numeric </span>
+<span id="cb13-5"><a href="data-programming-basics.html#cb13-5" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(dogs<span class="sc">$</span>LicenseLength)</span>
+<span id="cb13-6"><a href="data-programming-basics.html#cb13-6" aria-hidden="true" tabindex="-1"></a>Time differences <span class="cf">in</span> days</span>
+<span id="cb13-7"><a href="data-programming-basics.html#cb13-7" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="dv">1096</span> <span class="dv">1116</span> <span class="dv">1826</span> <span class="dv">1096</span> <span class="dv">1123</span> <span class="dv">1874</span></span></code></pre></div>
+<p>We can see that directly subtracting date-times gives us a license length in days. That’s useful enough, I guess, but it might be more useful in years… unfortunately, that’s not an option for <code>difftime()</code></p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="data-programming-basics.html#cb14-1" aria-hidden="true" tabindex="-1"></a>dogs<span class="sc">$</span>LicenseLength <span class="ot">&lt;-</span> <span class="fu">difftime</span>(dogs<span class="sc">$</span>LicenseExpiredDate, dogs<span class="sc">$</span>LicenseIssuedDate, <span class="at">units =</span> <span class="st">&quot;weeks&quot;</span>)</span>
+<span id="cb14-2"><a href="data-programming-basics.html#cb14-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-3"><a href="data-programming-basics.html#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="co"># 52 weeks in a year so we&#39;ll just convert as we plot</span></span>
+<span id="cb14-4"><a href="data-programming-basics.html#cb14-4" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> dogs, <span class="fu">aes</span>(<span class="at">x =</span> LicenseLength <span class="sc">/</span> <span class="dv">52</span> )) <span class="sc">+</span> <span class="fu">geom_histogram</span>() <span class="sc">+</span> </span>
+<span id="cb14-5"><a href="data-programming-basics.html#cb14-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">breaks =</span> <span class="dv">0</span><span class="sc">:</span><span class="dv">10</span>)</span>
+<span id="cb14-6"><a href="data-programming-basics.html#cb14-6" aria-hidden="true" tabindex="-1"></a><span class="st">`</span><span class="at">stat_bin()</span><span class="st">`</span> using <span class="st">`</span><span class="at">bins = 30</span><span class="st">`</span>. Pick better value with <span class="st">`</span><span class="at">binwidth</span><span class="st">`</span>.</span></code></pre></div>
+<p><img src="image/dog-license-length-2-1.png" width="2100" /></p>
+<p>Another question that I have when looking at this dataset is a bit more superficial - are the characteristics of different areas different? The <code>dogs</code> data frame has a Borough column, but it’s not actually filled in, so we’ll need to get rid of it and then add Borough back in by zip code.</p>
+<p>To look at this, we’ll need a bit more data. I found a list of NYC zip codes by borough, which we can merge in with the data we already have to get puppy registrations by borough. Then, we can see if e.g. the top 10 breeds are different for different boroughs. To simplify this, I’m going to link to a file to merge in, and not show you the specifics of how I read the table from <a href="https://www.nycbynatives.com/nyc_info/new_york_city_zip_codes.php">this site</a> into R.</p>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="data-programming-basics.html#cb15-1" aria-hidden="true" tabindex="-1"></a>borough_zip <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&quot;https://raw.githubusercontent.com/srvanderplas/unl-stat850/master/data/nyc_zip_borough.csv&quot;</span>)</span>
+<span id="cb15-2"><a href="data-programming-basics.html#cb15-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-3"><a href="data-programming-basics.html#cb15-3" aria-hidden="true" tabindex="-1"></a>── Column specification ────────────────────────────────────────────────────────</span>
+<span id="cb15-4"><a href="data-programming-basics.html#cb15-4" aria-hidden="true" tabindex="-1"></a><span class="fu">cols</span>(</span>
+<span id="cb15-5"><a href="data-programming-basics.html#cb15-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">ZipCode =</span> <span class="fu">col_double</span>(),</span>
+<span id="cb15-6"><a href="data-programming-basics.html#cb15-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">Borough =</span> <span class="fu">col_character</span>()</span>
+<span id="cb15-7"><a href="data-programming-basics.html#cb15-7" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb15-8"><a href="data-programming-basics.html#cb15-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-9"><a href="data-programming-basics.html#cb15-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Remove the Borough column from dogs</span></span>
+<span id="cb15-10"><a href="data-programming-basics.html#cb15-10" aria-hidden="true" tabindex="-1"></a>dogs <span class="ot">&lt;-</span> dogs[, <span class="fu">which</span>(<span class="fu">names</span>(dogs) <span class="sc">!=</span> <span class="st">&quot;Borough&quot;</span>)]</span>
+<span id="cb15-11"><a href="data-programming-basics.html#cb15-11" aria-hidden="true" tabindex="-1"></a>dogs <span class="ot">&lt;-</span> <span class="fu">merge</span>(dogs, borough_zip, <span class="at">by =</span> <span class="st">&quot;ZipCode&quot;</span>)</span>
+<span id="cb15-12"><a href="data-programming-basics.html#cb15-12" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(dogs)</span>
+<span id="cb15-13"><a href="data-programming-basics.html#cb15-13" aria-hidden="true" tabindex="-1"></a>  ZipCode RowNumber AnimalName AnimalGender AnimalBirthMonth</span>
+<span id="cb15-14"><a href="data-programming-basics.html#cb15-14" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span>   <span class="dv">10001</span>     <span class="dv">82601</span>       ABBY            F             <span class="dv">2008</span></span>
+<span id="cb15-15"><a href="data-programming-basics.html#cb15-15" aria-hidden="true" tabindex="-1"></a><span class="dv">2</span>   <span class="dv">10001</span>     <span class="dv">33510</span>    SALOMON            M             <span class="dv">2014</span></span>
+<span id="cb15-16"><a href="data-programming-basics.html#cb15-16" aria-hidden="true" tabindex="-1"></a><span class="dv">3</span>   <span class="dv">10001</span>    <span class="dv">114699</span>    MAXWELL            M             <span class="dv">2016</span></span>
+<span id="cb15-17"><a href="data-programming-basics.html#cb15-17" aria-hidden="true" tabindex="-1"></a><span class="dv">4</span>   <span class="dv">10001</span>     <span class="dv">95306</span>     CHANCE            M             <span class="dv">2015</span></span>
+<span id="cb15-18"><a href="data-programming-basics.html#cb15-18" aria-hidden="true" tabindex="-1"></a><span class="dv">5</span>   <span class="dv">10001</span>     <span class="dv">19397</span>      TEDDY            M             <span class="dv">2017</span></span>
+<span id="cb15-19"><a href="data-programming-basics.html#cb15-19" aria-hidden="true" tabindex="-1"></a><span class="dv">6</span>   <span class="dv">10001</span>      <span class="dv">1506</span>      CAIRO            M             <span class="dv">2012</span></span>
+<span id="cb15-20"><a href="data-programming-basics.html#cb15-20" aria-hidden="true" tabindex="-1"></a>            BreedName LicenseIssuedDate LicenseExpiredDate Extract Year</span>
+<span id="cb15-21"><a href="data-programming-basics.html#cb15-21" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span>  Labrador Retriever        <span class="dv">2016-08-01</span>         <span class="dv">2021-09-24</span>         <span class="dv">2016</span></span>
+<span id="cb15-22"><a href="data-programming-basics.html#cb15-22" aria-hidden="true" tabindex="-1"></a><span class="dv">2</span>             Unknown        <span class="dv">2015-12-05</span>         <span class="dv">2017-07-21</span>         <span class="dv">2016</span></span>
+<span id="cb15-23"><a href="data-programming-basics.html#cb15-23" aria-hidden="true" tabindex="-1"></a><span class="dv">3</span>  Labrador Retriever        <span class="dv">2017-12-26</span>         <span class="dv">2018-12-26</span>         <span class="dv">2017</span></span>
+<span id="cb15-24"><a href="data-programming-basics.html#cb15-24" aria-hidden="true" tabindex="-1"></a><span class="dv">4</span>             Pointer        <span class="dv">2017-09-14</span>         <span class="dv">2018-10-02</span>         <span class="dv">2017</span></span>
+<span id="cb15-25"><a href="data-programming-basics.html#cb15-25" aria-hidden="true" tabindex="-1"></a><span class="dv">5</span> Shih Tzu Crossbreed        <span class="dv">2017-04-27</span>         <span class="dv">2018-04-27</span>         <span class="dv">2018</span></span>
+<span id="cb15-26"><a href="data-programming-basics.html#cb15-26" aria-hidden="true" tabindex="-1"></a><span class="dv">6</span>    Bull Dog, French        <span class="dv">2015-03-29</span>         <span class="dv">2018-04-19</span>         <span class="dv">2017</span></span>
+<span id="cb15-27"><a href="data-programming-basics.html#cb15-27" aria-hidden="true" tabindex="-1"></a>    LicenseLength   Borough</span>
+<span id="cb15-28"><a href="data-programming-basics.html#cb15-28" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="fl">268.57143</span> weeks Manhattan</span>
+<span id="cb15-29"><a href="data-programming-basics.html#cb15-29" aria-hidden="true" tabindex="-1"></a><span class="dv">2</span>  <span class="fl">84.85714</span> weeks Manhattan</span>
+<span id="cb15-30"><a href="data-programming-basics.html#cb15-30" aria-hidden="true" tabindex="-1"></a><span class="dv">3</span>  <span class="fl">52.14286</span> weeks Manhattan</span>
+<span id="cb15-31"><a href="data-programming-basics.html#cb15-31" aria-hidden="true" tabindex="-1"></a><span class="dv">4</span>  <span class="fl">54.71429</span> weeks Manhattan</span>
+<span id="cb15-32"><a href="data-programming-basics.html#cb15-32" aria-hidden="true" tabindex="-1"></a><span class="dv">5</span>  <span class="fl">52.14286</span> weeks Manhattan</span>
+<span id="cb15-33"><a href="data-programming-basics.html#cb15-33" aria-hidden="true" tabindex="-1"></a><span class="dv">6</span> <span class="fl">159.57143</span> weeks Manhattan</span></code></pre></div>
+<p>Now that we have borough, let’s write a function that will take a dataset and spit out a list of the top 5 dog breeds registered in that area.</p>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="data-programming-basics.html#cb16-1" aria-hidden="true" tabindex="-1"></a>top_5_breeds <span class="ot">&lt;-</span> <span class="cf">function</span>(data) {</span>
+<span id="cb16-2"><a href="data-programming-basics.html#cb16-2" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Inside the function, our dataset is called data, not dogs</span></span>
+<span id="cb16-3"><a href="data-programming-basics.html#cb16-3" aria-hidden="true" tabindex="-1"></a>  tmp <span class="ot">&lt;-</span> <span class="fu">table</span>(data<span class="sc">$</span>BreedName) </span>
+<span id="cb16-4"><a href="data-programming-basics.html#cb16-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(<span class="fu">sort</span>(tmp, <span class="at">decreasing =</span> T)[<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>]) <span class="co"># top 5 breeds with counts</span></span>
+<span id="cb16-5"><a href="data-programming-basics.html#cb16-5" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<p>Now, using that function, lets write a for loop that loops through the 5 boroughs and spits out the top 5 breeds in each borough:</p>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="data-programming-basics.html#cb17-1" aria-hidden="true" tabindex="-1"></a>boroughs <span class="ot">&lt;-</span> <span class="fu">unique</span>(borough_zip<span class="sc">$</span>Borough) <span class="co"># get a list of the 5 boroughs</span></span>
+<span id="cb17-2"><a href="data-programming-basics.html#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> boroughs) {</span>
+<span id="cb17-3"><a href="data-programming-basics.html#cb17-3" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Get subset of data frame corresponding to the Borough</span></span>
+<span id="cb17-4"><a href="data-programming-basics.html#cb17-4" aria-hidden="true" tabindex="-1"></a>  dogs_sub <span class="ot">&lt;-</span> <span class="fu">subset</span>(dogs, Borough <span class="sc">==</span> i)</span>
+<span id="cb17-5"><a href="data-programming-basics.html#cb17-5" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Get top 5 dog breeds</span></span>
+<span id="cb17-6"><a href="data-programming-basics.html#cb17-6" aria-hidden="true" tabindex="-1"></a>  result <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(<span class="fu">top_5_breeds</span>(dogs_sub))</span>
+<span id="cb17-7"><a href="data-programming-basics.html#cb17-7" aria-hidden="true" tabindex="-1"></a>  <span class="co"># set names</span></span>
+<span id="cb17-8"><a href="data-programming-basics.html#cb17-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">names</span>(result) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;Breed&quot;</span>, <span class="st">&quot;Freq&quot;</span>)</span>
+<span id="cb17-9"><a href="data-programming-basics.html#cb17-9" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Add Borough as a new column</span></span>
+<span id="cb17-10"><a href="data-programming-basics.html#cb17-10" aria-hidden="true" tabindex="-1"></a>  result<span class="sc">$</span>Borough <span class="ot">&lt;-</span> i</span>
+<span id="cb17-11"><a href="data-programming-basics.html#cb17-11" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Add rank as a new column</span></span>
+<span id="cb17-12"><a href="data-programming-basics.html#cb17-12" aria-hidden="true" tabindex="-1"></a>  result<span class="sc">$</span>rank <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">5</span></span>
+<span id="cb17-13"><a href="data-programming-basics.html#cb17-13" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb17-14"><a href="data-programming-basics.html#cb17-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>(result)</span>
+<span id="cb17-15"><a href="data-programming-basics.html#cb17-15" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb17-16"><a href="data-programming-basics.html#cb17-16" aria-hidden="true" tabindex="-1"></a>               Breed  Freq   Borough rank</span>
+<span id="cb17-17"><a href="data-programming-basics.html#cb17-17" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span>            Unknown <span class="dv">12310</span> Manhattan    <span class="dv">1</span></span>
+<span id="cb17-18"><a href="data-programming-basics.html#cb17-18" aria-hidden="true" tabindex="-1"></a><span class="dv">2</span>  Yorkshire Terrier  <span class="dv">5371</span> Manhattan    <span class="dv">2</span></span>
+<span id="cb17-19"><a href="data-programming-basics.html#cb17-19" aria-hidden="true" tabindex="-1"></a><span class="dv">3</span>          Chihuahua  <span class="dv">5115</span> Manhattan    <span class="dv">3</span></span>
+<span id="cb17-20"><a href="data-programming-basics.html#cb17-20" aria-hidden="true" tabindex="-1"></a><span class="dv">4</span>           Shih Tzu  <span class="dv">4607</span> Manhattan    <span class="dv">4</span></span>
+<span id="cb17-21"><a href="data-programming-basics.html#cb17-21" aria-hidden="true" tabindex="-1"></a><span class="dv">5</span> Labrador Retriever  <span class="dv">4162</span> Manhattan    <span class="dv">5</span></span>
+<span id="cb17-22"><a href="data-programming-basics.html#cb17-22" aria-hidden="true" tabindex="-1"></a>               Breed Freq Borough rank</span>
+<span id="cb17-23"><a href="data-programming-basics.html#cb17-23" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span>            Unknown <span class="dv">4119</span>  Staten    <span class="dv">1</span></span>
+<span id="cb17-24"><a href="data-programming-basics.html#cb17-24" aria-hidden="true" tabindex="-1"></a><span class="dv">2</span>           Shih Tzu <span class="dv">2114</span>  Staten    <span class="dv">2</span></span>
+<span id="cb17-25"><a href="data-programming-basics.html#cb17-25" aria-hidden="true" tabindex="-1"></a><span class="dv">3</span>  Yorkshire Terrier <span class="dv">2107</span>  Staten    <span class="dv">3</span></span>
+<span id="cb17-26"><a href="data-programming-basics.html#cb17-26" aria-hidden="true" tabindex="-1"></a><span class="dv">4</span> Labrador Retriever <span class="dv">1484</span>  Staten    <span class="dv">4</span></span>
+<span id="cb17-27"><a href="data-programming-basics.html#cb17-27" aria-hidden="true" tabindex="-1"></a><span class="dv">5</span>            Maltese <span class="dv">1129</span>  Staten    <span class="dv">5</span></span>
+<span id="cb17-28"><a href="data-programming-basics.html#cb17-28" aria-hidden="true" tabindex="-1"></a>                               Breed Freq Borough rank</span>
+<span id="cb17-29"><a href="data-programming-basics.html#cb17-29" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span>                  Yorkshire Terrier <span class="dv">3603</span>   Bronx    <span class="dv">1</span></span>
+<span id="cb17-30"><a href="data-programming-basics.html#cb17-30" aria-hidden="true" tabindex="-1"></a><span class="dv">2</span>                            Unknown <span class="dv">3484</span>   Bronx    <span class="dv">2</span></span>
+<span id="cb17-31"><a href="data-programming-basics.html#cb17-31" aria-hidden="true" tabindex="-1"></a><span class="dv">3</span>                           Shih Tzu <span class="dv">2976</span>   Bronx    <span class="dv">3</span></span>
+<span id="cb17-32"><a href="data-programming-basics.html#cb17-32" aria-hidden="true" tabindex="-1"></a><span class="dv">4</span>                          Chihuahua <span class="dv">2224</span>   Bronx    <span class="dv">4</span></span>
+<span id="cb17-33"><a href="data-programming-basics.html#cb17-33" aria-hidden="true" tabindex="-1"></a><span class="dv">5</span> American Pit Bull Terrier<span class="sc">/</span>Pit Bull <span class="dv">1820</span>   Bronx    <span class="dv">5</span></span>
+<span id="cb17-34"><a href="data-programming-basics.html#cb17-34" aria-hidden="true" tabindex="-1"></a>              Breed Freq Borough rank</span>
+<span id="cb17-35"><a href="data-programming-basics.html#cb17-35" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span>           Unknown <span class="dv">8341</span>  Queens    <span class="dv">1</span></span>
+<span id="cb17-36"><a href="data-programming-basics.html#cb17-36" aria-hidden="true" tabindex="-1"></a><span class="dv">2</span> Yorkshire Terrier <span class="dv">4689</span>  Queens    <span class="dv">2</span></span>
+<span id="cb17-37"><a href="data-programming-basics.html#cb17-37" aria-hidden="true" tabindex="-1"></a><span class="dv">3</span>          Shih Tzu <span class="dv">4272</span>  Queens    <span class="dv">3</span></span>
+<span id="cb17-38"><a href="data-programming-basics.html#cb17-38" aria-hidden="true" tabindex="-1"></a><span class="dv">4</span>           Maltese <span class="dv">3090</span>  Queens    <span class="dv">4</span></span>
+<span id="cb17-39"><a href="data-programming-basics.html#cb17-39" aria-hidden="true" tabindex="-1"></a><span class="dv">5</span>         Chihuahua <span class="dv">2990</span>  Queens    <span class="dv">5</span></span>
+<span id="cb17-40"><a href="data-programming-basics.html#cb17-40" aria-hidden="true" tabindex="-1"></a>                                 Breed Freq  Borough rank</span>
+<span id="cb17-41"><a href="data-programming-basics.html#cb17-41" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span>                              Unknown <span class="dv">9863</span> Brooklyn    <span class="dv">1</span></span>
+<span id="cb17-42"><a href="data-programming-basics.html#cb17-42" aria-hidden="true" tabindex="-1"></a><span class="dv">2</span>                    Yorkshire Terrier <span class="dv">5820</span> Brooklyn    <span class="dv">2</span></span>
+<span id="cb17-43"><a href="data-programming-basics.html#cb17-43" aria-hidden="true" tabindex="-1"></a><span class="dv">3</span>                             Shih Tzu <span class="dv">5345</span> Brooklyn    <span class="dv">3</span></span>
+<span id="cb17-44"><a href="data-programming-basics.html#cb17-44" aria-hidden="true" tabindex="-1"></a><span class="dv">4</span>                            Chihuahua <span class="dv">4078</span> Brooklyn    <span class="dv">4</span></span>
+<span id="cb17-45"><a href="data-programming-basics.html#cb17-45" aria-hidden="true" tabindex="-1"></a><span class="dv">5</span> American Pit Bull Mix <span class="sc">/</span> Pit Bull Mix <span class="dv">3201</span> Brooklyn    <span class="dv">5</span></span></code></pre></div>
+<p>If we wanted to save these results as a summary data frame, we could totally do that!</p>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="data-programming-basics.html#cb18-1" aria-hidden="true" tabindex="-1"></a>breeds_by_borough <span class="ot">&lt;-</span> <span class="fu">data.frame</span>() <span class="co"># create a blank data frame</span></span>
+<span id="cb18-2"><a href="data-programming-basics.html#cb18-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-3"><a href="data-programming-basics.html#cb18-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> boroughs) {</span>
+<span id="cb18-4"><a href="data-programming-basics.html#cb18-4" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Get subset of data frame corresponding to the Borough</span></span>
+<span id="cb18-5"><a href="data-programming-basics.html#cb18-5" aria-hidden="true" tabindex="-1"></a>  dogs_sub <span class="ot">&lt;-</span> <span class="fu">subset</span>(dogs, Borough <span class="sc">==</span> i)</span>
+<span id="cb18-6"><a href="data-programming-basics.html#cb18-6" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Get top 5 dog breeds</span></span>
+<span id="cb18-7"><a href="data-programming-basics.html#cb18-7" aria-hidden="true" tabindex="-1"></a>  result <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(<span class="fu">top_5_breeds</span>(dogs_sub))</span>
+<span id="cb18-8"><a href="data-programming-basics.html#cb18-8" aria-hidden="true" tabindex="-1"></a>  <span class="co"># set names</span></span>
+<span id="cb18-9"><a href="data-programming-basics.html#cb18-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">names</span>(result) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;Breed&quot;</span>, <span class="st">&quot;Freq&quot;</span>)</span>
+<span id="cb18-10"><a href="data-programming-basics.html#cb18-10" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Add Borough as a new column</span></span>
+<span id="cb18-11"><a href="data-programming-basics.html#cb18-11" aria-hidden="true" tabindex="-1"></a>  result<span class="sc">$</span>Borough <span class="ot">&lt;-</span> i</span>
+<span id="cb18-12"><a href="data-programming-basics.html#cb18-12" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Add rank as a new column</span></span>
+<span id="cb18-13"><a href="data-programming-basics.html#cb18-13" aria-hidden="true" tabindex="-1"></a>  result<span class="sc">$</span>rank <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">5</span></span>
+<span id="cb18-14"><a href="data-programming-basics.html#cb18-14" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb18-15"><a href="data-programming-basics.html#cb18-15" aria-hidden="true" tabindex="-1"></a>  breeds_by_borough <span class="ot">&lt;-</span> <span class="fu">rbind</span>(breeds_by_borough, result)</span>
+<span id="cb18-16"><a href="data-programming-basics.html#cb18-16" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb18-17"><a href="data-programming-basics.html#cb18-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-18"><a href="data-programming-basics.html#cb18-18" aria-hidden="true" tabindex="-1"></a>breeds_by_borough</span>
+<span id="cb18-19"><a href="data-programming-basics.html#cb18-19" aria-hidden="true" tabindex="-1"></a>                                  Breed  Freq   Borough rank</span>
+<span id="cb18-20"><a href="data-programming-basics.html#cb18-20" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span>                               Unknown <span class="dv">12310</span> Manhattan    <span class="dv">1</span></span>
+<span id="cb18-21"><a href="data-programming-basics.html#cb18-21" aria-hidden="true" tabindex="-1"></a><span class="dv">2</span>                     Yorkshire Terrier  <span class="dv">5371</span> Manhattan    <span class="dv">2</span></span>
+<span id="cb18-22"><a href="data-programming-basics.html#cb18-22" aria-hidden="true" tabindex="-1"></a><span class="dv">3</span>                             Chihuahua  <span class="dv">5115</span> Manhattan    <span class="dv">3</span></span>
+<span id="cb18-23"><a href="data-programming-basics.html#cb18-23" aria-hidden="true" tabindex="-1"></a><span class="dv">4</span>                              Shih Tzu  <span class="dv">4607</span> Manhattan    <span class="dv">4</span></span>
+<span id="cb18-24"><a href="data-programming-basics.html#cb18-24" aria-hidden="true" tabindex="-1"></a><span class="dv">5</span>                    Labrador Retriever  <span class="dv">4162</span> Manhattan    <span class="dv">5</span></span>
+<span id="cb18-25"><a href="data-programming-basics.html#cb18-25" aria-hidden="true" tabindex="-1"></a><span class="dv">6</span>                               Unknown  <span class="dv">4119</span>    Staten    <span class="dv">1</span></span>
+<span id="cb18-26"><a href="data-programming-basics.html#cb18-26" aria-hidden="true" tabindex="-1"></a><span class="dv">7</span>                              Shih Tzu  <span class="dv">2114</span>    Staten    <span class="dv">2</span></span>
+<span id="cb18-27"><a href="data-programming-basics.html#cb18-27" aria-hidden="true" tabindex="-1"></a><span class="dv">8</span>                     Yorkshire Terrier  <span class="dv">2107</span>    Staten    <span class="dv">3</span></span>
+<span id="cb18-28"><a href="data-programming-basics.html#cb18-28" aria-hidden="true" tabindex="-1"></a><span class="dv">9</span>                    Labrador Retriever  <span class="dv">1484</span>    Staten    <span class="dv">4</span></span>
+<span id="cb18-29"><a href="data-programming-basics.html#cb18-29" aria-hidden="true" tabindex="-1"></a><span class="dv">10</span>                              Maltese  <span class="dv">1129</span>    Staten    <span class="dv">5</span></span>
+<span id="cb18-30"><a href="data-programming-basics.html#cb18-30" aria-hidden="true" tabindex="-1"></a><span class="dv">11</span>                    Yorkshire Terrier  <span class="dv">3603</span>     Bronx    <span class="dv">1</span></span>
+<span id="cb18-31"><a href="data-programming-basics.html#cb18-31" aria-hidden="true" tabindex="-1"></a><span class="dv">12</span>                              Unknown  <span class="dv">3484</span>     Bronx    <span class="dv">2</span></span>
+<span id="cb18-32"><a href="data-programming-basics.html#cb18-32" aria-hidden="true" tabindex="-1"></a><span class="dv">13</span>                             Shih Tzu  <span class="dv">2976</span>     Bronx    <span class="dv">3</span></span>
+<span id="cb18-33"><a href="data-programming-basics.html#cb18-33" aria-hidden="true" tabindex="-1"></a><span class="dv">14</span>                            Chihuahua  <span class="dv">2224</span>     Bronx    <span class="dv">4</span></span>
+<span id="cb18-34"><a href="data-programming-basics.html#cb18-34" aria-hidden="true" tabindex="-1"></a><span class="dv">15</span>   American Pit Bull Terrier<span class="sc">/</span>Pit Bull  <span class="dv">1820</span>     Bronx    <span class="dv">5</span></span>
+<span id="cb18-35"><a href="data-programming-basics.html#cb18-35" aria-hidden="true" tabindex="-1"></a><span class="dv">16</span>                              Unknown  <span class="dv">8341</span>    Queens    <span class="dv">1</span></span>
+<span id="cb18-36"><a href="data-programming-basics.html#cb18-36" aria-hidden="true" tabindex="-1"></a><span class="dv">17</span>                    Yorkshire Terrier  <span class="dv">4689</span>    Queens    <span class="dv">2</span></span>
+<span id="cb18-37"><a href="data-programming-basics.html#cb18-37" aria-hidden="true" tabindex="-1"></a><span class="dv">18</span>                             Shih Tzu  <span class="dv">4272</span>    Queens    <span class="dv">3</span></span>
+<span id="cb18-38"><a href="data-programming-basics.html#cb18-38" aria-hidden="true" tabindex="-1"></a><span class="dv">19</span>                              Maltese  <span class="dv">3090</span>    Queens    <span class="dv">4</span></span>
+<span id="cb18-39"><a href="data-programming-basics.html#cb18-39" aria-hidden="true" tabindex="-1"></a><span class="dv">20</span>                            Chihuahua  <span class="dv">2990</span>    Queens    <span class="dv">5</span></span>
+<span id="cb18-40"><a href="data-programming-basics.html#cb18-40" aria-hidden="true" tabindex="-1"></a><span class="dv">21</span>                              Unknown  <span class="dv">9863</span>  Brooklyn    <span class="dv">1</span></span>
+<span id="cb18-41"><a href="data-programming-basics.html#cb18-41" aria-hidden="true" tabindex="-1"></a><span class="dv">22</span>                    Yorkshire Terrier  <span class="dv">5820</span>  Brooklyn    <span class="dv">2</span></span>
+<span id="cb18-42"><a href="data-programming-basics.html#cb18-42" aria-hidden="true" tabindex="-1"></a><span class="dv">23</span>                             Shih Tzu  <span class="dv">5345</span>  Brooklyn    <span class="dv">3</span></span>
+<span id="cb18-43"><a href="data-programming-basics.html#cb18-43" aria-hidden="true" tabindex="-1"></a><span class="dv">24</span>                            Chihuahua  <span class="dv">4078</span>  Brooklyn    <span class="dv">4</span></span>
+<span id="cb18-44"><a href="data-programming-basics.html#cb18-44" aria-hidden="true" tabindex="-1"></a><span class="dv">25</span> American Pit Bull Mix <span class="sc">/</span> Pit Bull Mix  <span class="dv">3201</span>  Brooklyn    <span class="dv">5</span></span></code></pre></div>
+<p>We could even sort our data by the rank and Borough for easier comparisons:</p>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="data-programming-basics.html#cb19-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-2"><a href="data-programming-basics.html#cb19-2" aria-hidden="true" tabindex="-1"></a>breeds_by_borough[<span class="fu">order</span>(breeds_by_borough<span class="sc">$</span>rank, </span>
+<span id="cb19-3"><a href="data-programming-basics.html#cb19-3" aria-hidden="true" tabindex="-1"></a>                        breeds_by_borough<span class="sc">$</span>Borough),]</span>
+<span id="cb19-4"><a href="data-programming-basics.html#cb19-4" aria-hidden="true" tabindex="-1"></a>                                  Breed  Freq   Borough rank</span>
+<span id="cb19-5"><a href="data-programming-basics.html#cb19-5" aria-hidden="true" tabindex="-1"></a><span class="dv">11</span>                    Yorkshire Terrier  <span class="dv">3603</span>     Bronx    <span class="dv">1</span></span>
+<span id="cb19-6"><a href="data-programming-basics.html#cb19-6" aria-hidden="true" tabindex="-1"></a><span class="dv">21</span>                              Unknown  <span class="dv">9863</span>  Brooklyn    <span class="dv">1</span></span>
+<span id="cb19-7"><a href="data-programming-basics.html#cb19-7" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span>                               Unknown <span class="dv">12310</span> Manhattan    <span class="dv">1</span></span>
+<span id="cb19-8"><a href="data-programming-basics.html#cb19-8" aria-hidden="true" tabindex="-1"></a><span class="dv">16</span>                              Unknown  <span class="dv">8341</span>    Queens    <span class="dv">1</span></span>
+<span id="cb19-9"><a href="data-programming-basics.html#cb19-9" aria-hidden="true" tabindex="-1"></a><span class="dv">6</span>                               Unknown  <span class="dv">4119</span>    Staten    <span class="dv">1</span></span>
+<span id="cb19-10"><a href="data-programming-basics.html#cb19-10" aria-hidden="true" tabindex="-1"></a><span class="dv">12</span>                              Unknown  <span class="dv">3484</span>     Bronx    <span class="dv">2</span></span>
+<span id="cb19-11"><a href="data-programming-basics.html#cb19-11" aria-hidden="true" tabindex="-1"></a><span class="dv">22</span>                    Yorkshire Terrier  <span class="dv">5820</span>  Brooklyn    <span class="dv">2</span></span>
+<span id="cb19-12"><a href="data-programming-basics.html#cb19-12" aria-hidden="true" tabindex="-1"></a><span class="dv">2</span>                     Yorkshire Terrier  <span class="dv">5371</span> Manhattan    <span class="dv">2</span></span>
+<span id="cb19-13"><a href="data-programming-basics.html#cb19-13" aria-hidden="true" tabindex="-1"></a><span class="dv">17</span>                    Yorkshire Terrier  <span class="dv">4689</span>    Queens    <span class="dv">2</span></span>
+<span id="cb19-14"><a href="data-programming-basics.html#cb19-14" aria-hidden="true" tabindex="-1"></a><span class="dv">7</span>                              Shih Tzu  <span class="dv">2114</span>    Staten    <span class="dv">2</span></span>
+<span id="cb19-15"><a href="data-programming-basics.html#cb19-15" aria-hidden="true" tabindex="-1"></a><span class="dv">13</span>                             Shih Tzu  <span class="dv">2976</span>     Bronx    <span class="dv">3</span></span>
+<span id="cb19-16"><a href="data-programming-basics.html#cb19-16" aria-hidden="true" tabindex="-1"></a><span class="dv">23</span>                             Shih Tzu  <span class="dv">5345</span>  Brooklyn    <span class="dv">3</span></span>
+<span id="cb19-17"><a href="data-programming-basics.html#cb19-17" aria-hidden="true" tabindex="-1"></a><span class="dv">3</span>                             Chihuahua  <span class="dv">5115</span> Manhattan    <span class="dv">3</span></span>
+<span id="cb19-18"><a href="data-programming-basics.html#cb19-18" aria-hidden="true" tabindex="-1"></a><span class="dv">18</span>                             Shih Tzu  <span class="dv">4272</span>    Queens    <span class="dv">3</span></span>
+<span id="cb19-19"><a href="data-programming-basics.html#cb19-19" aria-hidden="true" tabindex="-1"></a><span class="dv">8</span>                     Yorkshire Terrier  <span class="dv">2107</span>    Staten    <span class="dv">3</span></span>
+<span id="cb19-20"><a href="data-programming-basics.html#cb19-20" aria-hidden="true" tabindex="-1"></a><span class="dv">14</span>                            Chihuahua  <span class="dv">2224</span>     Bronx    <span class="dv">4</span></span>
+<span id="cb19-21"><a href="data-programming-basics.html#cb19-21" aria-hidden="true" tabindex="-1"></a><span class="dv">24</span>                            Chihuahua  <span class="dv">4078</span>  Brooklyn    <span class="dv">4</span></span>
+<span id="cb19-22"><a href="data-programming-basics.html#cb19-22" aria-hidden="true" tabindex="-1"></a><span class="dv">4</span>                              Shih Tzu  <span class="dv">4607</span> Manhattan    <span class="dv">4</span></span>
+<span id="cb19-23"><a href="data-programming-basics.html#cb19-23" aria-hidden="true" tabindex="-1"></a><span class="dv">19</span>                              Maltese  <span class="dv">3090</span>    Queens    <span class="dv">4</span></span>
+<span id="cb19-24"><a href="data-programming-basics.html#cb19-24" aria-hidden="true" tabindex="-1"></a><span class="dv">9</span>                    Labrador Retriever  <span class="dv">1484</span>    Staten    <span class="dv">4</span></span>
+<span id="cb19-25"><a href="data-programming-basics.html#cb19-25" aria-hidden="true" tabindex="-1"></a><span class="dv">15</span>   American Pit Bull Terrier<span class="sc">/</span>Pit Bull  <span class="dv">1820</span>     Bronx    <span class="dv">5</span></span>
+<span id="cb19-26"><a href="data-programming-basics.html#cb19-26" aria-hidden="true" tabindex="-1"></a><span class="dv">25</span> American Pit Bull Mix <span class="sc">/</span> Pit Bull Mix  <span class="dv">3201</span>  Brooklyn    <span class="dv">5</span></span>
+<span id="cb19-27"><a href="data-programming-basics.html#cb19-27" aria-hidden="true" tabindex="-1"></a><span class="dv">5</span>                    Labrador Retriever  <span class="dv">4162</span> Manhattan    <span class="dv">5</span></span>
+<span id="cb19-28"><a href="data-programming-basics.html#cb19-28" aria-hidden="true" tabindex="-1"></a><span class="dv">20</span>                            Chihuahua  <span class="dv">2990</span>    Queens    <span class="dv">5</span></span>
+<span id="cb19-29"><a href="data-programming-basics.html#cb19-29" aria-hidden="true" tabindex="-1"></a><span class="dv">10</span>                              Maltese  <span class="dv">1129</span>    Staten    <span class="dv">5</span></span></code></pre></div>
+<div class="tryitout">
+<p>Look at the name, age, or gender of dogs registered in NYC and see if you can come up with a similar function and way of summarizing the data in a for-loop.</p>
+</div>
+<p>In 2 weeks, we’ll learn a much shorter set of commands to get these types of summaries, but it’s important to know how a for loop connects to the concept of summarizing data by a factor (in this case, by borough).</p>
 
-<pre><code>## List of 10
-##  $ name      : chr &quot;font-awesome&quot;
-##  $ version   : chr &quot;5.1.0&quot;
-##  $ src       :List of 1
-##   ..$ file: chr &quot;/usr/local/lib/R/site-library/rmarkdown/rmd/h/fontawesome&quot;
-##  $ meta      : NULL
-##  $ script    : NULL
-##  $ stylesheet: chr [1:2] &quot;css/all.css&quot; &quot;css/v4-shims.css&quot;
-##  $ head      : NULL
-##  $ attachment: NULL
-##  $ package   : NULL
-##  $ all_files : logi TRUE
-##  - attr(*, &quot;class&quot;)= chr &quot;html_dependency&quot;</code></pre>
 </div>
 </div>
             </section>
@@ -1020,20 +1258,6 @@ gitbook.start({
 });
 </script>
 
-<!-- dynamically load mathjax for compatibility with self-contained -->
-<script>
-  (function () {
-    var script = document.createElement("script");
-    script.type = "text/javascript";
-    var src = "true";
-    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
-    if (location.protocol !== "file:")
-      if (/^https?:/.test(src))
-        src = src.replace(/^https?:/, '');
-    script.src = src;
-    document.getElementsByTagName("head")[0].appendChild(script);
-  })();
-</script>
 </body>
 
 </html>
