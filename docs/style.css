@@ -155,10 +155,10 @@ details img {
 
 details.ex {
   padding:5px 5px 5px 5px;
-  background-color: #db940044;
+  background-color: var(--orange-red-bg);
 }
 details.ex[open]{
-  background: #db940044;
+  background: var(--orange-red-bg);
 }
 summary::-webkit-details-marker {
   display: none
@@ -187,11 +187,11 @@ details[open] summary:before {
 
 
 details.ex summary:before{
-  color: #db9400;
+  color: var(--orange-red);
 }
 
 details.ex[open] summary:before {
-  color: #db9400;
+  color: var(--orange-red);
 }
 
 summary.linux:before{

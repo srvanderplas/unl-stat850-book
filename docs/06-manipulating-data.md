@@ -3959,9 +3959,9 @@ The next verb is one that we've already implicitly seen in action: `summarize` t
 
 
 &nbsp;
-<details class = "ex"><summary>Summarize examples</summary>
+<details class = "ex"><summary>Here (in a trivial example), I compute the overall average age of a victim of police violence, and then also compute the average number of characters in their name.</summary>
 
-Here (in a trivial example), I compute the overall average age of a victim of police violence, and then also compute the average number of characters in their name. Admittedly, that last computation is a bit silly, but it's mostly for demonstration purposes.
+Admittedly, that last computation is a bit silly, but it's mostly for demonstration purposes.
 
 
 
@@ -3969,13 +3969,12 @@ Here (in a trivial example), I compute the overall average age of a victim of po
 police_violence <- read_xlsx("data/police_violence.xlsx", guess_max = 7000)
 police_violence %>%
   mutate(age = as.numeric(`Victim's age`),
-         name_length = nchar(`Victim's name`)) %>%
+         name_length = nchar(`Victim's nazzzzme`)) %>%
   summarize(age = mean(age, na.rm = T), name_length = mean(name_length))
 Warning in mask$eval_all_mutate(quo): NAs introduced by coercion
-# A tibble: 1 x 2
-    age name_length
-  <dbl>       <dbl>
-1  36.8        16.6
+Error: Problem with `mutate()` column `name_length`.
+ℹ `name_length = nchar(`Victim's nazzzzme`)`.
+x object 'Victim's nazzzzme' not found
 ```
 
 In SAS, we can do something similar:
@@ -43704,10 +43703,17 @@ NOTE: PROCEDURE SQL used (Total process time):
 </div>
 </details>
 
+When you `group_by` a variable, your tibble carries this grouping with it. Summarize will remove one layer of grouping (by default), but if you ever want to return to a completely ungrouped data set, you should use the `ungroup()` command. 
+
+![The ungroup() command is just as important as the group_by() command! (by Allison Horst)](https://raw.githubusercontent.com/allisonhorst/stats-illustrations/master/rstats-blanks/ungroup_blank.png)
+
+
+### Storms Example {.ex}
+
 Let's try a non-trivial example, using the `storms` dataset that is part of the `dplyr` package:
 
 &nbsp;
-<details class = "ex"><summary>Reading in the data (R and SAS)</summary>
+<details><summary>Reading in the data (R and SAS)</summary>
 
 ```r
 library(dplyr)
@@ -43879,7 +43885,7 @@ One thing we might want to know is at what point each storm was the strongest. L
 3. If that still doesn't get us a single row for each observation, lets just pick out the status and category (these are determined by wind speed, so they should be the same if maximum wind speed is the same) and compute the average time where this occurred. 
 
 &nbsp;
-<details class = "ex"><summary>group_by + filter + summary in R</summary> 
+<details><summary>group_by + filter + summary in R</summary> 
 
 ```r
 max_power_storm <- storms %>%
@@ -43935,7 +43941,7 @@ It seems to me that there are fewer high-pressure storms before 1990 or so, whic
 </details>
 
 &nbsp;
-<details class = "ex"><summary>Proc SQL in SAS</summary> 
+<details><summary>Proc SQL in SAS</summary> 
 In SAS, this is going to require some work. Specifically, while dplyr commands are stated in recipe order (do this, then this), SQL statements... aren't. WHERE comes after SELECT xxx FROM yyy, and GROUP BY comes after that again. 
 
 There are a couple of ways to handle that: sub-queries, and creating temporary tables. I think the temporary tables approach will be easier to demonstrate, read, and understand, so lets go with that. 
@@ -44154,7 +44160,7 @@ NOTE: There were 381 observations read from the data set WORK.MAXPWR.
 </details>
 
 &nbsp;
-<details class = "ex"><summary>Another interesting way to look at this data would be to examine the duration of time a storm existed, as a function of its maximum category. Do stronger storms exist for a longer period of time?</summary>
+<details><summary>Another interesting way to look at this data would be to examine the duration of time a storm existed, as a function of its maximum category. Do stronger storms exist for a longer period of time?</summary>
 
 
 ```r
@@ -44229,7 +44235,7 @@ NOTE: PROCEDURE BOXPLOT used (Total process time):
 
 </details>
 &nbsp;
-<details class = "ex"><summary>We could also look to see how a storm's diameter evolves over time, from when the storm is first identified (group_by + mutate) </summary>
+<details><summary>We could also look to see how a storm's diameter evolves over time, from when the storm is first identified (group_by + mutate) </summary>
 Diameter measurements don't exist for all storms, and they appear to measure the diameter of the wind field - that is, the region where the winds are hurricane or tropical storm force. (`?storms` documents the dataset and its variables). 
 
 Note the use of `as.numeric(as.character(max(category)))` to get the maximum (ordinal categorical) strength and convert that into something numeric that can be plotted. 
@@ -44399,9 +44405,6 @@ While I'm tempted to plot out the diameter and location on a map, it's a bit exc
 It looks like Ike went long-ways across Cuba, which weakened it. When hurricanes weaken, often their wind fields expand (as they no longer have the angular momentum to maintain a tight structure). Ike crossed into the Gulf of Mexico, restrengthened, and then hit Houston just about dead-on. I was living just northwest of Houston when it hit (in College Station), and I can verify that it was not a fun time. 
 </details>
 
-When you `group_by` a variable, your tibble carries this grouping with it. Summarize will remove one layer of grouping (by default), but if you ever want to return to a completely ungrouped data set, you should use the `ungroup()` command. 
-
-![The ungroup() command is just as important as the group_by() command! (by Allison Horst)](https://raw.githubusercontent.com/allisonhorst/stats-illustrations/master/rstats-blanks/ungroup_blank.png)
 
 ## Other `dplyr` functions: across, relocate
 
