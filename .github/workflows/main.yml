@@ -1,0 +1,75 @@
+name: Render and Deploy Quarto Book
+on: push
+
+jobs:
+  quarto-render-and-deploy:
+    runs-on: ubuntu-latest
+    container: rocker/verse:latest
+    env:
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      GH_PAT: ${{ secrets.GH_PAT }}
+      GITHUB_PAT: ${{ secrets.GH_PAT }}
+    steps:
+      - uses: actions/checkout@v2
+      - uses: r-lib/actions/setup-r@v2
+      - uses: r-lib/actions/setup-pandoc@v2
+      - uses: actions/setup-python@v2
+
+      - name: Install Python dependencies 1
+        if: runner.os == 'Linux'
+        run: |
+          sudo apt update
+          sudo apt upgrade
+          sudo apt install -y python3-virtualenv
+          sudo apt install -y python3-dev
+          sudo apt install -y python3-venv
+        shell: /bin/bash {0}
+
+      - name: Install R dependencies
+        if: runner.os == 'Linux'
+        run: |
+          install.packages(c("rmarkdown", "jsonlite", "reticulate", "quarto", "pak"))
+        shell: Rscript {0}
+
+      - name: Setup python virtualenv
+        run: |
+          reticulate::virtualenv_create("testbook", packages = c("matplotlib", "numpy", "jupyter"))
+          reticulate::py_install("testbook", pip = T, pip_options = c("-r requirements.txt", "--no-binary=numpy"))
+        shell: Rscript {0}
+
+      - name: Set RENV_PATHS_ROOT
+        shell: bash
+        run: |
+          echo "RENV_PATHS_ROOT=${{ runner.temp }}/renv" >> $GITHUB_ENV
+
+      - name: Install and activate renv
+        run: |
+          pak::pkg_install("rstudio/renv")
+          pak::pkg_install("rstudio/fontawesome")
+          options(renv.download.override = utils::download.file)
+          renv::restore()
+        shell: Rscript {0}
+
+      - name: Get R and OS version
+        id: get-version
+        run: |
+          cat("##[set-output name=os-version;]", sessionInfo()$running, "\n", sep = "")
+          cat("##[set-output name=r-version;]", R.Version()$version.string, sep = "")
+        shell: Rscript {0}
+
+      - name: Restore Renv package cache
+        uses: actions/cache@v3
+        with:
+          path: ${{ env.RENV_PATHS_ROOT }}
+          key: ${{ steps.get-version.outputs.os-version }}-${{ steps.get-version.outputs.r-version }}-${{ inputs.cache-version }}-${{ hashFiles('renv.lock') }}
+          restore-keys: ${{ steps.get-version.outputs.os-version }}-${{ steps.get-version.outputs.r-version }}-${{inputs.cache-version }}-
+
+      - name: "Install Quarto and render"
+        uses: pommevilla/quarto-render@main
+
+      - name: "Deploy to gh-pages"
+        uses: peaceiris/actions-gh-pages@v3
+        if: github.ref == 'refs/heads/main'
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./docs
