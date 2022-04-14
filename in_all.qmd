@@ -2,23 +2,13 @@
 ```{r setup, echo = F, message = F, warning = F}
 library(magrittr)
 library(knitr)
-library(SASmarkdown)
+# library(SASmarkdown)
 rmarkdown::html_dependency_font_awesome()
-sasexe <- "/usr/local/SASHome/SASFoundation/9.4/bin/sas_u8"
-sasopts <- "-ls 75 -noterminal"
-knitr::opts_chunk$set(collapse = T, hold = T, cache = T, fig.path = "image/",
+# sasexe <- "/usr/local/SASHome/SASFoundation/9.4/bin/sas_u8"
+# sasopts <- "-ls 75 -noterminal"
+knitr::opts_chunk$set(collapse = T, hold = T, cache = T, fig.path = "images/",
                       engine.opts = list(
-                        "r" = list(tidy = "styler"), 
-                        "sashtmllog" = sasopts, 
-                        "saslog" = sasopts,
-                        "sas" = sasopts,
-                        "sashtml" = sasopts),
-                      engine.path = list(
-                        sashtmllog = sasexe,
-                        saslog = sasexe,
-                        sashtml = sasexe,
-                        sas = sasexe
-                      ),
+                        "r" = list(tidy = "styler")),
                       dpi = 300)
 ```
 
@@ -41,12 +31,3 @@ knitr::opts_chunk$set(collapse = T, hold = T, cache = T, fig.path = "image/",
 }
 ```
 
-
-```{r clear-all-sas-output, include=F, engine='sashtmllog', engine.path = sasexe, engine.opts = sasopts, collectcode = F, echo = F, include = F, results='hide'}
-dm log "clear";
-dm output "clear";
-title1;
-footnote1;
-ods html close;
-ods html; 
-```

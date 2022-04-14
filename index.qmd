@@ -1,20 +1,4 @@
---- 
-title: "Stat 850: Computing Tools for Statisticians"
-author: "Susan Vanderplas"
-date: "`r paste('Last Updated: ', Sys.Date())`"
-site: bookdown::bookdown_site
-documentclass: book
-bibliography: [book.bib, packages.bib]
-link-citations: true
-biblio-style: apalike
-description: "Introductions to statistical computing packages and document preparation software. Topics include: graphical techniques, data management, Monte Carlo simulation, dynamic document preparation, presentation software."
-favicon: images/favicon.ico
-github-repo: srvanderplas/unl-stat850
-cover-image: images/cover.png
-url: https://srvanderplas.github.io/unl-stat850/
----
-
-```{r, child='in_all.Rmd'}
+```{r, child='in_all.qmd'}
 ```
 
 # Introduction {-}
@@ -22,8 +6,8 @@ url: https://srvanderplas.github.io/unl-stat850/
 ```{r fa-setup, include=FALSE}
 library(fontawesome)
 fa_html_dependency()
-# htmltools::tagList(rmarkdown::html_dependency_font_awesome())
 ```
+
 ## Forward {-}
 
 This textbook is intended to be a substitute for hours and hours of video lectures wherein I read code to you. That's awful, and boring^[If you want boring, or have insomnia, check out [this Microsoft Word tutorial from 1989](https://www.youtube.com/watch?v=Jk71bPz5VLo). Youtube says it's the most boring video ever made.], and honestly, as painful for me to have to listen to myself while editing the things as it is for you to watch them.
@@ -37,7 +21,7 @@ Introductions to statistical computing packages and document preparation softwar
 ## Course Goals {-}
 (Broad, amorphous conceptual things that are hard to measure)
 
-1. Learn how to use R and SAS for data analysis, data processing, and data visualization.
+1. Learn how to use a statistical programming language for data analysis, data processing, and data visualization.
 
 2. Become familiar with the process, techniques, and goals of exploratory data analysis.
 
@@ -93,53 +77,65 @@ The header contains a number of buttons which should help you use, customize, an
 ### Special Sections {-}
 
 
-#### Watch Out {-.watchout}
+::: watchout
+
+#### Watch Out {-}
 
 Watch out sections contain things you may want to look out for - common errors, etc.
 
-#### {-}
+:::
 
-#### Examples {-.ex}
+::: ex
+
+#### Examples {-}
 
 Example sections contain code and other information. Don't skip them!
 
-#### {-}
+:::
 
+::: my-opinion
 
-#### My Opinion {-.my-opinion}
+#### My Opinion {-}
 
 These sections contain things you should definitely not consider as fact and should just take with a grain of salt. 
 
-#### {-}
+:::
 
-#### Go Read {-.go-read}
+::: go-read
+
+#### Go Read {-}
 
 Sometimes, there are better resources out there than something I could write myself. When you see this section, go read the enclosed link as if it were part of the book.
 
-#### {-}
+:::
 
+::: tryitout
 
-<div class="tryitout"> <h4>Try It Out</h4>
+#### Try it out {-}
 
-Try it out sections contain activities you should do to reinforce the things you've just read.
-</div>
+Try it out sections contain activities you should do to reinforce the things you've just read. You will be much more successful in this class if you do the try it out sections before you come to class.
 
+:::
 
-#### Learn More {-.learn-more}
+::: learn-more
 
-Learn More sections contain other references that may be useful on a specific topic. Suggestions are welcome (use the edit link at the top to suggest a new reference that I should add), as there's no way for one person to catalog all of the helpful R resources on the internet!
+#### Learn More {-}
 
+Learn More sections contain other references that may be useful on a specific topic. Suggestions are welcome (use the edit link at the top to suggest a new reference that I should add), as there's no way for one person to catalog all of the helpful statistical programming resources on the internet!
 
-#### {-}
+:::
 
-#### Note {-.note}
+::: note
+
+#### Note {-}
 
 Note sections contain clarification points (anywhere I would normally say "note that ....) 
 
-#### {-}
+:::
 
 
 #### Expandable Sections {-}
+
 <details><summary>These are expandable sections, with additional information when you click on the line</summary>
 
 This additional information may be information that is helpful but not essential, or it may be that an example just takes a LOT of space and I want to make sure you can skim the book without having to scroll through a ton of output.
@@ -151,5 +147,4 @@ This additional information may be information that is helpful but not essential
 This keeps the code and output from obscuring the actual information in the textbook that I want you to retain. You can always look up the syntax, but you do need to absorb the details I've written out.
 </details>
 
-#### {-}
 

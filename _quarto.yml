@@ -1,0 +1,45 @@
+project:
+  type: book
+  output-dir: docs
+
+book:
+  title: "Stat 850: Computing Tools for Statisticians"
+  author: "Susan Vanderplas"
+  date: "`r paste('Last Updated: ', Sys.Date())`"
+  chapters:
+    - index.qmd
+    - references.qmd
+  favicon: images/favicon.ico
+  cover-image: images/cover.png
+  site-url: https://srvanderplas.github.io/unl-stat850/
+  repo-url: https://github.com/srvanderplas/unl-stat850/
+  repo-branch: quarto
+  repo-actions: [edit]
+  sharing: [twitter, facebook, linkedin]
+  toc:
+    collapse: section
+
+bibliography: [book.bib, packages.bib]
+biblio-style: apalike
+
+description: "Introductions to statistical computing packages and document preparation software. Topics include: graphical techniques, data management, Monte Carlo simulation, dynamic document preparation, presentation software."
+
+engine: knitr
+
+from: markdown+emoji
+
+format:
+  html:
+    css: style.css
+    theme: cosmo
+    code-link: true
+    includes:
+      in_header: ["extra.html"]
+
+  # pdf:
+  #   documentclass: scrreport
+  #epub:
+  #  cover-image: cover.png
+
+editor: source
+

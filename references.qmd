@@ -1,0 +1,13 @@
+`r if (knitr::is_html_output()) '
+
+# References {-}
+
+
+
+```{r, child='in_all.qmd'}
+```
+
+```{r pkg-list-update, include = F, cache = F}
+# update package list
+source("code/collect_packages.R")
+```
