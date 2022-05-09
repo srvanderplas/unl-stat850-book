@@ -1,9 +1,6 @@
-```{r, child='in_all.qmd'}
-```
-
 # Introduction {-}
 
-```{r fa-setup, include=FALSE}
+```{r fa-setup, include=F}
 library(fontawesome)
 fa_html_dependency()
 ```
@@ -12,7 +9,9 @@ fa_html_dependency()
 
 This textbook is intended to be a substitute for hours and hours of video lectures wherein I read code to you. That's awful, and boring^[If you want boring, or have insomnia, check out [this Microsoft Word tutorial from 1989](https://www.youtube.com/watch?v=Jk71bPz5VLo). Youtube says it's the most boring video ever made.], and honestly, as painful for me to have to listen to myself while editing the things as it is for you to watch them.
 
-Instead, I hope  that you'll be able to work through this book, week by week, over the course of Stat 850. I've included comics, snark, gifs, YouTube videos, and more, with the goal of making this a collection of the best information I could find on learning R and SAS and statistical programming. 
+Instead, I hope  that you'll be able to work through this book, week by week, over the course of Stat 850. I've included comics, snark, gifs, YouTube videos, and more, with the goal of making this a collection of the best information I could find on learning some combination of R, SAS, Python, and general statistical programming. 
+
+In Fall 2020 and Fall 2021, this class covered R and SAS. The department is now transitioning away from SAS, so this semester the class will be primarily taught in R. I will leave some information about SAS and Python for you along the way, if you're working in those languages, but my goal at this point is to transition the course so that it covers R and Python. 
 
 
 ## Course Description {-}

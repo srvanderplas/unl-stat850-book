@@ -5,10 +5,13 @@ project:
 book:
   title: "Stat 850: Computing Tools for Statisticians"
   author: "Susan Vanderplas"
-  date: "`r paste('Last Updated: ', Sys.Date())`"
   chapters:
     - index.qmd
+    - tools.qmd
+#    - intro-prog.qmd
     - references.qmd
+  appendices:
+    - app-sas.qmd
   favicon: images/favicon.ico
   cover-image: images/cover.png
   site-url: https://srvanderplas.github.io/unl-stat850/
@@ -19,10 +22,16 @@ book:
   toc:
     collapse: section
 
-bibliography: [book.bib, packages.bib]
+date: today
+date-format: long
+
+bibliography: [references.bib, packages.bib]
 biblio-style: apalike
 
-description: "Introductions to statistical computing packages and document preparation software. Topics include: graphical techniques, data management, Monte Carlo simulation, dynamic document preparation, presentation software."
+description: |
+  | Introductions to statistical computing packages and document preparation software.
+  | Topics include: graphical techniques, data management, Monte Carlo simulation,
+  | dynamic document preparation, presentation software."
 
 engine: knitr
 

@@ -7,7 +7,7 @@ library(purrr)
 library(stringr)
 library(dplyr)
 
-rmd_files <- list.files(here::here(), ".Rmd$", recursive = T, full.names = T)
+rmd_files <- list.files(here::here(), ".[qR]md$", recursive = T, full.names = T)
 r_files <- list.files(here::here(), ".R$", recursive = T, full.names = T)
 
 all_files <- c(rmd_files, r_files)

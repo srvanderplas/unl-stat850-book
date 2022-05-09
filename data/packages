@@ -47,6 +47,8 @@ testit
 parallel
 tinytex
 mime
+markdown
+usethis
 bslib
 curl
 lattice
@@ -106,7 +108,6 @@ bench
 pkgbuild
 devtools
 stats
-usethis
 base
 
 remotes
@@ -152,6 +153,7 @@ corpus
 rstudio
 methods
 pizza
+git2r
 rsconnect
 arma
 List
@@ -174,6 +176,5 @@ StringProxy
 tr1
 testRcppInterfaceUser
 testRcppInterfaceExporter
-git2r
 MIME
 yaml
