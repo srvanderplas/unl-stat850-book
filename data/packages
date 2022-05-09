@@ -1,0 +1,180 @@
+magrittr
+knitr
+SASmarkdown
+fontawesome
+ggplot2
+cpp11test
+cpp11
+dplyr
+shiny
+nycflights13
+Lahman
+fansi
+glue
+microbenchmark
+crayon
+here
+[^legacy]: Prior to version 1.0.0, it was recommended to attach the here package via `here
+[^print]: `here
+After `here::i_am()`, insert `here
+[^why-not-first]: `here
+plyr
+conflicted
+rprojroot
+highr
+jsonlite
+lubridate
+rlang
+pillar
+units
+formattable
+scales
+load (e.g. in response to a call to `dplyr
+rstudioapi
+sass
+htmltools
+stringr
+tibble
+tidyr
+vctrs
+purrr
+tidyverse
+tidymodels
+tidyselect
+zeallot
+xfun
+testit
+parallel
+tinytex
+mime
+markdown
+usethis
+bslib
+curl
+lattice
+thematic
+DT
+reactable
+cli
+httr
+prettyunits
+parsedate
+docopt
+pkgcache
+cliapp
+pkgsearch
+async
+ cpp11test
+digest
+suppressMessages(digest
+tools
+ shiny
+   ggplot2
+   microbenchmark
+gWidgetsWWW2
+ knitr
+sprintf("Rscript -e 'knitr
+test_cmd(sprintf("Rscript -e 'knitr
+ pillar
+## units
+## formattable
+## scales
+## ggplot2
+## dplyr
+Rcpp
+rbenchmark
+suppressMessages(Rcpp
+suppressMessages(inline
+suppressMessages(compiler
+suppressMessages(rbenchmark
+##methods
+testRcppClass
+testRcppModule
+ dplyr
+ ggplot2
+colourpicker
+ tidyverse
+ tidymodels
+ vctrs
+ testit
+ parallel
+ tinytex
+ mime
+rmarkdown
+flexdashboard
+writable
+std
+bench
+pkgbuild
+devtools
+stats
+base
+
+remotes
+covr
+lobstr
+utils
+dbplyr
+lazyeval
+broom
+DBI
+pystr
+forcats
+rprintf
+readr
+fs
+withr
+uuid
+ggvis
+later
+lifecycle
+testthat
+global
+palmerpenguins
+DiagrammeR
+pkgconfig
+igraph
+type
+github
+gitlab
+git
+bitbucket
+bioc
+svn
+url
+local
+renv
+styler
+stringi
+hms
+bit64
+blob
+corpus
+rstudio
+methods
+pizza
+git2r
+rsconnect
+arma
+List
+RcppGSL
+sugar
+R
+NumericVector
+testRcppPackage
+Environment
+Function
+Language
+Pairlist
+IntegerMatrix
+CharacterMatrix
+CharacterVector
+ExpressionVector
+Vector
+IntegerVector
+StringProxy
+tr1
+testRcppInterfaceUser
+testRcppInterfaceExporter
+MIME
+yaml
