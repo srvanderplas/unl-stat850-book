@@ -2,6 +2,7 @@ magrittr
 knitr
 SASmarkdown
 fontawesome
+beepr
 ggplot2
 cpp11test
 cpp11
@@ -48,6 +49,12 @@ parallel
 tinytex
 mime
 markdown
+reticulate
+tensorflow
+Matrix
+mypackage
+rscipy
+withr
 usethis
 bslib
 curl
@@ -100,6 +107,9 @@ colourpicker
  parallel
  tinytex
  mime
+RcppTOML
+ reticulate
+ withr
 rmarkdown
 flexdashboard
 writable
@@ -123,7 +133,6 @@ forcats
 rprintf
 readr
 fs
-withr
 uuid
 ggvis
 later
@@ -153,6 +162,9 @@ corpus
 rstudio
 methods
 pizza
+x
+x1
+coro
 git2r
 rsconnect
 arma
@@ -178,3 +190,4 @@ testRcppInterfaceUser
 testRcppInterfaceExporter
 MIME
 yaml
+lang
