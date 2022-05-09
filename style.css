@@ -72,11 +72,6 @@ pre code {
   box-shadow: 10px white!important;
 }
 
-.watchout {
-  background-image:url(theme/warning.svg)!important;
-  box-shadow: 0 0 0 1px var(--red-salsa),
-              0 0 0 10px white!important;
-}
 
 .ex {
   padding:5px 5px 5px 5px;
@@ -133,6 +128,16 @@ section.tryitout {
   color:var(--zomp);
 }*/
 
+section.watchout {
+  background-size:5% auto;
+  padding:5px 5px 5px 6%;
+  min-width:99%;
+  min-height:3em;
+  background-image:url(theme/warning.svg);
+  background-color: var(--red-salsa-bg);
+  box-shadow: 0 0 0 1px var(--red-salsa),
+              0 0 0 10px white;
+}
 
 section.learn-more{
   padding:5px 5px 5px 5px;
