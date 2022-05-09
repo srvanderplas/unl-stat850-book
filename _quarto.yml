@@ -8,7 +8,7 @@ book:
   chapters:
     - index.qmd
     - tools.qmd
-#    - intro-prog.qmd
+    - intro-prog.qmd
     - references.qmd
   appendices:
     - app-sas.qmd
