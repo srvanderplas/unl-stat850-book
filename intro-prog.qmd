@@ -1,7 +1,10 @@
+---
+title: Introduction to Statistical Programming
+---
+
 # Introduction to Statistical Programming {#intro-prog}
 
-
-The only way to learn how to program effectively is to take something that works, break it, and then fix it again. There's plenty of theory and you should definitely learn that, but fundamentally, if you are not regularly breaking code, you're probably not programming. 
+The only way to learn how to program effectively is to take something that works, break it, and then fix it again. There's plenty of theory and you should definitely learn that, but fundamentally, if you are not regularly breaking code, you're probably not programming.
 
 ```{r out.width = "50%", echo = F}
 #| fig.cap: "This is the class in picture form"
@@ -11,205 +14,201 @@ knitr::include_graphics('images/intro-prog/learning_to_code_Orly.jpeg')
 
 The goal for this chapter (and several chapters to come) is that you can modify example code and adapt it to the problem at hand. This is the best way to learn how to program, but it means you may break the code and not know how to fix it. If that happens, please try the following steps:
 
-1. Google the error and see if you can understand why it happened.
-2. Consult with a classmate to see if they can understand where things broke.
-3. Post to the discussion board and see if anyone in the class can understand where things broke.    
-(When you do this, post all of the code relevant to the problem, and the error you're getting, so that your classmates can replicate the problem)
+1.  Google the error and see if you can understand why it happened.
+2.  Consult with a classmate to see if they can understand where things broke.
+3.  Post to the discussion board and see if anyone in the class can understand where things broke.\
+    (When you do this, post all of the code relevant to the problem, and the error you're getting, so that your classmates can replicate the problem)
 
-If you do not hopelessly break code during this chapter, then please do your best to help others who may not have previously programmed (or previously programmed in these languages). While writing this chapter, I came across about 10 errors in SAS that I'd never encountered before. 
+If you do not hopelessly break code during this chapter, then please do your best to help others who may not have previously programmed (or previously programmed in these languages). While writing this chapter, I came across about 10 errors in SAS that I'd never encountered before.
 
 If all else fails, while you're waiting for someone to help you figure out what an error message means... [try this approach](https://xkcd.com/1024/).
 
-## Module Objectives  {- #module-2-objectives}
+## Module Objectives {#module-2-objectives .unnumbered}
 
-- Create a program flow map by breaking a problem down into smaller steps
-- Write basic scripts to solve mathematical problems with variables, control structures, and scalar/matrix algebra
+-   Create a program flow map by breaking a problem down into smaller steps
+-   Write basic scripts to solve mathematical problems with variables, control structures, and scalar/matrix algebra
 
+More informally, the goal is to get familiar with the basics of each programming language, and to show you where to find references for how to use each command -- because (at least) half of programming is knowing where to look something up.
 
-More informally, the goal is to get familiar with the basics of each programming language, and to show you where to find references for how to use each command -- because (at least) half of programming is knowing where to look something up. 
-
-
-## Definitions {-}
+## Definitions {.unnumbered}
 
 Many programming resources talk about 3, or 5, or 10 core concepts in any programming language. In this module, we're going to discuss the generic concepts, and then how these concepts are implemented in the languages we're working with.
 
-Interestingly, the "core concepts" aren't necessarily the same across lists. 
-Here is a consensus list of concepts which are generic across languages and usually important
+Interestingly, the "core concepts" aren't necessarily the same across lists. Here is a consensus list of concepts which are generic across languages and usually important
 
-1. **Variables** - a symbolic name or reference to some kind of information. In the expression `a + b > a`, both `a` and `b` are variables. Variables may have a specific type (what data can be stored in the variable), scope (where the variable can be accessed), location (in memory). [Here](https://dev.to/lucpattyn/basic-programming-concepts-for-beginners-2o73) is a nice explanation of the difference between variables in programming and variables in math.
+1.  **Variables** - a symbolic name or reference to some kind of information. In the expression `a + b > a`, both `a` and `b` are variables. Variables may have a specific type (what data can be stored in the variable), scope (where the variable can be accessed), location (in memory). [Here](https://dev.to/lucpattyn/basic-programming-concepts-for-beginners-2o73) is a nice explanation of the difference between variables in programming and variables in math.
 
-2. **Conditional statements** (if statements) - These statements allow the program to handle information adaptively - if a statement is true, one set of instructions will be used, and if the statement is false, a different set of instructions will be used.
+2.  **Conditional statements** (if statements) - These statements allow the program to handle information adaptively - if a statement is true, one set of instructions will be used, and if the statement is false, a different set of instructions will be used.
 
-3. **Looping and iteration** - An iteration is any time a sequence of steps is executed. Most languages have several different types of loops or iteration: `for` loops, which allow for the sequence of steps to be executed a specific number of times, `while` loops, which allow for the sequence of steps to be executed while a conditional statement is true, `recursion`, where a block of code calls itself.
+3.  **Looping and iteration** - An iteration is any time a sequence of steps is executed. Most languages have several different types of loops or iteration: `for` loops, which allow for the sequence of steps to be executed a specific number of times, `while` loops, which allow for the sequence of steps to be executed while a conditional statement is true, `recursion`, where a block of code calls itself.
 
-4. **Data types and data structures** - these concepts determine what information a variable can hold. Data types are lower-level, simple objects (floating-point numbers, integers, boolean T/F, characters, strings). Data structures may include lists (sequences of many objects) and vectors (sequences of many objects of the same type), dictionaries (a list of key-value pairs), objects (data structures which may hold multiple related pieces of information). 
+4.  **Data types and data structures** - these concepts determine what information a variable can hold. Data types are lower-level, simple objects (floating-point numbers, integers, boolean T/F, characters, strings). Data structures may include lists (sequences of many objects) and vectors (sequences of many objects of the same type), dictionaries (a list of key-value pairs), objects (data structures which may hold multiple related pieces of information).
 
-5. **Functions**, or self-contained modules of code that accomplish a particular task. 
+5.  **Functions**, or self-contained modules of code that accomplish a particular task.
 
-6. **Syntax**, the set of rules that define which combinations of symbols consist of correctly structured and interpretable commands in the language.
+6.  **Syntax**, the set of rules that define which combinations of symbols consist of correctly structured and interpretable commands in the language.
 
-7. **Tools**, the set of external programs which may help with development and writing code. Some common tools are IDEs (Integrated Development Environments), which may correct syntax and typos, organize files for you, allow you to keep track of which variables you have defined, and assist you with code organization and navigation. Other tools include compilers (which take human-written code and translate it into efficient machine code), version control systems (which help you track changes to code over time), debuggers, and documentation generators. Not all of these tools are necessary for all languages - scripting languages such as python and R do not require compilers by default, for instance.  
+7.  **Tools**, the set of external programs which may help with development and writing code. Some common tools are IDEs (Integrated Development Environments), which may correct syntax and typos, organize files for you, allow you to keep track of which variables you have defined, and assist you with code organization and navigation. Other tools include compilers (which take human-written code and translate it into efficient machine code), version control systems (which help you track changes to code over time), debuggers, and documentation generators. Not all of these tools are necessary for all languages - scripting languages such as python and R do not require compilers by default, for instance.
 
-8. **Sequence of commands**: It's important to have the right commands in the right order. Some recipes, like bread dough, are flexible, and you can add the ingredients in almost any order, but in other recipes, the order matters as much as the correct quantity of ingredients (try putting the cheese powder in before the noodles are boiled when making macaroni and cheese. Yuck.). Programming tends to be like these less flexible recipes. 
+8.  **Sequence of commands**: It's important to have the right commands in the right order. Some recipes, like bread dough, are flexible, and you can add the ingredients in almost any order, but in other recipes, the order matters as much as the correct quantity of ingredients (try putting the cheese powder in before the noodles are boiled when making macaroni and cheese. Yuck.). Programming tends to be like these less flexible recipes.
 
+## Statistical Programming Languages {.unnumbered}
 
-## Statistical Programming Languages {-}
-
-Having established the generic definitions of the concepts which apply to almost any programming language, we now must examine how specific programming languages implement these concepts. 
+Having established the generic definitions of the concepts which apply to almost any programming language, we now must examine how specific programming languages implement these concepts.
 
 R and SAS are both *statistical* programming languages - they are specifically designed to work with data, which means that they make compromises that other languages do not in order to make it easier to write code where the data (rather than the functions, classes, methods, or objects) are the primary concern.
 
-Python is a **general purpose** programming language. It can be much more difficult to accomplish simple data-driven tasks in Python, but Python's construction will be much more familiar to anyone who has spent time in C, Java, or other general-purpose languages. 
+Python is a **general purpose** programming language. It can be much more difficult to accomplish simple data-driven tasks in Python, but Python's construction will be much more familiar to anyone who has spent time in C, Java, or other general-purpose languages.
 
 Here are a few quick facts about each of the 3 programming languages that are mentioned (even peripherally) in this book or are used in the statistics department at UNL:
 
 ::: panel-tabset
+### R {#r-quick-facts .unnumbered}
 
-### R {- #r-quick-facts}
+-   Predecessor: S\
+    R is an open-source clone of the S statistical programming language used internally at AT&T Bell Labs. S dates back to 1976; R first appeared in 1991 and was made public in 1993.
 
-- Predecessor: S    
-R is an open-source clone of the S statistical programming language used internally at AT&T Bell Labs. S dates back to 1976; R first appeared in 1991 and was made public in 1993. 
+-   [History of R](https://bookdown.org/rdpeng/rprogdatascience/history-and-overview-of-r.html)
 
-- [History of R](https://bookdown.org/rdpeng/rprogdatascience/history-and-overview-of-r.html)
+-   Language type:\
+    **functional** - consists mainly of functions that manipulate objects
 
-- Language type:    
-**functional** - consists mainly of functions that manipulate objects
+### Python {#python-quick-facts .unnumbered}
 
-### Python {- #python-quick-facts}
+-   Predecessor: ABC programming language
 
-- Predecessor: ABC programming language
+-   [History of Python](https://en.wikipedia.org/wiki/History_of_Python)
 
-- [History of Python](https://en.wikipedia.org/wiki/History_of_Python)
+-   Language type:\
+    **interpreted** **general purpose** high level programming language. Focus on readable code using indentation to indicate grouping.
 
-- Language type:    
-**interpreted** **general purpose** high level programming language. Focus on readable code using indentation to indicate grouping.
+### SAS {#sas-quick-facts .unnumbered}
 
-### SAS {- #sas-quick-facts}
+-   Predecessor: None\
+    SAS dates back to the 1960s and has syntax which is unique because it predates C and Fortran.
 
-- Predecessor: None    
-SAS dates back to the 1960s and has syntax which is unique because it predates C and Fortran. 
+-   [History of SAS](https://en.wikipedia.org/wiki/SAS_(software)#History)
 
-- [History of SAS](https://en.wikipedia.org/wiki/SAS_(software)#History)
+-   Language type:\
+    **procedural** - consists of steps/procedures that list the manipulations that will be performed on a set of data
 
-- Language type:    
-**procedural** - consists of steps/procedures that list the manipulations that will be performed on a set of data
+-   Other Notes:
 
-- Other Notes: 
-  - SAS is actually several languages. Commands that work in the DATA step do not necessarily work in a PROC step. SAS also has its own general purpose programming language called IML (Interactive Matrix programming Language). 
-  - The way SAS has been included in this course is different than it is usually taught, because I try to introduce SAS concepts at the same time as the corresponding R concept. If you are just needing to use SAS for e.g. your linear modeling classes, please just use the SAS documentation - it will be more than sufficient.
-
+    -   SAS is actually several languages. Commands that work in the DATA step do not necessarily work in a PROC step. SAS also has its own general purpose programming language called IML (Interactive Matrix programming Language).
+    -   The way SAS has been included in this course is different than it is usually taught, because I try to introduce SAS concepts at the same time as the corresponding R concept. If you are just needing to use SAS for e.g. your linear modeling classes, please just use the SAS documentation - it will be more than sufficient.
 :::
 
+### If you've used R/SAS/Python before... {.unnumbered .note}
 
-### If you've used R/SAS/Python before... {- .note}
-
-If you've programmed before, this chapter is going to seem very ... boring. Sorry, there's no help for that. Some of your classmates haven't ever so much as written "Hello World", and we have to get them up to speed. 
+If you've programmed before, this chapter is going to seem very ... boring. Sorry, there's no help for that. Some of your classmates haven't ever so much as written "Hello World", and we have to get them up to speed.
 
 If you're bored, or feel like you know this material, skim through it anyways just to confirm (and if I'm doing something that's really out there, or there's an easier way to do it, tell me!). Then you can either find something in the references that you don't know already (the book Advanced R is always a great place to start if you want to be quickly confused), or help your classmates that are less experienced.
 
-### Cheat Sheets and Reference Guides {- .learn-more}
+### Cheat Sheets and Reference Guides {.unnumbered .learn-more}
 
 ::: panel-tabset
-
 **Basic Syntax and Cheatsheets**
 
 I kept the classic R reference card by my computer for about 5 years, and referenced it at least once or twice a day for that entire period. There will be other cheat sheets and reference cards scattered through this book because if you can't remember something's name, you might be able to remember where it is on the reference card (or at least, that's how I learned R).
 
-#### R {-}
+#### R {.unnumbered}
 
-- [R Cheatsheet](https://rstudio.com/wp-content/uploads/2016/10/r-cheat-sheet-3.pdf) - this is a simplified cheat sheet offered by RStudio. 
-- [R Cheatsheet (classic)](https://cran.r-project.org/doc/contrib/Short-refcard.pdf)
+-   [R Cheatsheet](https://rstudio.com/wp-content/uploads/2016/10/r-cheat-sheet-3.pdf) - this is a simplified cheat sheet offered by RStudio.
+-   [R Cheatsheet (classic)](https://cran.r-project.org/doc/contrib/Short-refcard.pdf)
 
-#### Python {-}
+#### Python {.unnumbered}
 
-- [Data Wrangling in Pandas](https://pandas.pydata.org/Pandas_Cheat_Sheet.pdf)
-- [NumPy Cheat Sheet](http://datacamp-community-prod.s3.amazonaws.com/ba1fe95a-8b70-4d2f-95b0-bc954e9071b0)
-- [Data Input in Python](http://datacamp-community-prod.s3.amazonaws.com/72e88aa1-b4f2-4658-9d86-15becf8263df)
+-   [Data Wrangling in Pandas](https://pandas.pydata.org/Pandas_Cheat_Sheet.pdf)
+-   [NumPy Cheat Sheet](http://datacamp-community-prod.s3.amazonaws.com/ba1fe95a-8b70-4d2f-95b0-bc954e9071b0)
+-   [Data Input in Python](http://datacamp-community-prod.s3.amazonaws.com/72e88aa1-b4f2-4658-9d86-15becf8263df)
 
-#### SAS {-}
+#### SAS {.unnumbered}
 
-- [SAS Cheatsheet (from another class like this)](https://sites.ualberta.ca/~ahamann/teaching/renr480/SAS-Cheat.pdf)
-- [SAS Cheatsheet (by SAS)](https://support.sas.com/content/dam/SAS/support/en/books/data/base-syntax-ref.pdf)
-- [SAS Programming for R Users (free book)](https://support.sas.com/content/dam/SAS/support/en/books/free-books/sas-programming-for-r-users.pdf)
-
+-   [SAS Cheatsheet (from another class like this)](https://sites.ualberta.ca/~ahamann/teaching/renr480/SAS-Cheat.pdf)
+-   [SAS Cheatsheet (by SAS)](https://support.sas.com/content/dam/SAS/support/en/books/data/base-syntax-ref.pdf)
+-   [SAS Programming for R Users (free book)](https://support.sas.com/content/dam/SAS/support/en/books/free-books/sas-programming-for-r-users.pdf)
 :::
-
 
 ## Breaking Problems Down
 
 The most fundamental part of programming that you will need to learn in this class is how to break down a big problem into smaller (hopefully solvable) problems. [This post](https://medium.com/@dannysmith/breaking-down-problems-its-hard-when-you-re-learning-to-code-f10269f4ccd5) is a great example of the process of breaking things down for programming, but the same concept applies outside of programming too!
 
-<details class="ex"><summary>Breaking problems down - remodeling edition</summary>
+<details class="ex">
+
+<summary>
+
+Breaking problems down - remodeling edition
+
+</summary>
+
 My spouse and I recently decided to replace our shower curtain with glass doors because the curtain didn't really prevent water from getting all over the floor.
 
 We went to the store and picked out the parts, and the installation instructions broke the steps down like this:
 
-1. Install the base of the track
+1.  Install the base of the track
 
-2. Install the top of the track
+2.  Install the top of the track
 
-3. Hang shower doors
+3.  Hang shower doors
 
-4. Add hardware to shower doors
+4.  Add hardware to shower doors
 
-So we started in on the instructions, only to find out that when our house was built, our shower wasn't leveled properly. The instructions had a solution - we could send off for a $300 custom part that would level our floor, but we'd have to wait at least 4-6 weeks for them to make and ship the part to us. 
+So we started in on the instructions, only to find out that when our house was built, our shower wasn't leveled properly. The instructions had a solution - we could send off for a \$300 custom part that would level our floor, but we'd have to wait at least 4-6 weeks for them to make and ship the part to us.
 
-We're both programmer-adjacent, so we started thinking through how we could deal with our problem a different way. We considered ignoring the instructions -- our shower was about 1/8" off of level, surely that couldn't be so important, right? My spouse is a bit more ... detail oriented ... than I am, so he wasn't good with that suggestion. 
+We're both programmer-adjacent, so we started thinking through how we could deal with our problem a different way. We considered ignoring the instructions -- our shower was about 1/8" off of level, surely that couldn't be so important, right? My spouse is a bit more ... detail oriented ... than I am, so he wasn't good with that suggestion.
 
 We considered adding a ton of caulk or plaster to try to level the shower out. But we figured that 1) probably wouldn't work, and 2) would look awful.
 
-Finally, I suggested that my spouse 3D print sections of track-leveler using our 3D printer. Now, this isn't an option for most people, but it is for us - we have a small 3D printer, and spouse knows how to use OpenSCAD to create very accurate, custom dimension 3D printer files. He tested things out a few times, and printed up a series of 12 ~5" sections that when assembled were equivalent to the $300 custom part we could have ordered. Then, he proceeded with the rest of the installation as the instructions listed.
+Finally, I suggested that my spouse 3D print sections of track-leveler using our 3D printer. Now, this isn't an option for most people, but it is for us - we have a small 3D printer, and spouse knows how to use OpenSCAD to create very accurate, custom dimension 3D printer files. He tested things out a few times, and printed up a series of 12 \~5" sections that when assembled were equivalent to the \$300 custom part we could have ordered. Then, he proceeded with the rest of the installation as the instructions listed.
 
-Essentially, because we had a list of subproblems (steps for installation), we could focus our efforts on debugging the one problem we had (not level shower ledge) and we didn't have to get bogged down in "it's impossible to get this job done" - we knew that if we could solve the little problem, we'd be able to get the bigger job done. Programming is just like this - if you can break your problem down into steps (and not steps with code), you can think through how to solve a single step of the problem before you worry about the next step. 
+Essentially, because we had a list of subproblems (steps for installation), we could focus our efforts on debugging the one problem we had (not level shower ledge) and we didn't have to get bogged down in "it's impossible to get this job done" - we knew that if we could solve the little problem, we'd be able to get the bigger job done. Programming is just like this - if you can break your problem down into steps (and not steps with code), you can think through how to solve a single step of the problem before you worry about the next step.
+
 </details>
 
+One tool that is often used to help break a problem down is a [flowchart](https://www.programiz.com/article/flowchart-programming).
 
-One tool that is often used to help break a problem down is a [flowchart](https://www.programiz.com/article/flowchart-programming). 
+### Try it out {.unnumbered .tryitout}
 
-### Try it out {-.tryitout}
-The biggest advantage to breaking problems down into smaller steps is that it allows you to focus on solving a small, approachable problem. 
+The biggest advantage to breaking problems down into smaller steps is that it allows you to focus on solving a small, approachable problem.
 
-Let's think through an example: 
+Let's think through an example:
 
 ::: panel-tabset
-
 #### Problem
 
-Print out a pyramid of stars, 10 lines high. 
+Print out a pyramid of stars, 10 lines high.
 
-Yes, I remember, I haven't taught you how to write any code yet. Don't worry about code right now - let's just think about how we might create a pyramid of stars. 
+Yes, I remember, I haven't taught you how to write any code yet. Don't worry about code right now - let's just think about how we might create a pyramid of stars.
 
-Start by doing the task manually  on paper or in a text editor. Observe the steps you go through and think about how you might generalize those steps.
+Start by doing the task manually on paper or in a text editor. Observe the steps you go through and think about how you might generalize those steps.
 
 #### Manual Solution
 
 First, we have to think about what we would need to make a pyramid of stars. So let's make a miniature one by hand (I'm using - for spaces here to make things visible):
-```
----*---
---***--
--*****-
-```
 
-To make my miniature star pyramid, I started out by adding space on the first line, then a star, then more space. When I moved to the next line, I added space, but one less space than I'd added before, and then 3 stars, and then more space. 
+    ---*---
+    --***--
+    -*****-
+
+To make my miniature star pyramid, I started out by adding space on the first line, then a star, then more space. When I moved to the next line, I added space, but one less space than I'd added before, and then 3 stars, and then more space.
 
 #### Analysis
 
 Examining the manual solution, it seems we can break our problem down into two(ish) components:
 
-- How much space? (one side)
-- How many stars?
-- (redundant piece) How much space (the other side).
+-   How much space? (one side)
+-   How many stars?
+-   (redundant piece) How much space (the other side).
 
 Thinking my way through how I created my manual pyramid, I realized that I was adding $n$ spaces (where $n$ is the total number of rows) on the first line, and then $n - i$ spaces on subsequent lines, if we start with i=0.
 
 But I am an R programmer, so we start with $i=1$, which means I need to have $n - i + 1$ spaces on each row first.
 
-Then, for $i=1$ the first row, we have $2*i - 1$ stars - i = 1, stars = 1, then i = 2, stars = 3, then i = 3, stars = 5....  you can do the regression if you want to, but it's pretty easy to see the relationship.
+Then, for $i=1$ the first row, we have $2*i - 1$ stars - i = 1, stars = 1, then i = 2, stars = 3, then i = 3, stars = 5.... you can do the regression if you want to, but it's pretty easy to see the relationship.
 
 Finally, we have to (in theory) add the same amount of space on the other side -- strictly speaking, this is optional, but it makes the lines the same length, so it is nice.
 
 #### Program Flow Map
-
 
 ![Program flow map for stars](images/intro-prog/prog-flow-pyramid-stars.svg)
 
@@ -221,13 +220,12 @@ $n - i +1$ spaces, $2i - 1$ stars, $n - i + 1$ spaces
 
 Working this out in a small example helped me come up with that formula; now, I can write a "loop":
 
-- line 1: i = 1, n = 10, 10 spaces, 1 star, 10 spaces
-- line 2: i = 2, n = 10, 9 spaces, 3 stars, 9 spaces
-- line 3: i = 3, n = 10, 8 spaces, 5 stars, 8 spaces
-- line 4: i = 4, n = 10, 7 spaces, 7 stars, 7 spaces
-- ...
-- line n: i = n, n = 10, 1 space, 19 stars, 1 space
-
+-   line 1: i = 1, n = 10, 10 spaces, 1 star, 10 spaces
+-   line 2: i = 2, n = 10, 9 spaces, 3 stars, 9 spaces
+-   line 3: i = 3, n = 10, 8 spaces, 5 stars, 8 spaces
+-   line 4: i = 4, n = 10, 7 spaces, 7 stars, 7 spaces
+-   ...
+-   line n: i = n, n = 10, 1 space, 19 stars, 1 space
 :::
 
 ## Variable types
@@ -236,30 +234,30 @@ For a general overview, [this video, titled 'Why TRUE + TRUE = 2'](https://youtu
 
 Let's start this section with some basic vocabulary.
 
-- a **value** is a basic unit of stuff that a program works with, like 1, 2, "Hello, World", and so on.
+-   a **value** is a basic unit of stuff that a program works with, like 1, 2, "Hello, World", and so on.
 
-- **values** have **types** - 2 is an integer, "Hello, World" is a string (it contains a "string" of letters). Strings are in quotation marks to let us know that they are not variable names.
+-   **values** have **types** - 2 is an integer, "Hello, World" is a string (it contains a "string" of letters). Strings are in quotation marks to let us know that they are not variable names.
 
 In most languages, there are some very basic data types:
 
-- **logical** or **boolean** - FALSE/TRUE or 0/1 values. Sometimes, boolean is shortened to bool
+-   **logical** or **boolean** - FALSE/TRUE or 0/1 values. Sometimes, boolean is shortened to bool
 
-- **integer** - whole numbers (positive or negative)
+-   **integer** - whole numbers (positive or negative)
 
-- **double** or **float** or **numeric** - decimal numbers.
-    - float is short for floating-point value.
-    - double is a floating-point value with more precision ("double precision").
+-   **double** or **float** or **numeric** - decimal numbers.
 
-    - R uses the name **numeric** to indicate a decimal value, regardless of precision.
+    -   float is short for floating-point value.
 
-- **character** or **string** - holds text, usually enclosed in quotes.
+    -   double is a floating-point value with more precision ("double precision").
+
+    -   R uses the name **numeric** to indicate a decimal value, regardless of precision.
+
+-   **character** or **string** - holds text, usually enclosed in quotes.
 
 If you don't know what type a value is, there are usually functions to help you with that.
 
-
 ::: panel-tabset
-
-### R {.unnumbered}
+### R {.unnumbered .unnumbered}
 
 ```{r identify-var-type-r, results='hold'}
 class(FALSE)
@@ -269,7 +267,7 @@ class(2)
 class("Hello, programmer!")
 ```
 
-### Python {.unnumbered}
+### Python {.unnumbered .unnumbered}
 
 ```{python indentify-var-type-py, results='hold'}
 type(False)
@@ -278,23 +276,23 @@ type(3.1415)
 type("This is python code")
 ```
 
+### SAS {.unnumbered .unnumbered}
+
+See the [SAS appendix](#Variable-Types-in-SAS)
 :::
 
-
-### Capitalization matters! {- .watchout}
-
+::: note
 In R, boolean values are `TRUE` and `FALSE`, but in Python they are `True` and `False`. Capitalization matters a LOT.
 
 Other things matter too: if we try to write a million, we would write it `1000000` instead of `1,000,000` (in both languages). Commas are used for separating numbers, not for proper spacing and punctuation of numbers. This is a hard thing to get used to but very important -- especially when we start reading in data.
+:::
 
-### {-}
+### Testing Types
 
 You can use different functions to test whether a variable has a specific type as well:
 
-
 ::: panel-tabset
-
-### R {.unnumbered}
+#### R {.unnumbered .unnumbered}
 
 ```{r test-var-type-r, results='hold'}
 is.logical(FALSE)
@@ -305,10 +303,9 @@ is.numeric(2)
 is.character("Hello, programmer!")
 ```
 
-In R, you use `is.xxx` functions, where xxx is the name of the type in question. 
+In R, you use `is.xxx` functions, where xxx is the name of the type in question.
 
-
-### Python {.unnumbered}
+#### Python {.unnumbered .unnumbered}
 
 ```{python test-var-type-py, results='hold'}
 isinstance(False, bool)
@@ -319,25 +316,19 @@ isinstance("This is python code", str)
 ```
 
 In python, test for types using the `isinstance` function with an argument containing one or more data types in a tuple (`(int, float)` is an example of a tuple - a static set of multiple values).
-
 :::
 
-
-
-### Exploring Data Types in R 
+### Exploring Types
 
 ::: note
+#### Assignment {.unnumbered}
 
-#### Assignment {-}
-
-Note that `<-` is used for assigning a value to a variable. So `x <- "R is awesome"` is read "x gets 'R is awesome'" or "x is assigned the value 'R is awesome'". 
-
+Note that `<-` is used for assigning a value to a variable. So `x <- "R is awesome"` is read "x gets 'R is awesome'" or "x is assigned the value 'R is awesome'".
 :::
 
-
 ::: panel-tabset
+#### Character {.unnumbered}
 
-#### Character {-}
 ```{r is-fcns-char, collapse = T, hold = T}
 x <- "R is awesome"
 typeof(x)
@@ -347,7 +338,17 @@ is.integer(x)
 is.double(x)
 ```
 
-#### Logical {-}
+```{python is-fcns-char-py, collapse = T, hold = T}
+x = "python is awesome"
+type(x)
+isinstance(x, str)
+isinstance(x, bool)
+isinstance(x, int)
+isinstance(x, float)
+```
+
+#### Logical {.unnumbered}
+
 ```{r is-fcns-lgl, collapse = T, hold = T}
 x <- FALSE
 typeof(x)
@@ -357,9 +358,21 @@ is.integer(x)
 is.double(x)
 ```
 
-It is possible to use the shorthand `F` and `T`, but be careful with this, because `F` and `T` are not reserved, and other information can be stored within them. See [this discussion](https://twitter.com/tslumley/status/1279870794730893312) for pros and cons of using `F` and `T` as variables vs. shorthand for true and false. ^[There is also an [R package dedicated to pure evil](https://purrple.cat/blog/2017/05/28/turn-r-users-insane-with-evil/) that will set F and T randomly on startup. Use this information wisely.]
+In R, is possible to use the shorthand `F` and `T`, but be careful with this, because `F` and `T` are not reserved, and other information can be stored within them. See [this discussion](https://twitter.com/tslumley/status/1279870794730893312) for pros and cons of using `F` and `T` as variables vs. shorthand for true and false. [^intro-prog-1]
 
-#### Integer {-}
+```{python is-fcns-lgl-py, collapse = T, hold = T}
+x = False
+type(x)
+isinstance(x, str)
+isinstance(x, bool)
+isinstance(x, int)
+isinstance(x, float)
+```
+
+Note that in python, boolean variables are also integers. If your goal is to test whether something is a T/F value, you may want to e.g. test whether its value is one of 0 or 1, rather than testing whether it is a boolean variable directly, since integers can also function directly as bools in Python.
+
+#### Integer {.unnumbered}
+
 ```{r is-fcns-int, collapse = T, hold = T}
 x <- 2
 typeof(x)
@@ -371,7 +384,7 @@ is.double(x)
 
 Wait, 2 is an integer, right?
 
-2 is an integer, but in R, values are assumed to be doubles unless specified. So if we want R to treat 2 as an integer, we need to specify that it is an integer specifically. 
+2 is an integer, but in R, values are assumed to be doubles unless specified. So if we want R to treat 2 as an integer, we need to specify that it is an integer specifically.
 
 ```{r is-fcns-int2, collapse = T, hold = T}
 x <- 2L # The L immediately after the 2 indicates that it is an integer.
@@ -383,7 +396,17 @@ is.double(x)
 is.numeric(x)
 ```
 
-#### Double {-}
+```{python is-fcns-int-py, collapse = T, hold = T}
+x = 2
+type(x)
+isinstance(x, str)
+isinstance(x, bool)
+isinstance(x, int)
+isinstance(x, float)
+```
+
+#### Double {.unnumbered}
+
 ```{r is-fcns-dbl, collapse = T, hold = T}
 x <- 2.45
 typeof(x)
@@ -394,20 +417,34 @@ is.double(x)
 is.numeric(x)
 ```
 
-#### Numeric {-}
-A fifth common "type"^[`numeric` is not really a type, it's a mode. Run `?mode` for more information.], `numeric` is really the union of two types: integer and double, and you may come across it when using `str()` or `mode()`, which are similar to `typeof()` but do not quite do the same thing.
+```{python is-fcns-dbl-py, collapse = T, hold = T}
+x = 2.45
+type(x)
+isinstance(x, str)
+isinstance(x, bool)
+isinstance(x, int)
+isinstance(x, float)
+```
+
+#### Numeric {.unnumbered}
+
+A fifth common "type"[^intro-prog-2], `numeric` is really the union of two types: integer and double, and you may come across it when using `str()` or `mode()`, which are similar to `typeof()` but do not quite do the same thing.
 
 The `numeric` category exists because when doing math, we can add an integer and a double, but adding an integer and a string is ... trickier. Testing for numeric variables guarantees that we'll be able to do math with those variables. `is.numeric()` and `as.numeric()` work as you would expect them to work.
 
-The general case of this property of a language is called **implicit type conversion** - that is, R will implicitly (behind the scenes) convert your integer to a double and then add the other double, so that the result is unambiguously a double. 
-</details>
-
+The general case of this property of a language is called **implicit type conversion** - that is, R will implicitly (behind the scenes) convert your integer to a double and then add the other double, so that the result is unambiguously a double.
 :::
 
+[^intro-prog-1]: There is also an [R package dedicated to pure evil](https://purrple.cat/blog/2017/05/28/turn-r-users-insane-with-evil/) that will set F and T randomly on startup. Use this information wisely.
 
-#### Type Conversions {-}
+[^intro-prog-2]: `numeric` is not really a type, it's a mode. Run `?mode` for more information.
 
-R will generally work hard to seamlessly convert variables to different types. So, for instance, 
+### Type Conversions {.unnumbered}
+
+Programming languages will generally work hard to seamlessly convert variables to different types. So, for instance,
+
+::: panel-tabset
+#### R {.unnumbered .unnumbered}
 
 ```{r, error = T, collapse = T, hold = T}
 TRUE + 2
@@ -417,9 +454,23 @@ TRUE + 2
 "abcd" + 3
 ```
 
-This conversion doesn't always work - there's no clear way to make "abcd" into a number we could use in addition. So instead, R will issue an error. This error pops up frequently when something went wrong with data import and all of a sudden you just tried to take the mean of a set of string/character variables. Whoops.
+#### Python {.unnumbered .unnumbered}
 
-When you want to, you can also use `as.xxx()` to make the type conversion **explicit**. So, the analogue of the code above, with explicit conversions would be: 
+```{python, error = T, collapse = T, hold = T}
+True + 2
+
+int(2) + 3.1415
+
+"abcd" + 3
+```
+:::
+
+This conversion doesn't always work - there's no clear way to make "abcd" into a number we could use in addition. So instead, R or python will issue an error. This error pops up frequently when something went wrong with data import and all of a sudden you just tried to take the mean of a set of string/character variables. Whoops.
+
+When you want to, you can also use `as.xxx()` to make the type conversion **explicit**. So, the analogue of the code above, with explicit conversions would be:
+
+::: panel-tabset
+#### R {.unnumbered .unnumbered}
 
 ```{r, error = T, collapse = T, hold = T}
 as.double(TRUE) + 2
@@ -429,9 +480,31 @@ as.double(2L) + 3.1415
 as.numeric("abcd") + 3
 ```
 
-When we make our intent explicit (convert "abcd" to a numeric variable) we get an NA - a missing value. There's still no easy way to figure out where "abcd" is on a number line, but our math will still have a result - `NA + 3` is `NA`.
+#### Python {.unnumbered .unnumbered}
 
-If you are unsure what the type of a variable is, use the `typeof()` function to find out. 
+```{python, error = T, collapse = T, hold = T}
+int(True) + 2
+
+float(2) + 3.1415
+
+float("abcd") + 3
+
+import pandas as pd # Load pandas library
+pd.to_numeric("abcd", errors = 'coerce') + 3
+```
+:::
+
+When we make our intent explicit (convert "abcd" to a numeric variable) we get an NA - a missing value - in R. In Python, we get a more descriptive error by default, but we can use the `pandas` library (which adds some statistical functionality) to get a similar result to the result we get in R.
+
+There's still no easy way to figure out where "abcd" is on a number line, but our math will still have a result - `NA + 3` is `NA`.
+
+### Determining a Variable's Type
+
+::: panel-tabset
+
+#### R {.unnumbered .unnumbered}
+
+If you are unsure what the type of a variable is, use the `typeof()` function to find out.
 
 ```{r var-types, collapse = T, hold = T}
 w <- "a string"
@@ -446,97 +519,29 @@ typeof(z)
 
 ```
 
+#### Python {.unnumbered .unnumbered}
 
-#### Factors {- #introfactors}
+If you are unsure what the type of a variable is, use the `type()` function to find out.
 
-In R, there is one other type of variable to know about, and that is a factor. Factors are basically labeled integers. Instead of storing the data as a string or character, R instead stores the data as a series of integers, and then stores a separate table mapping the integers to labels. This is technically more efficient (which was important when computers had extremely limited memory), but it is also a pain in the rear (that's a technical term). 
+```{python var-types-py, collapse = T, hold = T}
+w = "a string"
+x = 3
+y = 3.1415
+z = False
 
-Factors are the default way to store characters for most base R functions. Or rather, they were. In R 4.0, the default way to read data in will change from `stringsAsFactors = T` to `stringsAsFactors = F`. You can read about why factors aren't ideal [here](https://developer.r-project.org/Blog/public/2020/02/16/stringsasfactors/index.html), which helps explain why this change was made. 
+type(w)
+type(x)
+type(y)
+type(z)
 
-Depending on what version of R you have installed, you may run into errors related to factors, or not. Because R 4.0 is so new (released in May 2020) <!-- time-specific XXX fix later --> most of the tutorials online will probably have behavior that isn't matched by your R installation. I'm new enough to R 4.0 that I'm not sure when factor related errors will pop up.
-
-Other reasons to learn factors besides for debugging purposes:
-
-- They allow you to control the order of things in graphs, tables, and models
-- They allow you to easily change category labels without having to sort through an entire data table
-- ... I'm sure there are more, but I'm drawing a blank at the moment
-
-
-::: note
-
-##### Data Frames {-}
-
-In this example, we'll use a data.frame, which you can think of as a spreadsheet-type table. We'll work with data frames later in much more detail, but for now, I'm mostly trying to show you a real-life situation that happens ALL the time, with the hopes that you'll recognize the error when/if you encounter it. The data frame isn't the important part.
-
-:::
-
-<details class="ex"><summary>Factors example</summary>
-Let's look at the names of the months:
-```{r factors-ex}
-month.name
-
-df <- data.frame(num = 1:12, name = month.name, stringsAsFactors = T)
-# I'm putting the argument in so that this is still relevant when everyone 
-# switches to R 4.0. Even with stringsAsFactors = F, factors are still useful 
-# and we still need to work with them.
-# 
-# Any time you create a data frame in base R, you should be watchful for errors
-# that are based on strings being converted to factors.
-
-str(df)
 ```
 
-Notice that as soon as we make that data.frame, the months are converted into a factor variable? The other big problem is that the order of the factor levels is ... not what we'd normally want. We don't want alphabetical ordering of month names - they have a different, implicit, and natural order.
+### Try It Out {.unnumbered .tryitout}
 
-We could get this same behavior without the data.frame, but this is where it shows up most often.
+::: panel-tabset
+#### R {.unnumbered .unnumbered}
 
-```{r factors-ex-2}
-month_fct <- factor(month.name) # the order is still not exactly what we'd want it to be
-```
-
-To fix this, we can explicitly specify that we're dealing with a factor, and what we want the levels to be. If you specify the levels manually (instead of letting R do the work for you) then you get to determine the order. 
-```{r factors-ex-3}
-month_fct <- factor(month.name, levels = month.name)
-str(month_fct)
-```
-
-We can even be more explicit: 
-
-```{r factors-ex-4}
-month_fct <- factor(month.name, levels = month.name, ordered = T)
-str(month_fct)
-```
-
-Making the factor ordered lets us explicitly say which levels are less than other levels.
-
-Factors are technically integers, with labels that are stored as an attribute. That doesn't mean you can do math with them, though. 
-```{r factors-ex-5, error = T}
-month_fct[1] + month_fct[2]
-```
-
-Often, years or dates or other numeric-like information will end up as factor variables. When this happens, you need to be a little bit careful. 
-
-```{r factors-ex-6}
-# This works pretty naturally for months, right?
-as.numeric(month_fct)
-
-yfact <- factor(2000:2020, levels = 2000:2020)
-yfact
-# But, this does not...
-as.numeric(yfact)
-
-as.character(yfact) # gets the labels
-as.numeric(as.character(yfact)) # gets the info we want
-```
-When converting factors with numeric labels, you need to first convert the factor to a character, and then to a numeric variable. That will get the information you actually want back out.
-
-</details>
-
-
-
-#### Try It Out {- .tryitout}
-
-1. Create variables `string`, `integer`, `decimal`, and `logical`, with types that match the relevant variable names.
+1.  Create variables `string`, `integer`, `decimal`, and `logical`, with types that match the relevant variable names.
 
 ```{r tryitout-data-type, eval = F}
 string <- 
@@ -545,17 +550,38 @@ decimal <-
 logical <- 
 ```
 
-2. Can you get rid of the error that occurs when this chunk is run?
+2.  Can you get rid of the error that occurs when this chunk is run?
+
 ```{r try-it-out-arithmetic, eval = F}
 logical + decimal
 integer + decimal
 string + integer
 ```
 
-3. What happens when you add string to string? logical to logical?
+3.  What happens when you add string to string? logical to logical?
 
+#### Python {.unnumbered .unnumbered}
 
-<details><summary>Solutions</summary>
+1.  Create variables `string`, `integer`, `decimal`, and `logical`, with types that match the relevant variable names.
+
+```{python tryitout-data-type-py, eval = F}
+string = 
+integer = 
+decimal = 
+logical = 
+```
+
+2.  Can you get rid of the error that occurs when this chunk is run?
+
+```{python try-it-out-arithmetic-py, eval = F}
+logical + decimal
+integer + decimal
+string + integer
+```
+
+3.  What happens when you add string to string? logical to logical?
+
+#### R Solution {.unnumbered .unnumbered}
 
 ```{r tryitout-data-type-answers, error = T}
 string <- "hi, I'm a string"
@@ -567,83 +593,200 @@ logical + decimal
 integer + decimal
 as.numeric(string) + integer
 
-"abcd" + "defg"
+"abcd" + "efgh"
 TRUE + TRUE
 ```
 
 In R, adding a string to a string creates an error ("non-numeric argument to binary operator"). Adding a logical to a logical, e.g. TRUE + TRUE, results in `r TRUE + TRUE`, which is a numeric value.
-</details>
 
+To concatenate strings in R (like the default behavior in python), we would use the `paste0` function: `paste0("abcd", "efgh")`, which returns `r paste0("abcd", "efgh")`.
 
+#### Python Solution {.unnumbered .unnumbered}
+
+```{python tryitout-data-type-answers-py, error = T}
+import pandas as pd
+
+string = "hi, I'm a string"
+integer = 4
+decimal = 5.412
+logical = True
+
+logical + decimal
+integer + decimal
+pd.to_numeric(string, errors='coerce') + integer
+
+"abcd" + "efgh"
+True + True
+```
+
+In Python, when a string is added to another string, the two strings are **concatenated**. This differs from the result in R, which is a "non-numeric argument to binary operator" error.
+:::
 
 ## Data structures
 
 Data **structures** are more complex arrangements of information than single variables. Of primary interest in statistical programming are the following types of structures:
 
-&nbsp;  | Homogeneous | Heterogeneous
--- | :---------- | :------------
-1d | vector | list
-2d | matrix | data frame (R) or data set (SAS)
-nd | array (R) |
+|     | Homogeneous                   | Heterogeneous                                                 |
+|-----|:------------------------------|:--------------------------------------------------------------|
+| 1d  | vector                        | list                                                          |
+| 2d  | matrix (R) or array (python)  | data frame/tibble (R), data frame (Python), or data set (SAS) |
+| nd  | array (R) or ndarray (python) |                                                               |
 
-In the table above, homogeneous means that all entries in the structure must be of the same type. Heterogeneous means that the entries are allowed to be of different types. 
+In the table above, homogeneous means that all entries in the structure must be of the same type. Heterogeneous means that the entries are allowed to be of different types.
+
+Lego are fairly useful for demonstrating these various complex data strutures. Here's a conceptual view of what we're talking about:
+
+|     | Homogeneous                                                                                                  | Heterogeneous                                                                                                                                                                          |
+|-----|:-------------------------------------------------------------------------------------------------------------|:---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| 1d  | ![A lego vector made out of a row of 1x3 blocks](images/intro-prog/lego-1x3-vector.png)                      | ![A lego list made out of a row of differently-sized lego bricks](images/intro-prog/lego-list.png)                                                                                     |
+| 2d  | ![A lego matrix made out of a 3x4 rectangle of individual 2x2 bricks](images/intro-prog/lego-2x2-matrix.png) | ![A lego data frame made out of multiple columns of bricks where each column is a different size of brick (representing a different data type)](images/intro-prog/lego-data-frame.png) |
+| nd  | ![A 4x3x3 matrix/ndarray of 2x2 bricks of different colors.](images/intro-prog/lego-ndarray.png)             |                                                                                                                                                                                        |
 
 ::: note
-Figuring out what to call these types with two languages is hard - in SAS, an array is a group of columns of a data set, but in R, it's a multi-dimensional matrix. In this section, we'll discuss the generic concepts relevant to both languages. The differences between the two languages will be discussed as appropriate. As there are more similarities than differences, it's easier to do this in a single section rather than duplicating half of the content.
+Figuring out what to call these types with multiple languages is hard - in SAS, an array is a group of columns of a data set, but in R, it's a multi-dimensional matrix. In this section, we'll discuss the generic concepts relevant to both languages. The differences between the two languages will be discussed as appropriate. As there are more similarities than differences, it's easier to do this in a single section rather than duplicating half of the content.
 :::
 
-### Homogeneous data structures (R and SAS)
+### Homogeneous data structures
 
-R does not have scalar types - even single-value variables are technically vectors of length 1. SAS does have scalar types.
+#### Scalars
 
+R does not have scalar types - even single-value variables are technically vectors of length 1. SAS and Python do have scalar types. Creating scalars is as simple as defining a variable, which you have already seen before.
+
+#### Vectors
+
+Vectors are constrained so that all items in a vector must be of the same type. When necessary, this means that variables will be type-converted, as shown above.
+
+::: ex
 If we try to create a heterogeneous vector in R, using the `concatenate` function, `c()`, which combines scalar entries into a vector, what happens?
 
 ```{r data-structures-homogeneous}
 c(1, 2, "a", "b", "c")
 ```
+
 Because there were 3 character entries, the entire vector is now a character vector.
 
-<div class="watchout">
-R's vector-by-default approach can cause some errors - for instance, R does not read in numeric data formatted with commas as numeric data. You may thus get the result
+:::
 
-```{r data-structures-homogeneous2, error = T}
-x <- c(356, 452, "1,325")
-mean(x)
+::: panel-tabset
+
+##### R {.unnumbered .unnumbered}
+
+In R, creating a vector is as easy as using the `c()` (concatenate) function. To create a vector of sequential integers, we use `start:end`, where start and end are integers. To create a finer-grained sequence, such as counting from 1 to 10 by 0.05, we would use the `seq()` function. `seq()` also has an argument named `length.out` which allows you to specify the vector length; the interval between successive numbers is then automatically calculated for you.
+
+```{r}
+digits_of_pi <- c(3, 1, 4, 1, 5, 9)
+
+seq_10 <- 1:10
+
+tmp <- seq(1, 10, by = 0.05)
+
+tmp2 <- seq(1, 10, length.out = 100)
+
 ```
 
-If you are reading in data from a file, this will cause some issues - the whole column of data will be formatted as characters. Keep an eye out for errors of this type. 
+##### Python {.unnumbered .unnumbered}
 
-One fix for this is to read things in as a character and use the `parse_number` function from the `readr` package -- we'll talk about the `readr` package in [Module 4](#reading-data)
-</div>
+In python, we will use the NumPy package to create arrays of any dimension. First, we have to tell Python we want to use the `numpy` package, and what we're going to call it. Usually, this means that we add the line `import numpy as np` so that we call any functions in the package using `np.function_name()`.
+
+The next thing to realize is that by default, python doesn't have a vector/matrix/array type - this is something added in numpy. So we'll be using lists to create our default data structures, and then converting them into numpy objects.
+
+```{python}
+import numpy as np
+
+lst = [3, 1, 4, 1, 5, 9] # this is a list
+
+digits_of_pi = np.array(lst) # this creates a vector
+
+seq_10 = np.array(range(1, 10))
+
+tmp = np.arange(1, 10, step = 0.05)
+
+tmp2 = np.linspace(1, 10, 100)
+```
+The `range` function defines a range from 1 to 10, and the `np.array()` function converts that into a vector of integers counting from 1 to 10. In the next step, we use the `np.arange` function to specify what the step size we want is. Finally, we specify a vector of length 100 using the `np.linspace` function. 
+
+:::
 
 
-Jenny Bryan has an excellent set of images to demonstrate [R data types as legos](https://twitter.com/JennyBryan/status/799639755344359426). She's released them under an open license, so I am shamelessly stealing them. 
+#### Matrices and Arrays
 
-Logical vector | Factor vector | Integer and Numeric vectors
--------------- | ------------- | --------------
-![](https://github.com/jennybc/lego-rstats/blob/master/lego-rstats_016.jpg?raw=true) | ![](https://github.com/jennybc/lego-rstats/raw/master/lego-rstats_017.jpg?raw=true) | ![](https://github.com/jennybc/lego-rstats/raw/master/lego-rstats_018.jpg?raw=true)
+::: panel-tabset
 
-These correspond to the 1-dimensional homogeneous data structures. Similarly, models can be made for 2-dimensional and 3-dimensional homogeneous data structures^[While there are both Duplo and Lego in my house, my toddler is a lot more willing to share than my husband, so Duplo will have to do.]:
+##### R {- .unnumbered}
 
-Vector (1D) | Matrix (2D) | Array (3D)
------------ | ----------- | ----------
-![](image/02_green-lego-1d.png) | ![](image/02_green-lego-2d.png) | ![](image/02_green-lego-3d.png)
+Let's start out by creating a 3x4 matrix (3 rows, 4 columns) of the digits 1:12.
+
+```{r create-matrix}
+matrix(1:12, 3, 4)
+```
+
+By default, R fills in everything column-by-column. If we want to change that behavior, we use the `byrow` option:
+
+```{r create-matrix-2}
+matrix(1:12, 3, 4, byrow = T)
+```
+
+If we want to create a higher-order array in R, we use the `array` command:
+
+```{r create-array}
+array(1:12, dim = c(2, 2, 3))
+```
+
+Note that higher-dimension arrays are hard to print and visualize.
+
+It is easy enough to create an array that has all 0's or 1's in it as well - I have used 1:12 here to show you how things get populated to different slices of the array, but any vector will work to initialize your array.
+
+##### Python {-}
+
+If a vector and a list are relatively similar in structure, we can think up an analogue of the matrix as a list of lists of the same length. 
+
+```{python create-matrix-py}
+import numpy as np
+
+# Different shapes matter
+[[1, 2, 3], [4, 5, 6]] 
+[[1,2], [3,4], [5,6]] 
+# Row by row inside the first-level list
+
+np.array([[1, 2, 3], [4, 5, 6]]) 
+np.array([[1,2], [3,4], [5,6]])
+```
+
+If we instead want to create a matrix of 0s, we can do that using the `np.zeros` function.
+
+```{python create-matrix-2-py}
+np.zeros(shape=(2, 2, 3), dtype=float)
+```
+
+Filling the matrix with non-zero values is a different challenge that requires us to talk about indexing (discussed below).
+
+:::
 
 
 ### Heterogeneous data structures
 
 The heterogeneous data types are not much harder to grasp, as they're mostly different ways to combine various homogeneous data types.
 
-#### Lists 
+#### One-dimensional structures
 
-A **list** is, well, a list - a sequence of potentially different-typed values. Unlike when concatenating values, the `list()` command in R allows each value to keep its natural type. You can access elements of a list using `[]` (this will extract a subset of the list items) or `[[]]`, which will extract a single item from the list. (there will be more on this in the [Indexing section](#indexing) below)
+In R and SAS, lists are the basic building block of one-dimensional data structures. Python makes this a bit more complicated, as it has several different one-dimensional heterogeneous data structures that we'll have to cover. I've restructured this section considerably during the transition to R + Python as the main focus of this class, but I'd encourage you to read this section with a focus on lists and just keep in mind what the differences are between the structures - you don't have to remember them, but know where to look it up.
 
-##### Basic List Syntax in R {-}
+##### Lists
+
+A **list** is, well, a list - a sequence of potentially different-typed values. 
+
+Unlike when concatenating values, the `list()` command in R allows each value to keep its natural type. In Python, the default complex data type is a list; more strict data types are then converted from lists to more structured formats using e.g. `np.array` or `pd.DataFrame`. 
+
+
+::: panel-tabset
+
+###### R {- .unnumbered}
+
 ```{r list-index-demo, error = T}
 x <- list("a", "b", "c", 1, 2, 3)
 
 x
-x[[3]]
+x[[1]] # Indexes start at 1 in R
 
 x[[4]] + x[[5]]
 
@@ -652,18 +795,10 @@ x[1:2] # This will work
 x[[1:2]] # This won't work
 ```
 
-
-The lego version of a list looks like this: 
-```{r lego-list, echo = F, out.width = "50%", fig.cap = "A list of 4 vectors. Even though the vectors in the list are all the same size in this case, they don't have to be, because they're not organized in any sort of cohesive rectangle shape. A data frame (see below) is essentially a list where all of the components are vectors or lists of the same length. "}
-knitr::include_graphics("https://github.com/jennybc/lego-rstats/raw/master/lego-rstats_019.jpg?raw=TRUE")
-```
-
-##### Indexing in Lists {-}
-
 Some lists (and data frames) consist of named variables. These list components can be accessed either by index (as above) or by name, using the `$` operator. Names which have spaces or special characters must be enclosed in backticks (next to the 1 on the keyboard). Named components can also be accessed using the `[[ ]]` operator.
 
 ```{r list-name-demo, error = T}
-dog <- list(name = "Edison Vanderplas", age = 8, 
+dog <- list(name = "Edison Vanderplas", age = 9, 
             breed = "Jack Russell Terrorist", 
             `favorite toy` = "a blue and orange stuffed duck. Or rawhide.",
             `link(video)` = "https://youtu.be/zVeoQTOTIuQ")
@@ -676,7 +811,6 @@ dog$`favorite toy`
 dog[["link(video)"]]
 ```
 
-
 You can get a sense of the structure of a list (or any other object) in R using the `str()` command.
 
 ```{r list-name-str}
@@ -685,8 +819,71 @@ str(dog)
 
 ```
 
-##### Recursive lists {-}
-Lists can also contain other lists. When accessing a list-within-a-list, just add another index or name reference (see below). 
+###### Python {- .unnumbered}
+
+```{python list-index-demo-py, error = T}
+x = ['a', 'b', 'c', 1, 2, 3]
+
+x
+x[0] # Indexes start at 0 in python
+x[1:2] # Python indexes are [a, b); if you want b, use [a, b+1)
+x[2:4]
+```
+
+:::
+
+##### Tuple
+
+Python contains a data type called a **Tuple** used to store multiple items in a single variable. Tuples are **ordered** and **unchangeable** - Once stored, you cannot update them. Tuples can store more than one data type.
+
+```{python tuples}
+mytuple = ("apple", "banana", 3)
+mytuple[0]
+mytuple[1]
+mytuple[2]
+mytuple
+```
+
+::: watchout
+
+Notice that the syntax for making a tuple is very similar to the syntax for making a list - the only difference is that tuples use () and lists use []. 
+
+:::
+
+It's worth knowing about tuples, but I wouldn't worry about using them frequently until you get better at programming. You can check out this article about [Lists, Arrays, and Tuples](https://www.geeksforgeeks.org/python-list-vs-array-vs-tuple/) for more information.
+
+##### Dictionary
+
+Another basic data type in Python used to store multiple pieces of data is a **dictionary**. 
+
+A dictionary is ordered (in Python 3.7+), changeable, and does not allow duplicates.
+
+Dictionaries are written with curly brackets, and have **keys** and **values**.
+
+```{python dictionary}
+dogdict = {
+  "name": "Edison",
+  "age": 9,
+  "breed": "Jack Russell Terrorist",
+  "energy_level": "high"
+}
+print(dogdict)
+```
+
+
+##### Series
+
+The Pandas package contains a data type called a **Series** - essentially, it's a one-dimensional ndarray with axis labels. 
+
+
+
+##### Recursive structures {.unnumbered}
+
+Lists, dicts, and other one-dimensional structures can also contain containers. When accessing a list-within-a-list, just add another index or name reference (see below).
+
+::: panel-tabset
+
+###### R {- .unnumbered}
 
 ```{r list-recursive-demo}
 grocery_list <- list(
@@ -710,22 +907,55 @@ yummy_toppings <- c(grocery_list$dairy[c(1, 2, 4)], grocery_list$meat[1], grocer
 yummy_toppings
 ```
 
-##### Try it out {- .tryitout}
-Using the list of pizza toppings above as a starting point, make your own list of pizza toppings organized by grocery store section (approximately). Create your own vectors of yummy, essential, and ick toppings, using R and SAS.
+
+###### Python {- .unnumbered}
+
+In python we have to use a dict of lists, which doesn't quite work as well - but we have to do that mostly because the pizza example makes sense with named lists. If we used unnamed lists, we could do the whole thing as a list of lists, just like in R.
+
+```{python list-recursive-demo-py}
+grocery_list = {
+  "dairy": ["asiago", "fontina", "mozzarella", "blue cheese"],
+  "baking": ["flour", "yeast", "salt"],
+  "canned_goods": ["pepperoni", "pizza sauce", "olives"],
+  "meat": ["bacon", "sausage", "anchovies"],
+  "veggies": ["bell pepper", "onion", "scallions", "tomatoes", "basil"]
+  }
+  
+ick = [grocery_list["meat"][1:3], grocery_list["canned_goods"][2]]
+ick # this is a nested list, which isn't ideal
+
+crust_ingredients = [grocery_list["baking"], "water"]
+crust_ingredients
+
+essential_toppings = [grocery_list["dairy"][2], grocery_list["canned_goods"][1]]
+essential_toppings
+
+yummy_toppings = [grocery_list["dairy"][0:2], grocery_list["dairy"][3], grocery_list["meat"][0], grocery_list["veggies"][2], grocery_list["veggies"][4]]
+yummy_toppings
+```
+
+:::
+
+##### Try it out {.unnumbered .tryitout}
+
+Using the list of pizza toppings above as a starting point, make your own list of pizza toppings organized by grocery store section (approximately). Create your own vectors of yummy, essential, and ick toppings, using R and Python.
 
 
-#### Data frames (R only) 
 
-A data frame is a special type of list - one in which each element in the list is a vector of the same length. If you put these vectors side-by-side, you get a table of data that looks like a spreadsheet. 
+#### Data frames
+
+A data frame is a special type of list - one in which each element in the list is a vector of the same length. If you put these vectors side-by-side, you get a table of data that looks like a spreadsheet. In Python, a DataFrame is a dict of Series. 
 
 
-The lego version of a data frame looks like this: 
+The lego version of a data frame looks like this:
+
 ```{r lego-df, echo = F, out.width = "50%", fig.cap = "A data frame with data frame 4 columns. A data frame is essentially a list where all of the components are vectors or lists, and are constrained to have the same length. "}
 knitr::include_graphics("https://github.com/jennybc/lego-rstats/raw/master/lego-rstats_020.jpg?raw=TRUE")
 ```
 
-##### Basic Data Frame Syntax {-}
-When you examine the structure of a data frame, as shown below, you get each column shown in a row, with its type and  the first few values in the column. The `head()` command shows the first 6 rows of a data frame (enough to see what's there, not enough to overflow your screen).
+##### Basic Data Frame Syntax {.unnumbered}
+
+When you examine the structure of a data frame, as shown below, you get each column shown in a row, with its type and the first few values in the column. The `head()` command shows the first 6 rows of a data frame (enough to see what's there, not enough to overflow your screen).
 
 ```{r dataframes}
 head(mtcars) ## A data frame included in base R
@@ -745,7 +975,6 @@ summary(mtcars$mpg)
 
 Often, it is useful to know the dimensions of a data frame. The number of rows can be obtained by using `nrow(df)` and similarly, the columns can be obtained using `ncol(df)` (or, get both with `dim()`). There is also an easy way to get a summary of each column in the data frame, using `summary()`.
 
-
 ```{r summary-mtcars}
 summary(mtcars)
 dim(mtcars)
@@ -753,10 +982,16 @@ nrow(mtcars)
 ncol(mtcars)
 ```
 
-Missing variables in an R data frame are indicated with NA. 
+Missing variables in an R data frame are indicated with NA.
 
+<details class="ex">
 
-<details class="ex"><summary>Creating an R data frame</summary>
+<summary>
+
+Creating an R data frame
+
+</summary>
+
 ```{r math-lsd-r}
 math_and_lsd <- data.frame(lsd_conc = c(1.17, 2.97, 3.26, 4.69, 5.83, 6.00, 6.41),
                            test_score = c(78.93, 58.20, 67.47, 37.47, 45.65, 32.92, 29.97))
@@ -767,11 +1002,12 @@ math_and_lsd$subjective <- c("finally coming back", "getting better", "it's tota
 
 math_and_lsd
 ```
+
 </details>
 
-##### Try it out {- .tryitout}
+##### Try it out {.unnumbered .tryitout}
 
-The dataset `state.x77` contains information on US state statistics in the 1970s. By default, it is a matrix, but we can easily convert it to a data frame, as shown below. 
+The dataset `state.x77` contains information on US state statistics in the 1970s. By default, it is a matrix, but we can easily convert it to a data frame, as shown below.
 
 ```{r state-facts-tryitout}
 data(state)
@@ -785,13 +1021,20 @@ row.names(state_facts) <- NULL # get rid of row names
 head(state_facts)
 ```
 
-1. How many rows and columns does it have? Can you find at least 3 ways to get that information?
+1.  How many rows and columns does it have? Can you find at least 3 ways to get that information?
 
-2. The `Illiteracy` column contains the percent of the population of each state that is illiterate. Calculate the number of people in each state who are illiterate, and store that in a new column called `TotalNumIlliterate`. Note: `Population` contains the population in thousands.
+2.  The `Illiteracy` column contains the percent of the population of each state that is illiterate. Calculate the number of people in each state who are illiterate, and store that in a new column called `TotalNumIlliterate`. Note: `Population` contains the population in thousands.
 
-3. Calculate the average population density of each state (population per square mile) and store it in a new column `PopDensity`. Using the R reference card, can you find functions that you can combine to get the state with the minimum population density?
+3.  Calculate the average population density of each state (population per square mile) and store it in a new column `PopDensity`. Using the R reference card, can you find functions that you can combine to get the state with the minimum population density?
 
-<details><summary>Solutions</summary>
+<details>
+
+<summary>
+
+Solutions
+
+</summary>
+
 ```{r state-facts-tryitout-solutions}
 # 3 ways to get rows and columns
 str(state_facts)
@@ -809,28 +1052,32 @@ state_facts$PopDensity <- state_facts$Population * 1e3/state_facts$Area
 # minimum population
 state_facts$state[which.min(state_facts$PopDensity)]
 ```
+
 </details>
 
+##### Advanced Data Frames: Tibbles and List-columns {.unnumbered .learn-more}
 
-##### Advanced Data Frames: Tibbles and List-columns {- .learn-more}
+If at this point you're bored because you've seen this material before, keep reading to find out about tibbles, list columns and other ways to make data frames even more powerful.
 
-If at this point you're bored because you've seen this material before, keep reading to find out about tibbles, list columns and other ways to make data frames even more powerful. 
-
-A tibble is a fancy data frame that is optimized to work with the `tidyverse`, which is a collection of R packages that make data wrangling (getting the data clean and ready for analysis) easier. 
+A tibble is a fancy data frame that is optimized to work with the `tidyverse`, which is a collection of R packages that make data wrangling (getting the data clean and ready for analysis) easier.
 
 You can read about tibbles [here](https://r4ds.had.co.nz/tibbles.html).
 
 <details>
-<summary>You like data frames? Lists? Let's put some lists inside a data frame! (All about list columns)</summary>
+
+<summary>
+
+You like data frames? Lists? Let's put some lists inside a data frame! (All about list columns)
+
+</summary>
 
 Let's start with the lego picture:
 
-![](https://github.com/jennybc/lego-rstats/raw/master/lego-rstats_014.jpg?raw=TRUE)
-(The full explanation is available in slide form [here](https://speakerdeck.com/jennybc/data-rectangling?slide=17)). 
+![](https://github.com/jennybc/lego-rstats/raw/master/lego-rstats_014.jpg?raw=TRUE) (The full explanation is available in slide form [here](https://speakerdeck.com/jennybc/data-rectangling?slide=17)).
 
-A list is just another object that could be stored in a data frame! It is a "generalized vector" in that each entry in a list can be thought of as another list - so a list is really a vector of lists. List-columns make it possible to store e.g. whole data sets in a nested, organized way. Another useful feature is that each entry in a list-column doesn't have to be the same length, which makes it easier to store "ragged" data. 
+A list is just another object that could be stored in a data frame! It is a "generalized vector" in that each entry in a list can be thought of as another list - so a list is really a vector of lists. List-columns make it possible to store e.g. whole data sets in a nested, organized way. Another useful feature is that each entry in a list-column doesn't have to be the same length, which makes it easier to store "ragged" data.
 
-You can see a couple of examples [here](https://jennybc.github.io/purrr-tutorial/ls13_list-columns.html) (but they assume that you know things that you'll only learn in a few modules). 
+You can see a couple of examples [here](https://jennybc.github.io/purrr-tutorial/ls13_list-columns.html) (but they assume that you know things that you'll only learn in a few modules).
 
 It is worth coming back to this link later in the book. I will try to remind you.
 
@@ -838,15 +1085,293 @@ It is worth coming back to this link later in the book. I will try to remind you
 
 ### Indexing
 
-The 1, 2, and multi-dimensional homogeneous data types should be familiar from e.g. linear algebra and calculus. Single elements of a vector can be extracted using single square brackets, e.g. `x[1]` will get the first element of the vector `x`. In a matrix, elements are indexed as row, column, so to get the (2, 2) entry of a matrix x, you would use `x[2,2]`. This is extended for multi-dimensional arrays in R, with each dimension added, e.g. `x[3,1,2]` or `x[4, 3, 2, 1]`. 
+Now that you've seen some complex data structures, it's probably a good time to talk about indexing. 
 
-To get a full row or column from a matrix (in both SAS and R) you would use `x[1,]` (get the first row) or `x[,3]` (get the 3rd column). 
+In order to access sub-elements of a complex data structure, we have to **index** the data type. There are two main ways to index something: 
+
+- By name
+- By position
+
+Not every data type has both of these options - vectors, for instance, are generally not named, so we typically only index vectors by position^[In R, you can technically index vectors by name as well, but it's not that common]. 
+
+Differences in how things are indexed are one reason that heterogeneous data structures are a bit more complicated in Python than in R - different structures have different indexing rules and/or names attached.
+
+Language | Data Type | Index by position | Index by Name
+--- | --- | --- | ---
+R | vector | yes | yes (uncommon)
+R | array/matrix | yes | yes (uncommon)
+R | list | yes | yes
+R | data frame | yes | yes
+R | tibble | yes | yes
+Python | vector | yes | no
+Python | ndarray (numpy) | yes | no
+Python | dict | yes | yes
+Python | Series (pandas) | yes | yes
+Python | DataFrame (pandas) | yes | yes
+
+In R, you can usually index things using one of `$`, `[]`, and `[[]]`.
+
+In Python, you can usually index things using one of `[]` or `.loc` or `.iloc`. 
+
+See the examples below for which index methods work with each data type (and why). 
+
+::: panel-tabset
+
+###### R vector {- .unnumbered}
+
+```{r, error = T}
+myvec <- c(d1 = 3, d2 = 1, d3 = 4, d4 = 1, d5 = 5, d6 = 9) # this is a named vector
+
+myvec
+myvec[1:3] # first 3 entries
+myvec["d1"] # indexing a vector by name
+myvec$d1 # "atomic vector" = homogeneous vector; can't index by name using $
+```
+###### R matrix {- .unnumbered}
+
+```{r, error = T}
+mymat <- matrix(
+  myvec, nrow = 2, 
+  dimnames = list(
+    c('r1', 'r2'), # row names
+    c('c1', 'c2', 'c3') # column names
+  )
+) # this creates a matrix with named rows and columns
+
+mymat
+
+mymat[1,] # get the first row
+mymat[,1] # get the first column
+mymat['r1'] # this doesn't find anything
+mymat['r1',] # if you tell R to look for the row named 'r1' it actually works
+mymat['c1'] # this doesn't find anything
+mymat[,'c1'] # if you tell R to look for the col named 'c1' it actually works
+
+mymat[,2:3] # get multiple columns and all rows
+mymat[1, 2:3] # get multiple columns and the first row
+
+mymat$r1 # matrices are still atomic vectors
+```
+
+###### R array {- .unnumbered}
+
+```{r, error = T}
+myarray <- array(
+  1:12, 
+  dim = c(2, 2, 3), 
+  dimnames = list(
+    c('a1', 'a2'), 
+    c('b1', 'b2'), 
+    c('c1', 'c2', 'c3')
+  )
+)
+
+# adding another dimension just means we add another entry to our [a, b, c]
+
+myarray[1, 2, 3]
+myarray[1, 2, ] # leaving out a number provides everything
+myarray[, 1, 2] 
+myarray[,,2]
+myarray[, 3, ] # if you don't keep track of your dimensions you'll get an error
+myarray['a1', 'b1', ] # names still work IF you define dimnames (not common)
+
+myarray$a1 # arrays are still atomic vectors
+```
+###### R list {- .unnumbered}
+
+```{r, error = T}
+# Create a named list
+
+dog <- list(name = "Edison Vanderplas", 
+            age = 9, 
+            breed = "Jack Russell Terrorist", 
+            fav_toy = "stuffed duck",
+            video = "https://youtu.be/zVeoQTOTIuQ")
+
+# Getting things out of the list as single objects
+dog$name # use $ to index by name, with no quotes
+dog$sex # if you use a name that isn't there, you get NULL
+
+dog[["name"]] # use [[]] to get to a single element, then index by name or position
+dog[["sex"]]
+
+dog[[2]]
+dog[[7]] # if you use a position that isn't there you get an error
+
+# Getting a sub-list out (still as a list)
+dog[c(1, 3, 5)] # use [] to get a subset of the list
+
+dog[c(1, 3, 5)][[3]] # you can still use [[]] to get an item from this sub list
+```
+
+###### R data frame {- .unnumbered}
+
+```{r}
+mydf <- data.frame(
+  name = c("Edison", "Wishbone"), 
+  age = c(9, 2), 
+  sex = "M" # this will be repeated for all entries in the data frame
+)
+
+mydf
+
+mydf$name
+mydf$age
+mydf$sex
+
+mydf[2, 3]
+
+mydf["name"] # this is a data frame!
+mydf[["name"]] # this is a vector
+
+mydf[["name"]][1] # this is a single entry (but still a vector of length 1)
+```
+
+:::
+
+::: panel-tabset
+
+###### Python list {- .unnumbered}
+
+```{python}
+mylist = ['the', 'answer', 'to', 'life', 'is', 42]
+
+mylist[5]
+mylist[0:5]
+```
+
+List indexing works the same way as vector indexing in python.
+
+###### Python dict {- .unnumbered}
+
+Python dicts can be indexed by name directly and by location if you convert the keys or values to a list first.
+
+```{python}
+dog = {"name": "Edison Vanderplas", 
+       "age": 9, 
+       "breed": "Jack Russell Terrorist", 
+       "fav_toy": "stuffed duck",
+       "video": "https://youtu.be/zVeoQTOTIuQ"}
+       
+dog["name"]
+list(dog.keys()) # create a list from the keys of the dog dict
+list(dog) # this does the same thing
+
+list(dog)[0] # lists can then be indexed by location
+
+list(dog.values()) # create a list from the values of the dog dict
+list(dog.values())[3]
+
+```
+###### Python Tuples
+
+Python tuples are indexed in the same way as vectors, arrays, and lists.
+
+```{python}
+mytuple = (3, 5, 'dog')
+mytuple[0]
+mytuple[0:2] # can index with slices
+```
+
+###### Numpy vector {- .unnumbered}
+
+Vectors in python can't be named, so we can't try to index them by name.
+
+```{python}
+import numpy as np
+
+myvec = np.array([3, 1, 4, 1, 5, 9])
+
+myvec[0] # indexing in python starts at 0 instead of 1
+
+myvec[0:4] # select [a, b) elements in the vector
+
+```
+
+###### Numpy ndarray {- .unnumbered}
+
+```{python}
+import numpy as np
+
+# generate a 3d array of random integers
+myndarray = np.random.randint(12, size = (2, 2, 3))
+myndarray
+
+myndarray[0, 0, 0]
+myndarray[0, :, 2] # use ':' to get all numbers in a "slice"
+myndarray[:, :, 2]
+
+myndarray[1, 1, 0:3] # a:b gets you an integer list between [a, b) (not including b)
+
+```
+
+###### Pandas Series
+
+Pandas Series and Data Frames are the only types that can be indexed by name and location.
+
+```{python}
+import pandas as pd
+
+dog_series = pd.Series(dog)
+
+dog_series['name']
+dog_series['name':'age']
+dog_series[1]
+dog_series[0:3] # slicing works with location and name based indexing.
+
+```
+
+###### Pandas DataFrame {- .unnumbered}
+
+```{python}
+import pandas as pd
+
+
+dogs = {
+  "name": ["Edison Vanderplas", "Tesla Vanderplas"],
+  "age": [9, 14], 
+  "breed": ["Jack Russell Terrorist", "Lhasa Apso"],
+  "fav_toy": ["stuffed duck", "a human to pet me"],
+  "video": ["https://youtu.be/zVeoQTOTIuQ", "none"]
+  }
+dog_df = pd.DataFrame(dogs, index = ["Eddie", "Tez"])
+
+dog_df.name # can use .varname notation sometimes, but not as robust
+dog_df['name']
+dog_df['name'][1] # access the series entry within
+
+# .iloc provides integer-based indexing
+dog_df.iloc[0, :]
+dog_df.iloc[1, 2]
+dog_df.iloc[:, 2]
+
+# .loc provides name-based indexing for ROW labels
+dog_df.loc["Tez"] 
+dog_df.loc["Eddie"] # this returns a Series
+dog_df.loc[["Eddie"]] # double brackets returns a DataFrame
+# note, this is basically the opposite of what [[ ]] does in R
+
+dog_df.loc["Eddie", 'age':'fav_toy'] # can be used with slices for columns
+```
+
+:::
+
+The 1, 2, and multi-dimensional homogeneous data types should be familiar from e.g. linear algebra and calculus. Single elements of a vector can be extracted using single square brackets, e.g. `x[1]` will get the first element of the vector `x`. In a matrix, elements are indexed as row, column, so to get the (2, 2) entry of a matrix x, you would use `x[2,2]`. This is extended for multi-dimensional arrays in R, with each dimension added, e.g. `x[3,1,2]` or `x[4, 3, 2, 1]`.
+
+To get a full row or column from a matrix (in both SAS and R) you would use `x[1,]` (get the first row) or `x[,3]` (get the 3rd column).
 
 To select multiple rows or columns from a matrix, you would use `x[, c(1, 3)]` in R or `x[,{1 3}]` in SAS - both options get the first and third column of the matrix, with all rows of data included.
 
 In both R and SAS, `a:b` where a and b are numbers will form a sequence from `a` to `b` by 1s. So `1:4` is `r 1:4`. This is often used to get a set of rows or columns: `x[3:4, 1:2]`.
 
-<details class="ex"><summary>R matrix example</summary>
+<details class="ex">
+
+<summary>
+
+R matrix example
+
+</summary>
+
 ```{r matrix-example}
 x <- matrix(1:20, nrow = 5, byrow = T) 
 # Create a matrix with values 1 to 20, 5 rows, and fill by row
@@ -856,27 +1381,31 @@ x
 x[3:4, 1:2]
 # Gets a submatrix 
 ```
+
 </details>
 
+Both R and SAS are 1-indexed languages, so the elements of a list or vector are indexed as 1, 2, 3, 4, ... [^intro-prog-3]
 
-Both R and SAS are 1-indexed languages, so the elements of a list or vector are indexed as 1, 2, 3, 4, ...  ^[Most languages are 0-indexed languages: C, C++, python, Java, javascript. Vectors in these languages are indexed as 0, 1, 2, 3.  Other 1-indexed languages include FORTRAN, Matlab, Julia, Mathematica, and Lua, many of which were intended for mathematical processing or data analysis.]
+[^intro-prog-3]: Most languages are 0-indexed languages: C, C++, python, Java, javascript. Vectors in these languages are indexed as 0, 1, 2, 3. Other 1-indexed languages include FORTRAN, Matlab, Julia, Mathematica, and Lua, many of which were intended for mathematical processing or data analysis.
 
 As R has logical vectors, it is possible to index a vector using a logical vector of the same length.
 
-##### Try it out {- .tryitout}
+##### Try it out {.unnumbered .tryitout}
+
 (From project Euler)
 
-If we list all the natural numbers below 10 that are multiples of 3 or 5,
-   we get 3, 5, 6 and 9. The sum of these multiples is 23.
-Find the sum of all the multiples of 3 or 5 below 1000.
+If we list all the natural numbers below 10 that are multiples of 3 or 5, we get 3, 5, 6 and 9. The sum of these multiples is 23. Find the sum of all the multiples of 3 or 5 below 1000.
 
+Hint: The modulo operator, `%%`, gives the integer remainder of one number divided by another. So `a %% b` gives the integer remainder when dividing `a` by `b`. Modular division is often used to find multiples of a number.
 
-Hint: The modulo operator, `%%`, gives the integer remainder of one number
-      divided by another. So `a %% b` gives the integer remainder when
-      dividing `a` by `b`. Modular division is often used to find multiples
-      of a number.
+<details>
 
-<details><summary>R solution</summary>
+<summary>
+
+R solution
+
+</summary>
+
 ```{r vectorindexing-solution}
 
 x <- 1:999 # all nums below 1000
@@ -887,56 +1416,64 @@ m3or5 <- m3 | m5
 
 sum(x[m3or5])
 ```
+
 </details>
 
+Most complicated structures in R are actually lists underneath. You should be able to access any of the pieces of a list using a combination of named references and indexing.
 
-Most complicated structures in R are actually lists underneath. You should be able to access any of the pieces of a list using a combination of named references and indexing. 
+#####  {.unnumbered}
 
-##### {-}
-If you have trouble distinguishing between `$`, `[`, and `[[`, you're not alone. The [R for Data Science book has an excellent illustration](https://r4ds.had.co.nz/vectors.html#lists-of-condiments), which I will summarize for you here in abbreviated form (pictures directly lifted from the book). 
+If you have trouble distinguishing between `$`, `[`, and `[[`, you're not alone. The [R for Data Science book has an excellent illustration](https://r4ds.had.co.nz/vectors.html#lists-of-condiments), which I will summarize for you here in abbreviated form (pictures directly lifted from the book).
 
 <details>
-<summary>R4DS indexing illustration</summary>
 
-`x` | `x[1]` | `x[[1]]` | `x[[1]][[1]]`
---- | ------ | -------- | -------------
-![](image/02_pepper.jpg) | ![](image/02_pepper-1.jpg) | ![](image/02_pepper-2.jpg) | ![](image/02_pepper-3.jpg)
+<summary>
+
+R4DS indexing illustration
+
+</summary>
+
+| `x`                      | `x[1]`                     | `x[[1]]`                   | `x[[1]][[1]]`              |
+|--------------------------|----------------------------|----------------------------|----------------------------|
+| ![](image/02_pepper.jpg) | ![](image/02_pepper-1.jpg) | ![](image/02_pepper-2.jpg) | ![](image/02_pepper-3.jpg) |
 
 </details>
-
 
 ## Control structures
 
 ### If statements
 
-If statements are just about as simple in programming as they are in real life. 
+If statements are just about as simple in programming as they are in real life.
 
 ```{r, fig.cap = "[Source](https://xkcd.com/1652/). I've actually met some programmers who talk like this in real life.", fig.align = "center", echo = F}
 knitr::include_graphics("https://imgs.xkcd.com/comics/conditionals.png")
 ```
 
-<details><summary>General structure of an if statement</summary>
-In general, the structure of an if statement is 
+<details>
 
-````
-if (condition) then {
-  # do something here
-} 
-````
+<summary>
+
+General structure of an if statement
+
+</summary>
+
+In general, the structure of an if statement is
+
+    if (condition) then {
+      # do something here
+    } 
 
 If the condition is true, the inner code will be executed. Otherwise, nothing happens.
 
 You can add an else statement that will execute if the condition is not true
 
-````
-if (condition) then {
-  # do something
-} else {
-  # do a different thing
-}
-````
+    if (condition) then {
+      # do something
+    } else {
+      # do a different thing
+    }
 
-And in some languages, you can even have many sets of if statements: 
+And in some languages, you can even have many sets of if statements:
 
 ```{r, eval = F}
 if (condition) {
@@ -948,31 +1485,32 @@ if (condition) {
 }
 ```
 
-Note that this could also be written (perhaps more clearly) as: 
+Note that this could also be written (perhaps more clearly) as:
 
-````
-if (condition) {
-  # do something
-} else {
-  if (condition 2) {
-    # do something else
-  } else {
-    # do a third thing
-  }
-}
-````
+    if (condition) {
+      # do something
+    } else {
+      if (condition 2) {
+        # do something else
+      } else {
+        # do a third thing
+      }
+    }
 
 That is, `condition 2` is only checked once it is known that `condition` is false. Often, programmers use logic flow maps, like the one shown below, to map out a logical sequence and ensure that every possible value is handled appropriately.
 
 ![If statement flow diagram, from wikimedia commons](https://upload.wikimedia.org/wikipedia/commons/c/c5/If-Then-Else-diagram.svg)
+
 </details>
 
-#### Example: If/then logic in R {- .ex}
-The syntax for conditional statements using if/then logic is shown below using an example where Santa must determine which members of a household will receive a toy for Christmas and which members will receive coal. ^[Traditionally, naughty children get coal, while nice children get toys or candy.]
+#### Example: If/then logic in R {.unnumbered .ex}
+
+The syntax for conditional statements using if/then logic is shown below using an example where Santa must determine which members of a household will receive a toy for Christmas and which members will receive coal. [^intro-prog-4]
+
+[^intro-prog-4]: Traditionally, naughty children get coal, while nice children get toys or candy.
 
 ::: panel-tabset
-
-##### R {-}
+##### R {.unnumbered}
 
 ```{r santa-unexpected, error = T}
 tmp <- data.frame(name = c("Alex", "Edison", "Susan", "Ryan"),
@@ -989,7 +1527,7 @@ if (tmp$status == "naughty") {
 tmp
 ```
 
-What happened? 
+What happened?
 
 When evaluating if statements, R does not evaluate each entry in the vector `tmp$status` separately. Instead, it takes the first value and issues a warning message. One option would be to use a loop, and examine each row in the data set separately. We'll talk about loops in the next subsection. Another option is to use the `ifelse()` function, which is `ifelse(condition, thing to do if condition is true, thing to do if condition is false)`
 
@@ -1009,28 +1547,25 @@ tmp$present <- ifelse(tmp$status == "naughty",
 tmp
 ```
 
-##### Python {-}
-
-
-
-::: 
+##### Python {.unnumbered}
+:::
 
 There are more complicated if-statement like control structures, such as switch statements, which can save time and typing. In the interests of simplicity, we will skip these for now, as any conditional can be implemented with sequences of if statements in the proper order. If you would like to read about switch statements, here is a link to [base R switch statement explanation](https://www.tutorialgateway.org/r-switch-statement/) and [documentation](https://www.rdocumentation.org/packages/base/versions/3.6.2/topics/switch).
 
-#### Try it out {- .tryitout}
+#### Try it out {.unnumbered .tryitout}
 
 ::: panel-tabset
 
-##### Setup {-}
+##### Setup {.unnumbered}
 
 The `sample()` function selects a random sample of entries from a vector. Suppose we sample a random vector $x$ with 10 entries. Write one or more if statements to fulfill the following conditions
 
-- if $x$ is divisible by 2, $y$ should be positive; otherwise, it should be negative.
-- if $x$ is divisible by 3, $y$ should have a magnitude of 2; otherwise, it should have a magnitude of 1.
+-   if $x$ is divisible by 2, $y$ should be positive; otherwise, it should be negative.
+-   if $x$ is divisible by 3, $y$ should have a magnitude of 2; otherwise, it should have a magnitude of 1.
 
 It may be helpful to define separate variables `y_mag` and `y_sign` and then multiply them afterwards. Once you have found the value of $y$ compute $\text{sum}(x * y)$.
 
-##### R skeleton {-}
+##### R skeleton {.unnumbered}
 
 ```{r tryitout-sample}
 set.seed(342502837)
@@ -1041,9 +1576,10 @@ x <- sample(1:50, size = 20, replace = F)
 sum(x * y)
 ```
 
-##### Python skeleton {-}
+##### Python skeleton {.unnumbered}
 
-##### R solution {-}
+##### R solution {.unnumbered}
+
 ```{r tryitout-sample-solution}
 set.seed(342502837)
 x <- sample(1:50, size = 20, replace = F)
@@ -1055,37 +1591,32 @@ y <- y_sign * y_mag
 sum(x * y)
 ```
 
-##### Python solution {-}
-
-
+##### Python solution {.unnumbered}
 
 ### Loops
+
 Often, we need to do a single task many times - for instance, we may need to calculate the average data value for each week, using daily data. Rather than typing out 52 different iterations of the same code, it is likely easier to type out one single block of code which contains the steps necessary to complete one instance of the task, and then leverage variables to ensure that each task is completed the correct number of times, using the correct inputs.
 
 Let us start with the most generic loop written in pseudocode (code that won't work, but provides the general idea of the steps which are taken)
 
-````
-loop_invocation(iteration variable, exit condition) {
-  # Steps to repeat
-}
-````
+    loop_invocation(iteration variable, exit condition) {
+      # Steps to repeat
+    }
 
 We use the `loop_invocation` function to indicate what type of loop we use. We have at least one `iteration variable` that indicates where in the looping process we currently are. This may be an index (if we want to do something 500 times, it would take values from 1 to 500), or it may take a more complicated sequence of values (for instance, if we are testing convergence, we might put some sort of delta variable as the iteration variable). Most loops also have an explicit exit condition that is part of the loop invocation; more rarely, a loop may depend on `break` statements that cause the control flow of the code to exit. Without some sort of exit condition, our program would run forever, which is... not optimal.
 
-
 #### Count controlled loops (FOR loops)
 
-In a for loop, the steps in the loop body repeat a specified number of times. That is, *for* each value in a sequence, the steps within the loop are repeated. 
+In a for loop, the steps in the loop body repeat a specified number of times. That is, *for* each value in a sequence, the steps within the loop are repeated.
 
+Another explanation of for loops is available at [Khan Academy](https://www.khanacademy.org/computing/ap-computer-science-principles/programming-101/repetition-with-loops/a/repetition-with-for-loops?modal=1).
 
-Another explanation of for loops is available at 
-[Khan Academy](https://www.khanacademy.org/computing/ap-computer-science-principles/programming-101/repetition-with-loops/a/repetition-with-for-loops?modal=1).
+##### Example: Santa and if/else + loops in R (plus some debugging strategies) {.unnumbered .ex}
 
-
-##### Example: Santa and if/else + loops in R (plus some debugging strategies) {- .ex}
 For instance, suppose we want to revisit our R Santa example from the previous section. The original if/else code we wrote in R didn't work, because R evaluates if statements using a single (scalar or vector of length 1) condition. If we add a loop around that code, we can evaluate only one row at a time. We need to check every row, so we'll iterate over `1:nrow(tmp)` - it's better to get the upper bound from the data frame, rather than just using 4 - if we add another entry, the code will still work if we're using `nrow(tmp)` to define how many iterations we need.
 
 We start by defining our data frame:
+
 ```{r forloop-df-setup}
 tmp <- data.frame(name = c("Alex", "Edison", "Susan", "Ryan"),
                   status = c("naughty", "nice", NA, "neutral"),
@@ -1093,17 +1624,18 @@ tmp <- data.frame(name = c("Alex", "Edison", "Susan", "Ryan"),
 ```
 
 And then we add the basic loop syntax:
+
 ```{r forloop-df-syntax}
 for (i in 1:nrow(tmp)) {
   
 }
 ```
 
-For some reason, `i` is often used as the iteration variable (with `j` and `k` for nested loops). 
+For some reason, `i` is often used as the iteration variable (with `j` and `k` for nested loops).
 
-What this loop says is that `i` will first take on the value 1, then 2, then 3, then 4. On each iteration, `i` will advance to the next value in the vector of options we have provided. 
+What this loop says is that `i` will first take on the value 1, then 2, then 3, then 4. On each iteration, `i` will advance to the next value in the vector of options we have provided.
 
-Now we need to add the middle part by adapting the conditional statement we used before so that it looks at only the `i`th row. I've also added the catch-all else condition that assigns NA for any value that isn't "naughty" or "nice". 
+Now we need to add the middle part by adapting the conditional statement we used before so that it looks at only the `i`th row. I've also added the catch-all else condition that assigns NA for any value that isn't "naughty" or "nice".
 
 It's good practice to initialize your variable (create a column for it) ahead of time and set the variable to a default value.
 
@@ -1125,15 +1657,14 @@ for (i in 1:nrow(tmp)) {
 }
 ```
 
-Well, that didn't work! We can see that the loop stopped at `i = 3` by printing out the value of `i` - because the loop failed, `i` will still contain the value which caused the loop to stop. 
+Well, that didn't work! We can see that the loop stopped at `i = 3` by printing out the value of `i` - because the loop failed, `i` will still contain the value which caused the loop to stop.
 
 ```{r forloop-df-print}
 i
 tmp[i,] # print tmp at that point
 ```
 
-
-Combining this information with the error above, we can guess that R stopped evaluating the loop because the if statement returned NA (missing) instead of TRUE or FALSE. 
+Combining this information with the error above, we can guess that R stopped evaluating the loop because the if statement returned NA (missing) instead of TRUE or FALSE.
 
 if/else statements in R can't evaluate to `NA`, so we need to restructure our conditional statement - first, we'll test for `NA` values, then, we can test for naughty and nice, and we'll keep the catch-all statement at the bottom. We'll test for an `NA` value using the function `is.na()`.
 
@@ -1157,28 +1688,43 @@ for (i in 1:nrow(tmp)) {
 tmp
 ```
 
-Now the if/else logic works exactly as intended. This is longer than the version using `ifelse()`, but it is perhaps more readable. 
+Now the if/else logic works exactly as intended. This is longer than the version using `ifelse()`, but it is perhaps more readable.
 
-##### {-}
+#####  {.unnumbered}
 
-In most cases in R and SAS, it is possible to write code without needing loops at all, because both languages are vector-based - they will often use **vectorized** functions which implicitly loop over each row without having to write a loop to do so. `ifelse()` is a vectorized version of `if() {} else {}`. 
+In most cases in R and SAS, it is possible to write code without needing loops at all, because both languages are vector-based - they will often use **vectorized** functions which implicitly loop over each row without having to write a loop to do so. `ifelse()` is a vectorized version of `if() {} else {}`.
 
 Here is an example of the most basic for loop logic - printing the numbers 1 through 10 - in both R and SAS. SAS code is provided for both PROC IML and DATA steps.
 
-<details class="ex"><summary>For loops in R</summary>
+<details class="ex">
+
+<summary>
+
+For loops in R
+
+</summary>
+
 ```{r forloop-demo}
 # R Example loop
 for (i in 1:10) {
   print(i)
 }
 ```
+
 </details>
 
 While the most straighforward (and common) case of for-loop use in practice is to count from 1 to N, both R and SAS allow for loops to use other sequence structures.
 
-<details><summary>Other sequences in loops in R</summary>
+<details>
+
+<summary>
+
+Other sequences in loops in R
+
+</summary>
 
 R allows loops to occur over any vector... even randomly generated numbers, or nonnumeric vectors (say, a character vector of URLs).
+
 ```{r forloop-examples}
 x <- rnorm(5) # Generate 5 normal (0,1) samples
 
@@ -1189,32 +1735,33 @@ for (i in x) {
 ```
 
 We can also iterate by non-integer values using `seq(from = , to = , by = )`
+
 ```{r forloop-examples-2}
 # This loop counts down in 1/2 units from 5 to 0
 for (i in seq(5, 0, -.5)) {
   # do nothing
 }
 ```
+
 </details>
 
+##### Try it out (in R) {.unnumbered .tryitout}
 
-
-##### Try it out (in R) {- .tryitout}
-
-The `beepr` package plays sounds in R to alert you when your code has finished running (or just to annoy your friends and classmates). ([Documentation](https://www.r-project.org/nosvn/pandoc/beepr.html)) 
+The `beepr` package plays sounds in R to alert you when your code has finished running (or just to annoy your friends and classmates). ([Documentation](https://www.r-project.org/nosvn/pandoc/beepr.html))
 
 ::: note
-We'll learn more about packages in the next chapter, but for now, just go with it. 
+We'll learn more about packages in the next chapter, but for now, just go with it.
 :::
 
 You can install the package using the following command:
+
 ```{r tryitout-beepr-install, eval = F}
 install.packages("beepr")
 ```
 
 (if you are using Linux you will also need to make sure one of `paplay`, `aplay`, or `vlc` is installed)
 
-Load the library and write a `for` loop which plays the 10 different sounds corresponding to integers 1 through 10. 
+Load the library and write a `for` loop which plays the 10 different sounds corresponding to integers 1 through 10.
 
 ```{r tryitout-beepr-test, eval = F}
 library(beepr) # load the beepr library
@@ -1224,7 +1771,14 @@ beep(sound = 1) # sound is any integer between 1 and 10.
 
 It may be helpful to add the command `Sys.sleep(5)` into your loop to space out the noises so that they can be heard individually.
 
-<details><summary>Solution</summary>
+<details>
+
+<summary>
+
+Solution
+
+</summary>
+
 ```{r tryitout-beepr-loop, eval = F}
 library(beepr)
 
@@ -1234,24 +1788,25 @@ for (i in 1:10) {
 }
 
 ```
+
 </details>
 
 ### Condition-controlled loops (WHILE, DO WHILE)
 
-Frequently, we do not know how many times a loop will need to execute a priori. We might be converging on a value, and want to repeat the calculation until the new value is within an acceptably epsilon of the previous iteration. In these cases, it can be helpful to use a [WHILE loop](https://en.wikipedia.org/wiki/While_loop), which loops while the condition is true (another variant, the do-while loop, is similar, except that a do-while loop will always execute once, and checks the condition at the end of the iteration). 
+Frequently, we do not know how many times a loop will need to execute a priori. We might be converging on a value, and want to repeat the calculation until the new value is within an acceptably epsilon of the previous iteration. In these cases, it can be helpful to use a [WHILE loop](https://en.wikipedia.org/wiki/While_loop), which loops while the condition is true (another variant, the do-while loop, is similar, except that a do-while loop will always execute once, and checks the condition at the end of the iteration).
 
 If a WHILE loop condition is never falsified, the loop will continue forever. Thus, it is usually wise to include a loop counter as well, and a condition to terminate the loop if the counter value is greater than a certain threshold.
 
 Another explanation of while loops is available at [Khan Academy](https://www.khanacademy.org/computing/ap-computer-science-principles/programming-101/repetition-with-loops/a/conditional-repetition-of-instructions?modal=1).
 
-##### Example: The Basel Problem {- .ex}
+##### Example: The Basel Problem {.unnumbered .ex}
+
 Let's solve the [Basel problem](https://en.wikipedia.org/wiki/Basel_problem) in R and SAS using WHILE loops - we'll repeat the calculation until the value changes by less than 0.000001. The Basel problem is the problem of calculating the precise infinite summation $$\sum_{n=1}^\infty \frac{1}{n^2}$$
 
 We'll stick to calculating it computationally.
 
 ::: panel-tabset
-
-###### R {-}
+###### R {.unnumbered}
 
 ```{r basel-problem}
 # Start out by defining your starting values outside of the loop
@@ -1279,21 +1834,17 @@ basel_value
 prev_basel_value
 ```
 
-###### Python {-}
-
-
+###### Python {.unnumbered}
 :::
 
-
-##### Try it out {- .tryitout}
+##### Try it out {.unnumbered .tryitout}
 
 ::: panel-tabset
-
-###### Problem {-}
+###### Problem {.unnumbered}
 
 Write a while loop to calculate $\displaystyle \lim_{x \rightarrow 4} \frac{2 - \sqrt{x}}{4-x}$ by starting at 3 and halving the distance to 4 with each iteration. Exit the loop when you are within 1e-6 of the value computed on the previous iteration, or when you are within 1e-6 from 4. Which exit condition did you hit first? How do you know?
 
-###### R Solution {-}
+###### R Solution {.unnumbered}
 
 ```{r limit-tryitout-solution}
 x <- 3
@@ -1309,40 +1860,37 @@ while (abs(current_value - prev_value) > 1e-6 & dist > 1e-6) {
 
 c(x = x, dist = dist, current_value = current_value, d_value = abs(current_value - prev_value))
 ```
-Before $x$ got to 4 - 1e-6, the change in f(x) became less than 1e-6. 
 
-###### Python Solution {-}
+Before $x$ got to 4 - 1e-6, the change in f(x) became less than 1e-6.
 
+###### Python Solution {.unnumbered}
 :::
-
 
 #### Other Loops and Interative Structures
 
-There are many different ways to implement iteration in any language, including very low-level controls like `repeat` (in R). Higher level iteration may include a FOREACH loop, where a series of commands is applied to a list or vector (the `*apply` commands in R are examples of this). An additional method of iteration that requires functions is the recursion (where a function calls itself). In every case, these alternative loop structures can be translated to for or while loops. 
-
+There are many different ways to implement iteration in any language, including very low-level controls like `repeat` (in R). Higher level iteration may include a FOREACH loop, where a series of commands is applied to a list or vector (the `*apply` commands in R are examples of this). An additional method of iteration that requires functions is the recursion (where a function calls itself). In every case, these alternative loop structures can be translated to for or while loops.
 
 ## Overgrown Calculators
 
-While R, SAS, and Python are all extremely powerful statistical programming languages, the core of most programming languages is the ability to do basic calculations and matrix arithmetic. As almost every dataset is stored as a matrix-like structure (data sets and data frames both allow for multiple types, which isn't quite compatible with more canonical matrices), it is useful to know how to do matrix-level calculations in whatever language you are planning to use to work with data. 
+While R, SAS, and Python are all extremely powerful statistical programming languages, the core of most programming languages is the ability to do basic calculations and matrix arithmetic. As almost every dataset is stored as a matrix-like structure (data sets and data frames both allow for multiple types, which isn't quite compatible with more canonical matrices), it is useful to know how to do matrix-level calculations in whatever language you are planning to use to work with data.
 
 In this section, we will essentially be using our programming language as overgrown calculators.
 
-| Operation | R | SAS | Python
-| :--------- | :- | :--- | :--- |
-| Addition | + | + | + |
-| Subtraction | - | - | - |
-| Elementwise Multiplication | \* | \# | \* |
-| Matrix/Vector Multiplication | %\*% | \* | |
-| Division | \ | \ | \ |
-| Elementwise Exponentiation | ^ | \#\# | `**` |
-| Matrix Exponentiation | ^ | \*\* | `np.exp()` | 
-| Matrix Transpose | `t(A)` | `A\\`` | `np.transpose()` |
+| Operation                    | R      | SAS                             | Python     |
+|:-----------------------------|:-------|:--------------------------------|:-----------|
+| Addition                     | \+     | \+                              | \+         |
+| Subtraction                  | \-     | \-                              | \-         |
+| Elementwise Multiplication   | \*     | \#                              | \*         |
+| Matrix/Vector Multiplication | %\*%   | \*                              |            |
+| Division                     | \\     | \\                              | \\         |
+| Elementwise Exponentiation   | \^     | \##                             | `**`       |
+| Matrix Exponentiation        | \^     | \*\*                            | `np.exp()` |
+| Matrix Transpose             | `t(A)` | ``` A\\`` | ```np.transpose()\` |            |
 
 ### Basic Mathematical Operators {.ex}
 
 ::: panel-tabset
-
-#### R {-}
+#### R {.unnumbered}
 
 ```{r math-operators-sas}
 # transpose these to make row vectors to match SAS
@@ -1357,26 +1905,24 @@ x^2
 t(x) %*% y
 ```
 
-#### Python {-}
+#### Python {.unnumbered}
 
+#### SAS {.unnumbered}
 
-#### SAS {-}
+By default, SAS creates row vectors with `do(a, b, by = c)` syntax. The transpose operator (a single backtick) can be used to transform `A` into `A`\`.
 
-By default, SAS creates row vectors with `do(a, b, by = c)` syntax. The transpose operator (a single backtick) can be used to transform `A` into `A`\`. 
-```
-proc iml; 
-  x = do(1, 10, 1);
-  y = do(3, 30, 3);
+    proc iml; 
+      x = do(1, 10, 1);
+      y = do(3, 30, 3);
 
-  z = x + y;
-  z2 = x - y;
-  z3 = x # y;
-  z4 = x/y;
-  z5 = x##2;
-  z6 = x` * y;
-  print z, z2, z3, z4, z5, z6;
-quit;
-```
+      z = x + y;
+      z2 = x - y;
+      z3 = x # y;
+      z4 = x/y;
+      z5 = x##2;
+      z6 = x` * y;
+      print z, z2, z3, z4, z5, z6;
+    quit;
 :::
 
 ### Matrix Operations
@@ -1384,8 +1930,7 @@ quit;
 Other matrix operations, such as determinants and extraction of the matrix diagonal, are similarly easy:
 
 ::: panel-tabset
-
-#### R {-}
+#### R {.unnumbered}
 
 ```{r matrix-operations}
 mat <- matrix(c(1, 2, 3, 6, 4, 5, 7, 8, 9), nrow = 3, byrow = T)
@@ -1396,33 +1941,28 @@ diag(diag(mat)) # get a square matrix with off-diag 0s
 diag(1:3) # diag() also will create a diagonal matrix if given a vector
 ```
 
-#### Python {-}
+#### Python {.unnumbered}
 
+#### SAS {.unnumbered}
 
-#### SAS {-}
-
-```
-proc iml;
-  mat = {1 2 3, 6 4 5, 7 8 9}; 
-  tmat = mat`; /* transpose */
-  determinant = det(mat); /* get the determinant */
-  diagonal_vector = vecdiag(mat); /* get the diagonal as a vector */
-  diagonal_mat = diag(mat); /* get the diagonal as a square matrix */
-                            /* with 0 on off-diagonal entries */
-  
-  dm = diag({1 2 3}); /* make a square matrix with vector as the diagonal */
-  
-  print tmat, determinant, diagonal_vector, diagonal_mat, dm;
-quit;
-```
-
+    proc iml;
+      mat = {1 2 3, 6 4 5, 7 8 9}; 
+      tmat = mat`; /* transpose */
+      determinant = det(mat); /* get the determinant */
+      diagonal_vector = vecdiag(mat); /* get the diagonal as a vector */
+      diagonal_mat = diag(mat); /* get the diagonal as a square matrix */
+                                /* with 0 on off-diagonal entries */
+      
+      dm = diag({1 2 3}); /* make a square matrix with vector as the diagonal */
+      
+      print tmat, determinant, diagonal_vector, diagonal_mat, dm;
+    quit;
 :::
 
 The other important matrix-related function is the inverse. In R, `A^-1` will get you the elementwise reciprocal of the matrix. Not exactly what we'd like to see... Instead, in both languages, we use the `solve()` function. The inverse is defined as the matrix B such that `AB = I` where `I` is the identity matrix (1's on diagonal, 0's off-diagonal). So if we `solve(A)` (in R) or `solve(A, diag(n))` in SAS (where n is a vector of 1s the size of A), we will get the inverse matrix.
 
 ::: panel-tabset
-
-#### R {-}
+#### R {.unnumbered}
 
 ```{r invert-matrix-example}
 mat <- matrix(c(1, 2, 3, 6, 4, 5, 7, 8, 9), nrow = 3, byrow = T)
@@ -1433,73 +1973,67 @@ minv
 mat %*% minv 
 ```
 
-#### Python {-}
+#### Python {.unnumbered}
 
-
-#### SAS {-}
+#### SAS {.unnumbered}
 
 [Documentation](https://documentation.sas.com/?docsetId=imlug&docsetTarget=imlug_langref_sect208.htm&docsetVersion=14.2&locale=en)
-```
-proc iml;
-  mat = {1 2 3, 6 4 5, 7 8 9};
 
-  mat_inv = solve(mat, diag({1 1 1})); /* get the inverse */
-  mat_inv2 = inv(mat); /* less efficient and less accurate */
-  print mat_inv, mat_inv2;
+    proc iml;
+      mat = {1 2 3, 6 4 5, 7 8 9};
 
-  id = mat * mat_inv;
-  id2 = mat * mat_inv2;
-  print id, id2; 
-quit;
-```
+      mat_inv = solve(mat, diag({1 1 1})); /* get the inverse */
+      mat_inv2 = inv(mat); /* less efficient and less accurate */
+      print mat_inv, mat_inv2;
 
+      id = mat * mat_inv;
+      id2 = mat * mat_inv2;
+      print id, id2; 
+    quit;
 :::
 
+## References and Links {.unnumbered .learn-more}
 
-## References and Links {- .learn-more}
 Non-exhaustive list of general R and SAS references used in this chapter:
 
-- [SAS and R compared (by SAS)](https://blogs.sas.com/content/sgf/2020/03/19/free-e-book-sas-programming-for-r-users/)
-- [Repeatable random number generation in R](http://www.cookbook-r.com/Numbers/Generating_repeatable_sequences_of_random_numbers/)
+-   [SAS and R compared (by SAS)](https://blogs.sas.com/content/sgf/2020/03/19/free-e-book-sas-programming-for-r-users/)
+-   [Repeatable random number generation in R](http://www.cookbook-r.com/Numbers/Generating_repeatable_sequences_of_random_numbers/)
 
 ### Cheat Sheets and Reference Cards {.panel-tabset}
 
-#### R {-}
+#### R {.unnumbered}
 
-- [R Cheatsheet](https://rstudio.com/wp-content/uploads/2016/10/r-cheat-sheet-3.pdf) - this is a simplified cheat sheet offered by RStudio. 
-- [R Cheatsheet (classic)](https://cran.r-project.org/doc/contrib/Short-refcard.pdf)
+-   [R Cheatsheet](https://rstudio.com/wp-content/uploads/2016/10/r-cheat-sheet-3.pdf) - this is a simplified cheat sheet offered by RStudio.
+-   [R Cheatsheet (classic)](https://cran.r-project.org/doc/contrib/Short-refcard.pdf)
 
-#### SAS {-}
+#### SAS {.unnumbered}
 
-- [SAS Cheatsheet (from another class like this)](https://sites.ualberta.ca/~ahamann/teaching/renr480/SAS-Cheat.pdf)
-- [SAS Cheatsheet (by SAS)](https://support.sas.com/content/dam/SAS/support/en/books/data/base-syntax-ref.pdf)
-- [SAS Programming for R Users (free book)](https://support.sas.com/content/dam/SAS/support/en/books/free-books/sas-programming-for-r-users.pdf) and [github site with training materials](https://github.com/sassoftware/sas-prog-for-r-users)
-- [R programming for SAS users](http://r4stats.com/books/free-version/) - site for the book, plus link to a free early version of the book (the book is now published)
+-   [SAS Cheatsheet (from another class like this)](https://sites.ualberta.ca/~ahamann/teaching/renr480/SAS-Cheat.pdf)
+-   [SAS Cheatsheet (by SAS)](https://support.sas.com/content/dam/SAS/support/en/books/data/base-syntax-ref.pdf)
+-   [SAS Programming for R Users (free book)](https://support.sas.com/content/dam/SAS/support/en/books/free-books/sas-programming-for-r-users.pdf) and [github site with training materials](https://github.com/sassoftware/sas-prog-for-r-users)
+-   [R programming for SAS users](http://r4stats.com/books/free-version/) - site for the book, plus link to a free early version of the book (the book is now published)
 
-#### Python {-}
-
+#### Python {.unnumbered}
 
 ### Textbooks
 
-- [R for Data Science](https://r4ds.had.co.nz/) [@grolemundDataScience2017]
-- [Advanced R](http://adv-r.had.co.nz/Introduction.html) [@wickhamAdvanced2019]
-    - In particular, the [Data structures](http://adv-r.had.co.nz/Data-structures.html) chapter
-
-
+-   [R for Data Science](https://r4ds.had.co.nz/) [@grolemundDataScience2017]
+-   [Advanced R](http://adv-r.had.co.nz/Introduction.html) [@wickhamAdvanced2019]
+    -   In particular, the [Data structures](http://adv-r.had.co.nz/Data-structures.html) chapter
 
 ### Other Course Websites
-- Stat 850 at UNL (Bilder): [@bilderStat850Course2019]
-- [Stat 579 at Iowa State](https://stat579-at-isu.github.io/schedule.html):  [@hofmannStat579Iowa2020]
-- [Stat 545 at Univ. British Columbia](https://stat545.com/): [@bryanStat545UBC2019]
-- [Introduction to SAS](https://online.stat.psu.edu/statprogram/stat480) - Undergraduate course at Penn State
-- [Intermediate SAS](https://online.stat.psu.edu/statprogram/stat481) - Undergraduate course at Penn State
-- [Advanced SAS](https://online.stat.psu.edu/statprogram/stat482) - Undergraduate course at Penn State
 
+-   Stat 850 at UNL (Bilder): [@bilderStat850Course2019]
+-   [Stat 579 at Iowa State](https://stat579-at-isu.github.io/schedule.html): [@hofmannStat579Iowa2020]
+-   [Stat 545 at Univ. British Columbia](https://stat545.com/): [@bryanStat545UBC2019]
+-   [Introduction to SAS](https://online.stat.psu.edu/statprogram/stat480) - Undergraduate course at Penn State
+-   [Intermediate SAS](https://online.stat.psu.edu/statprogram/stat481) - Undergraduate course at Penn State
+-   [Advanced SAS](https://online.stat.psu.edu/statprogram/stat482) - Undergraduate course at Penn State
 
-### Sources used to aggregate "core programming concepts": 
+### Sources used to aggregate "core programming concepts":
 
-- https://blog.upperlinecode.com/computer-language-fundamentals-five-core-concepts-1aa43e929f40
-- https://howtoprogramwithjava.com/programming-101-the-5-basic-concepts-of-any-programming-language/
-- https://dev.to/lucpattyn/basic-programming-concepts-for-beginners-2o73
-- http://livecode.byu.edu/programmingconcepts/ControlStruct.php
-- http://holowczak.com/programming-concepts-tutorial-programmers/
+-   https://blog.upperlinecode.com/computer-language-fundamentals-five-core-concepts-1aa43e929f40
+-   https://howtoprogramwithjava.com/programming-101-the-5-basic-concepts-of-any-programming-language/
+-   https://dev.to/lucpattyn/basic-programming-concepts-for-beginners-2o73
+-   http://livecode.byu.edu/programmingconcepts/ControlStruct.php
+-   http://holowczak.com/programming-concepts-tutorial-programmers/
