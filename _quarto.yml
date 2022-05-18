@@ -9,6 +9,9 @@ book:
     - index.qmd
     - tools.qmd
     - intro-prog.qmd
+    - basic-types.qmd
+    - data-structures.qmd
+  # - control-structures.qmd
     - references.qmd
   appendices:
     - app-sas.qmd
@@ -16,9 +19,10 @@ book:
   cover-image: images/cover.png
   site-url: https://srvanderplas.github.io/unl-stat850/
   repo-url: https://github.com/srvanderplas/unl-stat850/
-  repo-branch: quarto
+  repo-branch: main
   repo-actions: [edit]
   sharing: [twitter, facebook, linkedin]
+  number-depth: 3
   toc:
     collapse: section
 
@@ -28,10 +32,6 @@ date-format: long
 bibliography: [references.bib, packages.bib]
 biblio-style: apalike
 
-description: |
-  | Introductions to statistical computing packages and document preparation software.
-  | Topics include: graphical techniques, data management, Monte Carlo simulation,
-  | dynamic document preparation, presentation software."
 
 engine: knitr
 
@@ -51,4 +51,12 @@ format:
   #  cover-image: cover.png
 
 editor: source
+
+# Knitr options
+knitr:
+  opts_chunk:
+    collapse: true
+    message: false
+    warning: false
+    error: true
 

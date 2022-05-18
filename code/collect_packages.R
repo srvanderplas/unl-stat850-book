@@ -26,5 +26,5 @@ all_pkgs <- c(pkgs, pkgs2) %>% unique()
 writeLines(all_pkgs, "data/packages")
 
 
-# install.packages(setdiff(all_pkgs, installed.packages()))
-# devtools::install_github(c("heike/classdata", "hadley/emo", "mine-cetinkaya-rundel/nycsquirrels18", "gadenbuie/tweetrmd"))
+install.packages(setdiff(all_pkgs, installed.packages()))
+devtools::install_github(c("heike/classdata", "hadley/emo", "mine-cetinkaya-rundel/nycsquirrels18", "gadenbuie/tweetrmd"))

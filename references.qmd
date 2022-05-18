@@ -3,5 +3,5 @@
 
 ```{r pkg-list-update, include = F, cache = F}
 # update package list
-source("code/collect_packages.R")
+# source("code/collect_packages.R")
 ```

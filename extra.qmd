@@ -1,0 +1,107 @@
+# --- Factors --- 
+
+In statistical programming, there is one other commonly-used type of variable to know about, and that is a factor. Factors are basically labeled integers. Instead of storing the data as a string or character, the data are instead stored as a series of integers, and then there is a separate table stored that maps the integers to labels. This is technically more efficient (which was important when computers had extremely limited memory), but it is also a pain in the `r emo::ji("peach")` (that's a technical term).
+
+Factors are the default way to store characters for most base R functions. Or rather, they were. In R 4.0, the default way to read data in will change from `stringsAsFactors = T` to `stringsAsFactors = F`. You can read about why factors aren't ideal [here](https://developer.r-project.org/Blog/public/2020/02/16/stringsasfactors/index.html), which helps explain why this change was made.
+
+Depending on what version of R you have installed, you may run into errors related to factors, or not. Because R 4.0 (relatively) new (released in May 2020) most of the tutorials online will probably have behavior that isn't matched by your R installation. I'm new enough to R 4.0 that I'm not sure when factor related errors will pop up.
+
+Other reasons to learn factors besides for debugging purposes:
+
+- They allow you to control the order of things in graphs, tables, and models
+- They allow you to easily change category labels without having to sort through an entire data table
+- ... I'm sure there are more, but I'm drawing a blank at the moment
+
+Factor functionality is useful enough that it is also implemented in pandas, which is an add-on library for python. In pandas, factors are called **categorical** variables (which is also the technical statistical term).
+
+
+
+
+::: note
+
+##### Data Frames {-}
+
+In this example, we'll use a data.frame, which you can think of as a spreadsheet-type table. We'll work with data frames later in much more detail, but for now, I'm mostly trying to show you a real-life situation that happens ALL the time, with the hopes that you'll recognize the error when/if you encounter it. The data frame isn't the important part.
+
+:::
+
+<details class="ex"><summary>Factors example</summary>
+Let's look at the names of the months:
+```{r factors-ex}
+month.name
+
+df <- data.frame(num = 1:12, name = month.name, stringsAsFactors = T)
+# I'm putting the argument in so that this is still relevant when everyone
+# switches to R 4.0. Even with stringsAsFactors = F, factors are still useful
+# and we still need to work with them.
+#
+# Any time you create a data frame in base R, you should be watchful for errors
+# that are based on strings being converted to factors.
+
+str(df)
+```
+
+Notice that as soon as we make that data.frame, the months are converted into a factor variable? The other big problem is that the order of the factor levels is ... not what we'd normally want. We don't want alphabetical ordering of month names - they have a different, implicit, and natural order.
+
+We could get this same behavior without the data.frame, but this is where it shows up most often.
+
+```{r factors-ex-2}
+month_fct <- factor(month.name) # the order is still not exactly what we'd want it to be
+```
+
+To fix this, we can explicitly specify that we're dealing with a factor, and what we want the levels to be. If you specify the levels manually (instead of letting R do the work for you) then you get to determine the order.
+```{r factors-ex-3}
+month_fct <- factor(month.name, levels = month.name)
+str(month_fct)
+```
+
+We can even be more explicit:
+
+```{r factors-ex-4}
+month_fct <- factor(month.name, levels = month.name, ordered = T)
+str(month_fct)
+```
+
+Making the factor ordered lets us explicitly say which levels are less than other levels.
+
+Factors are technically integers, with labels that are stored as an attribute. That doesn't mean you can do math with them, though.
+```{r factors-ex-5, error = T}
+month_fct[1] + month_fct[2]
+```
+
+Often, years or dates or other numeric-like information will end up as factor variables. When this happens, you need to be a little bit careful.
+
+```{r factors-ex-6}
+# This works pretty naturally for months, right?
+as.numeric(month_fct)
+
+yfact <- factor(2000:2020, levels = 2000:2020)
+yfact
+# But, this does not...
+as.numeric(yfact)
+
+as.character(yfact) # gets the labels
+as.numeric(as.character(yfact)) # gets the info we want
+```
+When converting factors with numeric labels, you need to first convert the factor to a character, and then to a numeric variable. That will get the information you actually want back out.
+
+</details>
+
+# --- Vectors/reading in data
+
+
+::: watchout
+
+R's vector-by-default approach can cause some errors - for instance, R does not read in numeric data formatted with commas as numeric data. You may thus get the result
+
+```{r data-structures-homogeneous2, error = T}
+x <- c(356, 452, "1,325")
+x
+mean(x)
+```
+
+If you are reading in data from a file, this will cause some issues - the whole column of data will be formatted as characters. Keep an eye out for errors of this type. 
+
+One fix for this is to read things in as a character and use the `parse_number` function from the `readr` package -- we'll talk about the `readr` package in [Module 4](#reading-data)
+
+:::

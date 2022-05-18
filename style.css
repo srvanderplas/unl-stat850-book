@@ -111,10 +111,13 @@ section.tryitout {
               0 0 0 10px white;
 }
 
-.tryitout > h3, .tryitout > h4, .tryitout > h5, .tryitout > h6 {
+.tryitout > h2, .tryitout > h3, .tryitout > h4, .tryitout > h5, .tryitout > h6 {
   color: var(--zomp);
   margin-top: 0 !important;
   margin-bottom:0 !important;
+  padding-left:0 !important;
+  padding-right:0 !important;
+  min-height:1em!important;
 }
 
 .tryitout .panel-tabset {
@@ -147,10 +150,14 @@ section.learn-more{
   min-height:6em;
 }
 
-.learn-more > h3, .learn-more  > h4, .learn-more > h5 , .learn-more > h6 {
+.learn-more > h2, .learn-more > h3, .learn-more  > h4, .learn-more > h5 , .learn-more > h6 {
   color: var(--cadet-blue);
   margin-top: 0 !important;
   margin-bottom:0 !important;
+  margin-left:0 !important;
+  padding-left:0 !important;
+  padding-right:0 !important;
+  min-height:1em!important;
 }
 
 section.note {
@@ -159,10 +166,21 @@ section.note {
   box-shadow: 0 0 0 1px var(--cg-blue),
               0 0 0 10px white;
 }
-.note > h3, .note  > h4, .note > h5 , .note > h6 {
+
+div.note {
+  background-image:url(theme/notethat.svg);
+  background-color: var(--cg-blue-bg);
+  box-shadow: 0 0 0 1px var(--cg-blue),
+              0 0 0 10px white;
+}
+
+.note > h2, .note > h3, .note  > h4, .note > h5 , .note > h6 {
   color: var(--cg-blue);
   margin-top: 0 !important;
   margin-bottom:0 !important;
+  padding-left:0 !important;
+  padding-right:0 !important;
+  min-height:1em!important;
 }
 
 

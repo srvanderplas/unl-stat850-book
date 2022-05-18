@@ -1,0 +1,943 @@
+
+# Data Structures
+
+Data **structures** are more complex arrangements of information than single variables. Of primary interest in statistical programming are the following types of structures, illustrated with Lego pieces (piece size indicates "data type"):
+
+|     | Homogeneous | Heterogeneous |
+| --- | ---------- | ---------- |
+| 1d  | ![A lego vector made out of a row of 1x3 blocks](images/intro-prog/lego-1x3-vector.png)                      | ![A lego list made out of a row of differently-sized lego bricks](images/intro-prog/lego-list.png)                                                                                     |
+| | vector (R, python)<br/>Series (Pandas) | list (R, python)<br/>dict (python)<br/>tuple (python) |
+| 2d  | ![A lego matrix made out of a 3x4 rectangle of individual 2x2 bricks](images/intro-prog/lego-2x2-matrix.png) | ![A lego data frame made out of multiple columns of bricks where each column is a different size of brick (representing a different data type)](images/intro-prog/lego-data-frame.png) |
+| | matrix (R)<br/>ndarray(Numpy) | data frame (R, Pandas)<br/>data set (SAS) |
+| nd  | ![A 4x3x3 matrix/ndarray of 2x2 bricks of different colors.](images/intro-prog/lego-ndarray.png)             |                                                                                                                                                                                        |
+| | array (R)<br/>ndarray(Numpy) |
+
+
+: Common data structures as implemented in various statistical programming languages. Where applicable, specific package names are listed (e.g. in Python, Numpy and Pandas). {#tbl-structure-lego}
+
+::: note
+
+Figuring out what to call these types with multiple languages is hard: in SAS, an array is a group of columns of a data set, but in R, it's a multi-dimensional matrix, and in Python it's a ndarray. I've attempted to separate out language-specific content (e.g. how to do X in python or R) from the general concepts where possible.
+
+:::
+
+
+## Homogeneous data structures {- .unnumbered}
+
+## Scalars
+
+R does not have scalar types - even single-value variables are technically vectors of length 1. SAS and Python do have scalar types. Creating scalars is as simple as defining a variable, which you have already seen before.
+
+## Vectors
+
+Vectors are constrained so that all items in a vector must be of the same type. When necessary, this means that variables will be type-converted, as shown above.
+
+::: panel-tabset
+
+### R {.unnumbered .unnumbered}
+
+In R, creating a vector is as easy as using the `c()` (concatenate) function. To create a vector of sequential integers, we use `start:end`, where start and end are integers. To create a finer-grained sequence, such as counting from 1 to 10 by 0.05, we would use the `seq()` function. `seq()` also has an argument named `length.out` which allows you to specify the vector length; the interval between successive numbers is then automatically calculated for you.
+
+```{r}
+digits_of_pi <- c(3, 1, 4, 1, 5, 9)
+
+seq_10 <- 1:10
+
+tmp <- seq(1, 10, by = 0.05)
+
+tmp2 <- seq(1, 10, length.out = 100)
+
+```
+
+### Python {.unnumbered .unnumbered}
+
+In python, we will use the NumPy package to create arrays of any dimension. First, we have to tell Python we want to use the `numpy` package, and what we're going to call it. Usually, this means that we add the line `import numpy as np` so that we call any functions in the package using `np.function_name()`.
+
+The next thing to realize is that by default, python doesn't have a vector/matrix/array type - this is something added in numpy. So we'll be using lists to create our default data structures, and then converting them into numpy objects.
+
+```{python}
+import numpy as np
+
+lst = [3, 1, 4, 1, 5, 9] # this is a list
+
+digits_of_pi = np.array(lst) # this creates a vector
+
+seq_10 = np.array(range(1, 10))
+
+tmp = np.arange(1, 10, step = 0.05)
+
+tmp2 = np.linspace(1, 10, 100)
+```
+The `range` function defines a range from 1 to 10, and the `np.array()` function converts that into a vector of integers counting from 1 to 10. In the next step, we use the `np.arange` function to specify what the step size we want is. Finally, we specify a vector of length 100 using the `np.linspace` function. 
+
+:::
+
+
+### Try it out {- .tryitout}
+
+::: panel-tabset
+
+#### Problem {- .unnumbered}
+
+If we try to create a heterogeneous vector in R, using the `concatenate` function, `c()`, which combines scalar entries into a vector, what happens?
+
+#### Solution {- .unnumbered}
+
+```{r data-structures-homogeneous}
+c(1, 2, "a", "b", "c")
+```
+
+Because there were 3 character entries, the entire vector is now a character vector.
+
+:::
+
+## Matrices and Arrays
+
+Matrices (2 dimensional) and arrays (>2 dimensional) are homogeneous, rectangular arrangements of data. They may have dimension names in R (but not in python). 
+
+::: panel-tabset
+
+### R {- .unnumbered}
+
+Let's start out by creating a 3x4 matrix (3 rows, 4 columns) of the digits 1:12.
+
+```{r create-matrix}
+matrix(1:12, 3, 4)
+```
+
+By default, R fills in everything column-by-column. If we want to change that behavior, we use the `byrow` option:
+
+```{r create-matrix-2}
+matrix(1:12, 3, 4, byrow = T)
+```
+
+If we want to create a higher-order array in R, we use the `array` command:
+
+```{r create-array}
+array(1:12, dim = c(2, 2, 3))
+```
+
+Note that higher-dimension arrays are hard to print and visualize.
+
+It is easy enough to create an array that has all 0's or 1's in it as well - I have used 1:12 here to show you how things get populated to different slices of the array, but any vector will work to initialize your array.
+
+### Python {-}
+
+If a vector and a list are relatively similar in structure, we can think up an analogue of the matrix as a list of lists of the same length. Note that this is only necessary because by default, Python has a list type but not a vector type; numpy adds the ability to deal with vectors and arrays directly, but we must first construct them out of something that makes sense to base python.
+
+```{python create-matrix-py}
+import numpy as np
+
+# Different shapes matter
+[[1, 2, 3], [4, 5, 6]] 
+[[1,2], [3,4], [5,6]] 
+# Row by row inside the first-level list
+
+np.array([[1, 2, 3], [4, 5, 6]]) 
+np.array([[1,2], [3,4], [5,6]])
+```
+
+If we instead want to create a matrix of 0s, we can do that using the `np.zeros` function.
+
+```{python create-matrix-2-py}
+np.zeros(shape=(2, 2, 3), dtype=float)
+```
+
+Filling the matrix with non-zero values is a different challenge that requires us to talk about indexing (discussed below).
+
+:::
+
+
+## Heterogeneous data structures {- .unnumbered}
+
+The heterogeneous data types are not much harder to grasp, as they're mostly different ways to combine various homogeneous data types.
+
+## One-dimensional structures
+
+In R and SAS, lists are the basic building block of one-dimensional data structures. Python makes this a bit more complicated, as it has several different one-dimensional heterogeneous data structures that we'll have to cover. I've restructured this section considerably during the transition to R + Python as the main focus of this class, but I'd encourage you to read this section with a focus on lists and just keep in mind what the differences are between the structures - you don't have to remember them, but know where to look it up.
+
+Type | Language | Named? | Ordered/Indexable | Other Notes
+--- | --- | --- | --- | --- |
+List | R | yes | yes | basic heterogeneous data type
+Data frame | R | yes | yes | essentially a list of vectors of the same length
+List | python | no | yes | 
+Tuple | python | no | yes | cannot be edited once created
+Dictionary | python | yes: key-value pairs | yes (Python 3.7)<br/> no (Python < 3.7) | cannot have duplicate keys
+
+
+### Lists
+
+A **list** is a sequence of different-typed values. 
+
+Unlike when concatenating values, the `list()` command in R allows each value to keep its natural type. In Python, the default complex data type is a list; more strict data types are then converted from lists to more structured formats using e.g. `np.array` or `pd.DataFrame`. 
+
+
+::: panel-tabset
+
+#### R {- .unnumbered}
+
+```{r list-index-demo, error = T}
+x <- list("a", "b", "c", 1, 2, 3)
+
+x
+x[[1]] # Indexes start at 1 in R
+
+x[[4]] + x[[5]]
+
+x[1:2] # This will work
+
+x[[1:2]] # This won't work
+```
+
+Some lists (and data frames) consist of named variables. These list components can be accessed either by index (as above) or by name, using the `$` operator. Names which have spaces or special characters must be enclosed in backticks (next to the 1 on the keyboard). Named components can also be accessed using the `[[ ]]` operator.
+
+```{r list-name-demo, error = T}
+dog <- list(name = "Edison Vanderplas", age = 9, 
+            breed = "Jack Russell Terrorist", 
+            `favorite toy` = "a blue and orange stuffed duck. Or rawhide.",
+            `link(video)` = "https://youtu.be/zVeoQTOTIuQ")
+
+dog
+
+dog$name
+dog$breed
+dog$`favorite toy`
+dog[["link(video)"]]
+```
+
+You can get a sense of the structure of a list (or any other object) in R using the `str()` command.
+
+```{r list-name-str}
+
+str(dog)
+
+```
+
+#### Python {- .unnumbered}
+
+Unlike in R, lists in python cannot have named entries. Lists are a basic data structure in python, so they exist in base Python without needing to load e.g. `Numpy` or `Pandas`. As a reminder, Python is a 0-indexed language, so you will need to count starting at 0 instead of 1 to determine what elements you want to pull out of a list.
+
+```{python list-index-demo-py, error = T}
+x = ['a', 'b', 'c', 1, 2, 3]
+
+x
+x[0] # Indexes start at 0 in python
+x[1:2] # Python indexes are [a, b); if you want b, use [a, b+1)
+x[2:4]
+```
+
+:::
+
+### Tuple
+
+Python contains a data type called a **Tuple** used to store multiple items in a single variable. Tuples are **ordered** and **unchangeable** - Once stored, you cannot update them. Tuples can store more than one data type.
+
+```{python tuples}
+mytuple = ("apple", "banana", 3)
+mytuple[0]
+mytuple[1]
+mytuple[2]
+mytuple
+```
+
+::: watchout
+
+Notice that the syntax for making a tuple is very similar to the syntax for making a list - the only difference is that tuples use () and lists use []. 
+
+:::
+
+It's worth knowing about tuples, but I wouldn't worry about using them frequently until you get better at programming. You can check out this article about [Lists, Arrays, and Tuples](https://www.geeksforgeeks.org/python-list-vs-array-vs-tuple/) for more information.
+
+### Dictionary
+
+Another basic data type in Python used to store multiple pieces of data is a **dictionary**. 
+
+A dictionary is ordered (in Python 3.7+), changeable, and does not allow duplicates.
+
+Dictionaries are written with curly brackets, and have **keys** and **values**, where we use the syntax `key:value` (with quotes around strings). 
+
+```{python dictionary, error = T}
+dogdict = {
+  "name": "Edison",
+  "age": 9,
+  "breed": "Jack Russell Terrorist",
+  "energy_level": "high"
+}
+print(dogdict)
+
+dogdict["name"]
+dogdict[0] # dicts can be indexed by key but not by position
+
+dogdict["color"] = "white" # add a new item by adding a new key and assigning a value
+dogdict
+
+```
+
+
+### Series
+
+The Pandas package contains a data type called a **Series** - essentially, it's a one-dimensional vector with axis labels. This is roughly equivalent to a named vector in R.
+
+```{python}
+import pandas as pd
+
+s1 = pd.Series([3,1,4,1,5])
+s1 # by default, the key is just the numeric index
+
+s1[0]
+
+# we can set labeled keys by converting a dict to a series
+s2 = pd.Series({"susan":1987,"ryan":1986,"alex":2016,"zoey":2021})
+s2 
+
+# Series can be indexed by position or by key
+s2[0]
+s2["zoey"]
+```
+
+
+### Level Up: Recursive structures 
+
+Lists, dicts, and other one-dimensional structures can also contain containers - vectors, lists, or other multi-element items. When accessing a list-within-a-list, just add another index or name reference (see below).
+
+::: panel-tabset
+
+#### R {- .unnumbered}
+
+```{r list-recursive-demo}
+grocery_list <- list(
+  dairy = c("asiago", "fontina", "mozzarella", "blue cheese"),
+  baking = c("flour", "yeast", "salt"),
+  canned_goods = c("pepperoni", "pizza sauce", "olives"),
+  meat = c("bacon", "sausage", "anchovies"),
+  veggies = c("bell pepper", "onion", "scallions", "tomatoes", "basil")
+)
+
+ick <- c(grocery_list[[4]][2:3], grocery_list$canned_goods[[3]])
+ick
+
+crust_ingredients <- c(grocery_list$baking, "water")
+crust_ingredients
+
+essential_toppings <- c(grocery_list$dairy[3], grocery_list$canned_goods[2])
+essential_toppings
+
+yummy_toppings <- c(grocery_list$dairy[c(1, 2, 4)], grocery_list$meat[1], grocery_list[[5]][c(3, 5)])
+yummy_toppings
+```
+
+
+#### Python {- .unnumbered}
+
+In python we have to use a dict of lists, which doesn't quite work as well - but we have to do that mostly because the pizza example makes sense with named lists. If we used unnamed lists, we could do the whole thing as a list of lists, just like in R.
+
+```{python list-recursive-demo-py}
+grocery_list = {
+  "dairy": ["asiago", "fontina", "mozzarella", "blue cheese"],
+  "baking": ["flour", "yeast", "salt"],
+  "canned_goods": ["pepperoni", "pizza sauce", "olives"],
+  "meat": ["bacon", "sausage", "anchovies"],
+  "veggies": ["bell pepper", "onion", "scallions", "tomatoes", "basil"]
+  }
+  
+ick = [grocery_list["meat"][1:3], [grocery_list["canned_goods"][2]]]
+ick # this is a nested list, which isn't ideal
+
+from itertools import chain
+ick = list(chain(*ick)) # this unnests the list to a single level
+
+crust_ingredients = [grocery_list["baking"], ["water"]]
+crust_ingredients = list(chain.from_iterable(crust_ingredients))
+crust_ingredients
+
+essential_toppings = [grocery_list["dairy"][2], grocery_list["canned_goods"][1]]
+essential_toppings
+
+yummy_toppings = [
+  grocery_list["dairy"][0:2], 
+  [
+    grocery_list["dairy"][3], 
+    grocery_list["meat"][0], 
+    grocery_list["veggies"][2], 
+    grocery_list["veggies"][4]
+  ]# it works best to put individual entries in a list so that 
+   # chain.from_iterable() works out
+  ]
+
+yummy_toppings = list(chain.from_iterable(yummy_toppings))
+yummy_toppings
+```
+
+:::
+
+#### Try it out {.unnumbered .tryitout}
+
+Using the list of pizza toppings above as a starting point, make your own list of pizza toppings organized by grocery store section (approximately). Create your own vectors of yummy, essential, and ick toppings, using R and Python.
+
+
+
+## Data frames
+
+A data frame is a special type of list - one in which each element in the list is a vector of the same length. If you put these vectors side-by-side, you get a table of data that looks like a spreadsheet. In Python, a DataFrame is a dict of Series. 
+
+
+The lego version of a data frame looks like this:
+
+```{r lego-df, echo = F, out.width = "50%", fig.cap = "A data frame with 4 columns. A data frame is essentially a list where all of the components are vectors or lists, and are constrained to have the same length. "}
+knitr::include_graphics("images/intro-prog/lego-data-frame.png")
+```
+
+### Exploring Data Frames 
+
+::: panel-tabset
+
+#### R {- .unnumbered}
+
+When you examine the structure of a data frame, as shown below, you get each column shown in a row, with its type and the first few values in the column. The `head(n)` command shows the first $n$ rows of a data frame (enough to see what's there, not enough to overflow your screen).
+
+```{r dataframes}
+head(mtcars) ## A data frame included in base R
+
+str(mtcars)
+
+```
+
+You can change column values or add new columns easily using assignment. It's also easy to access specific columns to perform summary operations.
+
+```{r dfcols-sum}
+mtcars$gpm <- 1/mtcars$mpg # gpm is sometimes used to assess efficiency
+
+summary(mtcars$gpm)
+summary(mtcars$mpg)
+```
+
+Often, it is useful to know the dimensions of a data frame. The number of rows can be obtained by using `nrow(df)` and similarly, the columns can be obtained using `ncol(df)` (or, get both with `dim()`). There is also an easy way to get a summary of each column in the data frame, using `summary()`.
+
+```{r summary-mtcars}
+summary(mtcars)
+dim(mtcars)
+nrow(mtcars)
+ncol(mtcars)
+```
+
+Missing variables in an R data frame are indicated with NA.
+
+#### Python {- .unnumbered}
+
+When you examine the structure of a data frame, as shown below, you get each column shown in a row, with its type and the first few values in the column. The `df.head(n)` command shows the first $n$ rows of a data frame (enough to see what's there, not enough to overflow your screen).
+
+```{python dataframes-py}
+mtcars = pd.read_csv("https://vincentarelbundock.github.io/Rdatasets/csv/datasets/mtcars.csv")
+
+mtcars.head(5)
+
+mtcars.info()
+```
+
+You can change column values or add new columns easily using assignment. It's also easy to access specific columns to perform summary operations. You can access a column named xyz using `df.xyz` or using `df["xyz"]`. To create a new column, you must use `df["xyz"]`.
+
+```{python dfcols-sum-py}
+mtcars["gpm"] = 1/mtcars.mpg # gpm is sometimes used to assess efficiency
+
+mtcars.gpm.describe()
+mtcars.mpg.describe()
+```
+
+Often, it is useful to know the dimensions of a data frame. The dimensions of a data frame (rows x columns) can be accessed using `df.shape`. There is also an easy way to get a summary of each column in the data frame, using `df.describe()`.
+
+```{python summary-mtcars-py}
+mtcars.describe()
+mtcars.shape
+```
+
+Missing variables in a pandas data frame are indicated with nan or NULL.
+
+
+:::
+
+
+
+### Try it out {.unnumbered .tryitout}
+
+::: panel-tabset
+
+#### Setup {- .unnumbered}
+
+The dataset `state.x77` contains information on US state statistics in the 1970s. By default, it is a matrix, but we can easily convert it to a data frame, as shown below.
+
+```{r state-facts-tryitout}
+data(state)
+state_facts <- data.frame(state.x77)
+state_facts <- cbind(state = row.names(state_facts), state_facts, stringsAsFactors = F) 
+# State names were stored as row labels
+# Store them in a variable instead, and add it to the data frame
+
+row.names(state_facts) <- NULL # get rid of row names
+
+head(state_facts)
+
+# Write data out so that we can read it in using Python
+write.csv(state_facts, file = "data/state_facts.csv", row.names = F)
+```
+
+We can write out the built in R data and read it in using `pd.read_csv`, which creates a DataFrame in pandas.
+
+```{python state-facts-tryitout-py}
+import pandas as pd
+
+state_facts = pd.read_csv("https://raw.githubusercontent.com/srvanderplas/unl-stat850/main/data/state_facts.csv")
+```
+
+
+#### Problem {- .unnumbered}
+
+1. How many rows and columns does it have? Can you find different ways to get that information?
+
+2. The `Illiteracy` column contains the percent of the population of each state that is illiterate. Calculate the number of people in each state who are illiterate, and store that in a new column called `TotalNumIlliterate`. Note: `Population` contains the population in thousands.
+
+3. Calculate the average population density of each state (population per square mile) and store it in a new column `PopDensity`. Using the R reference card, can you find functions that you can combine to get the state with the minimum population density?
+
+#### R Solution {- .unnumbered}
+
+```{r state-facts-tryitout-solutions}
+# 3 ways to get rows and columns
+str(state_facts)
+dim(state_facts)
+nrow(state_facts)
+ncol(state_facts)
+
+# Illiteracy
+state_facts$TotalNumIlliterate <- state_facts$Population * 1e3 * (state_facts$Illiteracy/100) 
+
+# Population Density
+state_facts$PopDensity <- state_facts$Population * 1e3/state_facts$Area 
+# in people per square mile
+
+# minimum population
+state_facts$state[which.min(state_facts$PopDensity)]
+```
+
+
+#### Python Solution {- .unnumbered}
+
+```{python state-facts-tryitout-solutions-py}
+# Ways to get rows and columns
+state_facts.shape
+state_facts.index.size # rows
+state_facts.columns.size # columns
+state_facts.info() # columns + rows + missing counts + data types
+
+# Illiteracy
+state_facts["TotalNumIlliterate"] = state_facts["Population"] * 1e3 * state_facts["Illiteracy"]/100
+
+# Population Density
+state_facts["PopDensity"] = state_facts["Population"] * 1e3/state_facts["Area"] 
+# in people per square mile
+
+# minimum population
+min_dens = state_facts["PopDensity"].min()
+# Get location of minimum population
+loc_min_dens = state_facts.PopDensity.isin([min_dens])
+# Pull out matching state
+state_facts.state[loc_min_dens]
+```
+
+:::
+
+### Creating Data Frames
+
+It is also possible to create data frames from scratch by building them out of simpler components, such as vectors or dicts of lists. This tends to be useful for small datasets, but it is more common to read data in from e.g. CSV files, which I've used several times already but haven't yet shown you how to do (give it a couple of weeks).
+
+::: panel-tabset
+
+#### R {- .unnumbered}
+
+
+```{r math-lsd-r}
+math_and_lsd <- data.frame(
+  lsd_conc = c(1.17, 2.97, 3.26, 4.69, 5.83, 6.00, 6.41),
+  test_score = c(78.93, 58.20, 67.47, 37.47, 45.65, 32.92, 29.97))
+math_and_lsd
+
+# add a column - character vector
+math_and_lsd$subjective <- c("finally coming back", "getting better", "it's totally better", "really tripping out", "is it over?", "whoa, man", "I can taste color, but I can't do math")
+
+math_and_lsd
+```
+
+
+#### Python {- .unnumbered}
+
+```{python math-lsd-py}
+math_and_lsd = pd.DataFrame({
+  "lsd_conc": [1.17, 2.97, 3.26, 4.69, 5.83, 6.00, 6.41],
+  "test_score": [78.93, 58.20, 67.47, 37.47, 45.65, 32.92, 29.97]})
+math_and_lsd
+
+# add a column - character vector
+math_and_lsd["subjective"] = ["finally coming back", "getting better", "it's totally better", "really tripping out", "is it over?", "whoa, man", "I can taste color, but I can't do math"]
+
+math_and_lsd
+```
+
+:::
+
+
+## Indexing
+
+Now that you've seen some complex data structures, it's probably a good time to talk about indexing. 
+
+In order to access sub-elements of a complex data structure, we have to **index** the data type. There are two main ways to index something: 
+
+- By name
+- By position
+
+Not every data type has both of these options - vectors, for instance, are generally not named, so we typically only index vectors by position^[In R, you can technically index vectors by name as well, but it's not that common]. 
+
+Differences in how things are indexed are one reason that heterogeneous data structures are a bit more complicated in Python than in R - different structures have different indexing rules and/or names attached.
+
+Language | Data Type | Index by position | Index by Name
+--- | --- | --- | ---
+R | vector | yes | yes (uncommon)
+R | array/matrix | yes | yes (uncommon)
+R | list | yes | yes
+R | data frame | yes | yes
+R | tibble | yes | yes
+Python | vector | yes | no
+Python | ndarray (numpy) | yes | no
+Python | dict | yes | yes
+Python | Series (pandas) | yes | yes
+Python | DataFrame (pandas) | yes | yes
+
+In R, you can usually index things using one of `$`, `[]`, and `[[]]`.
+
+In Python, you can usually index things using one of `[]` or `.loc` or `.iloc`. 
+
+See the examples below for which index methods work with each data type (and why). 
+
+::: panel-tabset
+
+### R vector {- .unnumbered}
+
+```{r, error = T}
+myvec <- c(d1 = 3, d2 = 1, d3 = 4, d4 = 1, d5 = 5, d6 = 9) # this is a named vector
+
+myvec
+myvec[1:3] # first 3 entries
+myvec["d1"] # indexing a vector by name
+myvec$d1 # "atomic vector" = homogeneous vector; can't index by name using $
+```
+
+### R matrix {- .unnumbered}
+
+```{r, error = T}
+mymat <- matrix(
+  myvec, nrow = 2, 
+  dimnames = list(
+    c('r1', 'r2'), # row names
+    c('c1', 'c2', 'c3') # column names
+  )
+) # this creates a matrix with named rows and columns
+
+mymat
+
+mymat[1,] # get the first row
+mymat[,1] # get the first column
+mymat['r1'] # this doesn't find anything
+mymat['r1',] # if you tell R to look for the row named 'r1' it actually works
+mymat['c1'] # this doesn't find anything
+mymat[,'c1'] # if you tell R to look for the col named 'c1' it actually works
+
+mymat[,2:3] # get multiple columns and all rows
+mymat[1, 2:3] # get multiple columns and the first row
+
+mymat$r1 # matrices are still atomic vectors
+```
+
+### R array {- .unnumbered}
+
+```{r, error = T}
+myarray <- array(
+  1:12, 
+  dim = c(2, 2, 3), 
+  dimnames = list(
+    c('a1', 'a2'), 
+    c('b1', 'b2'), 
+    c('c1', 'c2', 'c3')
+  )
+)
+
+# adding another dimension just means we add another entry to our [a, b, c]
+
+myarray[1, 2, 3]
+myarray[1, 2, ] # leaving out a number provides everything
+myarray[, 1, 2] 
+myarray[,,2]
+myarray[, 3, ] # if you don't keep track of your dimensions you'll get an error
+myarray['a1', 'b1', ] # names still work IF you define dimnames (not common)
+
+myarray$a1 # arrays are still atomic vectors
+```
+
+### R list {- .unnumbered}
+
+```{r, error = T}
+# Create a named list
+
+dog <- list(name = "Edison Vanderplas", 
+            age = 9, 
+            breed = "Jack Russell Terrorist", 
+            fav_toy = "stuffed duck",
+            video = "https://youtu.be/zVeoQTOTIuQ")
+
+# Getting things out of the list as single objects
+dog$name # use $ to index by name, with no quotes
+dog$sex # if you use a name that isn't there, you get NULL
+
+dog[["name"]] # use [[]] to get to a single element, then index by name or position
+dog[["sex"]]
+
+dog[[2]]
+dog[[7]] # if you use a position that isn't there you get an error
+
+# Getting a sub-list out (still as a list)
+dog[c(1, 3, 5)] # use [] to get a subset of the list
+
+dog[c(1, 3, 5)][[3]] # you can still use [[]] to get an item from this sub list
+```
+
+### R data frame {- .unnumbered}
+
+```{r}
+mydf <- data.frame(
+  name = c("Edison", "Wishbone"), 
+  age = c(9, 2), 
+  sex = "M" # this will be repeated for all entries in the data frame
+)
+
+mydf
+
+mydf$name
+mydf$age
+mydf$sex
+
+mydf[2, 3]
+
+mydf["name"] # this is a data frame!
+mydf[["name"]] # this is a vector
+
+mydf[["name"]][1] # this is a single entry (but still a vector of length 1)
+```
+
+:::
+
+::: panel-tabset
+
+### Python list {- .unnumbered}
+
+```{python}
+mylist = ['the', 'answer', 'to', 'life', 'is', 42]
+
+mylist[5]
+mylist[0:5]
+```
+
+List indexing works the same way as vector indexing in python.
+
+### Python dict {- .unnumbered}
+
+Python dicts can be indexed by name directly and by location if you convert the keys or values to a list first.
+
+```{python}
+dog = {"name": "Edison Vanderplas", 
+       "age": 9, 
+       "breed": "Jack Russell Terrorist", 
+       "fav_toy": "stuffed duck",
+       "video": "https://youtu.be/zVeoQTOTIuQ"}
+       
+dog["name"]
+list(dog.keys()) # create a list from the keys of the dog dict
+list(dog) # this does the same thing
+
+list(dog)[0] # lists can then be indexed by location
+
+list(dog.values()) # create a list from the values of the dog dict
+list(dog.values())[3]
+
+```
+
+### Python Tuples
+
+Python tuples are indexed in the same way as vectors, arrays, and lists.
+
+```{python}
+mytuple = (3, 5, 'dog')
+mytuple[0]
+mytuple[0:2] # can index with slices
+```
+
+### Numpy vector {- .unnumbered}
+
+Vectors in python can't be named, so we can't try to index them by name.
+
+```{python}
+import numpy as np
+
+myvec = np.array([3, 1, 4, 1, 5, 9])
+
+myvec[0] # indexing in python starts at 0 instead of 1
+
+myvec[0:4] # select [a, b) elements in the vector
+
+```
+
+### Numpy ndarray {- .unnumbered}
+
+```{python}
+import numpy as np
+
+# generate a 3d array of random integers
+myndarray = np.random.randint(12, size = (2, 2, 3))
+myndarray
+
+myndarray[0, 0, 0]
+myndarray[0, :, 2] # use ':' to get all numbers in a "slice"
+myndarray[:, :, 2]
+
+myndarray[1, 1, 0:3] # a:b gets you an integer list between [a, b) (not including b)
+
+```
+
+### Pandas Series
+
+Pandas Series and Data Frames are the only types that can be indexed by name and location.
+
+```{python}
+import pandas as pd
+
+dog_series = pd.Series(dog)
+
+dog_series['name']
+dog_series['name':'age']
+dog_series[1]
+dog_series[0:3] # slicing works with location and name based indexing.
+
+```
+
+### Pandas DataFrame {- .unnumbered}
+
+```{python}
+import pandas as pd
+
+
+dogs = {
+  "name": ["Edison Vanderplas", "Tesla Vanderplas"],
+  "age": [9, 14], 
+  "breed": ["Jack Russell Terrorist", "Lhasa Apso"],
+  "fav_toy": ["stuffed duck", "a human to pet me"],
+  "video": ["https://youtu.be/zVeoQTOTIuQ", "none"]
+  }
+dog_df = pd.DataFrame(dogs, index = ["Eddie", "Tez"])
+
+dog_df.name # can use .varname notation sometimes, but not as robust
+dog_df['name']
+dog_df['name'][1] # access the series entry within
+
+# .iloc provides integer-based indexing
+dog_df.iloc[0, :]
+dog_df.iloc[1, 2]
+dog_df.iloc[:, 2]
+
+# .loc provides name-based indexing for ROW labels
+dog_df.loc["Tez"] 
+dog_df.loc["Eddie"] # this returns a Series
+dog_df.loc[["Eddie"]] # double brackets returns a DataFrame
+# note, this is basically the opposite of what [[ ]] does in R
+
+dog_df.loc["Eddie", 'age':'fav_toy'] # can be used with slices for columns
+```
+
+:::
+
+The 1, 2, and multi-dimensional homogeneous data types should be familiar from e.g. linear algebra and calculus. Single elements of a vector can be extracted using single square brackets, e.g. `x[1]` will get the first element of the vector `x`. In a matrix, elements are indexed as row, column, so to get the (2, 2) entry of a matrix x, you would use `x[2,2]`. This is extended for multi-dimensional arrays in R, with each dimension added, e.g. `x[3,1,2]` or `x[4, 3, 2, 1]`.
+
+To get a full row or column from a matrix (in both SAS and R) you would use `x[1,]` (get the first row) or `x[,3]` (get the 3rd column).
+
+To select multiple rows or columns from a matrix, you would use `x[, c(1, 3)]` in R or `x[,{1 3}]` in SAS - both options get the first and third column of the matrix, with all rows of data included.
+
+In both R and SAS, `a:b` where a and b are numbers will form a sequence from `a` to `b` by 1s. So `1:4` is `r 1:4`. This is often used to get a set of rows or columns: `x[3:4, 1:2]`.
+
+<details class="ex">
+
+<summary>
+
+R matrix example
+
+</summary>
+
+```{r matrix-example}
+x <- matrix(1:20, nrow = 5, byrow = T) 
+# Create a matrix with values 1 to 20, 5 rows, and fill by row
+
+x
+
+x[3:4, 1:2]
+# Gets a submatrix 
+```
+
+</details>
+
+Both R and SAS are 1-indexed languages, so the elements of a list or vector are indexed as 1, 2, 3, 4, ... [^intro-prog-3]
+
+[^intro-prog-3]: Most languages are 0-indexed languages: C, C++, python, Java, javascript. Vectors in these languages are indexed as 0, 1, 2, 3. Other 1-indexed languages include FORTRAN, Matlab, Julia, Mathematica, and Lua, many of which were intended for mathematical processing or data analysis.
+
+As R has logical vectors, it is possible to index a vector using a logical vector of the same length.
+
+### Try it out {.unnumbered .tryitout}
+
+(From project Euler)
+
+If we list all the natural numbers below 10 that are multiples of 3 or 5, we get 3, 5, 6 and 9. The sum of these multiples is 23. Find the sum of all the multiples of 3 or 5 below 1000.
+
+Hint: The modulo operator, `%%`, gives the integer remainder of one number divided by another. So `a %% b` gives the integer remainder when dividing `a` by `b`. Modular division is often used to find multiples of a number.
+
+<details>
+
+<summary>
+
+R solution
+
+</summary>
+
+```{r vectorindexing-solution}
+
+x <- 1:999 # all nums below 1000
+
+m3 <- (x %% 3) == 0 # multiple of 3
+m5 <- (x %% 5) == 0 # multiple of 5
+m3or5 <- m3 | m5
+
+sum(x[m3or5])
+```
+
+</details>
+
+Most complicated structures in R are actually lists underneath. You should be able to access any of the pieces of a list using a combination of named references and indexing.
+
+####  {.unnumbered}
+
+If you have trouble distinguishing between `$`, `[`, and `[[`, you're not alone. The [R for Data Science book has an excellent illustration](https://r4ds.had.co.nz/vectors.html#lists-of-condiments), which I will summarize for you here in abbreviated form (pictures directly lifted from the book).
+
+<details>
+
+<summary>
+
+R4DS indexing illustration
+
+</summary>
+
+| `x`                      | `x[1]`                     | `x[[1]]`                   | `x[[1]][[1]]`              |
+|--------------------------|----------------------------|----------------------------|----------------------------|
+| ![](image/02_pepper.jpg) | ![](image/02_pepper-1.jpg) | ![](image/02_pepper-2.jpg) | ![](image/02_pepper-3.jpg) |
+
+</details>

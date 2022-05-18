@@ -15,9 +15,11 @@ In Fall 2020 and Fall 2021, this class covered R and SAS. The department is now 
 
 
 ## Course Description {-}
+
 Introductions to statistical computing packages and document preparation software. Topics include: graphical techniques, data management, Monte Carlo simulation, dynamic document preparation, presentation software.
 
 ## Course Goals {-}
+
 (Broad, amorphous conceptual things that are hard to measure)
 
 1. Learn how to use a statistical programming language for data analysis, data processing, and data visualization.
@@ -35,6 +37,7 @@ Introductions to statistical computing packages and document preparation softwar
 4. Communicate statistical results using reproducible, dynamic tools. Understand the importance of reproducibility in scientific computation.
 
 ## Course Objectives {-}
+
 (what you should be able to do at the end of this course)
 
 A. Clean and format the data appropriately for the intended analysis or visualization method. (Goals: 1)
@@ -61,6 +64,7 @@ E. Document the data, methods, and results of an analysis using reproducible met
 I've made an effort to use some specific formatting and enable certain features that make this book a useful tool for this class.
 
 ### Header Buttons/Links {-}
+
 The header contains a number of buttons which should help you use, customize, and navigate the textbook
 
 - <i class="fa fa-align-justify"></i> Open/close the sidebar TOC

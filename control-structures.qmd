@@ -1,0 +1,434 @@
+
+# Control structures
+
+## If statements
+
+If statements are just about as simple in programming as they are in real life.
+
+```{r, fig.cap = "[Source](https://xkcd.com/1652/). I've actually met some programmers who talk like this in real life.", fig.align = "center", echo = F}
+knitr::include_graphics("https://imgs.xkcd.com/comics/conditionals.png")
+```
+
+<details>
+
+<summary>
+
+General structure of an if statement
+
+</summary>
+
+In general, the structure of an if statement is
+
+    if (condition) then {
+      # do something here
+    } 
+
+If the condition is true, the inner code will be executed. Otherwise, nothing happens.
+
+You can add an else statement that will execute if the condition is not true
+
+    if (condition) then {
+      # do something
+    } else {
+      # do a different thing
+    }
+
+And in some languages, you can even have many sets of if statements:
+
+```{r, eval = F}
+if (condition) {
+  # do something
+} else if (condition 2) {
+  # do something else
+} else {
+  # do a third thing
+}
+```
+
+Note that this could also be written (perhaps more clearly) as:
+
+    if (condition) {
+      # do something
+    } else {
+      if (condition 2) {
+        # do something else
+      } else {
+        # do a third thing
+      }
+    }
+
+That is, `condition 2` is only checked once it is known that `condition` is false. Often, programmers use logic flow maps, like the one shown below, to map out a logical sequence and ensure that every possible value is handled appropriately.
+
+![If statement flow diagram, from wikimedia commons](https://upload.wikimedia.org/wikipedia/commons/c/c5/If-Then-Else-diagram.svg)
+
+</details>
+
+### Example: If/then logic in R {.unnumbered .ex}
+
+The syntax for conditional statements using if/then logic is shown below using an example where Santa must determine which members of a household will receive a toy for Christmas and which members will receive coal. [^intro-prog-4]
+
+[^intro-prog-4]: Traditionally, naughty children get coal, while nice children get toys or candy.
+
+::: panel-tabset
+#### R {.unnumbered}
+
+```{r santa-unexpected, error = T}
+tmp <- data.frame(name = c("Alex", "Edison", "Susan", "Ryan"),
+                  status = c("naughty", "nice", NA, "neutral"),
+                  stringsAsFactors = F)
+# Santa's decision process
+
+if (tmp$status == "naughty") {
+ tmp$present <- "coal"
+} else {
+ tmp$present <- "toy"
+}
+
+tmp
+```
+
+What happened?
+
+When evaluating if statements, R does not evaluate each entry in the vector `tmp$status` separately. Instead, it takes the first value and issues a warning message. One option would be to use a loop, and examine each row in the data set separately. We'll talk about loops in the next subsection. Another option is to use the `ifelse()` function, which is `ifelse(condition, thing to do if condition is true, thing to do if condition is false)`
+
+```{r r santa-ifelse}
+tmp$present <- ifelse(tmp$status == "naughty", "coal", "toy")
+
+tmp
+```
+
+When R evaluates a missing value, (so ? NA == "naughty"), the result is `NA`. This is fine for us - if we don't have data on whether someone is naughty or nice, maybe we don't need to give them a present at all. But "neutral" is evaluated as getting a toy. Do we want that to happen? Maybe not. We might have to nest ifelse statements to solve this issue...
+
+```{r santa-naughty}
+tmp$present <- ifelse(tmp$status == "naughty", 
+                      "coal", 
+                      ifelse(tmp$status == "nice", "toy", NA))
+
+tmp
+```
+
+#### Python {.unnumbered}
+
+:::
+
+There are more complicated if-statement like control structures, such as switch statements, which can save time and typing. In the interests of simplicity, we will skip these for now, as any conditional can be implemented with sequences of if statements in the proper order. If you would like to read about switch statements, here is a link to [base R switch statement explanation](https://www.tutorialgateway.org/r-switch-statement/) and [documentation](https://www.rdocumentation.org/packages/base/versions/3.6.2/topics/switch).
+
+### Try it out {.unnumbered .tryitout}
+
+::: panel-tabset
+
+#### Setup {.unnumbered}
+
+The `sample()` function selects a random sample of entries from a vector. Suppose we sample a random vector $x$ with 10 entries. Write one or more if statements to fulfill the following conditions
+
+-   if $x$ is divisible by 2, $y$ should be positive; otherwise, it should be negative.
+-   if $x$ is divisible by 3, $y$ should have a magnitude of 2; otherwise, it should have a magnitude of 1.
+
+It may be helpful to define separate variables `y_mag` and `y_sign` and then multiply them afterwards. Once you have found the value of $y$ compute $\text{sum}(x * y)$.
+
+#### R skeleton {.unnumbered}
+
+```{r tryitout-sample}
+set.seed(342502837)
+x <- sample(1:50, size = 20, replace = F)
+
+# Conditional statements go here
+
+sum(x * y)
+```
+
+#### Python skeleton {.unnumbered}
+
+#### R solution {.unnumbered}
+
+```{r tryitout-sample-solution}
+set.seed(342502837)
+x <- sample(1:50, size = 20, replace = F)
+
+y_sign <- ifelse(x %% 2 == 0, 1, -1)
+y_mag <- ifelse(x %% 3 == 0, 2, 1)
+y <- y_sign * y_mag
+
+sum(x * y)
+```
+
+#### Python solution {.unnumbered}
+
+:::
+
+## Loops
+
+Often, we need to do a single task many times - for instance, we may need to calculate the average data value for each week, using daily data. Rather than typing out 52 different iterations of the same code, it is likely easier to type out one single block of code which contains the steps necessary to complete one instance of the task, and then leverage variables to ensure that each task is completed the correct number of times, using the correct inputs.
+
+Let us start with the most generic loop written in pseudocode (code that won't work, but provides the general idea of the steps which are taken)
+
+    loop_invocation(iteration variable, exit condition) {
+      # Steps to repeat
+    }
+
+We use the `loop_invocation` function to indicate what type of loop we use. We have at least one `iteration variable` that indicates where in the looping process we currently are. This may be an index (if we want to do something 500 times, it would take values from 1 to 500), or it may take a more complicated sequence of values (for instance, if we are testing convergence, we might put some sort of delta variable as the iteration variable). Most loops also have an explicit exit condition that is part of the loop invocation; more rarely, a loop may depend on `break` statements that cause the control flow of the code to exit. Without some sort of exit condition, our program would run forever, which is... not optimal.
+
+### Count controlled loops (FOR loops)
+
+In a for loop, the steps in the loop body repeat a specified number of times. That is, *for* each value in a sequence, the steps within the loop are repeated.
+
+Another explanation of for loops is available at [Khan Academy](https://www.khanacademy.org/computing/ap-computer-science-principles/programming-101/repetition-with-loops/a/repetition-with-for-loops?modal=1).
+
+#### Example: Santa and if/else + loops in R (plus some debugging strategies) {.unnumbered .ex}
+
+For instance, suppose we want to revisit our R Santa example from the previous section. The original if/else code we wrote in R didn't work, because R evaluates if statements using a single (scalar or vector of length 1) condition. If we add a loop around that code, we can evaluate only one row at a time. We need to check every row, so we'll iterate over `1:nrow(tmp)` - it's better to get the upper bound from the data frame, rather than just using 4 - if we add another entry, the code will still work if we're using `nrow(tmp)` to define how many iterations we need.
+
+We start by defining our data frame:
+
+```{r forloop-df-setup}
+tmp <- data.frame(name = c("Alex", "Edison", "Susan", "Ryan"),
+                  status = c("naughty", "nice", NA, "neutral"),
+                  stringsAsFactors = F)
+```
+
+And then we add the basic loop syntax:
+
+```{r forloop-df-syntax}
+for (i in 1:nrow(tmp)) {
+  
+}
+```
+
+For some reason, `i` is often used as the iteration variable (with `j` and `k` for nested loops).
+
+What this loop says is that `i` will first take on the value 1, then 2, then 3, then 4. On each iteration, `i` will advance to the next value in the vector of options we have provided.
+
+Now we need to add the middle part by adapting the conditional statement we used before so that it looks at only the `i`th row. I've also added the catch-all else condition that assigns NA for any value that isn't "naughty" or "nice".
+
+It's good practice to initialize your variable (create a column for it) ahead of time and set the variable to a default value.
+
+```{r forloop-df-logic, error = T}
+
+tmp$present <- NA # Initialize column and set to NA by default
+
+for (i in 1:nrow(tmp)) {
+  # Santa's decision process
+  if (tmp$status[i] == "naughty") {
+   tmp$present[i] <- "coal"
+  } else if (tmp$status[i] == "nice") {
+   tmp$present[i] <- "toy"
+  } else {
+    tmp$present[i] <- NA_character_ 
+    # use a special NA value that has 
+    # character type to avoid any issues
+  }
+}
+```
+
+Well, that didn't work! We can see that the loop stopped at `i = 3` by printing out the value of `i` - because the loop failed, `i` will still contain the value which caused the loop to stop.
+
+```{r forloop-df-print}
+i
+tmp[i,] # print tmp at that point
+```
+
+Combining this information with the error above, we can guess that R stopped evaluating the loop because the if statement returned NA (missing) instead of TRUE or FALSE.
+
+if/else statements in R can't evaluate to `NA`, so we need to restructure our conditional statement - first, we'll test for `NA` values, then, we can test for naughty and nice, and we'll keep the catch-all statement at the bottom. We'll test for an `NA` value using the function `is.na()`.
+
+```{r forloop-df-logic2}
+
+tmp$present <- NA # Initialize column and set to NA by default
+
+for (i in 1:nrow(tmp)) {
+  # Santa's decision process
+  if (is.na(tmp$status[i])) {
+    tmp$present[i] <- NA_character_
+  } else if (tmp$status[i] == "naughty") {
+   tmp$present[i] <- "coal"
+  } else if (tmp$status[i] == "nice") {
+   tmp$present[i] <- "toy"
+  } else {
+    tmp$present[i] <- NA_character_ 
+  }
+}
+
+tmp
+```
+
+Now the if/else logic works exactly as intended. This is longer than the version using `ifelse()`, but it is perhaps more readable.
+
+####  {.unnumbered}
+
+In most cases in R and SAS, it is possible to write code without needing loops at all, because both languages are vector-based - they will often use **vectorized** functions which implicitly loop over each row without having to write a loop to do so. `ifelse()` is a vectorized version of `if() {} else {}`.
+
+Here is an example of the most basic for loop logic - printing the numbers 1 through 10 - in both R and SAS. SAS code is provided for both PROC IML and DATA steps.
+
+<details class="ex">
+
+<summary>
+
+For loops in R
+
+</summary>
+
+```{r forloop-demo}
+# R Example loop
+for (i in 1:10) {
+  print(i)
+}
+```
+
+</details>
+
+While the most straighforward (and common) case of for-loop use in practice is to count from 1 to N, both R and SAS allow for loops to use other sequence structures.
+
+<details>
+
+<summary>
+
+Other sequences in loops in R
+
+</summary>
+
+R allows loops to occur over any vector... even randomly generated numbers, or nonnumeric vectors (say, a character vector of URLs).
+
+```{r forloop-examples}
+x <- rnorm(5) # Generate 5 normal (0,1) samples
+
+for (i in x) {
+  print(i^2)
+}
+
+```
+
+We can also iterate by non-integer values using `seq(from = , to = , by = )`
+
+```{r forloop-examples-2}
+# This loop counts down in 1/2 units from 5 to 0
+for (i in seq(5, 0, -.5)) {
+  # do nothing
+}
+```
+
+</details>
+
+### Try it out (in R) {.unnumbered .tryitout}
+
+The `beepr` package plays sounds in R to alert you when your code has finished running (or just to annoy your friends and classmates). ([Documentation](https://www.r-project.org/nosvn/pandoc/beepr.html))
+
+::: note
+We'll learn more about packages in the next chapter, but for now, just go with it.
+:::
+
+You can install the package using the following command:
+
+```{r tryitout-beepr-install, eval = F}
+install.packages("beepr")
+```
+
+(if you are using Linux you will also need to make sure one of `paplay`, `aplay`, or `vlc` is installed)
+
+Load the library and write a `for` loop which plays the 10 different sounds corresponding to integers 1 through 10.
+
+```{r tryitout-beepr-test, eval = F}
+library(beepr) # load the beepr library
+
+beep(sound = 1) # sound is any integer between 1 and 10.
+```
+
+It may be helpful to add the command `Sys.sleep(5)` into your loop to space out the noises so that they can be heard individually.
+
+<details>
+
+<summary>
+
+Solution
+
+</summary>
+
+```{r tryitout-beepr-loop, eval = F}
+library(beepr)
+
+for (i in 1:10) {
+  beep(sound = i)
+  Sys.sleep(5)
+}
+
+```
+
+</details>
+
+## Condition-controlled loops (WHILE, DO WHILE)
+
+Frequently, we do not know how many times a loop will need to execute a priori. We might be converging on a value, and want to repeat the calculation until the new value is within an acceptably epsilon of the previous iteration. In these cases, it can be helpful to use a [WHILE loop](https://en.wikipedia.org/wiki/While_loop), which loops while the condition is true (another variant, the do-while loop, is similar, except that a do-while loop will always execute once, and checks the condition at the end of the iteration).
+
+If a WHILE loop condition is never falsified, the loop will continue forever. Thus, it is usually wise to include a loop counter as well, and a condition to terminate the loop if the counter value is greater than a certain threshold.
+
+Another explanation of while loops is available at [Khan Academy](https://www.khanacademy.org/computing/ap-computer-science-principles/programming-101/repetition-with-loops/a/conditional-repetition-of-instructions?modal=1).
+
+#### Example: The Basel Problem {.unnumbered .ex}
+
+Let's solve the [Basel problem](https://en.wikipedia.org/wiki/Basel_problem) in R and SAS using WHILE loops - we'll repeat the calculation until the value changes by less than 0.000001. The Basel problem is the problem of calculating the precise infinite summation $$\sum_{n=1}^\infty \frac{1}{n^2}$$
+
+We'll stick to calculating it computationally.
+
+::: panel-tabset
+##### R {.unnumbered}
+
+```{r basel-problem}
+# Start out by defining your starting values outside of the loop
+i <- 1
+basel_value <- 0 # initial guess
+prev_basel_value <- -Inf # previous value 
+while (abs(basel_value - prev_basel_value) > 0.000001) {
+  prev_basel_value <- basel_value # update condition
+  basel_value <- basel_value + 1/i^2
+  i <- i + 1
+  
+  # Prevent infinite loops
+  if (i > 1e6) {
+    break
+  }
+  
+  # Monitor the loop to know that it's behaving
+  if (i %% 200 == 0) {
+    print(c('i = ' = i, 'prev' = prev_basel_value, 'current' = basel_value, diff = basel_value - prev_basel_value))
+  }
+}
+
+i
+basel_value
+prev_basel_value
+```
+
+##### Python {.unnumbered}
+:::
+
+#### Try it out {.unnumbered .tryitout}
+
+::: panel-tabset
+##### Problem {.unnumbered}
+
+Write a while loop to calculate $\displaystyle \lim_{x \rightarrow 4} \frac{2 - \sqrt{x}}{4-x}$ by starting at 3 and halving the distance to 4 with each iteration. Exit the loop when you are within 1e-6 of the value computed on the previous iteration, or when you are within 1e-6 from 4. Which exit condition did you hit first? How do you know?
+
+##### R Solution {.unnumbered}
+
+```{r limit-tryitout-solution}
+x <- 3
+dist <- 4 - x
+current_value <- 0
+prev_value <- -Inf
+while (abs(current_value - prev_value) > 1e-6 & dist > 1e-6) {
+  prev_value <- current_value
+  dist <- dist/2
+  x <- 4 - dist
+  current_value <- (2 - sqrt(x))/(4-x)
+}
+
+c(x = x, dist = dist, current_value = current_value, d_value = abs(current_value - prev_value))
+```
+
+Before $x$ got to 4 - 1e-6, the change in f(x) became less than 1e-6.
+
+##### Python Solution {.unnumbered}
+:::
+
+### Other Loops and Interative Structures
+
+There are many different ways to implement iteration in any language, including very low-level controls like `repeat` (in R). Higher level iteration may include a FOREACH loop, where a series of commands is applied to a list or vector (the `*apply` commands in R are examples of this). An additional method of iteration that requires functions is the recursion (where a function calls itself). In every case, these alternative loop structures can be translated to for or while loops.
