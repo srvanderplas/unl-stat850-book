@@ -105,3 +105,49 @@ If you are reading in data from a file, this will cause some issues - the whole 
 One fix for this is to read things in as a character and use the `parse_number` function from the `readr` package -- we'll talk about the `readr` package in [Module 4](#reading-data)
 
 :::
+
+
+# --- If Statements
+
+### Example: If/then logic in R {.unnumbered .ex}
+
+The syntax for conditional statements using if/then logic is shown below using an example where Santa must determine which members of a household will receive a toy for Christmas and which members will receive coal. [^intro-prog-4]
+
+[^intro-prog-4]: Traditionally, naughty children get coal, while nice children get toys or candy.
+
+#### R {.unnumbered}
+
+```{r santa-unexpected, error = T}
+tmp <- data.frame(name = c("Alex", "Edison", "Susan", "Ryan"),
+                  status = c("naughty", "nice", NA, "neutral"),
+                  stringsAsFactors = F)
+# Santa's decision process
+
+if (tmp$status == "naughty") {
+ tmp$present <- "coal"
+} else {
+ tmp$present <- "toy"
+}
+
+tmp
+```
+
+What happened?
+
+When evaluating if statements, R does not evaluate each entry in the vector `tmp$status` separately. Instead, it takes the first value and issues a warning message. One option would be to use a loop, and examine each row in the data set separately. We'll talk about loops in the next subsection. Another option is to use the `ifelse()` function, which is `ifelse(condition, thing to do if condition is true, thing to do if condition is false)`
+
+```{r r santa-ifelse}
+tmp$present <- ifelse(tmp$status == "naughty", "coal", "toy")
+
+tmp
+```
+
+When R evaluates a missing value, (so ? NA == "naughty"), the result is `NA`. This is fine for us - if we don't have data on whether someone is naughty or nice, maybe we don't need to give them a present at all. But "neutral" is evaluated as getting a toy. Do we want that to happen? Maybe not. We might have to nest ifelse statements to solve this issue...
+
+```{r santa-naughty}
+tmp$present <- ifelse(tmp$status == "naughty", 
+                      "coal", 
+                      ifelse(tmp$status == "nice", "toy", NA))
+
+tmp
+```
