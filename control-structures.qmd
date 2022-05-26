@@ -1,385 +1,709 @@
+# Control Structures
 
-# Control structures
+## Mathematical Logic
 
-## If statements
+Before we start talking about data structures and control structures, though, we're going to take a minute to review some concepts from mathematical logic. This will be useful for both data structures and control structures, so stick with me for a few minutes.
 
-If statements are just about as simple in programming as they are in real life.
+### And, Or, and Not
 
-```{r, fig.cap = "[Source](https://xkcd.com/1652/).", fig.align = "center", echo = F}
-knitr::include_graphics("https://imgs.xkcd.com/comics/conditionals.png")
-```
+We can combine logical statements using and, or, and not.
 
-In general, the structure of an if statement is
+-   (X AND Y) requires that both X and Y are true.
+-   (X OR Y) requires that one of X or Y is true.
+-   (NOT X) is true if X is false, and false if X is true. Sometimes called **negation**.
 
-    if (condition) then {
-      # do something here
-    } 
+In R, we use `!` to symbolize NOT, in Python, we use `~` for vector-wise negation (NOT).
 
-If the condition is true, the inner code will be executed. Otherwise, nothing happens.
-
-You can add an else statement that will execute if the condition is not true
-
-    if (condition) then {
-      # do something
-    } else {
-      # do a different thing
-    }
-
-And in some languages, you can even have many sets of if statements:
-
-```{r, eval = F}
-if (condition) {
-  # do something
-} else if (condition 2) {
-  # do something else
-} else {
-  # do a third thing
-}
-```
-
-Note that this could also be written (perhaps more clearly) as:
-
-    if (condition) {
-      # do something
-    } else {
-      if (condition 2) {
-        # do something else
-      } else {
-        # do a third thing
-      }
-    }
-
-That is, `condition 2` is only checked once it is known that `condition` is false. Often, programmers use logic flow maps, like the one shown below, to map out a logical sequence and ensure that every possible value is handled appropriately.
-
-![If statement flow diagram, from wikimedia commons](https://upload.wikimedia.org/wikipedia/commons/c/c5/If-Then-Else-diagram.svg)
-
+Order of operations dictates that NOT is applied before other operations. So `NOT X AND Y` is read as `(NOT X) AND (Y)`. You must use parentheses to change the way this is interpreted.
 
 ::: panel-tabset
+#### R
 
-#### R {.unnumbered}
+```{r}
+x <- c(TRUE, FALSE, TRUE, FALSE)
+y <- c(TRUE, TRUE, FALSE, FALSE)
 
-#### Python {.unnumbered}
+x & y # AND
+x | y # OR
+!x & y # NOT X AND Y
+x & !y # X AND NOT Y
+```
+
+#### Python
+
+```{python}
+import numpy as np
+x = np.array([True, False, True, False])
+y = np.array([True, True, False, False])
+
+x & y
+x | y
+~x & y
+x & ~y
+```
+:::
+
+### De Morgan's Laws
+
+[De Morgan's Laws](https://en.wikipedia.org/wiki/De_Morgan%27s_laws) are a set of rules for how to combine logical statements. You can represent them in a number of ways:
+
+-   NOT(A or B) is equivalent to NOT(A) and NOT(B)
+-   NOT(A and B) is equivalent to NOT(A) or NOT(B)
+
+::: panel-tabset
+We can also represent them with Venn Diagrams.
+
+#### Definitions
+
+![Venn Diagram of Set A and Set B](images/control-structures/SetA%20and%20SetB.png) Suppose that we set the convention that ![Shaded regions are TRUE, unshaded regions are FALSE](images/control-structures/TrueFalse.png).
+
+#### DeMorgan's First Law
+
+![A venn diagram illustration of De Morgan's laws showing that the region that is outside of the union of A OR B (aka NOT (A OR B)) is the same as the region that is outside of (NOT A) and (NOT B)](images/control-structures/DeMorgan1.png)
+
+#### DeMorgan's Second Law
+
+![A venn diagram illustration of De Morgan's laws showing that the region that is outside of the union of A AND B (aka NOT (A AND B)) is the same as the region that is outside of (NOT A) OR (NOT B)](images/control-structures/DeMorgan2.png)
+:::
+
+DeMorgan's laws become very useful when you are writing complex conditional statements. They're basically the distributive rule of conditional statements and can help you simplify complex conditions.
+
+
+## Conditional (If) Statements
+
+Conditional statements determine if code is evaluated.
+
+They look like this:
+
+    if (condition)
+      then
+        (thing to do)
+      else
+        (other thing to do)
+
+The else (other thing to do) part may be omitted.
+
+When this statement is read by the computer, the computer checks to see if condition is true or false. If the condition is true, then (thing to do) is also run. If the condition is false, then (other thing to do) is run instead.
+
+Let's try this out:
+
+::: panel-tabset
+### R {.unnumbered}
+
+```{r}
+x <- 3
+y <- 1
+
+if (x > 2) { 
+  y <- 8
+} else {
+  y <- 4
+}
+
+print(paste("x =", x, "; y =", y))
+```
+
+In R, the logical condition after `if` must be in parentheses. It is common to then enclose the statement to be run if the condition is true in `{}` so that it is clear what code matches the if statement. You can technically put the condition on the line after the `if (x > 2)` line, and everything will still work, but then it gets hard to figure out what to do with the else statement - it technically would also go on the same line, and that gets hard to read.
+
+```{r}
+x <- 3
+y <- 1
+
+if (x > 2) y <- 8 else y <- 4
+
+print(paste("x =", x, "; y =", y))
+```
+
+So while the 2nd version of the code technically works, the first version with the brackets is much easier to read and understand. Please try to emulate the first version!
+
+### Python {.unnumbered}
+
+```{python}
+x = 3
+y = 1
+
+if x > 2:
+  y = 8
+else:
+  y = 4
+
+print("x =", x, "; y =", y)
+```
+
+In python, all code grouping is accomplished with spaces instead of with brackets. So in python, we write our if statement as `if x > 2:` with the colon indicating that what follows is the code to evaluate. The next line is indented with 2 spaces to show that the code on those lines belongs to that if statement. Then, we use the else: statement to provide an alternative set of code to run if the logical condition in the if statement is false. Again, we indent the code under the else statement to show where it "belongs".
+
+Python will throw errors if you mess up the spacing. This is one thing that is very annoying about Python... but it's a consequence of trying to make the code more readable.
+
+<!-- https://www.py4e.com/html3/03-conditional -->
+:::
+
+### Representing Conditional Statements as Diagrams
+
+A common way to represent conditional logic is to draw a flow chart diagram.
+
+In a flow chart, conditional statements are represented as diamonds, and other code is represented as a rectangle. Yes/no or True/False branches are labeled. Typically, after a conditional statement, the program flow returns to a single point.
+
+![Program flow diagram outline of a simple if/else statement](images/control-structures/flow-chart1.png)
+
+### Try it out! {.unnumbered .tryitout}
+
+::: panel-tabset
+#### Problem {.unnumbered}
+
+The US Tax code has brackets, such that the first \$10,275 of your income is taxed at 10%, anything between \$10,275 and \$41,775 is taxed at 12%, and so on.
+
+Here is the table of tax brackets for single filers in 2022:
+
+| rate | Income                 |
+|------|------------------------|
+| 10%  | \$0 to \$10,275        |
+| 12%  | \$10,275 to \$41,775   |
+| 22%  | \$41,775 to \$89,075   |
+| 24%  | \$89,075 to \$170,050  |
+| 32%  | \$170,050 to \$215,950 |
+| 35%  | \$215,950 to \$539,900 |
+| 37%  | \$539,900 or more      |
+
+Note: For the purposes of this problem, we're ignoring the personal exemption and the standard deduction, so we're already simplifying the tax code.
+
+Write a set of if statements that assess someone's income and determine what their overall tax rate is.
+
+Hint: You may want to keep track of how much of the income has already been taxed in a variable and what the total tax accumulation is in another variable.
+
+#### R Solution {.unnumbered}
+
+```{r}
+# Start with total income
+income <- 200000
+
+# x will hold income that hasn't been taxed yet
+x <- income
+# y will hold taxes paid
+y <- 0
+
+if (x <= 10275) {
+  y <- x*.1 # tax paid
+  x <- 0 # All money has been taxed
+} else {
+  y <- y + 10275 * .1
+  x <- x - 10275 # Money remaining that hasn't been taxed
+}
+
+if (x <= (41775 - 10275)) {
+  y <- y + x * .12
+  x <- 0
+} else {
+  y <- y + (41775 - 10275) * .12
+  x <- x - (41775 - 10275) 
+}
+
+if (x <= (89075 - 41775)) {
+  y <- y + x * .22
+  x <- 0
+} else {
+  y <- y + (89075 - 41775) * .22
+  x <- x - (89075 - 41775)
+}
+
+if (x <= (170050 - 89075)) {
+  y <- y + x * .24
+  x <- 0
+} else {
+  y <- y + (170050 - 89075) * .24
+  x <- x - (170050 - 89075)
+}
+
+if (x <= (215950 - 170050)) {
+  y <- y + x * .32
+  x <- 0
+} else {
+  y <- y + (215950 - 170050) * .32
+  x <- x - (215950 - 170050)
+}
+
+if (x <= (539900 - 215950)) {
+  y <- y + x * .35
+  x <- 0
+} else {
+  y <- y + (539900 - 215950) * .35
+  x <- x - (539900 - 215950)
+}
+
+if (x > 0) {
+  y <- y + x * .37
+}
+
+
+print(paste("Total Tax Rate on $", income, " in income = ", round(y/income, 4)*100, "%"))
+```
+
+#### Python Solution {.unnumbered}
+
+```{python}
+# Start with total income
+income = 200000
+
+# untaxed will hold income that hasn't been taxed yet
+untaxed = income
+# taxed will hold taxes paid
+taxes = 0
+
+if untaxed <= 10275:
+  taxes = untaxed*.1 # tax paid
+  untaxed = 0 # All money has been taxed
+else:
+  taxes = taxes + 10275 * .1
+  untaxed = untaxed - 10275 # money remaining that hasn't been taxed
+
+if untaxed <= (41775 - 10275):
+  taxes = taxes + untaxed * .12
+  untaxed = 0
+else:
+  taxes = taxes + (41775 - 10275) * .12
+  untaxed = untaxed - (41775 - 10275) 
+
+
+if untaxed <= (89075 - 41775):
+  taxes = taxes + untaxed * .22
+  untaxed = 0
+else: 
+  taxes = taxes + (89075 - 41775) * .22
+  untaxed = untaxed - (89075 - 41775)
+
+if untaxed <= (170050 - 89075):
+  taxes = taxes + untaxed * .24
+  untaxed = 0
+else: 
+  taxes = taxes + (170050 - 89075) * .24
+  untaxed = untaxed - (170050 - 89075)
+
+if untaxed <= (215950 - 170050):
+  taxes = taxes + untaxed * .32
+  untaxed = 0
+else:
+  taxes = taxes + (215950 - 170050) * .32
+  untaxed = untaxed - (215950 - 170050)
+
+if untaxed <= (539900 - 215950):
+  taxes = taxes + untaxed * .35
+  untaxed = 0
+else: 
+  taxes = taxes + (539900 - 215950) * .35
+  untaxed = untaxed - (539900 - 215950)
+
+
+if untaxed > 0:
+  taxes = taxes + untaxed * .37
+
+
+
+print("Total Tauntaxed Rate on $", income, " in income = ", round(taxes/income, 4)*100, "%")
+```
+
+We will find a better way to represent this calculation once we discuss loops - we can store each bracket's start and end point in a vector and loop through them. Any time you find yourself copy-pasting code and changing values, you should consider using a loop (or eventually a function) instead.
+
+### Program Flow Chart
+
+Let's explore using program flow maps for a slightly more complicated problem: The tax bracket example that we just used to try out if statement syntax.
+
+<!-- First, let's start by looking at a graph of the practical implication of taxing things using brackets. This graph shows the amount in each bracket as well as the amount of taxes paid. -->
+
+```{r tax-data, echo = F, eval = F, fig.width = 5, fig.height = 4, out.width = "60%", fig.cap = "Marginal tax brackets for an income of \\$200k"}
+library(tidyverse)
+
+
+x <- 200000
+
+df <- tribble(
+~rate, ~LB, ~UB,
+.1, 0, 10275	,
+.12, 10275, 41775,
+.22, 41775, 89075,
+.24, 89075, 170050,
+.32, 170050, 215950,
+.35, 215950, 539900,
+.37, 539900, Inf
+)  %>% 
+  mutate(bracket = 1:n()) %>%
+  mutate(bracket_lab = factor(bracket, labels = sprintf("~%0.0fK - ~%0.0fK", LB/1000, UB/1000) %>% str_remove(" - ~InfK") %>% str_replace("~0K", "0"))) %>%
+  mutate(
+  taxable_amount = pmax(pmin((x - LB),0), pmax(0,pmin(UB, x) - LB)),
+  taxes = taxable_amount * rate,
+  untaxed_amount = taxable_amount - taxes
+)
+
+df2 <- df %>%
+  pivot_longer(taxable_amount:taxes, names_to = "type", values_to = "amount") %>%
+  mutate(type = str_replace_all(type, c("taxes" = "Taxes", "taxable_amount" = "Taxable Amount")))
+
+df2 %>% 
+  ggplot(aes(ymin = bracket -.4, ymax = bracket + .4, xmin = 0, xmax = amount, fill = type)) + 
+  geom_rect(alpha = .5, color = "black") +
+  scale_fill_manual(values = c("Taxes" = "black", "Taxable Amount" = "white")) + 
+  scale_y_continuous("Tax Bracket", breaks = df$bracket, labels = df$bracket_lab) + 
+  scale_x_continuous("Marginal Amount", expand = expansion(mult = c(0.025, .1), add = c(0, .1))) + 
+  geom_text(data = filter(df2, df2$type == "Taxable Amount"), aes(x = amount, y = bracket, label = sprintf("%.0f%%", rate*100), color = "Marginal rate"), hjust = -.1) + 
+  scale_color_manual("", values = c("Marginal rate" = "red")) + 
+  theme_bw() + 
+  theme(legend.position = "bottom", legend.title = element_blank()) + 
+  ggtitle("Breaking down Taxation (Single Bracket, 2022, for 200K)")
+
+```
+
+![The control flow diagram for the code in the previous example](images/control-structures/tax-brackets.png)
+
+Control flow diagrams can be extremely helpful when figuring out how programs work (and where gaps in your logic are when you're debugging). It can be very helpful to map out your program flow as you're untangling a problem.
 
 :::
 
-There are more complicated if-statement like control structures, such as switch statements, which can save time and typing. In the interests of simplicity, we will skip these for now, as any conditional can be implemented with sequences of if statements in the proper order. If you would like to read about switch statements, here is a link to [base R switch statement explanation](https://www.tutorialgateway.org/r-switch-statement/) and [documentation](https://www.rdocumentation.org/packages/base/versions/3.6.2/topics/switch).
+#### Chaining Conditional Statements: Else-If
 
-### Try it out {.unnumbered .tryitout}
+In many cases, it can be helpful to have a long chain of conditional statements describing a sequence of alternative statements.
+
+::: ex
+For instance, suppose I want to determine what categorical age bracket someone falls into based on their numerical age. All of the bins are mutually exclusive - you can't be in the 25-40 bracket and the 41-55 bracket.
 
 ::: panel-tabset
+##### Program Flow Map {.unnumbered}
 
-#### Setup {.unnumbered}
+![Program flow map for a series of mutually exclusive categories. If our goal is to take a numeric age variable and create a categorical set of age brackets, such as \<18, 18-25, 26-40, 41-55, 56-65, and \>65, we can do this with a series of if-else statements chained together. Only one of the bracket assignments is evaluated, so it is important to place the most restrictive condition first.](images/control-structures/age-category-prog-flow.png)
 
-The `sample()` function selects a random sample of entries from a vector. Suppose we sample a random vector $x$ with 10 entries. Write one or more if statements to fulfill the following conditions
+The important thing to realize when examining this program flow map is that if `age <= 18` is true, then **none of the other conditional statements even get evaluated**. That is, once a statement is true, none of the other statements matter. Because of this, it is important to place the most restrictive statement first.
 
--   if $x$ is divisible by 2, $y$ should be positive; otherwise, it should be negative.
--   if $x$ is divisible by 3, $y$ should have a magnitude of 2; otherwise, it should have a magnitude of 1.
+![Program flow map for a series of mutually exclusive categories, emphasizing that only some statements are evaluated. When age = 40, only (age \<= 18), (age \<= 25), and (age \<= 40) are evaluated conditionally. Of the assignment statements, only bracket = '26-40' is evaluated when age = 40.](images/control-structures/age-category-prog-flow2.png)
 
-It may be helpful to define separate variables `y_mag` and `y_sign` and then multiply them afterwards. Once you have found the value of $y$ compute $\text{sum}(x * y)$.
+If for some reason you wrote your conditional statements in the wrong order, the wrong label would get assigned:
 
-#### R skeleton {.unnumbered}
+![Program flow map for a series of mutually exclusive categories, with category labels in the wrong order - \<40 is evaluated first, and so \<= 25 and \<= 18 will never be evaluated and the wrong label will be assigned for anything in those categories.](images/control-structures/age-category-prog-flow3.png)
 
-```{r tryitout-sample}
-set.seed(342502837)
-x <- sample(1:50, size = 20, replace = F)
+In code, we would write this statement using `else-if` (or `elif`) statements.
 
-# Conditional statements go here
+##### R {.unnumbered}
 
-sum(x * y)
+```{r else-if-statements}
+age <- 40 # change this as you will to see how the code works
+
+if (age < 18) {
+  bracket <- "<18"
+} else if (age <= 25) {
+  bracket <- "18-25"
+} else if (age <= 40) {
+  bracket <- "26-40"
+} else if (age <= 55) {
+  bracket <- "41-55" 
+} else if (age <= 65) {
+  bracket <- "56-65"
+} else {
+  bracket <- ">65"
+}
+
+bracket
 ```
 
-#### Python skeleton {.unnumbered}
+##### Python {.unnumbered}
 
-#### R solution {.unnumbered}
+Python uses `elif` as a shorthand for `else if` statements. As always, indentation/white space in python matters. If you put an extra blank line between two elif statements, then the interpreter will complain. If you don't indent properly, the interpreter will complain.
 
-```{r tryitout-sample-solution}
-set.seed(342502837)
-x <- sample(1:50, size = 20, replace = F)
+```{python elif-statements}
+age = 40 # change this to see how the code works
 
-y_sign <- ifelse(x %% 2 == 0, 1, -1)
-y_mag <- ifelse(x %% 3 == 0, 2, 1)
-y <- y_sign * y_mag
-
-sum(x * y)
+if age < 18:
+  bracket = "<18"
+elif age <= 25:
+  bracket = "18-25"
+elif age <= 40:
+  bracket = "26-40"
+elif age <= 55:
+  bracket = "41-55"
+elif age <= 65:
+  bracket = "56-65"
+else:
+  bracket = ">65"
+  
+bracket
 ```
-
-#### Python solution {.unnumbered}
-
+:::
 :::
 
 ## Loops
 
-Often, we need to do a single task many times - for instance, we may need to calculate the average data value for each week, using daily data. Rather than typing out 52 different iterations of the same code, it is likely easier to type out one single block of code which contains the steps necessary to complete one instance of the task, and then leverage variables to ensure that each task is completed the correct number of times, using the correct inputs.
+<!-- https://www.py4e.com/html3/05-iterations -->
 
-Let us start with the most generic loop written in pseudocode (code that won't work, but provides the general idea of the steps which are taken)
+Often, we write programs which update a variable in a way that the new value of the variable depends on the old value:
 
-    loop_invocation(iteration variable, exit condition) {
-      # Steps to repeat
-    }
+    x = x + 1
 
-We use the `loop_invocation` function to indicate what type of loop we use. We have at least one `iteration variable` that indicates where in the looping process we currently are. This may be an index (if we want to do something 500 times, it would take values from 1 to 500), or it may take a more complicated sequence of values (for instance, if we are testing convergence, we might put some sort of delta variable as the iteration variable). Most loops also have an explicit exit condition that is part of the loop invocation; more rarely, a loop may depend on `break` statements that cause the control flow of the code to exit. Without some sort of exit condition, our program would run forever, which is... not optimal.
+This means that we add one to the current value of `x`.
 
-### Count controlled loops (FOR loops)
+Before we write a statement like this, we have to **initialize** the value of `x` because otherwise, we don't know what value to add one to.
 
-In a for loop, the steps in the loop body repeat a specified number of times. That is, *for* each value in a sequence, the steps within the loop are repeated.
+    x = 0
+    x = x + 1
 
-Another explanation of for loops is available at [Khan Academy](https://www.khanacademy.org/computing/ap-computer-science-principles/programming-101/repetition-with-loops/a/repetition-with-for-loops?modal=1).
+We sometimes use the word **increment** to talk about adding one to the value of `x`; **decrement** means subtracting one from the value of `x`.
 
-#### Example: Santa and if/else + loops in R (plus some debugging strategies) {.unnumbered .ex}
+A particularly powerful tool for making these types of repetitive changes in programming is the **loop**, which executes statements a certain number of times. Loops can be written in several different ways, but all loops allow for executing a block of code a variable number of times.
 
-For instance, suppose we want to revisit our R Santa example from the previous section. The original if/else code we wrote in R didn't work, because R evaluates if statements using a single (scalar or vector of length 1) condition. If we add a loop around that code, we can evaluate only one row at a time. We need to check every row, so we'll iterate over `1:nrow(tmp)` - it's better to get the upper bound from the data frame, rather than just using 4 - if we add another entry, the code will still work if we're using `nrow(tmp)` to define how many iterations we need.
+### While Loops
 
-We start by defining our data frame:
+In the previous section, we discussed conditional statements, where a block of code is only executed *if* a logical statement is true.
 
-```{r forloop-df-setup}
-tmp <- data.frame(name = c("Alex", "Edison", "Susan", "Ryan"),
-                  status = c("naughty", "nice", NA, "neutral"),
-                  stringsAsFactors = F)
-```
+The simplest type of loop is the **while** loop, which executes a block of code until a statement is no longer true.
 
-And then we add the basic loop syntax:
-
-```{r forloop-df-syntax}
-for (i in 1:nrow(tmp)) {
-  
-}
-```
-
-For some reason, `i` is often used as the iteration variable (with `j` and `k` for nested loops).
-
-What this loop says is that `i` will first take on the value 1, then 2, then 3, then 4. On each iteration, `i` will advance to the next value in the vector of options we have provided.
-
-Now we need to add the middle part by adapting the conditional statement we used before so that it looks at only the `i`th row. I've also added the catch-all else condition that assigns NA for any value that isn't "naughty" or "nice".
-
-It's good practice to initialize your variable (create a column for it) ahead of time and set the variable to a default value.
-
-```{r forloop-df-logic, error = T}
-
-tmp$present <- NA # Initialize column and set to NA by default
-
-for (i in 1:nrow(tmp)) {
-  # Santa's decision process
-  if (tmp$status[i] == "naughty") {
-   tmp$present[i] <- "coal"
-  } else if (tmp$status[i] == "nice") {
-   tmp$present[i] <- "toy"
-  } else {
-    tmp$present[i] <- NA_character_ 
-    # use a special NA value that has 
-    # character type to avoid any issues
-  }
-}
-```
-
-Well, that didn't work! We can see that the loop stopped at `i = 3` by printing out the value of `i` - because the loop failed, `i` will still contain the value which caused the loop to stop.
-
-```{r forloop-df-print}
-i
-tmp[i,] # print tmp at that point
-```
-
-Combining this information with the error above, we can guess that R stopped evaluating the loop because the if statement returned NA (missing) instead of TRUE or FALSE.
-
-if/else statements in R can't evaluate to `NA`, so we need to restructure our conditional statement - first, we'll test for `NA` values, then, we can test for naughty and nice, and we'll keep the catch-all statement at the bottom. We'll test for an `NA` value using the function `is.na()`.
-
-```{r forloop-df-logic2}
-
-tmp$present <- NA # Initialize column and set to NA by default
-
-for (i in 1:nrow(tmp)) {
-  # Santa's decision process
-  if (is.na(tmp$status[i])) {
-    tmp$present[i] <- NA_character_
-  } else if (tmp$status[i] == "naughty") {
-   tmp$present[i] <- "coal"
-  } else if (tmp$status[i] == "nice") {
-   tmp$present[i] <- "toy"
-  } else {
-    tmp$present[i] <- NA_character_ 
-  }
-}
-
-tmp
-```
-
-Now the if/else logic works exactly as intended. This is longer than the version using `ifelse()`, but it is perhaps more readable.
-
-####  {.unnumbered}
-
-In most cases in R and SAS, it is possible to write code without needing loops at all, because both languages are vector-based - they will often use **vectorized** functions which implicitly loop over each row without having to write a loop to do so. `ifelse()` is a vectorized version of `if() {} else {}`.
-
-Here is an example of the most basic for loop logic - printing the numbers 1 through 10 - in both R and SAS. SAS code is provided for both PROC IML and DATA steps.
-
-<details class="ex">
-
-<summary>
-
-For loops in R
-
-</summary>
-
-```{r forloop-demo}
-# R Example loop
-for (i in 1:10) {
-  print(i)
-}
-```
-
-</details>
-
-While the most straighforward (and common) case of for-loop use in practice is to count from 1 to N, both R and SAS allow for loops to use other sequence structures.
-
-<details>
-
-<summary>
-
-Other sequences in loops in R
-
-</summary>
-
-R allows loops to occur over any vector... even randomly generated numbers, or nonnumeric vectors (say, a character vector of URLs).
-
-```{r forloop-examples}
-x <- rnorm(5) # Generate 5 normal (0,1) samples
-
-for (i in x) {
-  print(i^2)
-}
-
-```
-
-We can also iterate by non-integer values using `seq(from = , to = , by = )`
-
-```{r forloop-examples-2}
-# This loop counts down in 1/2 units from 5 to 0
-for (i in seq(5, 0, -.5)) {
-  # do nothing
-}
-```
-
-</details>
-
-### Try it out (in R) {.unnumbered .tryitout}
-
-The `beepr` package plays sounds in R to alert you when your code has finished running (or just to annoy your friends and classmates). ([Documentation](https://www.r-project.org/nosvn/pandoc/beepr.html))
-
-::: note
-We'll learn more about packages in the next chapter, but for now, just go with it.
-:::
-
-You can install the package using the following command:
-
-```{r tryitout-beepr-install, eval = F}
-install.packages("beepr")
-```
-
-(if you are using Linux you will also need to make sure one of `paplay`, `aplay`, or `vlc` is installed)
-
-Load the library and write a `for` loop which plays the 10 different sounds corresponding to integers 1 through 10.
-
-```{r tryitout-beepr-test, eval = F}
-library(beepr) # load the beepr library
-
-beep(sound = 1) # sound is any integer between 1 and 10.
-```
-
-It may be helpful to add the command `Sys.sleep(5)` into your loop to space out the noises so that they can be heard individually.
-
-<details>
-
-<summary>
-
-Solution
-
-</summary>
-
-```{r tryitout-beepr-loop, eval = F}
-library(beepr)
-
-for (i in 1:10) {
-  beep(sound = i)
-  Sys.sleep(5)
-}
-
-```
-
-</details>
-
-## Condition-controlled loops (WHILE, DO WHILE)
-
-Frequently, we do not know how many times a loop will need to execute a priori. We might be converging on a value, and want to repeat the calculation until the new value is within an acceptably epsilon of the previous iteration. In these cases, it can be helpful to use a [WHILE loop](https://en.wikipedia.org/wiki/While_loop), which loops while the condition is true (another variant, the do-while loop, is similar, except that a do-while loop will always execute once, and checks the condition at the end of the iteration).
-
-If a WHILE loop condition is never falsified, the loop will continue forever. Thus, it is usually wise to include a loop counter as well, and a condition to terminate the loop if the counter value is greater than a certain threshold.
-
-Another explanation of while loops is available at [Khan Academy](https://www.khanacademy.org/computing/ap-computer-science-principles/programming-101/repetition-with-loops/a/conditional-repetition-of-instructions?modal=1).
-
-#### Example: The Basel Problem {.unnumbered .ex}
-
-Let's solve the [Basel problem](https://en.wikipedia.org/wiki/Basel_problem) in R and SAS using WHILE loops - we'll repeat the calculation until the value changes by less than 0.000001. The Basel problem is the problem of calculating the precise infinite summation $$\sum_{n=1}^\infty \frac{1}{n^2}$$
-
-We'll stick to calculating it computationally.
+![Flow map showing while-loop pseudocode (while x \<= N) { \# code that changes x in some way} and the program flow map expansion where we check if x \> N (exiting the loop if true); otherwise, we continue into the loop, execute the main body of #code and then change x and start over.](images/control-structures/while-loop-flow.png)
 
 ::: panel-tabset
 ##### R {.unnumbered}
 
-```{r basel-problem}
-# Start out by defining your starting values outside of the loop
-i <- 1
-basel_value <- 0 # initial guess
-prev_basel_value <- -Inf # previous value 
-while (abs(basel_value - prev_basel_value) > 0.000001) {
-  prev_basel_value <- basel_value # update condition
-  basel_value <- basel_value + 1/i^2
-  i <- i + 1
-  
-  # Prevent infinite loops
-  if (i > 1e6) {
-    break
-  }
-  
-  # Monitor the loop to know that it's behaving
-  if (i %% 200 == 0) {
-    print(c('i = ' = i, 'prev' = prev_basel_value, 'current' = basel_value, diff = basel_value - prev_basel_value))
-  }
-}
+```{r while-loop-r}
+x <- 0
 
-i
-basel_value
-prev_basel_value
+while (x < 10) { 
+  # Everything in here is executed 
+  # during each iteration of the loop
+  print(x)
+  x <- x + 1
+}
 ```
 
 ##### Python {.unnumbered}
+
+```{python while-loop-py}
+x = 0
+
+while x < 10:
+  print(x)
+  x = x + 1
+
+```
 :::
 
-#### Try it out {.unnumbered .tryitout}
+#### Try it Out! {.unnumbered .tryitout}
 
 ::: panel-tabset
 ##### Problem {.unnumbered}
 
-Write a while loop to calculate $\displaystyle \lim_{x \rightarrow 4} \frac{2 - \sqrt{x}}{4-x}$ by starting at 3 and halving the distance to 4 with each iteration. Exit the loop when you are within 1e-6 of the value computed on the previous iteration, or when you are within 1e-6 from 4. Which exit condition did you hit first? How do you know?
+Write a while loop that verifies that $$\lim_{N \rightarrow \infty} \prod_{k=1}^N \left(1 + \frac{1}{k^2}\right) = \frac{e^\pi - e^{-\pi}}{2\pi}.$$
+
+Terminate your loop when you get within 0.0001 of $\frac{e^\pi - e^{-\pi}}{2\pi}$. At what value of $k$ is this point reached?
+
+##### Math Notation {.unnumbered}
+
+Breaking down math notation for code:
+
+-   If you are unfamiliar with the notation $\prod_{k=1}^N f(k)$, this is the product of $f(k)$ for $k = 1, 2, ..., N$, $$f(1)\cdot f(2)\cdot ... \cdot f(N)$$
+
+-   To evaluate a limit, we just keep increasing $N$ until we get arbitrarily close to the right hand side of the equation.
+
+In this problem, we can just keep increasing $k$ and keep track of the cumulative product. So we define `k=1`, `prod = 1`, and `ans` before the loop starts. Then, we loop over `k`, multiplying `prod` by $(1 + 1/k^2)$ and then incrementing $k$ by one each time. At each iteration, we test whether `prod` is close enough to `ans` to stop the loop.
 
 ##### R Solution {.unnumbered}
 
-```{r limit-tryitout-solution}
-x <- 3
-dist <- 4 - x
-current_value <- 0
-prev_value <- -Inf
-while (abs(current_value - prev_value) > 1e-6 & dist > 1e-6) {
-  prev_value <- current_value
-  dist <- dist/2
-  x <- 4 - dist
-  current_value <- (2 - sqrt(x))/(4-x)
+In R, you will use `pi` and `exp()` - these are available by default without any additional libraries or packages.
+
+```{r}
+k <- 1
+prod <- 1
+ans <- (exp(pi) - exp(-pi))/(2*pi)
+delta <- 0.0001
+
+while (abs(prod - ans) >= 0.0001) {
+  prod <- prod * (1 + 1/k^2)
+  k <- k + 1
 }
 
-c(x = x, dist = dist, current_value = current_value, d_value = abs(current_value - prev_value))
+k
+prod
+ans
 ```
 
-Before $x$ got to 4 - 1e-6, the change in f(x) became less than 1e-6.
+##### Python solution {.unnumbered}
 
-##### Python Solution {.unnumbered}
+Note that in python, you will have to import the math library to get the values of pi and the `exp` function. You can refer to these as `math.pi` and `math.exp()` respectively.
+
+```{python}
+import math
+
+k = 1
+prod = 1
+ans = (math.exp(math.pi) - math.exp(-math.pi))/(2*math.pi)
+delta = 0.0001
+
+while abs(prod - ans) >= 0.0001:
+  prod = prod * (1 + k**-2)
+  k = k + 1
+  if k > 500000:
+    break
+
+
+print("At ", k, " iterations, the product is ", prod, "compared to the limit ", ans,".")
+```
 :::
 
-### Other Loops and Interative Structures
+#### For Loops
 
-There are many different ways to implement iteration in any language, including very low-level controls like `repeat` (in R). Higher level iteration may include a FOREACH loop, where a series of commands is applied to a list or vector (the `*apply` commands in R are examples of this). An additional method of iteration that requires functions is the recursion (where a function calls itself). In every case, these alternative loop structures can be translated to for or while loops.
+Another common type of loop is a **for** loop. In a for loop, we run the block of code, iterating through a series of values (commonly, one to N, but not always). Generally speaking, for loops are known as **definite** loops because the code inside a for loop is executed a specific number of times. While loops are known as **indefinite** loops because the code within a while loop is evaluated until the condition is falsified, which is not always a known number of times.
+
+::: panel-tabset
+##### Flow Map {.unnumbered}
+
+![Flow map showing for-loop pseudocode (for j in 1 to N) { \# code} and the program flow map expansion where j starts at 1 and we check if j \> N (exiting the loop if true); otherwise, we continue into the loop, execute the main body of #code and then increment j and start over.](images/control-structures/for-loop-flow.png)
+
+##### R {.unnumbered}
+
+```{r}
+for (i in 1:5 ) {
+  print(i)
+}
+
+```
+
+##### Python {.unnumbered}
+
+```{python}
+for i in range(5):
+  print(i)
+
+```
+
+By default `range`(5) goes from 0 to 5, the upper bound. When `i = 5` the loop exits. This is because `range(5)` creates a vector `[0, 1, 2, 3, 4]`.
+:::
+
+For loops are often run from 1 to N (or 0 to N-1 in python) but in essence, a for loop is run for every value of a vector (which is why loops are included in the same chapter as vectors).
+
+::: ex
+::: panel-tabset
+##### R {.unnumbered}
+
+For instance, in R, there is a built-in variable called `month.name`. Type `month.name` into your R console to see what it looks like. If we want to iterate along the values of month.name, we can:
+
+```{r}
+for (i in month.name)
+  print(i)
+```
+
+##### Python {.unnumbered}
+
+In python, we have to define our vector or list to start out with, but that's easy enough:
+
+```{python}
+futurama_crew = ['Fry', 'Leela', 'Bender', 'Amy', 'the Professor', 'Hermes', 'Zoidberg', 'Nibbler']
+for i in futurama_crew:
+  print(i)
+
+```
+:::
+:::
+
+::: watch-out
+#### Avoiding Infinite Loops
+
+It is very easy to create an **infinite** loop when you are working with while loops. Infinite loops never exit, because the condition is always true. If in the while loop example we decrement x instead of incrementing x, the loop will run forever.
+
+You want to try very hard to avoid ever creating an infinite loop - it can cause your session to crash.
+
+One common way to avoid infinite loops is to create a second variable that just counts how many times the loop has run. If that variable gets over a certain threshold, you exit the loop.
+
+::: panel-tabset
+##### R {.unnumbered}
+
+This while loop runs until either x \< 10 or n \> 50 - so it will run an indeterminate number of times and depends on the random values added to x. Since this process (a 'random walk') could theoretically continue forever, we add the n\>50 check to the loop so that we don't tie up the computer for eternity.
+
+```{r infinite-loop-exit-r}
+x <- 0
+n <- 0 # count the number of times the loop runs
+
+while (x < 10) { 
+  print(x)
+  x <- x + rnorm(1) # add a random normal (0, 1) draw each time
+  n <- n + 1
+  if (n > 50) 
+    break # this stops the loop if n > 50
+}
+```
+
+##### Python {.unnumbered}
+
+```{python infinite-loop-exit-py}
+import numpy as np; # for the random normal draw
+
+x = 0
+n = 0 # count the number of times the loop runs
+
+while x < 10:
+  print(x)
+  x = x + np.random.normal(0, 1, 1) # add a random normal (0, 1) draw each time
+  n = n + 1
+  if n > 50:
+    break # this stops the loop if n > 50
+
+```
+:::
+
+In both of the examples above, there are more efficient ways to write a random walk, but we will get to that later. The important thing here is that we want to make sure that our loops don't run for all eternity.
+:::
+
+#### Controlling Loops
+
+<!-- https://www.py4e.com/html3/05-iterations -->
+
+<!-- https://www.datamentor.io/r-programming/break-next/ -->
+
+Sometimes it is useful to control the statements in a loop with a bit more precision. You may want to skip over code and proceed directly to the next iteration, or, as demonstrated in the previous section with the `break` statement, it may be useful to exit the loop prematurely.
+
+::: panel-tabset
+##### Break Statement {.unnumbered}
+
+![A break statement is used to exit a loop prematurely](images/control-structures/break-statement.png)
+
+##### Next/Continue Statement {.unnumbered}
+
+![A next (or continue) statement is used to skip the body of the loop and continue to the next iteration](images/control-structures/next-statement-flow.png)
+:::
+
+::: ex
+Let's demonstrate the details of next/continue and break statements.
+
+We can do different things based on whether i is evenly divisible by 3, 5, or both 3 and 5 (thus divisible by 15)
+
+::: panel-tabset
+##### R {.unnumbered}
+
+```{r}
+for (i in 1:20) {
+  if (i %% 15 == 0) {
+    print("Exiting now")
+    break
+  } else if (i %% 3 == 0) {    
+    print("Divisible by 3")
+    next
+    print("After the next statement") # this should never execute
+  } else if (i %% 5 == 0) {
+    print("Divisible by 5")
+  } else {
+    print(i)
+  }
+}
+```
+
+##### Python {.unnumbered}
+
+```{python}
+for i in range(1, 20):
+  if i%15 == 0:
+    print("Exiting now")
+    break
+  elif i%3 == 0:
+    print("Divisible by 3")
+    continue
+    print("After the next statement") # this should never execute
+  elif i%5 == 0:
+    print("Divisible by 5")
+  else: 
+    print(i)
+
+```
+:::
+:::
+
+To be quite honest, I haven't really ever needed to use next/continue statements when I'm programming, and I rarely use break statements. However, it's useful to know they exist just in case you come across a problem where you could put either one to use.

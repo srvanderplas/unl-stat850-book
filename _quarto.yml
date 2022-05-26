@@ -11,7 +11,7 @@ book:
     - intro-prog.qmd
     - basic-types.qmd
     - data-structures.qmd
-  # - control-structures.qmd
+    - control-structures.qmd
     - references.qmd
   appendices:
     - app-sas.qmd
