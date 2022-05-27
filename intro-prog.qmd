@@ -64,58 +64,6 @@ It's important to have the right commands in the right order.
 It's important to get both the level of specificity and the order of the commands just right when programming.
 :::
 
-## Statistical Programming Languages {.unnumbered}
-
-Having established the generic definitions of the concepts which apply to almost any programming language, we now must examine how specific programming languages implement these concepts.
-
-R and SAS are both *statistical* programming languages - they are specifically designed to work with data, which means that they make compromises that other languages do not in order to make it easier to write code where the data (rather than the functions, classes, methods, or objects) are the primary concern.
-
-Python is a **general purpose** programming language. It can be much more difficult to accomplish simple data-driven tasks in Python, but Python's construction will be much more familiar to anyone who has spent time in C, Java, or other general-purpose languages.
-
-Here are a few quick facts about each of the 3 programming languages that are mentioned (even peripherally) in this book or are used in the statistics department at UNL:
-
-::: panel-tabset
-### R {#r-quick-facts .unnumbered}
-
--   Predecessor: S\
-    R is an open-source clone of the S statistical programming language used internally at AT&T Bell Labs. S dates back to 1976; R first appeared in 1991 and was made public in 1993.
-
--   [History of R](https://bookdown.org/rdpeng/rprogdatascience/history-and-overview-of-r.html)
-
--   Language type:\
-    **functional** - consists mainly of functions that manipulate objects
-
-### Python {#python-quick-facts .unnumbered}
-
--   Predecessor: ABC programming language
-
--   [History of Python](https://en.wikipedia.org/wiki/History_of_Python)
-
--   Language type:\
-    **interpreted** **general purpose** high level programming language. Focus on readable code using indentation to indicate grouping.
-
-### SAS {#sas-quick-facts .unnumbered}
-
--   Predecessor: None\
-    SAS dates back to the 1960s and has syntax which is unique because it predates C and Fortran.
-
--   [History of SAS](https://en.wikipedia.org/wiki/SAS_(software)#History)
-
--   Language type:\
-    **procedural** - consists of steps/procedures that list the manipulations that will be performed on a set of data
-
--   Other Notes:
-
-    -   SAS is actually several languages. Commands that work in the DATA step do not necessarily work in a PROC step. SAS also has its own general purpose programming language called IML (Interactive Matrix programming Language).
-    -   The way SAS has been included in this course is different than it is usually taught, because I try to introduce SAS concepts at the same time as the corresponding R concept. If you are just needing to use SAS for e.g. your linear modeling classes, please just use the SAS documentation - it will be more than sufficient.
-:::
-
-### If you've used R/SAS/Python before... {.unnumbered .note}
-
-If you've programmed before, the next few chapters are going to seem very ... boring. Sorry, there's no help for that. Some of your classmates haven't ever so much as written "Hello World", and we have to get them up to speed.
-
-If you're bored, or feel like you know this material, skim through it anyways just to confirm (and if I'm doing something that's really out there, or there's an easier way to do it, tell me!). Then you can either find something in the references that you don't know already (the book Advanced R is always a great place to start if you want to be quickly confused), or help your classmates that are less experienced.
-
 
 ## Breaking Problems Down
 
@@ -228,73 +176,6 @@ Working this out in a small example helped me come up with that formula; now, I 
 -   line 4: i = 4, n = 10, 7 spaces, 7 stars, 7 spaces
 -   ...
 -   line n: i = n, n = 10, 1 space, 19 stars, 1 space
-
-:::
-
-
-## Packages in R and Python
-
-We've now officially covered the bare essentials of programming... while doing very little actual programming.
-
-Before we start writing code, we need to address one additional thing: base Python, by default, doesn't have much of the basic functionality for working with data. Python is a multipurpose language, and as a result, we will load packages that we need to do various specific tasks. R also has these additional packages to do specific tasks, we just haven't gotten to the point where we need additional R packages yet because R is designed for working with data.
-
-::: panel-tabset
-
-### R {- .unnumbered}
-
-To install the `tibble` package in R, we would use the following code:
-
-```{r, eval = F}
-install.packages("tibble")
-```
-
-Then, to use the functions within that package, we need to load the package:
-
-```{r, eval = F}
-library(tibble)
-```
-
-When you load a package, all of the functions in that package are added to your R Namespace (this is a technical term) - basically the list of all of the things R knows about. This may be problematic if you have two packages with the same function name.
-
-If you want to use a function from a package without loading the package into your namespace, you can do that by using `pkgname::function` syntax.
-
-For instance, this code creates a sample data frame using the `tribble` function in the `tibble` package.
-
-```{r}
-tibble::tribble(~col1, ~col2, 1, 'a', 2, 'b', 3, 'c')
-```
-
-
-### Python {- .unnumbered}
-
-In Python, we install packages using the terminal (if you're only working in python), or if you're working in RStudio, you would write some R code using the `reticulate` package. You could put this R code into the R console (if you want) or into your rmarkdown/quarto markdown file (if you want). The important thing is that the package gets installed for whatever python executable you are using with R^[This can be an incredibly challenging thing to get right, and I'm intentionally glossing over it right now.].
-
-In the terminal (NOT the R console) you might install the numpy package using `pip` (the python package manager):
-
-```
-pip install numpy
-```
-
-If you want to handle all of the python stuff from within R (or you're using a project with both and want to make sure it is all inter-operable, as I'm doing with this book), you would probably prefer to install the package by typing the following into the R console:
-
-```{r, eval = F}
-reticulate::install_py('numpy')
-```
-
-Then, when you want to use a python package, you would create a Python chunk or file and run the following code to load numpy:
-
-```{python}
-import numpy as np
-
-```
-
-This says we're going to refer to the numpy package as `np`, so any functions from that package will be called using `np.functionname`. This is different from how R typically handles this (and more similar to the `pkgname::functionname` syntax), but it ensures that there are not namespace collisions when you load multiple python packages. In general, this is much clearer.
-
-If you want to use R-style package loading, you can, but this is generally discouraged because it can cause issues when you are using multiple packages.
-
-```{python, eval = F}
-from numpy import *
-```
 
 :::
 
@@ -472,6 +353,149 @@ np.round(np.dot(mat, minv), 2)
 ```
 
 :::
+
+
+## Scripts and Notebooks
+
+In this class, we'll be using quarto markdown notebooks to keep our code and notes in the same place. One of the advantages of both R and Python is that they are both scripting languages, but they can be used within notebooks as well. This means that you can have an R script file or a python script file, and you can run that file, but you can also create a document (like the one you're reading now) that has code AND text together in one place. This is called [literate programming](https://en.wikipedia.org/wiki/Literate_programming) and it is a very useful workflow both when you are learning programming and when you are working as an analyst and presenting results.
+
+### Scripts
+
+Before I show you how to use literate programming, let's look at what it replaces: scripts. **Scripts** are files of code that are meant to be run on their own. They may produce results, or format data and save it somewhere, or scrape data from the web -- scripts can do just about anything.
+
+Scripts can even have documentation within the file, using `#` characters (at least, in R and python) at the beginning of a line. `#` indicates a comment -- that is, that the line does not contain code and should be ignored by the computer when the program is run. Comments are incredibly useful to help humans understand what the code does and why it does it.
+
+::: ex
+#### Plotting a [logarithmic spiral](https://mathworld.wolfram.com/LogarithmicSpiral.html)
+
+This code will use concepts we have not yet introduced - feel free to tinker with it if you want, but know that you're not responsible for being able to **write** this code yet. You just need to read it and get a sense for what it does. I have heavily commented it to help with this process.
+
+::: panel-tabset
+##### R {.unnumbered}
+
+```{r}
+#| label: fig-polar-r
+#| fig-cap: "A Cartesian Spiral in R"
+# Define the angle of the spiral (polar coords)
+# go around two full times (2*pi = one revolution)
+theta <- seq(0, 4*pi, .01) 
+# Define the distance from the origin of the spiral
+# Needs to have the same length as theta
+r <- seq(0, 5, length.out = length(theta))
+
+# Now define x and y in cartesian coordinates
+x <- r * cos(theta)
+y <- r * sin(theta)
+
+plot(x, y, type = "l")
+
+```
+
+I have saved this script [here](files/markdown-spiral-script.R). You can download it and open it up in RStudio (File -\> Open -\> Navigate to file location).
+
+##### Python {.unnumbered}
+
+```{python}
+#| label: fig-polar-py
+#| fig-cap: "A Cartesian Spiral in python"
+
+import numpy as np
+import matplotlib.pyplot as plt
+
+# Define the angle of the spiral (polar coords)
+# go around two full times (2*pi = one revolution)
+theta = np.arange(0, 4 * np.pi, 0.01)
+# Define the distance from the origin of the spiral
+# Needs to have the same length as theta 
+# (get length of theta with theta.size, 
+#  and then divide 5 by that to get the increment)
+r = np.arange(0, 5, 5/theta.size)
+
+# Now define x and y in cartesian coordinates
+x = r * np.cos(theta)
+y = r * np.sin(theta)
+
+# Define the axes
+fig, ax = plt.subplots()
+# Plot the line
+ax.plot(x, y)
+plt.show()
+```
+
+I have saved this script [here](files/markdown-spiral-script.py). You can download it and open it up in RStudio (File -\> Open -\> Navigate to file location).
+:::
+:::
+
+Scripts can be run in Rstudio by clicking the Run button ![RStudio run button](images/intro-prog/Run-button-Rstudio.png) at the top of the editor window when the script is open.
+
+::: tryitout
+#### Try it out! 
+
+-   Download the R and python scripts in the above example, open them in RStudio, and run each script using the Run button. What do you see?
+
+-   (Advanced) Open a terminal in RStudio (Tools -\> Terminal -\> New Terminal) and see if you can run the R script from the terminal using `R CMD BATCH path/to/file/markdown-spiral-script.R` (You will have to modify this command to point to the file on your machine)\
+    Notice that two new files appear in your working directory: `Rplots.pdf` and `markdown-spiral-script.Rout`
+
+-   (Advanced) Open a terminal in RStudio (Tools -\> Terminal -\> New Terminal) and see if you can run the R script from the terminal using `python3 path/to/file/markdown-spiral-script.py` (You will have to modify this command to point to the file on your machine)\
+    This will require you to have python3 accessible to you on the command line, which may be a challenge if it is not set up in the way that I'm assuming it is. Feel free to make an appointment to see if we can figure it out, if this does not work the first time.
+:::
+
+Most of the time, you will run scripts interactively - that is, you'll be sitting there watching the script run and seeing what the results are as you are modifying the script. However, one advantage to scripts over notebooks is that it is easy to write a script and schedule it to run without supervision to complete tasks which may be repetitive. I have a script that runs daily at midnight, 6am, noon, and 6pm to pull information off of the internet for a dataset I'm maintaining. I've set it up so that this all happens automatically and I only have to check the results when I am interested in working with that data.
+
+### Notebooks
+
+Notebooks are an implementation of literate programming. Both R and python have native notebooks that are cross-platform and allow you to code in R or python. This book is written using Quarto markdown, which is an extension of Rmarkdown, but it is also possible to use jupyter notebooks to write R code.
+
+In this class, we're going to use Quarto/R markdown, because it is a much better tool for creating polished reports than Jupyter (in my opinion). This matters because the goal is that you learn something useful for your own coding and then you can easily apply it when you go to work as an analyst somewhere to produce impressive documents. Jupyter notebooks are great for interactive coding, but aren't so wonderful for producing polished results. They also don't allow you to switch between languages mid-notebook, and since I'm trying to teach this class in both R and python, I want you to have both languages available.
+
+::: learn-more
+There are some excellent opinions surrounding the use of notebooks in data analysis:
+
+-   [Why I Don't Like Notebooks"](https://docs.google.com/presentation/d/1n2RlMdmv1p25Xy5thJUhkKGvjtV-dkAIsUXP-AL4ffI/preview#slide=id.g362da58057_0_1) by Joel Grus at JupyterCon 2018
+-   [The First Notebook War](https://yihui.org/en/2018/09/notebook-war/) by Yihui Xie (response to Joel's talk).\
+    Yihui Xie is the person responsible for `knitr` and `Rmarkdown`.
+:::
+
+ 
+
+#### Try it out {.tryitout}
+
+::: panel-tabset
+##### R markdown
+
+Take a look at the [R markdown sample file](files/markdown-demo.Rmd) I've created to go with the R script above. You can see the HTML file it generates [here](files/markdown-demo.html).
+
+-   Download the Rmd file and open it with RStudio.
+
+-   Change the output to `output: word_document` and hit the Render button ![Render button in RStudio](images/intro-prog/Render-button-Rstudio.png). Can you find the markdown-demo.docx file that was generated? What does it look like?
+
+-   Change the output to `output: pdf_document` and hit the Render button ![Render button in RStudio](images/intro-prog/Render-button-Rstudio.png). Can you find the markdown-demo.pdf file that was generated? What does it look like?
+
+Rmarkdown tries very hard to preserve your formatted text appropriately regardless of the output document type. While things may not look exactly the same, the goal is to allow you to focus on the content and the formatting will "just work".
+
+##### Jupyter
+
+Take a look at the [jupyter notebook sample file](files/Jupyter-demo.ipynb) I've created to go with the R script above. You can see the HTML file it generates [here](files/Jupyter-demo.html).
+
+-   Download the ipynb file and open it with jupyter.
+
+-   Export the notebook as a pdf file (File -\> Save as -\> PDF via HTML). Can you find the jupyter-demo.pdf file that was generated? What does it look like?
+
+-   Export the notebook as an html file (File -\> Save as -\> HTML). Can you find the jupyter-demo.html file that was generated? What does it look like?
+
+##### Quarto markdown
+
+The nice thing about quarto is that it will work with python and R seamlessly, and you can compile the document using python or R. R markdown will also allow you to use python chunks, but you must compile the document in R.
+
+Take a look at the [Qmd notebook sample file](files/quarto-demo.qmd) I've created to go with the scripts above. You'll notice that it is basically the script portion of this textbook -- that's because I'm writing the textbook in Quarto.
+
+-   Download the qmd file and open it with RStudio
+
+-   Try to compile the file by hitting the Render button ![Render button in RStudio](images/intro-prog/Render-button-Rstudio.png)
+
+-   (Advanced) In the terminal, type in `quarto render path/to/file/quarto-demo.qmd`. Does that render the HTML file? One advantage of this is that using quarto to render the file doesn't require R at the command line. As the document contains R chunks, R is still required to compile the document, but the biggest difference between qmd and rmd is that qmd files are workflow agnostic - you can generate them in e.g. MS Visual Studio Code, compile them in that workflow, and never have to use RStudio.
+:::
+
 
 ## Cheat Sheets and Reference Guides {.unnumbered .learn-more}
 

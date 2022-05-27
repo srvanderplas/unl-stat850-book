@@ -38,12 +38,11 @@ engine: knitr
 from: markdown+emoji
 
 format:
-  html:
+  html5:
     css: style.css
     theme: cosmo
     code-link: true
-    includes:
-      in_header: ["extra.html"]
+    include-in-header: "header.html"
 
   # pdf:
   #   documentclass: scrreport
