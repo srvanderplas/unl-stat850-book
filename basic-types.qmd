@@ -1,5 +1,14 @@
 
-# Basic Variable types
+# Basic Variable Types
+
+## Module Objectives {#module-3-objectives .unnumbered}
+
+-   Know the basic data types and what their restrictions are
+-   Know how to test to see if a variable is a given data type
+-   Understand the basics of implicit and explicit type conversion
+-   Write code that assigns values to variables
+
+## Vocabulary
 
 For a general overview, @tomscottWhyTRUETRUE2020 is an excellent introduction to data types:
 
@@ -50,9 +59,6 @@ type(3.1415)
 type("This is python code")
 ```
 
-## SAS {- .unnumbered}
-
-See the [SAS appendix](#Variable-Types-in-SAS)
 :::
 
 ::: note

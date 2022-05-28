@@ -1,5 +1,13 @@
 # Control Structures
 
+## Module Objectives {#module-5-objectives .unnumbered}
+
+-   Use foundational mathematical logic to write conditional statements
+-   Create program flow diagrams for different control structures
+-   State the differences between counting and conditional loops
+-   Determine which iterative structure is more appropriate for a task
+-   Understand when next, break, and continue statements might be used
+
 ## Mathematical Logic
 
 Before we start talking about data structures and control structures, though, we're going to take a minute to review some concepts from mathematical logic. This will be useful for both data structures and control structures, so stick with me for a few minutes.
@@ -478,7 +486,7 @@ while x < 10:
 ```
 :::
 
-#### Try it Out! {.unnumbered .tryitout}
+#### While Loops: Try it Out! {.unnumbered .tryitout}
 
 ::: panel-tabset
 ##### Problem {.unnumbered}
@@ -540,7 +548,7 @@ print("At ", k, " iterations, the product is ", prod, "compared to the limit ", 
 ```
 :::
 
-#### For Loops
+### For Loops
 
 Another common type of loop is a **for** loop. In a for loop, we run the block of code, iterating through a series of values (commonly, one to N, but not always). Generally speaking, for loops are known as **definite** loops because the code inside a for loop is executed a specific number of times. While loops are known as **indefinite** loops because the code within a while loop is evaluated until the condition is falsified, which is not always a known number of times.
 
@@ -571,7 +579,8 @@ By default `range`(5) goes from 0 to 5, the upper bound. When `i = 5` the loop e
 
 For loops are often run from 1 to N (or 0 to N-1 in python) but in essence, a for loop is run for every value of a vector (which is why loops are included in the same chapter as vectors).
 
-::: ex
+#### Example: For Loops {.ex .unnumbered}
+
 ::: panel-tabset
 ##### R {.unnumbered}
 
@@ -593,10 +602,10 @@ for i in futurama_crew:
 
 ```
 :::
-:::
+
 
 ::: watch-out
-#### Avoiding Infinite Loops
+### Avoiding Infinite Loops
 
 It is very easy to create an **infinite** loop when you are working with while loops. Infinite loops never exit, because the condition is always true. If in the while loop example we decrement x instead of incrementing x, the loop will run forever.
 
@@ -605,7 +614,7 @@ You want to try very hard to avoid ever creating an infinite loop - it can cause
 One common way to avoid infinite loops is to create a second variable that just counts how many times the loop has run. If that variable gets over a certain threshold, you exit the loop.
 
 ::: panel-tabset
-##### R {.unnumbered}
+#### R {.unnumbered}
 
 This while loop runs until either x \< 10 or n \> 50 - so it will run an indeterminate number of times and depends on the random values added to x. Since this process (a 'random walk') could theoretically continue forever, we add the n\>50 check to the loop so that we don't tie up the computer for eternity.
 
@@ -622,7 +631,7 @@ while (x < 10) {
 }
 ```
 
-##### Python {.unnumbered}
+#### Python {.unnumbered}
 
 ```{python infinite-loop-exit-py}
 import numpy as np; # for the random normal draw
@@ -643,7 +652,7 @@ while x < 10:
 In both of the examples above, there are more efficient ways to write a random walk, but we will get to that later. The important thing here is that we want to make sure that our loops don't run for all eternity.
 :::
 
-#### Controlling Loops
+### Controlling Loops
 
 <!-- https://www.py4e.com/html3/05-iterations -->
 
@@ -652,16 +661,16 @@ In both of the examples above, there are more efficient ways to write a random w
 Sometimes it is useful to control the statements in a loop with a bit more precision. You may want to skip over code and proceed directly to the next iteration, or, as demonstrated in the previous section with the `break` statement, it may be useful to exit the loop prematurely.
 
 ::: panel-tabset
-##### Break Statement {.unnumbered}
+#### Break Statement {.unnumbered}
 
 ![A break statement is used to exit a loop prematurely](images/control-structures/break-statement.png)
 
-##### Next/Continue Statement {.unnumbered}
+#### Next/Continue Statement {.unnumbered}
 
 ![A next (or continue) statement is used to skip the body of the loop and continue to the next iteration](images/control-structures/next-statement-flow.png)
 :::
 
-::: ex
+#### Example: Next/Continue statements {.ex .unnumbered}
 Let's demonstrate the details of next/continue and break statements.
 
 We can do different things based on whether i is evenly divisible by 3, 5, or both 3 and 5 (thus divisible by 15)
@@ -704,6 +713,8 @@ for i in range(1, 20):
 
 ```
 :::
-:::
+
 
 To be quite honest, I haven't really ever needed to use next/continue statements when I'm programming, and I rarely use break statements. However, it's useful to know they exist just in case you come across a problem where you could put either one to use.
+
+## References
