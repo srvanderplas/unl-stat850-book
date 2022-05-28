@@ -260,11 +260,11 @@ plot(x = x, y = y, type = 'l')
 text(x = pi*1.5, y = 0, labels = "Welcome to R!")
 ```
 
-### Statistical Programming Languages {.unnumbered}
+### Programming Languages {.unnumbered}
 
 Having established the generic definitions of the concepts which apply to almost any programming language, we now must examine how specific programming languages implement these concepts.
 
-R and SAS are both *statistical* programming languages - they are specifically designed to work with data, which means that they make compromises that other languages do not in order to make it easier to write code where the data (rather than the functions, classes, methods, or objects) are the primary concern.
+R is a *statistical* programming languages - it is specifically designed to work with data, which means that it makes compromises that other languages do not in order to make it easier to write code where the data (rather than the functions, classes, methods, or objects) are the primary concern. (SAS is also a statistical programming language, but is only briefly covered in this book, with some additional content in an appendix).
 
 Python is a **general purpose** programming language. It can be much more difficult to accomplish simple data-driven tasks in Python, but Python's construction will be much more familiar to anyone who has spent time in C, Java, or other general-purpose languages.
 
@@ -310,9 +310,9 @@ In this section, we'll talk a bit more about R and python specifically, as they 
 
 #### If you've used R/SAS/Python before... {.unnumbered .note}
 
-If you've programmed before, the next few chapters are going to seem very ... boring. Sorry, there's no help for that. Some of your classmates haven't ever so much as written "Hello World", and we have to get them up to speed.
+If you've programmed before, the next few chapters are going to be boring. Sorry, there's no help for that. Some of your classmates haven't ever so much as written "Hello World", and we have to get them up to speed.
 
-If you're bored, or feel like you know this material, skim through it anyways just to confirm (and if I'm doing something that's really out there, or there's an easier way to do it, tell me!). Then you can either find something in the references that you don't know already (the book Advanced R is always a great place to start if you want to be quickly confused), or help your classmates that are less experienced.
+If you're bored, or feel like you know this material, skim through it anyways just to confirm (and if I'm doing something that's really out there, or there's an easier way to do it, tell me!). You can then either find something in the references that you don't know already (@wickhamAdvanced2019 is always a great place to start if you want to be quickly confused), or help your classmates that are less experienced, which will help you learn new things and build relationships with other students.
 
 #### R
 
