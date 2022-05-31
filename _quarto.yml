@@ -23,10 +23,17 @@ book:
   repo-branch: main
   repo-actions: [edit]
   sharing: [twitter, facebook, linkedin]
-  number-depth: 3
+  number-depth: 2
+  page-navigation: true
   toc:
     collapse: section
-
+  page-footer:
+    left: "Copyright 2022, Susan Vanderplas"
+    right:
+      - icon: github
+        href: https://github.com/srvanderplas
+      - icon: twitter
+        href: https://twitter.com/srvanderplas
 date: today
 date-format: long
 
@@ -39,11 +46,20 @@ engine: knitr
 from: markdown+emoji
 
 format:
-  html5:
+  html:
     css: style.css
     theme: cosmo
     code-link: true
     include-in-header: "header.html"
+  pdf:
+    documentclass: scrreprt
+    include-in-header:
+      text: |
+        \usepackage{makeidx}
+        \makeindex
+    include-after-body:
+      text: |
+        \printindex
 
   # pdf:
   #   documentclass: scrreport
