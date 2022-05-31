@@ -108,6 +108,7 @@ We knew that if we could solve the little problem, we'd be able to get the bigge
 One tool that is often used to help break a problem down is a [flowchart](https://www.programiz.com/article/flowchart-programming). In a flowchart, each step in a process is described in sequential order, with decisions represented as forks in the "flow".
 
 ::: callout-note
+#### Sketch Tool Recommendation
 A tool that I often use to make flowcharts and other diagrams/sketches while programming is [Excalidraw](https://excalidraw.com).
 :::
 
@@ -689,6 +690,7 @@ Notebooks are an implementation of literate programming. Both R and python have 
 This book will focus on the use of Quarto/R markdown, because it is a much better tool for creating polished reports than Jupyter (in my opinion). My goal is that you learn something useful for your own class work that can be easily applied when you go to work as an analyst somewhere to produce impressive documents. Jupyter notebooks are great for interactive coding, but aren't so wonderful for producing polished results. They also don't allow you to switch between languages mid-notebook, and since I'm writing this in both R and python (and will be teaching that way as well), I want you to have both languages available.
 
 ::: callout-note
+#### Learn more about notebooks 
 There are some excellent opinions surrounding the use of notebooks in data analysis:
 
 -   [Why I Don't Like Notebooks"](https://docs.google.com/presentation/d/1n2RlMdmv1p25Xy5thJUhkKGvjtV-dkAIsUXP-AL4ffI/preview#slide=id.g362da58057_0_1) by Joel Grus at JupyterCon 2018
@@ -737,7 +739,7 @@ Take a look at the [Qmd notebook sample file](files/quarto-demo.qmd) I've create
 :::
 :::
 
-::: callout-important
+::: callout-warning
 ## Additional Material {.unnumbered}
 
 ### Textbooks {.unnumbered .unnumbered}

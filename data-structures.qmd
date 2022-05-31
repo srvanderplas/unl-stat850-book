@@ -24,7 +24,7 @@ Data **structures** are more complex arrangements of information than single var
 
 : Common data structures as implemented in various statistical programming languages. Where applicable, specific package names are listed (e.g. in Python, Numpy and Pandas). {#tbl-structure-lego}
 
-::: note
+::: {.callout-note}
 
 Figuring out what to call these types with multiple languages is hard: in SAS, an array is a group of columns of a data set, but in R, it's a multi-dimensional matrix, and in Python it's a ndarray. I've attempted to separate out language-specific content (e.g. how to do X in python or R) from the general concepts where possible.
 
@@ -81,8 +81,8 @@ The `range` function defines a range from 1 to 10, and the `np.array()` function
 
 :::
 
-
-### Try it out {- .tryitout}
+:::{.callout-tip}
+### Try it out: Vectors {- }
 
 ::: panel-tabset
 
@@ -98,6 +98,7 @@ c(1, 2, "a", "b", "c")
 
 Because there were 3 character entries, the entire vector is now a character vector.
 
+:::
 :::
 
 ## Matrices and Arrays
@@ -427,7 +428,7 @@ mytuple[2]
 mytuple
 ```
 
-::: watchout
+::: {.callout-important}
 
 Notice that the syntax for making a tuple is very similar to the syntax for making a list - the only difference is that tuples use () and lists use []. 
 
@@ -486,6 +487,9 @@ s2["zoey"]
 ### Level Up: Recursive structures 
 
 Lists, dicts, and other one-dimensional structures can also contain containers - vectors, lists, or other multi-element items. When accessing a list-within-a-list, just add another index or name reference (see below).
+
+:::{.callout-caution}
+#### Example: Recursive lists
 
 ::: panel-tabset
 
@@ -557,10 +561,13 @@ yummy_toppings
 
 :::
 
-#### Try it out {.unnumbered .tryitout}
+:::
+
+:::{.callout-tip}
+#### Try it out: Lists {.unnumbered}
 
 Using the list of pizza toppings above as a starting point, make your own list of pizza toppings organized by grocery store section (approximately). Create your own vectors of yummy, essential, and ick toppings, using R and Python.
-
+:::
 
 
 ## Data frames
@@ -573,11 +580,10 @@ The lego version of a data frame looks like this:
 ![A data frame with 4 columns. A data frame is essentially a list where all of the components are vectors or lists, and are constrained to have the same length.](images/data-structures/lego-data-frame.png){width=50%}
 
 
-### Exploring Data Frames 
 
 ::: panel-tabset
 
-#### R {- .unnumbered}
+### R {- .unnumbered}
 
 When you examine the structure of a data frame, as shown below, you get each column shown in a row, with its type and the first few values in the column. The `head(n)` command shows the first $n$ rows of a data frame (enough to see what's there, not enough to overflow your screen).
 
@@ -608,7 +614,7 @@ ncol(mtcars)
 
 Missing variables in an R data frame are indicated with NA.
 
-#### Python {- .unnumbered}
+### Python {- .unnumbered}
 
 When you examine the structure of a data frame, as shown below, you get each column shown in a row, with its type and the first few values in the column. The `df.head(n)` command shows the first $n$ rows of a data frame (enough to see what's there, not enough to overflow your screen).
 
@@ -642,8 +648,8 @@ Missing variables in a pandas data frame are indicated with nan or NULL.
 :::
 
 
-
-### Try it out {.unnumbered .tryitout}
+:::{.callout-tip}
+### Try it out: Data Frames {.unnumbered}
 
 ::: panel-tabset
 
@@ -728,6 +734,7 @@ loc_min_dens = state_facts.PopDensity.isin([min_dens])
 state_facts.state[loc_min_dens]
 ```
 
+:::
 :::
 
 ### Creating Data Frames
@@ -919,7 +926,7 @@ mydf[["name"]][1] # this is a single entry (but still a vector of length 1)
 
 ::: panel-tabset
 
-### Python list {- .unnumbered}
+### Python lists and tuples {- .unnumbered}
 
 ```{python}
 mylist = ['the', 'answer', 'to', 'life', 'is', 42]
@@ -928,7 +935,13 @@ mylist[5]
 mylist[0:5]
 ```
 
-List indexing works the same way as vector indexing in python.
+List indexing and tuple indexing works the same way as vector indexing in python.
+
+```{python}
+mytuple = (3, 5, 'dog')
+mytuple[0]
+mytuple[0:2] # can index with slices
+```
 
 ### Python dict {- .unnumbered}
 
@@ -950,16 +963,6 @@ list(dog)[0] # lists can then be indexed by location
 list(dog.values()) # create a list from the values of the dog dict
 list(dog.values())[3]
 
-```
-
-### Python Tuples
-
-Python tuples are indexed in the same way as vectors, arrays, and lists.
-
-```{python}
-mytuple = (3, 5, 'dog')
-mytuple[0]
-mytuple[0:2] # can index with slices
 ```
 
 ### Numpy vector {- .unnumbered}
@@ -1051,16 +1054,24 @@ To get a full row or column from a matrix (in both SAS and R) you would use `x[1
 
 To select multiple rows or columns from a matrix, you would use `x[, c(1, 3)]` in R or `x[,{1 3}]` in SAS - both options get the first and third column of the matrix, with all rows of data included. In Python, you would use `x.loc[:,[1,3]]`. 
 
+:::{.callout-important}
+
 In both R and SAS, `a:b` where a and b are numbers will form a sequence from `a` to `b` by 1s. So `1:4` is `r 1:4`. This is often used to get a set of rows or columns: `x[3:4, 1:2]`. In Python, a similar notation is used, but instead of counting from `a` to `b` when using `a:b`, Python will count from `a` to `b-1`. 
 
 
 Both R and SAS are 1-indexed languages, so the elements of a list or vector are indexed as 1, 2, 3, 4, .... Python is 0-indexed, like most general-purpose programming languages.[^intro-prog-3]
+:::
 
 [^intro-prog-3]: Most languages are 0-indexed languages: C, C++, python, Java, javascript. Vectors in these languages are indexed as 0, 1, 2, 3. Other 1-indexed languages include FORTRAN, Matlab, Julia, Mathematica, and Lua, many of which were intended for mathematical processing or data analysis.
 
-In both R and Python, it is possible to index a vector using a logical vector of the same length.
+In both R and Python, it is possible to index a vector using a logical vector of the same length. This is called **logical indexing** and is a very handy way to collect only the data you need for a task.
 
-### Try it out {.unnumbered .tryitout}
+:::{.callout-tip}
+### Try it out: Logical Indexing
+
+::: panel-tabset
+
+#### Problem {-}
 
 (From project Euler)
 
@@ -1068,13 +1079,7 @@ If we list all the natural numbers below 10 that are multiples of 3 or 5, we get
 
 Hint: The modulo operator, `%%`, gives the integer remainder of one number divided by another. So `a %% b` gives the integer remainder when dividing `a` by `b`. Modular division is often used to find multiples of a number.
 
-<details>
-
-<summary>
-
-R solution
-
-</summary>
+#### R solution {-}
 
 ```{r vectorindexing-solution}
 
@@ -1087,24 +1092,35 @@ m3or5 <- m3 | m5
 sum(x[m3or5])
 ```
 
-</details>
 
-Most complicated structures in R are actually lists underneath. You should be able to access any of the pieces of a list using a combination of named references and indexing.
 
-####  {.unnumbered}
+#### Python solution {-}
 
-If you have trouble distinguishing between `$`, `[`, and `[[`, you're not alone. @r4ds has an excellent [illustration](https://r4ds.had.co.nz/vectors.html#lists-of-condiments), which I will summarize for you here in abbreviated form (pictures directly lifted from the book).
+```{python vectorindexing-solution-py}
+x = np.array(list(range(1, 1000)))
 
-<details>
+m3 = (x % 3) == 0
+m5 = (x % 5) == 0
+m3or5 = m3|m5
 
-<summary>
+sum(x[m3or5])
+```
 
-R4DS indexing illustration
+:::
+:::
 
-</summary>
+Most complicated structures in R (and python) are actually lists underneath. You should be able to access any of the pieces of a list using a combination of named references (where appropriate) and indexing.
+
+
+:::{.callout-note}
+### R Indexing Analogy
+
+If you have trouble distinguishing between `$`, `[`, and `[[`, you're not alone. @r4ds has an excellent [illustration](https://r4ds.had.co.nz/vectors.html#lists-of-condiments), which I will summarize for you here in abbreviated, tabular form (pictures directly lifted from the book).
+
 
 | `x`                      | `x[1]`                     | `x[[1]]`                   | `x[[1]][[1]]`              |
 |--------------------------|----------------------------|----------------------------|----------------------------|
 | ![](images/data-structures/02_pepper.jpg) | ![](images/data-structures/02_pepper-1.jpg) | ![](images/data-structures/02_pepper-2.jpg) | ![](images/data-structures/02_pepper-3.jpg) |
+:::
 
-</details>
+## References {-}

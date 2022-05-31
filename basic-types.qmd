@@ -61,50 +61,19 @@ type("This is python code")
 
 :::
 
-::: note
+::: {.callout-important}
+## Capitalization matters! {-}
 In R, boolean values are `TRUE` and `FALSE`, but in Python they are `True` and `False`. Capitalization matters a LOT.
 
 Other things matter too: if we try to write a million, we would write it `1000000` instead of `1,000,000` (in both languages). Commas are used for separating numbers, not for proper spacing and punctuation of numbers. This is a hard thing to get used to but very important -- especially when we start reading in data.
 :::
 
-## Testing Types
+## Assignment {.unnumbered}
 
-You can use different functions to test whether a variable has a specific type as well:
+In R, `<-` is used for assigning a value to a variable. So `x <- "R is awesome"` is read "x gets 'R is awesome'" or "x is assigned the value 'R is awesome'".
 
-::: panel-tabset
-### R {- .unnumbered}
+In Python, `=` is used for assigning a value to a variable. This tends to be much easier to say out loud, but lacks any indication of directionality.
 
-```{r test-var-type-r, results='hold'}
-is.logical(FALSE)
-is.integer(2L) # by default, R treats all numbers as numeric/decimal values. 
-          # The L indicates that we're talking about an integer. 
-is.integer(2)
-is.numeric(2)
-is.character("Hello, programmer!")
-```
-
-In R, you use `is.xxx` functions, where xxx is the name of the type in question.
-
-### Python {- .unnumbered}
-
-```{python test-var-type-py, results='hold'}
-isinstance(False, bool)
-isinstance(2, int)
-isinstance(2, (int, float)) # Test for one of multiple types
-isinstance(3.1415, float)
-isinstance("This is python code", str)
-```
-
-In python, test for types using the `isinstance` function with an argument containing one or more data types in a tuple (`(int, float)` is an example of a tuple - a static set of multiple values).
-:::
-
-## Exploring Types
-
-::: note
-### Assignment {.unnumbered}
-
-Note that `<-` is used for assigning a value to a variable. So `x <- "R is awesome"` is read "x gets 'R is awesome'" or "x is assigned the value 'R is awesome'".
-:::
 
 ::: panel-tabset
 ### Character {.unnumbered}
@@ -219,6 +188,37 @@ The general case of this property of a language is called **implicit type conver
 
 [^intro-prog-2]: `numeric` is not really a type, it's a mode. Run `?mode` for more information.
 
+## Testing Types
+
+You can use different functions to test whether a variable has a specific type as well:
+
+::: panel-tabset
+### R {- .unnumbered}
+
+```{r test-var-type-r, results='hold'}
+is.logical(FALSE)
+is.integer(2L) # by default, R treats all numbers as numeric/decimal values. 
+          # The L indicates that we're talking about an integer. 
+is.integer(2)
+is.numeric(2)
+is.character("Hello, programmer!")
+```
+
+In R, you use `is.xxx` functions, where xxx is the name of the type in question.
+
+### Python {- .unnumbered}
+
+```{python test-var-type-py, results='hold'}
+isinstance(False, bool)
+isinstance(2, int)
+isinstance(2, (int, float)) # Test for one of multiple types
+isinstance(3.1415, float)
+isinstance("This is python code", str)
+```
+
+In python, test for types using the `isinstance` function with an argument containing one or more data types in a tuple (`(int, float)` is an example of a tuple - a static set of multiple values).
+:::
+
 ## Type Conversions {.unnumbered}
 
 Programming languages will generally work hard to seamlessly convert variables to different types. So, for instance,
@@ -320,7 +320,9 @@ type(z)
 
 :::
 
-## Try It Out {.unnumbered .tryitout}
+::: callout-tip
+
+## Try It Out: Variables and Types {-}
 
 ::: panel-tabset
 
@@ -408,5 +410,6 @@ In Python, when a string is added to another string, the two strings are **conca
 
 :::
 
+:::
 
 ## References {.unnumbered}

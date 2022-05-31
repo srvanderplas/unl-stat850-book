@@ -260,7 +260,8 @@ Note that when you create a new column in a pandas dataframe, you have to use `d
 
 The downside to this is that we have to write out `artwork$aspect_hw` or `artwork.aspect_hw` each time we want to reference the variable. That is a pain, but one that's relatively temporary (we'll get to a better way to do this in a couple of weeks). A little bit of extra typing is definitely worth it if you don't lose data you want to keep.
 
-::: watchout
+:::{.callout-important}
+### Assign your calculations to a variable or column!
 
 One mistake I see people make frequently is to calculate `height/width`, but then not assign that value to a variable. 
 
@@ -656,6 +657,9 @@ breeds_by_borough.sort_values(['rank', 'Borough'])
 
 Soon we'll learn a much shorter set of commands to get these types of summaries, but it's important to know how a for loop connects to the concept of summarizing data by a factor (in this case, by borough).
 
-### Try it out! {- .tryitout}
+::: {.callout-tip}
+### Try it out: NYC dogs {-}
 
-Look at the name, age, or gender of dogs registered in NYC and see if you can come up with a similar function and way of summarizing the data in a for-loop.
+Look at the name, age, or gender of dogs registered in NYC and see if you can come up with a similar function and way of summarizing the data in a for-loop. You may want to calculate the mean or quantiles (for numeric variables), or list the most common dog names/genders in each borough.
+
+:::
