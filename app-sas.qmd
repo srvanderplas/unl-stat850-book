@@ -213,7 +213,7 @@ quit;
 
 The SAS data set structure is similar to a R data frame.
 
-![This is a schematic of a data set as taken from the SAS documentation](image/02_sas_dataset.png)
+![This is a schematic of a data set as taken from the SAS documentation](images/sas/02_sas_dataset.png)
 <!-- https://documentation.sas.com/api/docsets/basess/9.4/content/images/data-fit.png original source for the image -->
 
 In SAS, missing values are indicated with `.`

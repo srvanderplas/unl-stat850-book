@@ -486,11 +486,11 @@ Make a new R script (File -\> New File -\> R script) and copy the above code int
 
 In the R console, run the command `getwd()` to see where R is running from. This is your "working directory".
 
-![R editor window with relevant script, with R console shown below. My working directory is `/home/susan/Projects/Class/unl-stat151/stat151book/demo`; yours will be different.](images/R-wordcount-rstudio-noinput-interactive1.png)
+![R editor window with relevant script, with R console shown below. My working directory is `/home/susan/Projects/Class/unl-stat151/stat151book/demo`; yours will be different.](images/intro-prog/R-wordcount-rstudio-noinput-interactive1.png)
 
 Save the copy of Oliver Twist to the file `dickens-oliver-627.txt` in the folder that `getwd()` spit out. You can test that you have done this correctly by typing `list.files()` into the R console window and hitting enter. It is very important that you know where on your computer R is looking for files - otherwise, you will constantly get "file not found" errors, and that will be very annoying.
 
-![R editor window with relevant script, with R console shown below. dickens-oliver-627.txt is in the working directory, so we can proceed.](images/R-wordcount-rstudio-noinput-interactive2.png)
+![R editor window with relevant script, with R console shown below. dickens-oliver-627.txt is in the working directory, so we can proceed.](images/intro-prog/R-wordcount-rstudio-noinput-interactive2.png)
 
 Use the "Run" button to run the script and see what the output is. How many times does 'the' appear in the file?
 
@@ -510,6 +510,7 @@ text <- readLines("dickens-oliver-627.txt")
 Select the above line and click the "Run" button in RStudio. Once you've done that, type in `text[1:5]` in the R console to see the first 5 lines of the file.
 
 ![RStudio editor window with the first 2 lines of the words-noinput.R file selected. The screenshot also shows the console window after running the first 2 lines of the R file, with the `text[1:5]` command run interactively afterwards showing the first 5 lines of the text file we read in.](images/intro-prog/R-wordcount-rstudio-noinput-interactive3.png)
+
 
 Run the next line of code using the run button (or click on the line of code and hit Ctrl/Cmd + Enter).
 
