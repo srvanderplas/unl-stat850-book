@@ -16,7 +16,6 @@ book:
     - references.qmd
   appendices:
     - app-sas.qmd
-  search: true
   favicon: images/favicon.ico
   cover-image: images/cover.png
   site-url: https://srvanderplas.github.io/unl-stat850/
@@ -26,8 +25,6 @@ book:
   sharing: [twitter, facebook, linkedin]
   number-depth: 2
   page-navigation: true
-  toc:
-    collapse: section
   page-footer:
     left: "Copyright 2022, Susan Vanderplas"
     right:
@@ -38,6 +35,13 @@ book:
   comments:
     giscus:
       repo: srvanderplas/unl-stat850
+  sidebar:
+    style: floating
+    collapse-level: 3
+  search:
+    location: navbar
+    type: overlay
+
 date: today
 date-format: long
 
