@@ -737,7 +737,7 @@ If you've written the same code (with a few minor changes, like variable names) 
 
 ::: learn-more
 
-There is some extensive material on this subject in [R for Data Science on functions](https://r4ds.had.co.nz/functions.html) [@r4ds]. If you want to really understand how functions work in R, that is a good place to go.
+There is some extensive material on this subject in R for Data Science [@r4ds] on [functions](https://r4ds.had.co.nz/functions.html). If you want to really understand how functions work in R, that is a good place to go.
 
 :::
 
@@ -745,7 +745,7 @@ There is some extensive material on this subject in [R for Data Science on funct
 
 ::: ex
 
-This example is modified from R for Data Science [@wickham2016r, Chapter 19]. 
+This example is modified from R for Data Science [@advr, Chapter 19]. 
 
 What does this code do? Does it work as intended?
 
@@ -822,7 +822,7 @@ This code has only one input: `df.a`
 :::
 
 
-To convert the code into a function, we first rewrite it using general names
+To convert the code into a function, we start by rewriting it using general names
 
 ::: {.panel-tabset}
 
@@ -879,6 +879,7 @@ xmin, xmax = [x.min(), x.max()]
 ```
 
 :::
+
 Finally, we turn this code into a function
 
 ::: {.panel-tabset}
@@ -988,7 +989,7 @@ This is a confusing set of concepts and it's ok if you only just sort of get wha
 
 ### Try it out {- .tryitout}
 
-For each of the following blocks of code, identify the function name, function arguments, parameter names, and return statements. When the function is called, see if you can predict what the output will be.
+For each of the following blocks of code, identify the function name, function arguments, parameter names, and return statements. When the function is called, see if you can predict what the output will be. Also determine whether the function output is stored in memory or just printed to the command line.
 
 ::: {.panel-tabset}
 
@@ -1015,6 +1016,8 @@ hello_world()
 hello_world()
 ```
 
+- Function output is not stored in memory and is printed to the command line.
+
 :::
 
 
@@ -1033,7 +1036,8 @@ my_mean <- function(x) {
 
 ```{r function-predict-2-call, eval = F}
 set.seed(3420523)
-my_mean(1:10)
+x = my_mean(1:10)
+x
 ```
 
 #### Answer {-}
@@ -1045,8 +1049,11 @@ my_mean(1:10)
 
 ```{r function-predict2-results}
 set.seed(3420523)
-my_mean(1:10)
+x = my_mean(1:10)
+x
 ```
+
+- Function output is saved to memory (`x`) and printed to the command line
 
 :::
 
@@ -1181,7 +1188,7 @@ You can read more about error handling in Python [here](https://docs.python.org/
 
 :::
 
-Input validation is one aspect of **defensive programming** - programming in such a way that you try to ensure that your programs don't error out due to unexpected bugs by anticipating ways your programs might be misunderstood or misused. If you're interested, Wikipedia has [more about defensive programming](https://en.wikipedia.org/wiki/Defensive_programming).
+Input validation is one aspect of **defensive programming** - programming in such a way that you try to ensure that your programs don't error out due to unexpected bugs by anticipating ways your programs might be misunderstood or misused [@DefensiveProgramming2022].
 
 
 ### Scope
@@ -1319,7 +1326,7 @@ myfun()
 
 Note that the `try` command here is used to handle the case where a doesn't exist. If there is a NameError (which will happen if `aa` is not defined) then we define `aa = 1`, if there is not a NameError, then `aa = aa + 1`. 
 
-This is necessary because [Python does not have a built-in way to test if a variable exists before it is used](https://www.oreilly.com/library/view/python-cookbook/0596001673/ch17s02.html).
+This is necessary because [Python does not have a built-in way to test if a variable exists before it is used](https://www.oreilly.com/library/view/python-cookbook/0596001673/ch17s02.html) [@martelliPythonCookbook2002, Ch 17].
 
 :::
 
@@ -1335,7 +1342,7 @@ If an object doesn't exist in the function's environment, the global environment
 
 ::: panel-tabset
 
-#### Pseudocode {-}
+##### Pseudocode {-}
 
 ```
 myfun = function() x + 1
@@ -1393,12 +1400,14 @@ myfun()
 
 :::
 
+&nbsp;
+
 :::
 
 #### Try It Out {.tryitout}
 
 What does the following function return? Make a prediction, then run the code yourself. 
-(Taken from [@wickham_advanced_2015, Chapter 6])
+(Taken from [@advr, Chapter 6])
 
 ::: panel-tabset
 
