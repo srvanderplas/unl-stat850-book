@@ -3,7 +3,7 @@ project:
   output-dir: docs
 
 book:
-  title: "Stat 850: Computing Tools for Statisticians"
+  title: "Computing Tools for Statisticians"
   author: "Susan Vanderplas"
   chapters:
     - index.qmd
@@ -12,6 +12,7 @@ book:
     - basic-types.qmd
     - data-structures.qmd
     - control-structures.qmd
+    - data-programming.qmd
     - references.qmd
   appendices:
     - app-sas.qmd
@@ -59,3 +60,5 @@ knitr:
     warning: false
     error: true
 
+execute:
+  freeze: auto  # re-render only when source changes
