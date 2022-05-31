@@ -1094,7 +1094,7 @@ Most complicated structures in R are actually lists underneath. You should be ab
 
 ####  {.unnumbered}
 
-If you have trouble distinguishing between `$`, `[`, and `[[`, you're not alone. The [R for Data Science book has an excellent illustration](https://r4ds.had.co.nz/vectors.html#lists-of-condiments), which I will summarize for you here in abbreviated form (pictures directly lifted from the book).
+If you have trouble distinguishing between `$`, `[`, and `[[`, you're not alone. @r4ds has an excellent [illustration](https://r4ds.had.co.nz/vectors.html#lists-of-condiments), which I will summarize for you here in abbreviated form (pictures directly lifted from the book).
 
 <details>
 
