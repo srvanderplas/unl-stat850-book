@@ -1,3 +1,51 @@
+
+## Course Description {-}
+
+Introductions to statistical computing packages and document preparation software. Topics include: graphical techniques, data management, Monte Carlo simulation, dynamic document preparation, presentation software.
+
+## Course Goals {-}
+
+(Broad, amorphous conceptual things that are hard to measure)
+
+1. Learn how to use a statistical programming language for data analysis, data processing, and data visualization.
+
+2. Become familiar with the process, techniques, and goals of exploratory data analysis.
+
+3. Create, assess, and debug code effectively.
+
+    i. Use online resources to find software to perform a task, comparing approaches taken by competing programs.
+    
+    ii. Read error messages, find related problems in online forums, and isolate the conditions necessary to generate the error.
+    
+    iii. Generate minimum working examples or reproducible examples of errors in order to ask for help effectively.
+
+4. Communicate statistical results using reproducible, dynamic tools. Understand the importance of reproducibility in scientific computation.
+
+## Course Objectives {-}
+
+(what you should be able to do at the end of this course)
+
+A. Clean and format the data appropriately for the intended analysis or visualization method. (Goals: 1)
+
+B. Explore a data set using numerical and visual summaries, developing questions which can be answered using statistics. (Goals: 1, 2)
+
+C. Evaluate methods or software to assess relevance to a problem. Compare similar options to determine which are more appropriate for a given application (Goals: 1, 3)
+
+D. Test and debug software, using the following sequence: (Goals: 3, 4)
+
+   1. Reproduce the error in a new environment,
+  
+   2. Create a minimal reproducible example,
+  
+   3. Research the error message and evaluate online resources for relevance,
+   
+   4. Ask for help, describing the error or problem appropriately.
+
+E. Document the data, methods, and results of an analysis using reproducible methods. (Goals: 1, 2, 4)
+
+
+
+
 # --- Factors --- 
 
 In statistical programming, there is one other commonly-used type of variable to know about, and that is a factor. Factors are basically labeled integers. Instead of storing the data as a string or character, the data are instead stored as a series of integers, and then there is a separate table stored that maps the integers to labels. This is technically more efficient (which was important when computers had extremely limited memory), but it is also a pain in the `r emo::ji("peach")` (that's a technical term).
