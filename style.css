@@ -142,6 +142,17 @@ section.watchout {
               0 0 0 10px white;
 }
 
+div.watchout {
+  background-size:5% auto;
+  padding:5px 5px 5px 6%;
+  min-width:99%;
+  min-height:3em;
+  background-image:url(theme/warning.svg);
+  background-color: var(--red-salsa-bg);
+  box-shadow: 0 0 0 1px var(--red-salsa),
+              0 0 0 10px white;
+}
+
 div.learn-more{
   padding:5px 5px 5px 5px;
   background-image:url(theme/learnmore.svg);
