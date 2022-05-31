@@ -14,11 +14,11 @@ Data **structures** are more complex arrangements of information than single var
 
 |     | Homogeneous | Heterogeneous |
 | --- | ---------- | ---------- |
-| 1d  | ![A lego vector made out of a row of 1x3 blocks](images/intro-prog/lego-1x3-vector.png)                      | ![A lego list made out of a row of differently-sized lego bricks](images/intro-prog/lego-list.png)                                                                                     |
+| 1d  | ![A lego vector made out of a row of 1x3 blocks](images/data-structures/lego-1x3-vector.png)                      | ![A lego list made out of a row of differently-sized lego bricks](images/data-structures/lego-list.png)                                                                                     |
 | | vector (R, python)<br/>Series (Pandas) | list (R, python)<br/>dict (python)<br/>tuple (python) |
-| 2d  | ![A lego matrix made out of a 3x4 rectangle of individual 2x2 bricks](images/intro-prog/lego-2x2-matrix.png) | ![A lego data frame made out of multiple columns of bricks where each column is a different size of brick (representing a different data type)](images/intro-prog/lego-data-frame.png) |
+| 2d  | ![A lego matrix made out of a 3x4 rectangle of individual 2x2 bricks](images/data-structures/lego-2x2-matrix.png) | ![A lego data frame made out of multiple columns of bricks where each column is a different size of brick (representing a different data type)](images/data-structures/lego-data-frame.png) |
 | | matrix (R)<br/>ndarray(Numpy) | data frame (R, Pandas)<br/>data set (SAS) |
-| nd  | ![A 4x3x3 matrix/ndarray of 2x2 bricks of different colors.](images/intro-prog/lego-ndarray.png)             |                                                                                                                                                                                        |
+| nd  | ![A 4x3x3 matrix/ndarray of 2x2 bricks of different colors.](images/data-structures/lego-ndarray.png)             |                                                                                                                                                                                        |
 | | array (R)<br/>ndarray(Numpy) |
 
 
@@ -570,9 +570,8 @@ A data frame is a special type of list - one in which each element in the list i
 
 The lego version of a data frame looks like this:
 
-```{r lego-df, echo = F, out.width = "50%", fig.cap = "A data frame with 4 columns. A data frame is essentially a list where all of the components are vectors or lists, and are constrained to have the same length. "}
-knitr::include_graphics("images/intro-prog/lego-data-frame.png")
-```
+![A data frame with 4 columns. A data frame is essentially a list where all of the components are vectors or lists, and are constrained to have the same length.](images/data-structures/lego-data-frame.png){width=50%}
+
 
 ### Exploring Data Frames 
 
@@ -1106,6 +1105,6 @@ R4DS indexing illustration
 
 | `x`                      | `x[1]`                     | `x[[1]]`                   | `x[[1]][[1]]`              |
 |--------------------------|----------------------------|----------------------------|----------------------------|
-| ![](image/02_pepper.jpg) | ![](image/02_pepper-1.jpg) | ![](image/02_pepper-2.jpg) | ![](image/02_pepper-3.jpg) |
+| ![](images/data-structures/02_pepper.jpg) | ![](images/data-structures/02_pepper-1.jpg) | ![](images/data-structures/02_pepper-2.jpg) | ![](images/data-structures/02_pepper-3.jpg) |
 
 </details>
