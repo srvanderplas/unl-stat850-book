@@ -34,9 +34,7 @@ book:
   comments:
     giscus:
       repo: srvanderplas/unl-stat850
-      repo-id: MDEwOlJlcG9zaXRvcnkyNjM0MDc3MTM
       category: "General"
-      category-id: "DIC_kwDOD7NIYc4CPZZT"
       mapping: "pathname"
   sidebar:
     style: floating
