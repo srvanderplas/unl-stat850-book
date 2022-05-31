@@ -204,7 +204,7 @@ To get things fully set up you will need to read the rest of this chapter, and d
 An IDE is an **integraged development environment** - a fancy, souped up text editor that is built to make programming easier. Back in the dark ages, people wrote programs in text editors^[Ok, in prehistory they programmed by punching holes in cards, but that was before my time... back when 🦣 roamed the earth.] and then used the command line to compile those programs and run them.
 
 
-::: note
+::: {.callout-note}
 RStudio is not R - it's just a layer on top of R. So if you have a question about the user interface, you have an RStudio question. If you have a question about the code, you have an R question.
 :::
 
@@ -308,11 +308,14 @@ Here are a few quick facts about each of the programming languages that are ment
 
 In this section, we'll talk a bit more about R and python specifically, as they are covered extensively in this book. SAS content is relegated to the appendix - I no longer teach SAS at 
 
-#### If you've used R/SAS/Python before... {.unnumbered .note}
+::: {.callout-note}
+
+#### If you've used R/SAS/Python before... {.unnumbered}
 
 If you've programmed before, the next few chapters are going to be boring. Sorry, there's no help for that. Some of your classmates haven't ever so much as written "Hello World", and we have to get them up to speed.
 
 If you're bored, or feel like you know this material, skim through it anyways just to confirm (and if I'm doing something that's really out there, or there's an easier way to do it, tell me!). You can then either find something in the references that you don't know already (@advr is always a great place to start if you want to be quickly confused), or help your classmates that are less experienced, which will help you learn new things and build relationships with other students.
+:::
 
 #### R
 
@@ -453,7 +456,7 @@ It is helpful to read the messages in the terminal so that you can see what the 
 
 ### Version Control 
 
-::: note
+::: {.callout-note}
 Most of this section is either heavily inspired by @bryanHappyGitGitHub2021 or directly links to that book. 
 :::
 
@@ -752,7 +755,9 @@ In general, your workflow will be
 
 If you're working alone, steps 5 and 6 are not likely to be necessary, but it is good practice to just pull before you push anyways.
 
-## Topic Sequencing {- .note}
+:::{.callout-note}
+
+## Topic Sequencing {-}
 
 In several places in this class, you'll have to use material that you haven't been formally taught yet. I will do my absolute best to provide thorough instructions, help you along as much as I can, and generally provide enough support that you can muddle through. But it's going to be hard to teach you everything you need to e.g. analyze some data, before providing you the opportunity to SEE that data using visualization packages. And it's silly to teach you plotting before you know how to read data in. But to teach you how to read data in, you need to be able to take a look at the data, and plots are the best way to do that. To do any of this stuff, you need to know about functions, but it can be easier to figure out how to run a function than to write a function. 
 
@@ -761,8 +766,10 @@ You see my problem.
 So instead, what I'm going to do is to leave you lots of comments as to what a piece of code does when I'm using things you haven't been formally shown yet. Then, you can copy/paste/modify those pieces of code, and if they break, you can ask why and we'll dig into it (breaking code is usually a good thing, because it means you're learning how to program). For each chapter, focus on learning how to write code that accomplishes that chapter's objectives. If you understand some of the code you're modifying that covers other topics not in that chapter, so much the better. But it's not an expectation or a requirement.
 
 If you're confused, please post on the class message boards so that those who have seen this material before can help you out.
+:::
 
-## Learn More {- #refs-module-1 .learn-more}
+:::{.callout-important}
+## Learn More {- #refs-module-1}
 
 ### Extra Resources {-}
 
@@ -781,6 +788,7 @@ If you're confused, please post on the class message boards so that those who ha
 - [More advanced git concepts, in comic form](https://dev.to/erikaheidi/stage-commit-push-a-git-story-comic-a37), by Erika Heidi [@ericaheidiStageCommitPush2020]
 
 - [A quick guide to the command line (Terminal)](https://towardsdatascience.com/a-quick-guide-to-using-command-line-terminal-96815b97b955) [@weiQuickGuideUsing2019]
+:::
 
 ### References {-}
 
