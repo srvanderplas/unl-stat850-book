@@ -454,7 +454,7 @@ Another question that I have when looking at this dataset is a bit more superfic
 
 To look at this, we'll need a bit more data. I found a list of NYC zip codes by borough, which we can merge in with the data we already have to get puppy registrations by borough. Then, we can see if e.g. the top 10 breeds are different for different boroughs. To simplify this, I'm going to link to a file to merge in, and not show you the specifics of how I read the table from [this site](https://www.nycbynatives.com/nyc_info/new_york_city_zip_codes.php).
 
-```{r get-nyc-zip-borough, echo = F, include = F}
+```{r get-nyc-zip-borough, echo = F, include = F, eval = F}
 library(xml2)
 library(tidyverse)
 page <- read_html("https://www.nycbynatives.com/nyc_info/new_york_city_zip_codes.php")
