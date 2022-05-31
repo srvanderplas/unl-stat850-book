@@ -16,6 +16,7 @@ book:
     - references.qmd
   appendices:
     - app-sas.qmd
+  search: true
   favicon: images/favicon.ico
   cover-image: images/cover.png
   site-url: https://srvanderplas.github.io/unl-stat850/
@@ -34,6 +35,9 @@ book:
         href: https://github.com/srvanderplas
       - icon: twitter
         href: https://twitter.com/srvanderplas
+  comments:
+    giscus:
+      repo: srvanderplas/unl-stat850
 date: today
 date-format: long
 
@@ -51,20 +55,17 @@ format:
     theme: cosmo
     code-link: true
     include-in-header: "header.html"
-  pdf:
-    documentclass: scrreprt
-    include-in-header:
-      text: |
-        \usepackage{makeidx}
-        \makeindex
-    include-after-body:
-      text: |
-        \printindex
-
   # pdf:
-  #   documentclass: scrreport
-  #epub:
-  #  cover-image: cover.png
+  #   documentclass: scrreprt
+  #   include-in-header:
+  #     text: |
+  #       \usepackage{makeidx}
+  #       \makeindex
+  #   include-after-body:
+  #     text: |
+  #       \printindex
+  epub:
+   cover-image: cover.png
 
 editor: source
 
