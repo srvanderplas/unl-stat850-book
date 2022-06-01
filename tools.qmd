@@ -468,16 +468,16 @@ It is helpful to read the messages in the terminal so that you can see what the 
 ### Version Control 
 
 ::: {.callout-note}
-Most of this section is either heavily inspired by @bryanHappyGitGitHub2021 or directly links to that book. 
+Most of this section is either heavily inspired by Happy Git and Github for the UseR [@bryanHappyGitGitHub2021] or directly links to that book. 
 :::
 
 <!-- ::: adv -->
 <!-- We will be using git to track changes made to code in this class. As a bonus, this will also allow you to submit your homework via github, collaborate with group members easily, and I can even help you with your assignments and see what the problem(s) is (are) ... as long as you keep your homework repository up to date! -->
 <!-- ::: -->
 
-Git is a version control system - the goal of git and other version control systems is to help groups of programmers work on large projects together. Git manages a collection of files in a structured way - rather like "track changes" in Microsoft Word or versioning in Dropbox, but much more powerful.
+Git is a version control system - the goal of git and other version control systems is to help groups of programmers work on large projects together. Git manages a collection of files in a structured way - rather like "track changes" in Microsoft Word or version history in Dropbox, but much more powerful.
 
-<img alt="You don't want to end up here. Version control is the answer to this problem." src="https://www.phdcomics.com/comics/archive/phd101212s.gif" width = "50%"/>
+![Version control is the answer to this file naming  problem.](https://www.phdcomics.com/comics/archive/phd101212s.gif){width="50%"}
 
 In data science programming, we use git for a similar, but slightly different purpose. We use it to keep track of changes not only to code files, but to data files, figures, reports, and other essential bits of information. 
 
