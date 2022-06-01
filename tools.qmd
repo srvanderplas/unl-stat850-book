@@ -45,7 +45,8 @@ Here is a short 3-minute video on the basic hardware that makes up your computer
 
 When programming, it is usually helpful to understand the distinction between RAM and disk storage (hard drives). We also need to know at least a little bit about processors (so that we know when we've asked our processor to do too much). Most of the other details aren't necessary (for now).
 
-::: learn-more
+::: {.callout-info}
+#### Learn More about Computer Hardware {-}
 -   [Chapter 1 of Python for Everybody](https://www.py4e.com/html3/01-intro) - Computer hardware architecture
 :::
 
@@ -98,11 +99,13 @@ Unfortunately, that isn't sufficient when you're programming, because you may ne
 
 To simplify this process, operating systems have what's known as a "system path" or "user path" - a list of folders containing important places to look for executable and other important files. You may, at some point, have to edit your system path to add a new folder to it, making the executable files within that folder more easily available. 
 
-::: learn-more
+::: {.callout-info}
+#### How To Modify System Paths {-}
 
 [How to set system paths (general)](https://superuser.com/a/284361/391106)
 
 Operating-system specific instructions cobbled together from a variety of different sources:
+
 - [<i class="fa-brands fa-windows"></i> On Windows](https://miktex.org/howto/modify-path)
 - [<i class="fa-brands fa-apple"></i> On Mac](https://osxdaily.com/2014/08/14/add-new-path-to-path-command-line/)
 - [<i class="fa-brands fa-linux"></i> On Linux](https://linuxize.com/post/how-to-add-directory-to-path-in-linux/)
@@ -191,7 +194,7 @@ library(tinytex)
 install_tinytex()
 ```
 
-::: warning
+::: {.callout-important}
 
 To get things fully set up you will need to read the rest of this chapter, and do all of the Try it Out sections. They are essential for ensuring that you have the correct packages installed!
 
@@ -399,12 +402,13 @@ Python is a general-purpose programming language. Some people like to say that P
 
 As we'll be using python within RStudio, now is a good time to check and make sure that RStudio can find your python installation. 
 
-##### Try it Out (Python + RStudio) {.tryitout}
+::: {.callout-tip}
+##### Try it Out (Python + RStudio) 
 
 Go to Tools -> Global Options and select Python on the left-hand side of the popup menu. Ensure that there is at least one python installation available for RStudio.
 
 ![Screenshot of global options window and toolbar to find the python menu](images/tools/Rstudio_find_python.png)
-
+:::
 
 
 ##### Python Packages
@@ -440,6 +444,8 @@ from numpy import *
 ```
 
 
+:::{.callout-tip}
+
 ##### Try it Out (Python package edition)
 
 Use pip to install the `numpy` and `pandas` python packages. This will install many other python packages as well - these packages are known as dependencies, and are required to use numpy and pandas.
@@ -453,6 +459,7 @@ When I try to install numpy and pandas, I get this response:
 ![Pip sees that the requirements are already satisfied, so no new packages are installed](images/tools/pip_install_numpy_pandas.png)
 It is helpful to read the messages in the terminal so that you can see what the computer is trying to tell you. In my case, pip is telling me I need to manually upgrade pip, and it tells me exactly what to run to do that. 
 
+:::
 
 ### Version Control 
 
@@ -460,9 +467,9 @@ It is helpful to read the messages in the terminal so that you can see what the 
 Most of this section is either heavily inspired by @bryanHappyGitGitHub2021 or directly links to that book. 
 :::
 
-::: adv
-We will be using git to track changes made to code in this class. As a bonus, this will also allow you to submit your homework via github, collaborate with group members easily, and I can even help you with your assignments and see what the problem(s) is (are) ... as long as you keep your homework repository up to date!
-:::
+<!-- ::: adv -->
+<!-- We will be using git to track changes made to code in this class. As a bonus, this will also allow you to submit your homework via github, collaborate with group members easily, and I can even help you with your assignments and see what the problem(s) is (are) ... as long as you keep your homework repository up to date! -->
+<!-- ::: -->
 
 Git is a version control system - the goal of git and other version control systems is to help groups of programmers work on large projects together. Git manages a collection of files in a structured way - rather like "track changes" in Microsoft Word or versioning in Dropbox, but much more powerful.
 
@@ -484,7 +491,8 @@ Git is a program whose primary purpose is **version control**. Git tracks change
 
 When writing papers, this means you can cut material out freely, so long as the paper is being tracked by git - you can always go back and get that paragraph you cut out if you need to. You also don't have to rename files - you can confidently overwrite your files, so long as you remember to commit frequently. 
 
-::: go-read
+::: {.callout-important}
+#### Essential Reading: Git
 The git material in this chapter is just going to link directly to the book "Happy Git with R" by Jenny Bryan. It's amazing, amusing, and generally well written. I'm not going to try to do better. 
 
 [Go read Chapter 1, if you haven't already.](https://happygitwithr.com/big-picture.html)
@@ -550,24 +558,17 @@ I don't personally use a git client other than RStudio, but you may prefer to ha
 
 LaTeX is a typesetting program, which makes it different from most other document creation software, such as MS Word, which is "WYSIWYG" - what you see is what you get. In LaTeX, you'll type in code to create a document, and LaTeX will compile the document into something pretty. The goal is that you have to think less about formatting and what goes on which page - LaTeX will handle that part for you - so that you can think more about the content.
 
-<details><summary>Why use LaTeX?</summary>
-<img src="images/tools/02_word_formatting.png" alt="using microsoft word: moves an image one mm to the left. all text and images shift. four new pages appear. paragraph breaks form a union. a swarm of commas buzzes at the window. In the distance, sirens." width="50%"/>
-
-(shamelessly stolen from FB, which apparently stole it from Tumblr)
-
-Latex is meant for you to focus on the content and not worry about the formatting - the computer optimizes figure placement according to directives you've given. 
-</details>
 In practice, it doesn't usually work out like that, so there are programs like markdown which aim to simplify document creation even more to free you from the formatting that LaTeX requires. 
 
-LaTeX[@knuth84] is often used for typesetting statistical and mathematical papers because its equation editor is top notch. (It was actually written by Donald Knuth because he got so annoyed trying to write his dissertation that he took some time off to write TeX first, and then used it to write his dissertation).^[Amusingly, `knitr` [@knitr] was written in much the same manner. Yihui Xie had to substitute-teach ISU's version of 850 on the day we covered Sweave (a predecessor to knitr). He got so frustrated teaching the class that he went home and started writing `knitr`. Later, he developed Rmarkdown, bookdown, blogdown, and several other packages aimed at making writing documents + code easier to handle.    
+LaTeX[@knuth84] is often used for typesetting statistical and mathematical papers because its equation editor is top notch. (It was actually written by Donald Knuth because he got so annoyed trying to write his dissertation that he took some time off to write TeX first, and then used it to write his dissertation).^[Amusingly, `knitr` [@knitr] was written in much the same manner. Yihui Xie had to substitute-teach ISU's graduate introduction to computing on the day we covered Sweave (a predecessor to knitr). He got so frustrated teaching the class that he went home and started writing `knitr`. Later, he developed Rmarkdown, bookdown, blogdown, and several other packages aimed at making writing documents + code easier to handle.    
 Moral of the story - if you get frustrated with the tools you have, you're in good company. Use it as fuel to make better tools.] 
 
 
-##### Try it Out: LaTeX {.tryitout}
+:::{.callout-tip}
+##### Try it Out: LaTeX
 
 If you want to try to make a simple LaTeX document in RStudio, [try out this LaTeX tutorial](https://latex-tutorial.com/tutorials/first-document/).
-
-
+:::
 
 #### Markdown
 
@@ -584,21 +585,21 @@ If you want to try out some simple Markdown formatting, you can create a new Rma
 
 The first skill you need to actually practice in this class is using version control. By using version control from the very beginning, you will learn better habits for programming, but you'll also get access to a platform for collaboration, hosting your work online, keeping track of features and necessary changes, and more. 
 
-::: adv
+<!-- ::: adv -->
 
-I will be using github classroom to run this class. When you go to do your homework assignment, you'll have to complete the following steps: 
+<!-- I will be using github classroom to run this class. When you go to do your homework assignment, you'll have to complete the following steps:  -->
 
-1. Clone the template repository for the assignment.
-2. Read the assignment instructions in the template repository. Complete the assignment, ensuring that you write fully reproducible code that can be run on any machine.
-3. Commit your changes to the assignment to the local git repository on your computer
-4. Push your changes from your local machine to GitHub
-5. Submit a link to the GitHub repository so that I can grade your assignment.
+<!-- 1. Clone the template repository for the assignment. -->
+<!-- 2. Read the assignment instructions in the template repository. Complete the assignment, ensuring that you write fully reproducible code that can be run on any machine. -->
+<!-- 3. Commit your changes to the assignment to the local git repository on your computer -->
+<!-- 4. Push your changes from your local machine to GitHub -->
+<!-- 5. Submit a link to the GitHub repository so that I can grade your assignment. -->
 
-GitHub Classroom is FERPA compliant, which means that your repositories from this class won't show up under your user (because class enrollment is protected information). 
+<!-- GitHub Classroom is FERPA compliant, which means that your repositories from this class won't show up under your user (because class enrollment is protected information).  -->
 
-This workflow means that if you push your changes to GitHub but something isn't working, I can easily see what you've done so far and help you fix any errors that show up. You don't have to email me with a vague error message and then respond to my confused emails 10x as we narrow in on the problem - I can usually just find the problem in your file directly. This saves a lot of time!
+<!-- This workflow means that if you push your changes to GitHub but something isn't working, I can easily see what you've done so far and help you fix any errors that show up. You don't have to email me with a vague error message and then respond to my confused emails 10x as we narrow in on the problem - I can usually just find the problem in your file directly. This saves a lot of time! -->
 
-:::
+<!-- ::: -->
 
 
 So, what does your typical git/GitHub workflow look like? I'll go through this in (roughly) chronological order. This is based off of a relatively high-level understanding of git - I do not have any idea how it works under the hood, but I'm pretty comfortable with the clone/push/pull/commit/add workflows, and I've used a few of the more complicated features (branches, pull requests) on occasion. 
@@ -609,7 +610,7 @@ So, what does your typical git/GitHub workflow look like? I'll go through this i
 
 To create a repository, you can start with your local computer first, or you can start with the online repository first. 
 
-::: .watch-out
+::: {.callout-important}
 Both methods are relatively simple, but the options you choose depend on which method you're using, so be careful not to get them confused. 
 :::
 
@@ -690,7 +691,7 @@ Command line method:
 
 `git add` tells git that you want it to track a particular file. 
 
-![git add  diagram: add tells git to add the file to the index of files git monitors.](images/tools/git-add.png)
+![git add  diagram: add tells git to add the file to the index of files git monitors.](images/tools/git-add.png){width="50%"}
 
 You don't need to understand exactly what git is doing on the backend, but it is important to know that the actual **contents** of the file aren't logged by `git add` - you have to **commit** your changes for the contents to change. `git add` deals solely with the index of files that git "knows about", and what it thinks belongs in each commit. 
 
@@ -720,7 +721,7 @@ Individually staging lines of a file is most useful in situations where you've m
 
 A git **commit** is the equivalent of a log entry - it tells git to record the state of the file, along with a message about what that state means. On the back end, git will save a copy of the file in its current state to its cache. 
 
-![Here, we commit the red line as a change to our file.](images/tools/git-commit.png)
+![Here, we commit the red line as a change to our file.](images/tools/git-commit.png){width="50%"}
 
 In general, you want your commit message to be relatively short, but also informative. The best way to do this is to commit **small** blocks of changes. Work to commit  every time you've accomplished a small task. This will do two things: 
 
@@ -741,7 +742,16 @@ For this reason, I find it makes my life easier to put each sentence on a separa
 
 **Pushing** describes the process of updating the copy of the repository on another machine (e.g. on GitHub) so that it has the most recent changes you've made to your machine. 
 
-<img alt="git push copies the version of the project on your computer to GitHub" src="images/tools/git_push_diagram.png" width = "45%"/> <img alt="git pull copies the version of the project on GitHub to your computer" src="images/tools/git_pull_diagram.png" width = "45%"/>
+
+::: {#fig-git-push-pull layout-ncol=2}
+
+![git push copies the version of the project on your computer to GitHub](images/tools/git_push_diagram.png)
+
+![git pull copies the version of the project on GitHub to your computer](images/tools/git_pull_diagram.png)
+
+Git push and git pull are used to sync your computer with the remote repository (usually hosted on GitHub)
+:::
+
 
 In general, your workflow will be 
 
@@ -761,11 +771,11 @@ If you're working alone, steps 5 and 6 are not likely to be necessary, but it is
 
 In several places in this class, you'll have to use material that you haven't been formally taught yet. I will do my absolute best to provide thorough instructions, help you along as much as I can, and generally provide enough support that you can muddle through. But it's going to be hard to teach you everything you need to e.g. analyze some data, before providing you the opportunity to SEE that data using visualization packages. And it's silly to teach you plotting before you know how to read data in. But to teach you how to read data in, you need to be able to take a look at the data, and plots are the best way to do that. To do any of this stuff, you need to know about functions, but it can be easier to figure out how to run a function than to write a function. 
 
-You see my problem.
+You see the problem.
 
 So instead, what I'm going to do is to leave you lots of comments as to what a piece of code does when I'm using things you haven't been formally shown yet. Then, you can copy/paste/modify those pieces of code, and if they break, you can ask why and we'll dig into it (breaking code is usually a good thing, because it means you're learning how to program). For each chapter, focus on learning how to write code that accomplishes that chapter's objectives. If you understand some of the code you're modifying that covers other topics not in that chapter, so much the better. But it's not an expectation or a requirement.
 
-If you're confused, please post on the class message boards so that those who have seen this material before can help you out.
+If you're confused, please reach out so that those who have seen this material before can help you out.
 :::
 
 :::{.callout-important}
