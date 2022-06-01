@@ -27,88 +27,69 @@ The book contains a number of features which should help you navigate, use, impr
 
 
 <!-- - <i class="fa fa-align-justify"></i> Open/close the sidebar TOC -->
-- <i class="fa fa-search"></i> Search the text
+<!-- - <i class="fa fa-search"></i> Search the text -->
 <!-- - <i class="fa fa-font"></i> Set font size and white/sepia/dark mode -->
-- <i class="fa fa-github"></i><b>Edit this page</b> Suggest edits if you find a typo. This will help you automatically submit a pull request in Github, and I can review and approve it easily.
+<!-- - <i class="fa fa-github"></i><b>Edit this page</b> Suggest edits if you find a typo. This will help you automatically submit a pull request in Github, and I can review and approve it easily. -->
 <!-- - <i class="fa fa-download"></i> Download the entire (very long) Rmarkdown source code for the textbook -->
 <!-- - <i class="fa fa-info"></i> See keyboard shortcuts to navigate the book -->
-- <i class="fab fa-twitter"></i> Reference the book in a tweet, if you really want to. Tag me if you do (\@srvanderplas)
-- <i class="fab fa-github"></i> Find the book repository on GitHub quickly if you want to see code/data/etc. linked in the book
+<!-- - <i class="fab fa-twitter"></i> Reference the book in a tweet, if you really want to. Tag me if you do (\@srvanderplas) -->
+<!-- - <i class="fab fa-github"></i> Find the book repository on GitHub quickly if you want to see code/data/etc. linked in the book -->
 
 
 ### Special Sections {-}
 
-
-::: watchout
-
-#### Watch Out {-}
-
-Watch out sections contain things you may want to look out for - common errors, etc.
-
+:::{.callout-important}
+#### Warnings {-}
+These sections contain things you may want to look out for: common errors, mistakes, and unfortunate situations that may arise when programming. 
 :::
 
-&nbsp;
 
-::: ex
-
+:::{.callout-caution}
 #### Examples {-}
 
-Example sections contain code and other information. Don't skip them!
+These sections contain code and other illustrations of the concepts discussed in the chapter. Don't skip them, even though they may be long!
 
 :::
 
-&nbsp;
-
-::: my-opinion
-
-#### My Opinion {-}
-
-These sections contain things you should definitely not consider as fact and should just take with a grain of salt. 
-
-:::
-
-&nbsp;
-
-::: go-read
-
-#### Go Read {-}
-
-Sometimes, there are better resources out there than something I could write myself. When you see this section, go read the enclosed link as if it were part of the book.
-
-:::
-
-&nbsp;
-
-::: tryitout
-
+:::{.callout-tip}
 #### Try it out {-}
+These sections contain activities you should do to reinforce the things you've just read. You will be much more successful if you read the material, review the example, and then try to write your own code. Most of the time, these sections will have a specific format:
 
-Try it out sections contain activities you should do to reinforce the things you've just read. You will be much more successful in this class if you do the try it out sections before you come to class.
+::: panel-tabset
 
+##### Problem {-}
+
+The problem will be in the first tab for you to start with
+
+##### R Solution {-}
+
+A solution will be provided in R, potentially with an explanation.
+
+##### Python Solution {-}
+
+A solution will be provided in Python as well.
 :::
 
-&nbsp;
+In some cases, the problem will be more open-ended and may not adhere to this format, but most try it out sections in this book will have solutions provided. I **highly** recommend that you attempt to solve the problem yourself before you look at the solutions - this is the best way to learn.
+:::
 
-::: learn-more
+:::{.callout-important}
+#### Essential Reading {-}
+These sections may direct you to additional reading material that is essential for understanding the topic. For instance, I will sometimes link to other online textbooks rather than try to rehash the content myself when someone else has done it better.
+:::
 
+
+:::{.callout-note}
 #### Learn More {-}
 
-Learn More sections contain other references that may be useful on a specific topic. Suggestions are welcome (use the edit link at the top to suggest a new reference that I should add), as there's no way for one person to catalog all of the helpful statistical programming resources on the internet!
-
+These sections will direct you to additional resources that may be helpful to consult as you learn about a topic. You do not have to use these sections unless you are 1) bored, or 2) hopelessly lost. They're provided to help but are not expected reading (Unlike the essential reading sections in red). 
 :::
 
-&nbsp;
+:::{.callout-note}
+#### Notes {-}
 
-::: note
-
-#### Note {-}
-
-Note sections contain clarification points (anywhere I would normally say "note that ....) 
-
+These generic sections contain information I may want to call attention to, but that isn't necessarily urgent or a common error trap.
 :::
-
-
-&nbsp;
 
 #### Expandable Sections {-}
 
@@ -116,13 +97,6 @@ Note sections contain clarification points (anywhere I would normally say "note 
 
 This additional information may be information that is helpful but not essential, or it may be that an example just takes a LOT of space and I want to make sure you can skim the book without having to scroll through a ton of output.
 </details>
-
-&nbsp;
-
-<details class="ex"><summary>Many times, examples will be in expandable sections</summary>
-This keeps the code and output from obscuring the actual information in the textbook that I want you to retain. You can always look up the syntax, but you do need to absorb the details I've written out.
-</details>
-
 
 ```{r pkg-list-update, include = F, cache = F}
 # update package list
