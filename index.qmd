@@ -98,6 +98,12 @@ These generic sections contain information I may want to call attention to, but 
 This additional information may be information that is helpful but not essential, or it may be that an example just takes a LOT of space and I want to make sure you can skim the book without having to scroll through a ton of output.
 </details>
 
+:::{.callout-note collapse="true"}
+#### Another type of expandable note
+
+Answers or punchlines may be hidden in this type of expandable section as well.
+:::
+
 ```{r pkg-list-update, include = F, cache = F}
 # update package list
 # source("code/collect_packages.R")
