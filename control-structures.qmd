@@ -63,7 +63,11 @@ We can also represent them with Venn Diagrams.
 
 #### Definitions
 
-![Venn Diagram of Set A and Set B](images/control-structures/SetA%20and%20SetB.png) Suppose that we set the convention that ![Shaded regions are TRUE, unshaded regions are FALSE](images/control-structures/TrueFalse.png).
+![Venn Diagram of Set A and Set B](images/control-structures/SetA%20and%20SetB.png){width="50%"}
+
+Suppose that we set the convention that 
+
+![Shaded regions are TRUE, unshaded regions are FALSE](images/control-structures/TrueFalse.png){width="20%"}
 
 #### DeMorgan's First Law
 
