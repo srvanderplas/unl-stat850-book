@@ -161,18 +161,20 @@ In the next section, I'll explain what each piece of software is, and what it is
 
 1. Install R. 
     - Download and run the R installer for your operating system from CRAN. Please make sure you are using at least R 4.1^[4.2 is the most recently released version as of May 2022, when I'm writing this.]
-        -   <i class="fa-brands fa-windows"></i> Windows: https://cran.rstudio.com/bin/windows/base/
-        -   <i class="fa-brands fa-apple"></i> Mac: https://cran.rstudio.com/bin/macosx/
-        -   <i class="fa-brands fa-linux"></i> Linux: https://cran.rstudio.com/bin/linux/ (pick your distribution)
+        -   <i class="fa-brands fa-windows"></i> [Windows: https://cran.rstudio.com/bin/windows/base/](https://cran.rstudio.com/bin/windows/base/)
+        -   <i class="fa-brands fa-apple"></i> [Mac: https://cran.rstudio.com/bin/macosx/](https://cran.rstudio.com/bin/macosx/)
+        -   <i class="fa-brands fa-linux"></i> [Linux: https://cran.rstudio.com/bin/linux/](https://cran.rstudio.com/bin/linux/) (pick your distribution)
     - If you are on Windows, install the [Rtools4 package](https://cran.rstudio.com/bin/windows/Rtools/); this will ensure you get fewer warnings later when installing packages.    
-More detailed instructions for Windows are available [here](https://owi.usgs.gov/R/training-curriculum/installr/)
-    - Additional resources for help:
-        - Videos (these use very OLD versions of R, but the instructions are the same.)
-            - <i class="fa-brands fa-windows"></i> [R on Windows installation](https://www.youtube.com/watch?v=mfGFv-iB724)
-            - <i class="fa-brands fa-apple"></i> [R on Mac installation](https://www.youtube.com/watch?v=Icawuhf0Yqo)
-<details><summary>Tutorial videos and additional help</summary>
-        - <i class="fa-brands fa-linux"></i> R on Linux installation (Text-based tutorial)    
+More detailed instructions for Windows are available [here](https://owi.usgs.gov/R/training-curriculum/installr/) 
+
+:::{.callout-note collapse="true"}
+### Walkthrough videos and additional help
+- Videos (these use very OLD versions of R, but the instructions are the same.)
+    - <i class="fa-brands fa-windows"></i> [R on Windows installation](https://www.youtube.com/watch?v=mfGFv-iB724)
+    - <i class="fa-brands fa-apple"></i> [R on Mac installation](https://www.youtube.com/watch?v=Icawuhf0Yqo)
+    - <i class="fa-brands fa-linux"></i> R on Linux installation (Text-based tutorial)    
 On Linux, instead of a YouTube video, you get a text-based  [tutorial](https://github.com/swirldev/swirl/wiki/Installing-swirl-on-Linux). One of the Debian maintainers, Dirk Eddelbuettel, is also on R core, which means that R tends to work extremely well with Debian-based distributions, like Ubuntu and Linux Mint. R does work on RPM based distros, and you can of course also compile it from source for Arch/Gentoo, but I've stuck with Deb-based distributions for approximately 7 years because it seems to be a bit less hassle. Additional troubleshooting can be found [here](https://pages.github.nceas.ucsb.edu/NCEAS/help/installing_r_on_ubuntu.html).
+:::
 
 2. Install RStudio (version 2022.02.2 or higher)
     - You can find RStudio [here](https://rstudio.com/products/rstudio/download/). You want the open source edition of RStudio Desktop. If you're feeling brave, you can install the [preview release](https://rstudio.com/products/rstudio/download/preview/#download) - this may have a few bugs, but tends to be relatively stable and has the latest features. 
@@ -518,7 +520,7 @@ Be sure you remember your signup email, username, and password - you will need t
 
 Git is a program that runs on your machine and keeps track of changes to files that you tell it to monitor. GitHub is a website that hosts people's git repositories. You can use git without GitHub, but you can't use GitHub without git. 
 
-:::{.callout-info collapse="true"}
+:::{.callout-note collapse="true"}
 ##### Git and Github: Slightly crude (but memorable) analogy
 
 Git is to GitHub what Porn is to PornHub. Specifically, GitHub hosts git repositories publicly, while PornHub hosts porn publicly. But it would be silly to equate porn and PornHub, and it's similarly silly to think of GitHub as the only place you can use git repositories.
@@ -528,37 +530,6 @@ If you want, you can hook Git up to GitHub, and make a copy of your local git re
 
 Remember: any data you don't have in 3 different places is data you don't care about.^[Yes, I'm aware that this sounds paranoid. It's been a very rare occasion that I've needed to restore something from another backup. You don't want to take chances. I knew a guy who had to retype his entire masters thesis from the printed out version the night before it was due because he had stored it on a network drive that was decommissioned. You don't want to be that person.]
 
-
-#### Introduce yourself to git and set up SSH authentication
-
-You need to tell git what your name and email address are, because every "commit" you make will be signed. 
-
-Follow the instructions [here](https://happygitwithr.com/hello-git.html), or run the lines below:
-
-```{r, collapse = T, results = "hold", eval = F}
-
-user_name <- readline(prompt = "Your full name: ")
-user_email <- readline(prompt = "The address associated w your github account: ")
-
-install.packages("usethis")
-library(usethis)
-
-use_git_config(user.name = user_name, user.email = user_email, scope = "user")
-
-# Tell git to ignore all files that are OS-dependent and don't have useful data.
-git_vaccinate() 
-
-# Create a ssh key if one doesn't already exist
-if (!file.exists(git2r::ssh_path("id_rsa.pub"))) {
-  system("ssh-keygen -t rsa -b 4096") # Create an ssh key
-  system("eval $(ssh-agent -s)")
-  system("ssh-add ~/.ssh/id_rsa")
-} 
-```
-
-Then, in RStudio, go to Tools > Global Options > Git/SVN. View your public key, and copy it to the clipboard. 
-
-Then, proceed to github. Make sure you're signed into GitHub. Click on your profile pic in upper right corner and go Settings, then SSH and GPG keys. Click "New SSH key". Paste your public key in the "Key" box. Give it an informative title. For example, you might use 2022-laptop to record the year and computer. Click "Add SSH key".
 
 #### Optional: Install a git client
 
@@ -587,13 +558,17 @@ If you want to try to make a simple LaTeX document in RStudio, [try out this LaT
 
 #### Markdown
 
-We'll work with LaTeX later in the semester, but for now, we'll be primarily working with Quarto or Rmarkdown, which is much simpler. [Here's a quick cheatsheet](https://rmarkdown.rstudio.com/authoring_basics.html). 
+We'll work with LaTeX later in the semester, but for now, we'll be primarily working with Quarto or Rmarkdown, which is much simpler. [Here's a quick guide to rmarkdown basics](https://rmarkdown.rstudio.com/authoring_basics.html). 
 
 When you use markdown within RStudio, you don't have to worry about where pandoc lives on your computer (e.g. the path). You can just click the button at the top of the file that says "Knit" or "Preview" to see what your file looks like.
 
-If you want to try out some simple Markdown formatting, you can create a new Rmarkdown document by going to File > New File > Rmarkdown (or Quarto Markdown) and testing out the simple document it starts you out with.
+:::{.callout-tip}
+##### Try it Out: Rmarkdown
 
-[This cheat sheet is a very useful guide to Rmarkdown](https://www.rstudio.com/wp-content/uploads/2015/02/rmarkdown-cheatsheet.pdf)
+Create a new Rmarkdown or quarto document by going to File > New File > Rmarkdown (or Quarto Markdown) and testing out the simple document it starts you out with. Hit the compile button to see what the output looks like, then change things.
+:::
+
+[This cheat sheet is a very summary of  Rmarkdown (and quarto markdown)](https://www.rstudio.com/wp-content/uploads/2015/02/rmarkdown-cheatsheet.pdf)
 
 
 ## Using Version Control (with RStudio)
@@ -619,9 +594,42 @@ The first skill you need to actually practice in this class is using version con
 
 So, what does your typical git/GitHub workflow look like? I'll go through this in (roughly) chronological order. This is based off of a relatively high-level understanding of git - I do not have any idea how it works under the hood, but I'm pretty comfortable with the clone/push/pull/commit/add workflows, and I've used a few of the more complicated features (branches, pull requests) on occasion. 
 
+
+### Introduce yourself to git and set up SSH authentication
+
+You need to tell git what your name and email address are, because every "commit" you make will be signed. This needs to be done once on each computer you're using.
+
+Follow the instructions [here](https://happygitwithr.com/hello-git.html), or run the lines below:
+
+```{r, collapse = T, results = "hold", eval = F}
+
+user_name <- readline(prompt = "Your full name: ")
+user_email <- readline(prompt = "The address associated w your github account: ")
+
+install.packages("usethis")
+library(usethis)
+
+use_git_config(user.name = user_name, user.email = user_email, scope = "user")
+
+# Tell git to ignore all files that are OS-dependent and don't have useful data.
+git_vaccinate() 
+
+# Create a ssh key if one doesn't already exist
+if (!file.exists(git2r::ssh_path("id_rsa.pub"))) {
+  system("ssh-keygen -t rsa -b 4096") # Create an ssh key
+  system("eval $(ssh-agent -s)")
+  system("ssh-add ~/.ssh/id_rsa")
+} 
+```
+
+Then, in RStudio, go to Tools > Global Options > Git/SVN. View your public key, and copy it to the clipboard. 
+
+Then, proceed to github. Make sure you're signed into GitHub. Click on your profile pic in upper right corner and go Settings, then SSH and GPG keys. Click "New SSH key". Paste your public key in the "Key" box. Give it an informative title. For example, you might use `2022-laptop` to record the year and computer. Click "Add SSH key".
+
+
 ### Create a Repository
 
-**Repositories** are single-project containers. You may have code, documentation, data, TODO lists, and more associated with a project. If you combine a git repository with an RStudio project, you get a very powerful combination that will make your life much easier... but you of course do not have to do that if you are ok with making things hard for yourself.
+**Repositories** are single-project containers. You may have code, documentation, data, TODO lists, and more associated with a project. If you combine a git repository with an RStudio project, you get a very powerful combination that will make your life much easier, allowing you to focus on writing code instead of figuring out where all of your files are for each different project you start.
 
 To create a repository, you can start with your local computer first, or you can start with the online repository first. 
 
