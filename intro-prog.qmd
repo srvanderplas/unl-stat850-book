@@ -71,7 +71,7 @@ The most fundamental part of programming that you will need to learn in this cla
 ### Breaking Problems Down IRL
 
 ::: panel-tabset
-#### Scenario {.unnumbered .unnumbered}
+#### Scenario {.unnumbered}
 
 My spouse and I recently decided to replace our shower curtain with glass doors because the curtain didn't really prevent water from getting all over the floor.
 
@@ -87,7 +87,7 @@ We went to the store and picked out the parts, and the installation instructions
 
 So we started in on the instructions, only to find out that when our house was built, our shower wasn't leveled properly.
 
-#### Brainstorming Solutions {.unnumbered .unnumbered}
+#### Brainstorming Solutions {.unnumbered}
 
 The instructions had a solution - we could send off for a \$300 custom part that would level our floor, but we'd have to wait at least 4-6 weeks for them to make and ship the part to us. At this point, we'd already taken apart the shower and bought the shower door, so having the bathroom out of commission for 4-6 weeks was not appealing.
 
@@ -97,7 +97,7 @@ We considered adding a ton of caulk or plaster to try to level the shower out. B
 
 Finally, I suggested that my spouse 3D print sections of track-leveler using our 3D printer. Now, this isn't an option for most people, but it is for us - we have a small 3D printer, and my husband knows how to use OpenSCAD to create very accurate, custom dimension 3D printer files. He tested things out a few times, and printed up a series of 12 \~5" sections that, when assembled, were equivalent to the \$300 custom part we could have ordered. He added those sections to the shower, caulked them in, and proceeded with the rest of the installation.
 
-#### Conclusion {.unnumbered .unnumbered}
+#### Conclusion {.unnumbered}
 
 Because we had a list of subproblems (steps for installation), we could focus our efforts on debugging the one problem we had (not level shower ledge) and we didn't have to get bogged down in "it's impossible to get this job done".
 
@@ -742,13 +742,13 @@ Take a look at the [Qmd notebook sample file](files/quarto-demo.qmd) I've create
 ::: callout-warning
 ## Additional Material {.unnumbered}
 
-### Textbooks {.unnumbered .unnumbered}
+### Textbooks {.unnumbered}
 
 -   [R for Data Science](https://r4ds.had.co.nz/) [@r4ds]
 -   [Advanced R](http://adv-r.had.co.nz/Introduction.html) [@advr]
 -   [Non Programmer's Tutorial for Python 3](https://en.wikibooks.org/wiki/Non-Programmer%27s_Tutorial_for_Python_3) [@NonProgrammerTutorialPython2021]
 
-### Other Course Websites {.unnumbered .unnumbered}
+### Other Course Websites {.unnumbered}
 
 -   Stat 850 at UNL (Bilder): [@bilderStat850Course2019]
 -   [Stat 579 at Iowa State](https://stat579-at-isu.github.io/schedule.html): [@hofmannStat579Iowa2020]
@@ -756,6 +756,10 @@ Take a look at the [Qmd notebook sample file](files/quarto-demo.qmd) I've create
 -   [Introduction to SAS](https://online.stat.psu.edu/statprogram/stat480) - Undergraduate course at Penn State
 -   [Intermediate SAS](https://online.stat.psu.edu/statprogram/stat481) - Undergraduate course at Penn State
 -   [Advanced SAS](https://online.stat.psu.edu/statprogram/stat482) - Undergraduate course at Penn State
+
+### Helpful Debugging Resources {.unnumbered}
+
+- [Common R Problems](https://nickch-k.github.io/DataCommSlides/Lecture_04_Common_R_Problems.html#common-r-problems)
 :::
 
 ## References {#intro-prog-refs}
