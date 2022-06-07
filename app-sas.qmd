@@ -659,6 +659,133 @@ quit;
 ```
 </details>
 
+## EDA in SAS
+
+1. [Proc Freq](https://go.documentation.sas.com/?docsetId=procstat&docsetTarget=procstat_freq_toc.htm&docsetVersion=9.4&locale=en) generates frequency tables for variables or interactions of variables.    
+    
+<details class="ex"><summary>PROC FREQ demo</summary>
+This can help you to see whether there is missing information. Using those frequency tables, you can create frequency plots and set up chi squared tests.
+
+```
+libname classdat "sas/";
+
+ODS GRAPHICS ON;
+PROC FREQ DATA=classdat.poke ORDER=FORMATTED;
+  TABLES generation / CHISQ PLOTS=freqplot(type=dotplot);
+RUN;
+PROC FREQ DATA=classdat.poke ORDER=FREQ;
+  TABLES type_1 status / MAXLEVELS=10 PLOTS=freqplot(type=dotplot scale=percent);
+RUN;
+ODS GRAPHICS OFF;
+```
+
+</details>
+
+2. Proc Means can be used to get more useful summary statistics for numeric variables.     
+    
+<details class="ex"><summary> PROC MEANS demo</summary>Note that the Class statement identifies a categorical variable; the summary statistics are computed for each level of this variable. 
+
+```
+ODS HTML style= HTMLBlue; 
+libname classdat "sas/";
+
+PROC MEANS DATA = classdat.poke;
+run;
+
+proc means data = classdat.poke;
+class status;
+run;
+```
+</details>
+
+3. For even higher levels of detail, [Proc Univariate](https://go.documentation.sas.com/?docsetId=procstat&docsetTarget=procstat_univariate_toc.htm&docsetVersion=9.4&locale=en) will provide variability, tests for location, quantiles, skewness, and will identify the extreme observations for you.     
+    
+<details class="ex"><summary>PROC UNIVARIATE demo</summary>
+You can also get histograms for variables, even specifying distributions you'd like to be fit to the data (if that's something you want). 
+```
+ODS HTML style= HTMLBlue; 
+libname classdat "sas/";
+
+ODS GRAPHICS ON;
+PROC UNIVARIATE DATA = classdat.poke;
+VAR attack defense sp_attack sp_defense speed;
+HISTOGRAM attack defense sp_attack sp_defense speed;
+RUN;
+ODS GRAPHICS OFF;
+```
+</details>
+
+4. Proc Corr allows you to examine the relationship between two quantitative variables.     
+    
+<details class="ex"><summary>PROC CORR demo</summary>
+
+```
+libname classdat "sas/";
+
+ODS GRAPHICS ON;
+PROC CORR DATA = classdat.poke PLOTS( MAXPOINTS=200000)=MATRIX(HISTOGRAM);
+VAR attack defense sp_attack sp_defense speed ;
+RUN;
+ODS GRAPHICS OFF;
+```
+
+The plot here is called a scatterplot matrix. It contains histograms on the diagonal, and pairwise scatterplots on off-diagonals. It can be useful for spotting strong correlations among multiple variables which may affect the way you build a model. 
+</details>
+
+### Try it out {- .tryitout #police-violence-eda-sas}
+
+One of the datasets we read in above records incidents of police violence around the country. Explore the variables present in [this dataset](data/police_violence.xlsx) (see code in the spreadsheets section to read it in). Note that some variables may be too messy to handle with the things that you have seen thus far - that is ok. As you find irregularities, document them - these are things you may need to clean up in the dataset before you conduct a formal analysis.
+
+It is useful to memorize the SAS PROC options you use most frequently, but it's also a good idea to reference the SAS documentation - it provides a list of all viable options for each procedure, and generally has decent examples to show how those options are used.
+
+<details><summary>Solution</summary>
+```
+ODS HTML style= HTMLBlue; 
+
+libname classdat "sas/";
+
+ODS GRAPHICS ON;
+PROC CONTENTS DATA = classdat.police; /* see what's in the dataset */
+RUN;
+
+PROC FREQ DATA = classdat.police ORDER=FREQ; /* Examine Freq of common vars */
+TABLES Victim_s_gender Victim_s_race State Cause_of_death 
+        Unarmed Geography__via_Trulia_methodolog / MAXLEVELS = 10;
+RUN;
+
+PROC FREQ DATA = classdat.police ORDER=FREQ; /* Combinations of vars */
+TABLES Unarmed * Criminal_Charges_ / NOCUM NOPERCENT NOCOL NOROW MAXLEVELS=10;
+RUN;
+
+PROC MEANS DATA = classdat.police; /* Numeric variable exploration */
+VAR num_age; /* Only numeric variable in this set */
+RUN;
+
+PROC UNIVARIATE DATA = classdat.police; /* Investigating age/date info */
+HISTOGRAM num_age date;
+RUN;
+ODS GRAPHICS OFF;
+```
+
+Oddities to note:
+
+- Gender - Unknown should be recoded as missing (' ')
+- Victim\_s\_race - Unknown race and Unknown Race should be recoded as missing
+- State - might need to check to make sure all states are valid (but top 10 are, at least)
+- Cause of death - sometimes, there are multiple causes. Also, varying capitalizations...
+- Geography - #N/A should be recoded as missing 
+- Criminal_Charges_ - What does No/NO mean? (would need to look up in the codebook)
+- Age - the maximum age recorded is 107, which bears some investigation... other extreme observations between 89 and 95 are also fairly interesting and could be investigated further. There are also several infants/young children included, which is horribly sad, but believable.
+- Date - PROC UNIVARIATE doesn't display date results with a meaningful format, even though format is specified.
+
+
+Conclusions (ok, probably obvious before this analysis):
+
+- It's much more likely for charges to be filed if the suspect was unarmed (but still very rare)
+- Data is relatively evenly distributed between 2013 and 2019.
+- It's fairly rare for police to kill female or transgender individuals - around 5% of all victims
+- California, Texas, and Florida, while populous, seem to have a disproportionate number of killings, especially compared to e.g. NY, which is also a high population state. To really make the state numbers meaningful, though, we'd need to know population counts. There's also an issue of accurate comparisons - some states may not report police killings with the same standards as other states. 
+</details>
 
 ## References {#refs-sas}
 

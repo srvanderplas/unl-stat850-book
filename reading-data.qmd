@@ -447,7 +447,7 @@ This example uses data downloaded from ["Mapping Police Violence"](https://mappi
 
 ::: panel-tabset
 
-#### R: `readxl` {-}
+#### R `readxl` {-}
 
 In R, the easiest way to read Excel data in is to use the `readxl` package. There are many other packages with different features, however - I have used `openxlsx` in the past to format spreadsheets to send to clients, for instance. By far and away you are more likely to have problems with the arcane format of the Excel spreadsheet than with the package used to read the data in. It is usually helpful to open the spreadsheet up in a graphical program first to make sure the formatting is as you expected it to be.
 
@@ -519,20 +519,36 @@ In general, it is better to avoid working in Excel, as it is not easy to reprodu
 
 #### Try it out {- .tryitout}
 
-The Nebraska Department of Motor Vehicles publishes a database of vehicle registrations by type of license plate. [Link](https://dmv.nebraska.gov/sites/dmv.nebraska.gov/files/doc/2019_Veh_Reg_by_Plate_Type.xlsx)
+::: panel-tabset
 
-Read that data in using both R and SAS. Be sure to look at the structure of the excel file, so that you can read the data in properly!
+##### Problem {-}
+The Nebraska Department of Motor Vehicles [publishes a database of vehicle registrations](https://dmv.nebraska.gov/about/dmv-searchable-data) by type of license plate. [Link](https://dmv.nebraska.gov/about/dmv-searchable-data)
 
-<details><summary>Solution</summary>
+Read in the data using your language(s) of choice. Be sure to look at the structure of the excel file, so that you can read the data in properly!
+
+##### R Solution {-}
+
 ```{r tryitout-dmv-solution-r}
-url <- "https://dmv.nebraska.gov/sites/dmv.nebraska.gov/files/doc/2019_Veh_Reg_by_Plate_Type.xlsx"
-download.file(url, destfile = "data/2019_Vehicle_Registration_Plates_NE.xlsx", mode = "wb")
+url <- "https://dmv.nebraska.gov/sites/dmv.nebraska.gov/files/doc/data/ld-totals/NE_Licensed_Drivers_by_Type_2021.xls"
+download.file(url, destfile = "data/NE_Licensed_Drivers_by_Type_2021.xls", mode = "wb")
 library(readxl)
-ne_plates <- read_xlsx(path = "data/2019_Vehicle_Registration_Plates_NE.xlsx", skip = 1)
+ne_plates <- read_xls(path = "data/NE_Licensed_Drivers_by_Type_2021.xls", skip = 2)
 ne_plates[1:10,1:6]
 ```
 
-```{r tryitout-dmv-solution-sas, engine = "sashtmllog", engine.path = sasexe, engine.opts = sasopts, collectcode = F, warning = T, error = T}
+##### Python Solution {-}
+
+You may need to install `xlrd` via pip for this code to work.
+
+```{python tryitout-dmv-solution-py}
+import pandas as pd
+
+ne_plates = pd.read_excel("https://dmv.nebraska.gov/sites/dmv.nebraska.gov/files/doc/data/ld-totals/NE_Licensed_Drivers_by_Type_2021.xls", skiprows = 2)
+ne_plates
+```
+
+##### SAS Solution {-}
+```
 PROC IMPORT OUT=WORK.licplate 
     DATAFILE="data/2019_Vehicle_Registration_Plates_NE.xlsx" 
     DBMS=xlsx /* Tell SAS what type of file it's reading */ 
@@ -546,66 +562,94 @@ PROC PRINT DATA=WORK.licplate (obs=10); /* print the first 10 observations */
 Var County Amateur__Radio Breast__Cancer Choose__Life County__Gov Comm__Truck Passenger Total;
 RUN;
 ```
-</details>
+
+:::
 
 
 #### Google Sheets
 
-Of course, some spreadsheets are available online via google sheets. There are specific R and python packages to interface with google sheets, and these can do more than just read data in - they can create, format, and otherwise manipulate google sheets programmatically. We're not going to get into the power of these packages just now, but it's worth a look if you're working with collaborators who use google sheets.
+Of course, some spreadsheets are available online via Google sheets. There are specific R and python packages to interface with Google sheets, and these can do more than just read data in - they can create, format, and otherwise manipulate Google sheets programmatically. We're not going to get into the power of these packages just now, but it's worth a look if you're working with collaborators who use Google sheets.
 
-For now, let's just demonstrate reading in data from google sheets in R and python.
+::: callout-note
+This section is provided for reference, but the details of API authentication are a bit too complicated to require of anyone who is just learning to program. Feel free to skip it and come back later if you need it.
+
+The first two tabs below show authentication-free options for publicly available spreadsheets. For anything that is privately available, you will have to use API authentication via `GSpread` or `googlesheets4` in python and R respectively.
+:::
+
+For now, let's just demonstrate reading in data from google sheets in R and python using the [Data Is Plural](https://docs.google.com/spreadsheets/d/1wZhPLMCHKJvwOkP4juclhjFgqIY8fQFMemwKL2c64vk/edit#gid=0) archive.
 
 ::: panel-tabset
 
-##### R: `googlesheets4` {-}
+##### Python {-}
 
-```{r google-sheets-r}
-library(googlesheets4)
-police_violence <- read_sheet("https://docs.google.com/spreadsheets/d/1wZhPLMCHKJvwOkP4juclhjFgqIY8fQFMemwKL2c64vk/edit#gid=0")
+One simple hack-ish way to read google sheets in Python (so long as the sheet is publicly available) is to modify the sheet url to export the data to CSV and then just read that into pandas as usual. This method is described in @schaferReadDataGoogle2020. 
+
+```{python google-sheets-py2, eval = T}
+import pandas as pd
+
+sheet_id = "1wZhPLMCHKJvwOkP4juclhjFgqIY8fQFMemwKL2c64vk"
+sheet_name = "Items"
+url = f"https://docs.google.com/spreadsheets/d/{sheet_id}/gviz/tq?tqx=out:csv&sheet={sheet_name}"
+
+data_is_plural = pd.read_csv(url)
 ```
 
-##### Python {-}
+This method would likely work just as well in R and would not require the `googlesheets4` package.
+
+##### R {-}
+
+This method is described in @schaferReadDataGoogle2020 for Python, but I have adapted the code to use in R.
+
+```{R google-sheets-r2, eval = T}
+library(readr)
+sheet_id = "1wZhPLMCHKJvwOkP4juclhjFgqIY8fQFMemwKL2c64vk"
+sheet_name = "Items"
+url = sprintf("https://docs.google.com/spreadsheets/d/%s/gviz/tq?tqx=out:csv&sheet=%s", sheet_id, sheet_name)
+
+data_is_plural = read_csv(url)
+```
+
+
+##### R: `googlesheets4` {-}
+
+This code is set not to run when the textbook is compiled because it requires some interactive authentication.
+
+<!-- How to authenticate on google actions/rsconnect: https://gargle.r-lib.org/articles/non-interactive-auth.html -->
+
+```{r google-sheets-r, eval = F}
+library(googlesheets4)
+gs4_auth(scopes = "https://www.googleapis.com/auth/drive.readonly") # Read-only permissions
+data_is_plural <- read_sheet("https://docs.google.com/spreadsheets/d/1wZhPLMCHKJvwOkP4juclhjFgqIY8fQFMemwKL2c64vk/edit#gid=0")
+```
+
+##### Python: `GSpread` {-}
+
+
+These instructions are derived from [@clarkeHowReadGoogle2021]. 
+We will have to install the `GSpread` package: type `pip install gspread` into the terminal.
+
+Then, you will need to obtain a client token JSON file following [these instructions](https://towardsdatascience.com/how-to-import-google-sheets-data-into-a-pandas-dataframe-using-googles-api-v4-2020-f50e84ea4530). 
+
+```{python google-sheets-py, eval = F}
+import gspread as gs
+import pandas as pd
+
+```
+
+I've stopped here because I can't get the authentication working. XXX TODO XXX
 
 :::
 
 ### Binary Files
 
-Both R and SAS have binary data files that store data in a more compact form. It is relatively common for government websites, in particular, to provide SAS data in binary form. 
+Both R and SAS have binary data files that store data in a more compact form. It is relatively common for government websites, in particular, to provide SAS data in binary form. Python, as a more general computing language, has many different ways to interact with binary data files, as each programmer and application might want to save their data in binary form in a different way. As a result, there is not a general-purpose binary data format for Python data. If you are interested in reading binary data in Python, see @maierleLoadingBinaryData2020.
 
-Luckily, it is possible to read the binary data files in both programs.
-
-<details class = "ex"><summary>In SAS using a SAS library</summary>
-Let's read in the data from the 2009 National Household Travel Survey:
-```{r nhts-sas-binary, engine = "sashtmllog", engine.path = sasexe, engine.opts = sasopts, collectcode = F, warning = T, error = T}
-libname classdat "data";
-/* this tells SAS where to look for (a bunch of) data files */
-
-proc contents data=classdat.cen10pub; /* This tells sas to access the specific file */
-run;
-```
-</details>
-
-<details  class="ex"><summary>In R using `sas7bdat`</summary>
-We can read the same file into R using the `sas7bdat` library:
-```{r nhts-sas7bdat-demo}
-if (!"sas7bdat" %in% installed.packages()) install.packages("sas7bdat")
-
-library(sas7bdat)
-data <- read.sas7bdat("https://github.com/srvanderplas/unl-stat850/raw/master/data/cen10pub.sas7bdat")
-head(data)
-```
-</details>
-
-If you are curious about what this data means, then by all means, take a look at the [codebook](https://github.com/srvanderplas/unl-stat850/raw/master/data/cen10_codebook.xlsx) (XLSX file). For now, it's enough that we can see roughly how it's structured.
-
-::: learn-more
-There are [theoretically ways to read R data into SAS via the R subsystem](https://blogs.sas.com/content/iml/2011/05/13/calling-r-from-sasiml-software.html). Feel free to do that on your own machine.^[I tried, and it crashed SAS on my machine.]
-:::
+::: panel-tabset
 
 
-In R, there are a couple of different types of binary files. </summary>
+#### R formats in R {-}
 
-<details class="ex"><summary>`.Rdata` is perhaps the most common, and can store several objects (along with their names) in the same file. </summary>
+`.Rdata` is perhaps the most common R binary data format, and can store several objects (along with their names) in the same file.
 
 ```{r rdata-demo}
 legos <- read_csv("data/lego_sets.csv")
@@ -625,9 +669,7 @@ load("data/R_binary.Rdata")
 
 ls() # all objects in the working environment
 ```
-</details>
 
-<details class="ex"><summary>RDS format (another binary file format in R)</summary>
 Another (less common) binary format used in R is the RDS format. Unlike Rdata, the RDS format does not save the object name - it only saves its contents (which also means you can save only one object at a time). As a result, when you read from an RDS file, you need to store the result of that function into a variable.
 
 ```{r rds-demo}
@@ -637,11 +679,72 @@ other_lego <- readRDS("data/RDSlego.rds")
 ```
 
 Because RDS formats don't save the object name, you can be sure that you're not over-writing some object in your workspace by loading a different file. The downside to this is that you have to save each object to its own RDS file separately. 
-</details>
+
+#### R formats in Python {-}
+
+We first need to install the `pyreadr` package by running `pip install pyreadr` in the terminal.
+
+```{python rbinary-py}
+import pyreadr
+
+rdata_result = pyreadr.read_r('data/R_binary.Rdata')
+rdata_result["legos"] # Access the variables using the variable name as a key
+rdata_result["my_var"]
+
+rds_result = pyreadr.read_r('data/RDSlego.rds')
+rds_result[None] # for RDS files, access the data using None as the key since RDS files have no object name.
+```
+
+#### R format in SAS
+
+There are [theoretically ways to read R data into SAS via the R subsystem](https://blogs.sas.com/content/iml/2011/05/13/calling-r-from-sasiml-software.html) [@wicklinCallingSASIML2011]. Feel free to do that on your own machine.^[I tried, and it crashed SAS on my machine.]
+
+#### SAS format in R {-}
+
+```{r nhts-sas7bdat-demo}
+if (!"sas7bdat" %in% installed.packages()) install.packages("sas7bdat")
+
+library(sas7bdat)
+data <- read.sas7bdat("https://github.com/srvanderplas/unl-stat850/raw/master/data/cen10pub.sas7bdat")
+head(data)
+```
+
+
+If you are curious about what this data means, then by all means, take a look at the [codebook](https://github.com/srvanderplas/unl-stat850/raw/master/data/cen10_codebook.xlsx) (XLSX file). For now, it's enough that we can see roughly how it's structured.
+
+#### SAS format in Python {-}
+
+To read SAS files, we use the `read_sas` function in Pandas.
+
+```{python nhts-sas7bdat-demo-py}
+import pandas as pd
+
+data = pd.read_sas("https://github.com/srvanderplas/unl-stat850/raw/master/data/cen10pub.sas7bdat")
+data
+```
+
+#### SAS format in SAS {-}
+
+Let's read in the data from the 2009 National Household Travel Survey:
+```
+libname classdat "data";
+/* this tells SAS where to look for (a bunch of) data files */
+
+proc contents data=classdat.cen10pub; /* This tells sas to access the specific file */
+run;
+```
+
+If you are curious about what this data means, then by all means, take a look at the [codebook](https://github.com/srvanderplas/unl-stat850/raw/master/data/cen10_codebook.xlsx) (XLSX file). For now, it's enough that we can see roughly how it's structured.
+
+:::
 
 #### Try it out {- .tryitout}
 
-Read in two of the files from an earlier example, and save the results as an Rdata file with two objects. Then save each one as an RDS file. 
+::: panel-tabset
+
+##### Problem {-}
+
+Read in two of the files from an earlier example, and save the results as an Rdata file with two objects. Then save each one as an RDS file. (Obviously, use R for this)
 
 In RStudio, go to Session -> Clear Workspace. (This will clear your environment)
 
@@ -649,7 +752,9 @@ Now, using your RDS files, load the objects back into R with different names.
 
 Finally, load your Rdata file. Are the two objects the same? (You can actually test this with `all.equal()` if you're curious)
 
-<details><summary>Solution</summary>
+Then, load the two RDS files and the Rdata file in Python. Are the objects the same?
+
+##### R Solution {-}
 
 ```{r tryitout-readin-data-saved}
 library(readxl)
@@ -671,13 +776,18 @@ all.equal(police_violence, pv1)
 all.equal(police_violence2, pv2)
 ```
 
-</details>
+
+##### Python Solution {-}
+
+XXX todo XXX
+
+:::
 
 ### Databases
 
 There are many different database formats. Some of the most common databases are SQL* related formats and Microsoft Access files. 
 
-::: note
+::: callout-note
 You can get through this class without this section. Feel free to skip it and come back when/if you need it.
 :::
 
@@ -686,7 +796,10 @@ You can get through this class without this section. Feel free to skip it and co
 
 
 #### Microsoft Access
-<details class = "ex"><summary>Details</summary>
+
+::: panel-tabset
+
+##### R {-}
 
 In R, we can read in MS Access files using the `Hmisc` package, as long as the mdbtools library is available on your computer^[A currently maintained version of the library is [here](https://github.com/cyberemissary/mdbtools) and should work for UNIX platforms. It may be possible to install the library on Windows using the UNIX subsystem, per [this thread](https://github.com/brianb/mdbtools/issues/107)]. For this demo, we'll be using the [Scottish Witchcraft Database](http://witches.shca.ed.ac.uk/index.cfm?fuseaction=home.register), which you can download from their website, or acquire from the course data folder. 
 
@@ -703,14 +816,21 @@ Many databases have multiple tables with **keys** that connect information in ea
 
 
 Unfortunately, it appears that SAS on Linux doesn't allow you to read in Access files. So I can't demonstrate that for you. But, since you know how to do it in R, worst case you can open up R and export all of the tables to separate CSV files, then read those into SAS. `r emo::ji("sad")`
-</details>
 
+##### Python {-}
+
+https://datatofish.com/how-to-connect-python-to-ms-access-database-using-pyodbc/
+
+XXX todo XXX
+:::
 
 #### SQLite
-<details><summary>Details</summary>
+
+::: panel-tabset
+##### R {-}
 
 SQLite databases are contained in single files with the extension .SQLite. These files can still contain many different tables, though. 
-<div class="ex">
+
 Let's try working with a sqlite file that has only one table in R: 
 ```{r sqlite-data}
 if (!"RSQLite" %in% installed.packages()) install.packages("RSQLite")
@@ -722,11 +842,15 @@ dbListTables(con) # List all the tables
 babyname <- dbReadTable(con, "babynames")
 head(babyname, 10) # show the first 10 obs
 ```
-</div>
+
 
 You can of course write formal queries using the DBI package, but for many databases, it's easier to do the querying in R. We'll cover both options later - the R version will be in the next module.
 
-<div class="ex">
+##### Python {-}
+
+XXX todo XXX
+
+##### SAS {-}
 In SAS, you can theoretically connect to SQLite databases, but there are very specific instructions for how to do that for each operating system. 
 
 You'll need to acquire the [SQLite ODBC Driver](http://www.ch-werner.de/sqliteodbc/) for your operating system. You may also need to set up a DSN (Data Source Name) ([Windows](https://support.exagoinc.com/hc/en-us/articles/115005848908-Using-SQLite-Data-Sources), [Mac and Linux](https://db.rstudio.com/best-prsactices/rdivers/#setting-up-database-connections-1)).^[On one of my machines, I also had to make sure the file libodbc.so existed - it was named libodbc.so.1 on my laptop, so a symbolic link fixed the issue.] 
@@ -741,7 +865,6 @@ Driver = SQLite3
 Database = data/ssa-babynames-for-2015.sqlite
 ````
 
-<!-- # ```{r sqlite3-sas, eval = F, engine = "sashtmllog", engine.path = sasexe, engine.opts = sasopts, collectcode = F} -->
 ```
 /* This code requires that Ive set up a DSN connecting the sqlite file to */
 /* a specific driver on my computer. Youll have to set up your machine to */
@@ -752,30 +875,33 @@ libname mydat odbc complete = "dsn=babyname; Database=data/ssa-babynames-for-201
 proc print data=mydat.babynames (obs=10);
 run; 
 ```
-For some reason this code does not work well with SASmarkdown, but it does work ok when pasted into a SAS terminal that is set to the appropriate working directory (e.g. one that has a data/ folder with the SSA database inside.)
-</div>
-</details>
 
-## Exploratory Data Analysis
-Once your data has been read in, we can do some basic exploratory data analysis. EDA is important because it helps us to know what challenges a particular data set might bring. Real data is often messy, with large amounts of cleaning that must be done before statistical analysis can commence. While in many classes you'll be given cleaner data, you do need to know how to clean your own data up so that you can use more interesting datasets for projects (and for fun!).
-
-::: go-read
-[The EDA chapter in R for Data Science is very good at explaining what the goals of EDA are, and what types of questions you will typically need to answer in EDA.](https://r4ds.had.co.nz/exploratory-data-analysis.html) It is so good that I am not going to try to completely reproduce it here. 
 :::
 
-Both R and SAS make it relatively easy to get summary statistics from a dataset, but the "flow" of EDA is somewhat different between the two programs, so this section will cover SAS first, and then R. 
+## Exploratory Data Analysis
+Once your data has been read in, we can do some basic exploratory data analysis. EDA is important because it helps us to know what challenges a particular data set might bring. Real data is often messy, with large amounts of cleaning that must be done before statistical analysis can commence. While in many classes you'll be given cleaner data, you do need to know how to clean your own data up so that you can use more interesting dat asets for projects (and for fun!).
+
+::: callout-note
+### Extra Reading {-}
+[The EDA chapter in R for Data Science [@r4ds] is very good at explaining what the goals of EDA are, and what types of questions you will typically need to answer in EDA.](https://r4ds.had.co.nz/exploratory-data-analysis.html)
+:::
+
 
 Major components of EDA:
 
-- tables
 - summary statistics
-- basic plots
-- unique values
+- unique values and frequency tables
+- graphical summaries of variables and relationships 
 
 
+::: .callout-note
+In this section, I will mostly be using the plot commands that come with base R/python and require no extra packages. The R for Data Science book [@r4ds] shows plot commands which use the `ggplot2` library. I'll show you some plots from ggplot here as well, but you don't have to understand how to generate them yet. We will learn more about ggplot2 later, though if you want to start using it now, you may. 
+:::
 
-### Comparison between R and SAS {-}
 
+### A Note on Language Philosophies {-}
+
+It is usually relatively easy to get summary statistics from a dataset, but the "flow" of EDA is somewhat different depending on the language patterns. 
 
 > You must realize that R is written by experts in
 statistics and statistical computing who, despite
@@ -793,156 +919,18 @@ different. The underlying assumption is that the
 useR is thinking about the analysis while doing it. – Douglas Bates
 
 
-I provide this as a historical artifact, but it does explain the difference between the approach to EDA and model output in R, and the approach in SAS. This is not a criticism -- the SAS philosophy dates back to the mainframe and punch card days, and the syntax and output still bear evidence of that -- but it is worth noting. In R you will have to specify each piece of output you want, but in SAS you will get more than you ever wanted with a single command.  Neither approach is wrong, but sometimes one is preferable over the other for a given problem.
-
-### SAS 
+I provide this as a historical artifact, but it does explain the difference between the approach to EDA and model output in R and Python, and the approach in SAS, which you may see in your other statistics classes. This is not a criticism -- the SAS philosophy dates back to the mainframe and punch card days, and the syntax and output still bear evidence of that -- but it is worth noting. In R and in Python, you will have to specify each piece of output you want, but in SAS you will get more than you ever wanted with a single command.  Neither approach is wrong, but sometimes one is preferable over the other for a given problem.
 
 
-1. [Proc Freq](https://go.documentation.sas.com/?docsetId=procstat&docsetTarget=procstat_freq_toc.htm&docsetVersion=9.4&locale=en) generates frequency tables for variables or interactions of variables.    
-    
-<details class="ex"><summary>PROC FREQ demo</summary>
-This can help you to see whether there is missing information. Using those frequency tables, you can create frequency plots and set up chi squared tests.
+### Numerical Summary Statistics
 
-```{r proc-freq-demo, fig.path = "image/", engine = "sashtmllog", engine.path = sasexe, engine.opts = sasopts, collectcode = T, warning = T, error = T}
-libname classdat "sas/";
+::: panel-tabset
+#### R{-}
 
-ODS GRAPHICS ON;
-PROC FREQ DATA=classdat.poke ORDER=FORMATTED;
-  TABLES generation / CHISQ PLOTS=freqplot(type=dotplot);
-RUN;
-PROC FREQ DATA=classdat.poke ORDER=FREQ;
-  TABLES type_1 status / MAXLEVELS=10 PLOTS=freqplot(type=dotplot scale=percent);
-RUN;
-ODS GRAPHICS OFF;
-```
+The first, and most basic EDA command in R is `summary()`.
 
-</details>
-
-2. Proc Means can be used to get more useful summary statistics for numeric variables.     
-    
-<details class="ex"><summary> PROC MEANS demo</summary>Note that the Class statement identifies a categorical variable; the summary statistics are computed for each level of this variable. 
-
-```{r proc-means-demo-setup, include = F, engine = "sashtml", engine.path = sasexe, engine.opts = sasopts, collectcode = T, warning = T, error = T}
-ODS HTML style= HTMLBlue; 
-```
-```{r proc-means-demo, fig.path = "image/", engine = "sashtml", engine.path = sasexe, engine.opts = sasopts, collectcode = T, warning = T, error = T}
-libname classdat "sas/";
-
-PROC MEANS DATA = classdat.poke;
-run;
-
-proc means data = classdat.poke;
-class status;
-run;
-```
-</details>
-
-3. For even higher levels of detail, [Proc Univariate](https://go.documentation.sas.com/?docsetId=procstat&docsetTarget=procstat_univariate_toc.htm&docsetVersion=9.4&locale=en) will provide variability, tests for location, quantiles, skewness, and will identify the extreme observations for you.     
-    
-<details class="ex"><summary>PROC UNIVARIATE demo</summary>
-You can also get histograms for variables, even specifying distributions you'd like to be fit to the data (if that's something you want). 
-```{r proc-univariate-demo-setup, include = F, engine = "sashtml", engine.path = sasexe, engine.opts = sasopts, collectcode = T, warning = T, error = T}
-ODS HTML style= HTMLBlue; 
-```
-```{sashtml proc-univariate-demo, fig.path = "image/", engine = "sashtml", engine.path = sasexe, engine.opts = sasopts, collectcode = T, warning = T, error = T}
-libname classdat "sas/";
-
-ODS GRAPHICS ON;
-PROC UNIVARIATE DATA = classdat.poke;
-VAR attack defense sp_attack sp_defense speed;
-HISTOGRAM attack defense sp_attack sp_defense speed;
-RUN;
-ODS GRAPHICS OFF;
-```
-</details>
-
-4. Proc Corr allows you to examine the relationship between two quantitative variables.     
-    
-<details class="ex"><summary>PROC CORR demo</summary>
-
-```{r proc-corr-demo, fig.path = "image/", engine = "sashtml", engine.path = sasexe, engine.opts = sasopts, collectcode = F, warning = T, error = T}
-libname classdat "sas/";
-
-ODS GRAPHICS ON;
-PROC CORR DATA = classdat.poke PLOTS( MAXPOINTS=200000)=MATRIX(HISTOGRAM);
-VAR attack defense sp_attack sp_defense speed ;
-RUN;
-ODS GRAPHICS OFF;
-```
-
-The plot here is called a scatterplot matrix. It contains histograms on the diagonal, and pairwise scatterplots on off-diagonals. It can be useful for spotting strong correlations among multiple variables which may affect the way you build a model. 
-</details>
-
-#### Try it out {- .tryitout #police-violence-eda-sas}
-
-One of the datasets we read in above records incidents of police violence around the country. Explore the variables present in [this dataset](data/police_violence.xlsx) (see code in the spreadsheets section to read it in). Note that some variables may be too messy to handle with the things that you have seen thus far - that is ok. As you find irregularities, document them - these are things you may need to clean up in the dataset before you conduct a formal analysis.
-
-It is useful to memorize the SAS PROC options you use most frequently, but it's also a good idea to reference the SAS documentation - it provides a list of all viable options for each procedure, and generally has decent examples to show how those options are used.
-
-<details><summary>Solution</summary>
-```{r police-violence-tryitout-setup, include = F, engine = "sashtmllog", engine.path = sasexe, engine.opts = sasopts, collectcode = T, warning = T, error = T}
-ODS HTML style= HTMLBlue; 
-```
-```{r police-violence-tryitout, fig.path = "image/", engine = "sashtmllog", engine.path = sasexe, engine.opts = sasopts, collectcode = T, warning = T, error = T}
-libname classdat "sas/";
-
-ODS GRAPHICS ON;
-PROC CONTENTS DATA = classdat.police; /* see what's in the dataset */
-RUN;
-
-PROC FREQ DATA = classdat.police ORDER=FREQ; /* Examine Freq of common vars */
-TABLES Victim_s_gender Victim_s_race State Cause_of_death 
-        Unarmed Geography__via_Trulia_methodolog / MAXLEVELS = 10;
-RUN;
-
-PROC FREQ DATA = classdat.police ORDER=FREQ; /* Combinations of vars */
-TABLES Unarmed * Criminal_Charges_ / NOCUM NOPERCENT NOCOL NOROW MAXLEVELS=10;
-RUN;
-
-PROC MEANS DATA = classdat.police; /* Numeric variable exploration */
-VAR num_age; /* Only numeric variable in this set */
-RUN;
-
-PROC UNIVARIATE DATA = classdat.police; /* Investigating age/date info */
-HISTOGRAM num_age date;
-RUN;
-ODS GRAPHICS OFF;
-```
-
-Oddities to note:
-
-- Gender - Unknown should be recoded as missing (' ')
-- Victim\_s\_race - Unknown race and Unknown Race should be recoded as missing
-- State - might need to check to make sure all states are valid (but top 10 are, at least)
-- Cause of death - sometimes, there are multiple causes. Also, varying capitalizations...
-- Geography - #N/A should be recoded as missing 
-- Criminal_Charges_ - What does No/NO mean? (would need to look up in the codebook)
-- Age - the maximum age recorded is 107, which bears some investigation... other extreme observations between 89 and 95 are also fairly interesting and could be investigated further. There are also several infants/young children included, which is horribly sad, but believable.
-- Date - PROC UNIVARIATE doesn't display date results with a meaningful format, even though format is specified.
-
-
-Conclusions (ok, probably obvious before this analysis):
-
-- It's much more likely for charges to be filed if the suspect was unarmed (but still very rare)
-- Data is relatively evenly distributed between 2013 and 2019.
-- It's fairly rare for police to kill female or transgender individuals - around 5% of all victims
-- California, Texas, and Florida, while populous, seem to have a disproportionate number of killings, especially compared to e.g. NY, which is also a high population state. To really make the state numbers meaningful, though, we'd need to know population counts. There's also an issue of accurate comparisons - some states may not report police killings with the same standards as other states. 
-</details>
-
-
-### R
-In SAS, EDA is fairly straightforward - you use specific procedures for each data type, and the plots which may be most useful come along with those procedures. It's something like ordering off of a menu of pre-defined meals, and then slightly customizing your order.
-
-In R, you put your whole order together from the a la carte menu. That is, R will give you all of the same summary information (and possibly more), but you have to assemble a series of commands to get each portion. This can be more efficient (since you don't have to wade through pages of output to get the piece you want) but may take a bit more coding as well.
-
-::: note
-In this section, I will mostly be using the plot commands that come with base R and require no extra packages. The R for Data Science book shows plot commands which use the `ggplot2` library. I'll show you some plots from ggplot here as well, but you don't have to understand how to generate them yet. We will learn more about ggplot2 [later in this class](#data-vis-intro), though if you want to start using it now, you may. It's approach to graphics can take a bit of getting used to, though.
-:::
-
-1. The first, and most basic EDA command in R is `summary()`.    
-    
-<details class = "ex"><summary>`summary()` demo:</summary>
 For numeric variables, `summary` provides 5-number summaries plus the mean. For categorical variables, `summary` provides the length of the variable and the Class and Mode. For factors, `summary` provides a table of the most common values, as well as a catch-all "other" category. 
+
 ```{r readr-eda}
 library(readr)
 url <- "https://raw.githubusercontent.com/shahinrostami/pokemon_dataset/master/pokemon_gen_1_to_8.csv"
@@ -955,19 +943,31 @@ poke$type_2 <- factor(poke$type_2)
 summary(poke)
 ```
 
-One common question in EDA is whether there are missing values or other inconsistencies that need to be handled.</summary> `summary()` provides you with the NA count for each variable, making it easy to identify what variables are likely to cause problems in an analysis. 
+One common question in EDA is whether there are missing values or other inconsistencies that need to be handled.
+`summary()` provides you with the NA count for each variable, making it easy to identify what variables are likely to cause problems in an analysis. 
 
 There is one pokemon who appears to not have a weight specified. Let's investigate further:
 ```{r poke-weight}
 poke[is.na(poke$weight_kg),] # Show any rows where weight.kg is NA
 ```
 This is the last row of our data frame, and this pokemon appears to have many missing values. 
-</details>
 
-2. We are often also interested in the distribution of values.    
-    
-<details class="ex"><summary>`table()` demo and base R plots</summary>
+#### Python {-}
+
+XXX todo XXX
+
+:::
+
+### Frequency Tables
+
+We are often also interested in the distribution of values.
+
+::: panel-tabset
+
+#### R {-}
+
 We can generate cross-tabs for variables that we know are discrete (such as generation, which will always be a whole number). 
+
 ```{r poke-distribution}
 table(poke$generation)
 plot(table(poke$generation)) # bar plot
@@ -976,11 +976,23 @@ plot(table(poke$generation)) # bar plot
 table(poke$type_1, poke$type_2)
 plot(table(poke$type_1, poke$type_2)) # mosaic plot - hard to read b/c too many categories
 ```
-</details>
 
-3. Graphical examinations may be a bit easier to understand    
-    
-<details class="ex"><summary>There are better options for examining this data, but they are easier to get in ggplot2. </summary>
+#### Python {-}
+
+XXX todo XXX
+
+:::
+
+
+### Graphical EDA
+
+
+#### Histograms and Density Plots
+
+XXX todo - elaborate more XXX
+::: panel-tabset
+
+##### R {-}
 ```{r poke-ggplot2}
 library(ggplot2)
 
@@ -1004,9 +1016,10 @@ hist(poke$generation, breaks = 0:8) # Much better.
 ```
 
 For continuous variables, we can use histograms, or we can examine kernel density plots.
-::: .note
+::: .callout-note
 Remember that `%>%` is the "pipe" and takes the left side of the pipe to pass as an argument to the right side. This makes code easier to read because it becomes a step-wise "recipe". 
 :::
+
 ```{r pipe-poke-graphs, out.width = "48%", fig.show = "hold"}
 library(magrittr) # This provides the pipe command, %>%
 
@@ -1027,20 +1040,28 @@ poke$weight_kg %>%
   plot(main = "Density of Log10 pokemon weight in Kg") # Plot the result, 
     # changing the title of the plot to a meaningful value
 ```
-</details>
 
-4. We may also want to look at correlations or relationships between variables.    
-    
-<details class="ex"><summary>Basic modeling and variable relationship exploration using formulas in R</summary>
+##### Python {-}
+
+XXX todo XXX
+
+:::
+
+#### Relationships Between Variables
+
+::: panel-tabset
+
+##### R {-}
+
 In R, most models are specified as `y ~ x1 + x2 + x3`, where the information on the left side of the tilde is the dependent variable, and the information on the right side are any explanatory variables. Interactions are specified using `x1*x2` to get all combinations of x1 and x2 (x1, x2, x1\*x2); single interaction terms are specified as e.g. `x1:x2` and do not include any component terms.
 
 To examine the relationship between a categorical variable and a continuous variable, we might look at boxplots: 
 ```{r boxplot-graphs, out.width = "48%", fig.show = "hold"}
-
 boxplot(log10(height_m) ~ status, data = poke)
 
 boxplot(total_points ~ species, data = poke)
 ```
+
 In the second boxplot, there are far too many categories to be able to resolve the relationship clearly, but the plot is still effective in that we can identify that there are one or two species which have a much higher point range than other species. EDA isn't usually about creating pretty plots (or we'd be using `ggplot` right now) but rather about identifying things which may come up in the analysis later.
 
 To look at the relationship between numeric variables, we could compute a numeric correlation, but a plot is more useful.
@@ -1050,6 +1071,7 @@ plot(defense ~ attack, data = poke, type = "p")
 
 cor(poke$defense, poke$attack)
 ```
+
 Sometimes, we discover that a variable which appears to be continuous is actually relatively quantized - there are only a few values of base_friendship in the whole dataset. 
 
 ```{r}
@@ -1057,11 +1079,18 @@ plot(x = poke$base_experience, y = poke$base_friendship, type = "p")
 ```
 
 A scatterplot matrix can also be a useful way to visualize relationships between several variables.
+
 ```{r, fig.width = 8, fig.height = 8, out.width = "100%"}
 pairs(poke[,19:23]) # hp - sp_defense columns
 ```
 
-</details>
+##### Python {-}
+
+XXX todo XXX
+
+:::
+
+
 
 ::: learn-more
 [There's more information on how to customize these plots here](http://www.sthda.com/english/wiki/scatter-plot-matrices-r-base-graphs). 
