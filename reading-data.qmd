@@ -636,7 +636,8 @@ import pandas as pd
 
 ```
 
-I've stopped here because I can't get the authentication working. XXX TODO XXX
+I've stopped here because I can't get the authentication working. 
+<!-- XXX TODO XXX -->
 
 :::
 
@@ -758,28 +759,43 @@ Then, load the two RDS files and the Rdata file in Python. Are the objects the s
 
 ```{r tryitout-readin-data-saved}
 library(readxl)
+library(readr)
 police_violence <- read_xlsx("data/police_violence.xlsx", sheet = 1, guess_max = 7000)
-police_violence2 <- read_xlsx("data/police_violence.xlsx", sheet = 2, guess_max = 7000)
+legos <- read_csv("data/lego_sets.csv")
 
-save(police_violence, police_violence2, file = "data/04_Try_Binary.Rdata")
+save(police_violence, legos, file = "data/04_Try_Binary.Rdata")
 saveRDS(police_violence, "data/04_Try_Binary1.rds")
-saveRDS(police_violence2, "data/04_Try_Binary2.rds")
+saveRDS(legos, "data/04_Try_Binary2.rds")
 
-rm(police_violence, police_violence2) # Limited clearing of workspace... 
+rm(police_violence, legos) # Limited clearing of workspace... 
 
-pv1 <- readRDS("data/04_Try_Binary1.rds")
-pv2 <- readRDS("data/04_Try_Binary2.rds")
 
 load("data/04_Try_Binary.Rdata")
 
-all.equal(police_violence, pv1)
-all.equal(police_violence2, pv2)
+pv_compare <- readRDS("data/04_Try_Binary1.rds")
+lego_compare <- readRDS("data/04_Try_Binary2.rds")
+
+all.equal(police_violence, pv_compare)
+all.equal(legos, lego_compare)
 ```
 
 
 ##### Python Solution {-}
 
-XXX todo XXX
+```{python tryitout-readin-data-saved-py}
+import pyreadr
+
+robjs = pyreadr.read_r('data/04_Try_Binary.Rdata')
+police = robjs["police_violence"]
+legos = robjs["legos"] # Access the variables using the variable name as a key
+
+police_compare = pyreadr.read_r('data/04_Try_Binary1.rds')[None]
+lego_compare = pyreadr.read_r('data/04_Try_Binary2.rds')[None]
+
+police.equals(police_compare)
+legos.equals(lego_compare)
+```
+
 
 :::
 
