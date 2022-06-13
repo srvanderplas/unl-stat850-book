@@ -1,0 +1,319 @@
+# Exploratory Data Analysis
+
+Once your data has been read in, we can do some basic exploratory data analysis. EDA is important because it helps us to know what challenges a particular data set might bring. Real data is often messy, with large amounts of cleaning that must be done before statistical analysis can commence. While in many classes you'll be given cleaner data, you do need to know how to clean your own data up so that you can use more interesting dat asets for projects (and for fun!).
+
+::: callout-note
+## Extra Reading {-}
+[The EDA chapter in R for Data Science [@r4ds] is very good at explaining what the goals of EDA are, and what types of questions you will typically need to answer in EDA.](https://r4ds.had.co.nz/exploratory-data-analysis.html)
+:::
+
+
+Major components of EDA:
+
+- summary statistics
+- unique values and frequency tables
+- graphical summaries of variables and relationships 
+
+
+::: .callout-note
+In this section, I will mostly be using the plot commands that come with base R/python and require no extra packages. The R for Data Science book [@r4ds] shows plot commands which use the `ggplot2` library. I'll show you some plots from ggplot here as well, but you don't have to understand how to generate them yet. We will learn more about ggplot2 later, though if you want to start using it now, you may. 
+:::
+
+
+## A Note on Language Philosophies {-}
+
+It is usually relatively easy to get summary statistics from a dataset, but the "flow" of EDA is somewhat different depending on the language patterns. 
+
+> You must realize that R is written by experts in
+statistics and statistical computing who, despite
+popular opinion, do not believe that everything in
+SAS and SPSS is worth copying. Some things done
+in such packages, which trace their roots back to
+the days of punched cards and magnetic tape when
+fitting a single linear model may take several days
+because your first 5 attempts failed due to syntax
+errors in the JCL or the SAS code, still reflect the
+approach of "give me every possible statistic that
+could be calculated from this model, whether or
+not it makes sense". The approach taken in R is
+different. The underlying assumption is that the
+useR is thinking about the analysis while doing it. – Douglas Bates
+
+
+I provide this as a historical artifact, but it does explain the difference between the approach to EDA and model output in R and Python, and the approach in SAS, which you may see in your other statistics classes. This is not a criticism -- the SAS philosophy dates back to the mainframe and punch card days, and the syntax and output still bear evidence of that -- but it is worth noting. In R and in Python, you will have to specify each piece of output you want, but in SAS you will get more than you ever wanted with a single command.  Neither approach is wrong, but sometimes one is preferable over the other for a given problem.
+
+
+## Numerical Summary Statistics
+
+::: panel-tabset
+### R{-}
+
+The first, and most basic EDA command in R is `summary()`.
+
+For numeric variables, `summary` provides 5-number summaries plus the mean. For categorical variables, `summary` provides the length of the variable and the Class and Mode. For factors, `summary` provides a table of the most common values, as well as a catch-all "other" category. 
+
+```{r readr-eda}
+library(readr)
+url <- "https://raw.githubusercontent.com/shahinrostami/pokemon_dataset/master/pokemon_gen_1_to_8.csv"
+poke <- read_csv(url)
+
+# Make types into factors to demonstrate the difference
+poke$type_1 <- factor(poke$type_1)
+poke$type_2 <- factor(poke$type_2)
+
+summary(poke)
+```
+
+One common question in EDA is whether there are missing values or other inconsistencies that need to be handled.
+`summary()` provides you with the NA count for each variable, making it easy to identify what variables are likely to cause problems in an analysis. 
+
+There is one pokemon who appears to not have a weight specified. Let's investigate further:
+```{r poke-weight}
+poke[is.na(poke$weight_kg),] # Show any rows where weight.kg is NA
+```
+This is the last row of our data frame, and this pokemon appears to have many missing values. 
+
+### Python {-}
+
+XXX todo XXX
+
+:::
+
+## Frequency Tables
+
+We are often also interested in the distribution of values.
+
+::: panel-tabset
+
+### R {-}
+
+We can generate cross-tabs for variables that we know are discrete (such as generation, which will always be a whole number). 
+
+```{r poke-distribution}
+table(poke$generation)
+plot(table(poke$generation)) # bar plot
+
+
+table(poke$type_1, poke$type_2)
+plot(table(poke$type_1, poke$type_2)) # mosaic plot - hard to read b/c too many categories
+```
+
+### Python {-}
+
+XXX todo XXX
+
+:::
+
+
+## Graphical EDA
+
+
+### Histograms and Density Plots
+
+XXX todo - elaborate more XXX
+::: panel-tabset
+
+#### R {-}
+```{r poke-ggplot2}
+library(ggplot2)
+
+# define the x and y axis variables first
+ggplot(data = poke, aes(x = type_1, y = type_2)) + 
+  # define what will be plotted (points)
+  # and what aesthetics will be used (size, color)
+  # and how those aesthetics will be mapped to values 
+  # (proportional to the count in a 2d bin)
+  geom_point(aes(size = ..count.., color = ..count..), stat = "bin2d")
+
+```
+
+We can also generate histograms or bar charts^[A histogram is a chart which breaks up a continuous variable into ranges, where the height of the bar is proportional to the number of items in the range. A bar chart is similar, but shows the number of occurrences of a discrete variable.] 
+
+By default, R uses ranges of $(a, b]$ in histograms, so we specify which breaks will give us a desireable result. If we do not specify breaks, R will pick them for us.
+
+```{r poke-generation-out, out.width = "48%", fig.show = "hold"}
+hist(poke$generation) # This isn't really optimal... we only have whole numbers.
+hist(poke$generation, breaks = 0:8) # Much better.
+```
+
+For continuous variables, we can use histograms, or we can examine kernel density plots.
+::: .callout-note
+Remember that `%>%` is the "pipe" and takes the left side of the pipe to pass as an argument to the right side. This makes code easier to read because it becomes a step-wise "recipe". 
+:::
+
+```{r pipe-poke-graphs, out.width = "48%", fig.show = "hold"}
+library(magrittr) # This provides the pipe command, %>%
+
+hist(poke$weight_kg)
+
+poke$weight_kg %>%
+  log10() %>% # Take the log - will transformation be useful w/ modeling?
+  hist() # create a histogram
+
+poke$weight_kg %>%
+  density(na.rm = T) %>% # First, we compute the kernel density 
+  # (na.rm = T says to ignore NA values)
+  plot() # Then, we plot the result
+
+poke$weight_kg %>%
+  log10() %>% # Transform the variable
+  density(na.rm = T) %>% # Compute the density ignoring missing values
+  plot(main = "Density of Log10 pokemon weight in Kg") # Plot the result, 
+    # changing the title of the plot to a meaningful value
+```
+
+#### Python {-}
+
+XXX todo XXX
+
+:::
+
+### Relationships Between Variables
+
+::: panel-tabset
+
+#### R {-}
+
+In R, most models are specified as `y ~ x1 + x2 + x3`, where the information on the left side of the tilde is the dependent variable, and the information on the right side are any explanatory variables. Interactions are specified using `x1*x2` to get all combinations of x1 and x2 (x1, x2, x1\*x2); single interaction terms are specified as e.g. `x1:x2` and do not include any component terms.
+
+To examine the relationship between a categorical variable and a continuous variable, we might look at boxplots: 
+```{r boxplot-graphs, out.width = "48%", fig.show = "hold"}
+boxplot(log10(height_m) ~ status, data = poke)
+
+boxplot(total_points ~ species, data = poke)
+```
+
+In the second boxplot, there are far too many categories to be able to resolve the relationship clearly, but the plot is still effective in that we can identify that there are one or two species which have a much higher point range than other species. EDA isn't usually about creating pretty plots (or we'd be using `ggplot` right now) but rather about identifying things which may come up in the analysis later.
+
+To look at the relationship between numeric variables, we could compute a numeric correlation, but a plot is more useful.
+
+```{r, out.width = "48%", fig.show = "hold"}
+plot(defense ~ attack, data = poke, type = "p")
+
+cor(poke$defense, poke$attack)
+```
+
+Sometimes, we discover that a variable which appears to be continuous is actually relatively quantized - there are only a few values of base_friendship in the whole dataset. 
+
+```{r}
+plot(x = poke$base_experience, y = poke$base_friendship, type = "p")
+```
+
+A scatterplot matrix can also be a useful way to visualize relationships between several variables.
+
+```{r, fig.width = 8, fig.height = 8, out.width = "100%"}
+pairs(poke[,19:23]) # hp - sp_defense columns
+```
+
+#### Python {-}
+
+XXX todo XXX
+
+:::
+
+
+
+::: learn-more
+[There's more information on how to customize these plots here](http://www.sthda.com/english/wiki/scatter-plot-matrices-r-base-graphs). 
+:::
+
+5. The `skimr` package does many of the aforementioned tasks for you with one command!
+
+<details class="ex"><summary>`skimr` demo</summary>
+
+```{r skimr}
+if (!"skimr" %in% installed.packages()) install.packages("skimr")
+library(skimr)
+skim(police_violence)
+```
+
+You may find the summary tables given by the `skimr` package to be more appealing - it separates the variables out by type, provides histograms of numeric variables, and is compatible with rmarkdown/knitr. 
+
+If you want summary statistics by group, you can get that using the `dplyr` package functions `select` and `group_by`, which we will learn more about in the next section. (I'm cheating a bit by mentioning it now, but it's just so useful!)
+
+```{r skimr2}
+library(dplyr)
+police_violence %>%
+  # get variables which are important
+  select(matches("age$|race|gender|Cause|Symptoms|Unarmed")) %>% 
+  group_by(Unarmed) %>%
+  skim()
+```
+This summary allows us to see very quickly that there is a difference in the age distribution of unarmed individuals who died during an encounter with police - unarmed individuals are likely to be significantly older on average. 
+
+If you are using `skimr` in knitr/rmarkdown, your data frame will automatically render as a custom-printed table if the last line in the code chunk is a `skim_df` object. There are many ways to customize the summary statistics detailed in the package that I'm not going to go into here, but you are free to investigate if you like the way these summaries look. 
+
+I mention this package now because it is appropriate for EDA, but it may not be intuitive or easy to use in the way you might want to use it until after we cover the `dplyr` package in the [manipulating data module](#manipulating-data) and the `tidyr` package in the [transforming data module](#transforming-data). 
+
+</details>
+
+&nbsp;
+
+<details><summary>It's not *completely* relevant here, but may be useful as you're reading in data... the `janitor` package is really great for cleaning up your data before you do EDA</summary>
+
+The janitor package has functions for cleaning up messy data. One of its best features is the `clean_names()` function, which creates names based on a capitalization/separation scheme of your choosing. 
+
+![janitor and clean_names() by Allison Horst](https://github.com/allisonhorst/stats-illustrations/raw/master/rstats-artwork/janitor_clean_names.png)
+</details>
+
+
+#### Try it out {- .tryitout #police-violence-eda-r}
+
+Explore the variables present in [the police violence data](data/police_violence.xlsx) (see code in the spreadsheets section to read it in). Note that some variables may be too messy to handle with the things that you have seen thus far - that is ok. As you find irregularities, document them - these are things you may need to clean up in the dataset before you conduct a formal analysis.
+
+How does your analysis in R differ from the way that you approached the data in SAS?
+<details><summary>Solution</summary>
+```{r police-violence-tryitout-R}
+if (!"readxl" %in% installed.packages()) install.packages("readxl")
+library(readxl)
+police_violence <- read_xlsx("data/police_violence.xlsx", sheet = 1, guess_max = 7000)
+
+police_violence$`Victim's age` <- as.numeric(police_violence$`Victim's age`)
+
+summary(police_violence)
+```
+
+Let's examine the numeric and date variables first:
+```{r police-violence-numeric-date}
+hist(police_violence$`Victim's age`)
+
+# hist(police_violence$`Date of Incident (month/day/year)`) 
+# This didn't work - it wants me to specify breaks
+
+# Instead, lets see if ggplot handles it better - from R4DS
+library(ggplot2)
+ggplot(police_violence, aes(x = `Date of Incident (month/day/year)`)) + 
+  geom_histogram()
+ggplot(police_violence, aes(x = `Date of Incident (month/day/year)`)) + 
+  geom_density()
+```
+
+Let's look at the victims' gender and race:
+```{r police-violence-gender-race}
+table(police_violence$`Victim's race`, useNA = 'ifany')
+table(police_violence$`Victim's gender`)
+table(police_violence$`Victim's race`, police_violence$`Victim's gender`)
+
+plot(table(police_violence$`Victim's race`, police_violence$`Victim's gender`),
+     main = "Police Killing by Race, Gender")
+```
+
+We can also look at the age range for each race:
+```{r}
+police_violence %>%
+  # get groups with at least 100 observations that aren't unknown
+  subset(`Victim's race` %in% c("Asian", "Black", "Native American", "Hispanic", "White")) %>%
+  boxplot(`Victim's age` ~ `Victim's race`, data = .)
+```
+
+And examine the age range for each gender as well:
+
+```{r police-violence-age}
+police_violence %>%
+  boxplot(`Victim's age` ~ `Victim's gender`, data = .)
+```
+The thing I'm honestly most surprised at with this plot is that there are so many elderly individuals (of both genders) shot. That's not a realization I'd normally construct this plot for, but the visual emphasis on the outliers in a boxplot makes it much easier to focus on that aspect of the data. 
+
+My analysis in R was a bit more free-form than in SAS - in SAS, I proceeded fairly directly through each procedure, while in R, I could investigate things that caught my eye along the way more easily. I didn't focus as much on what we'd need to clean up in R (because the same problems exist that we identified when using SAS). 
+</details>
+

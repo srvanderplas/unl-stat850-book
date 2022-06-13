@@ -805,3 +805,11 @@ Conclusions (ok, probably obvious before this analysis):
 - [Lists and Data Structures in SAS](https://documentation.sas.com/?docsetId=imlug&docsetTarget=imlug_lists_gettingstarted03.htm&docsetVersion=14.3&locale=en)
 - [Loops in SAS](https://blogs.sas.com/content/iml/2011/09/07/loops-in-sas.html) and [SAS documentation for DO WHILE](https://support.sas.com/documentation/cdl/en/lestmtsref/63323/HTML/default/viewer.htm#p1awxgleif5wlen1pja0nrn6yi6i.htm) loops
 - [Random number generation in SAS](https://www.sas.com/content/dam/SAS/support/en/sas-global-forum-proceedings/2018/1810-2018.pdf)
+
+
+### Data Files
+
+
+- [Reading JSON in SAS](https://support.sas.com/resources/papers/proceedings17/0856-2017.pdf) -- You know SAS documentation is getting weird when they advertise a method as "the sexiest way to import JSON data into SAS". 
+- [Reading Rdata files in SAS](http://proc-x.com/2015/05/import-rdata-to-sas-along-with-labels/)
+- [Common problems with SAS data files](https://blogs.sas.com/content/sgf/2015/04/17/turning-text-files-into-sas-data-sets-6-common-problems-and-their-solutions/)
