@@ -813,6 +813,27 @@ You can get through this class without this section. Feel free to skip it and co
 
 #### Microsoft Access
 
+To get access to MS Access databases, you will need to become familiar with how to install ODBC drivers. These drivers tell your operating system how to connect to each type of database (so you need a different driver to get to MS Access databases than to get to SQL databases). 
+
+::: {.callout-note collapse="true"}
+##### Install ODBC Drivers on your machine {-}
+
+<i class="fa-brands fa-windows"></i> and <i class="fa-brands fa-apple"></i> [This set of instructions](https://exploratory.io/note/exploratory/How-to-import-Data-from-Microsoft-Access-Database-with-ODBC-zIJ2bjs2) appears to contain all of the right steps for Windows and Mac and has been updated recently (Feb 2022) [@teamexploratoryHowImportData2022]. 
+
+<i class="fa-brands fa-linux"></i> I installed `mdbtools` on Ubuntu and have the following entry in my `/etc/odbcinst.ini` file:
+
+```
+[MDBTools]
+Description=MDBTools Driver
+Driver=libmdbodbc.so
+Setup=libmdbodbc.so
+FileUsage=1
+UsageCount=1
+```
+
+Adding this entry to the file may be part of the `mdbtools` installation - I certainly have no memory of doing it myself, but this may help if you're troubleshooting, so I've included it.
+:::
+
 ::: panel-tabset
 
 ##### R {-}
@@ -826,7 +847,6 @@ db_loc <- "data/Witchcraftsurvey_download.mdb"
 
 mdb.get(db_loc, tables = TRUE) # get table list
 mdb.get(db_loc, tables = "WDB_Trial")[1:6,1:10] # get table of trials, print first 6 rows and 10 cols
-  
 ```
 Many databases have multiple tables with **keys** that connect information in each table. We'll spend more time on databases later in the semester - for now, it's enough to be able to get data out of one. 
 ##### Python {-}
