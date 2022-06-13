@@ -923,7 +923,7 @@ UsageCount=1
 Adding this entry to the file may be part of the `mdbtools` installation - I certainly have no memory of doing it myself, but this may help if you're troubleshooting, so I've included it.
 :::
 
-For this demo, we'll be using the [Scottish Witchcraft Database](http://witches.shca.ed.ac.uk/index.cfm?fuseaction=home.register)[@juliangoodareSurveyScottishWitchcraft2003], which you can download from their website, or acquire from the course data folder. 
+For this demo, we'll be using the [Scottish Witchcraft Database](http://witches.shca.ed.ac.uk/index.cfm?fuseaction=home.register)[@juliangoodareSurveyScottishWitchcraft2003], which you can download from their website, or acquire from the [course data folder](https://github.com/srvanderplas/unl-stat850/raw/main/data/Witchcraftsurvey_download.mdb) if you don't want to register with the authors. A description of the dataset is also [available](https://github.com/srvanderplas/unl-stat850/raw/main/data/Witchcraftsurvey_download.doc). 
 
 ::: panel-tabset
 
