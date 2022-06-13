@@ -829,15 +829,23 @@ mdb.get(db_loc, tables = "WDB_Trial")[1:6,1:10] # get table of trials, print fir
   
 ```
 Many databases have multiple tables with **keys** that connect information in each table. We'll spend more time on databases later in the semester - for now, it's enough to be able to get data out of one. 
-
-
-Unfortunately, it appears that SAS on Linux doesn't allow you to read in Access files. So I can't demonstrate that for you. But, since you know how to do it in R, worst case you can open up R and export all of the tables to separate CSV files, then read those into SAS. `r emo::ji("sad")`
-
 ##### Python {-}
 
 https://datatofish.com/how-to-connect-python-to-ms-access-database-using-pyodbc/
 
+First, we have to install `pyodbc` using `pip install pyodbc`. 
+```{python msaccess-data-py}
+import pyodbc
+
+conn = pyodbc.connect(r'Driver={Microsoft Access Driver (*.mdb, *.accdb)};DBQ=data\Witchcraftsurvey_download.mdb;')
+cursor = conn.cursor()
+cursor.execute('select * from table_name')
+```
+
 XXX todo XXX
+##### SAS {-}
+
+Unfortunately, it appears that SAS on Linux doesn't allow you to read in Access files. So I can't demonstrate that for you. But, since you know how to do it in R, worst case you can open up R and export all of the tables to separate CSV files, then read those into SAS. `r emo::ji("sad")`
 :::
 
 #### SQLite
