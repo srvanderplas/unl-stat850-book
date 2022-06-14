@@ -502,7 +502,7 @@ Note that some variables may be too messy to handle with the things that you hav
 ```{r police-violence-tryitout-r-read-data}
 if (!"readxl" %in% installed.packages()) install.packages("readxl")
 library(readxl)
-police_violence <- read_xlsx("data/police_violence.xlsx", sheet = 1, guess_max = 7000)
+police_violence <- read_xlsx("data/police_violence.xlsx", sheet = 1, guess_max = 7000, skip = 1)
 ```
 
 ```{python police-violence-tryitout-py-read-data}
@@ -516,7 +516,7 @@ police_violence = pd.read_excel("data/police_violence.xlsx", skiprows=1)
 ```{r police-violence-tryitout-R}
 police_violence$`Victim's age` <- as.numeric(police_violence$`Victim's age`)
 
-summary(police_violence)
+skim(police_violence)
 ```
 
 Let's examine the numeric and date variables first:
@@ -567,7 +567,8 @@ The thing I'm honestly most surprised at with this plot is that there are so man
 ```{python police-violence-tryitout-py}
 police_violence["Victim's age"] = pd.to_numeric(police_violence["Victim's age"], errors = 'coerce')
 
-police_violence.describe()
+# police_violence.describe()
+skim(police_violence)
 ```
 
 Let's examine the numeric and date variables first:
@@ -599,22 +600,25 @@ plt.show()
 
 We can also look at the age range for each race:
 ```{python police-age-race-py}
+# get groups with at least 100 observations that aren't unknown
 race_sub = ["Asian", "Black", "Native American", "Hispanic", "White"]
 
-police_violence.filter("Victim's race") %>%
-  # get groups with at least 100 observations that aren't unknown
-  subset(`Victim's race` %in% c("Asian", "Black", "Native American", "Hispanic", "White")) %>%
-  boxplot(`Victim's age` ~ `Victim's race`, data = .)
+police_sub = police_violence.loc[police_violence["Victim's race"].isin(race_sub)]
+police_sub = police_sub.assign(v_race = pd.Categorical(police_sub["Victim's race"], categories = race_sub))
+
+police_sub.boxplot("Victim's age", by = "v_race")
+plt.show()
 ```
 
 And examine the age range for each gender as well:
 
 ```{python police-violence-age-py, eval = F}
-police_violence %>%
-  boxplot(`Victim's age` ~ `Victim's gender`, data = .)
+police_violence.boxplot("Victim's age", "Victim's gender")
+plt.show()
 ```
 
 The thing I'm honestly most surprised at with this plot is that there are so many elderly individuals (of both genders) shot. That's not a realization I'd normally construct this plot for, but the visual emphasis on the outliers in a boxplot makes it much easier to focus on that aspect of the data. 
+
 :::
 
 
