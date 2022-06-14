@@ -82,6 +82,7 @@ knitr:
     message: false
     warning: false
     error: true
+    dpi: 300
 
 execute:
   freeze: auto  # re-render only when source changes
