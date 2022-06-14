@@ -9,10 +9,10 @@ editor_options:
 ::: callout-note
 ## Extra Reading {.unnumbered}
 
-[The EDA chapter in R for Data Science [\@r4ds] is very good at
+[The EDA chapter in R for Data Science](https://r4ds.had.co.nz/exploratory-data-analysis.html) [\@r4ds] is very good at
 explaining what the goals of EDA are, and what types of questions you
 will typically need to answer in
-EDA](https://r4ds.had.co.nz/exploratory-data-analysis.html). Much of the
+EDA. Much of the
 material in this chapter is based at least in part on the R4DS chapter.
 :::
 
