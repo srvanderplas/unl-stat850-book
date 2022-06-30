@@ -417,4 +417,199 @@ in labels so that this is at least as clear as the tabular view!
 ```
 :::
 
+#### Quantitative Variables
+
+We covered some numerical summary statistics in the numerical summary
+statistic section above. In this section, we will primarily focus on
+visualization methods for assessing the distribution of quantitative
+variables.
+
+::: callout-note
+##### Note: R pipe {.unnumbered}
+
+The code in this section uses the R pipe, `%>%`. The left side of the
+pipe is passed as an argument to the right side. This makes code easier
+to read because it becomes a step-wise "recipe" instead of a nested mess
+of functions and parentheses.
+
+![In each step, the left hand side of the pipe is put into the first
+argument of the function. Source: [Arthur Welle
+(Github)](https://github.com/arthurwelle/VIS/blob/master/Pipe_Cake/)](https://github.com/arthurwelle/VIS/blob/master/Pipe_Cake/Pipe_baking_magrittr_backAssign.gif?raw=true){width="50%"}
+:::
+
+We can generate histograms[^exploratory-data-analysis-2] or kernel
+density plots (a continuous version of the histogram) to show us the
+distribution of a continuous variable.
+
+[^exploratory-data-analysis-2]: A histogram is a chart which breaks up a
+    continuous variable into ranges, where the height of the bar is
+    proportional to the number of items in the range. A bar chart is
+    similar, but shows the number of occurrences of a discrete variable.
+
+::: panel-tabset
+##### Base R {.unnumbered}
+
+By default, R uses ranges of $(a, b]$ in histograms, so we specify which
+breaks will give us a desirable result. If we do not specify breaks, R
+will pick them for us.
+
+```{r poke-hp-out, out.width = "48%", fig.show = "hold"}
+hist(poke$hp)
+```
+
+For continuous variables, we can use histograms, or we can examine
+kernel density plots.
+
+```{r poke-graphs-base-cts, out.width = "24%", fig.show = "hold", collapse = T}
+library(magrittr) # This provides the pipe command, %>%
+
+hist(poke$weight_kg)
+
+poke$weight_kg %>%
+  density(na.rm = T) %>% # First, we compute the kernel density
+  # (na.rm = T says to ignore NA values)
+  plot(main = "Density of Weight (Kg)") # Then, we plot the result
+
+poke$weight_kg %>%
+  log10() %>% # Take the log - will transformation be useful w/ modeling?
+  hist(main = "Histogram of Log10 Weight (Kg)") # create a histogram
+
+poke$weight_kg %>%
+  log10() %>% # Transform the variable
+  density(na.rm = T) %>% # Compute the density ignoring missing values
+  plot(main = "Density of Log10 pokemon weight in Kg") # Plot the result,
+    # changing the title of the plot to a meaningful value
+```
+
+##### Python: matplotlib {.unnumbered}
+
+```{python, include = F}
+plt.clf()
+```
+
+```{python poke-graphs-matplotlib-cts}
+#| fig-width: 12
+#| fig-height: 2.5
+#| fig-cap: Histogram and density plots of weight and log10 weight of different pokemon. The untransformed data are highly skewed, the transformed data are significantly less skewed.
+import matplotlib.pyplot as plt
+
+# Create a row of 4 plots
+fig, ((ax1, ax2, ax3, ax4)) = plt.subplots(1, 4)
+
+poke.weight_kg.plot.hist(ax = ax1) # first plot
+ax1.set_title("Histogram of Weight (kg)")
+
+poke.weight_kg.plot.density(ax = ax2)
+ax2.set_title("Density of Weight (kg)")
+
+np.log10(poke.weight_kg).plot.hist(ax = ax3)
+ax3.set_title("Histogram of Log10 Weight (kg)")
+
+np.log10(poke.weight_kg).plot.density(ax = ax4)
+ax4.set_title("Density of Log10 Weight (kg)")
+
+plt.show()
+```
+
+##### R: ggplot2
+
+```{r poke-ggplot2-cts-r}
+#| fig-width: 12
+#| fig-height: 3
+#| fig-show: hold
+#| collapse: true
+#| fig-align: center
+#| fig-cap:  Histogram and density plots of height and log10 height of different pokemon. The untransformed data are highly skewed, the transformed data are significantly less skewed.
+library(ggplot2)
+p1 <-   ggplot(poke, aes(x = height_m)) +
+  geom_histogram(bins = 30)
+p2 <- ggplot(poke, aes(x = height_m)) +
+  geom_histogram(bins = 30) +
+  scale_x_log10()
+p3 <- ggplot(poke, aes(x = height_m)) +
+  geom_density()
+p4 <- ggplot(poke, aes(x = height_m)) +
+  geom_density() +
+  scale_x_log10()
+
+# This code arranges the 4 plots in a single row
+library(gridExtra)
+grid.arrange(p1, p2, p3, p4, nrow = 1)
+```
+
+Notice that in ggplot2/plotnine, we transform the axes instead of the
+data. This means that the units on the axis are true to the original,
+unlike in base R and matplotlib.
+
+##### Python: plotnine
+
+Note: This example uses the python `patchworklib` package to arrange
+plots for the sake of the book layout. I do NOT expect you to be able to
+use this package, and the code shown is actually only the code required
+to make the plots, not to arrange them (for simplicity sake).
+
+```{python poke-ggplot2-cts-py}
+#| fig-show: hold
+#| eval: false
+#| collapse: true
+#| fig-align: center
+#| fig-cap:  Histogram and density plots of height and log10 height of different pokemon. The untransformed data are highly skewed, the transformed data are significantly less skewed.
+
+
+ggplot(poke, aes(x = 'height_m')) + geom_histogram(bins = 30)
+
+(ggplot(poke, aes(x = 'height_m')) +
+  geom_histogram(bins = 30) +
+  scale_x_log10())
+
+(ggplot(poke, aes(x = 'height_m')) +
+  geom_density())
+
+(ggplot(poke, aes(x = 'height_m')) +
+  geom_density() +
+  scale_x_log10())
+
+```
+
+```{python poke-ggplot2-cts-py-execute, echo = F}
+#| fig-show: hold
+#| fig-keep: last
+#| fig-width: 12
+#| fig-height: 3
+#| collapse: true
+#| fig-align: center
+#| fig-cap:  Histogram and density plots of height and log10 height of different pokemon. The untransformed data are highly skewed, the transformed data are significantly less skewed.
+
+import cowpatch as cow
+
+g1 = ggplot(poke, aes(x = 'height_m')) + geom_histogram(bins = 30)
+
+g2 = (ggplot(poke, aes(x = 'height_m')) +
+  geom_histogram(bins = 30) +
+  scale_x_log10())
+
+g3 = (ggplot(poke, aes(x = 'height_m')) +
+  geom_density())
+
+g4 = (ggplot(poke, aes(x = 'height_m')) +
+  geom_density() +
+  scale_x_log10())
+
+
+#g1 = pw.load_ggplot(g1, figsize = (3, 3))
+#g2 = pw.load_ggplot(g2, figsize = (3, 3))
+#g3 = pw.load_ggplot(g3, figsize = (3, 3))
+#g4 = pw.load_ggplot(g4, figsize = (3, 3))
+#g1234 = (g1|g2|g3|g4)
+#g1234.savefig()
+
+vis_patch = cow.patch(g1, g2, g3, g4) + cow.layout(design = np.array([0, 1, 2, 3]))
+vis_patch.show(width=12, height = 3, dpi = 600)
+```
+
+Notice that in ggplot2/plotnine, we transform the axes instead of the
+data. This means that the units on the axis are true to the original,
+unlike in base R and matplotlib.
+:::
+
 ## References
