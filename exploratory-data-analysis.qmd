@@ -168,5 +168,78 @@ poke = poke.drop(["Unnamed: 0", "german_name", "japanese_name"], axis = 1) # Dro
 ```
 :::
 
+### Numerical Summary Statistics
+
+::: panel-tabset
+#### R: summary {.unnumbered}
+
+The first, and most basic EDA command in R is `summary()`.
+
+For numeric variables, `summary` provides 5-number summaries plus the
+mean. For categorical variables, `summary` provides the length of the
+variable and the Class and Mode. For factors, `summary` provides a table
+of the most common values, as well as a catch-all "other" category.
+
+```{r readr-eda}
+# Make types into factors to demonstrate the difference
+poke$type_1 <- factor(poke$type_1)
+poke$type_2 <- factor(poke$type_2)
+
+summary(poke[,3:12])
+```
+
+One common question in EDA is whether there are missing values or other
+inconsistencies that need to be handled. `summary()` provides you with
+the NA count for each variable, making it easy to identify what
+variables are likely to cause problems in an analysis.
+
+There is one pokemon who appears to not have a weight specified. Let's
+investigate further:
+
+```{r poke-weight}
+poke[is.na(poke$weight_kg),] # Show any rows where weight.kg is NA
+```
+
+This is the last row of our data frame, and this pokemon appears to have
+many missing values.
+
+#### Python: describe {.unnumbered}
+
+The most basic EDA command in pandas is `df.describe()` (which operates
+on a DataFrame named `df`). Like `summary()` in R, `describe()` provides
+a 5-number summary for numeric variables. For categorical variables,
+`describe()` provides the number of unique values, the most common
+value, and the frequency of that common value.
+
+```{python poke}
+poke.iloc[:,2:11].describe() # describe only shows numeric variables by default
+
+# You can get categorical variables too if that's all you give it to show
+poke['status'].describe()
+```
+
+#### R: skimr {.unnumbered}
+
+An R package that is incredibly useful for this type of dataset
+exploration is `skimr`.
+
+```{r skimr-poke-demo}
+library(skimr)
+skim(poke)
+```
+
+`skim` provides a beautiful table of summary statistics along with a
+sparklines-style histogram of values, giving you a sneak peek at the
+distribution.
+
+#### python: skimpy {.unnumbered}
+
+There is a similar package to `skimr` in R called `skimpy` in Python.
+
+```{python skimpy-poke-demo}
+from skimpy import skim
+skim(poke)
+```
+:::
 
 ## References
