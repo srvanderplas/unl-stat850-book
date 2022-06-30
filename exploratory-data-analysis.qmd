@@ -242,4 +242,179 @@ skim(poke)
 ```
 :::
 
+### Assessing Distributions
+
+We are often also interested in the distribution of values.
+
+#### Categorical Variables
+
+One useful way to assess the distribution of values is to generate a
+cross-tabular view of the data. This is mostly important for variables
+with a relatively low number of categories - otherwise, it is usually
+easier to use a graphical summary method.
+
+##### Tabular Summaries {.unnumbered}
+
+::: panel-tabset
+###### R {.unnumbered}
+
+We can generate cross-tabs for variables that we know are discrete (such
+as generation, which will always be a whole number). We can even
+generate cross-tabular views for a combination of two variables (or
+theoretically more, but this gets hard to read and track).
+
+```{r poke-distribution}
+table(poke$generation)
+
+table(poke$type_1, poke$type_2)
+```
+
+###### Python {.unnumbered}
+
+```{python poke-distribution-py}
+import numpy as np
+# For only one factor, use .groupby('colname')['colname'].count()
+poke.groupby(['generation'])['generation'].count()
+
+# for two or more factors, use pd.crosstab
+pd.crosstab(index = poke['type_1'], columns = poke['type_2'])
+```
+:::
+
+##### Frequency Plots {.unnumbered}
+
+::: panel-tabset
+###### Base R {.unnumbered}
+
+```{r poke-distribution-plots}
+plot(table(poke$generation)) # bar plot
+
+plot(table(poke$type_1, poke$type_2)) # mosaic plot - hard to read b/c too many categories
+```
+
+###### R: ggplot2 {.unnumbered}
+
+We generate a bar chart using `geom_bar`. It helps to tell R that
+generation (despite appearances) is categorical by declaring it a factor
+variable. This ensures that we get a break on the x-axis at each
+generation.
+
+```{r poke-dist-plots-ggplot2}
+library(ggplot2)
+
+ggplot(poke, aes(x = factor(generation))) +
+  geom_bar() +
+  xlab("Generation") + ylab("# Pokemon")
+```
+
+We can also generate a mosaic plot (the equivalent of a 2-dimensional
+cross-tabular view) using `geom_bar` with `position = 'fill'`, which
+scales each bar so that it ends at 1. I've flipped the axes using
+`coord_flip` so that you can read the labels more easily.
+
+```{r poke-dist-plots-ggplot2-mosaic}
+library(ggplot2)
+
+ggplot(poke, aes(x = factor(type_1), fill = factor(type_2))) +
+  geom_bar(color = "black", position = "fill") +
+  xlab("Type 1") + ylab("Proportion of Pokemon w/ Type 2") +
+  coord_flip()
+```
+
+Another way to look at this data is to bin it in x and y and shade the
+resulting bins by the number of data points in each bin. We can even add
+in labels so that this is at least as clear as the tabular view!
+
+```{r poke-dist-plots-ggplot2-tile}
+ggplot(poke, aes(x = factor(type_1), y = factor(type_2))) +
+  # Shade tiles according to the number of things in the bin
+  geom_tile(aes(fill = ..count..), stat = "bin2d") +
+  # Add the number of things in the bin to the top of the tile as text
+  geom_text(aes(label = ..count..), stat = 'bin2d') +
+  # Scale the tile fill
+  scale_fill_gradient2(limits = c(0, 100), low = "white", high = "blue", na.value = "white")
+```
+
+###### Python: matplotlib {.unnumbered}
+
+We generate a bar chart using the contingency table we generated earlier
+combined with matplotlib's `plt.bar()`.
+
+```{python matplotlib-categorical-chart}
+import matplotlib.pyplot as plt
+
+tab = poke.groupby(['generation'])['generation'].count()
+
+plt.bar(tab.keys(), tab.values, color = 'grey')
+plt.xlabel("Generation")
+plt.ylabel("# Pokemon")
+plt.show()
+```
+
+To get a mosaicplot, we need an additional library, called
+`statsmodels`, which we install with `pip install statsmodels` in the
+terminal.
+
+```{python mosaic-plot-poke-statsmodels}
+import matplotlib.pyplot as plt
+from statsmodels.graphics.mosaicplot import mosaic
+
+mosaic(poke, ['type_1', 'type_2'], title = "Pokemon Types")
+plt.show()
+```
+
+This obviously needs a bit of cleaning up to remove extra labels, but
+it's easy to get to and relatively functional. Notice that it does not,
+by default, show NA values.
+
+###### Python: plotnine {.unnumbered}
+
+Plotnine is a ggplot2 clone for python, and for the most part, the code
+looks almost exactly the same, minus a few python-specific tweaks to
+account for different syntax conventions in each language.
+
+We generate a bar chart using `geom_bar`. It helps to tell R that
+generation (despite appearances) is categorical by declaring it a factor
+variable. This ensures that we get a break on the x-axis at each
+generation.
+
+```{python poke-dist-plots-plotnine}
+from plotnine import *
+
+(ggplot(aes(x = "factor(generation)"), data = poke) +
+  geom_bar() +
+  xlab("Generation") + ylab("# Pokemon"))
+```
+
+We can also generate a mosaic plot (the equivalent of a 2-dimensional
+cross-tabular view) using `geom_bar` with `position = 'fill'`, which
+scales each bar so that it ends at 1. I've flipped the axes using
+`coord_flip` so that you can read the labels more easily.
+
+```{python poke-dist-plots-plotnine-mosaic}
+# Convert everything to categorical/factor variable ahead of time
+# this stops an error: TypeError: '<' not supported between instances of 'float' and 'str'
+poke['type_1'] = pd.Categorical(poke['type_1'].astype(str))
+poke['type_2'] = pd.Categorical(poke['type_2'].astype(str))
+
+( ggplot(aes(x = 'type_1', fill = 'type_2'), data = poke) +
+  geom_bar(color = "black", position = "fill") +
+  xlab("Type 1") + ylab("Proportion of Pokemon w/ Type 2") +
+  coord_flip() +
+  # This says 85% of the plot is for the main plot and 15% is for the legend.
+  theme(subplots_adjust={'right':0.85})
+  )
+```
+
+Another way to look at this data is to bin it in x and y and shade the
+resulting bins by the number of data points in each bin. We can even add
+in labels so that this is at least as clear as the tabular view!
+
+```{python poke-dist-plots-plotnine-tile}
+(ggplot(aes(x = 'type_1', y = 'type_2'), data = poke) +
+  # Shade tiles according to the number of things in the bin
+  stat_bin2d(aes(fill = after_stat('count')), geom = 'tile'))
+```
+:::
+
 ## References
