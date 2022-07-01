@@ -537,7 +537,7 @@ Now, using that function, lets write a for loop that loops through the 5 borough
 boroughs <- unique(borough_zip$Borough) # get a list of the 5 boroughs
 for (i in boroughs) {
   # Get subset of data frame corresponding to the Borough
-  dogs_sub <- subset(dogs, Borough == i)
+  dogs_sub <- dogs[dogs$Borough == i,]
   # Get top 5 dog breeds
   result <- as.data.frame(top_5_breeds(dogs_sub))
   # set names
@@ -557,7 +557,7 @@ for (i in boroughs) {
 boroughs = borough_zip.Borough.unique()
 for i in boroughs:
   # get subset of data frame corresponding to the borough
-  dogs_sub = dogs.query("Borough== @i")
+  dogs_sub = dogs.query("Borough == @i")
   # Get top 5 breeds
   result = top_5_breeds(dogs_sub)
   # Convert to DataFrame and make the index another column
