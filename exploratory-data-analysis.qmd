@@ -543,7 +543,7 @@ unlike in base R and matplotlib.
 
 ##### Python: plotnine
 
-Note: This example uses the python `patchworklib` package to arrange
+Note: This example uses the python `cowpatch` package to arrange
 plots for the sake of the book layout. I do NOT expect you to be able to
 use this package, and the code shown is actually only the code required
 to make the plots, not to arrange them (for simplicity sake).
@@ -554,7 +554,6 @@ to make the plots, not to arrange them (for simplicity sake).
 #| collapse: true
 #| fig-align: center
 #| fig-cap:  Histogram and density plots of height and log10 height of different pokemon. The untransformed data are highly skewed, the transformed data are significantly less skewed.
-
 
 ggplot(poke, aes(x = 'height_m')) + geom_histogram(bins = 30)
 
@@ -571,7 +570,7 @@ ggplot(poke, aes(x = 'height_m')) + geom_histogram(bins = 30)
 
 ```
 
-```{python poke-ggplot2-cts-py-execute, echo = F}
+```{python poke-ggplot2-cts-py-execute, echo = F, eval = F}
 #| fig-show: hold
 #| fig-keep: last
 #| fig-width: 12
@@ -579,7 +578,8 @@ ggplot(poke, aes(x = 'height_m')) + geom_histogram(bins = 30)
 #| collapse: true
 #| fig-align: center
 #| fig-cap:  Histogram and density plots of height and log10 height of different pokemon. The untransformed data are highly skewed, the transformed data are significantly less skewed.
-
+from plotnine import *
+import numpy as np
 import cowpatch as cow
 
 g1 = ggplot(poke, aes(x = 'height_m')) + geom_histogram(bins = 30)
