@@ -1,5 +1,7 @@
 name: Render and Deploy Quarto Book
-on: none
+on:
+  schedule:
+    - cron: '0 0 * * 0' # Run on Sundays at midnight
 
 jobs:
   quarto-render-and-deploy:
