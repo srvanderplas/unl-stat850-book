@@ -15,6 +15,16 @@ jobs:
     steps:
     - uses: actions/checkout@v2
 
+    - name: Install Python dependencies 1
+      if: runner.os == 'Linux'
+      run: |
+        sudo apt update
+        sudo apt upgrade
+        sudo apt install -y python3-virtualenv
+        sudo apt install -y python3-dev
+        sudo apt install -y python3-venv
+      shell: /bin/bash {0}
+
     - name: "Install Quarto and render"
       uses: pommevilla/quarto-render@main
 
