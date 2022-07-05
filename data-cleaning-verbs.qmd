@@ -492,7 +492,27 @@ flights.loc[:,selcols_fixed]
 
 ### Base R {-}
 
-XXX TODO XXX
+In base R, we typically select columns by name or index directly. This is nowhere near as convenient, of course, but there are little shorthand ways to replicate the functionality of e.g. `matches` in `dplyr`.
+
+`grepl` is a shorthand function for `grep`, which searches for a pattern in a vector of strings. `grepl` returns a logical vector indicating whether the pattern (`"dep"`, in this case) was found in the vector (`names(flights)`, in this case). 
+
+```{r select-departure-base-r}
+
+depcols <- names(flights)[grepl("dep", names(flights))]
+collist <- c("flight", "year", "month", "day", "tailnum", "origin", depcols)
+
+flights[,collist]
+```
+
+Perhaps we want the plane and flight ID information to be the first columns:
+```{r select-rearrange-base-r}
+new_order <- names(flights)
+new_order <- new_order[c(10:14, 1:9, 15:19)]
+
+flights[,new_order]
+```
+
+This is less convenient than `dplyr::everything` in part because it depends on us to get the column indexes right. 
 
 :::
 
@@ -587,7 +607,8 @@ Unfortunately, for some reason, I can't seem to get pandas to count the NAs once
 The learning curve here isn't actually knowing how to assign new variables (though that's important). The challenge comes when you want to do something *new* and have to figure out how to e.g. use find and replace in a string, or work with dates and times, or recode variables. 
 
 
-::: callout-collapse
+:::{.callout-note collapse = "true"}
+
 ### Mutate and new challenges
 
 I'm not going to be able to teach you how to handle every mutate statement task you'll come across (people invent new ways to screw up data all the time!) but my goal is instead to teach you how to _read documentation_ and _google things intelligently_, and to _understand what you're reading_ enough to actually implement it. This is something that comes with practice (and lots of googling, stack overflow searches, etc.).
@@ -602,7 +623,7 @@ tweet_cached <- memoise::memoise(tweetrmd::tweet_embed, cache = memoise::cache_f
 tweet_shot_cached <- memoise::memoise(tweetrmd::tweet_screenshot, cache = memoise::cache_filesystem(".tweets"))
 
 tweetrmd::tweet_screenshot(tweetrmd::tweet_url("cszhu", "1230954186520461312"))
-tweetrmd::tweet_screenshot(tweetrmd::tweet_url("grubes14", "1168946210868269057"))
+tweetrmd::tweet_screenshot(tweetrmd::tweet_url("madsbrodt", "1339127984670773251"))
 ```
 
 
@@ -629,6 +650,7 @@ Dates and Times | `lubridate` package (esp. `ymd_hms()` and variants, `decimal_d
 String manipulation | `stringr` package | Quick Tips [@chinguyenTipsStringManipulation2021], Whirlwind Tour of Python chapter [@jacobvanderplasStringManipulationRegular2016]
 
 :::
+
 
 ## Summarize
 
@@ -828,16 +850,17 @@ For this plot, I've added `facet_wrap(~year)` to produce sub-plots for each year
 
 :::
 
-## Other `dplyr` functions
-
-### across
+### Summarizing Across Multiple Variables
 
 The dplyr package is filled with other handy functions for accomplishing common data-wrangling tasks. `across()` is particularly useful - it allows you to make a modification to several columns at the same time.
 
 ![dplyr's across() function lets you apply a mutate or summarize statement to many columns (by Allison Horst)](https://github.com/allisonhorst/stats-illustrations/raw/master/rstats-artwork/dplyr_across.png)
 
-dplyr's `across()` function demo
 Suppose we want to summarize the numerical columns of any storm which was a hurricane (over the entire period it was a hurricane). We don't want to write out all of the summarize statements individually, so we use across() instead. 
+
+::: panel-tabset
+
+#### R {-}
 
 ```{r storms-dplyr-other-functions}
 library(lubridate) # for the make_datetime() function
@@ -861,21 +884,92 @@ avg_hurricane_intensity %>%
   knitr::kable() # Make into a pretty table
 ```
 
+#### Python {-}
+
+[Stackoverflow reference](https://stackoverflow.com/questions/63200530/python-pandas-equivalent-to-dplyr-1-0-0-summarizeacross)
+
+In the interests of using the same example, I've exported dplyr's `storms` data to [CSV](https://github.com/srvanderplas/unl-stat850/raw/main/data/storms.csv).
+```{r, eval = F, include = F}
+data(storms, package = "dplyr")
+readr::write_csv(storms, file = "data/storms.csv")
+```
+
+```{python storms-dplyr-other-functions-py}
+import pandas as pd
+import numpy as np
+storms = pd.read_csv("https://github.com/srvanderplas/unl-stat850/raw/main/data/storms.csv")
+
+# Construct a time variable that behaves like a number but is formatted as a date
+storms = storms.assign(time = pd.to_datetime(storms[["year", "month", "day", "hour"]]))
+
+# Remove year/month/day/hour
+storms = storms.drop(["year", "month", "day", "hour"], axis = 1)
+
+# Remove non-hurricane points
+storms = storms.query("status == 'hurricane'")
+
+# Get list of all remaining numeric variables
+cols = storms.select_dtypes(include =[np.number]).columns.values
+(storms.
+set_index("name").
+filter(cols).
+groupby('name').
+agg({col: 'mean' for col in cols}))
+```
+
+By default, pandas skips NaN values. If we want to be more clear, or want to pass another argument into the function, we can use what is called a **lambda function** - basically, a "dummy" function that has some arguments but not all of the arguments. Here, our lambda function is a function of `x`, and we calculate `x.mean(skipna=True)` for each x passed in (so, for each column). 
+
+
+```{python storms-dplyr-other-functions-py2}
+# Get list of all remaining numeric variables
+cols = storms.select_dtypes(include =[np.number]).columns.values
+(storms.
+set_index("name").
+filter(cols).
+groupby('name').
+agg({col: lambda x: x.mean(skipna=True) for col in cols}))
+```
+
+:::
+
+
+## Try it out 
+
+You can [read about the gapminder project here](https://www.gapminder.org/data/documentation/). 
+
+The gapminder data used for this set of problems contains data from 142 countries on 5 continents. The filtered data in `gapminder` (in R) contain data about every 5 year period between 1952 and 2007, the country's life expectancy at birth, population, and per capita GDP (in US \$, inflation adjusted). In the `gapminder_unfiltered` table, however, things are a bit different. Some countries have yearly data, observations are missing, and some countries don't have complete data. The `gapminder` package in python (install with `pip install gapminder`) is a port of the R package, but doesn't contain the unfiltered data, so we'll instead use a CSV export. 
 
 ::: callout-tip
-## Try it out 
+### Read in the Data
+::: panel-tabset
+
+#### R {-}
 ```{r tryitout-gapminder}
 if (!"gapminder" %in% installed.packages()) install.packages("gapminder")
 library(gapminder)
 gapminder_unfiltered
 ```
 
+#### Python {-}
+```{r gapminder-export, echo = F, include = F}
+readr::write_csv(gapminder_unfiltered, file = "data/gapminder_unfiltered.csv")
+```
 
-You can [read about the gapminder project here](https://www.gapminder.org/data/documentation/). 
+```{python tryitout-gapminder-py}
+import pandas as pd
 
-The gapminder data used for this set of problems contains data from 142 countries on 5 continents. The filtered data in `gapminder` (in R) contain data about every 5 year period between 1952 and 2007, the country's life expectancy at birth, population, and per capita GDP (in US \$, inflation adjusted). In the `gapminder_unfiltered` table, however, things are a bit different. Some countries have yearly data, observations are missing, and some countries don't have complete data. I've exported the `gapminder_unfiltered` table to CSV for import into SAS as well - try to do these tasks in both languages. 
+gapminder_unfiltered = pd.read_csv("https://github.com/srvanderplas/unl-stat850/raw/main/data/gapminder_unfiltered.csv")
+```
+:::
 
-Task 1: How bad is it? Using your EDA skills, determine *how bad* the unfiltered data are. You may want to look for missing values, number of records, etc. Use WHERE or filter to show any countries which have incomplete data. Describe, in words, what operations were necessary to get this information. 
+### Task 1: How Bad is It?
+
+::: panel-tabset
+
+#### Problem {-}
+Using your EDA skills, determine *how bad* the unfiltered data are. You may want to look for missing values, number of records, etc. Use query or filter to show any countries which have incomplete data. Describe, in words, what operations were necessary to get this information. 
+
+#### R {-}
 
 ```{r gapminder-tryitout-1}
 gapminder_unfiltered %>% 
@@ -886,19 +980,56 @@ gapminder_unfiltered %>%
   filter(n != length(seq(1952, 2007, by = 5)))
 ```
 
+In order to determine what gaps were present in the gapminder dataset, I determined how many years of data were available for each country by grouping the dataset and counting the rows. There should be 12 years worth of data between 1952 and 2007; as a result, I displayed the countries which did not have exactly 12 years of data. 
+
+#### Python {-}
+
+```{python gapminder-tryitout-1-py}
+(
+  gapminder_unfiltered.
+  set_index("country").
+  filter(["lifeExp", "pop", "gdpPercap"]).
+  groupby("country").
+  agg(lambda x: x.notnull().sum()).
+  query("lifeExp != 12 | pop != 12 | gdpPercap != 12")
+  )
+```
 
 In order to determine what gaps were present in the gapminder dataset, I determined how many years of data were available for each country by grouping the dataset and counting the rows. There should be 12 years worth of data between 1952 and 2007; as a result, I displayed the countries which did not have exactly 12 years of data. 
 
-Task 2: Exclude any data which isn't at 5-year increments, starting in 1952 (so 1952, 1957, 1962, ..., 2007). 
+:::
+
+### Task 2: Exclude any data which isn't at 5-year increments
+Start in 1952 (so 1952, 1957, 1962, ..., 2007). 
+
+::: panel-tabset
+
+#### R {-}
 
 ```{r gapminder-tryitout-5y-increments}
 gapminder_unfiltered %>%
   filter(year %in% seq(1952, 2007, by = 5))
 ```
 
+#### Python {-}
+
+[Reminder about python list comprehensions](https://docs.python.org/3/tutorial/datastructures.html#list-comprehensions)
+
+[Explanation of the query @ statement](https://stackoverflow.com/questions/62914335/python-pandas-query-for-values-in-list)
+
+```{python gapminder-tryitout-5y-increments-py}
+years_to_keep = [i for i in range(1952, 2008, 5)]
+gapminder_unfiltered.query("year in @years_to_keep")
+```
+
+:::
 
 
-Task 3: Exclude any countries that don't have a full set of observations from 1952 - 2007 in 5-year increments. 
+### Task 3: Exclude any countries that don't have a full set of observations
+
+::: panel-tabset
+
+#### R {-}
 
 ```{r gapminder-tryitout-countries-filter}
 gapminder_unfiltered %>%
@@ -909,11 +1040,34 @@ gapminder_unfiltered %>%
   select(-nobs)
 ```
 
+#### Python {-}
+
+```{python gapminder-tryitout-countries-filter-py}
+
+years_to_keep = [i for i in range(1952, 2008, 5)]
+
+(
+  gapminder_unfiltered.
+  # Remove extra years
+  query("year in @years_to_keep").
+  groupby("country").
+  # Calculate number of observations (should be exactly 12)
+  # This is the equivalent of mutate on a grouped data set
+  apply(lambda grp: grp.assign(nobs = grp['lifeExp'].notnull().sum())).
+  # Keep rows with 12 observations
+  query("nobs == 12").
+  # remove nobs column
+  drop("nobs", axis = 1)
+  )
+```
+
+
+:::
 :::
 
 ::: callout-note
 
-## Additional Reading 
+## Additional Resources 
 - [Introduction to dplyr](https://stat545.com/dplyr-intro.html) and [Single Table dplyr functions](https://stat545.com/dplyr-single.html)
 
 - R for Data Science: [Data Transformations](https://r4ds.had.co.nz/transform.html)
@@ -923,5 +1077,6 @@ gapminder_unfiltered %>%
 - [Base R data manipulation](https://vknight.org/SAS-R/Content/R-Chapter-03/)
 
 - [Videos of analysis of new data from Tidy Tuesday](https://www.youtube.com/playlist?list=PL19ev-r1GBwkuyiwnxoHTRC8TTqP8OEi8) - may include use of other packages, but almost definitely includes use of dplyr as well. 
+  - [TidyTuesday Python github repo](https://github.com/waiyanps/TidyTuesday-Python) - replicating Tidy Tuesday analyses in Python with Pandas
 
 :::

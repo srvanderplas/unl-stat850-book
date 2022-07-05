@@ -62,15 +62,15 @@ format:
     theme: cosmo
     code-link: true
     include-in-header: "header.html"
-  pdf:
-    documentclass: scrreprt
-    include-in-header:
-      text: |
-        \usepackage{makeidx}
-        \makeindex
-    include-after-body:
-      text: |
-        \printindex
+  # pdf:
+  #   documentclass: scrreprt
+  #   include-in-header:
+  #     text: |
+  #       \usepackage{makeidx}
+  #       \makeindex
+  #   include-after-body:
+  #     text: |
+  #       \printindex
   epub:
    cover-image: cover.png
 

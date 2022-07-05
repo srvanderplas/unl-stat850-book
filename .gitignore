@@ -6,10 +6,13 @@ sas/hivtidy.*
 _fontawesome-free-5.15.3-web
 _bookdown_files
 .directory
-
 /.quarto/
 *_files/
 *.html
 .gitattributes
 *.rmarkdown
 secrets/
+index.aux
+index.idx
+index.log
+index.toc
