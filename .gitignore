@@ -1,0 +1,15 @@
+.Rproj.user
+.Rhistory
+.RData
+.Ruserdata
+sas/hivtidy.*
+_fontawesome-free-5.15.3-web
+_bookdown_files
+.directory
+
+/.quarto/
+*_files/
+*.html
+.gitattributes
+*.rmarkdown
+secrets/
