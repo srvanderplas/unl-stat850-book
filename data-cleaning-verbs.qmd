@@ -947,12 +947,9 @@ ggplot(storm_evolution,
 #### Python {-}
 
 ```{python storm-evo-py}
-storm_evolution = storms.loc[storms.hurricane_force_diameter.notnull(),:].groupby(["name", "year"]).agg(time_since_start = ("time", lambda x: x - x.min())).reindex()
+storm_evolution = storms.loc[storms.hurricane_force_diameter.notnull(),:]
 
-filter(!is.na(hu_diameter)) %>%
-  group_by(name, year) %>%
-  mutate(time_since_start = difftime(time, min(time), units = "days")) %>%
-  ungroup()
+storm_evolution["age"] = storm_evolution.groupby(["name", "year"]).apply(lambda x: x.time - x.time.min()).reindex()
 
 ggplot(storm_evolution, 
        aes(x = time_since_start, y = hu_diameter, 
