@@ -25,13 +25,8 @@ jobs:
           sudo apt install -y python3-virtualenv
           sudo apt install -y python3-dev
           sudo apt install -y python3-venv
+          sudo apt install -y chromium-browser
         shell: /bin/bash {0}
-
-      - name: Install R dependencies
-        if: runner.os == 'Linux'
-        run: |
-          install.packages(c("rmarkdown", "jsonlite", "reticulate", "quarto", "pak"))
-        shell: Rscript {0}
 
       - name: Setup python virtualenv
         run: |
@@ -44,10 +39,10 @@ jobs:
         run: |
           echo "RENV_PATHS_ROOT=${{ runner.temp }}/renv" >> $GITHUB_ENV
 
-      - name: Install and activate renv
+      - name: Install R dependencies
+        if: runner.os == 'Linux'
         run: |
-          pak::pkg_install("rstudio/renv")
-          pak::pkg_install("rstudio/fontawesome")
+          install.packages(c("rmarkdown", "jsonlite", "reticulate", "renv", "fontawesome", "webshot2", "downlit", "xml2"))
           options(renv.download.override = utils::download.file)
           renv::restore()
         shell: Rscript {0}
@@ -65,7 +60,6 @@ jobs:
           path: ${{ env.RENV_PATHS_ROOT }}
           key: ${{ steps.get-version.outputs.os-version }}-${{ steps.get-version.outputs.r-version }}-${{ inputs.cache-version }}-${{ hashFiles('renv.lock') }}
           restore-keys: ${{ steps.get-version.outputs.os-version }}-${{ steps.get-version.outputs.r-version }}-${{inputs.cache-version }}-
-
 
       - name: "Download Quarto"
         shell: bash
