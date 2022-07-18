@@ -746,7 +746,11 @@ When you `group_by` a variable, your result carries this grouping with it. In R,
 ::: callout-caution
 ### Storms Example 
 
-Let's try a non-trivial example, using the `storms` dataset that is part of the `dplyr` package:
+Let's try a non-trivial example, using the `storms` dataset that is part of the `dplyr` package.
+
+::: panel-tabset
+
+#### R {-}
 
 ```{r read-data-storms}
 library(dplyr)
@@ -759,6 +763,23 @@ storms <- storms %>%
   mutate(time = make_datetime(year, month, day, hour))
 ```
 
+#### Python {-}
+
+```{python read-data-storms-py}
+import pandas as pd
+import numpy as np
+storms = pd.read_csv("https://github.com/srvanderplas/unl-stat850/raw/main/data/storms.csv")
+
+# Construct a time variable that behaves like a number but is formatted as a date
+storms = storms.assign(time = pd.to_datetime(storms[["year", "month", "day", "hour"]]))
+
+# Remove month/day/hour 
+# (keep year for ID purposes, names are reused)
+storms = storms.drop(["month", "day", "hour"], axis = 1)
+```
+
+:::
+
 We have named storms, observation time, storm location, status, wind, pressure, and diameter (for tropical storms and hurricanes). 
 
 One thing we might want to know is at what point each storm was the strongest. Let's define strongest in the following way: 
@@ -767,7 +788,30 @@ One thing we might want to know is at what point each storm was the strongest. L
 2. If there's a tie, we might want to know when the maximum wind speed occurred. 
 3. If that still doesn't get us a single row for each observation, lets just pick out the status and category (these are determined by wind speed, so they should be the same if maximum wind speed is the same) and compute the average time where this occurred. 
 
-group_by + filter + summary
+Let's start by translating these criteria into basic operations. I'll use dplyr function names here, but I'll also specify what I mean when there's a conflict (e.g. filter in dplyr means something different than filter in python). 
+
+Initial attempt:
+1. **For each storm** (`group_by`), 
+2. we need the point where the storm has lowest atmospheric pressure. (`filter` - pick the row with the lowest pressure). 
+
+Then we read the next part: "If there is a tie, pick the maximum wind speed."
+
+1. `group_by`
+2. `arrange` by ascending pressure and descending wind speed
+3. `filter` - pick the row(s) which have the lowest pressure and highest wind speed
+
+Then, we read the final condition: if there is still a tie, pick the status and category and compute the average time.
+
+1. `group_by`
+2. `arrange` by ascending pressure and descending wind speed (this is optional if we write our filter in a particular way)
+3. `filter` - pick the row(s) which have the lowest pressure and highest wind speed
+4. `summarize` - compute the average time and category (if there are multiple rows)
+
+Let's write the code, now that we have the order of operations straight!
+
+::: panel-tabset
+
+#### R {-}
 
 ```{r max-power-storm}
 max_power_storm <- storms %>%
@@ -785,21 +829,73 @@ max_power_storm <- storms %>%
 max_power_storm
 ```
 
+#### Python {-}
+
+```{python max-power-storm-py}
+grouped_storms = storms.groupby(["name", "year"])
+
+grouped_storm_sum = grouped_storms.agg({
+  "pressure": lambda x: x.min()
+}).reindex()
+
+# This gets all the information from storms
+# corresponding to name/year/max pressure
+max_power_storm = grouped_storm_sum.merge(storms, on = ["name", "year", "pressure"])
+
+max_power_storm = max_power_storm.groupby(["name", "year"]).agg({
+  "pressure": "min",
+  "wind": "max",
+  "category": "mean",
+  "status": "unique",
+  "time": "mean"
+})
+```
+
+:::
+
+
 If we want to see a visual summary, we could plot a histogram of the minimum pressure of each storm. 
+
+::: panel-tabset
+
+#### R {-}
 
 ```{r ggplot-storms}
 library(ggplot2)
 ggplot(max_power_storm, aes(x = pressure)) + geom_histogram()
 ```
 
+#### Python {-}
+```{python ggplot-storms-py}
+from plotnine import *
+
+ggplot(max_power_storm, aes(x = "pressure")) + geom_histogram()
+```
+:::
+
 We could also look to see whether there has been any change over time in pressure.
-```{r ggplot-power-pressure2}
+
+::: panel-tabset
+
+#### R {-}
+```{r ggplot-power-pressure-r}
 ggplot(max_power_storm, aes(x = time, y = pressure)) + geom_point()
 ```
+
+#### Python {-}
+```{python ggplot-power-pressure-py}
+ggplot(max_power_storm, aes(x = "time", y = "pressure")) + geom_point()
+```
+
+:::
 
 It seems to me that there are fewer high-pressure storms before 1990 or so, which may be due to the fact that some weak storms may not have been observed or recorded prior to widespread radar coverage in the Atlantic (see [this coverage map from 1995](image/weather_radar_graph_1995.gif)). 
 
 Another interesting way to look at this data would be to examine the duration of time a storm existed, as a function of its maximum category. Do stronger storms exist for a longer period of time?
+
+::: panel-tabset
+
+#### R {-}
 
 ```{r duration-storm}
 storm_strength_duration <- storms %>%
@@ -813,26 +909,28 @@ storm_strength_duration %>%
   ggplot(aes(x = max_strength, y = duration)) + geom_boxplot()
 ```
 
-You don't need to know how to create these plots yet, but I find it much easier to look at the chart and answer the question I started out with. 
+#### Python {-}
+```{python duration-storm-py}
+storm_strength_duration = storms.groupby(["name", "year"]).agg(duration = ("time", lambda x: max(x) - min(x)),max_strength = ("category", "max"))
 
-It seems that the vast majority of storms have a single bout of hurricane force winds (which either decreases or just terminates near the peak, presumably when the storm hits land and rapidly disintegrates). However, there are a few interesting exceptions - my favorite is in 2008 - the longest-lasting storm seems to have several local peaks in wind field diameter. If we want, we can examine that further by plotting it separately.
-
-
-```{r storm-evo-year}
-storm_evolution %>%
-  filter(year == 2008) %>%
-  arrange(desc(time_since_start))
-
-storm_evolution %>% filter(name == "Ike") %>%
-  ggplot(aes(x = time, y = hu_diameter, color = category)) + geom_point()
+ggplot(aes(x = "factor(max_strength)", y = "duration"), data = storm_strength_duration) + geom_boxplot()
 ```
 
+:::
+
+You don't need to know how to create these plots yet, but I find it much easier to look at the chart and answer the question I started out with. 
 
 We could also look to see how a storm's diameter evolves over time, from when the storm is first identified (group_by + mutate) 
 
 Diameter measurements don't exist for all storms, and they appear to measure the diameter of the wind field - that is, the region where the winds are hurricane or tropical storm force. (`?storms` documents the dataset and its variables). 
 
+
+::: panel-tabset
+
+#### R {-}
+
 Note the use of `as.numeric(as.character(max(category)))` to get the maximum (ordinal categorical) strength and convert that into something numeric that can be plotted. 
+
 ```{r storm-evo}
 storm_evolution <- storms %>%
   filter(!is.na(hu_diameter)) %>%
@@ -846,7 +944,52 @@ ggplot(storm_evolution,
   facet_wrap(~year, scales = "free_y")
 ```
 
+#### Python {-}
+
+```{python storm-evo-py}
+storm_evolution = storms.loc[storms.hurricane_force_diameter.notnull(),:]
+
+storm_evolution["age"] = storm_evolution.groupby(["name", "year"]).apply(lambda x: x.time - x.time.min()).reindex()
+
+ggplot(storm_evolution, 
+       aes(x = time_since_start, y = hu_diameter, 
+           group = name)) + geom_line(alpha = .2) + 
+  facet_wrap(~year, scales = "free_y")
+```
+
+:::
+
+
 For this plot, I've added `facet_wrap(~year)` to produce sub-plots for each year. This helps us to be able to see some individuality, because otherwise there are far too many storms. 
+
+It seems that the vast majority of storms have a single bout of hurricane force winds (which either decreases or just terminates near the peak, presumably when the storm hits land and rapidly disintegrates). However, there are a few interesting exceptions - my favorite is in 2008 - the longest-lasting storm seems to have several local peaks in wind field diameter. If we want, we can examine that further by plotting it separately.
+
+::: panel-tabset
+
+#### R {-}
+
+```{r storm-evo-year}
+storm_evolution %>%
+  filter(year == 2008) %>%
+  arrange(desc(time_since_start))
+
+storm_evolution %>% filter(name == "Ike") %>%
+  ggplot(aes(x = time, y = hu_diameter, color = category)) + geom_point()
+```
+
+#### Python {-}
+
+
+```{python storm-evo-year-py}
+storm_evolution %>%
+  filter(year == 2008) %>%
+  arrange(desc(time_since_start))
+
+storm_evolution %>% filter(name == "Ike") %>%
+  ggplot(aes(x = time, y = hu_diameter, color = category)) + geom_point()
+```
+
+:::
 
 :::
 
