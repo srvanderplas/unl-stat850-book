@@ -25,8 +25,10 @@ jobs:
         sudo apt install -y python3-venv
       shell: /bin/bash {0}
 
-    - name: "Install Quarto and render"
-      uses: pommevilla/quarto-render@main
+    - name: "Quarto render"
+      shell: bash
+      run: |
+        quarto render --execute-debug
 
     - name: "Deploy to gh-pages"
       uses: peaceiris/actions-gh-pages@v3

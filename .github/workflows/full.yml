@@ -6,7 +6,7 @@ on:
 jobs:
   quarto-render-and-deploy:
     runs-on: ubuntu-latest
-    container: rocker/verse:latest
+    container: rocker/verse:devel
     env:
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       GH_PAT: ${{ secrets.GH_PAT }}
