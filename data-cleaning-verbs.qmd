@@ -869,7 +869,7 @@ ggplot(max_power_storm, aes(x = pressure)) + geom_histogram()
 ```{python ggplot-storms-py}
 from plotnine import *
 
-ggplot(max_power_storm, aes(x = "pressure")) + geom_histogram()
+ggplot(max_power_storm, aes(x = "pressure")) + geom_histogram(bins=30)
 ```
 :::
 
