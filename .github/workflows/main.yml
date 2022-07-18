@@ -30,10 +30,10 @@ jobs:
       run: |
         echo "RENV_PATHS_ROOT=${{ runner.temp }}/renv" >> $GITHUB_ENV
 
-    - name: Install and activate renv
+    - name: Install R dependencies
+      if: runner.os == 'Linux'
       run: |
-        pak::pkg_install("rstudio/renv")
-        pak::pkg_install("rstudio/fontawesome")
+        install.packages(c("rmarkdown", "jsonlite", "reticulate", "renv", "fontawesome"))
         options(renv.download.override = utils::download.file)
         renv::restore()
       shell: Rscript {0}
