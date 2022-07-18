@@ -23,7 +23,20 @@ jobs:
         sudo apt install -y python3-virtualenv
         sudo apt install -y python3-dev
         sudo apt install -y python3-venv
+
       shell: /bin/bash {0}
+      - name: Set RENV_PATHS_ROOT
+        shell: bash
+        run: |
+          echo "RENV_PATHS_ROOT=${{ runner.temp }}/renv" >> $GITHUB_ENV
+
+      - name: Install and activate renv
+        run: |
+          pak::pkg_install("rstudio/renv")
+          pak::pkg_install("rstudio/fontawesome")
+          options(renv.download.override = utils::download.file)
+          renv::restore()
+        shell: Rscript {0}
 
     - name: Restore Renv package cache
       uses: actions/cache@v3
