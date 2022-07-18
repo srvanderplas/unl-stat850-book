@@ -933,13 +933,13 @@ Note the use of `as.numeric(as.character(max(category)))` to get the maximum (or
 
 ```{r storm-evo}
 storm_evolution <- storms %>%
-  filter(!is.na(hu_diameter)) %>%
+  filter(!is.na(hurricane_force_diameter)) %>%
   group_by(name, year) %>%
   mutate(time_since_start = difftime(time, min(time), units = "days")) %>%
   ungroup()
 
 ggplot(storm_evolution, 
-       aes(x = time_since_start, y = hu_diameter, 
+       aes(x = time_since_start, y = hurricane_force_diameter, 
            group = name)) + geom_line(alpha = .2) + 
   facet_wrap(~year, scales = "free_y")
 ```
@@ -949,12 +949,12 @@ ggplot(storm_evolution,
 ```{python storm-evo-py}
 storm_evolution = storms.loc[storms.hurricane_force_diameter.notnull(),:]
 
-storm_evolution["age"] = storm_evolution.groupby(["name", "year"]).apply(lambda x: x.time - x.time.min()).reindex()
+storm_evolution = storm_evolution.assign(age = storm_evolution.groupby(["name", "year"], group_keys = False).apply(lambda x: x.time - x.time.min()))
 
-ggplot(storm_evolution, 
-       aes(x = time_since_start, y = hu_diameter, 
-           group = name)) + geom_line(alpha = .2) + 
-  facet_wrap(~year, scales = "free_y")
+(ggplot(storm_evolution, 
+       aes(x = "age", y = "hurricane_force_diameter", 
+           group = "name")) + geom_line(alpha = .2) + 
+  facet_wrap("year", scales = "free_y"))
 ```
 
 :::
@@ -981,12 +981,12 @@ storm_evolution %>% filter(name == "Ike") %>%
 
 
 ```{python storm-evo-year-py}
-storm_evolution %>%
-  filter(year == 2008) %>%
-  arrange(desc(time_since_start))
+storm_evolution.query("year==2008").sort_values(['age'], ascending = False).head()
 
-storm_evolution %>% filter(name == "Ike") %>%
-  ggplot(aes(x = time, y = hu_diameter, color = category)) + geom_point()
+(ggplot(
+  storm_evolution.query("year==2008 & name=='Ike'"),
+  aes(x = "time", y = "hurricane_force_diameter", color = "category")) +
+  geom_point())
 ```
 
 :::
