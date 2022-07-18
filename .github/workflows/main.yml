@@ -23,7 +23,7 @@ jobs:
         sudo apt install -y python3-virtualenv
         sudo apt install -y python3-dev
         sudo apt install -y python3-venv
-        sudo apt install -y chromium-browser
+        snap install chromium
       shell: /bin/bash {0}
 
     - name: Set RENV_PATHS_ROOT
