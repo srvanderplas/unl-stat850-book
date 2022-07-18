@@ -793,7 +793,7 @@ ggplot(max_power_storm, aes(x = pressure)) + geom_histogram()
 ```
 
 We could also look to see whether there has been any change over time in pressure.
-```{r ggplot-power-pressure}
+```{r ggplot-power-pressure2}
 ggplot(max_power_storm, aes(x = time, y = pressure)) + geom_point()
 ```
 
