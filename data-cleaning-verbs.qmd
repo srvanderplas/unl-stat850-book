@@ -614,7 +614,7 @@ The learning curve here isn't actually knowing how to assign new variables (thou
 I'm not going to be able to teach you how to handle every mutate statement task you'll come across (people invent new ways to screw up data all the time!) but my goal is instead to teach you how to _read documentation_ and _google things intelligently_, and to _understand what you're reading_ enough to actually implement it. This is something that comes with practice (and lots of googling, stack overflow searches, etc.).
 
 Google and StackOverflow are very common programming skills
-```{r tweets-ch5, echo = F}
+```{r tweets-ch5, echo = F, eval = F}
 if (!"tweetrmd" %in% installed.packages()) devtools::install_github("gadenbuie/tweetrmd")
 if (!"webshot2" %in% installed.packages()) devtools::install_github("rstudio/webshot2")
 # library(tweetrmd) # github.com/gadenbuie/tweetrmd
@@ -633,7 +633,7 @@ Part of the goal of this textbook is to help you **learn how to read through a p
 We're going to try to build some of those skills starting now. 
 It would be relatively easy to teach you how to do a set list of tasks, but you'll be better statisticians and programmers if you learn the skills to solve niche problems on your own.
 
-```{r tweets-more-ch5, include = F, echo = F, fig.cap = "Apologies for the noninclusive language, but the sentiment is real."}
+```{r tweets-more-ch5, include = F, echo = F, fig.cap = "Apologies for the noninclusive language, but the sentiment is real.", eval = F}
 tweetrmd::tweet_screenshot(tweetrmd::tweet_url("abt_programming", "459414524303785984"))
 ```
 
