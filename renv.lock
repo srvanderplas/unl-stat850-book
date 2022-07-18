@@ -637,10 +637,15 @@
     },
     "jsonlite": {
       "Package": "jsonlite",
-      "Version": "1.8.0",
-      "Source": "Repository",
-      "Repository": "CRAN",
-      "Hash": "d07e729b27b372429d42d24d503613a0",
+      "Version": "1.8.0.9000",
+      "Source": "GitHub",
+      "RemoteType": "github",
+      "RemoteHost": "api.github.com",
+      "RemoteRepo": "jsonlite",
+      "RemoteUsername": "jeroen",
+      "RemoteRef": "HEAD",
+      "RemoteSha": "80854359976250f30a86a6992c0d8c3b3d95473d",
+      "Hash": "5d1531eb4fa92ac77d565963b030ec02",
       "Requirements": []
     },
     "knitr": {
