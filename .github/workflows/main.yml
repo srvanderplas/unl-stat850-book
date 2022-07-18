@@ -14,7 +14,9 @@ jobs:
       GITHUB_PAT: ${{ secrets.GH_PAT }}
     steps:
     - uses: actions/checkout@v2
-    - uses: browser-actions/setup-chrome
+
+    - name: Setup Chrome
+      uses: browser-actions/setup-chrome@v0.0.0
 
     - name: Install Python dependencies 1
       if: runner.os == 'Linux'
