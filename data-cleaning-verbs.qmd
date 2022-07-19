@@ -89,7 +89,7 @@ skim(starwars)
 :::
 
 
-Once the data is set up, filtering the data (selecting certain **rows**) is actually very simple. Of course, we've talked about how to use logical indexing before in @indexing and @data-programming, but here we'll focus on using specific functions to perform the same operation. 
+Once the data is set up, filtering the data (selecting certain **rows**) is actually very simple. Of course, we've talked about how to use logical indexing before in @sec-indexing and @sec-data-programming, but here we'll focus on using specific functions to perform the same operation. 
 
 ::: panel-tabset
 

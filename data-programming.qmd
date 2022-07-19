@@ -1,4 +1,4 @@
-# Programming with Data {#data-programming}
+# Programming with Data {#sec-data-programming}
 
 ## Module Objectives  {- #module6-objectives}
 
@@ -12,8 +12,6 @@
 At this point, you've learned how to write functions. You know the basics of how to create new variables, how data frames and lists work, and how to use markdown.
 
 And yet... these are skills that take some practice when applied to new data. We're going to take a break from the fire-hose of syntax you've learned and focus on applying what you've learned to problems related to data. The goal is to **reinforce the skills you've already learned** and help you find your feet a bit as you work through data analysis. I'll provide sample code for tasks like basic plots and tables that we haven't covered yet - you should feel free to modify and tinker with these chunks as you go along. This chapter will also provide a preview of some of the packages we're going to work with in the next few sections (because I'm going to show you some code for e.g. summarizing a dataset and plot a few things, even without having covered that material). 
-
-
 
 
 ![It's 100% expected that you would be oscillating between just maybe understanding something and feeling completely lost again during this chapter. Hopefully, that feeling will get better over the next few weeks... but for now, just stick with it.](images/data-programming/What I Know.png){fig-alt='An illustrated cartoon graph with "How much I think I know" on the y-axis, with axis labels at "I know nothing" and "I know lots", versus time on the x-axis. The line varies widely between the two. Above the line are emoji-like faces, showing uncertainty and hope early on. A box is provided spanning an initial first peak, valley, and ascent to the highest peak, with a label that says "you should be about here".'}
