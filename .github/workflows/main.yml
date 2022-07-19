@@ -32,13 +32,13 @@ jobs:
 
     - name: Install R dependencies
       if: runner.os == 'Linux'
+      shell: Rscript {0}
       run: |
         pkgs <- c("rmarkdown", "jsonlite", "reticulate", "renv", "fontawesome", "webshot2", "downlit", "xml2")
         pkgs <- setdiff(pkgs, installed.packages())
         if (length(pkgs) > 0) install.packages(pkgs)
         options(renv.download.override = utils::download.file)
         renv::restore()
-      shell: Rscript {0}
 
     - name: Restore Renv package cache
       uses: actions/cache@v3
@@ -47,18 +47,18 @@ jobs:
         key: ${{ steps.get-version.outputs.os-version }}-${{ steps.get-version.outputs.r-version }}-${{ inputs.cache-version }}-${{ hashFiles('renv.lock') }}
         restore-keys: ${{ steps.get-version.outputs.os-version }}-${{ steps.get-version.outputs.r-version }}-${{inputs.cache-version }}-
 
-      - name: "Download Quarto"
-        shell: bash
-        run: |
-          # Hardcoding versions for now to make sure new versions don't break things
-          quarto_version="1.0.32"
-          quarto_file_name="quarto-${quarto_version}-linux-amd64.deb"
-          quarto_url="https://github.com/quarto-dev/quarto-cli/releases/download/v${quarto_version}/${quarto_file_name}"
-          wget -q "${quarto_url}"
-          sudo dpkg -i "${quarto_file_name}"
+    - name: "Download Quarto"
+      shell: /bin/bash {0}
+      run: |
+        # Hardcoding versions for now to make sure new versions don't break things
+        quarto_version="1.0.32"
+        quarto_file_name="quarto-${quarto_version}-linux-amd64.deb"
+        quarto_url="https://github.com/quarto-dev/quarto-cli/releases/download/v${quarto_version}/${quarto_file_name}"
+        wget -q "${quarto_url}"
+        sudo dpkg -i "${quarto_file_name}"
 
     - name: "Quarto render"
-      shell: bash
+      shell: /bin/bash {0}
       run: |
         quarto render --execute-debug
 
