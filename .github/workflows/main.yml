@@ -33,7 +33,9 @@ jobs:
     - name: Install R dependencies
       if: runner.os == 'Linux'
       run: |
-        install.packages(c("rmarkdown", "jsonlite", "reticulate", "renv", "fontawesome", "webshot2", "downlit", "xml2"))
+        pkgs <- c("rmarkdown", "jsonlite", "reticulate", "renv", "fontawesome", "webshot2", "downlit", "xml2")
+        pkgs <- setdiff(pkgs, installed.packages())
+        if (length(pkgs) > 0) install.packages(pkgs)
         options(renv.download.override = utils::download.file)
         renv::restore()
       shell: Rscript {0}
