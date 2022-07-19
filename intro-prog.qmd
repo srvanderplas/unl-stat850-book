@@ -342,7 +342,7 @@ Scripts are best used when you have a thing you want to do, and you will need to
 @py4e provides a handy python program to count words. This program is meant to be run on the command line, and it will run for any specified text file.
 
 ::: callout-caution
-### Example: Counting Words
+### Example: Counting Words {#counting-words-ex}
 
 ::: panel-tabset
 #### Python Terminal
