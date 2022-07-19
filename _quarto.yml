@@ -71,8 +71,8 @@ format:
   #   include-after-body:
   #     text: |
   #       \printindex
-  epub:
-   cover-image: cover.png
+  # epub:
+  #  cover-image: cover.png
 
 editor: source
 
