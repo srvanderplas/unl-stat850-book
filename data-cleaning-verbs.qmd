@@ -7,6 +7,8 @@
 - Describe step-by-step data cleaning process in lay terms appropriately and understand the consequences of data cleaning steps
 - Create summaries of data appropriate for analysis or display using data manipulation techniques
 
+## Introduction
+
 In this section, we're going start learning how to work with data. Generally speaking, data doesn't come in a form suitable for analysis^[See [this twitter thread](https://twitter.com/JennyBryan/status/722954354198597632) for some horror stories. [This tweet](https://twitter.com/jengolbeck/status/1153064308483510272?s=20) is also pretty good at showing one type of messiness.] - you have to clean it up, create the variables you care about, get rid of those you don't care about, and so on. 
 
 Some people call the process of cleaning and organizing your data "data wrangling", which is a fantastic way to think about chasing down all of the issues in the data. 
@@ -26,7 +28,11 @@ In Python, most data manipulation tasks are handled using `pandas`[@pandasIndexi
 There is also the `datar` python package[@pwwangDatarGrammarData2022], which attempts to port the dplyr grammar of data wrangling into python. While pandas tends to be fairly similar to base R in basic operation, `datar` may be more useful if you prefer the `dplyr` way of handling things using a data-first API.
 
 ::: {.callout-note}
+
 [There is an excellent dplyr cheatsheet available from RStudio](https://github.com/rstudio/cheatsheets/blob/master/data-transformation.pdf). You may want to print it out to have a copy to reference as you work through this chapter.
+
+[Here is a data wrangling with pandas cheatsheet](https://pandas.pydata.org/Pandas_Cheat_Sheet.pdf) that is formatted similarly to the dplyr cheat sheet.
+
 :::
 
 ## Tidy Data
