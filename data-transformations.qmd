@@ -209,9 +209,36 @@ Nearly always, when multiple variables are stored in a single column, they are s
 
 ### Common, simple string tasks
 
-#### Find and replace
-
 #### Parsing numbers
+
+One of the most common tasks when reading in and tidying messy data is that numeric-ish data can come in many forms that are read (by default) as strings.
+
+```{python, echo = F, results = 'asis'}
+#| label: tbl-parse-numbers
+#| tbl-cap: Different number formats
+
+import pandas as pd
+import numpy as np
+from IPython.display import Markdown
+from tabulate import tabulate
+
+
+df = pd.DataFrame({
+    'string_col': ['1','2','3','4'],
+    'int_col': [1,2,3,4],
+    'float_col': [1.1,1.2,1.3,4.7],
+    'mix_col': ['a', 2, 3, 4],
+    'missing_col': [1.0, 2, 3, np.nan],
+    'money_col': ['£1,000.00','£2,400.00','£2,400.00','£2,400.00'],
+    'boolean_col': [True, False, True, True],
+    'custom': ['Y', 'Y', 'N', 'N']
+  })
+
+Markdown(tabulate(df))
+
+```
+
+#### Find and replace
 
 
 ### Separating multi-variable columns
