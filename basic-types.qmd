@@ -1,5 +1,5 @@
 
-# Basic Variable Types 
+# Basic Variable Types {#sec-basic-types}
 
 ## Module Objectives {#module-3-objectives .unnumbered}
 
@@ -219,7 +219,7 @@ isinstance("This is python code", str)
 In python, test for types using the `isinstance` function with an argument containing one or more data types in a tuple (`(int, float)` is an example of a tuple - a static set of multiple values).
 :::
 
-## Type Conversions {.unnumbered}
+## Type Conversions {#sec-type-conversions}
 
 Programming languages will generally work hard to seamlessly convert variables to different types. So, for instance,
 
