@@ -211,7 +211,7 @@ Nearly always, when multiple variables are stored in a single column, they are s
 
 #### Parsing numbers {-}
 
-One of the most common tasks when reading in and tidying messy data is that numeric-ish data can come in many forms that are read (by default) as strings.
+One of the most common tasks when reading in and tidying messy data is that numeric-ish data can come in many forms that are read (by default) as strings. The data frame below provides an example of a few types of data which may be read in in unexpected ways. How do we tell R or Python that we want all of these columns to be read in as numbers?
 
 ```{python, echo = F}
 #| label: tbl-parse-numbers
@@ -238,6 +238,18 @@ df = pd.DataFrame({
 print(tabulate(df, headers = list(df.columns)))
 
 ```
+```{r}
+df <- python$df
+```
+One very easy way to do this task is to use a specialized `parse_number` function. In Python, this exists in the `babel` package, in R, it is part of the `readr` package.
+
+::: panel-tabset
+
+##### R {-}
+
+##### Python {-}
+
+:::
 
 #### Find and replace
 
