@@ -1615,7 +1615,7 @@ ggplot(res, aes(x = "age", y = "arr_delay", group = "agebin")) +
 :::
 
 
-## Example: Gas Prices Data {.tryitout .tabset}
+## Example: Gas Prices Data 
 The US Energy Information Administration tracks gasoline prices, with data available on a weekly level since late 1994. You can go to [this site](https://www.eia.gov/dnav/pet/hist/LeafHandler.ashx?n=pet&s=emm_epm0u_pte_nus_dpg&f=w) to see a nice graph of gas prices, along with a corresponding table.
 <!-- (or you can look at the screenshot below, as I don't really trust that the site design will stay the same...) -->
 
@@ -1672,13 +1672,25 @@ url <- "https://www.eia.gov/dnav/pet/hist/LeafHandler.ashx?n=pet&s=emm_epm0u_pte
 
 htmldoc <- read_html(url)
 gas_prices_html <- html_table(htmldoc, fill = T, trim = T)[[5]]
-head(gas_prices_html)
+```
+```{r}
+#| echo: false
+knitr::kable(head(gas_prices_html), caption = "First 6 rows of gas prices data as read into R")
 ```
 
 ```{python web-gas-data-reading-py}
 import pandas as pd
 gas_prices_html = pd.read_html("https://www.eia.gov/dnav/pet/hist/LeafHandler.ashx?n=pet&s=emm_epm0u_pte_nus_dpg&f=w")[4]
-gas_prices_html.head()
+```
+```{python}
+#| results: "asis"
+#| echo: false
+
+import pandas as pd
+import numpy as np
+from IPython.display import Markdown
+from tabulate import tabulate
+print(tabulate(gas_prices_html.head(), headers = list(gas_prices_html.columns)))
 ```
 
 
