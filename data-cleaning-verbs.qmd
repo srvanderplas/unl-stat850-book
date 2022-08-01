@@ -25,7 +25,11 @@ Each `dplyr` verb describes a common task when doing both exploratory data analy
 
 In Python, most data manipulation tasks are handled using `pandas`[@pandasIndexingSelectingData2022]. In the interests of using a single consistent "language" for describing data manipulation tasks, I'll use the tidyverse "verbs" to describe operations in both languages. The goal of this is to help focus your attention on the essentials of the operations, instead of the specific syntax.
 
-There is also the `datar` python package[@pwwangDatarGrammarData2022], which attempts to port the dplyr grammar of data wrangling into python. While pandas tends to be fairly similar to base R in basic operation, `datar` may be more useful if you prefer the `dplyr` way of handling things using a data-first API.
+There is also the `datar` python package[@pwwangDatarGrammarData2022], which attempts to port the dplyr grammar of data wrangling into python. While pandas tends to be fairly similar to base R in basic operation, `datar` may be more useful if you prefer the `dplyr` way of handling things using a data-first API. 
+
+::: aside
+I haven't had the chance to add the `datar` package to this book, but it looks promising and may be worth your time to figure out. It's a bit too new for me to take the time to add it into this book - I want packages that will be maintained long-term if I'm going to teach them to others.
+:::
 
 ::: {.callout-note}
 
@@ -51,7 +55,7 @@ We'll get more into how to work with different "messy" data configurations in th
 
 Filter allows us to work with a subset of a larger data frame, keeping only the rows we're interested in. We provide one or more logical conditions, and only those rows which meet the logical conditions are returned from `filter()`. Note that unless we store the result from `filter()` in the original object, we don't change the original. 
 
-![dplyr filter() by Allison Horst](https://github.com/allisonhorst/stats-illustrations/raw/master/rstats-artwork/dplyr_filter.jpg)
+![dplyr filter() by Allison Horst](https://github.com/allisonhorst/stats-illustrations/raw/main/rstats-artwork/dplyr_filter.jpg){fig-alt="Cartoon showing three fuzzy monsters either selecting or crossing out rows of a data table. If the type of animal in the table is “otter” and the site is “bay”, a monster is drawing a purple rectangle around the row. If those conditions are not met, another monster is putting a line through the column indicating it will be excluded. Stylized text reads “dplyr::filter() - keep rows that satisfy your conditions.”"}
 
 
 ::: {.callout-caution}
@@ -607,6 +611,7 @@ police_violence.groupby('race', dropna=False)['race'].count()
 
 Unfortunately, for some reason, I can't seem to get pandas to count the NAs once they're in the data frame. 
 
+Another function that may be useful is the `assign` function, which can be used to create new variables if you don't want to use the `["new_col"]` notation. In some circumstances, `.assign(var = ...)` is a bit easier to work with because Python distinguishes between modifications to data and making a copy of the entire data frame (which is something I'd like to [not get into right now](https://stackoverflow.com/questions/23296282/what-rules-does-pandas-use-to-generate-a-view-vs-a-copy) for simplicity's sake). 
 
 :::
 
@@ -619,18 +624,11 @@ The learning curve here isn't actually knowing how to assign new variables (thou
 
 I'm not going to be able to teach you how to handle every mutate statement task you'll come across (people invent new ways to screw up data all the time!) but my goal is instead to teach you how to _read documentation_ and _google things intelligently_, and to _understand what you're reading_ enough to actually implement it. This is something that comes with practice (and lots of googling, stack overflow searches, etc.).
 
-Google and StackOverflow are very common programming skills
-```{r tweets-ch5, echo = F, eval = F}
-if (!"tweetrmd" %in% installed.packages()) devtools::install_github("gadenbuie/tweetrmd")
-if (!"webshot2" %in% installed.packages()) devtools::install_github("rstudio/webshot2")
-# library(tweetrmd) # github.com/gadenbuie/tweetrmd
-# library(memoise) # cache screenshots
-tweet_cached <- memoise::memoise(tweetrmd::tweet_embed, cache = memoise::cache_filesystem(".tweets"))
-tweet_shot_cached <- memoise::memoise(tweetrmd::tweet_screenshot, cache = memoise::cache_filesystem(".tweets"))
+Google and StackOverflow are very common and important programming skills!
 
-tweetrmd::tweet_screenshot(tweetrmd::tweet_url("cszhu", "1230954186520461312"))
-tweetrmd::tweet_screenshot(tweetrmd::tweet_url("madsbrodt", "1339127984670773251"))
-```
+![[Source](https://twitter.com/madsbrodt/status/1339127984670773251)](images/data-transformations/twitter-google-stackoverflow.png){fig-alt="A screenshot of a tweet from @madsbrodt. Tweet text: Googling and StackOverflow'ing is a natural part of programming. Don't think of it as cheating. Knowing what to search for, and which results will fit your given situation is an important skill (flame emoji)."}
+
+![[Source](https://twitter.com/cszhu/status/1230954186520461312)](images/data-transformations/twitter-happy-debugging.png){fig-alt="A screenshot of a tweet from @cszhu. Tweet text: if you're not happy single, you won't be happy in a relationship. true happiness comes from closing 100 chrome tabs after solving an obscure programming bug, not from someone else."}
 
 
 In this textbook, the examples will expose you to solutions to common problems (or require that you do some basic reading yourself); unfortunately, there are too many common problems for us to work through line-by-line. 
@@ -639,9 +637,7 @@ Part of the goal of this textbook is to help you **learn how to read through a p
 We're going to try to build some of those skills starting now. 
 It would be relatively easy to teach you how to do a set list of tasks, but you'll be better statisticians and programmers if you learn the skills to solve niche problems on your own.
 
-```{r tweets-more-ch5, include = F, echo = F, fig.cap = "Apologies for the noninclusive language, but the sentiment is real.", eval = F}
-tweetrmd::tweet_screenshot(tweetrmd::tweet_url("abt_programming", "459414524303785984"))
-```
+![Apologies for the noninclusive language, but the sentiment is real. [Source](https://twitter.com/abt_programming/status/459414524303785984)](images/data-transformations/twitter-teach-program.png){fig-alt="A screenshot of a tweet from @abt_programming. Tweet text: Give a man a program, frustrate him for a day.Teach a man to program, frustrate him for a lifetime - Muhammad Waseem."}
 
 :::
 
