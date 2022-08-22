@@ -1091,13 +1091,15 @@ head(disease_incidence)
 #### R solution
 
 ```{r tryitout-surveillance-cleaning}
+library(ggplot2)
 who_disease <- read_csv("data/who_disease_incidence.csv", na = ".")
 
 who_disease_long <- who_disease %>%
   pivot_longer(matches("\\d{4}"), names_to = "year", values_to = "cases") %>%
   rename(Country = Cname) %>%
   mutate(Disease = str_replace(Disease, "CRS", "Congenital Rubella"),
-         year = as.numeric(year))
+         year = as.numeric(year),
+         cases = as.numeric(cases))
 
 filter(who_disease_long, Country == "Bangladesh", Disease == "measles") %>%
   ggplot(aes(x = year, y = cases)) + geom_line()
@@ -1105,7 +1107,7 @@ filter(who_disease_long, Country == "Bangladesh", Disease == "measles") %>%
 
 #### Python solution
 
-```{python tryitout-surveillance-cleaning-py}
+```{python tryitout-surveillance-cleaning-py, eval = F}
 import pandas as pd
 from plotnine import *
 
