@@ -17,6 +17,8 @@ This textbook is intended to be a substitute for hours and hours of lectures con
 
 Instead, I hope that you'll be able to work through this book week by week. I've included comics, snark, gifs, YouTube videos, illustrations, LEGO constructions, and more, with the goal of making this a collection of the best information I could find on learning some combination of R, SAS, Python, and general statistical programming. In every chapter, there are "Try it Out" sections to show you what different concepts look like in code - these are meant to provide you with an interactive way to explore the content, and skipping these sections will seriously limit the amount of information you take away from this book.
 
+I've designed this textbook to work with Stat 850 as taught at University of Nebraska-Lincoln. [Here](syllabus/syllabus.qmd) is a syllabus of Stat 850 for reference; feel free to contact me if you have any additional questions about the material or what the course covers.
+
 ## How to Use This Book {.unnumbered}
 
 I've made an effort to use some specific formatting and enable certain features that make this book a useful tool for this class.
@@ -24,22 +26,6 @@ I've made an effort to use some specific formatting and enable certain features 
 ### Buttons/Links {.unnumbered}
 
 The book contains a number of features which should help you navigate, use, improve, and respond to the textbook.
-
-<!-- - <i class="fa fa-align-justify"></i> Open/close the sidebar TOC -->
-
-<!-- - <i class="fa fa-search"></i> Search the text -->
-
-<!-- - <i class="fa fa-font"></i> Set font size and white/sepia/dark mode -->
-
-<!-- - <i class="fa fa-github"></i><b>Edit this page</b> Suggest edits if you find a typo. This will help you automatically submit a pull request in Github, and I can review and approve it easily. -->
-
-<!-- - <i class="fa fa-download"></i> Download the entire (very long) Rmarkdown source code for the textbook -->
-
-<!-- - <i class="fa fa-info"></i> See keyboard shortcuts to navigate the book -->
-
-<!-- - <i class="fab fa-twitter"></i> Reference the book in a tweet, if you really want to. Tag me if you do (\@srvanderplas) -->
-
-<!-- - <i class="fab fa-github"></i> Find the book repository on GitHub quickly if you want to see code/data/etc. linked in the book -->
 
 ![Textbook features, menus, and interactive options](images/tools/Textbook-features.png){fig-alt="There are a number of interactive features available in this textbook. There is a search bar on the left sidebar, along with links to each chapter. On the right, there is a menu specific to the sections in each chapter - this helps you navigate within the chapter. There is also a link to \"Edit this page\" that allows you to submit a correction to the textbook via Github. At the bottom, there is a link to the next chapter, but there are also reaction emoji that allow you to express yourself after you read the chapter. If you log in via GitHub, you can also leave comments, start discussions, or ask questions using the github discussion integration at the bottom of the page."}
 
