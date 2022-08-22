@@ -1,0 +1,677 @@
+# Data Visualization {#sec-data-vis}
+
+## Module Objectives  {- #module11-objectives}
+
+- Create charts designed to communicate specific aspects of the data
+- Describe charts using the grammar of graphics 
+- Create layered graphics that highlight multiple aspects of the data
+- Evaluate existing charts and develop new versions that improve accessibility and readability
+
+
+There are a lot of different types of charts, and equally many ways  to categorize and describe the different types of charts. 
+
+::: callout-note
+### A less serious classification scheme
+
+![Mouseover text: I would describe my personal alignment as "lawful heterozygous silty liquid."](https://imgs.xkcd.com/comics/alignment_chart_alignment_chart.png)
+
+IMO, Randall missed the opportunity to put a pie chart as Neutral Evil. 
+:::
+
+Hopefully by the end of this, you will be able to make most commonly used statistical charts. 
+
+This is going to be a fairly extensive chapter (in terms of content) because I want you to have a resource to access later, if you need it. But, this is also the chapter where we really start to focus on R. Even the hardcore SAS users I know (in this department and others) go into R when they want to make a publication-quality chart, and while python has several different graphics libraries, it's hard to beat plotnine for simplicity if you're learning ggplot2 at the same time. 
+
+::: aside
+Visualization and statistical graphics are also my research area, so I'm probably going to be a bit more passionate about this chapter, which means there's probably going to be more to read. Sorry about that in advance. I'll do my best to indicate which content is actually mission-critical and which content you can skip if you're not that interested.
+:::
+
+::: callout-note
+R package/environment setup: 
+```{r, message = F}
+library(readr)
+library(dplyr)
+library(tidyr)
+library(ggplot2)
+library(stringr)
+```
+
+Python package/environment setup:
+```{python env-setup}
+import pandas as pd
+from plotnine import *
+```
+:::
+
+## Why do we create graphics?
+
+> The greatest possibilities of visual display lie in vividness and inescapability of the intended message. A visual display can stop your mental flow in its tracks and make you think. A visual display can force you to notice what you never expected to see. ("Why, that scatter diagram has a hole in the middle!") -- @tukeyDataBasedGraphicsVisual1990
+
+::: {.callout-note collapse=true}
+### Charts are easier to understand than raw data. 
+
+When you think about it, data is a pretty artificial thing. We exist in a world of tangible objects, but data are an abstraction - even when the data record information about the tangible world, the measurements are a way of removing the physical and transforming the "real world" into a virtual thing. As a result, it can be hard to wrap our heads around what our data contain. The solution to this is to transform our data back into something that is "tangible" in some way -- if not physical and literally touch-able, at least something we can view and "wrap our heads around". 
+
+Consider this thought experiment: You have a simple data set - 2 variables, 500 observations. You want to get a sense of how the variables relate to each other. You can do one of the following options:
+
+1. Print out the data set
+2. Create some summary statistics of each variable and perhaps the covariance between the two variables
+3. Draw a scatter plot of the two variables
+
+Which one would you rather use? Why?
+
+Our brains are very good at processing large amounts of visual information quickly. Evolutionarily, it's important to be able to e.g. survey a field and pick out the tiger that might eat you. When we present information visually, in a format that can leverage our visual processing abilities, we offload some of the work of understanding the data to a chart that organizes it for us. You could argue that printing out the data is a visual presentation, but it requires that you read that data in as text, which we're not nearly as equipped to process quickly (and in parallel). 
+:::
+
+It's a lot easier to talk to non-experts about complicated statistics using visualizations. Moving the discussion from abstract concepts to concrete shapes and lines keeps people who are potentially already math or stat phobic from completely tuning out.
+
+## General approaches to creating graphics
+
+There are two general approaches to generating statistical graphics computationally: 
+  
+1. Manually specify the plot that you want, doing the preprocessing and summarizing before you create the plot.
+
+2. Describe the relationship between the plot and the data, using sensible defaults that can be customized for common operations.
+
+In the introduction to The Grammar of Graphics [@wilkinsonGrammarGraphics1999], Leland Wilkinson suggests that the first approach is what we would call "charts" - pie charts, line charts, bar charts - objects that are "instances of much more general objects". His argument is that elegant graphical design means we have to think about an underlying theory of graphics, rather than how to create specific charts. The 2nd approach is called the "grammar of graphics". 
+
+Base R graphics, matplotlib graphics in Python, and the original SAS graphics engine fall firmly into the first camp. `ggplot2` was designed using the philosophy of the grammar of graphics, and is still the primary place that people learn about the grammar of graphics in statistics.
+
+::: callout-note
+You're going to learn how to make graphics by finding sample code, changing that code to match your data set, and tweaking things as you go. That's the best way to learn this, and while option 2 does have a structure and some syntax to learn, once you're familiar with the principles, you'll still want to learn graphics by doing it. 
+:::
+
+There are other graphics systems in R (namely, `lattice`, plus some web-based rendering engines) that you could explore, but it's far more important that you know how to functionally create plots in R and/or Python. I don't recommend you try to become proficient in all of them. Pick one (two at most) and get to know that, then google for the rest.
+
+Before we delve into the grammar of graphics, let's motivate the philosophy using a simple task. Suppose we want to create a pie chart using some data. Pie charts are terrible, and we've known it for 100 years[@croxtonBarChartsCircle1927a], so in the interests of showing that we know that pie charts are awful, we'll also create a stacked bar chart, which is the most commonly promoted alternative to a pie chart. We'll talk about what makes pie charts terrible at the end of this module. 
+
+::: callout-caution
+### Example: Generations of Pokemon
+
+Suppose we want to explore Pokemon. There's not just the original 150 (gotta catch 'em all!) - now there are over 1000! 
+Let's start out by looking at the proportion of Pokemon added in each of the 8 generations.
+
+::: panel-tabset
+
+#### R setup {-}
+```{r poke-read-data-r, message = F}
+# Setup the data
+poke <- read_csv("data/pokemon_ascii.csv", na = '.') %>%
+  mutate(generation = factor(generation))
+```
+
+#### Python setup {-}
+```{python poke-read-data-py}
+poke = pd.read_csv("data/pokemon_ascii.csv")
+poke['generation'] = pd.Categorical(poke.generation)
+```
+:::
+
+Once the data is read in, we can start plotting:
+
+::: panel-tabset
+
+#### Base R {-}
+
+Let's start with what we want: for each generation, we want the total number of pokemon. 
+
+To get a pie chart, we want that information mapped to a circle, with each generation represented by an angle whose size is proportional to the number of pokemon in that generation.
+
+```{r base-pie}
+# Create summary of pokemon by type
+tmp <- poke %>%
+  group_by(generation) %>%
+  count() 
+
+pie(tmp$n, labels = tmp$generation)
+
+# with(., <base command>) let you use the pipe easily with a base R command
+# that is otherwise not pipe friendly, e.g. 
+# with(tmp, pie(n, labels = generation))
+```
+
+We could alternately make a bar chart and stack the bars on top of each other. This also shows proportion (section vs. total) but does so in a linear fashion.
+
+```{r base-barplot}
+# Create summary of pokemon by type
+tmp <- poke %>%
+  group_by(generation) %>%
+  count() 
+
+# Matrix is necessary for a stacked bar chart
+matrix(tmp$n, nrow = 8, ncol = 1, dimnames = list(tmp$generation)) %>%
+barplot(beside = F, legend.text = T, main = "Generations of Pokemon")
+```
+
+#### ggplot2 {-}
+In ggplot2, we start by specifying which variables we want to be mapped to which features of the data. 
+
+In a pie or stacked bar chart, we don't care about the x coordinate - the whole chart is centered at (0,0) or is contained in a single "stack". So it's easiest to specify our x variable as a constant, "". We care about the fill of the slices, though - we want each generation to have a different fill color, so we specify generation as our fill variable. 
+
+Then, we want to summarize our data by the number of objects in each category - this is basically a stacked bar chart. Any variables specified in the plot statement are used to implicitly calculate the statistical summary we want -- that is, to count the rows (so if we had multiple x variables, the summary would be computed for both the x and fill variables). ggplot is smart enough to know that when we use `geom_bar`, we generally want the y variable to be the count, so we can get away with leaving that part out. We just have to specify that we want the bars to be stacked on top of one another (instead of next to each other, "dodge").
+
+```{r gg-bar}
+ggplot(aes(x = "", fill = generation), data = poke) + 
+  geom_bar(position = "stack") 
+```
+
+If we want a pie chart, we can get one very easily - we transform the coordinate plane from Cartesian coordinates to polar coordinates. We specify that we want angle to correspond to the "y" coordinate, and that we want to start at $\theta = 0$. 
+
+```{r gg-pie, message = F}
+ggplot(aes(x = "", fill = generation), data = poke) + 
+  geom_bar(position = "stack") + 
+  coord_polar("y", start = 0)
+```
+
+Notice how the syntax and arguments to the functions didn't change much between the bar chart and the pie chart? That's because the `ggplot` package uses what's called the **grammar of graphics**, which is a way to describe plots based on the underlying mathematical relationships between data and plotted objects. In base R and in matplotlib in Python, different types of plots will have different syntax, arguments, etc., but in ggplot2, the arguments are consistently named, and for plots which require similar transformations and summary observations, it's very easy to switch between plot types by changing one word or adding one transformation.
+
+#### Matplotlib {-}
+
+Let's start with what we want: for each generation, we want the total number of pokemon. 
+
+To get a pie chart, we want that information mapped to a circle, with each generation represented by an angle whose size is proportional to the number of Pokemon in that generation.
+
+```{python plt-pie}
+import matplotlib.pyplot as plt
+plt.cla() # clear out matplotlib buffer
+
+# Create summary of pokemon by type
+labels = list(set(poke.generation)) # create labels by getting unique values
+sizes = poke.generation.value_counts(normalize=True)*100
+
+# Draw the plot
+fig1, ax1 = plt.subplots()
+ax1.pie(sizes, labels = labels, autopct='%1.1f%%', startangle = 90)
+ax1.axis('equal')
+plt.show()
+```
+
+
+We could alternately make a bar chart and stack the bars on top of each other. This also shows proportion (section vs. total) but does so in a linear fashion.
+
+```{python plt-bar}
+import matplotlib.pyplot as plt
+plt.cla() # clear out matplotlib buffer
+
+# Create summary of pokemon by type
+labels = list(set(poke.generation)) # create labels by getting unique values
+sizes = poke.generation.value_counts()
+sizes = sizes.sort_index()
+
+# Find location of bottom of the bar for each bar
+cumulative_sizes = sizes.cumsum() - sizes
+width = 1
+
+fig, ax = plt.subplots()
+
+for i in sizes.index:
+  ax.bar("Generation", sizes[i], width, label=i, bottom = cumulative_sizes[i])
+
+ax.set_ylabel('# Pokemon')
+ax.set_title('Pokemon Distribution by Generation')
+ax.legend()
+
+plt.show()
+```
+
+#### Plotnine {-}
+
+As of August 2022, pie charts are [still not supported in plotnine](https://github.com/has2k1/plotnine/issues/10). So this demo will fall a bit flat. 
+
+```{python gg-bar-py}
+plt.cla() # clear out matplotlib buffer
+ggplot(aes(x = "1", fill = "generation"), data = poke) + geom_bar(position = "stack")
+```
+
+:::
+
+:::
+
+If only because it provides us with a place to start (because otherwise, we would just work through a graph gallery or two, and that's boring), we'll talk first about the general idea behind the grammar of graphics. For each concept, I'll provide you first with the ggplot grammar of graphics code, and then, where it is possible to replicate the chart easily in base R or Python graphics, I will provide code for that as well - so that you can compare the approaches, but also so that you get a sense for what is easy and what is possible in each plotting system. 
+
+
+## The Grammar of Graphics
+
+<!-- A basic sentence has a subject and a predicate (usually, this contains a verb), but of course, there are infinintely many ways to combine and expand on a single sentence. The structure of the sentence describes how the subject relates to the predicate, with clauses and so on that modify the original meaning.  -->
+
+<!-- The grammar of graphics is designed as an object-oriented graphics system. That is, the idea is that there are certain objects that communicate with each other. Each object does a few things well, and the intelligence is in the system, not in the objects themselves. This design principle means that objects can be repurposed for many things (because each object is relatively simple and modular).  -->
+
+In the grammar of graphics, a plot consists of several mostly independent specifications:
+
+1. **aesthetics** - links between data variables and graphical features (position, color, shape, size)
+2. **layers** - geometric elements (points, lines, rectangles, text, ...) 
+3. **transformations** - transformations specify a functional link between the data and the displayed information (identity, count, bins, density, regression). Transformations act on the variables. 
+4. **scales** - scales map values in data space to values in the aesthetic space. Scales change the coordinate space of an aesthetic, but don't change the underlying value (so the change is at the visual level, not the mathematical level). 
+5. **coordinate system** - e.g. polar or Cartesian
+6. **faceting** - facets allow you to split plots by other variables to produce many sub-plots.
+7. **theme** - formatting items, such as background color, fonts, margins...
+
+We can contrast this with other plotting systems (e.g. Base R, matplotlib, seaborn), where transformations and scales must be handled manually, there may be separate plotting systems for different coordinate systems, etc. 
+
+Functionally, the biggest difference between the two systems is that in the grammar of graphics system (as implemented in ggplot2), we work with a full tabular data set. So like the rest of the tidyverse, ggplot2 will allow you to reference bare column names as if they were variables, so long as you've passed in the data set to the `data =` argument.
+
+::: aside
+This can sometimes be a pain, because you may end up with labels that are repeated many, many times. As with any system, you just have to make sure you're formatting your data in a way that is consistent and compatible with the underlying philosophy.
+:::
+
+![Building a masterpiece, by Allison Horst](https://raw.githubusercontent.com/allisonhorst/stats-illustrations/master/rstats-artwork/ggplot2_masterpiece.png){fig-alt="A fuzzy monster in a beret and scarf, critiquing their own column graph on a canvas in front of them while other assistant monsters (also in berets) carry over boxes full of elements that can be used to customize a graph (like themes and geometric shapes). In the background is a wall with framed data visualizations. Stylized text reads “ggplot2: build a data masterpiece.”"}
+
+::: panel-tabset
+We'll use the [`palmerpenguins` package](https://allisonhorst.github.io/palmerpenguins/) in R to do this visualization demo [@palmerpenguins]. Palmerpenguins also exists as a python package which is installable using pip.
+
+### R data setup
+```{r graphics-data-setup-r}
+if (!"palmerpenguins" %in% installed.packages()) install.packages("palmerpenguins")
+data(penguins, package = "palmerpenguins")
+head(penguins)
+```
+
+### Python data setup
+```{python graphics-data-setup-py}
+from palmerpenguins import load_penguins
+penguins = load_penguins()
+penguins.head
+```
+:::
+
+
+### Basic Plot Components - Axes and Points
+
+Let's start out with a basic scatterplot: we want to use x and y locations to show two variables, and we want to use points to indicate the space where the x location and y location meet in the Cartesian plane.
+
+::: panel-tabset
+
+#### ggplot2
+
+Let's start out with a basic scatterplot: we want to use x and y locations to show two variables, and we want to use points to indicate the space where the x location and y location meet in the Cartesian plane. 
+
+```{r aes-basic-gg}
+library(ggplot2)
+# This defines a blank coordinate plane
+ggplot(data = penguins) + 
+  aes(x = bill_length_mm, y = body_mass_g)
+
+# This plot actually has points!
+ggplot(data = penguins) + 
+  aes(x = bill_length_mm, y = body_mass_g) + 
+  geom_point() # add points
+```
+
+The `aes()` statement can also go inside of the `ggplot()` statement or inside of `geom_point(aes(...))`. It's useful to show it outside of the `ggplot()` statement to show you exactly how the plot is built up, but most people write the code as `ggplot(aes(x = ..., y = ...), data = ...) + geom_point()` by convention.
+
+#### plotnine
+
+```{python aes-basic-gg-py}
+from plotnine import *
+# Define a blank coordinate plane
+ggplot(data = penguins) + aes(x = "bill_length_mm", y = "body_mass_g")
+
+# Add a points layer
+ggplot(data = penguins) + aes(x = "bill_length_mm", y = "body_mass_g") + geom_point()
+```
+
+#### Base R
+
+In base R, we have to use `df$var` notation to reference the variables. 
+
+```{r aes-basic-baser}
+plot(x = penguins$bill_length_mm, y = penguins$body_mass_g)
+
+# We can also use formula notation, which allows a data = ... argument
+plot(body_mass_g ~ bill_length_mm, data = penguins)
+```
+
+#### Matplotlib
+
+```{python aes-basic-plt}
+import numpy as np
+import matplotlib.pyplot as plt
+plt.cla() # clear out matplotlib buffer
+
+plt.scatter(penguins.bill_length_mm, penguins.body_mass_g)
+plt.show()
+```
+
+:::
+
+
+### Adding Labels and Titles
+
+
+::: panel-tabset
+
+#### ggplot2
+
+```{r aes-label-gg}
+library(ggplot2)
+# This defines a blank coordinate plane
+ggplot(data = penguins, aes(x = bill_length_mm, y = body_mass_g)) + 
+  # add points
+  geom_point() + 
+  ggtitle("Penguin Bill Length and Body Mass") + 
+  xlab("Bill Length (mm)") + 
+  ylab("Body Mass (g)")
+```
+
+You can even add labels that have math symbols if you are careful about how you do it (or if you use the [`latex2exp` package](https://www.stefanom.io/latex2exp/) [@latex2exp]).
+
+#### plotnine
+
+```{python aes-label-gg-py}
+from plotnine import *
+
+(ggplot(aes(x = "bill_length_mm", y = "body_mass_g"), data = penguins) + 
+  geom_point() + 
+  ggtitle("Penguin Bill Length and Body Mass") + 
+  xlab("Bill Length (mm)") + 
+  ylab("Body Mass (g)")
+)
+
+```
+
+#### Base R
+
+```{r aes-label-baser}
+plot(x = penguins$bill_length_mm, y = penguins$body_mass_g,
+     main = "Penguin Bill Length and Body Mass",
+     xlab = "Bill Length (mm)", ylab = "Body Mass (g)")
+```
+
+#### Matplotlib
+
+```{python aes-label-plt}
+import numpy as np
+import matplotlib.pyplot as plt
+
+plt.title("Penguin Bill Length and Body Mass")
+plt.scatter(penguins.bill_length_mm, penguins.body_mass_g)
+plt.xlabel("Bill Length (mm)")
+plt.ylabel("Body Mass (g)")
+plt.show()
+```
+
+:::
+
+### Other Aesthetics
+
+When considering other aesthetics, such as the color or size of plotted objects, the shape of points, line types, and alpha blending, it is important to differentiate between mapping these quantities to dataset variables and setting constant values. 
+
+#### Mapping Categorical Variables
+
+If the goal is to map an aesthetic to a variable in the dataset, then we need to ensure that each geometric object has an appropriately computed mapping (and each object is plotted with that mapping). This is more computationally complex than just setting a constant value for all objects plotted.
+
+In grammar of graphics terminology, this is an **aesthetic mapping**, and in `ggplot2` and `plotnine`, aesthetic mappings go inside `aes()` statements. 
+
+Here, I'll demonstrate mapping variables to color, shape, and size aesthetics, but the process is similar for other aesthetics, such as linetype, fill, etc.
+
+::: panel-tabset
+
+##### ggplot2
+
+```{r aes-mapping-gg}
+library(ggplot2)
+# This defines a blank coordinate plane
+ggplot(data = penguins, aes(x = bill_length_mm, y = body_mass_g)) + 
+  # add points
+  geom_point(aes(shape = species, color = species)) + 
+  ggtitle("Penguin Bill Length and Body Mass") + 
+  xlab("Bill Length (mm)") + 
+  ylab("Body Mass (g)")
+```
+
+Notice that we haven't had to specify any sort of categorical mapping here - ggplot picks the shapes and colors we're using based on the number of categories we have. If we want to customize these default mappings, we can use `scale_color_discrete`, `scale_color_manual`, `scale_shape_discrete`, and so on. Only if we want to override the default mapping do we have to specify that we're working with a discrete variable.
+
+##### plotnine
+
+```{python aes-mapping-gg-py}
+from plotnine import *
+
+(ggplot(aes(x = "bill_length_mm", y = "body_mass_g"), data = penguins) + 
+  geom_point(aes(shape = "species", color = "species")) + 
+  ggtitle("Penguin Bill Length and Body Mass") + 
+  xlab("Bill Length (mm)") + 
+  ylab("Body Mass (g)")
+)
+
+```
+
+##### Base R
+
+I've used code from Jenny Bryan's Stat 545 at UBC website [@bryanPuttingColorsWork] and modified it, since I'm not an expert in base graphics. Regardless, the whole thing feels very clunky to me relative to the grammar-of-graphics approach in ggplot2/plotnine.
+
+```{r aes-mapping-baser}
+library(RColorBrewer)
+# Create color and point mapping between data and plotted values
+aes_mapping <- data.frame(
+  species = unique(penguins$species), 
+  color = brewer.pal(nlevels(penguins$species), name = 'Dark2'),
+  shape = 1:3)
+
+plot(x = penguins$bill_length_mm, y = penguins$body_mass_g,
+     col = aes_mapping$color[match(penguins$species, aes_mapping$species)],
+     pch = aes_mapping$shape[match(penguins$species, aes_mapping$species)],
+     main = "Penguin Bill Length and Body Mass",
+     xlab = "Bill Length (mm)", ylab = "Body Mass (g)")
+# Manually create legend
+legend(x = 'bottomright', 
+       legend = as.character(aes_mapping$species),
+       col = aes_mapping$color, pch = aes_mapping$shape, bty = 'n', xjust = 1)
+```
+
+##### Matplotlib
+
+```{python aes-mapping-plt}
+import numpy as np
+import matplotlib.pyplot as plt
+plt.cla() # clear out matplotlib buffer
+
+penguins['species'] = pd.Categorical(penguins.species)
+
+# Create categorical mapping to marker type
+marker_types = {'Adelie':'o', 'Chinstrap':'*', 'Gentoo':'+'}
+marker_color = {'Adelie':'orange', 'Chinstrap':'green', 'Gentoo':'purple'}
+
+groups = penguins.groupby('species')
+for name, group in groups:
+  plt.plot(group.bill_length_mm, group.body_mass_g, marker = marker_types[name], color = marker_color[name], linestyle = '', label = name)
+
+plt.xlabel("Bill Length (mm)")
+plt.ylabel("Body Mass (g)")
+plt.legend()
+plt.show()
+```
+
+Python's dict type helps a lot here: we can create the mapping between species and shape/color a bit more naturally. But it's still a lot of details to think about and customize, where ggplot2 tries very hard to give you sensible default color/shape mappings that you don't have to customize unless the defaults aren't what you want.
+
+:::
+
+#### Mapping Continuous Variables
+Above, we demonstrated mapping to categorical variables, where we had to select an appropriate color for each unique value in the variable. With continuous mappings, however, we have to instead specify a range of output values (e.g. color, size) and map those values to the values in the dataset. This is understandably more complicated: 
+
+- We need some sort of one-to-one function from our variable's values to our color space, but it doesn't have to be linear (and in many cases, we may want to use a transformation).
+- We need a way to interpolate between a vector of color values to get a continuous color space. Color spaces are [complicated](https://en.wikipedia.org/wiki/Color_space) [@wiki-color-space].
+
+
+::: panel-tabset
+
+##### ggplot2
+
+```{r aes-mapping2-gg}
+library(ggplot2)
+# This defines a blank coordinate plane
+ggplot(data = penguins, aes(x = bill_length_mm, y = body_mass_g)) + 
+  # add points
+  geom_point(aes(color = bill_depth_mm)) + 
+  ggtitle("Penguin Bill Length and Body Mass") + 
+  xlab("Bill Length (mm)") + 
+  ylab("Body Mass (g)")
+```
+
+
+##### plotnine
+
+```{python aes-mapping2-gg-py}
+from plotnine import *
+
+(ggplot(aes(x = "bill_length_mm", y = "body_mass_g"), data = penguins) + 
+  geom_point(aes(color = "bill_depth_mm")) + 
+  ggtitle("Penguin Bill Length and Body Mass") + 
+  xlab("Bill Length (mm)") + 
+  ylab("Body Mass (g)")
+)
+
+```
+
+##### Base R
+
+This is a pain in the ... XXX TODO XXX
+```{r aes-mapping2-baser, include = F}
+library(viridis)
+palette(hcl.colors(20, "viridis"))
+plot(x = penguins$bill_length_mm, y = penguins$body_mass_g,
+     col = penguins$bill_depth_mm,
+     main = "Penguin Bill Length and Body Mass",
+     xlab = "Bill Length (mm)", ylab = "Body Mass (g)")
+legend(x = 35, 
+       y = 6000, 
+       legend = penguins$bill_depth_mm,
+       col = hcl.colors(20, "viridis"), 
+       pch = 16, 
+       bty = "o",
+       title = "Bill Depth (mm)",
+       xpd = TRUE)
+```
+
+##### Matplotlib
+
+```{python aes-mapping2-plt}
+import numpy as np
+import matplotlib.pyplot as plt
+plt.cla() # clear out matplotlib buffer
+
+fig, ax = plt.subplots()
+
+scatter = ax.scatter(penguins.bill_length_mm, penguins.body_mass_g, c = penguins.bill_depth_mm, cmap = 'Greens')
+
+# Produce a legend for the ranking (colors).
+legend1 = ax.legend(*scatter.legend_elements(num=8),
+                    loc="upper left", title="Bill Depth")
+ax.add_artist(legend1)
+
+plt.show()
+```
+:::
+
+::: callout-tip
+##### Try it out
+
+::: panel-tabset
+
+###### Problem
+
+Use the Pokemon data to see if there is a relationship between a Pokemon's attack and special attack points (`attack` and `sp_attack`, respectively). Can you map a Pokemon's weight in kg to the point opacity (`alpha`) so that light Pokemon show up as semi-transparent?
+
+###### R solution
+```{r poke-tryitout-r}
+library(ggplot2)
+
+poke <- read_csv("data/pokemon_ascii.csv", na = '.') 
+ggplot(data = poke, aes(x = attack, y = sp_attack, alpha = weight_kg)) + geom_point()
+```
+
+###### Python solution
+```{python poke-tryitout-py}
+from plotnine import *
+
+poke = pd.read_csv("data/pokemon_ascii.csv")
+poke['weight_kg'] = pd.to_numeric(poke.weight_kg, errors='coerce')
+
+# Get rid of NA points - they mess up the scales
+poke_sub = poke.dropna(axis = 0, subset=['weight_kg', 'attack', 'sp_attack'])
+ggplot(data = poke_sub) + geom_point(aes(x = "attack", y = "sp_attack", alpha = "weight_kg"))
+```
+:::
+:::
+
+#### Customizing appearance
+
+Here I'm focusing on characteristics like color and alpha value, but you can customize all sorts of different parameters. 
+
+::: panel-tabset
+
+##### ggplot2
+
+```{r gg-adjust-aes-const}
+ggplot(penguins, aes(x = bill_length_mm, y = body_mass_g)) +
+  geom_point(color = "blue", alpha = .5, size = 4, shape = 6)
+```
+
+##### plotnine
+
+```{python gg-adjust-aes-const-py, message = F}
+(
+  ggplot(penguins, aes(x = "bill_length_mm", y = "body_mass_g")) +
+  geom_point(color = "blue", alpha = .5, size = 4, shape = 6)
+)
+```
+
+##### Base R
+Base R doesn't support alpha blending by default, so we have to load the `scales` package in order to get that functionality.
+```{r base-adj-aes-const}
+library(scales)
+# Using constant alpha:
+plot(body_mass_g ~ bill_length_mm, 
+     col = alpha("blue", .5),
+     pch = 6,
+     cex = 3,
+     data = penguins) 
+```
+
+##### Matplotlib
+
+```{python plt-adj-aes-const}
+import numpy as np
+import matplotlib.pyplot as plt
+plt.cla() # clear out matplotlib buffer
+
+plt.scatter(penguins.bill_length_mm, penguins.body_mass_g, c = 'blue', marker = '^', alpha = .5, s = 200)
+plt.show()
+```
+
+::: panel-tip
+#### Try it out: Debugging plots
+
+::: panel-tabset
+
+##### Problem
+
+Can you fix the following plot so that it has blue points? 
+
+What mistake was made, and why did the plot end up having pink points?
+
+```{r debugging-plots}
+ggplot(data = penguins, aes(x = bill_length_mm, y = body_mass_g, color = "blue")) + geom_point()
+```
+
+##### Solution
+
+```{r debugging-plots-solution}
+ggplot(data = penguins, aes(x = bill_length_mm, y = body_mass_g)) + geom_point(color = "blue")
+```
+
+In the original code, `color = "blue"` was inside the AES statement, which set the color aesthetic to a string "blue". ggplot2 maps this string to a default value (the reddish-pink color). If we move the `color = "blue"` statement into `geom_point()`, then this specifies that we want all points to be a constant blue color, instead of mapping color to a variable that has constant value "blue" (which isn't interpreted by ggplot2 to indicate a color).
+
+:::
+:::
+
+### Beyond Points: Lines, Rectangles, and Other Geoms
+
+There are many situations where points aren't the best way to display data. If we have several series of data connected over e.g. time, then we might want to join our individual observations with lines that suggest continuity. Or, we may want to display a range of values over each time point, at which point we might be better off with a ribbon-like area enclosing the maximum and minimum values over time. 
+
+In the grammar of graphics, we need to select a geometric object and then provide variable mappings for each required spatial dimension. When working with non-grammar approaches, however, these different plots sometimes use very different syntax. 
+
+#### Lines
+
+
+
+## References

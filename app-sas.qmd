@@ -1421,6 +1421,77 @@ PROC PRINT DATA = gap_clean;
 RUN;
 ```
 
+## Graphics
+
+
+<details><summary>SAS Examples</summary>
+Original SAS graphics engine
+
+Note: This code runs, but it causes every other sas chunk in this document to go haywire... so you'll have to copy the code and run it on your own to see what it looks like. 
+
+```
+libname classdat "sas/";
+
+/* This step creates a constant variable in the data frame, 
+so that all generations can be stacked in one bar */
+  DATA poketmp;
+SET classdat.poke;
+i = 1;
+RUN;
+
+PROC GCHART data=poketmp;
+pie generation / other = 0;
+RUN;
+QUIT; 
+
+PROC GCHART data=poketmp;
+VBAR i / SUBGROUP = generation;
+RUN;
+QUIT; 
+```
+
+
+
+</details>
+  
+<details><summary>ODS Graphics</summary>
+Note: This is a terrible example in SAS because there isn't an easy way to create a pie chart^[It's not often you'll find me approving of SAS graphics, but making it hard to make pie charts is definitely a point in SAS's favor]. We have to resort to using SAS Graph Template Language. 
+
+
+```
+libname classdat "sas/";
+
+DATA poketmp;
+SET classdat.poke;
+i = 1;
+RUN;
+
+/* Define a pie chart template */
+  PROC TEMPLATE;
+DEFINE STATGRAPH WORK.simplepie;
+BEGINGRAPH;
+LAYOUT REGION;
+PIECHART category=generation;
+ENDLAYOUT;
+ENDGRAPH;
+END;
+RUN;
+
+/* Make the pie chart */ 
+  PROC SGRENDER data=classdat.poke template=WORK.simplepie;
+RUN;
+QUIT; 
+
+/* Use SGPLOT to make a stacked bar chart */
+  PROC SGPLOT data=poketmp;
+VBAR i / GROUP = generation;
+RUN;
+QUIT; 
+```
+As in base R, the syntax between the two types of charts is different, even though the underlying operations required to make the plots are very similar.  This is one example of why I don't agree with the assertion that ODS graphics is like ggplot2 syntax - the functionality may be similar, but the structure is not. 
+</details>
+
+
 ## References {#refs-sas}
 
 

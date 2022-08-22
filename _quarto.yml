@@ -17,6 +17,7 @@ book:
     - reading-data.qmd
     - data-cleaning-verbs.qmd
     - data-transformations.qmd
+    - data-vis.qmd
   appendices:
     - app-sas.qmd
   favicon: images/favicon.ico
