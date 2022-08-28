@@ -604,8 +604,8 @@ You need to tell git what your name and email address are, because every "commit
 
 Follow the instructions [here](https://happygitwithr.com/hello-git.html), or run the lines below: 
 
-::: .callout-note
-These code below uses interactive prompts. Click the copy button in the upper right corner of the box below, and then paste the *whole thing* into the R console. You will see a line that says "Your full name:" - type your name into the console. Similarly, the next line will ask you for an email address.)
+::: callout-note
+The lines of code below use **interactive prompts**. Click the copy button in the upper right corner of the box below, and then paste the *whole thing* into the R console. You will see a line that says "Your full name:" - type your name into the console. Similarly, the next line will ask you for an email address.)
 :::
 
 ```{r, collapse = T, results = "hold", eval = F}
@@ -677,7 +677,7 @@ Alternately, if you prefer a GUI (graphical user interface) approach, that will 
 3. (In your new project) Tools -> Project options -> Git/SVN -> select git from the dropdown, initialize new repository. RStudio will  need to restart.
 4. Navigate to your new Git tab on the top right.
 
-![Screen capture video of the steps described above to create a git repository in RStudio](images/tools/Rstudio-existing-git.gif)
+<iframe width="1048" height="590" src="https://www.youtube.com/embed/uPcQkWi0lGg" title="Create a local git repository first (Repository creation)" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 The next step is to add our file to the repository. 
 
@@ -685,13 +685,13 @@ Using the command line, you can type in `git add README` (this tells git to trac
 
 Using the GUI, you navigate to the git pane, check the box next to the README file, click the Commit button, write a message ("Add readme file"), and click the commit button. 
 
-![Screen capture video of the steps described above to add and commit a file in RStudio](images/tools/Rstudio-git-commit.gif)
+<iframe width="1048" height="590" src="https://www.youtube.com/embed/9wHd8BuPsBQ" title="Create a local repository first (add a file)" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 The final step is to create a corresponding repository on GitHub. Navigate to your GitHub profile and make sure you're logged in. Create a new repository using the "New" button. Name your  repository whatever you want, fill in the description if you want (this can help you later, if you forget what exactly a certain repo was *for*), and DO NOT add a README, license file, or anything else (if you do, you will have a bad  time). 
 
 You'll be taken to your empty repository, and git will provide you the lines to paste into your git shell (or terminal) -- you can access this within RStudio, as shown below. Paste those lines in, and you'll be good to  go.
 
-![Connect your local git repository to GitHub](images/tools/Rstudio-github-remote.gif)
+<iframe width="1048" height="590" src="https://www.youtube.com/embed/eHNw2w2sunc" title="Create a local repository first (push the local repo to Github)" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 ####  GitHub repository first
 
@@ -707,7 +707,7 @@ GUI method:
 6. Click commit, then push your changes
 7. Check that the remote repository (Github) updated
 
-![Video of the GUI method for creating a repository starting with GitHub](images/tools/Rstudio-github-first-method.gif)
+<iframe width="1048" height="590" src="https://www.youtube.com/embed/xIBBiXMV1Ag" title="Create the github repository first, using RStudio as a git interface" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 Command line method:
 
@@ -719,6 +719,8 @@ Command line method:
 6. Make a change to your README file and save the change
 7. Commit your changes: `git commit -a -m "change readme"` (-a = all, that is, any  changed file git is already tracking).
 8. Push your changes to the remote (GitHub) repository and check that the repo has updated: `git push`
+
+<iframe width="1048" height="590" src="https://www.youtube.com/embed/y4cpJ_VaRMg" title="Create the github repository first, using the command line to work with git" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 ### Adding files
 
