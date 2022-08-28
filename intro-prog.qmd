@@ -177,9 +177,9 @@ Working this out in a small example helped me come up with that formula; now, I 
 
 ## Programming Concepts {.unnumbered}
 
-Many programming resources talk about 3, or 5, or 10 core concepts in any programming language.Here, we're going to discuss the generic concepts, and then how these concepts are implemented in the languages we're working with.
+Many programming resources talk about 3, or 5, or 10 core concepts in any programming language. Here, we're going to discuss the generic concepts, and then how these concepts are implemented in the languages we're working with.
 
-Interestingly, the "core concepts" aren't necessarily the same across lists. Here is a consensus list of concepts which are generic across languages and usually important\[@pageBasicProgrammingConcepts2021,@mukitBasicProgrammingConcepts2018,@holowczakProgrammingConceptsBrief2013,@fenjvesComputerLanguageFundamentals2016,@asayBasicProgrammingConcepts2005\]:
+Interestingly, the "core concepts" aren't necessarily the same across lists. Here is a consensus list of concepts which are generic across languages and usually important [@pageBasicProgrammingConcepts2021,@mukitBasicProgrammingConcepts2018,@holowczakProgrammingConceptsBrief2013,@fenjvesComputerLanguageFundamentals2016,@asayBasicProgrammingConcepts2005]:
 
 1.  **Variables**\
     a symbolic name or reference to some kind of information. In the expression `a + b > a`, both `a` and `b` are variables. Variables may have a specific type (what data can be stored in the variable), scope (where the variable can be accessed), and location (where the information is stored in the computer's memory). [@mukitBasicProgrammingConcepts2018] has a nice explanation of the difference between variables in programming and variables in math.
@@ -205,7 +205,7 @@ Interestingly, the "core concepts" aren't necessarily the same across lists. Her
 8.  **Sequence of commands**\
     It's important to have the right commands in the right order.
 
-<div>
+
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/Ct-lOOUqmyY" title="YouTube video player" frameborder="0" allow="accelerometer; picture-in-picture" allowfullscreen>
 
@@ -213,7 +213,6 @@ Interestingly, the "core concepts" aren't necessarily the same across lists. Her
 
 It's important to get both the level of specificity and the order of the commands just right when programming.
 
-</div>
 
 ## Programming Vocabulary: Hello world
 
@@ -277,9 +276,14 @@ If instead your file looks like this:
 
 ![Screenshot of qmd file with visual markdown editing on](images/intro-prog/finding-your-way-demo-screenshot-visualmarkdown.png)
 
-you have visual markdown mode on. To turn it off, click on the A icon at the top right of your editor window:
+you have visual markdown mode on. To turn it off, click on the source button at the top left of your editor:
 
-![Screenshot of editor window toolbar, with A icon highlighted in green](images/intro-prog/visual-markdown-mode-highlight.png)
+![Screenshot of editor window toolbar, with visual editing mode icon highlighted in green](images/intro-prog/visual-markdown-mode.png)
+
+::: callout-note
+RStudio's interface is constantly changing, so some of the screenshots may not match with your version of RStudio but hopefully they are close. 
+:::
+
 
 If we are working in interactive mode, why did I have you start out by creating a markdown document? Good Question! RStudio allows you to switch back and forth between R and python seamlessly, which is good and bad - it's hard to get a python terminal without telling R which language you're working in! You can create a python script if you'd prefer to work in a script instead of a markdown document, but that would involve working in 2 separate files, which I personally find rather tedious.
 
