@@ -392,9 +392,9 @@ plt.show()
 
 :::
 
-### Other Aesthetics
+### Other Aesthetics: Color, Shape, Line Type, Alpha, and more 
 
-When considering other aesthetics, such as the color or size of plotted objects, the shape of points, line types, and alpha blending, it is important to differentiate between mapping these quantities to dataset variables and setting constant values. 
+When considering other aesthetics, such as the color or size of plotted objects, the shape of points, line types, and alpha blending, it is important to differentiate between mapping these quantities to **dataset variables** and setting **constant values**. Mapping quantities to a variable in the dataset requires considerably more work under the hood, as we have to set up a scale from the original values that maps to the aesthetic values, we have to generate the corresponding aesthetic values for each data point, and we usually want to create a legend. When we set constant values, however, we just... set the value and we're done. Constant values are usually set to adhere to style guides, to enhance visual appeal, and sometimes to "backwards-engineer" a scale. 
 
 #### Mapping Categorical Variables
 
@@ -486,6 +486,7 @@ Python's dict type helps a lot here: we can create the mapping between species a
 :::
 
 #### Mapping Continuous Variables
+
 Above, we demonstrated mapping to categorical variables, where we had to select an appropriate color for each unique value in the variable. With continuous mappings, however, we have to instead specify a range of output values (e.g. color, size) and map those values to the values in the dataset. This is understandably more complicated: 
 
 - We need some sort of one-to-one function from our variable's values to our color space, but it doesn't have to be linear (and in many cases, we may want to use a transformation).
@@ -523,19 +524,37 @@ from plotnine import *
 ```
 
 ##### Base R
-
-This is a pain in the ... XXX TODO XXX
+This uses a solution I found at [StackOverflow](https://stackoverflow.com/questions/18827214/one-colour-gradient-according-to-value-in-column-scatterplot-in-r).
 ```{r aes-mapping2-baser, include = F}
-library(viridis)
-palette(hcl.colors(20, "viridis"))
+library(RColorBrewer)
+cols <- brewer.pal(9, "Blues") # get colors
+pal <- colorRampPalette(cols) # Define color palette
+
+# Create interval of color levels corresponding to penguin bill depth
+bill_depth_intervals <- seq(min(penguins$bill_depth_mm, na.rm = T), 
+                            max(penguins$bill_depth_mm, na.rm = T), 
+                            length.out = 100)
+# Match values to bill depth intervals
+value_match <- findInterval(penguins$bill_depth_mm, bill_depth_intervals)
+# Translate value into color
+bill_depth_color <- pal(100)[value_match]
+# Color NAs
+bill_depth_color[is.na(bill_depth_color)] <- "#FF0000" # red
+
+# Do the same thing, but for the legend
+leg_intervals <- seq(min(penguins$bill_depth_mm, na.rm = T),
+                     max(penguins$bill_depth_mm, na.rm = T),
+                     length.out = 8)
+leg_color <- pal(8)
+
 plot(x = penguins$bill_length_mm, y = penguins$body_mass_g,
-     col = penguins$bill_depth_mm,
+     col = bill_depth_color,
      main = "Penguin Bill Length and Body Mass",
      xlab = "Bill Length (mm)", ylab = "Body Mass (g)")
-legend(x = 35, 
-       y = 6000, 
-       legend = penguins$bill_depth_mm,
-       col = hcl.colors(20, "viridis"), 
+legend(x = 31, 
+       y = 6500, 
+       legend = leg_intervals,
+       col = leg_color, 
        pch = 16, 
        bty = "o",
        title = "Bill Depth (mm)",
@@ -663,6 +682,319 @@ In the original code, `color = "blue"` was inside the AES statement, which set t
 
 :::
 :::
+
+### Layers
+
+
+One of the main advantages of ggplot2 is that the syntax is basically consistent across very different types of plots. In base R and matpotlib, this is not the case - you have to look up the available options for each different plot type. In ggplot2, I might have to look up what the aesthetic names are for a specific geom, but I can guess most of the time. So let's look a bit more into what ggplot2's approach to graph specification is and what it allows us to do.
+
+You're fairly used to the syntax of the pipe by now; but ggplot works on a slightly different (but similar) concept that we've used implicitly up until this point. There is the initial plot statement, `ggplot()`, and successive layers are added using `+`. 
+
+You can specify a data set and aesthetic variables in the `ggplot()` statement (which is what we'll usually do), but you can also have a completely blank `ggplot()` statement and specify your aesthetic mappings and data sets for each layer separately. This approach is more useful when you start creating complex plots, because you may need to plot summary information and raw data, or e.g. separate tables with city information, geographic boundaries, and rivers, all of which need to be represented in the same map. Technically, you can even specify the `aes()` statement outside of the `ggplot()` statement or a `geom_...()` layer call... but this is not typically done because auto complete then doesn't work.
+
+In this extended example, we'll examine the different features we need to make a map and how to add new layers to a map. We'll also look at some new geoms: `geom_polygon` and `geom_path`.
+
+#### Data Setup
+
+Let's use some data from the state of Nebraska to generate a state map with important geographic features: state parks, railroads, and counties.
+
+- [State parks](https://www.nebraskamap.gov/datasets/outdoornebraska::state-park-areas-1/explore?location=41.485819%2C-99.571578%2C7.17)  (I downloaded the GeoJSON file)
+- [Railroads](https://www.nebraskamap.gov/datasets/railroads/explore?location=41.929514%2C-102.243474%2C6.05) (I downloaded the GeoJSON file)
+- [County boundaries](https://www.nebraskamap.gov/datasets/county-boundaries/explore?location=41.369872%2C-99.634627%2C6.00)
+
+::: panel-tabset
+##### R
+
+```{r read-in-neb-map-data-r}
+if(!"sf" %in% installed.packages()) install.packages("sf")
+library(sf)
+library(ggplot2)
+
+ne <- map_data("state", "nebraska") # state outline, built into R
+ne_parks <- read_sf("data/State_Park_Areas.geojson")
+ne_railroads <- read_sf("data/Railroads.geojson")
+ne_counties <- read_sf("data/County_Boundaries.geojson")
+```
+
+##### Python
+```{python read-in-neb-map-data-py}
+# This installs the package in the current python environment
+# %pip install geopandas
+# (uncomment the line above to use)
+import geopandas as gp
+
+ne = r.ne # state outline (steal from R)
+ne_parks = gp.read_file("data/State_Park_Areas.geojson")
+ne_railroads = gp.read_file("data/Railroads.geojson")
+ne_counties = gp.read_file("data/County_Boundaries.geojson")
+```
+:::
+
+#### Data Exploration
+
+We're working with GIS data (geographical information systems), which has a different format than most of the data we've worked with thus far. Geographic data tends to be nested, so that e.g. a railroad segment will contain a set of lat/long coordinates that define the segment, but there may be many different segments in a continuous track. 
+
+Let's see how each of these data types are represented by doing a bit of EDA. 
+
+First, let's look at the `ne` object, which contains the coordinates for the border of the state.
+::: panel-tabset
+##### R
+```{r explore-map-data-r1}
+head(ne)
+```
+
+##### Python
+```{python explore-map-data-py}
+ne.describe
+```
+:::
+
+We have a series of latitude and longitude values, with a group variable and an order. That is, `group` defines which piece of the state we're working with (this is especially important in the case of states with disjoint regions, such as Michigan or Hawaii), and `order` defines the order in which the points are to be connected. This is important - it matters which order we connect the points.
+
+The `ne` object is a bit lower-level than the objects containing the spatial information about parks, railroads, and counties. We've used the `sf` and `geopandas` packages, which store all of the data from the geojson file in a table-like structure, but under the hood, these objects are a bit more complicated. We're going to completely ignore these complexities for the moment.
+
+::: panel-tabset
+##### R
+```{r explore-map-data-r2}
+head(ne_parks)
+head(ne_railroads)
+head(ne_counties)
+```
+
+##### Python
+```{python explore-map-data-py2}
+ne_parks.describe
+ne_railroads.describe
+ne_counties.describe
+```
+:::
+
+#### Plotting the state
+The state is a good example of a polygon - it's a set of points which are connected and define the border of a region. Now, Nebraska is pretty boring, because we don't have any islands (ok, you could probably fill in a lot of things instead of islands in that sentence). But, in general, it's important to make sure that when dealing with generic polygons, we only connect points from the same polygon. Otherwise, you end up with a map like this:
+
+```{r fail-connected-polygons-r, echo = F}
+usa <- map_data("state", region = ".")
+ggplot() + 
+  geom_polygon(data = usa, aes(x = long, y = lat), fill = "white", color = "black")
+```
+
+::: panel-tabset
+##### R
+```{r polygon-r-state}
+library(ggplot2)
+library(mapproj)
+
+ggplot() + 
+  geom_polygon(data = ne, aes(x = long, y = lat, group = group), fill = "white", color = "black") + 
+  coord_map() # This forces the right aspect ratio
+```
+
+##### Python
+```{python polygon-py-state}
+from plotnine import *
+
+ggplot() + geom_polygon(aes(x = "long", y = "lat", group = "group"), data = ne, fill = "white", color = "black")
+# coord_map isn't implemented in plotnine :(
+```
+:::
+
+#### Plotting counties
+
+::: panel-tabset
+##### R
+```{r polygon-r-county}
+library(ggplot2)
+library(mapproj)
+
+ggplot() + 
+  # geom_sf automatically uses lat/long and the type of data to choose the right geom
+  geom_sf(data = ne_counties) + 
+  coord_sf() # This forces the right aspect ratio
+```
+
+We could even add annotations to the counties showing what the county names are, if we want to do so - this requires a call to `geom_sf_text`, and an additional aesthetic mapping to label (the value of the text we're printing). The geographic centroid operation is handled automatically behind the scenes.
+
+```{r polygon-r-county2}
+ggplot() + 
+  # geom_sf automatically uses lat/long and the type of data to choose the right geom
+  geom_sf(data = ne_counties) + 
+  geom_sf_text(data = ne_counties, aes(label = Cnty_Name), size = 2) + 
+  coord_sf() # This forces the right aspect ratio
+```
+
+##### Python
+```{python polygon-py-county}
+from plotnine import *
+import geopandas as gp
+
+ggplot() + geom_map(data = ne_counties)
+```
+
+In python, it requires a bit more work to handle county names - we have to define a function to give us the centroid of each region. 
+
+```{python polygon-py-county2}
+from plotnine import *
+import geopandas as gp
+
+# from plotnine docs: https://plotnine.readthedocs.io/en/stable/generated/plotnine.geoms.geom_map.html?highlight=coord_map
+def calculate_center(df):
+  """
+  Calculate the centre of a geometry
+
+  This method first converts to a planar crs, gets the centroid
+  then converts back to the original crs. This gives a more
+  accurate
+  """
+  original_crs = df.crs
+  planar_crs = 'EPSG:3857'
+  return df['geometry'].to_crs(planar_crs).centroid.to_crs(original_crs)
+
+ne_counties['center'] = calculate_center(ne_counties)
+
+ggplot() + geom_map(data = ne_counties, fill = "#f0f0f0") +\
+geom_text(ne_counties, aes("center.x", "center.y", label = 'Cnty_Name'), size = 5)
+
+```
+:::
+
+
+#### Adding Polygons
+
+Next, let's add some park information to our map. 
+
+::: panel-tabset
+##### R
+```{r polygon-r-park}
+library(ggplot2)
+library(mapproj)
+
+ggplot() + 
+  # geom_sf automatically uses lat/long and the type of data to choose the right geom
+  geom_sf(data = ne_counties) + 
+  geom_sf(data = ne_parks, fill = "green", color = "darkgreen") + 
+  coord_sf() # This forces the right aspect ratio
+```
+
+
+##### Python
+```{python polygon-py-park}
+from plotnine import *
+import geopandas as gp
+
+ggplot() +\
+geom_map(data = ne_counties, fill = "#fafafa") +\
+geom_map(data = ne_parks, color = "darkgreen", fill = "green")
+```
+:::
+
+#### Adding Lines
+
+So far, everything we've plotted on our map has been related to polygons. Not all geometric objects are polygons, though - railroads and rivers are (usually) lines, and points of interest may be actual points and not spatial regions. We can add this additional information by including extra layers on our plot.
+
+
+::: panel-tabset
+##### R
+```{r polygon-r-railroad}
+library(ggplot2)
+library(mapproj)
+
+ggplot() + 
+  # geom_sf automatically uses lat/long and the type of data to choose the right geom
+  geom_sf(data = ne_counties, fill = "white", color = "grey80") + 
+  geom_sf(data = ne_parks, fill = "green", color = "darkgreen") + 
+  geom_sf(data = ne_railroads, color = "black") + 
+  coord_sf() # This forces the right aspect ratio
+```
+
+
+##### Python
+```{python polygon-py-railroad}
+from plotnine import *
+import geopandas as gp
+
+ggplot() +\
+geom_map(data = ne_counties, fill = "#ffffff", color = "#f0f0f0") +\
+geom_map(data = ne_parks, color = "darkgreen", fill = "green") +\
+geom_map(data = ne_railroads, color = "black")
+```
+:::
+
+
+::: {.callout-tip collapse = True}
+### Try it out: Maps of Middle Earth
+Dedicated fans have re-created middle earth in digital format using ArcGIS files. These map file formats, called shape files, can be read into R and plotted.
+
+You may need to install a few spatial packages first ([Mac and Windows](http://www.nickeubank.com/wp-content/uploads/2015/10/RGIS1_SpatialDataTypes_part0_setup.html), [Linux](https://philmikejones.me/tutorials/2014-07-14-installing-rgdal-in-r-on-linux/))
+
+The `sf` package in R contains a special geom, `geom_sf`, which will plot map objects with an appropriate geom, whether they are points, lines, or polygons. In complicated maps with many layers, this is a really awesome feature. Similarly, if you have `geopandas` in python, `plotnine`'s `geom_map` function will work with geopandas tables. 
+
+I've provided some code to get you started, but there are many other shapefiles in the dataset. Pick some layers which you think are interesting, and plot them with appropriate geoms to make a map of Middle Earth. 
+
+Unfortunately, in this map there is not an underlying polygon (the coastline is a series of shorter segments). To resolve this, I have provided a theme statement that will have a white background, so that you can add useful layers without the grey grid background. 
+
+```{r middle-earth-map}
+library(ggplot2)
+library(ggthemes)
+library(sf)
+
+if (!file.exists("data/MiddleEarthMap.zip")) {
+  download.file("https://github.com/jvangeld/ME-GIS/archive/master.zip", "data/MiddleEarthMap.zip", mode = "wb")
+}
+if (!dir.exists("data/ME-GIS-master/")) {
+  unzip("data/MiddleEarthMap.zip", exdir = "data/")
+}
+
+coastline <- read_sf("data/ME-GIS-master/Coastline2.shp")
+cities <- read_sf("data/ME-GIS-master/Cities.shp")
+forests <- read_sf("data/ME-GIS-master/Forests.shp")
+lakes <- read_sf("data/ME-GIS-master/Lakes.shp")
+rivers <- read_sf("data/ME-GIS-master/Rivers.shp")
+roads <- read_sf("data/ME-GIS-master/Roads.shp")
+
+ggplot() + 
+  geom_sf(data = coastline) + 
+  geom_sf(data = forests, color = NA, fill = "darkgreen", alpha = .2) + 
+  geom_sf(data = rivers, color = "blue", alpha = .1) + 
+  geom_sf(data = lakes, fill = "blue", color = NA, alpha = .2) + 
+  theme_map()
+```
+
+:::
+
+
+### Statistics and Plot Types
+
+
+At this point, we've primarily looked at charts which have two continuous variables - scatter plots, and line plots. There are a number of situations where these types of charts are inadequate. For one thing, we might want to only look at the distribution of a single variable. Or, we might want to look at how a continuous response variable changes when the level of a categorical variable changes. In this section, we'll hit the most common types of plots, but there are almost infinite variations. Sites like [the Data Viz Catalogue](https://datavizcatalogue.com/search.html) can be useful if you're trying to accomplish a specific task and want to know what type of plot to use. 
+
+In all of the plots which we discuss in this section, there is an implicit statistical function applied to the data before plotting. So while you may specify e.g. `x = var1`,  what is plotted is `f(var1)`, where `f()` might be the mean/median/quartiles, a binned count, or a computed kernel density. 
+
+In ggplot2, you can formally specify a statistic by using `stat_xxx` functions, but many geoms implicitly call these same functions. 
+
+
+#### Box Plots
+
+A box plot can show some summary information about the distribution of a single continuous variable, and usually is used to show differences in the level of a response variable at different levels of a categorical variable. 
+
+
+Let's look at the distribution of penguin weight by species and sex. 
+
+::: panel-tabset
+
+##### ggplot2
+
+
+##### plotnine
+
+
+##### Base R
+
+
+##### Matplotlib
+
+
+:::
+
 
 ### Beyond Points: Lines, Rectangles, and Other Geoms
 
