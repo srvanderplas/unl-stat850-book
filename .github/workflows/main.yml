@@ -15,14 +15,13 @@ jobs:
     steps:
     - uses: actions/checkout@v2
 
-    - name: Install Python dependencies 1
+    - name: Install Python and system dependencies 1
       if: runner.os == 'Linux'
       run: |
         sudo apt update
         sudo apt upgrade
-        sudo apt install -y python3-virtualenv
-        sudo apt install -y python3-dev
-        sudo apt install -y python3-venv
+        sudo apt install -y python3-virtualenv python3-dev python3-venv
+        sudo apt isntall -y libudunits2-dev
       shell: /bin/bash {0}
 
     - name: Set RENV_PATHS_ROOT
