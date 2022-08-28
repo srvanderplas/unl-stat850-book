@@ -337,11 +337,12 @@ If you want to vacuum up a bunch of data, fit several regression models, and the
 ![A brief illustrated history of R. R is an open-source clone of S programming language, which was invented at Bell Labs. S was inspired by Scheme and Lisp, but is ultimately compiled in Fortran and C.](images/tools/History of R.png)
 
 R is 
+
 - vector-based
 - 1 indexed (start counting 1, 2, 3, ...) 
 - a scripting language (R code does not have to be compiled before it is run)
 
-One of R's strengths is the package repository, CRAN, that allows anyone (yes, even you!) to write an R package. This means that R generally has the latest statistical methods available, as one of the best ways to ensure someone uses your work is to write an R package to make that work accessible to the general population of statisticians/biologists/geneticists. 
+One of R's strengths is the package repository, CRAN, that allows anyone (yes, even you!) to write an R package. This means that R generally has the latest statistical methods available, and one of the best ways to ensure someone uses your work is to write an R package to make that work accessible to the general population of statisticians/biologists/geneticists. 
 
 
 To install the `tibble` package in R, we would use the following code:
