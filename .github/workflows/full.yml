@@ -20,7 +20,7 @@ jobs:
         sudo apt update
         sudo apt upgrade
         sudo apt install -y python3-virtualenv python3-dev python3-venv
-        sudo apt isntall -y libudunits2-dev
+        sudo apt install -y libudunits2-dev
       shell: /bin/bash {0}
 
     - name: Set RENV_PATHS_ROOT
