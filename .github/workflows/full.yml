@@ -21,14 +21,9 @@ jobs:
         sudo apt upgrade
         sudo apt install -y python3-virtualenv python3-dev python3-venv
         sudo apt install -y libudunits2-dev libgdal-dev
+        sudo update-alternatives --config libblas.so.3-x86_64-linux-gnu
       shell: /bin/bash {0}
 
-    - Configure python env:
-      run: |
-        python -m venv myvenv
-        source myvenv/bin/activate
-        pip install numpy matplotlib
-        echo "RETICULATE_PYTHON=`realpath ./myvenv/bin/python`" >> $GITHUB_ENV
 
     - name: Set RENV_PATHS_ROOT
       shell: bash
