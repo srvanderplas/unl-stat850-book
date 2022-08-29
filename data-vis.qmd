@@ -26,23 +26,6 @@ This is going to be a fairly extensive chapter (in terms of content) because I w
 Visualization and statistical graphics are also my research area, so I'm probably going to be a bit more passionate about this chapter, which means there's probably going to be more to read. Sorry about that in advance. I'll do my best to indicate which content is actually mission-critical and which content you can skip if you're not that interested.
 :::
 
-::: callout-note
-R package/environment setup: 
-```{r, message = F}
-library(readr)
-library(dplyr)
-library(tidyr)
-library(ggplot2)
-library(stringr)
-```
-
-Python package/environment setup:
-```{python env-setup}
-import pandas as pd
-from plotnine import *
-```
-:::
-
 ## Why do we create graphics?
 
 > The greatest possibilities of visual display lie in vividness and inescapability of the intended message. A visual display can stop your mental flow in its tracks and make you think. A visual display can force you to notice what you never expected to see. ("Why, that scatter diagram has a hole in the middle!") -- @tukeyDataBasedGraphicsVisual1990
@@ -95,6 +78,11 @@ Let's start out by looking at the proportion of Pokemon added in each of the 8 g
 
 #### R setup {-}
 ```{r poke-read-data-r, message = F}
+library(readr)
+library(dplyr)
+library(tidyr)
+library(stringr)
+
 # Setup the data
 poke <- read_csv("data/pokemon_ascii.csv", na = '.') %>%
   mutate(generation = factor(generation))
@@ -102,6 +90,7 @@ poke <- read_csv("data/pokemon_ascii.csv", na = '.') %>%
 
 #### Python setup {-}
 ```{python poke-read-data-py}
+import pandas as pd
 poke = pd.read_csv("data/pokemon_ascii.csv")
 poke['generation'] = pd.Categorical(poke.generation)
 ```
@@ -151,6 +140,8 @@ In a pie or stacked bar chart, we don't care about the x coordinate - the whole 
 Then, we want to summarize our data by the number of objects in each category - this is basically a stacked bar chart. Any variables specified in the plot statement are used to implicitly calculate the statistical summary we want -- that is, to count the rows (so if we had multiple x variables, the summary would be computed for both the x and fill variables). ggplot is smart enough to know that when we use `geom_bar`, we generally want the y variable to be the count, so we can get away with leaving that part out. We just have to specify that we want the bars to be stacked on top of one another (instead of next to each other, "dodge").
 
 ```{r gg-bar}
+library(ggplot2)
+
 ggplot(aes(x = "", fill = generation), data = poke) + 
   geom_bar(position = "stack") 
 ```
@@ -219,7 +210,9 @@ plt.show()
 As of August 2022, pie charts are [still not supported in plotnine](https://github.com/has2k1/plotnine/issues/10). So this demo will fall a bit flat. 
 
 ```{python gg-bar-py}
+from plotnine import *
 plt.cla() # clear out matplotlib buffer
+
 ggplot(aes(x = "1", fill = "generation"), data = poke) + geom_bar(position = "stack")
 ```
 
@@ -920,7 +913,8 @@ geom_map(data = ne_railroads, color = "black")
 :::
 
 
-::: {.callout-tip collapse = True}
+::: {.callout-tip collapse = "true"}
+
 ### Try it out: Maps of Middle Earth
 Dedicated fans have re-created middle earth in digital format using ArcGIS files. These map file formats, called shape files, can be read into R and plotted.
 
@@ -972,29 +966,183 @@ In all of the plots which we discuss in this section, there is an implicit stati
 In ggplot2, you can formally specify a statistic by using `stat_xxx` functions, but many geoms implicitly call these same functions. 
 
 
-#### Box Plots
+#### Box Plots, Violin Plots, and other alternatives
 
 A box plot can show some summary information about the distribution of a single continuous variable, and usually is used to show differences in the level of a response variable at different levels of a categorical variable. 
 
 
 Let's look at the distribution of penguin weight by species and sex. 
+We'll return to this plot later when discussing how to create good charts.
+
+::: callout-note
+It's at this point in the chapter that I gave up trying to do everything in `matplotlib`. `Matplotlib` is the low-level plotting library, and when computing statistics and creating these types of plots, it's ... not ideal. I will instead demonstrate `plotnine`, which is grammar-of-graphics style, and [`seaborn`](https://seaborn.pydata.org/) [@waskomSeaborn2022], which is another plotting library in python that isn't strictly grammar-of-graphics but is at least somewhat higher level than `matplotlib`.
+
+While standard `seaborn` isn't a grammar-of-graphics interface, it appears that the next generation of the package will be much more grammar-of-graphics like. [@waskomNextgenerationSeabornInterface2022]
+:::
 
 ::: panel-tabset
 
 ##### ggplot2
+```{r boxplot-ggplot-r}
+library(ggplot2)
+library(palmerpenguins)
+library(dplyr)
+
+penguins %>%
+  filter(!is.na(sex)) %>% # Remove unknown sex penguins
+  ggplot(aes(x = species, y = body_mass_g, color = sex)) + 
+  geom_boxplot(outlier.shape = NA) + 
+  # We can add another layer overlaying the actual points, 
+  # with some random noise added to reduce overplotting
+  geom_jitter(position = position_jitterdodge(), shape = 1) + 
+  ylab("Body Mass (g)") + xlab("Species") + ggtitle("Penguin Weight by Species and Sex")
+```
 
 
 ##### plotnine
+```{python boxplot-plotnine-py}
+import pandas as pd
+from plotnine import *
+from palmerpenguins import load_penguins
+penguins = load_penguins()
 
+# Remove NAs
+tmp = penguins.dropna(axis = 0, subset = 'sex')
+
+ggplot(aes(x = "species", y = "body_mass_g", color = "sex"), data = tmp) +\
+geom_boxplot(outlier_shape='') +\
+geom_jitter(position = position_jitterdodge(), shape = 'o') +\
+ggtitle("Penguin Weight by Species and Sex") +\
+ylab("Body Mass (g)") +\
+xlab("Species")
+
+```
 
 ##### Base R
 
+Because base R doesn't have a default way to handle jittering or putting boxplots side-by-side, it's not easy to add points on top of these boxplots.
 
-##### Matplotlib
+```{r boxplot-base-r}
+boxplot(body_mass_g ~ species + sex, data = penguins, 
+        # Manually color boxplots
+        col = rep(c("red", "blue"), times = 3))
+```
+
+##### Seaborn
+
+```{python boxplot-seaborn}
+# Install and load the seaborn package
+#!pip install seaborn; the alias "sns" stands for 
+# Samuel Norman Seaborn from "The West Wing" television show
+import seaborn as sns
+import matplotlib.pyplot as plt
+plt.cla() # clear out matplotlib buffer
+
+# Initialize seaborn styling; context
+sns.set_style('white')
+sns.set_context('notebook')
+
+sns.boxplot(x = penguins['species'], y = penguins['body_mass_g'], hue = penguins['sex'])
+plt.show()
+```
+
+:::
+
+
+There are other plots which can be used in place of box plots. One interesting alternative is a **violin plot**, which shows the full density of the data, reflected (usually in y) to form an object which could potentially look like a violin for e.g. bimodal data.
+
+
+Seaborn has options to split the violin plots by sex - this is  a bit trickier in ggplot2 but it [can be done](https://stackoverflow.com/questions/35717353/split-violin-plot-with-ggplot2) with the help of the `introdataviz` package available on GitHub.
+
+::: panel-tabset
+
+##### ggplot2
+```{r violinplot-ggplot-r}
+library(ggplot2)
+library(palmerpenguins)
+library(dplyr)
+
+penguins %>%
+  filter(!is.na(sex)) %>% # Remove unknown sex penguins
+  ggplot(aes(x = species, y = body_mass_g, color = sex)) + 
+  geom_violin(outlier.shape = NA) + 
+  # We can add another layer overlaying the actual points, 
+  # with some random noise added to reduce overplotting
+  geom_jitter(position = position_jitterdodge(), shape = 1) + 
+  ylab("Body Mass (g)") + xlab("Species") + ggtitle("Penguin Weight by Species and Sex")
+```
+```{r violinplot-ggplot-r-split}
+# devtools::install_github("psyteachr/introdataviz")
+library(introdataviz)
+
+penguins %>%
+  filter(!is.na(sex)) %>% # Remove unknown sex penguins
+  ggplot(aes(x = species, y = body_mass_g, color = sex)) + 
+  geom_split_violin() + 
+  # We can add another layer overlaying the actual points, 
+  # with some random noise added to reduce overplotting
+  geom_jitter(position = position_jitterdodge(), shape = 1) + 
+  ylab("Body Mass (g)") + xlab("Species") + ggtitle("Penguin Weight by Species and Sex")
+```
+
+##### Seaborn
+
+```{python violinplot-seaborn}
+# Install and load the seaborn package
+#!pip install seaborn; the alias "sns" stands for 
+# Samuel Norman Seaborn from "The West Wing" television show
+import seaborn as sns
+import matplotlib.pyplot as plt
+plt.cla() # clear out matplotlib buffer
+
+# Initialize seaborn styling; context
+sns.set_style('white')
+sns.set_context('notebook')
+
+sns.violinplot(data = penguins, x = 'species', y = 'body_mass_g', hue = 'sex', split = True)
+plt.show()
+```
+
 
 
 :::
 
+#### Histograms and Density Plots
+
+Box plots aren't the only way to show distributions. If we want to, we can show distributions using histograms or density plots. A **histogram** is created by binning the variable, then counting the number of observations that fall within each specified range.
+Usually, these ranges have constant width (but not always). 
+
+Changing the binwidth can radically change the appearance and usefulness of the histogram.
+
+
+::: panel-tabset
+##### ggplot2
+```{r gg-hist-r}
+penguins %>%
+  ggplot(aes(x = body_mass_g)) + 
+  geom_histogram(color = "black", fill = "grey")
+
+penguins %>%
+  ggplot(aes(x = body_mass_g)) + 
+  geom_histogram(color = "black", fill = "grey", binwidth = 60)
+
+penguins %>%
+  ggplot(aes(x = body_mass_g)) + 
+  geom_histogram(color = "black", fill = "grey", binwidth = 300)
+```
+##### plotnine
+```{python plotnine-hist-py}
+ggplot(penguins.dropna(axis = 0, subset='body_mass_g'), aes(x = "body_mass_g")) + geom_histogram(color = "black", fill = "grey")
+  
+ggplot(penguins.dropna(axis = 0, subset='body_mass_g'), aes(x = "body_mass_g")) + geom_histogram(color = "black", fill = "grey", binwidth = 60)
+  
+ggplot(penguins.dropna(axis = 0, subset='body_mass_g'), aes(x = "body_mass_g")) + geom_histogram(color = "black", fill = "grey", binwidth = 300)
+```
+##### Base R
+
+##### Seaborn
+
+:::
 
 ### Beyond Points: Lines, Rectangles, and Other Geoms
 
@@ -1005,5 +1153,15 @@ In the grammar of graphics, we need to select a geometric object and then provid
 #### Lines
 
 
+::: callout-note
+### Graph Galleries and Cheat Sheets
+
+- [R Graph Gallery](https://r-graph-gallery.com/)
+- [Python Graph Gallery](https://www.python-graph-gallery.com/)
+
+- [Python graph library cheat sheets](https://www.python-graph-gallery.com/cheat-sheets/)
+- [Ggplot2 cheat sheet](https://raw.githubusercontent.com/rstudio/cheatsheets/main/data-visualization.pdf)
+- [Base R graphics cheat sheet](https://r-graph-gallery.com/134-general-plot-parameters-reminder.html)
+:::
 
 ## References
