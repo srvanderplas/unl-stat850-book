@@ -1140,9 +1140,85 @@ ggplot(penguins.dropna(axis = 0, subset='body_mass_g'), aes(x = "body_mass_g")) 
 ```
 ##### Base R
 
+```{r base-hist-r}
+hist(penguins$body_mass_g)
+
+hist(penguins$body_mass_g, breaks = 30) # number of bins
+
+hist(penguins$body_mass_g, 
+     seq(min(penguins$body_mass_g, na.rm = T), 
+         max(penguins$body_mass_g, na.rm = T), 
+         by = 60)) # specific bin width
+```
+
+##### Seaborn
+```{python seaborn-hist-py}
+plt.cla() # clear out matplotlib buffer
+sns.histplot(data = penguins, x = "body_mass_g")
+plt.show()
+
+plt.cla() # clear out matplotlib buffer
+sns.histplot(data = penguins, x = "body_mass_g", binwidth = 60)
+plt.show()
+
+plt.cla() # clear out matplotlib buffer
+sns.histplot(data = penguins, x = "body_mass_g", binwidth = 300)
+plt.show()
+```
+:::
+
+#### Bar Charts
+
+A bar chart is a plot with a categorical variable on one axis and a summary statistic on the other (usually, this is a count).
+Note that a bar chart is NOT the same as a histogram (a histogram looks very similar, but has a binned numeric variable on one axis and counts on the other). Geometrically, bar charts are rectangles; typically each rectangle will have equal width and variable height.
+
+::: panel-tabset
+##### ggplot2
+```{r gg-bar-r}
+penguins %>%
+  ggplot(aes(x = species, fill = species)) + 
+  geom_bar()
+
+penguins %>%
+  ggplot(aes(x = species, fill = sex)) + 
+  geom_bar(position = "dodge")
+
+
+penguins %>%
+  ggplot(aes(x = species, fill = sex)) + 
+  geom_bar(position = "stack")
+```
+##### plotnine
+
+```{python plotnine-bar-py}
+ggplot(penguins.dropna(axis = 0, subset='species'), aes(x = "species", fill = "species")) + geom_bar()
+
+ggplot(penguins.dropna(axis = 0, subset=['species', 'sex']), aes(x = "species", fill = "sex")) + geom_bar()
+
+ggplot(penguins.dropna(axis = 0, subset=['species', 'sex']), aes(x = "species", fill = "sex")) + geom_bar(position = "dodge")
+```
+##### Base R
+```{r base-bar-r}
+count_species <- table(penguins$species)
+barplot(count_species)
+
+count_species2 <- table(penguins$sex, penguins$species, useNA = 'ifany')
+barplot(count_species2, beside = T)
+```
+
 ##### Seaborn
 
-:::
+`countplot` is a canonical barchart in seaborn. `barplot` shows the aggregated value of a y variable, with a confidence interval, which is not what is typically meant by a bar plot.
+
+```{python seaborn-bar-py}
+plt.cla() # clear out matplotlib buffer
+sns.countplot(data = penguins, x = "species")
+plt.show()
+
+plt.cla() # clear out matplotlib buffer
+sns.countplot(data = penguins, x = "species", hue = 'sex')
+plt.show()
+```
 
 ### Beyond Points: Lines, Rectangles, and Other Geoms
 
@@ -1151,6 +1227,60 @@ There are many situations where points aren't the best way to display data. If w
 In the grammar of graphics, we need to select a geometric object and then provide variable mappings for each required spatial dimension. When working with non-grammar approaches, however, these different plots sometimes use very different syntax. 
 
 #### Lines
+
+Let's consider the [lego set data](data/lego_sets.csv) and examine the number of sets over time.
+
+::: panel-tabset
+##### R data setup
+```{r}
+legos_time <- readr::read_csv("data/lego_sets.csv") %>%
+  group_by(year) %>%
+  count()
+```
+
+##### Python data setup
+```{python}
+legos_time = pd.read_csv("data/lego_sets.csv").groupby("year")[["theme_id"]].agg("count").reset_index()
+
+```
+
+:::
+
+::: panel-tabset
+##### ggplot2
+```{r ggplot2-line}
+ggplot(legos_time, aes(x = year, y = n)) + geom_line()
+```
+##### plotnine
+```{python plotnine-line}
+ggplot(legos_time, aes(x = "year", y = "theme_id")) + geom_line()
+
+```
+##### Base R
+```{r base-line}
+plot(legos_time$year, legos_time$n, type = 'l')
+```
+
+##### Seaborn
+
+```{python seaborn-line}
+plt.cla()
+sns.lineplot(data = legos_time, x = "year", y = "theme_id")
+plt.show()
+```
+
+:::
+
+#### Statistics and the Grammar of Graphics
+
+Let's explore the different ways we can represent data using the grammar of graphics and statistics. This section will be written in R, but of course, you can also do much the same thing in plotnine.
+
+
+- 2D density heatmap
+- 2D density w/ lines
+- 2D density with polygons
+- use of rayshader to get a 3D plot
+
 
 
 ::: callout-note
