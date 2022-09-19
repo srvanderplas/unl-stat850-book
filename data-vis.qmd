@@ -1417,7 +1417,7 @@ ggplot(data = penguins, aes(x = flipper_length_mm, y = bill_depth_mm)) +
   stat_density2d_filled()
 ```
 
-Obviously, there's a lot of ways to generate 3D-like charts in R, but can we actually generate 3D charts? Of course!
+Obviously, there's a lot of ways to generate 3D-like charts in R, but can we actually generate 3D charts? Of course! We'll use the `rayshader` package [@rayshader]. 
 
 ::: column-margin
 ![The rayshader package lets you create 3d maps and graphs (image by Allison Horst)](https://github.com/allisonhorst/stats-illustrations/raw/master/rstats-artwork/rayshader.png)
@@ -1835,12 +1835,12 @@ We often want to combine multiple figures (or pieces of figures) together. While
 ::: panel-tabset
 #### R
 
-- [patchwork](https://patchwork.data-imaginist.com/)
-- [cowplot](https://wilkelab.org/cowplot/index.html)
+- [patchwork](https://patchwork.data-imaginist.com/) [@patchwork]
+- [cowplot](https://wilkelab.org/cowplot/index.html) [@cowplot]
 
 #### Python
 
-- [patchwork](https://github.com/ponnhide/patchworklib) (works with matplotlib, plotnine, and seaborn)
+- [patchwork](https://github.com/ponnhide/patchworklib) (works with matplotlib, plotnine, and seaborn) [@moriPatchworklib2022]
 - the `subplot_mosaic` function in `matplotlib`
 :::
 
