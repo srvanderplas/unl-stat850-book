@@ -27,7 +27,6 @@ book:
   repo-branch: main
   repo-actions: [edit]
   sharing: [twitter, facebook, linkedin]
-  number-depth: 2
   page-navigation: true
   page-footer:
     left: "Copyright 2022, Susan Vanderplas"
@@ -51,10 +50,11 @@ date: today
 date-format: long
 
 bibliography: [references.bib, packages.bib]
-biblio-style: apalike
-
+csl: ieee-with-url.csl
 
 from: markdown+emoji
+
+number-depth: 3
 
 format:
   html:
@@ -62,6 +62,9 @@ format:
     theme: cosmo
     code-link: true
     include-in-header: "header.html"
+    code-copy: true
+  #  code-fold: true
+  #  code-summary: "Show the code"
   # pdf:
   #   documentclass: scrreprt
   #   include-in-header:
