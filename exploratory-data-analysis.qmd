@@ -657,17 +657,36 @@ identifying things which may come up in the analysis later.
 
 ##### R: ggplot2 {.unnumbered}
 
-XXX todo XXX
+```{r boxplot-ggplot2}
+#| out-width: 100%
+#| fig-align: center
+#| fig-show: hold
+#| collapse: true
+
+ggplot(data = poke, aes(x = status, y = height_m)) + 
+  geom_boxplot() + 
+  scale_y_log10()
+
+ggplot(data = poke, aes(x = factor(generation), y = total_points)) + 
+  geom_boxplot()
+```
 
 ##### Python: matplotlib {.unnumbered}
 
-XXX todo XXX
+```{python boxplot-matplotlib}
+
+```
+XXX TODO XXX
 
 ##### Python: plotnine {.unnumbered}
-
-XXX todo XXX
+```{python boxplot-plotnine-py}
+ggplot(aes(x = "status", y = "height_m"), data = poke) +\
+geom_boxplot()
+```
 
 :::
+
+You can find more on boxplots and ways to customize boxplots in the [Data Visualization](data-vis.qmd) chapter.
 
 #### Continuous - Continuous Relationships
 
