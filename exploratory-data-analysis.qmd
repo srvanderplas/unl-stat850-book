@@ -674,7 +674,19 @@ ggplot(data = poke, aes(x = factor(generation), y = total_points)) +
 ##### Python: matplotlib {.unnumbered}
 
 ```{python boxplot-matplotlib}
+import matplotlib.pyplot as plt
+import numpy as np
 
+plt.figure()
+
+# Create a list of vectors of height_m by status
+poke['height_m_log'] = np.log(poke.height_m)
+height_by_status = poke.groupby('status', group_keys = True).height_m_log.apply(list)
+
+# Plot each object in the list
+plt.boxplot(height_by_status, labels = height_by_status.index)
+
+plt.show()
 ```
 XXX TODO XXX
 
@@ -697,7 +709,7 @@ To look at the relationship between numeric variables, we could compute
 a numeric correlation, but a plot may be more useful, because it allows
 us to see outliers as well.
 
-```{r}
+```{r base-scatter-cor}
 #| out-width: 48%
 #| fig-align: center
 #| collapse: true
@@ -710,15 +722,18 @@ Sometimes, we discover that a numeric variable which may seem to be
 continuous is actually relatively quantized - there are only a few
 values of base_friendship in the whole dataset.
 
-```{r}
+```{r base-scatter-quantized}
 plot(x = poke$base_experience, y = poke$base_friendship, type = "p")
 ```
 
 A scatterplot matrix can also be a useful way to visualize relationships
 between several variables.
 
-```{r, fig.width = 8, fig.height = 8, out.width = "100%"}
-#| fig.cap: "A scatterplot matrix of hit points, attack, defense, special attack, and special defense characteristics for all generation 1-8 Pokemon."
+```{r base-scatter-matrix}
+#| fig-cap: "A scatterplot matrix of hit points, attack, defense, special attack, and special defense characteristics for all generation 1-8 Pokemon."
+#| fig-width: 8
+#| fig-height: 8
+#| out.width: "100%"
 pairs(poke[,16:20]) # hp - sp_defense columns
 ```
 
@@ -730,15 +745,97 @@ here](http://www.sthda.com/english/wiki/scatter-plot-matrices-r-base-graphs).
 
 ##### R: ggplot2 {.unnumbered}
 
-XXX TODO XXX
+To look at the relationship between numeric variables, we could compute
+a numeric correlation, but a plot may be more useful, because it allows
+us to see outliers as well.
 
-##### Python: matplotlib {.unnumbered}
+```{r ggplot-scatter-cor}
+library(ggplot2)
+ggplot(poke, aes(x = attack, y = defense)) + geom_point()
+```
+Sometimes, we discover that a numeric variable which may seem to be
+continuous is actually relatively quantized - there are only a few
+values of base_friendship in the whole dataset. When this happens, it can be a good idea to use `geom_jitter` to provide some "wiggle" in the data so that you can still see the point density. Changing the point transparency (alpha = .5) can also help with overplotting.
 
-XXX todo XXX
+```{r ggplot-scatter-quantized}
+#| out-width: "50%"
+#| fig-width: 4
+#| fig-height: 4
+ggplot(poke, aes(x = base_experience, y = base_friendship)) + geom_point()
+ggplot(poke, aes(x = base_experience, y = base_friendship)) + geom_jitter(alpha = 0.5)
+```
+
+```{r ggplot-scatter-matrix}
+#| fig-width: 8
+#| fig-height: 8
+#| fig-cap: "A scatterplot matrix of hit points, attack, defense, special attack, and special defense characteristics for all generation 1-8 Pokemon."
+library(GGally) # an extension to ggplot2
+ggpairs(poke[,16:20], # hp - sp_defense columns
+        lower = list(continuous = wrap("points", alpha = .15)),
+        progress = F) 
+```
+
+`ggpairs` can also handle continuous variables, if you want to explore the options available. 
+
+##### Python: pandas {.unnumbered}
+
+Believe it or not, you don't have to go to matplotlib to get plots in python - you can get some plots from pandas directly, even if you are still using matplotlib under the hood (this is why you have to run `plt.show()` to get the plot to appear if you're working in markdown).
+
+```{python pandas-scatterplot}
+import matplotlib.pyplot as plt
+
+poke.plot.scatter(x = 'attack', y = 'defense')
+plt.show()
+```
+
+Pandas also includes a nice scatterplot matrix method. 
+
+```{python pandas-scatterplot-matrix}
+from pandas.plotting import scatter_matrix
+import matplotlib.pyplot as plt
+
+scatter_matrix(poke.iloc[:,15:19], alpha = 0.2, figsize = (6, 6), diagonal = 'kde')
+plt.show()
+```
 
 ##### Python: plotnine {.unnumbered}
 
-XXX todo XXX
+
+```{python plotnine-scatter-quantized}
+#| out-width: "50%"
+#| fig-width: 4
+#| fig-height: 4
+from plotnine import *
+
+ggplot(poke, aes(x = "base_experience", y = "base_friendship")) + geom_point()
+# jitter in plotnine seems to use width and height jointly instead of 
+# marginally
+ggplot(poke, aes(x = "base_experience", y = "base_friendship")) + geom_jitter(alpha = 0.5, height = 5)
+```
+
+
+While plotnine doesn't have scatterplot matrices by default, you can create them using some [clever code](https://github.com/has2k1/plotnine/issues/16#issuecomment-851938860). This is obviously not as fancy as `ggpairs` but it works well enough.
+
+```{python plotnine-scatter-matrix}
+from plotnine import *
+import itertools
+
+def plot_matrix(df, columns):
+  pdf = []
+  for a1, b1 in itertools.combinations(columns, 2):
+    for (a,b) in ((a1, b1), (b1, a1)):
+      sub = df[[a, b]].rename(columns={a: "x", b: "y"}).assign(a=a, b=b)
+      pdf.append(sub)
+  
+  g = ggplot(pd.concat(pdf))
+  g += geom_point(aes('x','y'))
+  g += facet_grid('b~a', scales='free')
+  return g
+
+
+plot_matrix(poke, poke.columns[15:19])
+
+```
 
 :::
 
