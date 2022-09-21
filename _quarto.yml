@@ -7,17 +7,27 @@ book:
   author: "Susan Vanderplas"
   chapters:
     - index.qmd
+
     - tools.qmd
+
     - intro-prog.qmd
     - basic-types.qmd
+
     - data-structures.qmd
     - control-structures.qmd
+
     - data-programming.qmd
+
     - exploratory-data-analysis.qmd
     - reading-data.qmd
+
     - data-cleaning-verbs.qmd
+
     - data-transformations.qmd
+
     - data-vis.qmd
+
+    - debugging.qmd
   appendices:
     - app-sas.qmd
   favicon: images/favicon.ico
