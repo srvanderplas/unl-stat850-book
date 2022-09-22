@@ -438,7 +438,7 @@ dogs["License_length_yr"] = dogs.License_length.dt.days/365.25
 
 ```{python dog-license-length2-py}
 (
-  ggplot(aes(x = "License_length_yr"), data = dogs_sub) + 
+  ggplot(aes(x = "License_length_yr"), data = dogs) + 
   geom_histogram(bins = 30)+
   scale_x_continuous(limits = (0,10))
 )
