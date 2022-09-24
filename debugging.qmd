@@ -31,14 +31,13 @@ One of the best debugging strategies (that isn't a debugging strategy at all, re
 It's ok to write code using lots of dependencies, but as you transition from "experimental" code to "production" code (you're using the code without tinkering with it) you should work to reduce the dependencies, where possible. In addition, if you do need packages with lots of dependencies, try to make sure those packages are relatively popular, used by a lot of people, and currently maintained. (The tidyverse is a bit better from this perspective, because the constituent packages are some of the most installed R packages on CRAN.)
 :::
     
-Another way to handle dependency management is to use the `renv` package [@renv], which creates a local package library with the appropriate versions of your packages stored in the same directory as your project. This will at least help you minimize issues with code not working after unintentional package updates.
+Another way to handle dependency management is to use the `renv` package [@renv], which creates a local package library with the appropriate versions of your packages stored in the same directory as your project. `renv` was inspired by the python concept of virtual environments, and it does also work with python if you're using both R and python inside a project (e.g. this book uses `renv`). `renv` will at the very least help you minimize issues with code not working after unintentional package updates.
 
 - **Add safeguards against unexpected inputs**. Check to make sure inputs to the function are valid. Check to make sure intermediate results are reasonable (e.g. you don't compute the derivative of a function and come up with "a".)
 
-- **Don't reinvent the wheel**. If you have working, tested code for a task, use that! If someone else has working code that's used by the community, don't write your own unless you have a very good reason. The implementation of `lm` has been better tested than your homegrown linear regression.    
-(This is easier if you're writing modular code to begin with)
+- **Don't reinvent the wheel**. If you have working, tested code for a task, use that! If someone else has working code that's used by the community, don't write your own unless you have a very good reason. The implementation of `lm` has been better tested than your homegrown linear regression.
 
-- Collect your often-reused code in packages that you can easily load and make available to "future you"
+- Collect your often-reused code in packages that you can easily load and make available to "future you". The process of making a package often encourages you to document your code better than you would a script. A good resource for getting started making R packages is @wickhamPackagesOrganizeTest2015, and a similar python book is @beuzenPythonPackages2022.
 
 ## Working through Errors
 
@@ -46,6 +45,17 @@ Another way to handle dependency management is to use the `renv` package [@renv]
 
 #### Get into the right mindset
 You can't debug something effectively if you're upset. You have to be in a puzzle-solving, detective mindset to actually solve a problem. If you're already stressed out, try to relieve that stress before you tackle the problem: take a shower, go for a walk, pet a puppy.
+
+
+![A debugging manifesto [@evansDebuggingManifestoHttps2022]](images/debugging/b0rk-debugging-manifesto.jpeg){fig-alt="a debugging manifesto.
+1. inspect, dont squash. try to fix the bug (crossed out). understand what happened (yes, smiley faces and stars)
+2. check your assumptions. person (thinking): \"wait, how do I know thats true?\"
+3. being stuck is temporary. person (thinking): \"I will never figure this out!\" ... 2 minutes later.... person (thinking): \"well, I havent tried X...\"
+4. dont go it alone. person (speaking to other person): \"hey, have you seen this problem before?\"
+5. trust nobody and nothing. person (thinking): this library cant be buggy... OR CAN IT???
+6. there's always a reason. computer: \"computers are always logical, even when it doesnt feel that way\"
+7. build your toolkit. person (holding toolkit): \"wow, the CSS inspector makes debugging SO MUCH EASIER\"
+8. it can be an adventure. person (talking, with cute bug next to them): \"you wouldnt BELIEVE the weird bug I found\". by @b0rk @omarieclaire, more like this at https://wizardzines.com"}
 
 
 
@@ -113,21 +123,7 @@ This works well if it's a short function or a couple of lines of code, but it's 
 
 - Rubber ducking. Have you ever tried to explain a problem you're having to someone else, only to have a moment of insight and "oh, never mind"? Rubber ducking outsources the problem to a nonjudgmental entity, such as a rubber duck^[Some people use cats, but I find that they don't meet the nonjudgmental criteria. Of course, they're equally judgmental whether your code works or not, so maybe that works if you're a cat person, which I am not. Dogs, in my experience, can work, but often will try to comfort you when they realize you're upset, which both helps and lessens your motivation to fix the problem. A rubber duck is the perfect dispassionate listener.]. You simply explain, in terms simple enough for your rubber duck to understand, exactly what your code does, line by line, until you've found the problem. [A more thorough explanation can be found at gitduck.com](https://gitduck.com/blog/improve-how-to-code-with-rubber-duck-debugging/). 
 
-```{r duck-cape, fig.cap = "You may find it helpful to procure a rubber duck expert for each language you work in. I use color-your-own rubber ducks to endow my ducks with certain language expertise. Other people use plain rubber ducks and give them capes.", out.width = '50%', echo = F}
-knitr::include_graphics("image/rubber_duck_cape.png")
-```
-
 Do not be surprised if, in the process of debugging, you encounter new bugs. This is a problem that's well-known enough that it has its [own t-shirt](image/99bugs_shirt.png), in addition to an [xkcd comic](https://xkcd.com/1739/). At some point, getting up and going for a walk may help. Redesigning your code to be more modular and more organized is also a good idea. 
-
-![A debugging manifesto [@evansDebuggingManifestoHttps2022]](images/debugging/b0rk-debugging-manifesto.jpeg){fig-alt="a debugging manifesto.
-1. inspect, dont squash. try to fix the bug (crossed out). understand what happened (yes, smiley faces and stars)
-2. check your assumptions. person (thinking): \"wait, how do I know thats true?\"
-3. being stuck is temporary. person (thinking): \"I will never figure this out!\" ... 2 minutes later.... person (thinking): \"well, I havent tried X...\"
-4. dont go it alone. person (speaking to other person): \"hey, have you seen this problem before?\"
-5. trust nobody and nothing. person (thinking): this library cant be buggy... OR CAN IT???
-6. there's always a reason. computer: \"computers are always logical, even when it doesnt feel that way\"
-7. build your toolkit. person (holding toolkit): \"wow, the CSS inspector makes debugging SO MUCH EASIER\"
-8. it can be an adventure. person (talking, with cute bug next to them): \"you wouldnt BELIEVE the weird bug I found\". by @b0rk @omarieclaire, more like this at https://wizardzines.com"}
 
 
 ## Dividing Problems into Smaller Parts
@@ -139,7 +135,7 @@ In programming, as in life, big, general problems are very hard to solve effecti
 ::: callout-caution
 ### Example: Exhaustion
 
-<!-- [Here's another example](https://forge.medium.com/the-500-year-old-piece-of-advice-that-will-change-your-life-1e580f115731) of how to break down a real-world personal problem in programming/debugging style. -->
+This example inspired by @grimesThis500YearOldPiece2019. 
 
 ::: panel-tabset
 
@@ -192,510 +188,6 @@ When the sub-problem has a viable solution, move on to the next sub-problem. Don
 
 :::
 :::
-
-
-
-
-
-## Debugging Tools in R
-Now that we've discussed general strategies for debugging that will work in any language, lets get down to the dirty details of debugging in R. 
-
-### Low tech debugging with print() and other tools
-Sometimes called "tracing" techniques, the most common, universal, and low tech strategy for debugging involves scattering messages throughout your code. When the code is executed, you get a window into what the variables look like during execution.
-
-<details><summary>Simple example</summary>
-Imagine we start with this:
-
-```{r print-debugging}
-a <- function(x) {
-  b <- function(y) {
-    c <- function(z) {
-      z + y
-    }
-    c(3)
-  }
-  x + b(4)
-}
-
-a(5)
-```
-
-and the goal is to understand what's happening in the code. We might add some lines:
-
-```{r print-debugging2}
-a <- function(x) {
-  print(paste("Entering a(). x = ", x))
-  b <- function(y) {
-    print(paste("Entering b(). x = ", x, "y = ", y))
-    c <- function(z) {
-      print(paste("Entering c(). x = ", x, "y = ", y, "z = ", z))
-      cres <- z + y
-      print(paste("Returning", cres, "from c()"))
-      cres
-    }
-    bres <- c(3)
-    print(paste("Returning", bres, "from b()"))
-    bres
-  }
-  ares <- x + b(4)
-  print(paste("Returning",ares, "from a()"))
-  ares
-}
-
-a(5)
-```
-</details>
-
-For more complex data structures, it can be useful to add `str()`, `head()`, or `summary()` functions. 
-
-<details><summary>Real world example</summary>
-I was recently writing a webscraper to get election polling data from the RealClearPolitics site as part of the [`electionViz` package](github.com/heike/electionViz). I wrote the function `search_for_parent()` to get the parent HTML tag which matched the "tag" argument, that had the "node" argument as a descendant. 
-
-I was assuming that the order of the parents would be "html", "body", "div", "table", "tbody", "tr" - descending from outer to inner (if you know anything about HTML/XML structure). 
-
-```{r real-world-debugging}
-library(xml2) # read html
-
-search_for_parent <- function(node, tag) {
-  # Get all of the parent nodes 
-  parents <- xml2::xml_parents(node)
-  # Get the tags of every parent node
-  tags <- purrr::map_chr(parents, rvest::html_name)
-  print(tags)
-  
-  # Find matching taggs
-  matches <- which(tags == tag)
-  print(matches)
-  
-  # Take the minimum matching tag
-  min_match <- min(matches)
-  if (length(matches) == 1) return(parents[min_match]) else return(NULL)
-}
-
-page <- read_html("data/realclearpolitics_frag.html")
-node <- xml_find_all(page, "//td[@class='lp-results']") # find all poll results in any table
-search_for_parent(node[1], "table") # find the table that contains it
-```
-By printing out all of the tags that contain `node`, I could see the order -- inner to outer. I asked the function to return the location of the first table node, so the index (2nd value printed out) should match table in the character vector that was printed out first. I could then see that the HTML node that is returned is in fact the table node. 
-</details>
-
-#### Try it out {- .tryitout}
-
-Not all bugs result in error messages, unfortunately, which makes higher-level techniques like `traceback()` less useful. The low-tech debugging tools, however, still work wonderfully. 
-
-```{r setup-debug-code, message = F, warning = F}
-library(ggplot2)
-library(dplyr)
-library(magrittr)
-library(maps)
-library(ggthemes)
-worldmap <- map_data("world")
-
-# Load the data
-data(storms, package = "dplyr")
-```
-
-
-The code below is supposed to print out a map of the tracks of all hurricanes of a specific category, 1 to 5, in 2013. Use print statements to figure out what's wrong with my code. 
-
-```{r map-hurricane-tracks, message = F, warning = F, out.width = "18%"}
-# Make base map to be used for each iteration
-basemap <-  ggplot() + 
-  # Country shapes
-  geom_polygon(aes(x = long, y = lat, group = group), 
-               data = worldmap, fill = "white", color = "black") + 
-  # Zoom in 
-  coord_quickmap(xlim = c(-100, -10), ylim = c(10, 50)) + 
-  # Don't need scales b/c maps provide their own geographic context...
-  theme_map()
-
-for (i in 1:5) {
-  # Subset the data
-  subdata <- storms %>%
-    filter(year == 2013) %>%
-    filter(status == i)
-  
-  # Plot the data - path + points to show the observations
-  plot <- basemap +
-    geom_path(aes(x = long, y = lat, color = name), data = subdata) + 
-    geom_point(aes(x = long, y = lat, color = name), data = subdata) + 
-    ggtitle(paste0("Category ", i, " storms in 2013"))
-  print(plot)
-}
-
-
-```
-
-<details><summary>Solution</summary>
-First, lets split the setup from the loop. 
-```{r map-hurricane-tracks-setup, error = T}
-# Make base map to be used for each iteration
-basemap <-  ggplot() + 
-  # Country shapes
-  geom_polygon(aes(x = long, y = lat, group = group), 
-               data = worldmap, fill = "white", color = "black") + 
-  # Zoom in 
-  coord_quickmap(xlim = c(-100, -10), ylim = c(10, 50)) + 
-  # Don't need scales b/c maps provide their own geographic context...
-  theme_map()
-
-print(basemap) # make sure the basemap is fine
-
-# Load the data
-data(storms, package = "dplyr")
-
-str(storms) # make sure the data exists and is formatted as expected
-```
-
-Everything looks ok in the setup chunk...
-
-```{r map-hurricane-tracks-loop}
-for (i in 1:5) {
-  print(paste0("Category ", i, " storms"))
-  # Subset the data
-  subdata <- storms %>%
-    filter(year == 2013) %>%
-    filter(status == i)
-  
-  print(paste0("subdata dims: nrow ", nrow(subdata), " ncol ", ncol(subdata)))
-        # str(subdata) works too, but produces more clutter. I started
-        # with str() and moved to dim() when I saw the problem
-  
-  # Plot the data - path + points to show the observations
-  plot <- basemap +
-    geom_path(aes(x = long, y = lat, color = name), data = subdata) + 
-    geom_point(aes(x = long, y = lat, color = name), data = subdata) + 
-    ggtitle(paste0("Category ", i, " storms in 2013"))
-  # print(plot) # Don't print plots - clutters up output at the moment
-}
-```
-
-Ok, so from this we can see that something is going wrong with our filter statement - we have no rows of data.
-
-```{r hurricane-tracks-debugging-head}
-head(storms)
-```
-
-Whoops. I meant "category" when I typed "status". 
-
-```{r hurricane-tracks-debugging-loop2, error = T}
-for (i in 1:5) {
-  print(paste0("Category ", i, " storms"))
-  # Subset the data
-  subdata <- storms %>%
-    filter(year == 2013) %>%
-    filter(category == i)
-  
-  print(paste0("subdata dims: nrow ", nrow(subdata), " ncol ", ncol(subdata)))
-        # str(subdata) works too, but produces more clutter. I started
-        # with str() and moved to dim() when I saw the problem
-  
-  # Plot the data - path + points to show the observations
-  plot <- basemap +
-    geom_path(aes(x = long, y = lat, color = name), data = subdata) + 
-    geom_point(aes(x = long, y = lat, color = name), data = subdata) + 
-    ggtitle(paste0("Category ", i, " storms in 2013"))
-  # print(plot) # Don't print plots - clutters up output at the moment
-}
-```
-
-Ok, that's something, at least. We now have some data for category 1 storms...
-
-```{r hurricane-tracks-debugging-3}
-filter(storms, year == 2013) %>%
-  # Get max category for each named storm
-  group_by(name) %>%
-  filter(category == max(category)) %>%
-  ungroup() %>%
-  # See what categories exist
-  select(name, category) %>%
-  unique()
-```
-
-It looks like 2013 was just an incredibly quiet year for tropical activity. 
-
-2004, however, was not. So let's just make sure our code works by checking out 2004. 
-
-```{r hurricane-tracks-debugging-4, error = T}
-for (i in 1:5) {
-  print(paste0("Category ", i, " storms"))
-  # Subset the data
-  subdata <- storms %>%
-    filter(year == 2004) %>%
-    filter(category == i)
-  
-  print(paste0("subdata dims: nrow ", nrow(subdata), " ncol ", ncol(subdata)))
-        # str(subdata) works too, but produces more clutter. I started
-        # with str() and moved to dim() when I saw the problem
-  
-  # Plot the data - path + points to show the observations
-  plot <- basemap +
-    geom_path(aes(x = long, y = lat, color = name), data = subdata) + 
-    geom_point(aes(x = long, y = lat, color = name), data = subdata) + 
-    ggtitle(paste0("Category ", i, " storms in 2013"))
-  print(plot) # Don't print plots - clutters up output at the moment
-}
-```
-
-If we want to only print informative plots, we could add an if statement. Now that the code works, we can also comment out our print() statements (we could delete them, too, depending on whether we anticipate future problems with the code). 
-
-
-```{r hurricane-tracks-debugging-5, error = T}
-for (i in 1:5) {
-  # print(paste0("Category ", i, " storms"))
-  
-  # Subset the data
-  subdata <- storms %>%
-    filter(year == 2013) %>%
-    filter(category == i)
-  
-  # print(paste0("subdata dims: nrow ", nrow(subdata), " ncol ", ncol(subdata)))
-  #       # str(subdata) works too, but produces more clutter. I started
-  #       # with str() and moved to dim() when I saw the problem
-  
-  # Plot the data - path + points to show the observations
-  plot <- basemap +
-    geom_path(aes(x = long, y = lat, color = name), data = subdata) + 
-    geom_point(aes(x = long, y = lat, color = name), data = subdata) + 
-    ggtitle(paste0("Category ", i, " storms in 2013"))
-  
-  if (nrow(subdata) > 0) print(plot) 
-}
-```
-</details>
-
-### After an error has occurred - `traceback()`
-
-`traceback()` can help you narrow down where an error occurs by taking you through the series of function calls that led up to the error. This can help, but it can also be pretty arcane. 
-
-<details><summary>`traceback()` example</summary>
-```{r traceback-demo, error = T}
-a <- function(x) {
-  b <- function(y) {
-    c <- function(z) {
-     stop('there was a problem')  # This generates an error
-    }
-    c()
-  }
-  b()
-}
-
-a()
-```
-
-For more information, you could run traceback
-```{r traceback-demo2, eval = F}
-traceback()
-```
-
-Which will provide the following output:
-```
-4: stop("there was a problem") at #4
-3: c() at #6
-2: b() at #8
-1: a()
-```
-
-Reading through this, we see that a() was called, b() was called, c() was called, and then there was an error. It's even kind enough to tell us that the error occurred at line 4 of the code. 
-
-If you are running this code interactively in RStudio, it's even easier to run `traceback()` by clicking on the "Show Traceback" option that appears when there is an error.
-
-```{r traceback-rerun-debug-pic, echo = F, fig.cap = "Both Show Traceback and Rerun with Debug are useful tools", out.width = "50%"}
-knitr::include_graphics("image/Rstudio_rerun_traceback.png")
-```
-
-If you are using `source()` to run the code in Rstudio, it will even provide a link to the file and line location of the error. 
-![The output of `source("code/07_debug_ex.R")` as run in RStudio. The traceback() function information contains links to the files of the functions causing the error. For instance, 07_debug_ex.R#4 text is a link to line 4 of the file.](image/Rstudio_rerun_traceback_source.png)
-</details>
-
-### `browser()` - debugging your own code, interactively
-
-The `browser()` function is useful for debugging your own code. If you're writing a function and something isn't working quite right, you can insert a call to `browser()` in that function, and examine what's going on. 
-
-<details><summary>Example of using browser()</summary>
-Suppose that I want to write a function that will plot an xkcd comic in R. 
-
-I start with 
-```{r browser-demo}
-library(png)
-library(xml2)
-
-# get the most current xkcd
-get_xkcd <- function(id = NULL) {
-  url <- "http://xkcd.com"
-  page <- read_html(url)
-  # Find the comic
-  image <- xml_find_first(page, "//div[@id='comic']/img") %>%
-    # pull the address out of the tag
-    xml_attr("src")
-  
-  
-  readPNG(source = image)
-}
-```
-
-Watch this live-coding video to see how I use browser() to figure out what's going on in the function and how to fix it. [Vidgrid link](https://use.vg/j9CVIw). [Alternate YouTube Link](https://youtu.be/YlMAAjRA7rM)
-
-Here's the final function
-```{r browser-demo-2}
-library(png)
-library(xml2)
-
-# get the most current xkcd
-get_xkcd <- function(id = NULL) {
-  
-  url <- "http://xkcd.com"
-  page <- read_html(url)
-  # Find the comic
-  image <- xml_find_first(page, "//div[@id='comic']/img") %>%
-    # pull the address out of the tag
-    xml_attr("src")
-  
-  # Fix image address so that we can access the image
-  image <- substr(image, 3, nchar(image))
-  
-  # Download the file to a temp file and read from there
-  file_location <- tempfile(fileext = ".png")
-  download.file(image, destfile = file_location, quiet = T)
-  
-  readPNG(source = file_location)
-}
-
-get_xkcd() %>%
-  as.raster() %>%
-  plot()
-```
-</details>
-
-#### Try it out {- .tryitout}
-Each xkcd has a corresponding ID number (ordered sequentially from 1 to 2328 at the time this was written). Modify the XKCD function above to make use of the id parameter, so that you can pass in an ID number and get the relevant comic. Use browser() to help you figure out what logic you need to add. You should not need to change the web scraping code - the only change should be to the URL. 
-What things might you add to make this function "defensive programming" compatible? 
-
-<details><summary>Solution</summary>
-```{r xkcd-tryitout-solution}
-# get the most current xkcd or the specified number
-get_xkcd <- function(id = NULL) {
-  if (is.null(id)) {
-    # Have to get the location of the image ourselves
-    url <- "http://xkcd.com"
-  } else if (is.numeric(id)) {
-    url <- paste0("http://xkcd.com/", id, "/")
-  } else {
-    # only allow numeric or null input
-    stop("To get current xkcd, pass in NULL, otherwise, pass in a valid comic number")
-  }
-
-  page <- read_html(url)
-  # Find the comic
-  image <- xml_find_first(page, "//div[@id='comic']/img") %>%
-    # pull the address out of the tag
-    xml_attr("src")
-  # Fix image address so that we can access the image
-  image <- substr(image, 3, nchar(image)) # cut the first 2 characters off
-
-  # make temp file
-  location <- tempfile(fileext = "png")
-  download.file(image, destfile = location, quiet = T)
-
-  # This checks to make sure we saved the file correctly
-  if (file.exists(location)) {
-    readPNG(source = location)
-  } else {
-    # Give a good informative error message
-    stop(paste("Something went wrong saving the image at ", image, " to ", location))
-  }
-}
-
-get_xkcd(2259) %>%
-  as.raster() %>% 
-  plot()
-```
-</details>
-
-### `debug()` - the general debugging workhorse
-
-In the `traceback()` Rstudio output, the other option is "rerun with debug". In short, debug mode opens up a new interactive session inside the function evaluation environment. This lets you observe what's going on in the function, pinpoint the error (and what causes it), and potentially fix the error, all in one neat workflow. 
-
-`debug()` is most useful when you're working with code that you didn't write yourself. So, if you can't change the code in the function causing the error, `debug()` is the way to go. Otherwise, using `browser()` is generally easier. Essentially, `debug()` places a `browser()` statement at the first line of a function, but without having to actually alter the function's source code. 
-
-<details><summary>Example of using debug </summary>
-```{r debug-demo, error = T}
-data(iris)
-
-tmp <- lm(Species ~ ., data = iris)
-summary(tmp)
-```
-We get this weird warning, and then an error about factors when we use summary() to look at the coefficients. 
-
-```{r debug-demo2, eval = F}
-debug(lm) # turn debugging on
-
-
-tmp <- lm(Species ~ ., data = iris)
-summary(tmp)
-
-undebug(lm) # turn debugging off)
-```
-
-![The first thing I see when I run lm after turning on debug (screenshot)](image/07_debug_init.png)
-
-![The variables passed into the lm function are available as named and used in the function. In addition, we have some handy buttons in the console window that will let us 'drive' through the function](image/07_debug_console.png)
-
-After pressing "next" a few times, you can see that I've stepped through the first few lines of the lm function.
-
-![Stepping through the function. The arrow on the left side in the editor window shows which line of code we're currently at.](image/07_debug_console2.png)
-We can see that once we're at line 21, we get a warning about using type with a factor response, and that the warning occurs during a call to the `model.response` function. So, we've narrowed our problem down - we passed in a numeric variable as the response (y) variable, but it's a factor, so our results aren't going to mean much. We were using the function wrong.
-
-We probably could have gotten there from reading the error message carefully, but this has allowed us to figure out exactly what happened, where it happened, and why it happened. 
-
-![I can hit "Stop" or type "Q" to exit the debug environment.](image/07_debug_console_exit.png)
-
-But, until I run `undebug(lm)`, every call to `lm` will take me into the debug window. 
-</details>
-
-`undebug(f)` will remove the debug flag on the function `f`. `debugonce(f)` will only debug f the first time it is run. 
-
-
-### Try it out {- .tryitout}
-larger(x, y) is supposed to return the elementwise maximum of two vectors. 
-
-```{r debug-demo-tryitout}
-larger <- function(x, y) { 
-  y.is.bigger <- y > x 
-  x[y.is.bigger] <- y[y.is.bigger] 
-  x
-} 
-
-larger(c(1, 5, 10), c(2, 4, 11))
-```
-```{r}
-larger(c(1, 5, 10), 6)
-```
-Why is there an NA in the second example? It should be a 6. Figure out why this happens, then try to fix it. 
-
-<details><summary>Solution</summary>
-I'll replicate "debug" in non-interactive mode by setting up an environment where x and y are defined
-```{r debug-demo-tryitout-solution}
-
-x <- c(1, 5, 10)
-y <- 6
-
-# Inside of larger() with x = c(1, 5, 10), y = 6
-(y.is.bigger <- y > x ) # putting something in () prints it out
-y[y.is.bigger] # This isn't quite what we were going for, but it's what's causing the issue
-x[y.is.bigger] # What gets replaced
-
-
-# Better option
-larger <- function(x, y) { 
-  y.is.bigger <- y > x 
-  ifelse(y.is.bigger, y, x)
-} 
-
-```
-
-</details>
-
 
 
 ## Minimal Working (or Reproducible) Examples
@@ -814,6 +306,14 @@ Then, I had to tinker with the book a bit to figure out if there were easier way
 
 #### Python/Quarto
 
+While converting the book from Rmarkdown to quarto, I ran into an issue setting up GitHub Actions (basically, when I push changes, GitHub rebuilds the book from scratch automatically). 
+
+
+I found an issue describing the same segfault issue I had been getting, and so I made a [post there](https://github.com/rstudio/reticulate/issues/1133) with a new github repository containing a [minimal working example](https://github.com/srvanderplas/test-quarto) that I set up to test the problem. 
+
+Within 24h, I had gotten replies from people working at RStudio, and one of them had [diagnosed the problem](https://github.com/rstudio/reticulate/issues/1133#issuecomment-1021783041). After I asked a few more questions, one of them submitted a pull request to my repository with a solution.
+
+I didn't know enough python or enough about GitHub Actions to diagnose the problem myself, but because I managed to create a reproducible example, I got the answers I needed from people with more experience.
 
 :::
 
@@ -822,3 +322,666 @@ Then, I had to tinker with the book a bit to figure out if there were easier way
 
 Use [this list of StackOverflow posts](files/Debugging_exercise.qmd) to try out your new debugging techniques. Can you figure out what's wrong? What information would you need from the poster in order to come up with a solution?
 :::
+
+
+
+
+
+## Debugging Tools
+
+Now that we've discussed general strategies for debugging that will work in any language, lets get down to the dirty details of debugging. 
+
+### Low tech debugging with print() and other tools
+Sometimes called "tracing" techniques, the most common, universal, and low tech strategy for debugging involves scattering messages throughout your code. When the code is executed, you get a window into what the variables look like during execution.
+
+This is called **print debugging** and it is an incredibly useful tool.
+
+::: callout-caution
+#### Example: Nested Functions
+
+::: panel-tabset
+#### R
+Imagine we start with this:
+
+```{r print-debugging-r}
+x = 1
+y = 2
+z = 0
+
+aa <- function(x) {
+  bb <- function(y) {
+    cc <- function(z) {
+      z + y
+    }
+    cc(3) + 2
+  }
+  x + bb(4)
+}
+
+aa(5)
+```
+
+and the goal is to understand what's happening in the code. We might add some lines:
+
+```{r print-debugging-r2}
+x = 1
+y = 2
+z = 0
+
+aa <- function(x) {
+  print(paste("Entering aa(). x = ", x))
+  bb <- function(y) {
+    print(paste("Entering bb(). x = ", x, "y = ", y))
+    cc <- function(z) {
+      print(paste("Entering cc(). x = ", x, "y = ", y, "z = ", z))
+      cres <- z + y
+      print(paste("Returning", cres, "from cc()"))
+      cres
+    }
+    bres <- cc(3) + 2
+    print(paste("Returning", bres, "from bb()"))
+    bres
+  }
+  ares <- x + bb(4)
+  print(paste("Returning",ares, "from aa()"))
+  ares
+}
+
+aa(5)
+```
+
+#### Python
+Imagine we start with this:
+
+```{python print-debugging-py}
+x = 1
+y = 2
+z = 0
+
+def aa(x):
+  def bb(y):
+    def cc(z):
+      return z + y
+    return cc(3) + 2
+  return x + bb(4)
+
+aa(5)
+```
+
+
+and the goal is to understand what's happening in the code. We might add some lines:
+
+```{python print-debugging-py2}
+x = 1
+y = 2
+z = 0
+
+def aa(x):
+  print("Entering aa(). x = " + str(x))
+  def bb(y):
+    print("Entering bb(). x = " + str(x) + ", y = " + str(y))
+    def cc(z):
+      print("Entering cc(). x = " + str(x) + ", y = " + str(y) + ", z = " + str(z))
+      cres = z + y
+      print("Returning " + str(cres) + " from cc()")
+      return cres
+    bres = cc(3) + 2
+    print("Returning " + str(bres) + " from bb()")
+    return bres
+  ares = x + bb(4)
+  print("Returning " + str(ares) + " from aa()")
+  return ares
+
+aa(5)
+
+```
+:::
+
+:::
+
+For more complex data structures, it can be useful to add `str()`, `head()`, or `summary()` functions. 
+
+::: callout-caution
+#### Real world example: Web Scraping
+
+In fall 2020, when I started teaching 850, I wrote a webscraper to get election polling data from the RealClearPolitics site as part of the [`electionViz` package](github.com/heike/electionViz). I wrote the function `search_for_parent()` to get the parent HTML tag which matched the "tag" argument, that had the "node" argument as a descendant. I used print debugging to show the sequence of tags on the page.
+
+I was assuming that the order of the parents would be "html", "body", "div", "table", "tbody", "tr" - descending from outer to inner (if you know anything about HTML/XML structure). 
+
+To prevent the site from changing on me (as websites tend to do...), I've saved the HTML file [here](data/realclearpolitics_frag.html).
+
+::: panel-tabset
+##### R
+
+```{r real-world-debugging-r}
+library(xml2) # read html
+
+search_for_parent <- function(node, tag) {
+  # Get all of the parent nodes 
+  parents <- xml2::xml_parents(node)
+  # Get the tags of every parent node
+  tags <- purrr::map_chr(parents, rvest::html_name)
+  print(tags)
+  
+  # Find matching tags
+  matches <- which(tags == tag)
+  print(matches)
+  
+  # Take the minimum matching tag
+  min_match <- min(matches)
+  if (length(matches) == 1) return(parents[min_match]) else return(NULL)
+}
+
+page <- read_html("data/realclearpolitics_frag.html")
+poll_results <- xml_find_all(page, "//td[@class='lp-results']") # find all poll results in any table
+search_for_parent(poll_results[1], "table") # find the table that contains it
+```
+
+##### Python
+You may need to `pip install lxml requests bs4` to run this code. 
+```{python real-world-debugging-py}
+# !pip install lxml requests bs4
+from bs4 import BeautifulSoup
+import requests as req
+import numpy as np
+
+
+def search_for_parent(node, tag):
+  # Get all of the parent nodes
+  parents = node.find_parents()
+  # get tag type for each parent node
+  tags = [x.name for x in parents]
+  print(tags)
+  
+  # Find matching tags
+  matches = np.array([i for i, val in enumerate(tags) if val == tag])
+  print(matches)
+  
+  # Take the minimum matching tag
+  min_match = np.min(matches)
+  if matches.size == 1:
+    ret = parents[min_match]
+  
+  return ret
+
+
+html_file = open('data/realclearpolitics_frag.html', 'r')
+page = html_file.read() 
+# Read the page as HTML
+soup = BeautifulSoup(page, 'html')
+# Find all poll results in any table
+poll_results = soup.findAll('td', {'class': 'lp-results'})
+# Find the table that contains the first poll result
+search_for_parent(poll_results[0], 'table')
+```
+:::
+
+By printing out all of the tags that contain `node`, I could see the order -- inner to outer. I asked the function to return the location of the first table node, so the index (2nd value printed out) should match table in the character vector that was printed out first. I could then see that the HTML node that is returned is in fact the table node. 
+
+::: callout-tip
+#### Try it out: Hurricanes in R
+
+Not all bugs result in error messages, unfortunately, which makes higher-level techniques like `traceback()` less useful. The low-tech debugging tools, however, still work wonderfully. 
+
+::: panel-tabset
+
+##### Setup
+```{r setup-debug-code, message = F, warning = F}
+library(ggplot2)
+library(dplyr)
+library(magrittr)
+library(maps)
+library(ggthemes)
+worldmap <- map_data("world")
+
+# Load the data
+data(storms, package = "dplyr")
+```
+
+##### Buggy code
+
+The code below is supposed to print out a map of the tracks of all hurricanes of a specific category, 1 to 5, in 2013. Use print statements to figure out what's wrong with my code. 
+
+```{r map-hurricane-tracks, message = F, warning = F, out.width = "18%"}
+# Make base map to be used for each iteration
+basemap <-  ggplot() + 
+  # Country shapes
+  geom_polygon(aes(x = long, y = lat, group = group), 
+               data = worldmap, fill = "white", color = "black") + 
+  # Zoom in 
+  coord_quickmap(xlim = c(-100, -10), ylim = c(10, 50)) + 
+  # Don't need scales b/c maps provide their own geographic context...
+  theme_map()
+
+for (i in 1:5) {
+  # Subset the data
+  subdata <- storms %>%
+    filter(year == 2013) %>%
+    filter(status == i)
+  
+  # Plot the data - path + points to show the observations
+  plot <- basemap +
+    geom_path(aes(x = long, y = lat, color = name), data = subdata) + 
+    geom_point(aes(x = long, y = lat, color = name), data = subdata) + 
+    ggtitle(paste0("Category ", i, " storms in 2013"))
+  print(plot)
+}
+
+
+```
+
+##### Solution 1: Identification
+First, lets split the setup from the loop. 
+```{r map-hurricane-tracks-setup, error = T}
+# Make base map to be used for each iteration
+basemap <-  ggplot() + 
+  # Country shapes
+  geom_polygon(aes(x = long, y = lat, group = group), 
+               data = worldmap, fill = "white", color = "black") + 
+  # Zoom in 
+  coord_quickmap(xlim = c(-100, -10), ylim = c(10, 50)) + 
+  # Don't need scales b/c maps provide their own geographic context...
+  theme_map()
+
+print(basemap) # make sure the basemap is fine
+
+# Load the data
+data(storms, package = "dplyr")
+
+str(storms) # make sure the data exists and is formatted as expected
+```
+
+Everything looks ok in the setup chunk...
+
+```{r map-hurricane-tracks-loop}
+for (i in 1:5) {
+  print(paste0("Category ", i, " storms"))
+  # Subset the data
+  subdata <- storms %>%
+    filter(year == 2013) %>%
+    filter(status == i)
+  
+  print(paste0("subdata dims: nrow ", nrow(subdata), " ncol ", ncol(subdata)))
+        # str(subdata) works too, but produces more clutter. I started
+        # with str() and moved to dim() when I saw the problem
+  
+  # Plot the data - path + points to show the observations
+  plot <- basemap +
+    geom_path(aes(x = long, y = lat, color = name), data = subdata) + 
+    geom_point(aes(x = long, y = lat, color = name), data = subdata) + 
+    ggtitle(paste0("Category ", i, " storms in 2013"))
+  # print(plot) # Don't print plots - clutters up output at the moment
+}
+```
+
+Ok, so from this we can see that something is going wrong with our filter statement - we have no rows of data.
+
+##### Solution 2: Fixing the problem
+
+```{r hurricane-tracks-debugging-head}
+head(storms)
+```
+
+Whoops. I meant "category" when I typed "status". 
+
+```{r hurricane-tracks-debugging-loop2, error = T}
+for (i in 1:5) {
+  print(paste0("Category ", i, " storms"))
+  # Subset the data
+  subdata <- storms %>%
+    filter(year == 2013) %>%
+    filter(category == i)
+  
+  print(paste0("subdata dims: nrow ", nrow(subdata), " ncol ", ncol(subdata)))
+        # str(subdata) works too, but produces more clutter. I started
+        # with str() and moved to dim() when I saw the problem
+  
+  # Plot the data - path + points to show the observations
+  plot <- basemap +
+    geom_path(aes(x = long, y = lat, color = name), data = subdata) + 
+    geom_point(aes(x = long, y = lat, color = name), data = subdata) + 
+    ggtitle(paste0("Category ", i, " storms in 2013"))
+  # print(plot) # Don't print plots - clutters up output at the moment
+}
+```
+
+Ok, that's something, at least. We now have some data for category 1 storms...
+
+```{r hurricane-tracks-debugging-3}
+filter(storms, year == 2013) %>%
+  # Get max category for each named storm
+  group_by(name) %>%
+  filter(category == max(category)) %>%
+  ungroup() %>%
+  # See what categories exist
+  select(name, category) %>%
+  unique()
+```
+
+It looks like 2013 was just an incredibly quiet year for tropical activity. 
+
+##### Solution 3: Verifying it works
+
+2013 may have been a quiet year for tropical activity in the Atlantic, but 2004 was not. 
+So let's just make sure our code works by checking out 2004. 
+
+```{r hurricane-tracks-debugging-4, error = T}
+for (i in 1:5) {
+  print(paste0("Category ", i, " storms"))
+  # Subset the data
+  subdata <- storms %>%
+    filter(year == 2004) %>%
+    filter(category == i)
+  
+  print(paste0("subdata dims: nrow ", nrow(subdata), " ncol ", ncol(subdata)))
+        # str(subdata) works too, but produces more clutter. I started
+        # with str() and moved to dim() when I saw the problem
+  
+  # Plot the data - path + points to show the observations
+  plot <- basemap +
+    geom_path(aes(x = long, y = lat, color = name), data = subdata) + 
+    geom_point(aes(x = long, y = lat, color = name), data = subdata) + 
+    ggtitle(paste0("Category ", i, " storms in 2013"))
+  print(plot) # Don't print plots - clutters up output at the moment
+}
+```
+
+If we want to only print informative plots, we could add an if statement. Now that the code works, we can also comment out our print() statements (we could delete them, too, depending on whether we anticipate future problems with the code). 
+
+
+```{r hurricane-tracks-debugging-5, error = T}
+for (i in 1:5) {
+  # print(paste0("Category ", i, " storms"))
+  
+  # Subset the data
+  subdata <- storms %>%
+    filter(year == 2013) %>%
+    filter(category == i)
+  
+  # print(paste0("subdata dims: nrow ", nrow(subdata), " ncol ", ncol(subdata)))
+  #       # str(subdata) works too, but produces more clutter. I started
+  #       # with str() and moved to dim() when I saw the problem
+  
+  # Plot the data - path + points to show the observations
+  plot <- basemap +
+    geom_path(aes(x = long, y = lat, color = name), data = subdata) + 
+    geom_point(aes(x = long, y = lat, color = name), data = subdata) + 
+    ggtitle(paste0("Category ", i, " storms in 2013"))
+  
+  if (nrow(subdata) > 0) print(plot) 
+}
+```
+:::
+
+
+Once you've found your problem, go back and delete or comment out your print statements, as they're no longer necessary. If you think you may need them again, comment them out, otherwise, just delete them so that your code is neat, clean, and concise.
+
+
+### After an error has occurred - `traceback()`
+
+`traceback()` can help you narrow down where an error occurs by taking you through the series of function calls that led up to the error. This may help you identify which function is actually causing the problem, which is especially useful when you have nested functions or are using package functions that depend on other packages.
+
+::: callout-caution
+#### Demo: Using traceback
+
+::: panel-tabset
+##### R
+
+```{r traceback-demo, error = T}
+aa <- function(x) {
+  bb <- function(y) {
+    cc <- function(z) {
+     stop('there was a problem')  # This generates an error
+    }
+    cc()
+  }
+  bb()
+}
+
+aa()
+```
+
+For more information, you could run traceback
+```{r traceback-demo2, eval = F}
+traceback()
+```
+
+Which will provide the following output:
+```
+4: stop("there was a problem") at #4
+3: c() at #6
+2: b() at #8
+1: a()
+```
+
+Reading through this, we see that a() was called, b() was called, c() was called, and then there was an error. It's even kind enough to tell us that the error occurred at line 4 of the code. 
+
+If you are running this code interactively in RStudio, it's even easier to run `traceback()` by clicking on the "Show Traceback" option that appears when there is an error.
+
+![Both Show Traceback and Rerun with Debug are useful tools](images/debugging/Rstudio_rerun_traceback.png){fig-width="50%"
+fig-alt="A screenshot from RStudio reading 'Error in c(): there was a problem', with buttons 'Show Traceback' and 'Rerun with Debug'"}
+
+If you are using `source()` to run the code in Rstudio, it will even provide a link to the file and line location of the error. 
+![The output of `source("code/07_debug_ex.R")` as run in RStudio. The traceback() function information contains links to the files of the functions causing the error. For instance, 07_debug_ex.R#4 text is a link to line 4 of the file.](image/Rstudio_rerun_traceback_source.png)
+
+
+##### Python
+
+```{python traceback-demo-py, error = T}
+import sys,traceback
+
+def aa(x):
+  def bb(y):
+    def cc(z):
+      try: 
+        return y + z + tuple()[0] # This generates an error
+      except IndexError:
+        exc_type, exc_value, exc_tb = sys.exc_info()
+        traceback.print_exception(exc_type, exc_value, exc_tb, file = sys.stdout)
+    return cc(3) + 2
+  return x + bb(4)
+
+aa(5)
+```
+
+Python's [traceback](https://docs.python.org/3/library/traceback.html) information is a bit more low-level and requires a bit more from the programmer than R's version.
+
+:::
+
+:::
+
+### `browser()` - debugging your own code, interactively
+
+The `browser()` function is useful for debugging your own code. If you're writing a function and something isn't working quite right, you can insert a call to `browser()` in that function, and examine what's going on. 
+
+<details><summary>Example of using browser()</summary>
+Suppose that I want to write a function that will plot an xkcd comic in R. 
+
+I start with 
+```{r browser-demo}
+library(png)
+library(xml2)
+
+# get the most current xkcd
+get_xkcd <- function(id = NULL) {
+  url <- "http://xkcd.com"
+  page <- read_html(url)
+  # Find the comic
+  image <- xml_find_first(page, "//div[@id='comic']/img") %>%
+    # pull the address out of the tag
+    xml_attr("src")
+  
+  
+  readPNG(source = image)
+}
+```
+
+Watch this live-coding video to see how I use browser() to figure out what's going on in the function and how to fix it. [Vidgrid link](https://use.vg/j9CVIw). [Alternate YouTube Link](https://youtu.be/YlMAAjRA7rM)
+
+Here's the final function
+```{r browser-demo-2}
+library(png)
+library(xml2)
+
+# get the most current xkcd
+get_xkcd <- function(id = NULL) {
+  
+  url <- "http://xkcd.com"
+  page <- read_html(url)
+  # Find the comic
+  image <- xml_find_first(page, "//div[@id='comic']/img") %>%
+    # pull the address out of the tag
+    xml_attr("src")
+  
+  # Fix image address so that we can access the image
+  image <- substr(image, 3, nchar(image))
+  
+  # Download the file to a temp file and read from there
+  file_location <- tempfile(fileext = ".png")
+  download.file(image, destfile = file_location, quiet = T)
+  
+  readPNG(source = file_location)
+}
+
+get_xkcd() %>%
+  as.raster() %>%
+  plot()
+```
+</details>
+
+#### Try it out {- .tryitout}
+Each xkcd has a corresponding ID number (ordered sequentially from 1 to 2328 at the time this was written). Modify the XKCD function above to make use of the id parameter, so that you can pass in an ID number and get the relevant comic. Use browser() to help you figure out what logic you need to add. You should not need to change the web scraping code - the only change should be to the URL. 
+What things might you add to make this function "defensive programming" compatible? 
+
+<details><summary>Solution</summary>
+```{r xkcd-tryitout-solution}
+# get the most current xkcd or the specified number
+get_xkcd <- function(id = NULL) {
+  if (is.null(id)) {
+    # Have to get the location of the image ourselves
+    url <- "http://xkcd.com"
+  } else if (is.numeric(id)) {
+    url <- paste0("http://xkcd.com/", id, "/")
+  } else {
+    # only allow numeric or null input
+    stop("To get current xkcd, pass in NULL, otherwise, pass in a valid comic number")
+  }
+
+  page <- read_html(url)
+  # Find the comic
+  image <- xml_find_first(page, "//div[@id='comic']/img") %>%
+    # pull the address out of the tag
+    xml_attr("src")
+  # Fix image address so that we can access the image
+  image <- substr(image, 3, nchar(image)) # cut the first 2 characters off
+
+  # make temp file
+  location <- tempfile(fileext = "png")
+  download.file(image, destfile = location, quiet = T)
+
+  # This checks to make sure we saved the file correctly
+  if (file.exists(location)) {
+    readPNG(source = location)
+  } else {
+    # Give a good informative error message
+    stop(paste("Something went wrong saving the image at ", image, " to ", location))
+  }
+}
+
+get_xkcd(2259) %>%
+  as.raster() %>% 
+  plot()
+```
+</details>
+
+### `debug()` - the general debugging workhorse
+<!-- https://realpython.com/python-debugging-pdb/
+-->
+In the `traceback()` Rstudio output, the other option is "rerun with debug". In short, debug mode opens up a new interactive session inside the function evaluation environment. This lets you observe what's going on in the function, pinpoint the error (and what causes it), and potentially fix the error, all in one neat workflow. 
+
+`debug()` is most useful when you're working with code that you didn't write yourself. So, if you can't change the code in the function causing the error, `debug()` is the way to go. Otherwise, using `browser()` is generally easier. Essentially, `debug()` places a `browser()` statement at the first line of a function, but without having to actually alter the function's source code. 
+
+<details><summary>Example of using debug </summary>
+```{r debug-demo, error = T}
+data(iris)
+
+tmp <- lm(Species ~ ., data = iris)
+summary(tmp)
+```
+We get this weird warning, and then an error about factors when we use summary() to look at the coefficients. 
+
+```{r debug-demo2, eval = F}
+debug(lm) # turn debugging on
+
+
+tmp <- lm(Species ~ ., data = iris)
+summary(tmp)
+
+undebug(lm) # turn debugging off
+```
+
+![The first thing I see when I run lm after turning on debug (screenshot)](images/debugging/07_debug_init.png)
+
+![The variables passed into the lm function are available as named and used in the function. In addition, we have some handy buttons in the console window that will let us 'drive' through the function](images/debugging/07_debug_console.png)
+
+After pressing "next" a few times, you can see that I've stepped through the first few lines of the lm function.
+
+![Stepping through the function. The arrow on the left side in the editor window shows which line of code we're currently at.](images/debugging/07_debug_console2.png)
+We can see that once we're at line 21, we get a warning about using type with a factor response, and that the warning occurs during a call to the `model.response` function. So, we've narrowed our problem down - we passed in a numeric variable as the response (y) variable, but it's a factor, so our results aren't going to mean much. We were using the function wrong.
+
+We probably could have gotten there from reading the error message carefully, but this has allowed us to figure out exactly what happened, where it happened, and why it happened. 
+
+![I can hit "Stop" or type "Q" to exit the debug environment.](images/debugging/07_debug_console_exit.png)
+
+But, until I run `undebug(lm)`, every call to `lm` will take me into the debug window. 
+</details>
+
+`undebug(f)` will remove the debug flag on the function `f`. `debugonce(f)` will only debug f the first time it is run. 
+
+
+::: callout-tip
+#### Try it out: Debug in R
+
+::: panel-tabset
+
+##### Problem
+`larger(x, y)` is supposed to return the elementwise maximum of two vectors. 
+
+```{r debug-demo-tryitout}
+larger <- function(x, y) { 
+  y.is.bigger <- y > x 
+  x[y.is.bigger] <- y[y.is.bigger] 
+  x
+} 
+
+larger(c(1, 5, 10), c(2, 4, 11))
+```
+```{r}
+larger(c(1, 5, 10), 6)
+```
+Why is there an NA in the second example? It should be a 6. Figure out why this happens, then try to fix it. 
+
+##### Solution
+
+I'll replicate "debug" in non-interactive mode by setting up an environment where x and y are defined
+```{r debug-demo-tryitout-solution}
+
+x <- c(1, 5, 10)
+y <- 6
+
+# Inside of larger() with x = c(1, 5, 10), y = 6
+(y.is.bigger <- y > x ) # putting something in () prints it out
+y[y.is.bigger] # This isn't quite what we were going for, but it's what's causing the issue
+x[y.is.bigger] # What gets replaced
+
+
+# Better option
+larger <- function(x, y) { 
+  y.is.bigger <- y > x 
+  ifelse(y.is.bigger, y, x)
+} 
+
+```
+
+:::
+
