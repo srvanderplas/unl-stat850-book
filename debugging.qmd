@@ -790,20 +790,31 @@ Python's [traceback](https://docs.python.org/3/library/traceback.html) informati
 
 :::
 
-### `browser()` - debugging your own code, interactively
+### Interactive Debugging
+
+::: column-margin
+<iframe width="100%" height="auto" src="https://www.youtube.com/embed/dA2ce5SA3C8" title="Using debug() in R" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+:::
+
+::: panel-tabset
+
+#### R `browser()`
 
 The `browser()` function is useful for debugging your own code. If you're writing a function and something isn't working quite right, you can insert a call to `browser()` in that function, and examine what's going on. 
 
-<details><summary>Example of using browser()</summary>
+::: callout-caution
+##### Example of using browser()
+
 Suppose that I want to write a function that will plot an xkcd comic in R. 
 
 I start with 
-```{r browser-demo}
+```{r browser-demo, error = T}
 library(png)
 library(xml2)
+library(dplyr)
 
 # get the most current xkcd
-get_xkcd <- function(id = NULL) {
+get_xkcd <- function() {
   url <- "http://xkcd.com"
   page <- read_html(url)
   # Find the comic
@@ -814,17 +825,18 @@ get_xkcd <- function(id = NULL) {
   
   readPNG(source = image)
 }
+
+get_xkcd() %>%
+  as.raster() %>%
+  plot()
 ```
-
-Watch this live-coding video to see how I use browser() to figure out what's going on in the function and how to fix it. [Vidgrid link](https://use.vg/j9CVIw). [Alternate YouTube Link](https://youtu.be/YlMAAjRA7rM)
-
 Here's the final function
 ```{r browser-demo-2}
 library(png)
 library(xml2)
 
 # get the most current xkcd
-get_xkcd <- function(id = NULL) {
+get_xkcd <- function() {
   
   url <- "http://xkcd.com"
   page <- read_html(url)
@@ -847,13 +859,124 @@ get_xkcd() %>%
   as.raster() %>%
   plot()
 ```
-</details>
+:::
 
-#### Try it out {- .tryitout}
-Each xkcd has a corresponding ID number (ordered sequentially from 1 to 2328 at the time this was written). Modify the XKCD function above to make use of the id parameter, so that you can pass in an ID number and get the relevant comic. Use browser() to help you figure out what logic you need to add. You should not need to change the web scraping code - the only change should be to the URL. 
+
+#### Python
+
+In python, the equivalent interactive debugger is `ipdb`. You can install it with `pip install ipdb`.
+
+If you want to run Python in the interactive ipython console, then you can invoke the ipdb debugging with `%debug get_xkcd()`. This is similar to `browser()` in R. If you're working in Python in RStudio, though, you have to get into debug mode in a more involved way.
+
+To run code using `ipdb` when your code hits an error, add `
+from ipdb import launch_ipdb_on_exception` to the top of your python code chunk. Then, at the bottom, put any lines that may trigger the error after these two lines:
+
+```
+if __name__ == "__main__":
+  with launch_ipdb_on_exception():
+    <your properly indented code goes here>
+```
+
+This ensures that ipdb is launched when an error is reached.
+
+
+::: callout-caution
+##### Example using `ipdb`
+Suppose that I want to write a function that will plot an xkcd comic in python. 
+
+I start with 
+```{python browser-demo-py, error = T}
+from bs4 import BeautifulSoup
+import urllib.request # work with html
+from PIL import Image # work with images
+import numpy as np
+
+# importing pyplot and image from matplotlib
+import matplotlib.pyplot as plt
+import matplotlib.image as img
+
+# get the most current xkcd
+def get_xkcd():
+  url = "http://xkcd.com"
+  
+  # Get the URL
+  html_file = urllib.request.urlopen(url)
+  page = html_file.read() 
+  decode_page = page.decode("utf8")
+  
+  # Read the page as HTML
+  soup = BeautifulSoup(decode_page, 'html')
+  
+  # Get the comic src from the img tag
+  imlink = soup.select('#comic > img')[0].get('src')
+  # Format as a numpy array
+  image = np.array(Image.open(urllib.request.urlopen(imlink)))
+  
+  return image
+
+plt.imshow(get_xkcd())
+plt.show()
+
+```
+
+Here's the final function
+
+```{python browser-demo-py2, error = T}
+from bs4 import BeautifulSoup
+import urllib.request # work with html
+from PIL import Image # work with images
+import numpy as np
+
+# importing pyplot and image from matplotlib
+import matplotlib.pyplot as plt
+import matplotlib.image as img
+
+# get the most current xkcd
+def get_xkcd():
+  url = "http://xkcd.com"
+  
+  # Get the URL
+  html_file = urllib.request.urlopen(url)
+  page = html_file.read() 
+  decode_page = page.decode("utf8")
+  
+  # Read the page as HTML
+  soup = BeautifulSoup(decode_page, 'html')
+  
+  # Get the comic src from the img tag
+  imlink = soup.select('#comic > img')[0].get('src')
+  # Format as a numpy array
+  image = np.array(Image.open(urllib.request.urlopen('https:' + imlink)))
+  
+  return image
+
+plt.imshow(get_xkcd())
+plt.show()
+```
+
+
+::: column-margin
+<iframe width="100%" height="auto" src="https://www.youtube.com/embed/zGRsLLWGVR0" title="Using ipdb in python" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+:::
+
+:::
+
+:::
+
+::: callout-tip
+#### Try it out 
+
+::: panel-tabset
+
+##### Problem
+Each xkcd has a corresponding ID number (ordered sequentially from 1 to 2328 at the time this was written). Modify the XKCD functions above to make use of the id parameter, so that you can pass in an ID number and get the relevant comic. 
+
+Use interactive debugging tools to help you figure out what logic you need to add. You should not need to change the web scraping code - the only change should be to the URL. 
+
 What things might you add to make this function "defensive programming" compatible? 
 
-<details><summary>Solution</summary>
+##### R Solution
+
 ```{r xkcd-tryitout-solution}
 # get the most current xkcd or the specified number
 get_xkcd <- function(id = NULL) {
@@ -892,16 +1015,86 @@ get_xkcd(2259) %>%
   as.raster() %>% 
   plot()
 ```
-</details>
 
-### `debug()` - the general debugging workhorse
-<!-- https://realpython.com/python-debugging-pdb/
--->
+##### Python Solution
+
+
+```{python tryitout-xkcd-solution-py, error = T}
+from bs4 import BeautifulSoup
+import urllib.request # work with html
+from PIL import Image # work with images
+import numpy as np
+
+# importing pyplot and image from matplotlib
+import matplotlib.pyplot as plt
+import matplotlib.image as img
+
+# get the most current xkcd
+def get_xkcd(id=''):
+  image = 0 # Defining a placeholder
+  
+  if id == '':
+    # Have to get the location of the image ourselves
+    url = "http://xkcd.com"
+  elif id.isnumeric():
+    url = "http://xkcd.com/" + id + "/"
+  else:
+    # only allow numeric or null input
+    raise TypeError("To get current xkcd, pass in an empty string, otherwise, pass in a valid integer comic number")
+  
+  # Print debugging left in for your amusement
+  # print(type(id))
+  
+  # Get the URL
+  html_file = urllib.request.urlopen(url)
+  page = html_file.read() 
+  decode_page = page.decode("utf8")
+  
+  # Read the page as HTML
+  soup = BeautifulSoup(decode_page, 'html')
+  
+  # Get the comic src from the img tag
+  imnode = soup.select('#comic > img')
+  
+  try:
+    imlink = imnode[0].get('src')
+  except:
+    raise Exception("No comic could be found with number " + id + " (url = "+ url+ " )")
+  
+  try: 
+    # Format as a numpy array
+    image = np.array(Image.open(urllib.request.urlopen('https:' + imlink)))
+    return image
+  except: 
+    raise Exception("Reading the image failed. Check to make sure an image exists at " + url)
+    return(None)
+
+```
+
+```{python tryitout-xkcd-py2, collapse = F}
+res = get_xkcd('')
+plt.imshow(res)
+plt.show()
+
+res = get_xkcd('2500')
+
+res = get_xkcd('abcd')
+```
+
+
+:::
+
+
+
+### R `debug()`
+
 In the `traceback()` Rstudio output, the other option is "rerun with debug". In short, debug mode opens up a new interactive session inside the function evaluation environment. This lets you observe what's going on in the function, pinpoint the error (and what causes it), and potentially fix the error, all in one neat workflow. 
 
 `debug()` is most useful when you're working with code that you didn't write yourself. So, if you can't change the code in the function causing the error, `debug()` is the way to go. Otherwise, using `browser()` is generally easier. Essentially, `debug()` places a `browser()` statement at the first line of a function, but without having to actually alter the function's source code. 
 
-<details><summary>Example of using debug </summary>
+::: {.callout-caution collapse=true}
+#### `debug()` example
+
 ```{r debug-demo, error = T}
 data(iris)
 
@@ -934,13 +1127,14 @@ We probably could have gotten there from reading the error message carefully, bu
 ![I can hit "Stop" or type "Q" to exit the debug environment.](images/debugging/07_debug_console_exit.png)
 
 But, until I run `undebug(lm)`, every call to `lm` will take me into the debug window. 
-</details>
+
+:::
 
 `undebug(f)` will remove the debug flag on the function `f`. `debugonce(f)` will only debug f the first time it is run. 
 
 
 ::: callout-tip
-#### Try it out: Debug in R
+#### Try it out: `debug` in R
 
 ::: panel-tabset
 
