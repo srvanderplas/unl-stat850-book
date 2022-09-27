@@ -13,7 +13,7 @@ In this section, we're going start learning how to work with data. Generally spe
 
 Some people call the process of cleaning and organizing your data "data wrangling", which is a fantastic way to think about chasing down all of the issues in the data. 
 
-![Data wrangling (by Allison Horst)](https://raw.githubusercontent.com/allisonhorst/stats-illustrations/master/rstats-artwork/data_cowboy.png)
+![Data wrangling (by Allison Horst)](https://raw.githubusercontent.com/allisonhorst/stats-illustrations/main/rstats-artwork/data_cowboy.png)
 
 In R, we'll be using the `tidyverse` for this. It's a meta-package (a package that just loads other packages) that collects packages designed with the same philosophy^[The philosophy includes a preference for pipes, but this preference stems from the belief that code should be readable in the same way that text is readable.] and interface (basically, the commands will use predictable argument names and structure). You've already been introduced to parts of the tidyverse - specifically, `readr` and `ggplot2`. 
 
@@ -33,7 +33,7 @@ I haven't had the chance to add the `datar` package to this book, but it looks p
 
 ::: {.callout-note}
 
-[There is an excellent dplyr cheatsheet available from RStudio](https://github.com/rstudio/cheatsheets/blob/master/data-transformation.pdf). You may want to print it out to have a copy to reference as you work through this chapter.
+[There is an excellent dplyr cheatsheet available from RStudio](https://github.com/rstudio/cheatsheets/blob/main/data-transformation.pdf). You may want to print it out to have a copy to reference as you work through this chapter.
 
 [Here is a data wrangling with pandas cheatsheet](https://pandas.pydata.org/Pandas_Cheat_Sheet.pdf) that is formatted similarly to the dplyr cheat sheet.
 
@@ -59,7 +59,7 @@ Filter allows us to work with a subset of a larger data frame, keeping only the 
 
 
 ::: {.callout-caution}
-
+### Example: starwars
 
 Let's explore how it works, using the `starwars` dataset, which contains a comprehensive list of the characters in the Star Wars movies. 
 
@@ -74,7 +74,7 @@ write_csv(starwars[,1:11], "data/starwars.csv")
 ```
 
 ::: panel-tabset
-### R {-}
+#### R {-}
 
 This data set is included in the `dplyr` package, so we load that package and then use the `data()` function to load dataset into memory. The loading isn't complete until we actually use the dataset though... so let's print the first few rows. 
 
@@ -84,7 +84,7 @@ data(starwars)
 starwars
 ```
 
-### Python {-}
+#### Python {-}
 
 We have to use the exported CSV data in python.
 
@@ -103,7 +103,7 @@ Once the data is set up, filtering the data (selecting certain **rows**) is actu
 
 ::: panel-tabset
 
-### R: `dplyr`
+#### R: `dplyr`
 
 The dplyr verb for selecting rows is `filter`. `filter` takes a set of one or more logical conditions, using bare column names and logical operators. Each provided condition is combined using AND.
 
@@ -116,7 +116,7 @@ filter(starwars, species == "Human", homeworld == "Tatooine")
 ```
 
 
-### Python
+#### Python
 
 ```{python py-filter-data}
 # Get only the people
@@ -129,7 +129,7 @@ starwars.query("species == 'Human' & homeworld == 'Tatooine'")
 # starwars.query("species == 'Human'").query("homeworld == 'Tatooine'")
 ```
 
-### Base R
+#### Base R
 
 In base R, you would perform a filtering operation using `subset`
 
@@ -293,6 +293,7 @@ poke[order(poke$total_points, decreasing = T)[1:round(nrow(poke)*.01)],]
 :::
 
 ::: {.callout-tip}
+
 ### Try it out: Filtering
 
 ::: panel-tabset
@@ -335,6 +336,7 @@ subset(poke, type_1 == "Water" | type_2 == "Water")
 
 :::
 
+:::
 
 
 ## Select: Pick columns
@@ -353,7 +355,7 @@ So as with just about every other tidyverse function, the first argument in a se
 
 So what can go in there?
 
-::: {.callout-collapse}
+::: {.callout-note collapse=true}
 
 #### An exhaustive(?) list of ways to select variables in `dplyr`
 
@@ -527,12 +529,12 @@ This is less convenient than `dplyr::everything` in part because it depends on u
 :::
 
 
-::: callout-note callout-collapse
+::: {.callout-note callout-collapse=true}
 ### dplyr::relocate
 
 Another handy `dplyr` function is `relocate`; while you definitely can do this operation in many, many different ways, it may be simpler to do it using relocate. But, I'm covering relocate here mostly because it also comes with this amazing cartoon illustration.
 
-![relocate lets you rearrange columns (by Allison Horst)](https://github.com/allisonhorst/stats-illustrations/raw/master/rstats-artwork/dplyr_relocate.png)
+![relocate lets you rearrange columns (by Allison Horst)](https://github.com/allisonhorst/stats-illustrations/raw/main/rstats-artwork/dplyr_relocate.png)
 
 ```{r relocate-dplyr}
 # Move flight specific info to the front
@@ -550,7 +552,7 @@ flights %>% relocate(where(is.numeric))
 Up to this point, we've been primarily focusing on how to decrease the dimensionality of our dataset in various ways. But frequently, we also need to add columns for derived measures (e.g. BMI from weight and height information), change units, and replace missing or erroneous observations. The tidyverse verb for this is `mutate`, but in base R and python, we'll simply use assignment to add columns to our data frames.
 
 
-![Mutate (by Allison Horst)](https://github.com/allisonhorst/stats-illustrations/raw/master/rstats-artwork/dplyr_mutate.png)
+![Mutate (by Allison Horst)](https://github.com/allisonhorst/stats-illustrations/raw/main/rstats-artwork/dplyr_mutate.png)
 
 Lets use the [police violence data](https://github.com/srvanderplas/unl-stat850/raw/main/data/police_violence.xlsx) to demonstrate. 
 There is an entry labeled "Unknown race" for victim's race, but this is essentially equivalent to `NA` (missing data). So we should replace the `Unknown race` entry with `NA` so that those data points are handled consistently. 
@@ -742,7 +744,7 @@ police_violence.groupby("Victim's race")[["age", "name_length"]].agg("mean")
 
 When you `group_by` a variable, your result carries this grouping with it. In R, `summarize` will remove one layer of grouping (by default), but if you ever want to return to a completely ungrouped data set, you should use the `ungroup()` command. In Python, you should consider using `reset_index` or `grouped_thing.obj()` to access the original information[@danchoAnswerThereUngroup2021].
 
-![The ungroup() command is just as important as the group_by() command! (by Allison Horst)](https://raw.githubusercontent.com/allisonhorst/stats-illustrations/master/rstats-blanks/ungroup_blank.png)
+![The ungroup() command is just as important as the group_by() command! (by Allison Horst)](https://raw.githubusercontent.com/allisonhorst/stats-illustrations/main/rstats-blanks/ungroup_blank.png)
 
 
 ::: callout-caution
@@ -793,6 +795,7 @@ One thing we might want to know is at what point each storm was the strongest. L
 Let's start by translating these criteria into basic operations. I'll use dplyr function names here, but I'll also specify what I mean when there's a conflict (e.g. filter in dplyr means something different than filter in python). 
 
 Initial attempt:
+
 1. **For each storm** (`group_by`), 
 2. we need the point where the storm has lowest atmospheric pressure. (`filter` - pick the row with the lowest pressure). 
 
@@ -999,7 +1002,7 @@ storm_evolution.query("year==2008").sort_values(['age'], ascending = False).head
 
 The dplyr package is filled with other handy functions for accomplishing common data-wrangling tasks. `across()` is particularly useful - it allows you to make a modification to several columns at the same time.
 
-![dplyr's across() function lets you apply a mutate or summarize statement to many columns (by Allison Horst)](https://github.com/allisonhorst/stats-illustrations/raw/master/rstats-artwork/dplyr_across.png)
+![dplyr's across() function lets you apply a mutate or summarize statement to many columns (by Allison Horst)](https://github.com/allisonhorst/stats-illustrations/raw/main/rstats-artwork/dplyr_across.png)
 
 Suppose we want to summarize the numerical columns of any storm which was a hurricane (over the entire period it was a hurricane). We don't want to write out all of the summarize statements individually, so we use across() instead. 
 
@@ -1225,3 +1228,5 @@ years_to_keep = [i for i in range(1952, 2008, 5)]
   - [TidyTuesday Python github repo](https://github.com/waiyanps/TidyTuesday-Python) - replicating Tidy Tuesday analyses in Python with Pandas
 
 :::
+
+## References
