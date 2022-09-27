@@ -618,7 +618,7 @@ Another function that may be useful is the `assign` function, which can be used 
 The learning curve here isn't actually knowing how to assign new variables (though that's important). The challenge comes when you want to do something *new* and have to figure out how to e.g. use find and replace in a string, or work with dates and times, or recode variables. 
 
 
-:::{.callout-note collapse = "true"}
+:::{.callout-note collapse=true}
 
 ### Mutate and new challenges
 
@@ -976,7 +976,7 @@ storm_evolution %>%
   arrange(desc(time_since_start))
 
 storm_evolution %>% filter(name == "Ike") %>%
-  ggplot(aes(x = time, y = hu_diameter, color = category)) + geom_point()
+  ggplot(aes(x = time, y = hurricane_force_diameter, color = category)) + geom_point()
 ```
 
 #### Python {-}
@@ -1022,7 +1022,7 @@ avg_hurricane_intensity <- storms %>%
   summarize(across(where(is.numeric), mean, na.rm = T), .groups = "drop") 
 
 avg_hurricane_intensity %>%
-  select(name, year, month, wind, pressure, ts_diameter, hu_diameter) %>%
+  select(name, year, month, wind, pressure, tropicalstorm_force_diameter, hurricane_force_diameter) %>%
   arrange(desc(wind)) %>% 
   # get top 10
   filter(row_number() <= 10) %>%
