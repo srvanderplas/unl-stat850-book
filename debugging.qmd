@@ -211,6 +211,7 @@ The goal is to reproduce the error message with information that is
 You should format your question to make it as easy as possible to help you. Make it so that code can be copied from your post directly and pasted into a terminal. Describe what you see and what you'd hope to see if the code were working. 
 
 Other resources:
+
 - [reprex package: Do's and Don'ts](https://reprex.tidyverse.org/articles/reprex-dos-and-donts.html)
 - [How to use the reprex package](https://reprex.tidyverse.org/articles/articles/learn-reprex.html) - vignette with videos from Jenny Bryan
 - [reprex magic - Vignette adapted from a blog post by Nick Tierney](https://reprex.tidyverse.org/articles/articles/magic-reprex.html)
@@ -518,6 +519,8 @@ search_for_parent(poll_results[0], 'table')
 
 By printing out all of the tags that contain `node`, I could see the order -- inner to outer. I asked the function to return the location of the first table node, so the index (2nd value printed out) should match table in the character vector that was printed out first. I could then see that the HTML node that is returned is in fact the table node. 
 
+:::
+
 ::: callout-tip
 #### Try it out: Hurricanes in R
 
@@ -616,7 +619,7 @@ for (i in 1:5) {
 
 Ok, so from this we can see that something is going wrong with our filter statement - we have no rows of data.
 
-##### Solution 2: Fixing the problem
+##### Solution 2: Fixing
 
 ```{r hurricane-tracks-debugging-head}
 head(storms)
@@ -660,7 +663,7 @@ filter(storms, year == 2013) %>%
 
 It looks like 2013 was just an incredibly quiet year for tropical activity. 
 
-##### Solution 3: Verifying it works
+##### Solution 3: Verifying
 
 2013 may have been a quiet year for tropical activity in the Atlantic, but 2004 was not. 
 So let's just make sure our code works by checking out 2004. 
@@ -713,6 +716,7 @@ for (i in 1:5) {
 ```
 :::
 
+:::
 
 Once you've found your problem, go back and delete or comment out your print statements, as they're no longer necessary. If you think you may need them again, comment them out, otherwise, just delete them so that your code is neat, clean, and concise.
 
