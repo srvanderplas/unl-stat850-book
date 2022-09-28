@@ -28,6 +28,9 @@ book:
     - data-vis.qmd
 
     - debugging.qmd
+
+    - documents.qmd
+
   appendices:
     - app-sas.qmd
   favicon: images/favicon.ico

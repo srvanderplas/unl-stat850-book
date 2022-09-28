@@ -283,9 +283,10 @@ rmarkdown::render("test.md")
 ```
 
 Then, I created several chunks which would do the following:
-1. Write the minimal example SAS code above to a file
-2. Call that file in a SASmarkdown chunk using the `%include` macro, which dumps the listed file into the SAS program
-3. Call the file using SAS batch mode
+1. Write the minimal example SAS code above to a [file](files/reprex.sas)
+2. Call that file in a SASmarkdown chunk using the `%include` macro, which dumps the listed file into the SAS program. This generates the [plot](files/SASmarkdown-reprex/unnamed-chunk-1.png) using SASmarkdown.
+3. Call the file using SAS batch mode    
+(this runs the code and produces a [plot](files/SASmarkdown-reprex/SGPlot.png) outside of SASmarkdown, to prove that the issue is SASmarkdown itself)
 
 Finally, I included the image generated from the batch mode call manually.
 
