@@ -302,7 +302,7 @@ Working with a full data frame can sometimes be a pain, because you may end up w
 Functionally, the biggest difference between the two systems is that in the grammar of graphics system (as implemented in ggplot2), we work with a full tabular data set. As with the rest of the tidyverse, ggplot2 will allow you to reference bare column names as if they were variables, so long as you've passed in the data set to the `data =` argument.
 
 ::: column-margin
-![Building a masterpiece, by Allison Horst](https://raw.githubusercontent.com/allisonhorst/stats-illustrations/master/rstats-artwork/ggplot2_masterpiece.png){fig-alt="A fuzzy monster in a beret and scarf, critiquing their own column graph on a canvas in front of them while other assistant monsters (also in berets) carry over boxes full of elements that can be used to customize a graph (like themes and geometric shapes). In the background is a wall with framed data visualizations. Stylized text reads “ggplot2: build a data masterpiece.”"}
+![Building a masterpiece, by Allison Horst](https://raw.githubusercontent.com/allisonhorst/stats-illustrations/main/rstats-artwork/ggplot2_masterpiece.png){fig-alt="A fuzzy monster in a beret and scarf, critiquing their own column graph on a canvas in front of them while other assistant monsters (also in berets) carry over boxes full of elements that can be used to customize a graph (like themes and geometric shapes). In the background is a wall with framed data visualizations. Stylized text reads “ggplot2: build a data masterpiece.”"}
 :::
 
 ::: panel-tabset
@@ -684,6 +684,8 @@ ggplot(data = poke_sub) + geom_point(aes(x = "attack", y = "sp_attack", alpha = 
 
 Here I'm focusing on characteristics like color and alpha value, but you can customize all sorts of different parameters, depending on the plot type - line size and type, point size, and more.
 
+These constant values are called **attributes** and they are different from aesthetics because aesthetics are mapped to variables (and thus are not constant).
+
 ::: panel-tabset
 
 #### ggplot2
@@ -1030,16 +1032,16 @@ if (!dir.exists("data")) mkdir("data")
 if (!file.exists("data/MiddleEarthMap.zip")) {
   download.file("https://github.com/jvangeld/ME-GIS/archive/master.zip", "data/MiddleEarthMap.zip", mode = "wb")
 }
-if (!dir.exists("data/ME-GIS-master/")) {
+if (!dir.exists("data/ME-GIS-main/")) {
   unzip("data/MiddleEarthMap.zip", exdir = "data/")
 }
 
-coastline <- read_sf("data/ME-GIS-master/Coastline2.shp")
-cities <- read_sf("data/ME-GIS-master/Cities.shp")
-forests <- read_sf("data/ME-GIS-master/Forests.shp")
-lakes <- read_sf("data/ME-GIS-master/Lakes.shp")
-rivers <- read_sf("data/ME-GIS-master/Rivers.shp")
-roads <- read_sf("data/ME-GIS-master/Roads.shp")
+coastline <- read_sf("data/ME-GIS-main/Coastline2.shp")
+cities <- read_sf("data/ME-GIS-main/Cities.shp")
+forests <- read_sf("data/ME-GIS-main/Forests.shp")
+lakes <- read_sf("data/ME-GIS-main/Lakes.shp")
+rivers <- read_sf("data/ME-GIS-main/Rivers.shp")
+roads <- read_sf("data/ME-GIS-main/Roads.shp")
 
 ggplot() + 
   geom_sf(data = coastline) + 
@@ -1420,7 +1422,7 @@ ggplot(data = penguins, aes(x = flipper_length_mm, y = bill_depth_mm)) +
 Obviously, there's a lot of ways to generate 3D-like charts in R, but can we actually generate 3D charts? Of course! We'll use the `rayshader` package [@rayshader]. 
 
 ::: column-margin
-![The rayshader package lets you create 3d maps and graphs (image by Allison Horst)](https://github.com/allisonhorst/stats-illustrations/raw/master/rstats-artwork/rayshader.png)
+![The rayshader package lets you create 3d maps and graphs (image by Allison Horst)](https://github.com/allisonhorst/stats-illustrations/raw/main/rstats-artwork/rayshader.png)
 :::
 
 ```{r penguin-joint-rayshader, eval = F}
@@ -1829,7 +1831,7 @@ plt.savefig("images/graphics/test-penguin-seaborn.png")
 We often want to combine multiple figures (or pieces of figures) together. While this topic is outside the scope of this book, I do want to at least point you in the right direction.
 
 ::: column-margin
-![The patchwork package is a great way to combine figures](https://github.com/allisonhorst/stats-illustrations/raw/master/rstats-artwork/patchwork_1.jpg)
+![The patchwork package is a great way to combine figures](https://github.com/allisonhorst/stats-illustrations/raw/main/rstats-artwork/patchwork_1.jpg)
 :::
 
 ::: panel-tabset
