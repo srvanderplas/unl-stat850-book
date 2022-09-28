@@ -87,47 +87,49 @@ mean(z$nitrate,na.rm=TRUE)
 
 
 ````
-`r paste(readLines("https://raw.githubusercontent.com/srvanderplas/unl-stat850/master/other/debugging_3.txt"), collapse = '\n')`
+`r paste(readLines("https://raw.githubusercontent.com/srvanderplas/unl-stat850/main/other/debugging_3.txt"), collapse = '\n')`
 ````
 
-You can find this sample file [here](https://raw.githubusercontent.com/srvanderplas/unl-stat850/master/other/debugging_3.txt)
+You can find this sample file [here](https://raw.githubusercontent.com/srvanderplas/unl-stat850/main/other/debugging_3.txt)
 
 
 [Link](https://stackoverflow.com/questions/44193367/inexplicable-error-when-trying-to-export-my-r-notebook)
 
 
-# If/Then/Else in SAS Not Working
+# Python if elif else statement
 
-> Struggling to get this If/Then/Else statement not working. I have two columns: Variable and Value. Variable has the name of the variable and Value has all the potential codes that could be associated with that Variable.
+> I'm trying to create a program with python that calculate the cost for shipping.
+
+> However, I can't run the program to where it works properly.
+
+> What ever my total is the same amount comes out as $6 for US and $8 for Canada. I can't seem to get pass that.
 
 > Example:
 
 ```
-Variable     Value
-Gender         F
-Gender         M
+total = raw_input('What is the total amount for your online shopping?')
+country = raw_input('Shipping within the US or Canada?')
+
+if country == "US":
+    if total <= "50":
+        print "Shipping Costs $6.00"
+    elif total <= "100":
+            print "Shipping Costs $9.00"
+    elif total <= "150":
+            print "Shipping Costs $12.00"
+    else:
+        print "FREE"
+
+if country == "Canada":
+    if total <= "50":
+        print "Shipping Costs $8.00"
+    elif total <= "100":
+        print "Shipping Costs $12.00"
+    elif total <= "150":
+        print "Shipping Costs $15.00"
+    else:
+        print "FREE"
 ```
 
-> I want to create a field called "Flag" and if the value isn't among the list of values, it should flag that field; otherwise, leave that field blank
 
-```
-data Want;
-length 
-Variable $40.
-Value $40.
-Flag $8.;
-set Have (keep = Variable Value);
-if (Variable = 'Gender' and Value ^= 'M') then Flag = 'UnkCode'; else Flag="";
-if (Variable = 'Gender' and Value ^= 'F') then Flag = 'UnkCode'; else  Flag="";
-if (Variable = 'Gender' and Value ^= 'O') then Flag = 'UnkCode'; else Flag="";
-if (Variable = 'Gender' and Value ^= 'U') then Flag = 'UnkCode'; else Flag="";
-run;
-quit;
-```
-
-> The dataset I'm using has only has two values for Gender: F and M. For whatever reason, the flag field in both lines has "UnkCode"
-
-> Any idea what I'm doing wrong?
-
-
-[Link](https://stackoverflow.com/questions/23412048/if-then-else-in-sas-not-working)
+[Link](https://stackoverflow.com/questions/19371643/python-if-elif-else-statement)
