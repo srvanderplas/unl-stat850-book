@@ -31,6 +31,8 @@ book:
 
     - documents.qmd
 
+    - simulation.qmd
+
   appendices:
     - app-sas.qmd
   favicon: images/favicon.ico

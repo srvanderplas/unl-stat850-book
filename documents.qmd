@@ -345,9 +345,11 @@ You can also create Beamer slides using Rmarkdown or quarto, if you want, but yo
 
 ### HTML slides
 
-RStudio has a host of other options for html slide presentations. There are some definite advantages to HTML presentations: they're easy to share (via URL), you can add gifs, emojis, and interactive graphics, and you can set up github to host the presentations as well[^documents-2].
+RStudio has a host of other options for html slide presentations. There are some definite advantages to HTML presentations: they're easy to share (via URL), you can add gifs, emojis, and interactive graphics, and you can set up github to host the presentations as well.
 
-[^documents-2]: I have a repository for all of the presentations I've given, and I use github pages to render the html presentations. Very easy, convenient, and I never have to carry a flash drive around
+::: column-margin
+I have a repository for all of the presentations I've given, and I use github pages to render the html presentations. Very easy, convenient, and I never have to carry a flash drive around at a conference or mess with the conference computers.
+:::
 
 The downside to HTML slides is that there are approximately 100000 different javascript libraries that create HTML slides, and all of them have different capabilities. Many of these libraries have extensions that will let you create markdown slides, but they each have slightly different markdown syntax and capabilities.
 
@@ -475,7 +477,7 @@ Github will host HTML content for you using Github pages (case in point: this te
 3.  Modify your README.md file and push your changes
 4.  Go to https://username.github.io and see your README.md file rendered as HTML.
 
-<iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/UtpR_HLA6kU" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<iframe width="100%" height="auto" src="https://www.youtube-nocookie.com/embed/UtpR_HLA6kU" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 :::
 
 Github will render any README.md file as actual HTML; it will also allow you to host plain HTML pages. By default, the README file is rendered first, but in subsequent directories, a file named index.html will be rendered as the "home page" for the subdirectory, if you have such a file. Otherwise you'll have to know the file name.
@@ -490,18 +492,18 @@ This mechanism provides a very convenient way to showcase your work, share infor
 
 ::: callout-note
 ### Setting up Github Pages in an existing repository
-<iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/evwhZm8J4bs" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<iframe width="100%" height="auto" src="https://www.youtube-nocookie.com/embed/evwhZm8J4bs" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 :::
 
 If you want to track your quarto/rmarkdown code and then render the output to a separate folder, you can use the docs/ folder. Github has this as an option as well -- where we selected "main" branch above, we would select "docs/" instead (it's grayed out b/c there isn't a docs folder in the repo). That is how this book is hosted - the book compiles to the docs/ folder, and that way the book is rendered in final form and you don't have to see all of the other crud that is in the repository.
 
 ## Additional Resources to Explore
 
-There are many other XXXdown packages made for Rmarkdown. Quarto is more multi-functional and contains blog, book, and website capabilities in a single package. However, most of the things which worked in Rmarkdown also work in Quarto.
+There are many other XXXdown packages made for Rmarkdown. Quarto is more multi-functional and contains blog, book, and website capabilities in a single package. However, most of the things which worked in Rmarkdown also work in Quarto, and Quarto has clearly been built off of the success of the `___down` packages for Rmarkdown.
 
 -   [`blogdown`](https://bookdown.org/yihui/blogdown/)
 
--   [`bookdown`](https://bookdown.org/yihui/bookdown/) (what I'm using to make this book)
+-   [`bookdown`](https://bookdown.org/yihui/bookdown/) (what I used to make this book in the SAS + R era)
 
 -   [`pkgdown`](https://pkgdown.r-lib.org/) (to easily build documentation websites for R packages)
 

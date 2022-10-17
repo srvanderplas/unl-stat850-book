@@ -1512,6 +1512,41 @@ See the references section for a couple of good guides to SAS error statements a
 
 There are certainly other errors which can occur in SAS -- logic errors are not something SAS can protect you from . These errors can have dramatic consequences, as demonstrated in [this twitter thread](https://twitter.com/eric_weinhandl/status/1253127109830156289) about a [JAMA retraction due to a coding error](https://twitter.com/hswapnil/status/1252783448055517185). To debug these types of errors, you can use the same print() techniques demonstrated in R. For these types of errors, there's nothing special about what language you're using (outside of the usual quirks of every language) - the error is in the logic, not the encoding of that logic. 
 
+## Simulation
+You can see the [various distribution options](https://documentation.sas.com/?docsetId=lefunctionsref&docsetTarget=p0fpeei0opypg8n1b06qe4r040lv.htm&docsetVersion=9.4&locale=en) in the RAND documentation.
+
+
+```
+%let N=500; /* size of sample */
+  
+DATA sample;
+call streaminit(12532);
+DO i = 1 to &N; /* &N is the value of the macro variable defined above */
+  id = i;
+  norm = rand("Normal", 0, 1);
+  gamma = rand("Gamma", 3, 1);
+  exp = rand("Exponential", 1); /* SAS uses 1/a exp(-x/a) */
+  t = rand("T", 5);
+  chisq = rand("Chisq", 5);
+  OUTPUT;
+END;
+RUN;
+
+PROC TRANSPOSE data=sample out=longsample
+  (rename=(COL1 = value)) /* rename output variable ('values_to') */
+  NAME = dist /* where the column names go ('names_to') */
+;
+  BY id;
+  VAR norm gamma exp t chisq;
+RUN;
+
+PROC SGPANEL data=longsample;
+PANELBY dist / COLUMNS = 5 UNISCALE = ROW NOVARNAME;
+  DENSITY value / TYPE = KERNEL;
+RUN;
+```
+
+
 ## References {#refs-sas}
 
 
