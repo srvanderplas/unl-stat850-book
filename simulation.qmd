@@ -145,7 +145,7 @@ summary(regression)
 
 ##### Python
 
-```{python}
+```{python, collapse = T}
 import random
 
 import pandas as pd
@@ -157,10 +157,15 @@ random.seed(20572983)
 data = pd.DataFrame({'x': np.arange(-10, 10, .1)})
 data['y'] = data.x + np.random.normal(size = data.x.size)
 
-model = LinearRegression()
-model.fit(data.x.values.reshape(-1, 1), data.y.values.reshape(-1, 1))
+# Fitting the regression and predictions
+# scikit-learn requires that we reshape everything into
+# nparrays before we pass them into the model.fit() function.
+model = LinearRegression().\
+  fit(data.x.values.reshape(-1, 1),\
+      data.y.values.reshape(-1, 1))
 data['pred'] = model.predict(data.x.values.reshape(-1, 1))
 
+# Plotting the results
 import matplotlib.pyplot as plt
 plt.clf()
 
