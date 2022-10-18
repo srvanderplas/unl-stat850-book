@@ -477,8 +477,14 @@ Github will host HTML content for you using Github pages (case in point: this te
 3.  Modify your README.md file and push your changes
 4.  Go to https://username.github.io and see your README.md file rendered as HTML.
 
+::: youtube-video-container
 <iframe width="100%" height="auto" src="https://www.youtube-nocookie.com/embed/UtpR_HLA6kU" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 :::
+
+
+:::
+
+
 
 Github will render any README.md file as actual HTML; it will also allow you to host plain HTML pages. By default, the README file is rendered first, but in subsequent directories, a file named index.html will be rendered as the "home page" for the subdirectory, if you have such a file. Otherwise you'll have to know the file name.
 
@@ -492,7 +498,9 @@ This mechanism provides a very convenient way to showcase your work, share infor
 
 ::: callout-note
 ### Setting up Github Pages in an existing repository
+::: youtube-video-container
 <iframe width="100%" height="auto" src="https://www.youtube-nocookie.com/embed/evwhZm8J4bs" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+:::
 :::
 
 If you want to track your quarto/rmarkdown code and then render the output to a separate folder, you can use the docs/ folder. Github has this as an option as well -- where we selected "main" branch above, we would select "docs/" instead (it's grayed out b/c there isn't a docs folder in the repo). That is how this book is hosted - the book compiles to the docs/ folder, and that way the book is rendered in final form and you don't have to see all of the other crud that is in the repository.
