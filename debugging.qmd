@@ -1097,7 +1097,7 @@ In the `traceback()` Rstudio output, the other option is "rerun with debug". In 
 
 `debug()` is most useful when you're working with code that you didn't write yourself. So, if you can't change the code in the function causing the error, `debug()` is the way to go. Otherwise, using `browser()` is generally easier. Essentially, `debug()` places a `browser()` statement at the first line of a function, but without having to actually alter the function's source code. 
 
-::: {.callout-caution collapse=true}
+::: {.callout-caution collapse="true"}
 #### `debug()` example
 
 ```{r debug-demo, error = T}
