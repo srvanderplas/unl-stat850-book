@@ -87,7 +87,7 @@ mean(z$nitrate,na.rm=TRUE)
 `r paste(readLines("https://raw.githubusercontent.com/srvanderplas/unl-stat850/main/files/debugging_3.txt"), collapse = '\n')`
 ````
 
-You can find this sample file [here](https://raw.githubusercontent.com/srvanderplas/unl-stat850/main/other/debugging_3.txt)
+You can find this sample file [here](https://raw.githubusercontent.com/srvanderplas/unl-stat850/main/files/debugging_3.txt)
 
 
 [Link](https://stackoverflow.com/questions/44193367/inexplicable-error-when-trying-to-export-my-r-notebook)
