@@ -89,7 +89,7 @@
 
 \section{Section Two}
 
-\begin{frame}{Slide with R code}
+\begin{frame}[fragile]{Slide with R code}
 <<test-chunk, eval = T, echo = T, tidy = F>>=
 library(knitr)
 kable(mtcars[1:5,],
