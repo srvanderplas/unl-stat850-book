@@ -246,6 +246,8 @@ If we want to specify additional information that should show up in the tooltip,
 
 Since I'm trying to do this without the tidyverse, I'll try out the new base R pipe, `|>`, and the corresponding new anonymous function notation, `\()`.^[This is me experimentally trying to replace the tidyverse, and honestly, I'm not a fan.]
 
+The `plot_ly` function is pipe friendly. Variable mappings are preceded with `~` to indicate that the visual appearance changes with the value of the variable. 
+
 ```{r}
 # First, compute the density
 elevation_dens <- split(volcano, ~volcano_type) |>
@@ -363,6 +365,7 @@ ggplotly(p)
 ```
 
 We can also look at the frequency of eruptions over time. We'll expect some historical bias - we don't have exact dates for some of these eruptions, and if no one was around to write the eruption down (or the records were destroyed) there's not going to be a date listed here.
+
 ```{r}
 p <- erupt %>%
   filter(!is.na(end_date)) %>%
@@ -379,6 +382,7 @@ ggplot(aes(x = start_date, xend = start_date,
 ggplotly(p)
 
 ```
+
 As expected, it's pretty rare to see many eruptions before ~1800 AD, which is about when we have reliable historical records^[There are obviously exceptions - we can figure out the exact date and approximate time that there was an earthquake along the Cascadia subduction zone based on a combination of oral histories of the indigenous people and records of a massive tsunami in Japan [Excellent read, if you're interested](https://www.newyorker.com/magazine/2015/07/20/the-really-big-one), and the [Nature paper](https://www.nature.com/articles/379246a0).] for most of the world (exceptions include e.g. Vestuvius, which we have extensive written information about).
 
 ```{r}
@@ -393,9 +397,89 @@ ggplot(aes(x = factor(vei), y = duration)) +
   scale_y_sqrt()
 ggplotly(p)
 ```
+
 It seems that the really big eruptions might be less likely to last for a long time, but it is hard to tell because there aren't that many of them (thankfully).
 
 #### R + plotly
+
+```{r}
+head(eruptions)
+
+# Historical (very historical) dates are a bit of a pain to work with, so I
+# wrote a helper function which takes year, month, and day arguments and formats
+# them properly
+
+fix_date <- function(yyyy, mm, dd) {
+  # First, negative years (BCE) are a bit of a problem.
+  neg <- yyyy < 0
+  subtract_years <- pmax(-yyyy, 0) # Years to subtract off later
+  # for now, set to 0
+  year_fixed <- pmax(yyyy, 0) # this will set anything negative to 0
+
+  # sometimes the day or month isn't known, so just use 1 for both.
+  # recorded value may be NA or 0.
+  day_fixed <- ifelse(is.na(dd), 1, pmax(dd, 1))
+  month_fixed <- ifelse(is.na(mm), 1, pmax(mm, 1))
+
+  # Need to format things precisely, so use sprintf
+  # %0xd ensures that you have at least x digits, padding the left side with 0s
+  # lubridate doesn't love having 3-digit years.
+  date_str <- sprintf("%04d/%02d/%02d", year_fixed, month_fixed, day_fixed)
+  # Then we can convert the dates and subtract off the years for pre-CE dates
+  date <- ymd(date_str) - years(subtract_years)
+}
+
+erupt <- eruptions %>%
+  # Don't work with discredited eruptions
+  filter(eruption_category == "Confirmed Eruption") %>%
+  # Create start and end dates
+  mutate(
+    start_date = fix_date(start_year, start_month, start_day),
+    end_date = fix_date(end_year, end_month, end_day),
+    # To get duration, we have to start with a time interval,
+    # convert to duration, then convert to a numeric value
+    duration = interval(start = start_date, end = end_date) %>%
+      as.duration() %>%
+      as.numeric("days"))
+```
+
+Let's start out seeing what month most eruptions occur in...
+
+```{r}
+# Note, I'm using the original month, so 0 = unknown
+erupt %>%
+  count(start_month) %>%
+  plot_ly(
+    data = .,
+    x = ~start_month,
+    y = ~n,
+    type = "bar"
+)
+```
+
+Another numerical variable is VEI, [volcano explosivity index](https://volcanoes.usgs.gov/vsc/glossary/vei.html#:~:text=Volcanic%20Explosivity%20Index%20(VEI)%20is,to%20determine%20the%20explosivity%20value.). A VEI of 0 is non-explosive, a VEI of 4 is about what Mt. St. Helens hit in 1980, and a VEI of 5 is equivalent to the Krakatau explosion in 1883. A VEI of 8 would correspond to a major Yellowstone caldera eruption (which hasn't happened for 600,000 years). Basically, VEI increase of 1 is an order of magnitude change in the amount of material the eruption released.
+
+```{r}
+# VEI is volcano explosivity index
+erupt %>%
+  count(vei) %>%
+  plot_ly(x = ~vei, y = ~n, type = "bar")
+```
+
+
+```{r}
+erupt %>%
+  filter(!is.na(end_date)) %>%
+  # Account for recency bias (sort of)
+  filter(start_year > 1800) %>%
+  plot_ly(x = ~ factor(vei),
+          y = ~ duration, 
+          split = ~factor(vei),
+          type = "violin") %>%
+  layout(yaxis = list(type="log"))
+```
+
+It seems that the really big eruptions might be less likely to last for a long time, but it is hard to tell because there aren't that many of them (thankfully).
 
 #### Python
 
