@@ -483,6 +483,89 @@ It seems that the really big eruptions might be less likely to last for a long t
 
 #### Python
 
+In Python, negative dates are even more of a pain to work with if you're using standard libraries, so we'll install the `astropy` class with `pip install astropy`. BCE dates are still a pain in the ... but they at least work.
+
+```{python}
+eruptions.head()
+
+# Historical (very historical) dates are a bit of a pain to work with, so I
+# wrote a helper function which takes year, month, and day arguments and formats
+# them properly
+
+from astropy.time import Time,TimeDelta
+import numpy as np
+import math
+
+def fix_date(yyyy, mm, dd):
+  # The zero, one columns allow using pd.max(axis = 1) where we'd use pmax in R
+  neg = yyyy <= 0
+  nyear = -yyyy
+  
+  year = max([yyyy, 1])
+  subtract_year = max([nyear, 0]) + neg
+  
+  day = dd
+  month = mm
+  
+  if math.isnan(day): 
+    day = 1
+  if math.isnan(month): 
+    month = 1
+      
+  if day == 0: 
+    day = 1
+  if month == 0: 
+    month = 1
+  
+  dateformat = "%04d-%02d-%02d" % (year, month, day)
+  
+  date = Time(dateformat, format = "iso", scale = 'ut1')
+  datefix = date - TimeDelta(subtract_year*365, format= 'jd')
+  return datefix
+
+erupt = eruptions.query("eruption_category == 'Confirmed Eruption'")
+erupt.fillna(0, inplace = True)
+erupt['start_date'] = erupt.apply(lambda x: fix_date(x.start_year, x.start_month, x.start_day), axis = 1)
+erupt['end_date'] = erupt.apply(lambda x: fix_date(x.end_year, x.end_month, x.end_day), axis = 1)
+erupt['duration'] = erupt.end_date - erupt.start_date
+# Convert back to numeric
+erupt['duration'] = erupt.duration.apply(lambda x: x.to_value("jd", "decimal")) # Julian day
+```
+
+Let's start out seeing what month most eruptions occur in...
+
+```{python}
+import plotly.express as px
+tmp = erupt.groupby("start_month").count()
+tmp = tmp.reset_index()
+# Note, I'm using the original month, so 0 = unknown
+fig = px.bar(tmp, x = 'start_month', y = 'volcano_number')
+fig.show()
+```
+
+Another numerical variable is VEI, [volcano explosivity index](https://volcanoes.usgs.gov/vsc/glossary/vei.html#:~:text=Volcanic%20Explosivity%20Index%20(VEI)%20is,to%20determine%20the%20explosivity%20value.). A VEI of 0 is non-explosive, a VEI of 4 is about what Mt. St. Helens hit in 1980, and a VEI of 5 is equivalent to the Krakatau explosion in 1883. A VEI of 8 would correspond to a major Yellowstone caldera eruption (which hasn't happened for 600,000 years). Basically, VEI increase of 1 is an order of magnitude change in the amount of material the eruption released.
+
+```{python}
+# VEI is volcano explosivity index
+fig = px.bar(
+  erupt.groupby("vei").count().reset_index(),
+  x = "vei", y = "volcano_number")
+fig.show()
+```
+
+
+```{python}
+erupt["duration_yr"] = erupt.duration/365.25
+fig = px.box(
+  erupt,
+  x = "vei",
+  y = "duration_yr",
+  points = "all"
+)
+fig.show()
+```
+
+It seems that the really big eruptions might be less likely to last for a long time, but it is hard to tell because there aren't that many of them (thankfully)
 :::
 
 :::
@@ -777,12 +860,11 @@ It seems that the really big eruptions might be less likely to last for a long t
 
 
 ## Shiny
-https://github.com/rfordatascience/tidytuesday/blob/master/data/2020/2020-05-26/readme.md
 
-Before we get started on Shiny, take a few minutes and poke around the [RStudio Shiny user showcase](https://shiny.rstudio.com/gallery/#user-showcase). It helps to have some motivation, and to get a sense of what is possible before you start learning something. One of the more amusing ones I found was [an exploration of lego demographics](https://kaplanas.shinyapps.io/living_in_the_lego_world/).
+Take a few minutes and poke around the [RStudio Shiny user showcase](https://shiny.rstudio.com/gallery/#user-showcase). It helps to have some motivation, and to get a sense of what is possible before you start learning something. One of the more amusing ones I found was [an exploration of lego demographics](https://kaplanas.shinyapps.io/living_in_the_lego_world/).
 
 
-Shiny is a framework for building interactive web applications in R. Unlike plotly and other graphics engines, Shiny depends on an R instance on a server to do computations. This means Shiny is much more powerful and has more capabilities, but also that it's harder to share and deploy - you have to have access to a web server with R installed on it. If you happen to have a server like that, though, Shiny is pretty awesome. RStudio runs a service called shinyapps.io that will provide some limited free hosting, as well as paid plans for apps that have more web traffic, but you can also create Shiny apps for local use - I often do this for model debugging when I'm using neural networks, because they're so complicated.
+Shiny is a framework for building interactive web applications in R (and now in Python too!). Unlike plotly and other graphics engines, Shiny depends on an R instance on a server to do computations. This means Shiny is much more powerful and has more capabilities, but also that it's harder to share and deploy - you have to have access to a web server with R installed on it. If you happen to have a server like that, though, Shiny is pretty awesome. RStudio runs a service called shinyapps.io that will provide some limited free hosting, as well as paid plans for apps that have more web traffic, but you can also create Shiny apps for local use - I often do this for model debugging when I'm using neural networks, because they're so complicated.
 
 RStudio has a set of well produced video tutorials to introduce Shiny. I'd recommend you at least listen to the [introduction](https://shiny.rstudio.com/tutorial/) if you're a visual/audio learner (the whole tutorial is about 2 hours long). There is also a [written tutorial](https://shiny.rstudio.com/tutorial/written-tutorial/lesson1/) if you prefer to learn in written form (7 lessons, each is about 20 minutes long).
 
