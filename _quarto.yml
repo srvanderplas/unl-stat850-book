@@ -1,6 +1,8 @@
 project:
   type: book
   output-dir: docs
+  # post-render:
+  #   - clean.sh
 
 book:
   title: "Computing Tools for Statisticians"
@@ -37,6 +39,7 @@ book:
 
   appendices:
     - app-sas.qmd
+
   favicon: images/favicon.ico
   cover-image: images/cover.png
   site-url: https://srvanderplas.github.io/unl-stat850/
