@@ -570,60 +570,117 @@ It seems that the really big eruptions might be less likely to last for a long t
 
 :::
 
-<!-- STopped here -->
-<!-- ### `plot_ly`: Like base plotting, but interactive! -->
+::: {.callout-caution collapse="true"}
 
-<!-- You can also create plotly charts that aren't limited by what you can do in ggplot2, using the `plot_ly` function. -->
+### Customizing Interactivity
+
+Plotly integration with ggplot2 is nice, but obviously not a universal summary of what it can do. Let's look at another example of plotly in R/python without ggplot2 integration.
+
+We start with a scatterplot of volcanoes along the earth's surface:
+
+::: panel-tabset
+
+#### R
+
+```{r}
+plot_ly(type = "scattergeo", lon = volcano$longitude, lat = volcano$latitude)
+```
+
+#### Python
+
+```{python}
+fig = px.scatter_geo(volcano, lon = "longitude", lat = "latitude")
+fig.show()
+```
+:::
+
+And then we can start customizing.
+
+::: panel-tabset
+#### R
+
+```{r}
+plot_ly(type = "scattergeo", lon = volcano$longitude, 
+        lat = volcano$latitude,
+        mode = "markers",
+        # Add information to mouseover
+        text = ~paste(volcano$volcano_name, "\n",
+                      "Last Erupted: ", volcano$last_eruption_year),
+        # Change the markers because why not?
+        marker = list(color = "#d00000", opacity = 0.25)
+        )
+```
+
+#### Python
 
 
-<!-- <details><summary>We can start with a scatterplot of volcanoes along the Earth's surface:</summary> -->
-<!-- ```{r} -->
-<!-- plot_ly(type = "scattergeo", lon = volcano$longitude, lat = volcano$latitude) -->
-<!-- ``` -->
-<!-- And then we can start customizing: -->
+```{python}
+fig = px.scatter_geo(volcano, 
+  lon = "longitude", lat = "latitude",
+  hover_name = "volcano_name",
+  hover_data = ["last_eruption_year"])
+fig.update_traces(marker=dict(size=12, opacity = 0.25, color = 'red'),
+                  selector=dict(mode='markers'))
+fig.show()
+```
 
-<!-- ```{r} -->
-<!-- plot_ly(type = "scattergeo", lon = volcano$longitude, lat = volcano$latitude, -->
-<!--         mode = "markers", -->
-<!--         # Add information to mouseover -->
-<!--         text = ~paste(volcano$volcano_name, "\n", -->
-<!--                       "Last Erupted: ", volcano$last_eruption_year), -->
-<!--         # Change the markers because why not? -->
-<!--         marker = list(color = "#d00000", opacity = 0.25) -->
-<!--         ) -->
-<!-- ``` -->
-<!-- </details> -->
+:::
 
-<!-- <details><summary>The `plot_ly` function is also pipe friendly. Variable mappings are preceded with `~` to indicate that the visual appearance changes with the value of the variable. </summary> -->
+Plotly will handle some variable mappings for you, depending on which "trace" (type of plot) you're using.
 
-<!-- ```{r} -->
-<!-- # Load RColorBrewer for palettes -->
-<!-- library(RColorBrewer) -->
+::: panel-tabset
 
-<!-- volcano %>% -->
-<!--   group_by(volcano_type) %>% mutate(n = n()) %>% -->
-<!--   filter(n > 15) %>% -->
-<!-- plot_ly(type = "scattergeo", lon = ~longitude, lat = ~latitude, -->
-<!--         mode = "markers", -->
-<!--         # Add information to mouseover -->
-<!--         text = ~paste(volcano_name, "\n", -->
-<!--                       "Last Erupted: ", last_eruption_year), -->
-<!--         color = ~ volcano_type, -->
-<!--         # Specify a palette -->
-<!--         colors = brewer.pal(length(unique(.$volcano_type)), "Paired"), -->
-<!--         # Change the markers because why not? -->
-<!--         marker = list(opacity = 0.5) -->
-<!--         ) -->
-<!-- ``` -->
+#### R
 
-<!-- Plotly will handle some variable mappings for you, depending on which "trace" type (plot/geom) you're using. -->
-<!-- </details> -->
+The `plot_ly` function is also pipe friendly. Variable mappings are preceded with `~` to indicate that the visual appearance changes with the value of the variable.
 
-<!-- ::: watchout -->
-<!-- The plotly documentation often uses `plyr` and `reshape2` -- which are older versions of `dplyr` and `tidyr`. If you load `plyr` and `reshape2`, it may seriously mess up your day -- a lot of the function names are the same. So, instead, here's a shortcut: `cast` is `pivot_wider` and `melt` is `pivot_longer`. That should at least help with understanding what the code is doing. -->
+```{r}
+# Load RColorBrewer for palettes
+library(RColorBrewer)
 
-<!-- If you do accidentally load `plyr` or `reshape2`, that's fine: just restart your R session so that your loaded packages are cleared and you can start over. Or, if you must, you can reference a `plyr` function using `plyr::function_name` without loading the package -- that's a safe way to use the plotly demo code as-is. -->
-<!-- ::: -->
+volcano %>%
+  group_by(volcano_type) %>% 
+  mutate(n = n()) %>%
+  filter(n > 15) %>%
+plot_ly(type = "scattergeo", lon = ~longitude, lat = ~latitude,
+        mode = "markers",
+        # Add information to mouseover
+        text = ~paste(volcano_name, "\n",
+                      "Last Erupted: ", last_eruption_year),
+        color = ~ volcano_type,
+        # Specify a palette
+        colors = brewer.pal(length(unique(.$volcano_type)), "Paired"),
+        # Change the markers because why not?
+        marker = list(opacity = 0.5)
+        )
+```
+
+#### Python
+
+```{python}
+volc_sub = volcano.groupby("volcano_type").agg({'volcano_number': ['size']})
+volc_sub.columns = ["n"]
+volc_sub = volc_sub.reset_index()
+volc_sub = volc_sub.query("n >= 15")
+volc_sub = pd.merge(volc_sub['volcano_type'], volcano, on = 'volcano_type', how = 'inner')
+
+fig = px.scatter_geo(volc_sub, 
+  lon = "longitude", lat = "latitude", 
+  color = "volcano_type",
+  hover_name = "volcano_name",
+  hover_data = ["last_eruption_year"])
+fig.update_traces(marker=dict(size=12, opacity = 0.25),
+                  selector=dict(mode='markers'))
+fig.show()
+```
+:::
+
+::: watchout
+#### Plotly in R
+The plotly documentation often uses `plyr` and `reshape2` -- which are older versions of `dplyr` and `tidyr`. If you load `plyr` and `reshape2`, it may seriously mess up your day -- a lot of the function names are the same. So, instead, here's a shortcut: `cast` is `pivot_wider` and `melt` is `pivot_longer`. That should at least help with understanding what the code is doing.
+
+If you do accidentally load `plyr` or `reshape2`, that's fine: just restart your R session so that your loaded packages are cleared and you can start over. Or, if you must, you can reference a `plyr` function using `plyr::function_name` without loading the package -- that's a safe way to use the plotly demo code as-is.
+:::
 
 <!-- <details><summary>Let's explore traces a bit.</summary> -->
 <!-- According to the plotly documentation, -->
