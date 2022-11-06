@@ -835,7 +835,9 @@ squirrels %>%
 We can also plot regions, instead of just points. I downloaded a dataset released by the US Forest Service, [Bailey's Ecoregions and Subregions](https://catalog.data.gov/dataset/baileys-ecoregions-and-subregions-dataset-7dd69) dataset, which categorizes the US into different climate and ecological zones.
 
 To map colors to variables, we have to define a color palette and variable mapping ourselves, and pass that function into the leaflet object we're adding.
-```{r}
+
+I've set this chunk to not evaluate because it causes the book to be painfully large.
+```{r, eval = F}
 library(sf)
 ecoregions <- st_read("data/Bailey_s_Ecoregions_and_Subregions_Dataset.geojson")
 
