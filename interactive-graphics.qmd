@@ -244,10 +244,6 @@ If we want to specify additional information that should show up in the tooltip,
 
 #### R + plotly
 
-Since I'm trying to do this without the tidyverse, I'll try out the new base R pipe, `|>`, and the corresponding new anonymous function notation, `\()`.^[This is me experimentally trying to replace the tidyverse, and honestly, I'm not a fan.]
-
-The `plot_ly` function is pipe friendly. Variable mappings are preceded with `~` to indicate that the visual appearance changes with the value of the variable. 
-
 ```{r}
 # First, compute the density
 elevation_dens <- split(volcano, ~volcano_type) |>
@@ -675,12 +671,14 @@ fig.show()
 ```
 :::
 
-::: watchout
-#### Plotly in R
-The plotly documentation often uses `plyr` and `reshape2` -- which are older versions of `dplyr` and `tidyr`. If you load `plyr` and `reshape2`, it may seriously mess up your day -- a lot of the function names are the same. So, instead, here's a shortcut: `cast` is `pivot_wider` and `melt` is `pivot_longer`. That should at least help with understanding what the code is doing.
-
-If you do accidentally load `plyr` or `reshape2`, that's fine: just restart your R session so that your loaded packages are cleared and you can start over. Or, if you must, you can reference a `plyr` function using `plyr::function_name` without loading the package -- that's a safe way to use the plotly demo code as-is.
 :::
+
+<!-- ::: callout-warn -->
+<!-- #### Plotly in R -->
+<!-- The plotly documentation often uses `plyr` and `reshape2` -- which are older versions of `dplyr` and `tidyr`. If you load `plyr` and `reshape2`, it may seriously mess up your day -- a lot of the function names are the same. So, instead, here's a shortcut: `cast` is `pivot_wider` and `melt` is `pivot_longer`. That should at least help with understanding what the code is doing. -->
+
+<!-- If you do accidentally load `plyr` or `reshape2`, that's fine: just restart your R session so that your loaded packages are cleared and you can start over. Or, if you must, you can reference a `plyr` function using `plyr::function_name` without loading the package -- that's a safe way to use the plotly demo code as-is. -->
+<!-- ::: -->
 
 <!-- <details><summary>Let's explore traces a bit.</summary> -->
 <!-- According to the plotly documentation, -->
@@ -762,157 +760,189 @@ If you do accidentally load `plyr` or `reshape2`, that's fine: just restart your
 
 
 
-<!-- ## Leaflet maps -->
-<!-- Leaflet is another javascript library that allows for interactive data visualization. We're only going to briefly talk about it here, but there is [extensive documentation](https://rstudio.github.io/leaflet/) that includes details of how to work with different types of geographical data, chloropleth maps, plugins, and more. -->
+## Leaflet maps
+
+::: column-margin
+I'm sorry, but I haven't managed to redo this chapter in python as well as R. Hopefully I'll get to it soon.
+:::
+
+Leaflet is another javascript library that allows for interactive data visualization. We're only going to briefly talk about it here, but there is [extensive documentation](https://rstudio.github.io/leaflet/) that includes details of how to work with different types of geographical data, chloropleth maps, plugins, and more.
+
+::: {.callout-caution collapse="true"}
+### Bigfoot Sightings
+
+To explore the leaflet package, we'll start out playing with a [dataset of Bigfoot sightings](https://data.world/timothyrenner/bfro-sightings-data) assembled from the Bigfoot Field Researchers Organization's [Google earth tool](http://www.bfro.net/news/google_earth.asp)
+
+```{r leaflet-setup, echo = F}
+if (!"leaflet" %in% installed.packages()) install.packages("leaflet")
+
+library(leaflet)
+library(readr)
+
+bigfoot_data <- read_csv("https://query.data.world/s/egnaxxvegdkzzrhfhdh4izb6etmlms")
+```
+```{r leaflet-setup, eval = F}
+```
+
+We can start out by plotting a map with the location of each sighting. I've colored the points in a seasonal color scheme, and added the description of each incident as a mouseover label.
+```{r}
+bigfoot_data %>%
+  filter(classification == "Class A") %>%
+  mutate(seasoncolor = str_replace_all(season, c("Fall" = "orange",
+                                                 "Winter" = "skyblue",
+                                                 "Spring" = "green",
+                                                 "Summer" = "yellow")),
+         # This code just wraps the description to the width of the R terminal
+         # and inserts HTML for a line break into the text at appropriate points
+         desc_wrap = purrr::map(observed, ~strwrap(.) %>%
+                                  paste(collapse = "<br/>") %>%
+                                  htmltools::HTML())) %>%
+leaflet() %>%
+  addTiles() %>%
+  addCircleMarkers(~longitude, ~latitude, color = ~seasoncolor, label = ~desc_wrap)
+```
+:::
 
 
-<!-- To explore the leaflet package, we'll start out playing with a [dataset of Bigfoot sightings](https://data.world/timothyrenner/bfro-sightings-data) assembled from the Bigfoot Field Researchers Organization's [Google earth tool](http://www.bfro.net/news/google_earth.asp) -->
+::: {.callout-caution collapse="true"}
+### Squirrels of New York City
 
-<!-- ```{r leaflet-setup, echo = F} -->
-<!-- if (!"leaflet" %in% installed.packages()) install.packages("leaflet") -->
+Of course, because this is an interactive map library, we aren't limited to any one scale. We can also plot data at the city level:
 
-<!-- library(leaflet) -->
-<!-- library(readr) -->
+```{r}
+if(!"nycsquirrels18" %in% installed.packages()) {
+  devtools::install_github("mine-cetinkaya-rundel/nycsquirrels18")
+}
 
-<!-- bigfoot_data <- read_csv("https://query.data.world/s/egnaxxvegdkzzrhfhdh4izb6etmlms") -->
-<!-- ``` -->
-<!-- ```{r leaflet-setup, eval = F} -->
-<!-- ``` -->
+library(nycsquirrels18)
 
-<!-- We can start out by plotting a map with the location of each sighting. I've colored the points in a seasonal color scheme, and added the description of each incident as a mouseover label. -->
-<!-- ```{r} -->
-<!-- bigfoot_data %>% -->
-<!--   filter(classification == "Class A") %>% -->
-<!--   mutate(seasoncolor = str_replace_all(season, c("Fall" = "orange", -->
-<!--                                                  "Winter" = "skyblue", -->
-<!--                                                  "Spring" = "green", -->
-<!--                                                  "Summer" = "yellow")), -->
-<!--          # This code just wraps the description to the width of the R terminal -->
-<!--          # and inserts HTML for a line break into the text at appropriate points -->
-<!--          desc_wrap = purrr::map(observed, ~strwrap(.) %>% -->
-<!--                                   paste(collapse = "<br/>") %>% -->
-<!--                                   htmltools::HTML())) %>% -->
-<!-- leaflet() %>% -->
-<!--   addTiles() %>% -->
-<!--   addCircleMarkers(~longitude, ~latitude, color = ~seasoncolor, label = ~desc_wrap) -->
-<!-- ``` -->
+data(squirrels)
 
-<!-- Of course, because this is an interactive map library, we aren't limited to any one scale. We can also plot data at the city level: -->
+head(squirrels)
 
-<!-- ```{r} -->
-<!-- if(!"nycsquirrels18" %in% installed.packages()) { -->
-<!--   devtools::install_github("mine-cetinkaya-rundel/nycsquirrels18") -->
-<!-- } -->
-
-<!-- library(nycsquirrels18) -->
-
-<!-- data(squirrels) -->
-
-<!-- head(squirrels) -->
-
-<!-- squirrels %>% -->
-<!--   mutate(color = tolower(primary_fur_color)) %>% -->
-<!--   leaflet() %>% -->
-<!--   addTiles() %>% -->
-<!--   addCircleMarkers(~long, ~lat, color = ~color) -->
-<!-- ``` -->
-
-<!-- We can also plot regions, instead of just points. I downloaded a dataset released by the US Forest Service, [Bailey's Ecoregions and Subregions](https://catalog.data.gov/dataset/baileys-ecoregions-and-subregions-dataset) dataset, which categorizes the US into different climate and ecological zones. -->
-
-<!-- To map colors to variables, we have to define a color palette and variable mapping ourselves, and pass that function into the leaflet object we're adding. -->
-<!-- ```{r} -->
-<!-- library(rgdal) -->
-<!-- ecoregions <- readOGR("data/Bailey_s_Ecoregions_and_Subregions_Dataset.geojson") -->
-
-<!-- # Define a palette -->
-<!-- region_pal <- colorFactor(c("#E67E22", "#0B5345", "#229954", "#B3B6B7"), ecoregions$DOMAIN) -->
-
-<!-- ecoregions %>% -->
-<!-- leaflet() %>% -->
-<!--   addTiles() %>% -->
-<!--   addPolygons(stroke = TRUE, fillOpacity = 0.25, -->
-<!--               fillColor = ~region_pal(DOMAIN), color = ~region_pal(DOMAIN), label = ~SECTION) -->
-<!-- ``` -->
-
-<!-- ### Try it out {- .tryitout} -->
-
-<!-- Download the Shapefiles for the [116th Congress Congressional Districts](https://www2.census.gov/geo/tiger/GENZ2018/shp/cb_2018_us_cd116_5m.zip). Unzip the file and read it in using the code below (you'll have to change the file path). -->
-
-<!-- Use the [MIT Election Data and Science Lab's US House election results](https://dataverse.harvard.edu/dataset.xhtml?persistentId=doi:10.7910/DVN/IG0UN2)^[Alternately, you can find the rehosted file [here](data/1976-2018-house2.csv).], and merge this data with the shapefiles to plot the results of the 2018 midterms in a way that you think is useful (you can use any of the available data). -->
-
-<!-- Some notes: -->
-<!-- - FIPS codes are used to identify the state and district, with [00 indicating at-large districts (one district for the state) and 98 indicating non-voting districts](https://www.census.gov/geographies/mapping-files/2019/dec/rdo/116-congressional-district-bef.html). -->
-<!-- - If you would like to add in the number of citizens of voting age, you can get that information [here](https://www.census.gov/data/tables/time-series/demo/voting-and-registration/congressional-voting-tables.html) but you will have to do some cleaning in order to join the table with the others. -->
-<!-- - Minnesota's Democratic-farmer-labor party caucuses with the Democrats but maintains its name for historical reasons. You can safely recode this if you want to. -->
+squirrels %>%
+  mutate(color = tolower(primary_fur_color)) %>%
+  leaflet() %>%
+  addTiles() %>%
+  addCircleMarkers(~long, ~lat, color = ~color)
+```
+:::
 
 
-<!-- ```{r} -->
-<!-- library(sf) -->
-<!-- # Read in the districts -->
-<!-- congress_districts <- st_read("data/116_congress/cb_2018_us_cd116_5m.shp") -->
+::: {.callout-caution collapse="true"}
+### Ecological Regions
 
-<!-- # Read in the results -->
-<!-- election_results <- read_csv("data/1976-2018-house2.csv") %>% -->
-<!--   filter(year == 2018) %>% -->
-<!--   mutate(state_fips = sprintf("%02d", state_fips), -->
-<!--          district = sprintf("%02d", district)) -->
+We can also plot regions, instead of just points. I downloaded a dataset released by the US Forest Service, [Bailey's Ecoregions and Subregions](https://catalog.data.gov/dataset/baileys-ecoregions-and-subregions-dataset-7dd69) dataset, which categorizes the US into different climate and ecological zones.
 
-<!-- # Clean up congress districts -->
-<!-- congress_districts <- congress_districts %>% -->
-<!--   # Convert factors to characters -->
-<!--   mutate(across(where(is.factor), as.character)) %>% -->
-<!--   # Handle at-large districts -->
-<!--   mutate(district = ifelse(CD116FP == "00", "01", CD116FP)) -->
-<!-- ``` -->
+To map colors to variables, we have to define a color palette and variable mapping ourselves, and pass that function into the leaflet object we're adding.
+```{r}
+library(sf)
+ecoregions <- st_read("data/Bailey_s_Ecoregions_and_Subregions_Dataset.geojson")
 
-<!-- <details><summary>One solution</summary> -->
-<!-- ```{r} -->
-<!-- library(sf) -->
-<!-- library(htmltools) # to mark labels as html code -->
+# Define a palette
+region_pal <- colorFactor(c("#E67E22", "#0B5345", "#229954", "#B3B6B7"), ecoregions$DOMAIN)
 
-<!-- # Read in the results -->
-<!-- election_results <- read_csv("data/1976-2018-house2.csv") %>% -->
-<!--   filter(year == 2018) %>% -->
-<!--   mutate(state_fips = sprintf("%02d", state_fips), -->
-<!--          district = sprintf("%02d", district)) %>% -->
-<!--   group_by(state, state_fips, state_po, district, stage) %>% -->
-<!--   arrange(candidatevotes) %>% -->
-<!--   mutate(pct = candidatevotes/totalvotes) %>% -->
-<!--   # Keep the winner only -->
-<!--   filter(pct == max(pct)) %>% -->
-<!--   # Fix Minnesota -->
-<!--   mutate(party = ifelse(party == "democratic-farmer-labor", "democrat", party)) -->
+ecoregions %>%
+leaflet() %>%
+  addTiles() %>%
+  addPolygons(stroke = TRUE, fillOpacity = 0.25,
+              fillColor = ~region_pal(DOMAIN), color = ~region_pal(DOMAIN), label = ~SECTION)
+```
+:::
 
-<!-- # Read in the districts -->
-<!-- congress_districts <- st_read("data/116_congress/cb_2018_us_cd116_5m.shp") %>% -->
-<!--   mutate(geometry = st_transform(geometry, crs = st_crs("+proj=longlat +datum=WGS84"))) -->
+::: callout-tip
 
-<!-- # Clean up congress districts -->
-<!-- congress_districts <- congress_districts %>% -->
-<!--   # Convert factors to characters -->
-<!--   mutate(across(where(is.factor), as.character)) %>% -->
-<!--   # Handle at-large districts -->
-<!--   mutate(district = ifelse(CD116FP == "00", "01", CD116FP)) -->
+### Try it out
 
-<!-- # Merge -->
-<!-- congress_districts <- congress_districts %>% -->
-<!--   left_join(election_results, by = c("STATEFP" = "state_fips", "CD116FP" = "district")) %>% -->
-<!--   mutate(party = factor(party, levels = c("republican", "democrat")), -->
-<!--          short_party = ifelse(party == "republican", "R", "D"), -->
-<!--          label = paste0(state_po, "-", district, candidate, " (", short_party, ")")) -->
+::: panel-tabset
 
-<!-- # Define a palette -->
-<!-- region_pal <- colorFactor(c("#e9141d", "#0015bc"), congress_districts$party) -->
+#### Problem
 
-<!-- congress_districts %>% -->
-<!-- leaflet() %>% -->
-<!--   addTiles() %>% -->
-<!--   addPolygons(stroke = TRUE, fillOpacity = ~pct/2, -->
-<!--               # still want to see what's underneath, even in safe districts -->
-<!--               fillColor = ~region_pal(party), color = ~region_pal(party), -->
-<!--               label = ~label) -->
-<!-- ``` -->
-<!-- </details> -->
+Download the Shapefiles for the [116th Congress Congressional Districts](https://www2.census.gov/geo/tiger/GENZ2018/shp/cb_2018_us_cd116_5m.zip). Unzip the file and read it in using the code below (you'll have to change the file path).
+Use the [MIT Election Data and Science Lab's US House election results](https://dataverse.harvard.edu/dataset.xhtml?persistentId=doi:10.7910/DVN/IG0UN2), and merge this data with the shapefiles to plot the results of the 2018 midterms in a way that you think is useful (you can use any of the available data).
+
+Some notes:
+
+- FIPS codes are used to identify the state and district, with [00 indicating at-large districts (one district for the state) and 98 indicating non-voting districts](https://www.census.gov/geographies/mapping-files/2019/dec/rdo/116-congressional-district-bef.html).
+- If you would like to add in the number of citizens of voting age, you can get that information [here](https://www.census.gov/data/tables/time-series/demo/voting-and-registration/congressional-voting-tables.html) but you will have to do some cleaning in order to join the table with the others.
+- Minnesota's Democratic-farmer-labor party caucuses with the Democrats but maintains its name for historical reasons. You can safely recode this if you want to.
+
+
+#### Starter R code
+
+```{r}
+library(sf)
+# Read in the districts
+ziptemp <- tempfile(fileext=".zip")
+shapeurl <- "https://www2.census.gov/geo/tiger/GENZ2018/shp/cb_2018_us_cd116_5m.zip"
+download.file(shapeurl, destfile = ziptemp, mode = "wb")
+unzip(ziptemp, exdir = "data/116_congress")
+congress_districts <- st_read("data/116_congress/cb_2018_us_cd116_5m.shp")
+
+# Read in the results
+election_results <- read_csv("data/1976-2020-house.csv") %>%
+  filter(year == 2018) %>%
+  mutate(state_fips = sprintf("%02d", as.integer(state_fips)),
+         district = sprintf("%02d", as.integer(district)))
+
+# Clean up congress districts
+congress_districts <- congress_districts %>%
+  # Convert factors to characters
+  mutate(across(where(is.factor), as.character)) %>%
+  # Handle at-large districts
+  mutate(district = ifelse(CD116FP == "00", "01", CD116FP))
+```
+
+#### R solution
+
+```{r}
+library(sf)
+library(htmltools) # to mark labels as html code
+
+# Read in the results
+election_results <- election_results %>%
+  group_by(state, state_fips, state_po, district, stage) %>%
+  arrange(candidatevotes) %>%
+  mutate(pct = candidatevotes/totalvotes) %>%
+  mutate(party = str_to_lower(party)) %>%
+  # Keep the winner only
+  filter(pct == max(pct)) %>%
+  # Fix Minnesota
+  mutate(party = ifelse(party == "democratic-farmer-labor", "democrat", party))
+
+# Read in the districts
+congress_districts <- st_read("data/116_congress/cb_2018_us_cd116_5m.shp") %>%
+  mutate(geometry = st_transform(geometry, crs = st_crs("+proj=longlat +datum=WGS84")))
+
+# Clean up congress districts
+congress_districts <- congress_districts %>%
+  # Convert factors to characters
+  mutate(across(where(is.factor), as.character)) %>%
+  # Handle at-large districts
+  mutate(district = ifelse(CD116FP == "00", "01", CD116FP))
+
+# Merge
+congress_districts <- congress_districts %>%
+  left_join(election_results, by = c("STATEFP" = "state_fips", "CD116FP" = "district")) %>%
+  mutate(party = factor(party, levels = c("republican", "democrat")),
+         short_party = ifelse(party == "republican", "R", "D"),
+         label = paste0(state_po, "-", district, candidate, " (", short_party, ")"))
+
+# Define a palette
+region_pal <- colorFactor(c("#e9141d", "#0015bc"), congress_districts$party)
+
+congress_districts %>%
+leaflet() %>%
+  addTiles() %>%
+  addPolygons(stroke = TRUE, fillOpacity = ~pct/2,
+              # still want to see what's underneath, even in safe districts
+              fillColor = ~region_pal(party), color = ~region_pal(party),
+              label = ~label)
+```
+
+:::
+
+:::
 
 
 
