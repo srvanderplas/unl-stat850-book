@@ -104,23 +104,22 @@ In python, list components are unnamed, but can be homogeneous (or not) and may 
 
 Indexing necessarily differs between R and python, and since the list types are also somewhat different (e.g. lists cannot be named in python), we will treat list indexing in the two languages separately.
 
-
-::: margin-column
-
-The types of indexing in R are made most memorable with a fantastic visual example from @r4ds, which I have repeated here. This example may be familiar from @sec-indexing, but hopefully at this point it makes a lot more sense.
-
-![An unusual pepper shaker.](images/data-structures/02_pepper.jpg){fig-alt="A pepper shaker containing several individual paper packets of pepper"}
-
-![When a list is indexed with single brackets, the return value is always a list containing the selected element(s).](images/data-structures/02_pepper-1.jpg){fig-alt="A pepper shaker containing a single individual paper packet of pepper."}
-
-![When a list is indexed with double brackets, the return value is the selected element.](images/data-structures/02_pepper-2.jpg){fig-alt="A single individual paper packet of pepper, no longer contained within a pepper shaker."}
-
-![To actually access the pepper, we have to use double indexing and index both the list object and the sub-object.](images/data-structures/02_pepper-3.jpg){fig-alt="A pile of pepper, free from any containment structures."}
-:::
-
-
 ::: panel-tabset
 #### R
+
+
+::: {#fig-pepper layout-ncol=4}
+![An unusual pepper shaker which we'll call `pepper`](images/data-structures/02_pepper.jpg){fig-alt="A pepper shaker containing several individual paper packets of pepper"}
+
+![When a list is indexed with single brackets, `pepper[1]`, the return value is always a list containing the selected element(s).](images/data-structures/02_pepper-1.jpg){fig-alt="A pepper shaker containing a single individual paper packet of pepper."}
+
+![When a list is indexed with double brackets, `pepper[[1]]`, the return value is the selected element.](images/data-structures/02_pepper-2.jpg){fig-alt="A single individual paper packet of pepper, no longer contained within a pepper shaker."}
+
+![To actually access the pepper, we have to use double indexing and index both the list object and the sub-object, as in `pepper[[1]][[1]]`.](images/data-structures/02_pepper-3.jpg){fig-alt="A pile of pepper, free from any containment structures."}
+
+The types of indexing in R are made most memorable with a fantastic visual example from @r4ds, which I have repeated here. This example may be familiar from @sec-indexing, but hopefully at this point it makes a lot more sense.
+:::
+
 
 In R, there are 3 ways to index a list:
 
@@ -154,6 +153,8 @@ To access the contents of a list object, we have to use double-indexing:
 ```{r purrr-review8}
 mylist[["third_thing"]][[1]]
 ```
+
+
 
 ::: callout-note
 You can get a more thorough review of vectors and lists [from Jenny Bryan's purrr tutorial introduction](https://jennybc.github.io/purrr-tutorial/bk00_vectors-and-lists.html) [@bryanLessonsExamples20191021].
